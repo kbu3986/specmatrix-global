@@ -186,7 +186,7 @@ try {
 
     Write-Host "Verifying live HTTPS production endpoints..." -ForegroundColor Yellow
     foreach ($u in $pollTargets) {
-        $r = Invoke-WebRequest -Uri "$u?v=$([DateTimeOffset]::UtcNow.ToUnixTimeSeconds())" -Method Get -UseBasicParsing -Headers @{"Cache-Control"="no-cache"} -TimeoutSec 15
+        $r = Invoke-WebRequest -Uri "${u}?v=$([DateTimeOffset]::UtcNow.ToUnixTimeSeconds())" -Method Get -UseBasicParsing -Headers @{"Cache-Control"="no-cache"} -TimeoutSec 15
         Write-Host ("  HTTP {0} ({1,6} bytes) {2}" -f $r.StatusCode, $r.Content.Length, $u) -ForegroundColor Green
     }
 
