@@ -1,0 +1,225 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "cuktech-15-powerbank-20000mah-150w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "CUKTECH",
+  "model_number": "PB200P",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "PB200P-US",
+      "msrp": 99.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "CUKTECH 15 Power Bank 20000mAh 150W PB200P",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PB200P-KR",
+      "msrp": 129000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "쿡테크 15호 보조배터리 20000mAh 150W PB200P",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "CUKTECH 15 Power Bank 20,000mAh (150W, PB200P)",
+      "title": "CUKTECH 15 (20,000mAh / 73 Wh, PB200P) 150 W Split & Flight Compliance",
+      "summary": "Column-form 73 Wh power bank using automotive-grade 21700 cells with 100 W USB-PD (120 W Xiaomi) single-port output, 90 W fast self-recharge, and 5 A PPS support at 480 g.",
+      "best_for": "Frequent flyers wanting fast 90 W self-recharge, Samsung 45 W PPS, and 100 W laptop charging under 500 g.",
+      "local_gotchas": [
+        "The headline 150 W total and 120 W single-port peak require a Xiaomi 6 A proprietary device; standard USB-PD laptops top out at 100 W single-port (or 65 W + 33 W dual-port).",
+        "C2 and USB-A together drop to a shared 20 W total when used without C1.",
+        "Uses a simpler LED bar/percentage indicator rather than the full waveform TFT screen found on the CUKTECH 20 or CUKTECH 15 Ultra."
+      ]
+    },
+    "ko": {
+      "name": "쿡테크 15호 보조배터리 20,000mAh 150W (PB200P)",
+      "title": "쿡테크 15호 (20,000mAh / 73 Wh, PB200P) 출력 분배·기내반입 분석",
+      "summary": "21700 셀 기반 73 Wh(480 g) 바디에 C1 100 W USB-PD(샤오미 120 W), 자체 충전 90 W, 삼성 45 W PPS를 탑재한 고효율 20,000mAh 표준 모델입니다.",
+      "best_for": "90 W 빠른 자체 충전과 노트북 100 W·갤럭시 45 W PPS 충전을 480 g 컴팩트 바디로 해결하려는 출장자",
+      "local_gotchas": [
+        "스펙상 120 W 단일 및 150 W 합산 출력은 샤오미 독자 프로토콜(20 V/6 A) 기준이며, 일반 노트북 USB-PD 환경에서는 단일 최대 100 W, 2포트(C1+C2) 65 W + 33 W로 동작합니다.",
+        "C2와 A1을 함께 꽂으면 두 포트 합산이 20 W로 제한되므로, 노트북 충전 시 반드시 C1 포트를 우선 사용하세요.",
+        "73 Wh로 기내 무승인 반입 가능하며, 중국 내수 CCC 각인 버전은 중국 국내선 보안검색에도 유리합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 20000,
+    "rated_capacity_mah_5v": 11500,
+    "battery_energy_wh": 73,
+    "nominal_voltage_v": 3.65,
+    "cell_chemistry": "Li-ion 21700 (4 x 5,000mAh)",
+    "conversion_efficiency_pct": 81,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD (90W max on C1)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 480,
+    "dimensions_mm": {
+      "l": 163,
+      "w": 57,
+      "h": 39.9
+    },
+    "max_total_output_w": 150,
+    "max_single_port_output_w": 120,
+    "max_input_w": 90,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 120,
+        "protocols": [
+          "PD 3.0 100W",
+          "PPS 5A",
+          "Xiaomi 120W",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 33,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 33,
+        "protocols": [
+          "QC 3.0",
+          "AFC",
+          "Xiaomi 33W"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 120
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 33
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 33
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 33
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "A1": 33
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 10,
+          "A1": 10
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 120,
+          "C2": 15,
+          "A1": 15
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "73 Wh (under 100 Wh): Carry-on only without pre-approval; individual zip pouch/terminal tape required, no overhead bin stowage, and no inflight charging on Korean airlines.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "CUKTECH Official Collection — CUKTECH 15 Power Bank PB200P",
+      "url": "https://cuktech.com/collections/power-bank",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "CUKTECH PB200P Official User Manual & Output Tables",
+      "url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "baseus-blade-hd-20000mah-100w",
+    "ugreen-nexode-powerbank-20000mah-130w"
+  ]
+}

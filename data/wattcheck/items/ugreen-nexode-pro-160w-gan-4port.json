@@ -1,0 +1,290 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "ugreen-nexode-pro-160w-gan-4port",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "UGREEN",
+  "model_number": "X763",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "25877",
+      "msrp": 99.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "UGREEN Nexode Pro 160W 4-Port GaN Charger X763",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "X763-KR",
+      "msrp": 129000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "유그린 넥소드 프로 160W 4포트 GaN 충전기 X763",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "UGREEN Nexode Pro 160W 4-Port GaN Fast Charger (X763)",
+      "title": "UGREEN Nexode Pro 160W (X763) 140 W PD 3.1 & 4-Port Allocation Matrix",
+      "summary": "High-density 304 g GaNInfinity travel charger packing 140 W PD 3.1 on C1, 100 W + 60 W dual-laptop output, and 65 W + 65 W + 30 W triple-USB-C delivery into a 70 x 70 x 33 mm brick.",
+      "best_for": "MacBook Pro 16 + secondary laptop + phone travelers who want true 140 W PD 3.1 and 160 W multi-port headroom without a bulky AC cord.",
+      "local_gotchas": [
+        "Only USB-C1 delivers 140 W PD 3.1 EPR; USB-C2 tops out at 100 W and USB-C3 at 30 W.",
+        "At 304 g projecting directly off a wall outlet, the US/EU wall-wart form factor can sag in worn hotel or aircraft AC sockets—consider a short extension cord on flights.",
+        "Connecting C3 and USB-A together drops both auxiliary ports to a shared 15 W (5 V / 3 A) limit."
+      ]
+    },
+    "ko": {
+      "name": "유그린 넥소드 프로 160W 4포트 GaN 충전기 (X763)",
+      "title": "유그린 넥소드 프로 160W (X763) 140 W PD 3.1·4포트 출력 분배표",
+      "summary": "70×70×33 mm·304 g 컴팩트 크기에 C1 140 W PD 3.1, 듀얼 100 W + 60 W, 3포트 65 W + 65 W + 30 W의 뛰어난 배분 효율을 담아낸 160 W급 대표 트래블 어댑터입니다.",
+      "best_for": "맥북 프로 16(140 W) 단독 충전과 듀얼 노트북(100 W + 60 W 또는 65 W + 65 W) 동시 충전을 벽면 어댑터 하나로 해결하려는 유저",
+      "local_gotchas": [
+        "140 W PD 3.1은 최상단 C1 포트에서만 지원되며 C2는 최대 100 W, C3는 최대 30 W로 역할이 분리되어 있습니다.",
+        "무게 304 g의 직결형 벽면 어댑터 특성상 헐거운 호텔 콘센트나 기내 AC 소켓에서는 자중으로 처질 수 있으니 한국 정발 KC Type-C/F 플러그 버전을 선택하는 것이 안정적입니다.",
+        "4포트 전체 연결 시 C1(65 W)+C2(65 W)를 유지하는 대신 C3+A1 합산 출력이 15 W로 줄어듭니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 2.3A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 304,
+    "dimensions_mm": {
+      "l": 70,
+      "w": 70,
+      "h": 33
+    },
+    "max_total_output_w": 160,
+    "max_single_port_output_w": 140,
+    "max_input_w": 160,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 5",
+          "UFCS"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C3"
+        ],
+        "output_w": {
+          "C3": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 60
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 130,
+          "C3": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 130,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C2": 100,
+          "C3": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C3",
+          "A1"
+        ],
+        "output_w": {
+          "C3": 7.5,
+          "A1": 7.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 65,
+          "C3": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 65,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 65,
+          "C3": 7.5,
+          "A1": 7.5
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery rules; allowed in carry-on and checked baggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "UGREEN Official Product Page — Nexode Pro 160W X763",
+      "url": "https://www.ugreen.com/products/ugreen-nexode-pro-160w-4-port-gan-fast-charger",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "UGREEN X763 Official Manual & Multi-Port Allocation Matrix",
+      "url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 94,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "satechi-165w-usb-c-4port-gan",
+    "anker-140w-gan-4port-charger"
+  ]
+}

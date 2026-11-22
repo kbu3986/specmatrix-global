@@ -1,0 +1,27 @@
+{
+  "sku_slug": "shargeek-170-powerbank-24000mah",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "24,000mAh / 86.4Wh, Rated capacity 13,200mAh (5V/3A), IP66 water resistance, Weight 680g, 164.9 x 62.8 x 59.6 mm",
+      "source_url": "https://sharge.com/products/shargeek-170",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1/C2 140W Max (PD 3.1), USB-A 30W Max; C1+C2 100W+65W (165W); C1+A 140W+30W (170W); C1+C2+A 65W+65W+18W (148W)",
+      "source_url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 24,000 mAh * 3.6 V / 1000 = 86.4 Wh (0.00% deviation).",
+    "CCC certification cross-checked against SHARGE official CAAC compliance list; confirmed CCC marked.",
+    "Multi-port sum check: Peak C1+A1 = 170 W <= 170 W max; 3-port = 148 W <= 170 W max."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

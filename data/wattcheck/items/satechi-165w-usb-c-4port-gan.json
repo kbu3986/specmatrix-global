@@ -1,0 +1,204 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "satechi-165w-usb-c-4port-gan",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Satechi",
+  "model_number": "ST-W165GM",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "ST-UC165GM",
+      "msrp": 119.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Satechi 165W USB-C 4-Port PD GaN Charger ST-W165GM",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "ST-W165GM-KR",
+      "msrp": 169000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "사테치 165W USB-C 4포트 PD GaN 충전기",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Satechi 165W USB-C 4-Port PD GaN Charger",
+      "title": "Satechi 165W 4-Port USB-C GaN (ST-W165GM) Allocation Matrix & PD 3.0 Limit",
+      "summary": "All-USB-C 340 g desktop/travel GaN charger with included vertical stand and detachable C7 AC cord delivering 60 W + 45 W + 30 W + 30 W across all 4 USB-C ports simultaneously.",
+      "best_for": "Apple-centric all-USB-C setups (MacBook Air/Pro 14 + iPad + iPhone + AirPods) wanting zero legacy USB-A ports and a clean desktop cord instead of a wall wart.",
+      "local_gotchas": [
+        "Does NOT support USB-PD 3.1 140 W EPR—every port caps at 100 W max (PD 3.0), so a 16-inch MacBook Pro will not fast-charge at 140 W unlike the UGREEN Nexode Pro 160 W.",
+        "Lacks Samsung 45 W 5 A PPS (standard fixed USB-PD 3.0 PDO profiles), limiting Galaxy S Ultra flagships to ~25-27 W.",
+        "No USB-A ports at all; legacy USB-A watch pucks or accessories require a USB-C cable or adapter."
+      ]
+    },
+    "ko": {
+      "name": "사테치 165W USB-C 4포트 PD GaN 충전기 (ST-W165GM)",
+      "title": "사테치 165W USB-C 4포트 (ST-W165GM) 올-C타입 분배표·140 W 미지원 주의",
+      "summary": "구형 USB-A 없이 4개 포트 모두 USB-C로 구성하고 데스크탑 스탠드와 8자(IEC C7) 분리형 AC 코드를 기본 제공해 4포트 동시 60+45+30+30 W(총 165 W)를 지원하는 깔끔한 애플 친화 충전기입니다.",
+      "best_for": "맥북 에어/프로 14·아이패드·아이폰 등 모든 기기가 USB-C이며 벽면 직결 대신 책상 위 거치를 선호하는 애플 생태계 사용자",
+      "local_gotchas": [
+        "총 출력은 165 W이지만 PD 3.1(140 W EPR)을 지원하지 않아 단일 포트 최대 출력이 100 W로 제한됩니다(16인치 맥북 프로 140 W 급속 충전 시 유그린 160 W가 우위).",
+        "삼성 45 W 초고속 충전 2.0(PPS 5 A)을 미지원하므로 갤럭시 울트라 유저는 약 25 W 수준으로 충전됩니다.",
+        "분리형 IEC C7(8자) 전원 코드 구조 덕분에 해외 직구 제품도 국내 220 V 8자 코드만 교체하면 바로 사용할 수 있습니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 2.5A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": false,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 340,
+    "dimensions_mm": {
+      "l": 99.8,
+      "w": 71.1,
+      "h": 31
+    },
+    "max_total_output_w": 165,
+    "max_single_port_output_w": 100,
+    "max_input_w": 165,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0"
+        ]
+      },
+      {
+        "id": "C4",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 60
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 60,
+          "C2": 60,
+          "C3": 45
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "output_w": {
+          "C1": 60,
+          "C2": 45,
+          "C3": 30,
+          "C4": 30
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; allowed in carry-on and checked baggage.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "Satechi Official Product Page — 165W USB-C 4-Port PD GaN Charger",
+      "url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Satechi ST-W165GM Official Manual & Port Power Distribution",
+      "url": "https://manuals.plus/satechi/st-uc165gm-165w-usb-c-4-port-pd-gan-charger-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-pro-160w-gan-4port",
+    "anker-prime-200w-gan-6port-desktop"
+  ]
+}

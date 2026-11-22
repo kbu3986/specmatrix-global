@@ -1,0 +1,27 @@
+{
+  "sku_slug": "ugreen-nexode-pro-100w-gan-3port",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model X757 (SKU 25874), Dimensions 71 x 43 x 33 mm, Weight ~212g, Input 100-240V~ 50/60Hz 1.8A Max",
+      "source_url": "https://www.ugreen.com/products/ugreen-nexode-pro-100w-3-port-gan-fast-charger",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1 100W Max (Samsung 45W SFC 2.0), C2 30W Max, USB-A 22.5W Max; C1+C2 65W+30W; C1+C2+A 65W+12.5W+12.5W",
+      "source_url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Asymmetric port trap verified: C2 maxes at 30 W even in single-port mode, a key differentiator vs Anker A2688.",
+    "No-battery invariant verified: All battery fields strictly null.",
+    "Sum invariant verified: All 7 rows <= 100 W."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,27 @@
+{
+  "sku_slug": "ugreen-nexode-powerbank-25000mah-200w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "25,000mAh (5 x 5,000mAh cells) / 90Wh, Rated capacity 14,000mAh (5V/7A), Weight 609g, Dimensions 155 x 54 x 51 mm",
+      "source_url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-25000mah-200w",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "USB-C1 140W Max (PD 3.1), USB-C2 100W Max, USB-A 22.5W Max; C1+C2 100W+100W (200W Max); C1/C2 Input 65W Max",
+      "source_url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 25,000 mAh * 3.6 V / 1000 = 90.0 Wh (0.00% deviation).",
+    "Critical trade-off verified: Confirmed 65 W max input ceiling vs Anker Prime 170 W and 3-port C2+A1 20 W shared bottleneck.",
+    "Multi-port sum check: Highest row is C1+C2 = 200 W <= 200 W max."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

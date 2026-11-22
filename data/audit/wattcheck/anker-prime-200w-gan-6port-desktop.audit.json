@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-prime-200w-gan-6port-desktop",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model A2683, Dimensions 112 x 76 x 35 mm (4.4 x 3.0 x 1.4 in), Weight 563 g (excluding AC cord), Input 100-240V~ 3.2-2.5A",
+      "source_url": "https://www.anker.com/products/a2683",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "4x USB-C (100W each) + 2x USB-A (22.5W each); 2C=100+100W; 3C=100+70+30W; 4C=65+65+45+25W; 6-port=65+45+45+20+12+12W (199W)",
+      "source_url": "https://support.anker.com/s/article/Anker-Prime-Charger-200W-6-Ports-GaN-A2683",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "No-battery invariant verified: All battery fields null; iata_tier='no_battery_always_allowed'.",
+    "Port sum invariant verified: Max combination = 200 W (6-port = 199 W <= 200 W).",
+    "Distinguished A2683 (200W, no screen, 100W max per port) from A2345 (250W, LCD dial, 140W C1)."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,27 @@
+{
+  "sku_slug": "samsung-45w-battery-pack-20000mah",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "Model EB-P4520, 20,000mAh / 74Wh, Weight 402g, Dimensions 152 x 76 x 25.5 mm",
+      "source_url": "https://www.samsung.com/sec/mobile-accessories/pd-battery-pack-20000mah-45w-beige-eb-p4520xuegkr/EB-P4520XUEGKR/",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "3 x USB-C ports, 45W Super Fast Charging 2.0 single port (PDO/PPS 5A), shared 15W x 3 when all 3 ports active, 5A USB-C cable included",
+      "source_url": "https://www.samsung.com/us/mobile/mobile-accessories/phones/20a-battery-pack-beige-eb-p4520xuegus/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.7 V / 1000 = 74.0 Wh (0.00% deviation).",
+    "KR MSRP verified directly against Samsung Korea official launch price (66,000 KRW).",
+    "Multi-port sum check: 15 + 15 + 15 = 45 W <= 45 W total ceiling."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,27 @@
+{
+  "sku_slug": "ugreen-nexode-powerbank-20000mah-130w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "20,000mAh (14.4V / 5,000mAh, 72Wh), Rated 11,300mAh (5V/6A), Weight 480g, Dimensions 131 x 54 x 51 mm",
+      "source_url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "USB-C1 100W Max (Input 65W Max), USB-C2 30W Max, USB-A 22.5W Max; C1+C2 simultaneous 100W + 30W (130W Max)",
+      "source_url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.6 V / 1000 = 72.0 Wh (0.00% deviation).",
+    "Port asymmetry checked: Verified C2 max is 30 W (unlike Anker A1336 100 W C2), avoiding laptop-pair misrecommendation.",
+    "Multi-port sum check: C1+C2 = 130 W <= 130 W max."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,233 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "anker-prime-27650mah-250w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A1340",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": "B0BYP2F3SG",
+      "sku": "A1340011",
+      "msrp": 179.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Prime 27650mAh 250W Power Bank A1340",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A1340-KR",
+      "msrp": 249000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 프라임 27650mAh 250W 보조배터리 A1340",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Prime 27,650mAh Power Bank (250W)",
+      "title": "Anker Prime 27,650mAh 250W (99.54 Wh) Airline Rules & USB-PD Allocation",
+      "summary": "Flagship 99.54 Wh flight-ceiling power bank delivering 140 W PD 3.1 single-port output, 250 W combined 3-port output, and 170 W dual-USB-C fast recharge in a 667 g chassis.",
+      "best_for": "Power users traveling with a 16-inch MacBook Pro plus a second laptop who want the maximum no-approval carry-on Wh limit.",
+      "local_gotchas": [
+        "Global US/EU/KR retail units typically omit the mainland China CCC (3C) laser etching required for China domestic flights since June 2025.",
+        "Reaching full 140 W EPR output requires a certified 240 W (5 A) E-Marker USB-C cable or Apple USB-C to MagSafe 3 cable.",
+        "Dual-port 170 W recharge requires plugging two separate USB-C chargers into C1 and C2 simultaneously; a single port caps recharge at 140 W."
+      ]
+    },
+    "ko": {
+      "name": "앤커 프라임 27,650mAh 250W 보조배터리 (A1340)",
+      "title": "앤커 프라임 27,650mAh 250W (99.54 Wh) 기내반입·멀티포트 출력 분배표",
+      "summary": "기내 무승인 상한선(100 Wh) 직전인 99.54 Wh 정격 설계로, C1+C2 동시 240 W 및 3포트 합산 250 W 출력과 170 W 듀얼 초고속 자체 충전을 지원하는 플래그십 모델입니다.",
+      "best_for": "맥북 프로 16인치와 서브 노트북을 함께 휴대하며 항공사 사전 승인 없이 최대 용량·최고 출력을 원하는 출장자",
+      "local_gotchas": [
+        "2025~2026년 국토부 및 국내 항공사 규정에 따라 100 Wh 이하라도 투명 지퍼백·단자 절연 보관, 기내 선반 적재 금지, 기내 충전·사용 금지 원칙을 반드시 지켜야 합니다.",
+        "한국·미국 정발 글로벌 모델은 중국 강제인증(CCC) 각인이 없는 경우가 많아 중국 국내선 환승 시 보안검색에서 압수될 수 있습니다.",
+        "본체 140 W PD 3.1 출력과 갤럭시 45 W 초고속 충전 2.0을 모두 활용하려면 5 A E-Marker 지원 케이블이 필수입니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 27650,
+    "rated_capacity_mah_5v": 15500,
+    "battery_energy_wh": 99.54,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (7 x 3,950mAh)",
+    "conversion_efficiency_pct": 82,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-28V USB-C PD 3.1 (140W single / 170W dual)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": false,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 667,
+    "dimensions_mm": {
+      "l": 161.7,
+      "w": 57,
+      "h": 49.7
+    },
+    "max_total_output_w": 250,
+    "max_single_port_output_w": 140,
+    "max_input_w": 170,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 65,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "UFCS",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 140
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "A1": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 140,
+          "A1": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 92,
+          "A1": 18
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "99.54 Wh (under 100 Wh): Carry-on only without airline pre-approval. Must be kept in transparent zip pouch or with taped terminals, stored on person or in seat pocket (never overhead bin), and inflight charging/use is strictly prohibited on Korean carriers.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Prime 27,650mAh A1340",
+      "url": "https://www.anker.com/products/a1340",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker Support — A1340 User Manual & Specs",
+      "url": "https://support.anker.com/s/product/a085g000004x6qCAAQ",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "IATA Passenger Lithium Battery Guidance",
+      "url": "https://www.iata.org/en/programs/cargo/dgr/lithium-batteries/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-powerbank-25000mah-200w",
+    "cuktech-20-powerbank-25000mah-210w"
+  ]
+}

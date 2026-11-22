@@ -1,0 +1,27 @@
+{
+  "sku_slug": "ugreen-nexode-pro-160w-gan-4port",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model X763 (SKU 25877), 70 x 70 x 33 mm, Weight ~304g, Input 100-240V~ 50/60Hz 2.3A Max",
+      "source_url": "https://www.ugreen.com/products/ugreen-nexode-pro-160w-4-port-gan-fast-charger",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1 140W PD 3.1, C2 100W, C3 30W, A1 22.5W; C1+C2 100W+60W (160W); C1+C2+C3 65W+65W+30W (160W); 4-port 65W+65W+15W shared",
+      "source_url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "No-battery invariant verified: All battery fields strictly null.",
+    "Sum invariant verified across all 12 rows (max 160 W <= 160 W).",
+    "Verified asymmetric C1 (140W) vs C2 (100W) vs C3 (30W) hierarchy."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

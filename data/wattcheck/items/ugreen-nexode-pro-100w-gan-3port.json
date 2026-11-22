@@ -1,0 +1,225 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "ugreen-nexode-pro-100w-gan-3port",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "UGREEN",
+  "model_number": "X757",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "25874",
+      "msrp": 74.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "UGREEN Nexode Pro 100W 3-Port GaN Charger X757",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "X757-KR",
+      "msrp": 89000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "유그린 넥소드 프로 100W 3포트 GaN 충전기 X757",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "UGREEN Nexode Pro 100W 3-Port GaN Fast Charger (X757)",
+      "title": "UGREEN Nexode Pro 100W (X757) 3-Port Allocation & Samsung SFC 2.0 Audit",
+      "summary": "212 g compact 3-port (2C1A) GaNInfinity charger delivering 100 W on C1, native Samsung 45 W PPS 2.0, and 65 W + 30 W dual-USB-C charging.",
+      "best_for": "Single-laptop + Galaxy/iPhone travelers seeking a reliable 100 W wall brick with native 45 W Samsung SFC 2.0 at an affordable price.",
+      "local_gotchas": [
+        "USB-C2 caps at 30 W even when used alone—unlike Anker Prime 100 W (A2688), which offers blind-mate 100 W on BOTH C1 and C2.",
+        "At 212 g, it is 42 g heavier than the Anker Prime 100 W (170 g).",
+        "Using C2 + USB-A simultaneously shares a 15 W (5 V / 3 A) limit; 3-port simultaneous use yields 65 W + 12.5 W + 12.5 W (90 W)."
+      ]
+    },
+    "ko": {
+      "name": "유그린 넥소드 프로 100W 3포트 GaN 충전기 (X757)",
+      "title": "유그린 넥소드 프로 100W (X757) C2 30 W 제한·포트 출력 분배표",
+      "summary": "GaNInfinity 칩과 AirPyra 적층 설계를 적용해 212 g 바디에서 C1 100 W(삼성 45 W PPS 2.0 공식 지원) 및 C1+C2 65 W + 30 W 동시 충전을 제공하는 8만 원대 실속형 충전기입니다.",
+      "best_for": "C1 노트북(65~100 W) + C2 스마트폰(30 W) 조합을 고정으로 쓰면서 앤커 프라임 100 W 대비 합리적 가격을 찾는 사용자",
+      "local_gotchas": [
+        "C2 포트가 단독 사용 시에도 최대 30 W로 제한되므로(앤커 프라임 A2688은 C1·C2 모두 100 W 블라인드 메이트 지원) 노트북은 반드시 최상단 C1 포트에 꽂아야 합니다.",
+        "무게가 212 g으로 앤커 프라임 100 W(170 g)보다 42 g 무겁습니다.",
+        "3포트 모두 연결 시 65 W + 12.5 W + 12.5 W(합산 90 W)로 분배되며, 신규 기기 연결 시 짧은 재협상 끊김이 발생합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 1.8A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 212,
+    "dimensions_mm": {
+      "l": 71,
+      "w": 43,
+      "h": 33
+    },
+    "max_total_output_w": 100,
+    "max_single_port_output_w": 100,
+    "max_input_w": 100,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "Samsung SFC 2.0",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 7.5,
+          "A1": 7.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 12.5,
+          "A1": 12.5
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; allowed in carry-on and checked luggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "UGREEN Official Product Page — Nexode Pro 100W X757",
+      "url": "https://www.ugreen.com/products/ugreen-nexode-pro-100w-3-port-gan-fast-charger",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "UGREEN X757 Official User Manual & Output Allocation Table",
+      "url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 92,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-100w-gan-3port",
+    "cio-novaport-trio-ii-67w-gan"
+  ]
+}

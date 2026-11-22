@@ -1,0 +1,237 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-station",
+  "slug": "ecoflow-river-3-245wh",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "EcoFlow",
+  "model_number": "EF-RV-H01-1",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "EFRIVER3-US",
+      "msrp": 299,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "EcoFlow RIVER 3 245Wh Portable Power Station",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "EFRIVER3-KR",
+      "msrp": 429000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "에코플로우 리버 3 245Wh 휴대용 파워뱅크",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "EcoFlow RIVER 3 Portable Power Station (245Wh)",
+      "title": "EcoFlow RIVER 3 (245 Wh) Flight Prohibition, <20 ms UPS & 300 W AC Matrix",
+      "summary": "Compact 3.55 kg LiFePO4 (3,000-cycle) portable power station combining pure sine-wave 300 W AC output (600 W X-Boost), whisper-quiet <30 dB GaN inverter, 100 W USB-C, and <20 ms home UPS backup.",
+      "best_for": "Car campers, van-lifers, and home-office NAS/router owners needing true pure-sine AC outlets and UPS backup under 4 kg.",
+      "local_gotchas": [
+        "STRICTLY PROHIBITED ON ALL COMMERCIAL FLIGHTS: At 245 Wh (exceeding the 160 Wh IATA/FAA/MOLIT absolute cap), it is banned from both carry-on and checked airline baggage—use a <100 Wh power bank for air travel.",
+        "Region-locked AC voltage: US models output 120 V / 60 Hz while Korea/EU models output 220-230 V / 50-60 Hz; NEVER direct-import a US 120 V unit for Korean 220 V appliances.",
+        "Only 1x USB-C port (100 W max) and 2x basic 12 W USB-A ports—if you primarily charge USB-C laptops without AC plugs, Anker SOLIX C300 DC offers far better DC wattage and 750 g lower weight."
+      ]
+    },
+    "ko": {
+      "name": "에코플로우 리버 3 휴대용 파워스테이션 (245Wh, EF-RV-H01-1)",
+      "title": "에코플로우 리버 3 (245 Wh) 항공기 반입 금지 경고·300 W AC·UPS 스펙 분석",
+      "summary": "3.55 kg 컴팩트 LiFePO4(3,000사이클) 바디에 300 W 순수정현파 AC 출력(X-Boost 600 W), 30 dB 미만 저소음 GaN 인버터, 20 ms 미만 UPS 기능, 1시간 고속 AC 충전을 담은 캠핑·비상전원 모델입니다.",
+      "best_for": "차박·오토캠핑에서 순수정현파 220 V AC 가전(전기장판·선풍기)을 쓰거나 가정용 공유기·미니PC 비상 UPS를 구축하려는 사용자",
+      "local_gotchas": [
+        "항공기 반입 전면 불가 (245 Wh > 160 Wh): IATA·국토부 규정상 160 Wh 초과 리튬 배터리는 기내 휴대와 위탁 수하물 모두 절대 금지되므로 비행 시 100 Wh 미만 보조배터리로 대체해야 합니다.",
+        "전압 리전 주의: 미국판은 120 V 전용이며 한국 220 V 가전을 쓰려면 반드시 국내 정발 KC 인증 220 V 모델을 구매해야 합니다(AC 입력·출력 모두 리전 고정).",
+        "USB-C 포트가 1개(100 W)뿐이므로 AC 가전 없이 노트북·카메라 등 DC 기기만 충전한다면 앤커 SOLIX C300 DC(288 Wh, 2.8 kg)가 용량·무게·가격 모두 유리합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 76800,
+    "rated_capacity_mah_5v": 40000,
+    "battery_energy_wh": 245,
+    "nominal_voltage_v": 3.2,
+    "cell_chemistry": "LiFePO4 (3,000 cycles to 80%)",
+    "conversion_efficiency_pct": 82,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "100-120V or 220-240V AC (regional, 320W) / 11-30V DC Solar (110W)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 3550,
+    "dimensions_mm": {
+      "l": 255,
+      "w": 212,
+      "h": 113
+    },
+    "max_total_output_w": 300,
+    "max_single_port_output_w": 300,
+    "max_input_w": 320,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": false,
+    "ports": [
+      {
+        "id": "AC1",
+        "type": "AC",
+        "max_w": 300,
+        "protocols": [
+          "Pure Sine Wave",
+          "X-Boost 600W",
+          "UPS <20ms"
+        ]
+      },
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 12,
+        "protocols": [
+          "USB 5V/2.4A"
+        ]
+      },
+      {
+        "id": "A2",
+        "type": "USB-A",
+        "max_w": 12,
+        "protocols": [
+          "USB 5V/2.4A"
+        ]
+      },
+      {
+        "id": "CAR1",
+        "type": "Car-12V",
+        "max_w": 126,
+        "protocols": [
+          "12.6V/10A Regulated DC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "AC1"
+        ],
+        "output_w": {
+          "AC1": 300
+        }
+      },
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "CAR1"
+        ],
+        "output_w": {
+          "CAR1": 126
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "A1": 12,
+          "A2": 12
+        }
+      },
+      {
+        "active_ports": [
+          "AC1",
+          "C1"
+        ],
+        "output_w": {
+          "AC1": 200,
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "CAR1",
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "CAR1": 126,
+          "A1": 12,
+          "A2": 12
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "over_160wh_prohibited",
+    "carryon_allowed": false,
+    "carryon_no_approval": false,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "245 Wh EXCEEDS 160 Wh IATA/MOLIT absolute limit: Strictly prohibited in BOTH carry-on and checked baggage on all passenger airlines. Ground transport only.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "EcoFlow Official Product Page — RIVER 3 (245Wh)",
+      "url": "https://us.ecoflow.com/products/river-3-portable-power-station",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "EcoFlow RIVER 3 Official User Manual (EF-RV-H01-1)",
+      "url": "https://manuals.ecoflow.com/product/river-3",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "FAA PackSafe — Lithium Batteries Over 160 Wh Prohibited",
+      "url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-27650mah-250w",
+    "ugreen-nexode-powerbank-25000mah-200w",
+    "cuktech-20-powerbank-25000mah-210w"
+  ]
+}

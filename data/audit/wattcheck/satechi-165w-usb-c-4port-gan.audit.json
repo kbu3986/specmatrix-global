@@ -1,0 +1,27 @@
+{
+  "sku_slug": "satechi-165w-usb-c-4port-gan",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model ST-W165GM (ST-UC165GM), 3.93 x 2.8 x 1.22 in (99.8 x 71.1 x 31.0 mm), Weight 12 oz (~340g), Input 100-240V~ 2.5A",
+      "source_url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "4x USB-C PD 3.0 (100W single); 2-port 100W/60W; 3-port 60W/60W/45W; 4-port 60W/45W/30W/30W (Total 165W)",
+      "source_url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Protocol check: Verified supports_pd_3_1_epr=false (100W single-port cap) and supports_samsung_pps_45w=false, critical contrast vs UGREEN 160W.",
+    "No-battery invariant verified: All battery fields strictly null.",
+    "Sum invariant verified: 60+45+30+30 = 165 W <= 165 W."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

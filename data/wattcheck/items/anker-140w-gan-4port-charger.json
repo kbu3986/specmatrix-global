@@ -1,0 +1,281 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "anker-140w-gan-4port-charger",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A2697",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "B2697111",
+      "msrp": 89.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Charger 140W 4-Port PD 3.1 Display A2697",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A2697-KR",
+      "msrp": 129000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 140W 4포트 PD 3.1 디스플레이 충전기 A2697",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Charger (140W, 4-Port, PD 3.1 with Display)",
+      "title": "Anker 140W 4-Port GaN Charger (A2697) Display, Dual-140W Ports & Matrix",
+      "summary": "Travel-friendly 295 g wall charger with an integrated color power-status screen, bottom-facing anti-leverage ports, and two blind-mate 140 W PD 3.1 USB-C ports.",
+      "best_for": "MacBook Pro 16 travelers who want built-in wattage telemetry, blind-mate 140 W on both C1 & C2, and better wall-outlet stability than front-heavy bricks.",
+      "local_gotchas": [
+        "Using C1 + C2 simultaneously splits output symmetrically to 70 W + 70 W (neither port can hold 100 W in a C1+C2 pair, unlike UGREEN Nexode Pro 160 W's 100 W + 60 W).",
+        "Bottom-facing port orientation improves wall-grip torque but requires vertical clearance below low hotel outlets or power strips.",
+        "Using C3 + USB-A simultaneously shares a 24 W pool (12 W + 12 W)."
+      ]
+    },
+    "ko": {
+      "name": "앤커 140W 4포트 PD 3.1 디스플레이 GaN 충전기 (A2697)",
+      "title": "앤커 140W 4포트 디스플레이 충전기 (A2697) 하단 포트·출력 분배표 분석",
+      "summary": "295 g 컴팩트 바디에 전면 컬러 출력 디스플레이와 하단 수직 포트 배열을 적용해 벽면 콘센트 탈락을 방지하고, C1·C2 모두 140 W PD 3.1 단독 출력을 지원하는 차세대 4포트 충전기입니다.",
+      "best_for": "실시간 포트별 와트(W) 확인과 맥북 프로 16 140 W 고속 충전, 벽면 콘센트 안정성을 동시에 원하는 출장자",
+      "local_gotchas": [
+        "C1 + C2 동시 연결 시 70 W + 70 W 균등 분할로 작동하므로 100 W + 60 W 비대칭 분배가 필요하면 유그린 넥소드 프로 160 W가 유리합니다.",
+        "포트가 본체 하단을 향하는 구조여서 바닥과 가까운 저상 벽면 콘센트나 좁은 멀티탭에서는 케이블 굴곡 공간을 미리 확인해야 합니다.",
+        "C3와 USB-A를 동시에 연결하면 합산 24 W(12 W + 12 W)로 제한됩니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 2.6A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 295,
+    "dimensions_mm": {
+      "l": 69,
+      "w": 69,
+      "h": 36
+    },
+    "max_total_output_w": 140,
+    "max_single_port_output_w": 140,
+    "max_input_w": 140,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 40,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 33,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "UFCS",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C3"
+        ],
+        "output_w": {
+          "C3": 40
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 33
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 70,
+          "C2": 70
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C3": 40
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "A1": 33
+        }
+      },
+      {
+        "active_ports": [
+          "C3",
+          "A1"
+        ],
+        "output_w": {
+          "C3": 12,
+          "A1": 12
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 45,
+          "C3": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 45,
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 45,
+          "C3": 12,
+          "A1": 12
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; allowed in both carry-on and checked luggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — 140W 4-Port PD 3.1 Charger A2697",
+      "url": "https://www.anker.com/products/a2697",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker A2697 Official User Manual & Allocation Table",
+      "url": "https://manuals.plus/anker/a2697-140w-4-port-pd-3-1-charger-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-pro-160w-gan-4port",
+    "apple-140w-usb-c-power-adapter"
+  ]
+}

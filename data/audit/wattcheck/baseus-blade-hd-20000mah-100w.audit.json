@@ -1,0 +1,27 @@
+{
+  "sku_slug": "baseus-blade-hd-20000mah-100w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "Model PPBLD100HD, 20,000mAh / 74Wh (5000mAh x 4 / 3.7V), Rated 12,000mAh (5V/3A), Weight 445g, Dimensions 134 x 134 x 19.8 mm",
+      "source_url": "https://www.baseus.com/products/baseus-blade-laptop-power-bank-100w-20000mah",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1/C2 100W Max (65W input), USB1/2 30W Max; C1+C2 65W+30W (95W); 4-port simultaneous capped at 5V/6A (30W total)",
+      "source_url": "https://www.baseus.com/products/baseus-blade-laptop-power-bank-100w-20000mah",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.7 V / 1000 = 74.0 Wh (0.00% deviation).",
+    "Generation check: Distinguished Blade HD (134 x 134 x 19.8 mm, 445 g) from the older rectangular Baseus Blade 100W (162 x 143 x 18 mm, 490 g).",
+    "Multi-port sum check: Highest active sum 95 W <= 100 W max; quad-port throttle (30 W) documented."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

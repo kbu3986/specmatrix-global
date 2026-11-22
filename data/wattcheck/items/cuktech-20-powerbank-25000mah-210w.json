@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "cuktech-20-powerbank-25000mah-210w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "CUKTECH",
+  "model_number": "P23",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "P23-US",
+      "msrp": 129.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "CUKTECH 20 Power Bank 25000mAh 210W P23",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "P23-KR",
+      "msrp": 169000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "쿡테크 20 보조배터리 25000mAh 210W P23",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "CUKTECH 20 Power Bank 25,000mAh (210W, P23)",
+      "title": "CUKTECH 20 (25,000mAh / 90.7 Wh) 210 W Matrix, PPS 5 A & CCC Flight Audit",
+      "summary": "Enthusiast 90.7 Wh high-density power bank delivering 140 W PD 3.1 EPR, 210 W 3-port combined output, 110 W fast self-recharge, and wide 5 A PPS + Xiaomi HyperCharge support at 635 g.",
+      "best_for": "Multi-ecosystem power users carrying a 140 W laptop plus a Samsung Galaxy / Xiaomi flagship who want strong 210 W output per dollar.",
+      "local_gotchas": [
+        "Full 210 W 3-port ceiling (120 W + 60 W + 30 W) and 120 W Xiaomi HyperCharge rely on Xiaomi proprietary 6 A cable/protocol; standard USB-PD 3-port combinations run slightly lower.",
+        "USB-C2 caps at 60 W (not 100 W like Anker Prime or UGREEN PB722), which suffices for ultrabooks but limits heavy dual-workstation charging.",
+        "Check for official KC certification sticker on Korean domestic retail units vs overseas direct-import batches."
+      ]
+    },
+    "ko": {
+      "name": "쿡테크 20호 보조배터리 25,000mAh 210W (P23)",
+      "title": "쿡테크 20호 (25,000mAh / 90.7 Wh) 210 W 출력 분배·CCC 기내반입 분석",
+      "summary": "90.7 Wh 기내 무승인 용량에 C1 140 W PD 3.1, 3포트 최대 210 W, 자체 충전 110 W, 삼성 45 W PPS 5 A 및 샤오미 하이퍼차지를 모두 지원하는 고성능 가성비 모델입니다.",
+      "best_for": "맥북 프로 16인치(140 W)와 갤럭시 S 울트라(45 W PPS) 또는 샤오미 폰을 함께 쓰며 10만 원대 중후반 가성비를 노리는 파워유저",
+      "local_gotchas": [
+        "3포트 합산 210 W 최고치는 샤오미 독자 고속충전(6 A 케이블) 조합 포함 기준이며, C2 포트 단일 상한은 60 W로 앤커 프라임·유그린 PB722(100 W)보다 낮습니다.",
+        "해외 직구(알리익스프레스 등) 구매 시 중국 내수판은 CCC 인증 마크가 각인되어 중국 국내선에 유리하지만 국내 공식 AS·KC 인증은 정발판만 지원됩니다.",
+        "90.7 Wh로 기내 반입 가능하며, 국토부 2025~2026 규정에 따라 지퍼백 절연·선반 보관 금지·기내 사용 금지를 준수해야 합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 25000,
+    "rated_capacity_mah_5v": 13500,
+    "battery_energy_wh": 90.7,
+    "nominal_voltage_v": 3.63,
+    "cell_chemistry": "Li-ion 21700 (5 x 5,000mAh)",
+    "conversion_efficiency_pct": 82,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD (110W max on C1)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 635,
+    "dimensions_mm": {
+      "l": 159.9,
+      "w": 55.1,
+      "h": 55.1
+    },
+    "max_total_output_w": 210,
+    "max_single_port_output_w": 140,
+    "max_input_w": 110,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "Xiaomi 120W",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 60,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 30,
+        "protocols": [
+          "QC 3.0",
+          "AFC",
+          "Xiaomi Turbo"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 60
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 60
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 60,
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 120,
+          "C2": 60,
+          "A1": 30
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "90.7 Wh (under 100 Wh): Permitted in carry-on without pre-approval. Store in transparent zip pouch/taped terminals, keep under seat or in seat pocket, and do not charge onboard.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "CUKTECH Official Product Page — CUKTECH 20 25000mAh 210W P23",
+      "url": "https://cuktech.com/products/cuktech-20-power-bank-25000mah-210w",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "CUKTECH P23 Regulatory & Output Specification Filing",
+      "url": "https://device.report/cuktech/p23",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-powerbank-25000mah-200w",
+    "shargeek-170-powerbank-24000mah"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-prime-20000mah-200w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "20,000mAh (4 x 5,000mAh cells, 72Wh), Weight 545g, Dimensions 126.9 x 54.6 x 49.65 mm",
+      "source_url": "https://www.anker.com/products/a1336",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "Total 200W Max; USB-C1/C2 100W Max each (100W + 100W dual laptop charging); USB-A 65W Max; 100W input recharge",
+      "source_url": "https://www.anker.com/products/a1336",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.6 V / 1000 = 72.0 Wh (0.00% deviation).",
+    "Generation disambiguation: Verified A1336 (200W, 72Wh) distinct from newer A110B (220W) and A1340 (250W, 99.54Wh).",
+    "PPS nuance audited: Conservative supports_samsung_pps_45w=false due to initial A1336 3A PPS batch, documented in local_gotchas."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

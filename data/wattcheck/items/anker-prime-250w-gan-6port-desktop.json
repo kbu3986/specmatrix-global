@@ -1,0 +1,259 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "anker-prime-250w-gan-6port-desktop",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A2345",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "A2345111",
+      "msrp": 149.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Prime Charger 250W 6-Port GaNPrime Desktop A2345",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A2345-KR",
+      "msrp": 219000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 프라임 250W 6포트 GaN 데스크탑 충전기 A2345",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Prime Charger (250W, 6 Ports, GaNPrime)",
+      "title": "Anker Prime 250W 6-Port GaN (A2345) LCD Control Dial & 140 W EPR Matrix",
+      "summary": "Flagship 640 g smart desktop charging station with a 2.26-inch LCD telemetry screen, tactile rotary mode dial, Wi-Fi/BLE app custom port allocation, 140 W PD 3.1 C1, and 250 W total output.",
+      "best_for": "Power-user workstations needing live per-port wattage metering, customizable port priority profiles, and 140 W + 100 W simultaneous dual-laptop charging.",
+      "local_gotchas": [
+        "Only USB-C1 supports 140 W PD 3.1 EPR (28 V / 5 A); C2, C3, and C4 top out at 100 W each.",
+        "Switching power-allocation profiles on the physical dial or Anker App triggers an immediate renegotiation reset across active ports.",
+        "At $149.99 MSRP (640 g), it is lighter and more compact than UGREEN Nexode 300 W (868 g) while adding a built-in LCD wattmeter, though peak ceiling is 50 W lower."
+      ]
+    },
+    "ko": {
+      "name": "앤커 프라임 250W 6포트 스마트 GaN 데스크탑 충전기 (A2345)",
+      "title": "앤커 프라임 250W 6포트 (A2345) LCD 다이얼·포트별 수동 배분·140 W 분석",
+      "summary": "2.26인치 실시간 컬러 LCD와 물리 다이얼, Wi-Fi/블루투스 앱 포트 출력 커스텀 기능을 탑재해 C1 140 W PD 3.1과 6포트 합산 250 W를 정밀 제어하는 플래그십 데스크탑 충전기입니다.",
+      "best_for": "맥북 프로 16(140 W) + 서브 노트북(100 W)을 동시에 충전하며 실시간 와트 모니터링과 포트 우선순위 수동 지정을 원하는 테크 유저",
+      "local_gotchas": [
+        "140 W PD 3.1 EPR 출력은 C1 포트 단독 전용이며 C2~C4 포트는 각각 최대 100 W까지만 지원합니다.",
+        "다이얼이나 앱으로 출력 분배 모드를 전환하거나 새 기기를 연결할 때 연결된 포트에 짧은 재협상 끊김이 발생합니다.",
+        "분리형 IEC C7(8자) AC 전원 코드를 채택해 국내 220 V 환경에서도 접지형/비접지형 8자 코드로 쉽게 교체할 수 있습니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 3.5A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 640,
+    "dimensions_mm": {
+      "l": 106.2,
+      "w": 92.5,
+      "h": 40.2
+    },
+    "max_total_output_w": 250,
+    "max_single_port_output_w": 140,
+    "max_input_w": 250,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 4.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 4.0"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 4.0"
+        ]
+      },
+      {
+        "id": "C4",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 4.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      },
+      {
+        "id": "A2",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 65,
+          "C3": 45
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 45,
+          "C3": 35,
+          "C4": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 45,
+          "C3": 45,
+          "C4": 30,
+          "A1": 15,
+          "A2": 15
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; allowed in both carry-on and checked baggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Prime Charger 250W 6-Port A2345",
+      "url": "https://www.anker.com/products/a2345",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker A2345 Official User Manual & Allocation Profiles",
+      "url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 95,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-300w-gan-5port-desktop",
+    "anker-prime-200w-gan-6port-desktop"
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-station",
+  "slug": "anker-solix-c300-dc-288wh",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A1726",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "A1726111",
+      "msrp": 199.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker SOLIX C300 DC 288Wh Portable Power Station A1726",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A1726-KR",
+      "msrp": 289000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 솔릭스 C300 DC 288Wh 파워스테이션 A1726",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker SOLIX C300 DC Portable Power Station (288Wh)",
+      "title": "Anker SOLIX C300 DC (288 Wh / 90,000mAh) Flight Ban, Dual-140 W PD 3.1 & DC Matrix",
+      "summary": "Lantern-sized 2.8 kg pure-DC LiFePO4 (288 Wh) power station with ZERO AC inverter losses, delivering dual 140 W bi-directional USB-C PD 3.1 ports (280 W dual recharge), 100 W C1, 120 W car socket, and a pop-up camp light.",
+      "best_for": "Car campers, outdoor remote workers, and photographers charging laptops, drones, Starlink Mini, and cameras off-grid via efficient USB-C/12V DC without AC outlets.",
+      "local_gotchas": [
+        "STRICTLY PROHIBITED ON ALL COMMERCIAL FLIGHTS: At 288 Wh (nearly 3x the 100 Wh limit and well above 160 Wh), it is banned from both carry-on and checked airline baggage.",
+        "NO AC WALL OUTLETS: This is the pure-DC C300 DC (A1726) variant—do not confuse it with the heavier AC-equipped SOLIX C300 (A1722); it cannot power AC appliances directly.",
+        "No wall charger brick included in the box—dual-port 280 W fast recharge requires two 140 W USB-C chargers plugged into C2 and C3 (or a 100 W XT60 solar panel)."
+      ]
+    },
+    "ko": {
+      "name": "앤커 솔릭스 C300 DC 휴대용 파워스테이션 (288Wh, A1726)",
+      "title": "앤커 솔릭스 C300 DC (288 Wh / 90,000mAh) 항공 반입 금지·듀얼 140 W 분석",
+      "summary": "AC 인버터를 과감히 제거해 2.8 kg 초경량·고효율로 완성한 288 Wh LiFePO4 DC 전용 파워스테이션으로, 양방향 140 W PD 3.1 포트 2개(듀얼 280 W 고속 재충전)와 120 W 시거잭, 팝업 캠핑 랜턴을 탑재했습니다.",
+      "best_for": "캠핑·야외 촬영·차박 워케이션에서 AC 가전 없이 맥북 프로·드론·카메라·스타링크 미니를 높은 DC 효율로 장시간 구동하려는 사용자",
+      "local_gotchas": [
+        "항공기 반입 전면 금지 (288 Wh > 160 Wh): IATA·국토부 규정상 160 Wh 초과 대용량 배터리이므로 기내 휴대와 위탁 수하물 모두 절대 불가합니다(비행 시 99.54 Wh 앤커 프라임 27650 대체 권장).",
+        "220 V AC 콘센트 미탑재: AC 인버터가 있는 일반 SOLIX C300(A1722)과 혼동하지 마세요. 순수 DC(USB-C 4개 + USB-A 2개 + 12 V 시거잭) 전용 모델입니다.",
+        "기본 패키지에 AC 충전 어댑터가 미포함이므로 최대 280 W 고속 재충전을 쓰려면 140 W급 USB-C 충전기 2대(또는 100 W XT60 태양광 패널)가 별도로 필요합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 90000,
+    "rated_capacity_mah_5v": 49000,
+    "battery_energy_wh": 288,
+    "nominal_voltage_v": 3.2,
+    "cell_chemistry": "LiFePO4 (3,000 cycles to 80%)",
+    "conversion_efficiency_pct": 85,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-28V Dual USB-C PD 3.1 (280W) / 11-28V XT60 Solar (100W)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 2800,
+    "dimensions_mm": {
+      "l": 124,
+      "w": 120,
+      "h": 200
+    },
+    "max_total_output_w": 300,
+    "max_single_port_output_w": 140,
+    "max_input_w": 280,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": false,
+    "ports": [
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "Bi-Directional"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "Bi-Directional"
+        ]
+      },
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A"
+        ]
+      },
+      {
+        "id": "C4",
+        "type": "USB-C",
+        "max_w": 15,
+        "protocols": [
+          "USB 5V/3A"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 12,
+        "protocols": [
+          "USB 5V/2.4A"
+        ]
+      },
+      {
+        "id": "A2",
+        "type": "USB-A",
+        "max_w": 12,
+        "protocols": [
+          "USB 5V/2.4A"
+        ]
+      },
+      {
+        "id": "CAR1",
+        "type": "Car-12V",
+        "max_w": 120,
+        "protocols": [
+          "12V/10A Regulated DC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C3"
+        ],
+        "output_w": {
+          "C3": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "CAR1"
+        ],
+        "output_w": {
+          "CAR1": 120
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C2": 140,
+          "C3": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "output_w": {
+          "C2": 140,
+          "C3": 140,
+          "C4": 15
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "CAR1"
+        ],
+        "output_w": {
+          "C1": 80,
+          "C2": 100,
+          "CAR1": 120
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 60,
+          "C2": 110,
+          "C3": 110,
+          "A1": 10,
+          "A2": 10
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "over_160wh_prohibited",
+    "carryon_allowed": false,
+    "carryon_no_approval": false,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "288 Wh EXCEEDS 160 Wh IATA/MOLIT absolute limit: Strictly prohibited in BOTH carry-on and checked airline baggage worldwide. Ground/car travel only.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "Anker SOLIX Official Product Page — C300 DC A1726",
+      "url": "https://www.anker.com/products/a1726-solix-c300-dc-portable-power-station",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker SOLIX C300 DC Official Manual & 7-Port Spec Sheet",
+      "url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "IATA Dangerous Goods — Spare Lithium Batteries Over 160 Wh",
+      "url": "https://www.iata.org/en/programs/cargo/dgr/lithium-batteries/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-27650mah-250w",
+    "shargeek-170-powerbank-24000mah",
+    "ugreen-nexode-powerbank-25000mah-200w"
+  ]
+}

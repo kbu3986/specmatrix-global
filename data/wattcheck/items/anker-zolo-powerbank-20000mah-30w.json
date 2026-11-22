@@ -1,0 +1,224 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "anker-zolo-powerbank-20000mah-30w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A1681",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "A1681011",
+      "msrp": 39.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Zolo Power Bank 20000mAh 30W A1681",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A1681-KR",
+      "msrp": 54900,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 졸로 보조배터리 20000mAh 30W A1681",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Zolo Power Bank 20,000mAh (30W, Built-In Cable)",
+      "title": "Anker Zolo 20,000mAh 30W (74 Wh) Flight Safety, Recall Check & Output Specs",
+      "summary": "Budget-friendly 74 Wh everyday power bank with integrated braided USB-C cable, 30 W single-port fast charging, and a lightweight 363 g body.",
+      "best_for": "Smartphone and handheld travelers who want a low-cost 20,000 mAh pack with an integrated cable and no extra cords to carry.",
+      "local_gotchas": [
+        "Certain serial batches of model A1681 were subject to a manufacturer safety recall—verify your unit's serial number on Anker's official recall checker before flying, as airlines prohibit recalled lithium packs.",
+        "Multi-port output drops sharply to 15 W shared (5 V / 3 A total) whenever two or more devices are plugged in simultaneously.",
+        "Self-recharge input caps at 20 W, requiring roughly 4.5-5 hours for a full 0-100% wall recharge."
+      ]
+    },
+    "ko": {
+      "name": "앤커 졸로 20,000mAh 30W 케이블 일체형 보조배터리 (A1681)",
+      "title": "앤커 졸로 20,000mAh 30W (74 Wh) 기내반입·리콜 확인·출력 분배표",
+      "summary": "74 Wh 대용량에 일체형 USB-C 케이블과 30 W 단일 고속 충전을 363 g의 가벼운 무게로 담은 가성비 스마트폰 전용 보조배터리입니다.",
+      "best_for": "별도 케이블 없이 아이폰·갤럭시 스마트폰을 3~4회 넉넉하게 충전하려는 가성비 여행자",
+      "local_gotchas": [
+        "A1681 일부 생산 로트에 제조사 자발적 리콜 이력이 있으므로 탑승 전 반드시 앤커 공식 리콜 조회 페이지에서 시리얼 번호를 확인하세요(리콜 대상 배터리는 항공사 반입 전면 금지).",
+        "2포트 이상 동시 충전 시 총 출력이 15 W(5 V/3 A)로 급감하므로 빠른 충전이 필요할 때는 1포트 단독 사용이 필수입니다.",
+        "본체 입력이 최대 20 W로 완충에 약 4.5~5시간 소요되며, 패스스루 사용 시에도 15 W 제한이 걸립니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 20000,
+    "rated_capacity_mah_5v": 12000,
+    "battery_energy_wh": 74,
+    "nominal_voltage_v": 3.7,
+    "cell_chemistry": "Li-Po (2 x 10,000mAh)",
+    "conversion_efficiency_pct": 81,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-12V USB-C PD (20W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 363,
+    "dimensions_mm": {
+      "l": 119.8,
+      "w": 73,
+      "h": 31.5
+    },
+    "max_total_output_w": 30,
+    "max_single_port_output_w": 30,
+    "max_input_w": 20,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 2.75A",
+          "SCP"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 2.75A",
+          "SCP"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 7.5,
+          "C2": 7.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 7.5,
+          "A1": 7.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 7.5,
+          "A1": 7.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 5,
+          "C2": 5,
+          "A1": 5
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "74 Wh (under 100 Wh): Allowed in carry-on only for non-recalled serial numbers. Store in transparent zip pouch under seat/seat pocket; overhead bin and inflight charging are prohibited.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Zolo 20,000mAh 30W A1681",
+      "url": "https://www.anker.com/products/a1681-zolo-power-bank-20000mah-30w",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker Official Product Safety Recall Portal",
+      "url": "https://www.anker.com/product-recalls",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 89,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-nano-powerbank-10000mah-30w",
+    "samsung-45w-battery-pack-20000mah"
+  ]
+}

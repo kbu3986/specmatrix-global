@@ -1,0 +1,27 @@
+{
+  "sku_slug": "cuktech-15-powerbank-20000mah-150w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "Model PB200P, 73Wh (14.6V / 5,000mAh = 20,000mAh @ 3.65V), Rated 11,500mAh (5V/6A), Dimensions 163 x 57 x 39.9 mm",
+      "source_url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
+      "source_tier": 2
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "IN1 90W Max; OUT1 100W PD / 120W Xiaomi Max; OUT2 33W Max; OUT3 33W Max; C1+C2 65W+33W standard PD, 150W peak with Xiaomi 120W",
+      "source_url": "https://cuktech.com/collections/power-bank",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.65 V / 1000 = 73.0 Wh (0.00% deviation).",
+    "Protocol disambiguation: Explicitly distinguished 100 W standard USB-PD vs 120 W Xiaomi HyperCharge so laptop buyers are not misled.",
+    "Multi-port sum check: Peak 120+15+15 = 150 W <= 150 W max."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

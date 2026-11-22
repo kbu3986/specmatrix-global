@@ -1,0 +1,145 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "apple-140w-usb-c-power-adapter",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Apple",
+  "model_number": "A2452",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "MLYU3AM/A",
+      "msrp": 99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Apple 140W USB-C Power Adapter A2452",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "MLYU3KH/A",
+      "msrp": 149000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "애플 정품 140W USB-C 전원 어댑터 A2452",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Apple 140W USB-C Power Adapter (A2452)",
+      "title": "Apple 140W USB-C GaN Adapter (A2452) PD 3.1 EPR, Zero-Drop & PPS Audit",
+      "summary": "First-party 277 g single-port GaN PD 3.1 reference brick featuring rock-solid 28 V / 5 A sustained load regulation, zero multi-port renegotiation drops, and modular international duckhead plugs.",
+      "best_for": "MacBook Pro 16 professionals who prioritize sustained 140 W thermal stability, zero power-renegotiation interruptions, and Apple's modular World Travel Adapter Kit.",
+      "local_gotchas": [
+        "Zero PPS support (fixed PDO rails only: 5.2 V, 9 V, 15 V, 20.5 V, 28 V)—Samsung Galaxy S Ultra flagships will NOT trigger 45 W Super Fast Charging 2.0 on this brick.",
+        "Single USB-C port only and charging cable is sold separately (requires Apple MagSafe 3 or 240 W 5 A USB-C cable for 140 W EPR).",
+        "Heavier and pricier per port than 4-port rivals like Anker 140 W (A2697) or UGREEN Nexode Pro 160 W, though electrically cleaner for grounded AC extension cord use."
+      ]
+    },
+    "ko": {
+      "name": "애플 정품 140W USB-C 전원 어댑터 (A2452)",
+      "title": "애플 140W USB-C GaN 어댑터 (A2452) PD 3.1 EPR·접지·PPS 미지원 분석",
+      "summary": "맥북 프로 16인치 레퍼런스 규격인 28 V/5 A(140 W) PD 3.1을 단일 포트로 흔들림 없이 지속 공급하며, 덕헤드·접지 연장 케이블 교체가 가능한 애플 정품 GaN 어댑터(277 g)입니다.",
+      "best_for": "멀티포트 재협상 끊김(Drop)과 맥북 팜레스트 누설전류(찌릿함) 없이 접지 케이블과 함께 140 W 풀로드를 안정적으로 유지하려는 전문가",
+      "local_gotchas": [
+        "고정 전압 PDO(5.2/9/15/20.5/28 V)만 지원하고 PPS를 완전히 미지원하므로 갤럭시 S 울트라 45 W 초고속 충전 2.0이 작동하지 않습니다.",
+        "단일 USB-C 포트 전용이며 충전 케이블은 별매입니다(140 W 구현 시 맥세이프 3 또는 240 W E-Marker C-to-C 케이블 필수).",
+        "국내 정가 149,000원은 4포트 앤커 140 W(129,000원)보다 비싸지만, 별매 애플 접지 연장 케이블 결합 시 맥북 알루미늄 바디 누설전류를 완벽히 차단할 수 있습니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 2.0A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 277,
+    "dimensions_mm": {
+      "l": 96,
+      "w": 75,
+      "h": 28
+    },
+    "max_total_output_w": 140,
+    "max_single_port_output_w": 140,
+    "max_input_w": 140,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": false,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; permitted in carry-on and checked luggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Apple Official Store — 140W USB-C Power Adapter",
+      "url": "https://www.apple.com/shop/product/MW2M3AM/A/140w-usb-c-power-adapter",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Apple Support — Identify Your Mac Power Adapter (A2452)",
+      "url": "https://support.apple.com/en-us/109509",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 92,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-140w-gan-4port-charger",
+    "ugreen-nexode-pro-160w-gan-4port"
+  ]
+}
