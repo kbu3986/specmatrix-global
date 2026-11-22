@@ -1,0 +1,223 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "cio-novaport-trio-ii-67w-gan",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "CIO",
+  "model_number": "CIO-G67W2C1A-N2",
+  "origin_country": "JP",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "CIO-G67W2C1A-N2",
+      "msrp": 49.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "CIO NovaPort TRIO II 67W GaN 3-Port Charger",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "CIO-G67W2C1A-N2-KR",
+      "msrp": 69000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "CIO 노바포트 트리오 2 67W 초소형 GaN 충전기",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "CIO NovaPort TRIO II 67W 3-Port GaN Charger (2C1A)",
+      "title": "CIO NovaPort TRIO II 67W (109 g) NovaIntelligence Allocation & PPS 5 A Audit",
+      "summary": "Japanese-engineered egg-sized 109 g, 67 W 3-port GaN charger featuring dual-GaN NovaEngine, dynamic NovaIntelligence port allocation (45 W + 20 W or 30 W + 30 W), and 5 A PPS support.",
+      "best_for": "Ultralight travelers and Japan/Korea commuters who want a 109 g, 54 mm charger that still delivers 67 W for MacBook Air/ultrabooks and 45 W Samsung SFC 2.0.",
+      "local_gotchas": [
+        "Native Japanese retail units ship with foldable Type-A (110 V style) prongs and PSE certification; Korean Type-C/F 220 V outlets require a snug plug converter (100-240 V electrical input is supported natively).",
+        "Plugging into C2 + USB-A simultaneously limits combined output to 15 W (5 V / 3 A); keep laptops on C1 for 45 W + 15 W triple-port allocation.",
+        "Available in both 2C1A (CIO-G67W2C1A-N2) and 3C (CIO-G67W3C-N2) hardware variants—double-check SKU suffix before ordering."
+      ]
+    },
+    "ko": {
+      "name": "CIO 노바포트 트리오 II 67W 초소형 3포트 GaN 충전기 (2C1A)",
+      "title": "CIO 노바포트 트리오 II 67W (109 g) 초소형 출력 분배·일본 PSE/110V 분석",
+      "summary": "일본 CIO사의 듀얼 GaN(NovaEngine) 기술로 54×40×30 mm·109 g 극소형 바디에 단일 67 W, 삼성 45 W PPS(3.3-11 V/5 A), 동적 45+20 W / 30+30 W 분배를 구현한 여행 특화 모델입니다.",
+      "best_for": "일본 여행·초경량 백패킹·카페 작업 시 100 g대 주머니 크기 충전기로 맥북 에어·그램과 갤럭시 45 W를 함께 충전하려는 사용자",
+      "local_gotchas": [
+        "일본 내수용 기본 플러그가 접이식 110 V(Type-A) 규격이므로 일본·미국에서는 어댑터 없이 완벽하지만, 한국 220 V 콘센트에서는 흔들림이 적은 전용 돼지코 어댑터가 필요합니다(100-240 V 프리볼트 지원).",
+        "2C1A 모델과 3C 모델(CIO-G67W3C-N2)이 별도 유통되므로 구매 전 포트 구성을 확인해야 합니다.",
+        "C2+A1 동시 사용 시 15 W 공유 제한이 걸리므로 노트북은 항상 C1에 연결하는 것이 좋습니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 1.6A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": false,
+    "ce_certified": true,
+    "ccc_certified": false,
+    "pse_certified": true,
+    "kc_certified": false,
+    "weight_g": 109,
+    "dimensions_mm": {
+      "l": 54,
+      "w": 40,
+      "h": 30
+    },
+    "max_total_output_w": 67,
+    "max_single_port_output_w": 67,
+    "max_input_w": 67,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 67,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 67,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 18,
+        "protocols": [
+          "QC 3.0",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 67
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 67
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 18
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 45,
+          "C2": 20
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 45,
+          "A1": 18
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 7.5,
+          "A1": 7.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 45,
+          "C2": 7.5,
+          "A1": 7.5
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; allowed in carry-on and checked luggage.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "CIO Japan Official Product Page — NovaPort TRIO II 67W 2C1A",
+      "url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "CIO Global Official Specifications — NovaPort TRIO II 67W",
+      "url": "https://connectinternationalone-global.com/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-100w-gan-3port",
+    "ugreen-nexode-pro-100w-gan-3port"
+  ]
+}

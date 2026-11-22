@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-nano-powerbank-10000mah-30w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "10,000mAh (5,000mAh x 2, 36Wh), Weight 215g (7.58 oz), Dimensions 104 x 52.3 x 26 mm",
+      "source_url": "https://www.anker.com/products/a1259-built-in-cable-power-bank-10000mah",
+      "source_tier": 1
+    },
+    {
+      "field": "supports_pass_through",
+      "quote": "30W Max single-port input/output; 24W Max multi-port total output; pass-through charging not supported on A1259",
+      "source_url": "https://support.anker.com/s/article/Anker-Nano-Power-Bank-30W-Built-In-USB-C-Cable-A1259-User-Guide",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 10,000 mAh * 3.6 V / 1000 = 36.0 Wh (0.00% deviation).",
+    "Edge-case check: Verified supports_pass_through=false (unlike Zolo/Prime models) and documented explicitly in EN/KO gotchas.",
+    "Multi-port sum check: Dual/triple combos capped at 24 W <= 30 W max."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,33 @@
+{
+  "sku_slug": "ecoflow-river-3-245wh",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "Model EF-RV-H01-1, 245Wh LiFePO4 (3,000 cycles), Weight ~3.55 kg, Dimensions 255 x 212 x 113 mm, IP54 battery pack, <30 dB",
+      "source_url": "https://us.ecoflow.com/products/river-3-portable-power-station",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "AC 300W continuous (X-Boost 600W), USB-C 100W, 2x USB-A 12W each, Car 12.6V/10A 126W; AC X-Stream Input 300-320W, Solar 110W",
+      "source_url": "https://manuals.ecoflow.com/product/river-3",
+      "source_tier": 1
+    },
+    {
+      "field": "airline_compliance_profile",
+      "quote": "Lithium-ion batteries exceeding 160 Wh are strictly prohibited in both carry-on and checked passenger baggage under IATA/FAA/MOLIT rules",
+      "source_url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 76,800 mAh * 3.2 V (LiFePO4 nominal) / 1000 = 245.76 Wh vs 245.0 Wh spec (0.31% deviation <= 5%).",
+    "Safety gate verified: 245 Wh > 160 Wh -> carryon_allowed=false, carryon_no_approval=false, iata_tier='over_160wh_prohibited', checked_baggage='prohibited'.",
+    "Auto-fallback populated with flight-legal <100 Wh power banks for travelers who land here checking flight compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-prime-100w-gan-3port",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model A2688, Dimensions 67.8 x 43.5 x 29 mm, Weight ~170g (US foldable prong version)",
+      "source_url": "https://www.anker.com/products/a2688",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1/C2 100W Max, USB-A 22.5W Max; C1+C2 65W+35W; C1+A 65W+22.5W; C2+A 12W+12W; C1+C2+A 65W+12W+12W (89W)",
+      "source_url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Generation check: Distinguished A2688 (slim 29 mm, PowerIQ 3.0 fixed table, 89W 3-port) from legacy A2343 (39 mm thick, PowerIQ 4.0).",
+    "No-battery invariant verified: All 7 battery fields strictly null; iata_tier='no_battery_always_allowed'.",
+    "Port allocation sum verified: Max row C1+C2 = 100 W <= 100 W."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,225 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "ugreen-nexode-powerbank-25000mah-200w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "UGREEN",
+  "model_number": "PB722",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "35525",
+      "msrp": 139.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "UGREEN Nexode Power Bank 25000mAh 200W PB722",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PB722-KR",
+      "msrp": 179000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "유그린 넥소드 보조배터리 25000mAh 200W PB722",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "UGREEN Nexode Power Bank 25,000mAh (200W)",
+      "title": "UGREEN Nexode 25,000mAh 200W (90 Wh, PB722) Airline & USB-PD Matrix",
+      "summary": "High-value 90 Wh travel power bank combining 140 W PD 3.1 single-port output, 100 W + 100 W dual-laptop charging, and a real-time TFT telemetry screen at 609 g.",
+      "best_for": "Value-focused dual-laptop travelers who want 140 W PD 3.1 and 200 W combined output for $40 less than the Anker Prime 27,650 mAh.",
+      "local_gotchas": [
+        "Self-recharge input is capped at 65 W (~2.5 hours 0-100%), noticeably slower than the 140-170 W recharge on Anker Prime 27,650 mAh or Shargeek 170.",
+        "When all 3 ports (C1+C2+A1) are occupied, C2 and USB-A drop sharply to a shared 20 W pool while C1 holds 140 W.",
+        "Verify the laser-printed CCC (3C) mark on the unit casing if planning mainland China domestic flights—UGREEN ships dedicated CCC-marked batches alongside standard international stock."
+      ]
+    },
+    "ko": {
+      "name": "유그린 넥소드 25,000mAh 200W 보조배터리 (PB722)",
+      "title": "유그린 넥소드 25,000mAh 200W (90 Wh, PB722) 기내반입·출력 분배표",
+      "summary": "90 Wh 기내 무승인 용량에 C1 단독 140 W PD 3.1, C1+C2 동시 100 W + 100 W(총 200 W) 출력, TFT 컬러 디스플레이를 609 g으로 구현한 고가성비 플래그십 모델입니다.",
+      "best_for": "앤커 프라임 27650 대비 약 7만 원 저렴한 가격으로 140 W 맥북 충전과 듀얼 100 W 출력을 모두 얻으려는 실속파 출장자",
+      "local_gotchas": [
+        "본체 자체 충전 입력이 최대 65 W(완충 약 2.5시간)로 제한되어 있어 환승 대기 중 급속 재충전 속도는 앤커 737(140 W)이나 프라임(170 W)보다 느립니다.",
+        "3포트 동시 사용 시 C1 140 W를 유지하는 대신 C2와 A1 합산 출력이 20 W로 크게 축소됩니다.",
+        "중국 국내선 이용 예정이라면 본체 CCC(3C) 각인이 포함된 유통 버전인지 구매 전 확인해야 하며, 한국 출발편은 지퍼백 절연 및 기내 사용 금지가 적용됩니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 25000,
+    "rated_capacity_mah_5v": 14000,
+    "battery_energy_wh": 90,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (5 x 5,000mAh)",
+    "conversion_efficiency_pct": 82,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD 3.0 (65W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 609,
+    "dimensions_mm": {
+      "l": 155,
+      "w": 54,
+      "h": 51
+    },
+    "max_total_output_w": 200,
+    "max_single_port_output_w": 140,
+    "max_input_w": 65,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 10,
+          "A1": 10
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 10,
+          "A1": 10
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "90 Wh (under 100 Wh): Carry-on allowed without pre-approval. Store in transparent zip pouch under seat/seat pocket; overhead bin stowage and inflight charging are banned on Korean carriers.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "UGREEN Official Product Page — Nexode 25000mAh 200W PB722",
+      "url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-25000mah-200w",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "UGREEN PB722 Official User Manual & Technical Datasheet",
+      "url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-27650mah-250w",
+    "cuktech-20-powerbank-25000mah-210w"
+  ]
+}

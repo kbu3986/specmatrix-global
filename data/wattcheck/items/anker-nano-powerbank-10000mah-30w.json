@@ -1,0 +1,224 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "anker-nano-powerbank-10000mah-30w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A1259",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "A1259011",
+      "msrp": 49.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Nano Power Bank 10000mAh 30W Built-In USB-C Cable A1259",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A1259-KR",
+      "msrp": 69000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 나노 보조배터리 10000mAh 30W A1259",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Nano Power Bank 10,000mAh (30W, Built-In USB-C Cable)",
+      "title": "Anker Nano 10,000mAh 30W (36 Wh) Specs, Airline Rules & Pass-Through Audit",
+      "summary": "Pocketable 215 g daily-carry 36 Wh battery featuring a bi-directional 30 W built-in USB-C cable, color status screen, and 30 W rapid self-recharging.",
+      "best_for": "Minimalist commuters and day-trippers wanting 30 W smartphone fast charging in a 215 g palm-sized pack.",
+      "local_gotchas": [
+        "Pass-through charging is NOT supported on A1259—you cannot charge your phone while the power bank is plugged into a wall outlet.",
+        "Simultaneous multi-port charging caps combined output at 24 W max across active ports.",
+        "At 36 Wh (~28.8 Wh usable at 80% efficiency), it provides roughly 1.8-2.0 full iPhone 16 Pro charges and is insufficient for a full laptop top-up."
+      ]
+    },
+    "ko": {
+      "name": "앤커 나노 10,000mAh 30W 케이블 일체형 보조배터리 (A1259)",
+      "title": "앤커 나노 10,000mAh 30W (36 Wh) 기내반입·패스스루·출력 분석",
+      "summary": "215 g 초경량 바디에 양방향 30 W 내장 USB-C 케이블과 컬러 디스플레이를 탑재해 아이폰·아이패드 미니를 빠르게 충전하는 데일리 36 Wh 보조배터리입니다.",
+      "best_for": "주머니나 미니백에 부담 없이 넣고 다니며 아이폰·갤럭시를 30 W로 빠르게 충전하려는 출퇴근·단기 여행자",
+      "local_gotchas": [
+        "A1259는 패스스루(동시 충방전)를 지원하지 않으므로, 호텔 콘센트 1개로 배터리와 스마트폰을 동시에 밤새 충전하는 용도로는 사용할 수 없습니다.",
+        "2포트 이상 동시 연결 시 합산 출력이 최대 24 W로 제한됩니다.",
+        "36 Wh 소형 용량이라도 국토부 2025~2026 규정에 따라 위탁 수하물 불가, 기내 선반 보관 금지 및 투명 지퍼백 개별 보관이 필수입니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 10000,
+    "rated_capacity_mah_5v": 6000,
+    "battery_energy_wh": 36,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (2 x 5,000mAh)",
+    "conversion_efficiency_pct": 80,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD (30W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 215,
+    "dimensions_mm": {
+      "l": 104,
+      "w": 52.3,
+      "h": 26
+    },
+    "max_total_output_w": 30,
+    "max_single_port_output_w": 30,
+    "max_input_w": 30,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "SCP"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "SCP"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 12,
+          "C2": 12
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 12,
+          "A1": 12
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 12,
+          "A1": 12
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 8,
+          "C2": 8,
+          "A1": 8
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "36 Wh (under 100 Wh): Carry-on only without pre-approval; requires individual protective pouch or terminal tape, no overhead bin stowage, and no inflight use.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Nano Power Bank 30W A1259",
+      "url": "https://www.anker.com/products/a1259-built-in-cable-power-bank-10000mah",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker Support — A1259 User Manual & Specifications",
+      "url": "https://support.anker.com/s/article/Anker-Nano-Power-Bank-30W-Built-In-USB-C-Cable-A1259-User-Guide",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 88,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-zolo-powerbank-20000mah-30w",
+    "samsung-45w-battery-pack-20000mah"
+  ]
+}

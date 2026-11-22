@@ -1,0 +1,225 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "anker-prime-20000mah-200w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A1336",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": "B0BYNZXFM2",
+      "sku": "A1336011",
+      "msrp": 129.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Prime 20000mAh 200W Power Bank A1336",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A1336-KR",
+      "msrp": 179000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 프라임 20000mAh 200W 보조배터리 A1336",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Prime 20,000mAh Power Bank (200W)",
+      "title": "Anker Prime 20,000mAh 200W (72 Wh) Carry-On & Dual 100 W PD Matrix",
+      "summary": "Compact 72 Wh twin-laptop power bank capable of simultaneous 100 W + 100 W USB-C delivery and 100 W single-port fast recharge at 545 g.",
+      "best_for": "Travelers charging two 100 W ultrabooks simultaneously who want a shorter, lighter body than the 27,650 mAh Prime.",
+      "local_gotchas": [
+        "No USB-PD 3.1 140 W output; single-port ceiling is 100 W (20 V / 5 A), so a 16-inch MacBook Pro charges at 100 W instead of 140 W.",
+        "Early production batches of A1336 cap PPS at 3.3-11 V / 3 A (Samsung 25 W), whereas later hardware revisions support 5 A PPS (45 W); check box label before relying on SFC 2.0.",
+        "Lacks Bluetooth app control unlike the larger A1340 27,650 mAh model."
+      ]
+    },
+    "ko": {
+      "name": "앤커 프라임 20,000mAh 200W 보조배터리 (A1336)",
+      "title": "앤커 프라임 20,000mAh 200W (72 Wh) 기내반입·듀얼 100 W 출력표",
+      "summary": "126.9 mm 컴팩트 바디(545 g)에 72 Wh 용량과 C1+C2 동시 100 W + 100 W(총 200 W) 출력을 담아 노트북 2대를 동시에 고속 충전할 수 있는 출장용 밸런스 모델입니다.",
+      "best_for": "맥북 에어·그램·씽크패드 등 65~100 W급 노트북 2대를 동시에 휴대하는 비즈니스 출장자",
+      "local_gotchas": [
+        "초기 생산 A1336 배치는 PPS가 3 A로 제한되어 갤럭시 45 W 초고속 충전 2.0 대신 25 W로 동작하므로, 구매 시 최신 리비전(PPS 5 A) 표기를 확인해야 합니다.",
+        "단일 포트 최대 출력이 100 W(PD 3.0)로 제한되어 140 W EPR 고속 충전이 필요한 16인치 맥북 프로 풀스피드 충전에는 A1340이 유리합니다.",
+        "국토부 2025~2026 규정에 따라 기내 선반 보관 및 기내 사용이 금지되며 투명 지퍼백 또는 단자 절연 포장이 필수입니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 20000,
+    "rated_capacity_mah_5v": 12000,
+    "battery_energy_wh": 72,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (4 x 5,000mAh)",
+    "conversion_efficiency_pct": 83,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD 3.0 (100W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": false,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 545,
+    "dimensions_mm": {
+      "l": 126.9,
+      "w": 54.6,
+      "h": 49.7
+    },
+    "max_total_output_w": 200,
+    "max_single_port_output_w": 100,
+    "max_input_w": 100,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 65,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "UFCS",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "A1": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 100,
+          "A1": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 60,
+          "A1": 40
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "72 Wh (under 100 Wh): Permitted in carry-on without pre-approval; individual zip pouch or terminal tape required, no overhead bin stowage, and no inflight charging on Korean airlines.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Prime 20,000mAh A1336",
+      "url": "https://www.anker.com/products/a1336",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker Official Support — A1336 Specifications & Manual",
+      "url": "https://support.anker.com/s/article/Anker-Prime-20-000mAh-Power-Bank-200W-A1336-User-Guide",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-powerbank-20000mah-130w",
+    "anker-prime-27650mah-250w"
+  ]
+}

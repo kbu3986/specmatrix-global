@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "anker-737-powercore-24k-140w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A1289",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": "B09VPHVT2Z",
+      "sku": "A1289011",
+      "msrp": 149.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker 737 Power Bank PowerCore 24K 140W A1289",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A1289-KR",
+      "msrp": 199000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 737 파워코어 24000mAh 140W 보조배터리 A1289",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker 737 Power Bank (PowerCore 24K, 140W)",
+      "title": "Anker 737 PowerCore 24K (86.4 Wh) 140 W PD 3.1 & Airline Audit",
+      "summary": "Proven 86.4 Wh bi-directional 140 W USB-PD 3.1 power bank with smart telemetry screen and single-port 140 W recharge, sharing a 140 W combined ceiling across 3 ports.",
+      "best_for": "Single-laptop travelers seeking full 140 W bi-directional PD 3.1 speed at a lower street price than the Prime 27,650 mAh.",
+      "local_gotchas": [
+        "Only USB-C1 accepts recharge input (up to 140 W); USB-C2 is strictly output-only.",
+        "Total combined output across all 3 ports is capped at 140 W, so plugging a second laptop drops C1 well below 140 W unlike the 250 W Prime.",
+        "Global A1289 units generally do not carry the China CCC (3C) mark required on mainland Chinese domestic flights."
+      ]
+    },
+    "ko": {
+      "name": "앤커 737 파워코어 24K 140W 보조배터리 (A1289)",
+      "title": "앤커 737 24,000mAh 140W (86.4 Wh) 기내반입·PD 3.1 출력 분석",
+      "summary": "86.4 Wh 정격 용량과 단일 포트 양방향 140 W PD 3.1 충방전, 실시간 스마트 디스플레이를 갖춘 베스트셀러 노트북용 보조배터리입니다.",
+      "best_for": "단일 노트북(맥북 프로 14/16인치)을 140 W로 빠르게 충전하면서 프라임 27650 대비 가성비를 챙기려는 사용자",
+      "local_gotchas": [
+        "본체 자체 충전 입력은 반드시 C1 포트로만 가능하며 C2 포트는 출력 전용입니다.",
+        "전체 합산 출력 상한이 140 W로 고정되어 있어 2대 이상 동시 충전 시 포트당 출력이 크게 분산됩니다(노트북 2대 동시 고속 충전에는 부적합).",
+        "글로벌 정발 A1289는 중국 CCC 마크 미각인 물량이 대부분이며, 한국 출발 항공편에서는 투명 지퍼백 보관 및 기내 사용 금지 규정을 준수해야 합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 24000,
+    "rated_capacity_mah_5v": 13500,
+    "battery_energy_wh": 86.4,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (6 x 4,000mAh)",
+    "conversion_efficiency_pct": 80,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-28V USB-C PD 3.1 (C1 only, 140W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": false,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 630,
+    "dimensions_mm": {
+      "l": 155.7,
+      "w": 54.6,
+      "h": 49.5
+    },
+    "max_total_output_w": 140,
+    "max_single_port_output_w": 140,
+    "max_input_w": 140,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": false,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 18,
+        "protocols": [
+          "QC 3.0",
+          "AFC",
+          "Apple 2.4A"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 140
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 18
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 40
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 122,
+          "A1": 18
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 122,
+          "A1": 18
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 57,
+          "A1": 18
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "86.4 Wh (under 100 Wh): Carry-on only without pre-approval. Must use terminal insulation/zip pouch, keep under seat or in seat pocket, and never charge onboard Korean carriers.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — 737 Power Bank A1289",
+      "url": "https://www.anker.com/products/a1289",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker Support — 737 PowerCore 24K Manual & Port Specs",
+      "url": "https://support.anker.com/s/product/a085g000004x2T5AAI",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 92,
+    "human_spot_checked": true
+  },
+  "successor_slug": "anker-prime-27650mah-250w",
+  "auto_fallback_slugs": [
+    "anker-prime-27650mah-250w",
+    "shargeek-170-powerbank-24000mah"
+  ]
+}

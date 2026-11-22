@@ -1,0 +1,27 @@
+{
+  "sku_slug": "shargeek-140-powerbank-20000mah",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "Model X1i, 20,000mAh / 72Wh (rated 11,200mAh at 5V/3A), Weight ~470g, Dimensions 158 x 65 x 30.5 mm",
+      "source_url": "https://sharge.com/products/shargeek-140",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "2 ports: USB-C 100W Max (Input 65W Max), USB-A 40W Max; Dual output C+A = 100W + 40W (140W total)",
+      "source_url": "https://manuals.plus/sharge/x1i-shargeek-140-power-bank-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.6 V / 1000 = 72.0 Wh (0.00% deviation).",
+    "Marketing-trap audit: Caught that '140' refers to combined 100W + 40W rather than 140W PD 3.1 EPR single-port output; set supports_pd_3_1_epr=false.",
+    "Independent dual-rail allocation confirmed (C1+A1=140W without stepping down C1)."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

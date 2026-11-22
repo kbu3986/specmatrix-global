@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-prime-250w-gan-6port-desktop",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model A2345, Dimensions 106.2 x 40.2 x 92.5 mm (4.18 x 1.58 x 3.64 in), Weight 640 g (22.58 oz), 2.26-inch LCD + dial",
+      "source_url": "https://www.anker.com/products/a2345",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1 140W Max (PD 3.1 28V/5A), C2/C3/C4 100W Max, A1/A2 22.5W Max; C1+C2 240W Max; 3-6 ports dynamically balanced up to 250W Max",
+      "source_url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "No-battery invariant verified: All battery fields strictly null.",
+    "Verified C1 is the sole 140 W EPR port while C2-C4 max at 100 W.",
+    "Sum invariant verified across all 6 rows (max 250 W <= 250 W)."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

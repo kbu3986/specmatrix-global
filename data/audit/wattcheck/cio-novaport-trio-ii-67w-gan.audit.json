@@ -1,0 +1,27 @@
+{
+  "sku_slug": "cio-novaport-trio-ii-67w-gan",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "dimensions_mm_weight_g",
+      "quote": "Model CIO-G67W2C1A-N2, Dimensions approx. 54 x 40 x 30 mm, Weight 109g, Input 100-240V~ 50-60Hz 1.6A, Japan PSE certified",
+      "source_url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "C1/C2 67W Max (PPS 3.3-11V/5A), USB-A 18W Max; C1+C2 45W+20W or 30W+30W (65W); C1+A 45W+18W (63W); 3-port 45W+15W shared (60W)",
+      "source_url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Variant check: Explicitly specified 2C1A (CIO-G67W2C1A-N2) and noted 3C sibling in gotchas.",
+    "Certification honesty: Flagged pse_certified=true while kc_certified=false for native Japan import units.",
+    "No-battery invariant and port sum invariant (<= 67 W) verified."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

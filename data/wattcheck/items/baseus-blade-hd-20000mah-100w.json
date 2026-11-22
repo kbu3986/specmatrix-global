@@ -1,0 +1,254 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "baseus-blade-hd-20000mah-100w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Baseus",
+  "model_number": "PPBLD100HD",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "PPBL000301",
+      "msrp": 129.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Baseus Blade HD 20000mAh 100W Slim Laptop Power Bank",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PPBLD100HD-KR",
+      "msrp": 139000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "베이스어스 블레이드 HD 20000mAh 100W 슬림 보조배터리",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Baseus Blade HD 20,000mAh 100W Slim Power Bank",
+      "title": "Baseus Blade HD (20,000mAh / 74 Wh) 19.8 mm Flat Laptop Battery & Port Matrix",
+      "summary": "Ultra-flat 19.8 mm, 445 g folio-style 74 Wh laptop power bank with 4 ports (2C2A), 100 W single-port PD output, and 65 W + 30 W dual-port fast charging.",
+      "best_for": "Laptop sleeve and slim briefcase commuters who hate bulky cylindrical brick power banks.",
+      "local_gotchas": [
+        "Connecting all 4 ports simultaneously drops total output down to 30 W (5 V / 6 A shared)—stick to 1 or 2 ports when charging a laptop.",
+        "Uses Li-Po pouch cells (minimum 75% conversion rating) rather than 21700 cylindrical cells, so long-term cycle durability and peak 100 W thermal headroom trail 21700 bricks like CUKTECH 15.",
+        "Global retail Blade HD packaging frequently lacks China CCC marking; verify casing print before mainland China domestic flights."
+      ]
+    },
+    "ko": {
+      "name": "베이스어스 블레이드 HD 20,000mAh 100W 초슬림 보조배터리",
+      "title": "베이스어스 블레이드 HD (74 Wh, 19.8 mm) 슬림 노트북 보조배터리·출력표",
+      "summary": "두께 19.8 mm·무게 445 g의 납작한 정사각형(134×134 mm) 폼팩터에 74 Wh 용량, 2C2A 4포트, 단일 100 W 및 듀얼 65 W + 30 W 출력을 담아 노트북 파우치에 쏙 들어가는 모델입니다.",
+      "best_for": "벽돌형 보조배터리가 들어가지 않는 슬림 백팩·노트북 슬리브·브리프케이스 출퇴근족",
+      "local_gotchas": [
+        "4포트를 모두 동시에 꽂으면 합산 출력이 30 W(5 V/6 A)로 급락하므로 노트북 충전 시에는 반드시 1포트(100 W) 또는 2포트(65 W + 30 W) 조합만 사용하세요.",
+        "리튬폴리머(Li-Po) 파우치 셀 특성상 원통형 21700 셀 제품(쿡테크 15호 등) 대비 고출력 장시간 방전 시 발열·수명 여유가 다소 낮습니다.",
+        "글로벌 직구판은 중국 CCC 마크가 없는 경우가 많으며, 한국 출발편에서는 지퍼백 개별 보관 및 기내 사용 금지가 적용됩니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 20000,
+    "rated_capacity_mah_5v": 12000,
+    "battery_energy_wh": 74,
+    "nominal_voltage_v": 3.7,
+    "cell_chemistry": "Li-Po (4 x 5,000mAh high-density)",
+    "conversion_efficiency_pct": 79,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD 3.0 (65W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": false,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 445,
+    "dimensions_mm": {
+      "l": 134,
+      "w": 134,
+      "h": 19.8
+    },
+    "max_total_output_w": 100,
+    "max_single_port_output_w": 100,
+    "max_input_w": 65,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 30,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      },
+      {
+        "id": "A2",
+        "type": "USB-A",
+        "max_w": 30,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A2"
+        ],
+        "output_w": {
+          "A2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 65,
+          "A2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 65,
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "A1": 30,
+          "A2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 7.5,
+          "C2": 7.5,
+          "A1": 7.5,
+          "A2": 7.5
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "74 Wh (under 100 Wh): Permitted in carry-on without pre-approval. Store in transparent zip pouch under seat/seat pocket; overhead bin stowage and inflight use are prohibited on Korean airlines.",
+    "china_domestic_ccc_ok": false
+  },
+  "citations": [
+    {
+      "label": "Baseus Official Product Page — Blade HD 100W 20,000mAh",
+      "url": "https://www.baseus.com/products/baseus-blade-laptop-power-bank-100w-20000mah",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Baseus Blade HD PPBLD100HD Official Specification Sheet",
+      "url": "https://www.baseus.com/pages/support",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 92,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "cuktech-15-powerbank-20000mah-150w",
+    "ugreen-nexode-powerbank-20000mah-130w"
+  ]
+}

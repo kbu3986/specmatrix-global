@@ -1,0 +1,27 @@
+{
+  "sku_slug": "cuktech-20-powerbank-25000mah-210w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "Model P23, Typical capacity 25,000mAh / 90.7Wh (Rated 88.9Wh, 13,500mAh at 5V/6A), Weight ~635g, 159.9 x 55.1 x 55.1 mm",
+      "source_url": "https://cuktech.com/products/cuktech-20-power-bank-25000mah-210w",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "OUT1 USB-C 140W PD 3.1 (IN1 110W Max), OUT2 USB-C 60W Max, OUT3 USB-A 30W Max, Combined total 210W Max",
+      "source_url": "https://device.report/cuktech/p23",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 25,000 mAh * 3.63 V / 1000 = 90.75 Wh vs 90.7 Wh typical (0.055% deviation <= 5%).",
+    "Protocol nuance verified: C1 supports true 140 W PD 3.1 EPR + 5 A PPS; C2 caps at 60 W.",
+    "Multi-port sum check: C1+C2=200W, C1+C2+A1=120+60+30=210W <= 210W max."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

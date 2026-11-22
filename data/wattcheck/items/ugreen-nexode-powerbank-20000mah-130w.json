@@ -1,0 +1,224 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "ugreen-nexode-powerbank-20000mah-130w",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "UGREEN",
+  "model_number": "PB721",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "35524",
+      "msrp": 89.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "UGREEN Nexode Power Bank 20000mAh 130W PB721",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PB721-KR",
+      "msrp": 119000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "유그린 넥소드 보조배터리 20000mAh 130W PB721",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "UGREEN Nexode Power Bank 20,000mAh (130W)",
+      "title": "UGREEN Nexode 20,000mAh 130W (72 Wh, PB721) Flight & 100 W + 30 W Matrix",
+      "summary": "Sub-500 g (480 g) 72 Wh column power bank with TFT display delivering 100 W laptop + 30 W phone simultaneous fast charging at an $89.99 MSRP benchmark.",
+      "best_for": "Single-laptop + smartphone travelers seeking a lighter, more affordable 100 W + 30 W alternative to the Anker Prime 20,000 mAh.",
+      "local_gotchas": [
+        "USB-C2 caps at 30 W max, so PB721 cannot fast-charge two laptops simultaneously (only 100 W + 30 W).",
+        "Self-recharge input tops out at 65 W via USB-C1 (~2 hours 0-100%), compared with 100 W on Anker Prime 20,000 mAh.",
+        "Using C2 and USB-A together drops both auxiliary ports into a 20 W shared 5 V pool."
+      ]
+    },
+    "ko": {
+      "name": "유그린 넥소드 20,000mAh 130W 보조배터리 (PB721)",
+      "title": "유그린 넥소드 20,000mAh 130W (72 Wh, PB721) 기내반입·출력 분배표",
+      "summary": "480 g 가벼운 무게에 72 Wh 용량과 TFT 컬러 디스플레이, 노트북 100 W + 스마트폰 30 W 동시 출력(총 130 W)을 11만 원대 가격으로 제공하는 가성비 노트북용 보조배터리입니다.",
+      "best_for": "노트북 1대(맥북 에어/프로 14)와 스마트폰 1대를 동시에 휴대하며 500 g 미만 경량화를 중시하는 여행자",
+      "local_gotchas": [
+        "C2 포트가 최대 30 W까지만 지원하므로 노트북 2대 동시 고속 충전에는 부적합합니다(노트북 1대 + 폰/태블릿 조합에 최적화).",
+        "본체 자체 충전 입력은 C1 기준 최대 65 W이며, 3포트 동시 연결 시 C2와 A1 출력이 합산 20 W로 낮아집니다.",
+        "72 Wh로 기내 반입 가능하지만 한국 출발 항공편에서는 단자 절연(지퍼백) 보관 및 기내 사용 금지 규정을 준수해야 합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 20000,
+    "rated_capacity_mah_5v": 11300,
+    "battery_energy_wh": 72,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (4 x 5,000mAh)",
+    "conversion_efficiency_pct": 81,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD 3.0 (65W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 480,
+    "dimensions_mm": {
+      "l": 131,
+      "w": 54,
+      "h": 51
+    },
+    "max_total_output_w": 130,
+    "max_single_port_output_w": 100,
+    "max_input_w": 65,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 30,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 10,
+          "A1": 10
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 10,
+          "A1": 10
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "72 Wh (under 100 Wh): Carry-on only without airline approval; store in individual zip pouch under seat/seat pocket, never in overhead bin or used inflight on Korean carriers.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "UGREEN Official Product Page — Nexode 20000mAh 130W PB721",
+      "url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "UGREEN PB721 Official User Manual & Allocation Table",
+      "url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-20000mah-200w",
+    "cuktech-15-powerbank-20000mah-150w"
+  ]
+}

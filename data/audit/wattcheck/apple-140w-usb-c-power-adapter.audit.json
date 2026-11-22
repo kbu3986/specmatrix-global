@@ -1,0 +1,27 @@
+{
+  "sku_slug": "apple-140w-usb-c-power-adapter",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "ports",
+      "quote": "Model A2452, Input 100-240V~ 2.0A, Output PDOs: 5.2V/3A, 9V/3A, 15V/5A, 20.5V/5A, 28V/5A (140W USB PD 3.1 EPR, no PPS)",
+      "source_url": "https://support.apple.com/en-us/109509",
+      "source_tier": 1
+    },
+    {
+      "field": "regional_offers",
+      "quote": "Official US MSRP $99.00, Korea Apple Store MSRP 149,000 KRW; Weight ~277g body only, Dimensions 96 x 75 x 28 mm",
+      "source_url": "https://www.apple.com/shop/product/MW2M3AM/A/140w-usb-c-power-adapter",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Protocol check: Verified fixed PDO only (no PPS) -> supports_samsung_pps_45w=false; single-port -> power_renegotiation_drop=false.",
+    "No-battery invariant verified: All battery fields strictly null.",
+    "Sum invariant verified: Single port C1 = 140 W <= 140 W."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

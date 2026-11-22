@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-737-powercore-24k-140w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "24,000mAh / 86.4Wh TSA airline-safe capacity, 155.7 x 54.6 x 49.5 mm, ~630g",
+      "source_url": "https://www.anker.com/products/a1289",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "USB-C1 Input/Output 140W Max (28V/5A), USB-C2 Output-only 140W Max, USB-A 18W Max, 140W combined total cap",
+      "source_url": "https://support.anker.com/s/product/a085g000004x2T5AAI",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 24,000 mAh * 3.6 V / 1000 = 86.4 Wh (0.00% deviation).",
+    "Input asymmetry audited: Confirmed only USB-C1 accepts input; C2 is output-only (prevents user confusion).",
+    "Sum invariant checked: All multi-port combinations sum to <= 140 W."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

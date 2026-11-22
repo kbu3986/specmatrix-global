@@ -1,0 +1,272 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "anker-prime-200w-gan-6port-desktop",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A2683",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "A2683111",
+      "msrp": 79.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Prime Charger 200W 6-Port GaN Desktop A2683",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A2683-KR",
+      "msrp": 119000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 프라임 200W 6포트 GaN 데스크탑 충전기 A2683",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Prime Charger (200W, 6 Ports, GaN)",
+      "title": "Anker Prime 200W 6-Port Desktop GaN (A2683) Complete 6-Port Matrix",
+      "summary": "High-value 563 g desktop GaN hub with 4x USB-C + 2x USB-A delivering simultaneous 100 W + 100 W dual-laptop power or 65 W + 65 W + 45 W + 25 W quad-USB-C charging at $79.99 MSRP.",
+      "best_for": "Multi-device desks and families wanting 6 ports and dual 100 W laptop outputs for nearly half the price of the 250 W screen model.",
+      "local_gotchas": [
+        "No USB-PD 3.1 140 W EPR support—each of the 4 USB-C ports caps at 100 W max (20 V / 5 A).",
+        "Plugging or unplugging any device triggers a brief multi-port renegotiation disconnect across active ports.",
+        "Uses a detachable IEC C7 (figure-8) AC power cord, making it effortless to swap to a native Korean Type-C/F or Japanese Type-A cord while traveling."
+      ]
+    },
+    "ko": {
+      "name": "앤커 프라임 200W 6포트 데스크탑 GaN 충전기 (A2683)",
+      "title": "앤커 프라임 200W 6포트 (A2683) 4C2A 포트 분배표·220V 코드 호환 분석",
+      "summary": "4개의 USB-C와 2개의 USB-A를 갖춘 563 g 데스크탑 허브로, 2포트 100 W + 100 W, 4포트 65+65+45+25 W까지 11만 원대 합리적 가격으로 제공하는 가성비 스테이션입니다.",
+      "best_for": "140 W 단일 출력보다 100 W 노트북 2대 + 주변기기 4대 동시 충전 가성비를 중시하는 재택·사무실 데스크 환경",
+      "local_gotchas": [
+        "단일 포트 상한이 100 W(PD 3.0)이므로 16인치 맥북 프로 140 W 초고속 충전이 필요하다면 A2345(250 W)나 A2697(140 W)을 선택해야 합니다.",
+        "8자형(IEC C7) 분리형 AC 전원 케이블 방식이라 해외 직구 시에도 국내용 220 V 8자 코드만 교체하면 변압기 없이 깔끔하게 사용할 수 있습니다.",
+        "신규 기기 연결 시 순간 재협상 끊김(Renegotiation Drop)이 발생하므로 전원 민감형 미니PC·모니터 직결 용도는 피하세요."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 3.2-2.5A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 563,
+    "dimensions_mm": {
+      "l": 112,
+      "w": 76,
+      "h": 35
+    },
+    "max_total_output_w": 200,
+    "max_single_port_output_w": 100,
+    "max_input_w": 200,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 3.0"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 3.0"
+        ]
+      },
+      {
+        "id": "C4",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "PowerIQ 2.0"
+        ]
+      },
+      {
+        "id": "A2",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "PowerIQ 2.0"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 70,
+          "C3": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 70,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 65,
+          "C3": 45,
+          "C4": 25
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "A1",
+          "A2"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 45,
+          "C3": 45,
+          "C4": 20,
+          "A1": 12,
+          "A2": 12
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from airline Wh limits and Korea MOLIT power bank rules; allowed in carry-on and checked luggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Prime Charger 200W 6-Port A2683",
+      "url": "https://www.anker.com/products/a2683",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker Support — A2683 Port Allocation & Safety Datasheet",
+      "url": "https://support.anker.com/s/article/Anker-Prime-Charger-200W-6-Ports-GaN-A2683",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-250w-gan-6port-desktop",
+    "satechi-165w-usb-c-4port-gan"
+  ]
+}

@@ -1,0 +1,173 @@
+[
+  {
+    "slug": "power-banks",
+    "vertical": "wattcheck",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": "power-bank",
+    "featured_item_slugs": [
+      "anker-prime-27650mah-250w",
+      "ugreen-nexode-powerbank-25000mah-200w",
+      "cuktech-20-powerbank-25000mah-210w",
+      "shargeek-170-powerbank-24000mah",
+      "anker-737-powercore-24k-140w",
+      "anker-prime-20000mah-200w",
+      "ugreen-nexode-powerbank-20000mah-130w",
+      "cuktech-15-powerbank-20000mah-150w",
+      "baseus-blade-hd-20000mah-100w",
+      "shargeek-140-powerbank-20000mah",
+      "samsung-45w-battery-pack-20000mah",
+      "anker-zolo-powerbank-20000mah-30w",
+      "anker-nano-powerbank-10000mah-30w"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Flight-Safe Power Bank Comparison Matrix (13 Verified Models: Wh, PD 3.1 & CCC)",
+        "subtitle": "Compare 13 fact-checked travel power banks (36 Wh to 99.54 Wh) by usable Wh, Wh-per-100g energy density, 140 W PD 3.1, Samsung 45 W PPS, and China CCC compliance.",
+        "intro": "Every power bank in this matrix has been cross-verified against official manufacturer datasheets using deterministic Wh = (mAh x V) / 1000 physics checks and real multi-port allocation matrices. Filter instantly by flight compliance, PD 3.1 EPR, Samsung 45 W SFC 2.0, weight, and MSRP benchmark.",
+        "methodology_note": "Usable Wh is computed from rated Wh multiplied by verified DC-DC conversion efficiency (79-83%). All prices are manufacturer MSRP benchmarks (msrp_benchmark_mode); verify live checkout prices before purchasing.",
+        "key_takeaways": [
+          "All 13 power banks sit strictly under the 100 Wh IATA no-approval threshold (36 Wh to 99.54 Wh), while >160 Wh power stations are isolated separately as flight-prohibited.",
+          "Anker Prime 27,650 mAh (99.54 Wh, 667 g) leads energy density at 14.92 Wh/100 g and 250 W peak output, whereas CUKTECH 20 and UGREEN PB722 add China domestic CCC availability at lower MSRPs.",
+          "Check self-recharge input wattage before buying: 65 W models (UGREEN PB722/PB721, Baseus Blade HD) take 2-2.5 hours vs 37-55 minutes on 110-170 W input packs."
+        ]
+      },
+      "ko": {
+        "title": "기내반입 보조배터리 13종 정밀 비교 매트릭스 (Wh·PD 3.1·삼성 PPS·CCC)",
+        "subtitle": "36 Wh 초경량부터 99.54 Wh 기내 무승인 최대 용량까지 13종의 실가용 Wh, 무게당 에너지 밀도, 멀티포트 분배, 국토부·중국 CCC 대응 여부를 한눈에 비교합니다.",
+        "intro": "본 매트릭스의 13개 보조배터리는 제조사 공식 스펙시트와 매뉴얼을 기반으로 Wh=(mAh×V)/1000 물리 검산과 멀티포트 출력 합산 검증을 100% 통과한 실데이터만 수록했습니다. 140 W PD 3.1, 갤럭시 45 W PPS, 중국 국내선 CCC, 무게 기준으로 즉시 필터링해 비교하세요.",
+        "methodology_note": "실가용 Wh는 정격 Wh × 검증 변환효율(79~83%)로 결정론적 계산되며, 표기 가격은 제조사 공식 출고가(MSRP) 참고 기준입니다.",
+        "key_takeaways": [
+          "13종 모두 IATA·국토부 100 Wh 무승인 기내 반입 기준(36~99.54 Wh)을 충족하며, 한국 출발편은 투명 지퍼백 절연·선반 보관 금지·기내 충전 금지 규정이 공통 적용됩니다.",
+          "최대 용량·화력은 앤커 프라임 27650(99.54 Wh·250 W), 중국 국내선 CCC와 가성비는 쿡테크 20호(90.7 Wh·210 W)와 유그린 PB722(90 Wh·200 W)가 강점입니다.",
+          "노트북용 구매 시 '단일 출력(W)'뿐 아니라 '본체 자체 충전 입력(65 W vs 140~170 W)'과 '2~3포트 동시 연결 시 출력 저하폭'을 반드시 확인해야 합니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "gan-chargers",
+    "vertical": "wattcheck",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": "gan-charger",
+    "featured_item_slugs": [
+      "ugreen-nexode-300w-gan-5port-desktop",
+      "anker-prime-250w-gan-6port-desktop",
+      "anker-prime-200w-gan-6port-desktop",
+      "satechi-165w-usb-c-4port-gan",
+      "ugreen-nexode-pro-160w-gan-4port",
+      "anker-140w-gan-4port-charger",
+      "apple-140w-usb-c-power-adapter",
+      "anker-prime-100w-gan-3port",
+      "ugreen-nexode-pro-100w-gan-3port",
+      "cio-novaport-trio-ii-67w-gan"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Multi-Port GaN Charger Matrix (10 Verified Models: 67 W to 300 W Allocation)",
+        "subtitle": "Compare 10 verified GaN wall and desktop chargers by W-per-100g power density, 140 W PD 3.1 EPR, Samsung 45 W PPS, port renegotiation behavior, and multi-port tables.",
+        "intro": "Headline wattage hides critical multi-port traps—like asymmetric C2 caps, missing PD 3.1 EPR, or missing 5 A PPS. This verified 10-charger matrix exposes exact single-, dual-, and full-load port allocations across 67 W travel bricks to 300 W desktop stations.",
+        "methodology_note": "All 10 GaN chargers contain zero internal lithium batteries (allowed in both carry-on and checked baggage worldwide) and accept universal 100-240 V 50/60 Hz AC input.",
+        "key_takeaways": [
+          "CIO NovaPort TRIO II 67 W (109 g, 61.5 W/100 g) and Anker Prime 100 W A2688 (170 g, 58.8 W/100 g) lead pocketable travel power density.",
+          "Watch protocol omissions on Apple-focused bricks: Apple 140 W (A2452) lacks PPS entirely, and Satechi 165 W lacks both 140 W PD 3.1 EPR and Samsung 45 W PPS.",
+          "Every multi-port GaN brick here triggers brief power-renegotiation disconnects when plugging/unplugging devices; only single-port Apple 140 W guarantees zero renegotiation drops."
+        ]
+      },
+      "ko": {
+        "title": "멀티포트 GaN 충전기 10종 정밀 비교 매트릭스 (67 W~300 W 포트 분배표)",
+        "subtitle": "초소형 67 W 여행용부터 300 W 데스크탑 스테이션까지 10종의 무게당 출력 밀도, 140 W PD 3.1, 삼성 45 W PPS, 재협상 끊김 여부, 220 V 코드 호환성을 비교합니다.",
+        "intro": "충전기 제품명의 총 출력(W)만 보고 구매하면 C2 포트 30 W 제한, PD 3.1 미지원, PPS 누락, 멀티포트 연결 시 순간 단절 같은 함정에 빠지기 쉽습니다. 검증된 10개 GaN 충전기의 단일·동시 출력 분배표와 국내 220 V 실사용 포인트를 한눈에 필터링해 보세요.",
+        "methodology_note": "10종 모두 내장 리튬 배터리가 없어 기내·위탁 수하물 제한이 전혀 없으며, 전 세계 100-240 V 프리볼트 입력을 지원합니다.",
+        "key_takeaways": [
+          "초경량 출장용은 CIO 노바포트 트리오 II 67 W(109 g)와 앤커 프라임 100 W(170 g, C1/C2 블라인드 100 W)가 압도적 휴대성을 보입니다.",
+          "프로토콜 함정 주의: 애플 정품 140 W는 PPS가 아예 없고, 사테치 165 W는 140 W PD 3.1과 삼성 45 W PPS를 모두 미지원합니다.",
+          "데스크탑 300 W급에서는 LCD 모니터링·6포트의 앤커 프라임 250 W와 3대 노트북 140+100+60 W 및 3핀 접지 코드의 유그린 300 W가 양강 구도를 이룹니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "airlines-30",
+    "vertical": "wattcheck",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": null,
+    "featured_item_slugs": [
+      "anker-prime-27650mah-250w",
+      "ugreen-nexode-powerbank-25000mah-200w",
+      "cuktech-20-powerbank-25000mah-210w",
+      "shargeek-170-powerbank-24000mah",
+      "ecoflow-river-3-245wh",
+      "anker-solix-c300-dc-288wh"
+    ],
+    "i18n": {
+      "en": {
+        "title": "2026 Global 30-Airline Power Bank Carry-On Rules Matrix (MOLIT, FAA, MLIT, EASA & CAAC)",
+        "subtitle": "Interactive 30-airline lithium battery database covering Korea MOLIT 2025-2026 zip-pouch & overhead-bin bans, Japan MLIT, Lufthansa/BA/SQ inflight charging bans, and China CAAC CCC rules.",
+        "intro": "Airline power bank enforcement tightened dramatically across 2025-2026. Search all 30 core carriers across South Korea, North America, Europe, Asia-Pacific, and the Middle East—and test any Wh value against per-carrier quantity limits, overhead bin bans, inflight charging bans, and China CCC mandates.",
+        "methodology_note": "All 30 airline records cite official carrier dangerous-goods/restricted-items pages verified on 2026-11-22. Always re-confirm your ticketed carrier's latest boarding notice before departure.",
+        "key_takeaways": [
+          "Universal rule across all 30 airlines: Power banks are 100% prohibited in checked luggage, and batteries over 160 Wh (such as 245-288 Wh portable power stations) are banned from passenger aircraft altogether.",
+          "Korea (10 carriers), Japan (ANA/JAL/Peach), Singapore Airlines, Cathay Pacific, EVA Air, Emirates, Lufthansa, British Airways, and Air France enforce BOTH overhead bin bans AND total inflight charging bans.",
+          "China domestic flights (Air China, China Eastern—including domestic connections after international arrival) mandate a clear, non-recalled CCC (3C) logo printed on the power bank casing since June 28, 2025."
+        ]
+      },
+      "ko": {
+        "title": "2026 글로벌 30개 핵심 항공사 보조배터리 기내반입 규정 매트릭스",
+        "subtitle": "한국 국토부 2025~2026(10개사) 지퍼백·선반금지·기내충전금지부터 일본 MLIT, 루프트한자·싱가포르항공, 중국 CAAC CCC 의무 규정까지 30개 항공사를 즉시 조회합니다.",
+        "intro": "2025~2026년 전 세계 항공사의 리튬이온 보조배터리 안전 규정이 대폭 강화되었습니다. 한국 10개사·북미 5개사·유럽 5개사·아태 8개사·중동 2개사 등 총 30개 핵심 항공사의 100 Wh 이하 최대 개수, 100~160 Wh 승인 여부, 선반 보관 금지, 기내 충전 금지, 중국 국내선 CCC 필수 여부를 한 번에 확인하세요.",
+        "methodology_note": "30개 항공사 데이터는 각 항공사 공식 수하물·위험물 규정 원문 URL을 기준으로 2026-11-22 교차 검증되었습니다. 탑승 직전 이용 항공사의 최신 공지를 반드시 재확인하세요.",
+        "key_takeaways": [
+          "30개 항공사 공통 절대 원칙: 모든 보조배터리는 위탁 수하물 전면 금지이며, 160 Wh 초과 파워스테이션(245~288 Wh 등)은 기내·위탁 모두 탑승 불가합니다.",
+          "한국 10개사·일본 3사·싱가포르·캐세이·에바·루프트한자·영국항공·에어프랑스·에미레이트는 '기내 선반 보관 금지'와 '기내 보조배터리 충전·사용 금지'를 동시 시행합니다.",
+          "중국 국내선(에어차이나·중국동방항공, 국제선 도착 후 국내 환승 포함)은 2025년 6월 28일부터 본체 CCC(3C) 마크가 없는 보조배터리를 보안검색에서 압수하므로 사전 확인이 필수입니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "macbook-pro-16-with-gan-powerbanks",
+    "vertical": "wattcheck",
+    "archetype": "compat",
+    "release_wave": 1,
+    "filter_category": null,
+    "featured_item_slugs": [
+      "anker-prime-27650mah-250w",
+      "ugreen-nexode-powerbank-25000mah-200w",
+      "cuktech-20-powerbank-25000mah-210w",
+      "shargeek-170-powerbank-24000mah",
+      "anker-737-powercore-24k-140w",
+      "apple-140w-usb-c-power-adapter",
+      "anker-140w-gan-4port-charger",
+      "ugreen-nexode-pro-160w-gan-4port",
+      "anker-prime-250w-gan-6port-desktop",
+      "ugreen-nexode-300w-gan-5port-desktop"
+    ],
+    "i18n": {
+      "en": {
+        "title": "MacBook Pro 16-Inch (140 W PD 3.1 EPR) Compatible Power Banks & GaN Chargers",
+        "subtitle": "Verified 28 V / 5 A (140 W) USB-PD 3.1 compatibility guide separating true 140 W fast-charge bricks & flight-safe packs from 100 W PD 3.0 bottlenecks.",
+        "intro": "Fast-charging a 16-inch MacBook Pro (M1/M2/M3/M4 Pro & Max, 100 Wh battery) from 0 to 50% in ~30 minutes requires true USB-PD 3.1 EPR (28 V / 5 A = 140 W) plus a 5 A MagSafe 3 or 240 W E-Marker USB-C cable. This compatibility matrix verifies all 10 true-140 W power banks and GaN chargers in our database—including which models KEEP 140 W active when you plug in a second device.",
+        "methodology_note": "Compatibility requires verified 28 V / 5 A EPR output on at least one USB-C port. Multi-port retention flags check whether USB-C1 remains at 140 W during 2-port or 3-port simultaneous loads.",
+        "key_takeaways": [
+          "Only 5 power banks and 5 GaN chargers in Wave 1 deliver genuine 140 W PD 3.1 EPR—models like Satechi 165 W, Shargeek 140, and Anker Prime 200 W cap single-port output at 100 W.",
+          "For keeping 140 W active WHILE charging a second device: choose Anker Prime 27,650 mAh (140+100 W), CUKTECH 20 (140+60 W), Anker Prime 250 W (140+100 W), or UGREEN Nexode 300 W (140+100+60 W).",
+          "On 100 Wh MacBook Pro 16 batteries, a flight-legal 99.54 Wh Anker Prime delivers ~0.82 real full charges (81.6 Wh usable), while 86.4 Wh packs deliver ~0.70 full charges."
+        ]
+      },
+      "ko": {
+        "title": "맥북 프로 16인치 (140 W PD 3.1 EPR) 호환 보조배터리·GaN 충전기 완벽 가이드",
+        "subtitle": "28 V/5 A(140 W) 진짜 PD 3.1 EPR 지원 기종 10종과 2포트 동시 연결 시 140 W 유지 가능 여부를 정밀 검증했습니다.",
+        "intro": "맥북 프로 16인치(100 Wh 배터리 탑재)를 약 30분 만에 50%까지 급속 충전하려면 USB-PD 3.1 EPR(28 V/5 A = 140 W) 출력과 맥세이프 3 또는 240 W E-Marker C-to-C 케이블이 모두 필요합니다. 본 호환성 매트릭스는 단순 100 W 제품과 진짜 140 W EPR 지원 보조배터리 5종·GaN 충전기 5종을 구분하고, 두 번째 기기를 꽂았을 때 140 W가 유지되는지까지 정밀 비교합니다.",
+        "methodology_note": "최소 1개 USB-C 포트에서 28 V/5 A(140 W) PD 3.1 공식 프로파일이 확인된 제품만 호환 통과로 분류했습니다. 완충 횟수는 맥북 프로 16(100 Wh)과 각 배터리 변환효율 기준 결정론적 계산치입니다.",
+        "key_takeaways": [
+          "주의할 제품명 함정: '샤긱 140', '사테치 165 W', '앤커 프라임 200 W'는 합산 출력만 높을 뿐 단일 포트 상한이 100 W(PD 3.0)여서 140 W EPR 급속 충전을 지원하지 않습니다.",
+          "2대 동시 충전 중에도 140 W를 유지하는 모델: 보조배터리는 앤커 프라임 27650(140+100 W)·쿡테크 20호(140+60 W), 충전기는 앤커 250 W(140+100 W)·유그린 300 W(140+100+60 W)입니다.",
+          "기내 반입 최대치인 99.54 Wh 보조배터리도 DC-DC 변환 손실(효율 약 82%)을 반영하면 맥북 프로 16인치(100 Wh) 기준 실가용 약 0.82회 충전이 물리적 한계입니다."
+        ]
+      }
+    }
+  }
+]

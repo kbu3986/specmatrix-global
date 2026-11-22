@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "shargeek-170-powerbank-24000mah",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "SHARGE",
+  "model_number": "SP170",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "SP170-GY",
+      "msrp": 214.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SHARGE Shargeek 170 24000mAh 170W Power Bank SP170",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "SP170-KR",
+      "msrp": 279000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "샤긱 170 24000mAh 170W 보조배터리 SP170",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "SHARGE Shargeek 170 Power Bank (24,000mAh, 170W)",
+      "title": "Shargeek 170 (24,000mAh / 86.4 Wh) IP66, CCC Airline Audit & 170 W Matrix",
+      "summary": "IP66 water-resistant transparent prism 86.4 Wh power bank offering bi-directional 140 W PD 3.1, 170 W max dual-port output, and official China CCC certification.",
+      "best_for": "Outdoor creators, field photographers, and China/Asia travelers who need IP66 weather resistance, 140 W PD 3.1 recharge, and CCC compliance.",
+      "local_gotchas": [
+        "At 680 g and triangular prism dimensions (164.9 x 62.8 x 59.6 mm), it is heavier and bulkier per Wh than Anker Prime 27,650 mAh (99.54 Wh at 667 g).",
+        "When all 3 ports are active simultaneously, total output steps down to 148 W (65 W + 65 W + 18 W), dropping below the 170 W dual-port peak.",
+        "Transparent polycarbonate shell shows visible circuit boards and battery cells; keep the printed 86.4 Wh / CCC spec panel unobstructed for smooth airport screening."
+      ]
+    },
+    "ko": {
+      "name": "샤지 샤긱 170 보조배터리 (24,000mAh, 170W, SP170)",
+      "title": "샤긱 170 (24,000mAh / 86.4 Wh) IP66 방수·CCC 기내반입·출력 분배표",
+      "summary": "IP66 방수·방진 투명 프리즘 바디에 86.4 Wh 용량, 양방향 140 W PD 3.1 초고속 충방전, 중국 CCC 공식 인증을 결합한 아웃도어·크리에이터용 프리미엄 모델입니다.",
+      "best_for": "야외 촬영·캠핑·중국 국내선 출장이 잦아 IP66 생활 방수와 공식 CCC 마크, 140 W 고속 자체 충전을 중시하는 사용자",
+      "local_gotchas": [
+        "무게 680 g으로 앤커 프라임 27650(667 g, 99.54 Wh)보다 무거우면서 용량은 13.14 Wh 적으므로 순수 Wh/g 효율은 낮습니다.",
+        "3포트 동시 충전 시 65 W + 65 W + 18 W(총 148 W)로 제한되어 16인치 맥북 프로 140 W 유지가 불가합니다(140 W 유지 시 C1+A1 조합 필요).",
+        "투명 하우징 특성상 내부 셀이 노출되어 공항 보안검색 시 주목받기 쉬우므로, 86.4 Wh·CCC 각인면을 바로 보여줄 수 있게 투명 지퍼백에 단독 수납하세요."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 24000,
+    "rated_capacity_mah_5v": 13200,
+    "battery_energy_wh": 86.4,
+    "nominal_voltage_v": 3.6,
+    "cell_chemistry": "Li-ion 21700 (6 x 4,000mAh EV-grade)",
+    "conversion_efficiency_pct": 81,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-28V USB-C PD 3.1 (140W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 680,
+    "dimensions_mm": {
+      "l": 164.9,
+      "w": 62.8,
+      "h": 59.6
+    },
+    "max_total_output_w": 170,
+    "max_single_port_output_w": 140,
+    "max_input_w": 140,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 30,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 140
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 100,
+          "C2": 65
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 140,
+          "A1": 30
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 65,
+          "A1": 18
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "86.4 Wh (under 100 Wh): Carry-on only without pre-approval. Transparent zip pouch/terminal protection required, no overhead bin stowage, and no inflight charging on Korean carriers.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "SHARGE Official Product Page — Shargeek 170 SP170",
+      "url": "https://sharge.com/products/shargeek-170",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Shargeek 170 Official User Manual & Output Allocation Matrix",
+      "url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-27650mah-250w",
+    "cuktech-20-powerbank-25000mah-210w"
+  ]
+}

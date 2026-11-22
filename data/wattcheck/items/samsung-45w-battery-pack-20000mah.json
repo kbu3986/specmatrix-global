@@ -1,0 +1,224 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "power-bank",
+  "slug": "samsung-45w-battery-pack-20000mah",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Samsung",
+  "model_number": "EB-P4520",
+  "origin_country": "KR",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "EB-P4520XUEGUS",
+      "msrp": 54.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Samsung 45W Battery Pack 20000mAh EB-P4520",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "EB-P4520XUEGKR",
+      "msrp": 66000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "삼성 45W 배터리팩 20000mAh EB-P4520 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Samsung 45W Battery Pack 20,000mAh (EB-P4520)",
+      "title": "Samsung 45W Battery Pack 20,000mAh (74 Wh, EB-P4520) SFC 2.0 & Airline Audit",
+      "summary": "First-party 74 Wh triple-USB-C power bank engineered for guaranteed Samsung Super Fast Charging 2.0 (45 W PPS 5 A) with a bundled 5 A cable at 402 g.",
+      "best_for": "Samsung Galaxy S Ultra / Tab S users who want guaranteed 45 W Super Fast Charging 2.0 compatibility and a bundled 5 A cable at a modest price.",
+      "local_gotchas": [
+        "Total combined output is strictly capped at 45 W across all 3 USB-C ports (15 W + 15 W + 15 W when all 3 are used), so connecting a second phone immediately drops SFC 2.0 speed.",
+        "No USB-A ports and no numeric wattage screen (4-LED battery gauge only).",
+        "Does not support seamless UPS pass-through; unplugging wall power briefly interrupts output to connected devices."
+      ]
+    },
+    "ko": {
+      "name": "삼성전자 정품 45W 배터리팩 20,000mAh (EB-P4520)",
+      "title": "삼성 45W 보조배터리 20,000mAh (74 Wh, EB-P4520) 초고속충전 2.0·기내반입 분석",
+      "summary": "갤럭시 S 울트라·탭 S 시리즈의 45 W 초고속 충전 2.0(PPS 5 A)을 100% 보장하고 5 A 정품 케이블까지 기본 동봉한 74 Wh 트리플 C타입 보조배터리(402 g)입니다.",
+      "best_for": "갤럭시 S24/S25 울트라·갤럭시 탭 사용자가 정품 KC 안전성과 45 W 초고속 충전 2.0을 가장 저렴하고 확실하게 쓰고 싶을 때",
+      "local_gotchas": [
+        "전체 합산 출력이 45 W로 고정되어 2포트 동시 충전 시 22.5 W씩, 3포트 동시 충전 시 포트당 최대 15 W로 분배되므로 초고속 충전 2.0은 1포트 단독 사용 시에만 작동합니다.",
+        "USB-A 포트가 없고 잔량 표시도 4칸 LED 방식이어서 정밀한 입출력 와트(W) 확인은 불가합니다.",
+        "74 Wh 정격으로 기내 무승인 반입 가능하며, 국내 공항 이용 시 투명 지퍼백 보관 및 기내 충전 금지 규정을 지켜야 합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": true,
+    "nominal_capacity_mah": 20000,
+    "rated_capacity_mah_5v": 12500,
+    "battery_energy_wh": 74,
+    "nominal_voltage_v": 3.7,
+    "cell_chemistry": "Li-Po (2 x 10,000mAh)",
+    "conversion_efficiency_pct": 82,
+    "wh_printed_on_body": true,
+    "input_voltage_range": "5V-20V USB-C PD 3.0 (45W max)",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 402,
+    "dimensions_mm": {
+      "l": 152,
+      "w": 76,
+      "h": 25.5
+    },
+    "max_total_output_w": 45,
+    "max_single_port_output_w": 45,
+    "max_input_w": 45,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": true,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 45,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "Samsung SFC 2.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 45,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "Samsung SFC 2.0"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 45,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "Samsung SFC 2.0"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 45
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 45
+        }
+      },
+      {
+        "active_ports": [
+          "C3"
+        ],
+        "output_w": {
+          "C3": 45
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 22.5,
+          "C2": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 22.5,
+          "C3": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C2": 22.5,
+          "C3": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 15,
+          "C2": 15,
+          "C3": 15
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "under_100wh_no_approval",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "prohibited",
+    "korea_molit_2026_notes": "74 Wh (under 100 Wh): Carry-on only without pre-approval; KC certified with clear Wh body print; pack in individual zip pouch under seat/seat pocket and do not charge inflight.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Samsung Korea Official Product Page — EB-P4520",
+      "url": "https://www.samsung.com/sec/mobile-accessories/pd-battery-pack-20000mah-45w-beige-eb-p4520xuegkr/EB-P4520XUEGKR/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Samsung Global Mobile Accessories — 45W Battery Pack 20,000mAh",
+      "url": "https://www.samsung.com/us/mobile/mobile-accessories/phones/20a-battery-pack-beige-eb-p4520xuegus/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 90,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-zolo-powerbank-20000mah-30w",
+    "cuktech-15-powerbank-20000mah-150w"
+  ]
+}

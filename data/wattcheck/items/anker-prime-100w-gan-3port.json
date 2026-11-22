@@ -1,0 +1,224 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "anker-prime-100w-gan-3port",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Anker",
+  "model_number": "A2688",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "A2688111",
+      "msrp": 69.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Anker Prime 100W GaN Wall Charger 3-Port A2688",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "A2688-KR",
+      "msrp": 99000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "앤커 프라임 100W GaN 3포트 충전기 A2688",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Anker Prime Charger (100W, 3 Ports, GaN)",
+      "title": "Anker Prime 100W GaN 3-Port (A2688) Port Allocation & Wall Stability Audit",
+      "summary": "Ultra-compact 170 g, 100 W 3-port (2C1A) GaN wall charger with anti-sag prong geometry, 100 W single-port PD 3.0, and 65 W + 35 W dual USB-C charging.",
+      "best_for": "Frequent flyers seeking a pocketable sub-180 g wall charger that stays firmly seated in loose hotel and airplane AC outlets.",
+      "local_gotchas": [
+        "Model A2688 uses fixed allocation (PowerIQ 3.0) rather than older A2343 PowerIQ 4.0—plugging into C2 + USB-A caps both at 12 W + 12 W (24 W total), and 3-port use drops to 65 W + 12 W + 12 W (89 W total).",
+        "Inserting or unplugging a secondary device triggers a brief power renegotiation disconnect across active ports.",
+        "US foldable Type-A prongs require a Type-C/F plug adapter in Korea/EU (220-230 V supported natively via 100-240 V input)."
+      ]
+    },
+    "ko": {
+      "name": "앤커 프라임 100W GaN 3포트 충전기 (A2688)",
+      "title": "앤커 프라임 100W GaN 3포트 (A2688) 포트 출력 분배·220V 호환 분석",
+      "summary": "170 g 초경량·슬림 하우징에 100 W 단일 출력과 65 W + 35 W 듀얼 C타입 출력을 담아 벽면 콘센트 처짐 현상을 최소화한 출장용 100 W GaN 충전기입니다.",
+      "best_for": "맥북 에어·프로 14와 스마트폰을 170 g 초소형 어댑터 하나로 해결하려는 해외 출장자",
+      "local_gotchas": [
+        "구형 A2343과 달리 신형 A2688은 3포트 동시 사용 시 65 W + 12 W + 12 W(총 89 W)로 분배되며, C2+A1 조합은 12 W + 12 W(24 W)로 제한됩니다.",
+        "한국 정발 KC 모델은 220 V 전용 일체형 Type-C/F 플러그이며, 미국 직구 110 V 접이식 플러그 모델은 국내 벽면 콘센트 사용 시 접지·고정력이 떨어질 수 있습니다.",
+        "리튬 배터리가 없는 순수 AC 충전기이므로 기내 반입·위탁 수하물 모두 항공사 용량 제한 없이 통과합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 2.1A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 170,
+    "dimensions_mm": {
+      "l": 67.8,
+      "w": 43.5,
+      "h": 29
+    },
+    "max_total_output_w": 100,
+    "max_single_port_output_w": 100,
+    "max_input_w": 100,
+    "supports_pd_3_1_epr": false,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 3.0"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "PowerIQ 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 35
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C2": 12,
+          "A1": 12
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 65,
+          "C2": 12,
+          "A1": 12
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from Korea MOLIT 2025-2026 power bank restrictions. Permitted in both carry-on and checked luggage worldwide.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "Anker Official Product Page — Prime 100W 3-Port GaN A2688",
+      "url": "https://www.anker.com/products/a2688",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Anker A2688 Official Manual & Port Allocation Matrix",
+      "url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 92,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "ugreen-nexode-pro-100w-gan-3port",
+    "cio-novaport-trio-ii-67w-gan"
+  ]
+}

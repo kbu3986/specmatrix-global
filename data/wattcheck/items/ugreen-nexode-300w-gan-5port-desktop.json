@@ -1,0 +1,285 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "wattcheck",
+  "category": "gan-charger",
+  "slug": "ugreen-nexode-300w-gan-5port-desktop",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "UGREEN",
+  "model_number": "CD333",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "90904B",
+      "msrp": 199.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "UGREEN Nexode 300W 5-Port GaN Desktop Charger CD333",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "CD333-KR",
+      "msrp": 249000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "유그린 넥소드 300W 5포트 GaN 데스크탑 충전기 CD333",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "UGREEN Nexode 300W 5-Port GaN Desktop Charger (CD333)",
+      "title": "UGREEN Nexode 300W (CD333) Triple-Laptop 140+100+60 W Matrix & Weight Audit",
+      "summary": "Heavy-duty 868 g desktop powerhouse capable of charging three laptops simultaneously (140 W + 100 W + 60 W = 300 W) while preserving dedicated 140 W PD 3.1 output on USB-C1 even under full 5-port load.",
+      "best_for": "Studio desks and engineering teams charging 3 laptops simultaneously where holding C1 at 140 W under full multi-port load matters most.",
+      "local_gotchas": [
+        "Unit weight is 868 g (over 220 g heavier than Anker Prime 250 W at 640 g), making it firmly a stationary desk charger rather than a travel brick.",
+        "Unlike Anker Prime 250 W, CD333 has no built-in LCD wattmeter screen or app-based port customization.",
+        "Requires a grounded IEC C5 ('cloverleaf') AC cable; verify regional KC/Type-F cord inclusion when ordering in Korea."
+      ]
+    },
+    "ko": {
+      "name": "유그린 넥소드 300W 5포트 GaN 데스크탑 충전기 (CD333)",
+      "title": "유그린 넥소드 300W (CD333) 노트북 3대 동시 140+100+60 W 출력 분배표",
+      "summary": "무게 868 g의 고출력 데스크탑 스테이션으로, 3포트 동시 140 W + 100 W + 60 W(총 300 W)는 물론 5포트 풀로드에서도 C1 140 W PD 3.1 출력을 유지하는 괴물급 충전기입니다.",
+      "best_for": "맥북 프로 16(140 W)을 포함한 노트북 3대를 한 책상에서 동시에 고속 충전하는 개발자·영상 편집·스튜디오 환경",
+      "local_gotchas": [
+        "본체 무게만 868 g(앤커 프라임 250 W 대비 228 g 무거움)으로 휴대용보다는 고정식 데스크 스테이션 용도에 적합합니다.",
+        "실시간 출력 표시 LCD 화면이나 앱 제어 기능이 없으며, 포트는 총 5개(4C1A)로 앤커 250 W(6포트)보다 USB-A가 1개 적습니다.",
+        "100-240 V 프리볼트와 3핀 클로버형(IEC C5) 분리형 전원 코드를 지원하므로 국내 220 V 접지 콘센트에 완벽 대응합니다."
+      ]
+    }
+  },
+  "specs": {
+    "has_battery": false,
+    "nominal_capacity_mah": null,
+    "rated_capacity_mah_5v": null,
+    "battery_energy_wh": null,
+    "nominal_voltage_v": null,
+    "cell_chemistry": null,
+    "conversion_efficiency_pct": null,
+    "wh_printed_on_body": null,
+    "input_voltage_range": "100-240V AC 50/60Hz 4.2A",
+    "japan_100v_output_limit_w": null,
+    "ul_etl_certified": true,
+    "ce_certified": true,
+    "ccc_certified": true,
+    "pse_certified": true,
+    "kc_certified": true,
+    "weight_g": 868,
+    "dimensions_mm": {
+      "l": 111.6,
+      "w": 95.5,
+      "h": 53
+    },
+    "max_total_output_w": 300,
+    "max_single_port_output_w": 140,
+    "max_input_w": 300,
+    "supports_pd_3_1_epr": true,
+    "supports_samsung_pps_45w": true,
+    "supports_pass_through": false,
+    "power_renegotiation_drop": true,
+    "ports": [
+      {
+        "id": "C1",
+        "type": "USB-C",
+        "max_w": 140,
+        "protocols": [
+          "PD 3.1 EPR",
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C2",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C3",
+        "type": "USB-C",
+        "max_w": 100,
+        "protocols": [
+          "PD 3.0",
+          "PPS 5A",
+          "QC 4.0+"
+        ]
+      },
+      {
+        "id": "C4",
+        "type": "USB-C",
+        "max_w": 45,
+        "protocols": [
+          "PD 3.0",
+          "PPS 3A",
+          "QC 3.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "type": "USB-A",
+        "max_w": 22.5,
+        "protocols": [
+          "QC 3.0",
+          "SCP",
+          "AFC"
+        ]
+      }
+    ],
+    "port_allocation_matrix": [
+      {
+        "active_ports": [
+          "C1"
+        ],
+        "output_w": {
+          "C1": 140
+        }
+      },
+      {
+        "active_ports": [
+          "C2"
+        ],
+        "output_w": {
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C3"
+        ],
+        "output_w": {
+          "C3": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C4"
+        ],
+        "output_w": {
+          "C4": 45
+        }
+      },
+      {
+        "active_ports": [
+          "A1"
+        ],
+        "output_w": {
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 100
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 100,
+          "C3": 60
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 65,
+          "C3": 45,
+          "C4": 35
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 65,
+          "C3": 45,
+          "A1": 22.5
+        }
+      },
+      {
+        "active_ports": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "A1"
+        ],
+        "output_w": {
+          "C1": 140,
+          "C2": 65,
+          "C3": 45,
+          "C4": 20,
+          "A1": 22.5
+        }
+      }
+    ]
+  },
+  "airline_compliance_profile": {
+    "iata_tier": "no_battery_always_allowed",
+    "carryon_allowed": true,
+    "carryon_no_approval": true,
+    "checked_baggage": "allowed",
+    "korea_molit_2026_notes": "No internal lithium battery: Exempt from IATA/MOLIT battery restrictions; permitted in carry-on and checked luggage.",
+    "china_domestic_ccc_ok": true
+  },
+  "citations": [
+    {
+      "label": "UGREEN Official Product Page — Nexode 300W 5-Port GaN CD333",
+      "url": "https://www.ugreen.com/products/ugreen-nexode-300w-usb-c-gan-charger",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "TechPowerUp Hardware Review — UGREEN Nexode 300W Weight & Thermal Audit",
+      "url": "https://www.techpowerup.com/review/ugreen-nexode-300w-gan-fast-charger/",
+      "source_tier": 3,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "anker-prime-250w-gan-6port-desktop",
+    "anker-prime-200w-gan-6port-desktop"
+  ]
+}

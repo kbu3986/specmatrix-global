@@ -1,0 +1,27 @@
+{
+  "sku_slug": "anker-zolo-powerbank-20000mah-30w",
+  "vertical": "wattcheck",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "battery_energy_wh",
+      "quote": "20,000mAh (10,000mAh 7.4VDC / 74Wh), weight approx. 363g, dimensions 119.8 x 73 x 31.5 mm",
+      "source_url": "https://www.anker.com/products/a1681-zolo-power-bank-20000mah-30w",
+      "source_tier": 1
+    },
+    {
+      "field": "port_allocation_matrix",
+      "quote": "USB-C single port 30W Max, USB-A 22.5W Max, Input 20W Max, Multi-port combined output capped at 5V/3A (15W Max)",
+      "source_url": "https://www.anker.com/products/a1681-zolo-power-bank-20000mah-30w",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Physics check: 20,000 mAh * 3.7 V / 1000 = 74.0 Wh (0.00% deviation).",
+    "Safety audit: Explicitly surfaced A1681 serial recall check requirement in EN/KO gotchas and MOLIT notes because airlines strictly bar recalled packs.",
+    "Multi-port throttle verified: Confirmed 15 W total cap during dual/triple charging."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}
