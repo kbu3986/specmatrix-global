@@ -1,0 +1,632 @@
+---
+import type {
+  ActiveLocale,
+  AnyItem,
+  FxRates,
+  PilotVertical,
+  VsInsight,
+} from "../lib/types";
+import {
+  computeCycleGearDerived,
+  computePureGramDerived,
+  computeWattCheckDerived,
+} from "../lib/derived";
+import { formatCurrency, formatInt, formatNum, getCategoryLabel, safeJsonLd } from "../lib/i18n";
+
+interface Props {
+  vertical: PilotVertical;
+  items: AnyItem[];
+  vsInsights: VsInsight[];
+  fx: FxRates;
+  locale: ActiveLocale;
+  isCompat?: boolean;
+}
+
+const { vertical, items, vsInsights, fx, locale, isCompat = false } = Astro.props;
+const isKo = locale === "ko";
+
+const brands = Array.from(new Set(items.map((i) => i.brand))).sort();
+const categories = Array.from(new Set(items.map((i) => i.category))).sort();
+const vsPairSet = vsInsights.map((v) => v.pair_slug);
+
+interface RowModel {
+  slug: string;
+  name: string;
+  brand: string;
+  category: string;
+  categoryLabel: string;
+  href: string;
+  msrp: number;
+  msrpDisplay: string;
+  trustScore: number;
+  // Numeric sort keys
+  metric1: number;
+  metric1Display: string;
+  metric2: number;
+  metric2Display: string;
+  metric3: number;
+  metric3Display: string;
+  metric4: number;
+  metric4Display: string;
+  // Facet flags
+  flagA: boolean;
+  flagB: boolean;
+  flagC: boolean;
+  compatBadge: string;
+  compatTone: "pass" | "caution" | "fail";
+}
+
+const rows: RowModel[] = items.map((item) => {
+  const name = item.i18n[locale]?.name ?? item.i18n.en.name;
+  const msrp = isKo ? item.regional_offers.kr.msrp : item.regional_offers.us.msrp;
+  const msrpDisplay = formatCurrency(msrp, isKo ? "KRW" : "USD", locale);
+  const href = `/${locale}/${vertical}/item/${item.slug}`;
+
+  if (item.vertical === "wattcheck") {
+    const d = computeWattCheckDerived(item, fx);
+    const s = item.specs;
+    const ac = item.airline_compliance_profile;
+    const unitCost = s.has_battery
+      ? isKo
+        ? d.krwPer10Wh ?? 0
+        : d.usdPer10Wh ?? 0
+      : isKo
+        ? d.krwPer10W
+        : d.usdPer10W;
+    return {
+      slug: item.slug,
+      name,
+      brand: item.brand,
+      category: item.category,
+      categoryLabel: getCategoryLabel(item.category, locale),
+      href,
+      msrp,
+      msrpDisplay,
+      trustScore: item.audit.trust_score,
+      metric1: s.battery_energy_wh ?? 0,
+      metric1Display: s.battery_energy_wh !== null ? `${formatNum(s.battery_energy_wh, 1)} Wh` : "GaN AC",
+      metric2: s.max_total_output_w,
+      metric2Display: `${formatInt(s.max_total_output_w)} W`,
+      metric3: s.weight_g,
+      metric3Display: `${formatInt(s.weight_g)} g`,
+      metric4: unitCost,
+      metric4Display: `${formatCurrency(unitCost, isKo ? "KRW" : "USD", locale)}/${s.has_battery ? "10Wh" : "10W"}`,
+      flagA: ac.carryon_no_approval,
+      flagB: s.supports_pd_3_1_epr,
+      flagC: s.kc_certified || s.pse_certified,
+      compatBadge: ac.carryon_no_approval
+        ? isKo
+          ? "기내 무승인 OK"
+          : "Cabin OK"
+        : ac.carryon_allowed
+          ? isKo
+            ? "승인 필요"
+            : "Approval Req"
+          : isKo
+            ? "반입 불가"
+            : "No Flight",
+      compatTone: ac.carryon_no_approval ? "pass" : ac.carryon_allowed ? "caution" : "fail",
+    };
+  }
+
+  if (item.vertical === "puregram") {
+    const d = computePureGramDerived(item, fx);
+    const nl = item.nutrition_label;
+    const unitCost = isKo ? d.krwPerBenchmarkUnit : d.usdPerBenchmarkUnit;
+    return {
+      slug: item.slug,
+      name,
+      brand: item.brand,
+      category: item.category,
+      categoryLabel: getCategoryLabel(item.category, locale),
+      href,
+      msrp,
+      msrpDisplay,
+      trustScore: item.audit.trust_score,
+      metric1: unitCost,
+      metric1Display: formatCurrency(unitCost, isKo ? "KRW" : "USD", locale),
+      metric2: item.derived_math.purity_pct,
+      metric2Display: `${formatNum(item.derived_math.purity_pct, 1)}%`,
+      metric3: nl.active_per_serving_g,
+      metric3Display: `${formatNum(nl.active_per_serving_g, 1)} g`,
+      metric4: nl.sodium_mg,
+      metric4Display: `${formatInt(nl.sodium_mg)} mg`,
+      flagA: nl.caffeine_mg === 0,
+      flagB: !nl.artificial_sweeteners_listed,
+      flagC: item.certifications.some((c) => /informed|nsf|creapure/i.test(c)),
+      compatBadge:
+        nl.carb_ratio_glucose_to_fructose === "1:0.8"
+          ? "1:0.8 High-Carb"
+          : nl.creapure_certified
+            ? "Creapure"
+            : `${item.derived_math.purity_grade} Grade`,
+      compatTone: item.derived_math.purity_pct >= 65 ? "pass" : "caution",
+    };
+  }
+
+  // CycleGear
+  const d = computeCycleGearDerived(item, fx);
+  const s = item.specs;
+  return {
+    slug: item.slug,
+    name,
+    brand: item.brand,
+    category: item.category,
+    categoryLabel: getCategoryLabel(item.category, locale),
+    href,
+    msrp,
+    msrpDisplay,
+    trustScore: item.audit.trust_score,
+    metric1: s.weight_g,
+    metric1Display: `${formatInt(s.weight_g)} g`,
+    metric2: s.claimed_accuracy_pct ?? s.battery_life_hours ?? s.tire_width_mm ?? s.drivetrain_speeds ?? 0,
+    metric2Display:
+      s.claimed_accuracy_pct !== null
+        ? `±${formatNum(s.claimed_accuracy_pct, 1)}%`
+        : s.battery_life_hours !== null
+          ? `${formatInt(s.battery_life_hours)} hr`
+          : s.tire_width_mm !== null
+            ? `${formatInt(s.tire_width_mm)} mm`
+            : s.drivetrain_speeds !== null
+              ? `${s.drivetrain_speeds}s`
+              : "—",
+    metric3: d.compatBreadthScore,
+    metric3Display: `${d.compatBreadthScore} pts`,
+    metric4: isKo ? d.krwPer100g : d.usdPer100g,
+    metric4Display: formatCurrency(isKo ? d.krwPer100g : d.usdPer100g, isKo ? "KRW" : "USD", locale),
+    flagA: s.hookless_compatible === true || !item.safety_warning.requires_hookless_warning,
+    flagB: s.left_right_balance === true || s.connectivity.includes("ANT+"),
+    flagC: item.compatibility_graph.drivetrain_compatible.some((x) => /shimano|12/i.test(x)),
+    compatBadge: item.safety_warning.requires_hookless_warning
+      ? isKo
+        ? "후크리스 5 bar"
+        : "Hookless 5 bar"
+      : isKo
+        ? "호환 검증"
+        : "Verified Fit",
+    compatTone: item.safety_warning.requires_hookless_warning ? "caution" : "pass",
+  };
+});
+
+const colHeaders =
+  vertical === "wattcheck"
+    ? {
+        m1: isKo ? "용량 (Wh)" : "Energy (Wh)",
+        m2: isKo ? "최대 출력" : "Max Output",
+        m3: isKo ? "무게 (g)" : "Weight",
+        m4: isKo ? "단위 기준가" : "Unit Cost",
+        fA: isKo ? "기내 무승인(<100Wh)만" : "Cabin OK (<100Wh) Only",
+        fB: isKo ? "PD 3.1 140W EPR" : "PD 3.1 140W EPR",
+        fC: isKo ? "KC / PSE 인증" : "KC / PSE Certified",
+      }
+    : vertical === "puregram"
+      ? {
+          m1: isKo ? "기준 단위 실단가" : "Cost / Unit",
+          m2: isKo ? "유효 순도 (%)" : "Purity (%)",
+          m3: isKo ? "1회 유효성분" : "Active / Srv",
+          m4: isKo ? "나트륨 (mg)" : "Sodium",
+          fA: isKo ? "무카페인만" : "Caffeine-Free",
+          fB: isKo ? "무인공감미료" : "No Artif. Sweeteners",
+          fC: isKo ? "Informed Sport / Creapure" : "Informed Sport / Creapure",
+        }
+      : {
+          m1: isKo ? "무게 (g)" : "Weight (g)",
+          m2: isKo ? "핵심 스펙" : "Key Metric",
+          m3: isKo ? "호환 지수" : "Compat Score",
+          m4: isKo ? "100g당 기준가" : "Cost / 100g",
+          fA: isKo ? "후크리스 안전 / 비대상" : "Hookless Safe / N/A",
+          fB: isKo ? "ANT+ / 좌우밸런스" : "ANT+ / L-R Balance",
+          fC: isKo ? "Shimano 12단 호환" : "Shimano 12s Ready",
+        };
+
+const clientPayload = {
+  locale,
+  vertical,
+  vsPairs: vsPairSet,
+};
+---
+
+<section class="space-y-4" aria-labelledby="matrix-table-heading">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h2 id="matrix-table-heading" class="text-lg font-bold tracking-tight text-slate-900">
+      {isCompat
+        ? isKo
+          ? "실시간 호환성 필터 매트릭스"
+          : "Interactive Compatibility Filter Matrix"
+        : isKo
+          ? "무지연 다중 필터 & 정렬 비교표"
+          : "Zero-Latency Multi-Facet Filter & Sort Matrix"}
+    </h2>
+    <span id="mx-count-label" class="font-mono text-xs font-semibold text-slate-500">
+      {rows.length} / {rows.length} {isKo ? "개 모델 표시 중" : "models shown"}
+    </span>
+  </div>
+
+  <!-- Filter Controls Bar -->
+  <div class="lab-card space-y-3 p-4">
+    <div class="grid gap-3 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <label for="mx-search" class="sr-only">{isKo ? "모델명 검색" : "Search models"}</label>
+        <input
+          id="mx-search"
+          type="search"
+          placeholder={isKo ? "모델명·브랜드 즉시 검색..." : "Filter by model or brand..."}
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:outline-none"
+        />
+      </div>
+
+      <div class="md:col-span-3">
+        <label for="mx-cat" class="sr-only">{isKo ? "카테고리" : "Category"}</label>
+        <select
+          id="mx-cat"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800"
+        >
+          <option value="">{isKo ? "전체 카테고리" : "All Categories"}</option>
+          {categories.map((c) => (
+            <option value={c}>{getCategoryLabel(c, locale)}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="md:col-span-3">
+        <label for="mx-brand" class="sr-only">{isKo ? "브랜드" : "Brand"}</label>
+        <select
+          id="mx-brand"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800"
+        >
+          <option value="">{isKo ? "전체 브랜드" : "All Brands"}</option>
+          {brands.map((b) => (
+            <option value={b}>{b}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="md:col-span-1 flex items-center">
+        <button
+          type="button"
+          id="mx-reset"
+          class="w-full rounded-lg border border-slate-300 bg-slate-50 px-2.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+        >
+          {isKo ? "초기화" : "Reset"}
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-4 border-t border-slate-100 pt-3 text-xs font-medium text-slate-700">
+      <label class="inline-flex cursor-pointer items-center gap-1.5">
+        <input id="mx-flag-a" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+        <span>{colHeaders.fA}</span>
+      </label>
+      <label class="inline-flex cursor-pointer items-center gap-1.5">
+        <input id="mx-flag-b" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+        <span>{colHeaders.fB}</span>
+      </label>
+      <label class="inline-flex cursor-pointer items-center gap-1.5">
+        <input id="mx-flag-c" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+        <span>{colHeaders.fC}</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Interactive Compare Picker Bar -->
+  <div
+    id="mx-compare-bar"
+    class="hidden flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-300 bg-blue-50 px-4 py-3 text-xs"
+  >
+    <div class="flex flex-wrap items-center gap-2 font-medium text-blue-950">
+      <span class="badge-info">{isKo ? "1:1 비교 선택" : "Compare Tray"}</span>
+      <span id="mx-compare-names"></span>
+    </div>
+    <div class="flex items-center gap-2">
+      <a
+        id="mx-compare-link"
+        href={`/${locale}`}
+        class="hidden rounded-lg bg-blue-700 px-3.5 py-1.5 font-semibold text-white hover:bg-blue-800"
+      >
+        {isKo ? "1:1 정밀 VS 페이지 열기 →" : "Open 1:1 VS Breakdown →"}
+      </a>
+      <span id="mx-compare-hint" class="font-mono text-[11px] text-blue-800"></span>
+      <button
+        type="button"
+        id="mx-compare-clear"
+        class="rounded border border-blue-300 bg-white px-2.5 py-1 font-semibold text-blue-800 hover:bg-blue-100"
+      >
+        {isKo ? "해제" : "Clear"}
+      </button>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="lab-table-wrap">
+    <table class="lab-table" id="mx-table">
+      <thead>
+        <tr>
+          <th class="w-10">{isKo ? "비교" : "VS"}</th>
+          <th>
+            <button type="button" data-sort="name" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
+              {isKo ? "모델명" : "Model"} <span class="text-[10px]">↕</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" data-sort="m1" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
+              {colHeaders.m1} <span class="text-[10px]">↕</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" data-sort="m2" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
+              {colHeaders.m2} <span class="text-[10px]">↕</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" data-sort="m3" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
+              {colHeaders.m3} <span class="text-[10px]">↕</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" data-sort="m4" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
+              {colHeaders.m4} <span class="text-[10px]">↕</span>
+            </button>
+          </th>
+          <th>
+            <button type="button" data-sort="msrp" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
+              {isKo ? "MSRP 참고가" : "MSRP Ref."} <span class="text-[10px]">↕</span>
+            </button>
+          </th>
+          <th>{isKo ? "판정" : "Status"}</th>
+        </tr>
+      </thead>
+      <tbody id="mx-tbody">
+        {rows.length === 0 ? (
+          <tr>
+            <td colspan="8" class="py-8 text-center text-sm text-slate-500">
+              {isKo
+                ? "현재 릴리스 웨이브에 등록된 검증 모델이 없습니다."
+                : "No verified SKUs loaded for the current release wave yet."}
+            </td>
+          </tr>
+        ) : (
+          rows.map((r) => (
+            <tr
+              class="mx-row"
+              data-slug={r.slug}
+              data-name={r.name.toLowerCase()}
+              data-brand={r.brand}
+              data-cat={r.category}
+              data-msrp={r.msrp}
+              data-m1={r.metric1}
+              data-m2={r.metric2}
+              data-m3={r.metric3}
+              data-m4={r.metric4}
+              data-fa={r.flagA ? "1" : "0"}
+              data-fb={r.flagB ? "1" : "0"}
+              data-fc={r.flagC ? "1" : "0"}
+            >
+              <td>
+                <input
+                  type="checkbox"
+                  class="mx-cmp-chk h-4 w-4 rounded border-slate-300 text-blue-600"
+                  data-slug={r.slug}
+                  data-label={r.name}
+                  aria-label={`Compare ${r.name}`}
+                />
+              </td>
+              <td>
+                <a href={r.href} class="font-semibold text-slate-900 hover:text-blue-700 hover:underline">
+                  {r.name}
+                </a>
+                <div class="mt-0.5 flex items-center gap-2 text-[11px] text-slate-500">
+                  <span>{r.brand}</span>
+                  <span>·</span>
+                  <span>{r.categoryLabel}</span>
+                  <span class="font-mono text-emerald-700">Trust {r.trustScore}</span>
+                </div>
+              </td>
+              <td class="font-mono text-[13px] font-semibold text-slate-900">{r.metric1Display}</td>
+              <td class="font-mono text-[13px] text-slate-800">{r.metric2Display}</td>
+              <td class="font-mono text-[13px] text-slate-800">{r.metric3Display}</td>
+              <td class="font-mono text-[13px] text-slate-800">{r.metric4Display}</td>
+              <td class="font-mono text-[13px] text-slate-700">{r.msrpDisplay}</td>
+              <td>
+                <span
+                  class:list={[
+                    r.compatTone === "pass"
+                      ? "badge-pass"
+                      : r.compatTone === "fail"
+                        ? "badge-fail"
+                        : "badge-caution",
+                  ]}
+                >
+                  {r.compatBadge}
+                </span>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <script type="application/json" id="mx-config-data" set:html={safeJsonLd(clientPayload)} />
+</section>
+
+<script>
+  (() => {
+    const cfgEl = document.getElementById("mx-config-data");
+    const tbody = document.getElementById("mx-tbody");
+    if (!cfgEl || !tbody) return;
+    let cfg: { locale: string; vertical: string; vsPairs: string[] };
+    try {
+      cfg = JSON.parse(cfgEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = cfg.locale === "ko";
+    const vsSet = new Set<string>(cfg.vsPairs || []);
+    const allRows = Array.from(tbody.querySelectorAll<HTMLTableRowElement>(".mx-row"));
+
+    const searchInput = document.getElementById("mx-search") as HTMLInputElement | null;
+    const catSelect = document.getElementById("mx-cat") as HTMLSelectElement | null;
+    const brandSelect = document.getElementById("mx-brand") as HTMLSelectElement | null;
+    const flagA = document.getElementById("mx-flag-a") as HTMLInputElement | null;
+    const flagB = document.getElementById("mx-flag-b") as HTMLInputElement | null;
+    const flagC = document.getElementById("mx-flag-c") as HTMLInputElement | null;
+    const resetBtn = document.getElementById("mx-reset");
+    const countLabel = document.getElementById("mx-count-label");
+    const sortBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".mx-sort-btn"));
+
+    const compareBar = document.getElementById("mx-compare-bar");
+    const compareNames = document.getElementById("mx-compare-names");
+    const compareLink = document.getElementById("mx-compare-link");
+    const compareHint = document.getElementById("mx-compare-hint");
+    const compareClear = document.getElementById("mx-compare-clear");
+    const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>(".mx-cmp-chk"));
+
+    let sortKey = "";
+    let sortAsc = true;
+    const picked: Array<{ slug: string; label: string }> = [];
+
+    function applyFilter() {
+      const q = (searchInput ? searchInput.value : "").trim().toLowerCase();
+      const cat = catSelect ? catSelect.value : "";
+      const brand = brandSelect ? brandSelect.value : "";
+      const reqA = Boolean(flagA && flagA.checked);
+      const reqB = Boolean(flagB && flagB.checked);
+      const reqC = Boolean(flagC && flagC.checked);
+
+      let visible = 0;
+      allRows.forEach((tr) => {
+        const name = tr.getAttribute("data-name") || "";
+        const rBrand = tr.getAttribute("data-brand") || "";
+        const rCat = tr.getAttribute("data-cat") || "";
+        const ok =
+          (!q || name.includes(q) || rBrand.toLowerCase().includes(q)) &&
+          (!cat || rCat === cat) &&
+          (!brand || rBrand === brand) &&
+          (!reqA || tr.getAttribute("data-fa") === "1") &&
+          (!reqB || tr.getAttribute("data-fb") === "1") &&
+          (!reqC || tr.getAttribute("data-fc") === "1");
+        tr.style.display = ok ? "" : "none";
+        if (ok) visible += 1;
+      });
+
+      if (countLabel) {
+        countLabel.textContent = `${visible} / ${allRows.length} ${isKo ? "개 모델 표시 중" : "models shown"}`;
+      }
+    }
+
+    function applySort(key: string) {
+      if (sortKey === key) {
+        sortAsc = !sortAsc;
+      } else {
+        sortKey = key;
+        sortAsc = key === "name" || key === "msrp";
+      }
+
+      const sorted = [...allRows].sort((a, b) => {
+        if (key === "name") {
+          const sa = a.getAttribute("data-name") || "";
+          const sb = b.getAttribute("data-name") || "";
+          return sortAsc ? sa.localeCompare(sb) : sb.localeCompare(sa);
+        }
+        const na = Number(a.getAttribute(`data-${key}`) || 0);
+        const nb = Number(b.getAttribute(`data-${key}`) || 0);
+        return sortAsc ? na - nb : nb - na;
+      });
+
+      const targetBody = tbody;
+      if (!targetBody) return;
+      sorted.forEach((tr) => targetBody.appendChild(tr));
+    }
+
+    function updateCompareBar() {
+      if (!compareBar || !compareNames || !compareLink || !compareHint) return;
+      if (picked.length === 0) {
+        compareBar.classList.add("hidden");
+        compareBar.classList.remove("flex");
+        return;
+      }
+      compareBar.classList.remove("hidden");
+      compareBar.classList.add("flex");
+      compareNames.textContent = picked.map((p) => p.label).join("  vs  ");
+
+      if (picked.length < 2) {
+        compareLink.classList.add("hidden");
+        compareHint.textContent = isKo
+          ? "비교할 모델을 1개 더 선택하세요."
+          : "Select 1 more model to compare.";
+        return;
+      }
+
+      const [a, b] = [picked[0].slug, picked[1].slug].sort();
+      const pairSlug = `${a}-vs-${b}`;
+      if (vsSet.has(pairSlug)) {
+        compareLink.setAttribute("href", `/${cfg.locale}/${cfg.vertical}/vs/${pairSlug}`);
+        compareLink.classList.remove("hidden");
+        compareHint.textContent = "";
+      } else {
+        compareLink.classList.add("hidden");
+        compareHint.textContent = isKo
+          ? "해당 조합의 전용 VS 페이지는 준비 중입니다 (각 모델 상세 페이지에서 스펙을 확인하세요)."
+          : "Curated VS page not published for this exact pair yet — open either model profile for full specs.";
+      }
+    }
+
+    [searchInput, catSelect, brandSelect, flagA, flagB, flagC].forEach((el) => {
+      if (el) {
+        el.addEventListener("input", applyFilter);
+        el.addEventListener("change", applyFilter);
+      }
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (searchInput) searchInput.value = "";
+        if (catSelect) catSelect.value = "";
+        if (brandSelect) brandSelect.value = "";
+        if (flagA) flagA.checked = false;
+        if (flagB) flagB.checked = false;
+        if (flagC) flagC.checked = false;
+        applyFilter();
+      });
+    }
+
+    sortBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        const key = b.getAttribute("data-sort") || "";
+        if (key) applySort(key);
+      });
+    });
+
+    checkboxes.forEach((chk) => {
+      chk.addEventListener("change", () => {
+        const slug = chk.getAttribute("data-slug") || "";
+        const label = chk.getAttribute("data-label") || slug;
+        if (chk.checked) {
+          if (picked.length >= 2) {
+            const removed = picked.shift();
+            if (removed) {
+              const old = checkboxes.find((c) => c.getAttribute("data-slug") === removed.slug);
+              if (old) old.checked = false;
+            }
+          }
+          picked.push({ slug, label });
+        } else {
+          const idx = picked.findIndex((p) => p.slug === slug);
+          if (idx >= 0) picked.splice(idx, 1);
+        }
+        updateCompareBar();
+      });
+    });
+
+    if (compareClear) {
+      compareClear.addEventListener("click", () => {
+        picked.length = 0;
+        checkboxes.forEach((c) => {
+          c.checked = false;
+        });
+        updateCompareBar();
+      });
+    }
+  })();
+</script>

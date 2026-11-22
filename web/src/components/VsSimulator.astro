@@ -1,0 +1,403 @@
+---
+import type { ActiveLocale, AnyItem, VsDiffResult } from "../lib/types";
+import { safeJsonLd } from "../lib/i18n";
+
+interface Props {
+  itemA: AnyItem;
+  itemB: AnyItem;
+  diff: VsDiffResult;
+  locale: ActiveLocale;
+}
+
+const { itemA, itemB, diff, locale } = Astro.props;
+const isKo = locale === "ko";
+const nameA = itemA.i18n[locale]?.name ?? itemA.i18n.en.name;
+const nameB = itemB.i18n[locale]?.name ?? itemB.i18n.en.name;
+
+const initTotalW = diff.dimensions.reduce((acc, d) => acc + d.defaultWeight, 0) || 100;
+const initScoreA = Math.round(
+  diff.dimensions.reduce((acc, d) => acc + diff.scoresA[d.id] * d.defaultWeight, 0) / initTotalW
+);
+const initScoreB = Math.round(
+  diff.dimensions.reduce((acc, d) => acc + diff.scoresB[d.id] * d.defaultWeight, 0) / initTotalW
+);
+
+const payload = {
+  locale,
+  nameA,
+  nameB,
+  scoresA: diff.scoresA,
+  scoresB: diff.scoresB,
+  dimensions: diff.dimensions,
+};
+---
+
+<div class="space-y-8">
+  <!-- Interactive Priority Weighting Winner Simulator -->
+  <section
+    id="vs-priority-simulator"
+    class="lab-card overflow-hidden border-blue-200/80"
+    aria-labelledby="vs-sim-heading"
+  >
+    <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+            INTERACTIVE PRIORITY WEIGHTING SIMULATOR
+          </span>
+          <h2 id="vs-sim-heading" class="mt-0.5 text-lg font-bold">
+            {isKo
+              ? "내 우선순위 가중치 승자 시뮬레이터"
+              : "Live Priority Weighting Winner Simulator"}
+          </h2>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            data-preset="balanced"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+          >
+            {isKo ? "균형" : "Balanced"}
+          </button>
+          <button
+            type="button"
+            data-preset="value"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+          >
+            {isKo ? "가성비 최우선" : "Value First"}
+          </button>
+          <button
+            type="button"
+            data-preset="performance"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+          >
+            {isKo ? "성능 최우선" : "Max Performance"}
+          </button>
+          <button
+            type="button"
+            data-preset="portability"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+          >
+            {isKo ? "경량·순도 우선" : "Light / Pure"}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-6 p-5 lg:grid-cols-12">
+      <!-- Sliders -->
+      <div class="space-y-4 lg:col-span-7">
+        <p class="text-xs text-slate-600">
+          {isKo
+            ? "슬라이더로 본인의 구매 기준 비중을 조절하면 정량 스펙 점수가 실시간으로 재계산됩니다."
+            : "Adjust each priority slider to recalculate the weighted engineering score in real time."}
+        </p>
+
+        {diff.dimensions.map((dim) => (
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <label for={`vs-w-${dim.id}`} class="text-xs font-bold text-slate-900">
+                  {dim.label}
+                </label>
+                <span class="ml-2 hidden text-[11px] text-slate-500 sm:inline">{dim.hint}</span>
+              </div>
+              <span
+                id={`vs-wval-${dim.id}`}
+                class="font-mono text-xs font-bold text-blue-700"
+              >
+                {dim.defaultWeight}%
+              </span>
+            </div>
+            <input
+              id={`vs-w-${dim.id}`}
+              data-dim={dim.id}
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              value={dim.defaultWeight}
+              class="vs-weight-slider lab-slider mt-2"
+            />
+            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-slate-500">
+              <span>A: {diff.scoresA[dim.id]}/100</span>
+              <span>B: {diff.scoresB[dim.id]}/100</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Live Scoreboard -->
+      <div class="flex flex-col justify-between rounded-xl border border-slate-200 bg-slate-50 p-5 lg:col-span-5">
+        <div>
+          <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            {isKo ? "실시간 가중 종합 판정" : "LIVE WEIGHTED RECOMMENDATION"}
+          </div>
+          <div id="vs-winner-banner" class="mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5">
+            <div id="vs-winner-tag" class="badge-pass">
+              {initScoreA === initScoreB
+                ? isKo
+                  ? "동점 (취향 선택)"
+                  : "TIE"
+                : initScoreA > initScoreB
+                  ? isKo
+                    ? "모델 A 추천"
+                    : "WINNER: MODEL A"
+                  : isKo
+                    ? "모델 B 추천"
+                    : "WINNER: MODEL B"}
+            </div>
+            <div id="vs-winner-name" class="mt-1.5 text-base font-bold text-slate-900">
+              {initScoreA >= initScoreB ? nameA : nameB}
+            </div>
+            <div id="vs-winner-margin" class="mt-0.5 font-mono text-xs text-emerald-800">
+              {Math.abs(initScoreA - initScoreB)} {isKo ? "점 우세" : "pts ahead"}
+            </div>
+          </div>
+
+          <div class="mt-5 space-y-4">
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span class="truncate pr-2 text-slate-800">A · {nameA}</span>
+                <span id="vs-score-a" class="font-mono text-base font-bold text-blue-700">
+                  {initScoreA}
+                </span>
+              </div>
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                <div
+                  id="vs-bar-a"
+                  class="h-full rounded-full bg-blue-600 transition-all duration-200"
+                  style={`width:${initScoreA}%`}
+                ></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span class="truncate pr-2 text-slate-800">B · {nameB}</span>
+                <span id="vs-score-b" class="font-mono text-base font-bold text-emerald-700">
+                  {initScoreB}
+                </span>
+              </div>
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                <div
+                  id="vs-bar-b"
+                  class="h-full rounded-full bg-emerald-600 transition-all duration-200"
+                  style={`width:${initScoreB}%`}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-5 border-t border-slate-200 pt-3 text-[11px] leading-relaxed text-slate-500">
+          {isKo
+            ? "* 모든 점수는 결정론적 정량 스펙과 파생 단가에서 산출되며 LLM 추정치를 사용하지 않습니다."
+            : "* All sub-scores are deterministically derived from verified specifications and benchmark math."}
+        </p>
+      </div>
+    </div>
+
+    <script type="application/json" id="vs-sim-data" set:html={safeJsonLd(payload)} />
+  </section>
+
+  <!-- Quantitative Diff Table with Inline SVG Comparison Bars -->
+  <section class="space-y-3" aria-labelledby="vs-diff-heading">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h2 id="vs-diff-heading" class="text-lg font-bold tracking-tight text-slate-900">
+        {isKo ? "정량 스펙 1:1 격차(Delta) 비교표" : "Quantitative Head-to-Head Diff Table"}
+      </h2>
+      <span class="font-mono text-xs text-slate-500">
+        {isKo ? "파랑 = A · 에메랄드 = B" : "Cobalt = A · Emerald = B"}
+      </span>
+    </div>
+
+    <div class="lab-table-wrap">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th class="min-w-[170px]">{isKo ? "비교 지표" : "Metric"}</th>
+            <th class="min-w-[130px]">A · {nameA}</th>
+            <th class="min-w-[130px]">B · {nameB}</th>
+            <th class="min-w-[180px]">{isKo ? "시각 격차 (SVG)" : "Visual Delta"}</th>
+            <th class="min-w-[150px]">{isKo ? "승패 판정" : "Lead / Delta"}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {diff.rows.map((row) => (
+            <tr>
+              <th scope="row" class="font-semibold text-slate-700">{row.label}</th>
+              <td
+                class:list={[
+                  "font-mono text-[13px]",
+                  row.winner === "a" ? "font-bold text-blue-700 bg-blue-50/40" : "text-slate-800",
+                ]}
+              >
+                {row.displayA}
+              </td>
+              <td
+                class:list={[
+                  "font-mono text-[13px]",
+                  row.winner === "b" ? "font-bold text-emerald-700 bg-emerald-50/40" : "text-slate-800",
+                ]}
+              >
+                {row.displayB}
+              </td>
+              <td>
+                <svg
+                  viewBox="0 0 180 26"
+                  class="h-6 w-44"
+                  role="img"
+                  aria-label={`${row.label}: A ${row.displayA} vs B ${row.displayB}`}
+                >
+                  <rect x="0" y="2" width="180" height="8" rx="3" fill="#E2E8F0" />
+                  <rect
+                    x="0"
+                    y="2"
+                    width={Math.round((row.barPctA / 100) * 180)}
+                    height="8"
+                    rx="3"
+                    fill={row.winner === "a" ? "#2563EB" : "#64748B"}
+                  />
+                  <rect x="0" y="15" width="180" height="8" rx="3" fill="#E2E8F0" />
+                  <rect
+                    x="0"
+                    y="15"
+                    width={Math.round((row.barPctB / 100) * 180)}
+                    height="8"
+                    rx="3"
+                    fill={row.winner === "b" ? "#059669" : "#94A3B8"}
+                  />
+                </svg>
+              </td>
+              <td>
+                <span
+                  class:list={[
+                    row.winner === "a"
+                      ? "badge-info"
+                      : row.winner === "b"
+                        ? "badge-pass"
+                        : "inline-flex rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600",
+                  ]}
+                >
+                  {row.deltaText}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("vs-sim-data");
+    if (!dataEl) return;
+    interface VsSimCfg {
+      locale: string;
+      nameA: string;
+      nameB: string;
+      scoresA: Record<string, number>;
+      scoresB: Record<string, number>;
+    }
+    let cfg: VsSimCfg;
+    try {
+      cfg = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = cfg.locale === "ko";
+    const sliders = Array.from(document.querySelectorAll<HTMLInputElement>(".vs-weight-slider"));
+    const presetBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".vs-preset-btn"));
+
+    const scoreAEl = document.getElementById("vs-score-a");
+    const scoreBEl = document.getElementById("vs-score-b");
+    const barAEl = document.getElementById("vs-bar-a");
+    const barBEl = document.getElementById("vs-bar-b");
+    const bannerEl = document.getElementById("vs-winner-banner");
+    const tagEl = document.getElementById("vs-winner-tag");
+    const nameEl = document.getElementById("vs-winner-name");
+    const marginEl = document.getElementById("vs-winner-margin");
+
+    function update() {
+      let sumW = 0;
+      const weights: Record<string, number> = {};
+      sliders.forEach((s) => {
+        const dim = s.getAttribute("data-dim") || "";
+        const val = Number(s.value || 0);
+        weights[dim] = val;
+        sumW += val;
+      });
+
+      const normDiv = sumW > 0 ? sumW : 1;
+      let accA = 0;
+      let accB = 0;
+
+      sliders.forEach((s) => {
+        const dim = s.getAttribute("data-dim") || "";
+        const val = weights[dim] || 0;
+        const pct = sumW > 0 ? Math.round((val / sumW) * 100) : 25;
+        const lbl = document.getElementById(`vs-wval-${dim}`);
+        if (lbl) lbl.textContent = `${pct}%`;
+        accA += (cfg.scoresA[dim] || 50) * (sumW > 0 ? val : 1);
+        accB += (cfg.scoresB[dim] || 50) * (sumW > 0 ? val : 1);
+      });
+
+      const finalA = Math.round(accA / (sumW > 0 ? normDiv : sliders.length || 1));
+      const finalB = Math.round(accB / (sumW > 0 ? normDiv : sliders.length || 1));
+
+      if (scoreAEl) scoreAEl.textContent = String(finalA);
+      if (scoreBEl) scoreBEl.textContent = String(finalB);
+      if (barAEl) barAEl.style.width = `${finalA}%`;
+      if (barBEl) barBEl.style.width = `${finalB}%`;
+
+      const diff = Math.abs(finalA - finalB);
+      if (bannerEl && tagEl && nameEl && marginEl) {
+        if (diff <= 1) {
+          bannerEl.className = "mt-2 rounded-lg border border-slate-300 bg-white p-3.5";
+          tagEl.className = "badge-caution";
+          tagEl.textContent = isKo ? "초접전 동점" : "DEAD HEAT / TIE";
+          nameEl.textContent = isKo ? "두 모델 점수 사실상 동일" : "Virtual Tie — Choose by Ecosystem";
+          marginEl.textContent = `A ${finalA} vs B ${finalB}`;
+        } else if (finalA > finalB) {
+          bannerEl.className = "mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5";
+          tagEl.className = "badge-info";
+          tagEl.textContent = isKo ? "가중 승자: 모델 A" : "WEIGHTED WINNER: MODEL A";
+          nameEl.textContent = cfg.nameA;
+          marginEl.textContent = isKo ? `B 대비 +${diff}점 우세` : `+${diff} pts ahead of Model B`;
+        } else {
+          bannerEl.className = "mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5";
+          tagEl.className = "badge-pass";
+          tagEl.textContent = isKo ? "가중 승자: 모델 B" : "WEIGHTED WINNER: MODEL B";
+          nameEl.textContent = cfg.nameB;
+          marginEl.textContent = isKo ? `A 대비 +${diff}점 우세` : `+${diff} pts ahead of Model A`;
+        }
+      }
+    }
+
+    const presets: Record<string, Record<string, number>> = {
+      balanced: { value: 25, portability: 25, performance: 25, practicality: 25 },
+      value: { value: 60, portability: 15, performance: 15, practicality: 10 },
+      performance: { value: 10, portability: 15, performance: 60, practicality: 15 },
+      portability: { value: 15, portability: 60, performance: 15, practicality: 10 },
+    };
+
+    presetBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-preset") || "balanced";
+        const p = presets[key] || presets.balanced;
+        sliders.forEach((s) => {
+          const dim = s.getAttribute("data-dim") || "";
+          if (dim in p) s.value = String(p[dim]);
+        });
+        update();
+      });
+    });
+
+    sliders.forEach((s) => s.addEventListener("input", update));
+    update();
+  })();
+</script>

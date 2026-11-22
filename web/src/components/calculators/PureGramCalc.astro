@@ -1,0 +1,522 @@
+---
+import type { ActiveLocale, FxRates, PureGramItem } from "../../lib/types";
+import { safeJsonLd } from "../../lib/i18n";
+
+interface Props {
+  item: PureGramItem;
+  fx: FxRates;
+  locale: ActiveLocale;
+}
+
+const { item, fx, locale } = Astro.props;
+const isKo = locale === "ko";
+const isCarbProduct = item.nutrition_label.carbs_g >= 5;
+const isCreatine = item.category === "creatine";
+
+const payload = {
+  locale,
+  category: item.category,
+  isCarbProduct,
+  isCreatine,
+  usMsrp: item.regional_offers.us.msrp,
+  krMsrp: item.regional_offers.kr.msrp,
+  krwPerUsd: fx.rates.KRW || 1400,
+  totalServings: item.package_spec.total_servings,
+  servingWeightG: item.package_spec.serving_weight_g,
+  activePerServingG: item.nutrition_label.active_per_serving_g,
+  carbsG: item.nutrition_label.carbs_g,
+  sodiumMg: item.nutrition_label.sodium_mg,
+  potassiumMg: item.nutrition_label.potassium_mg,
+  caffeineMg: item.nutrition_label.caffeine_mg,
+  carbRatio: item.nutrition_label.carb_ratio_glucose_to_fructose,
+  purityPct: item.derived_math.purity_pct,
+  totalPureActiveG: item.derived_math.total_pure_active_g,
+  benchmarkUnitG: item.derived_math.benchmark_unit_g,
+  benchmarkLabel: isKo
+    ? item.derived_math.benchmark_label_ko
+    : item.derived_math.benchmark_label_en,
+  unitType: item.package_spec.unit_type,
+};
+---
+
+<section
+  id="puregram-calc"
+  class="lab-card overflow-hidden border-emerald-200/80"
+  aria-labelledby="pg-calc-heading"
+>
+  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
+          INTERACTIVE LABEL-MATH ENGINE
+        </span>
+        <h2 id="pg-calc-heading" class="mt-0.5 text-lg font-bold">
+          {isKo
+            ? "실구매가 기반 순수 유효성분 실단가 · 레이스 보급 계산기"
+            : "Live Cart Price True-Cost & Race Fueling Cost Planner"}
+        </h2>
+      </div>
+      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+        {isKo ? item.derived_math.benchmark_label_ko : item.derived_math.benchmark_label_en}
+      </span>
+    </div>
+  </div>
+
+  <div class="divide-y divide-slate-200 p-5">
+    <!-- Part A: Live Cart Price Input -->
+    <div class="pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">
+            {isKo ? "1. 내 장바구니 실구매가 입력 (실시간 단가 재계산)" : "1. Enter Your Live Cart / Checkout Price"}
+          </h3>
+          <p class="mt-0.5 text-xs text-slate-600">
+            {isKo
+              ? "기본값은 제조사 공식 출고가(MSRP)입니다. 쿠팡·직구 할인 가격을 직접 입력하면 순수 유효성분 실단가가 즉시 바뀝니다."
+              : "Defaults to official MSRP benchmark. Enter any store sale price to compute true cost per active unit instantly."}
+          </p>
+        </div>
+        <div class="inline-flex overflow-hidden rounded-lg border border-slate-300 bg-white font-mono text-xs font-semibold">
+          <button
+            type="button"
+            id="pg-cur-usd"
+            class:list={[
+              "px-3 py-1.5 transition-colors",
+              !isKo ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100",
+            ]}
+          >
+            USD ($)
+          </button>
+          <button
+            type="button"
+            id="pg-cur-krw"
+            class:list={[
+              "px-3 py-1.5 transition-colors",
+              isKo ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100",
+            ]}
+          >
+            KRW (₩)
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-wrap items-end gap-3">
+        <div class="min-w-[200px] flex-1 max-w-xs">
+          <label for="pg-price-input" class="block text-xs font-semibold text-slate-600">
+            {isKo ? "1팩(박스) 구매 가격" : "Pack / Box Price"}
+            <span id="pg-cur-symbol" class="ml-1 font-mono text-slate-500">
+              ({isKo ? "KRW" : "USD"})
+            </span>
+          </label>
+          <input
+            id="pg-price-input"
+            type="number"
+            min="0.01"
+            step="any"
+            value={isKo ? item.regional_offers.kr.msrp : item.regional_offers.us.msrp}
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-base font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+          />
+        </div>
+        <button
+          type="button"
+          id="pg-reset-btn"
+          class="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+        >
+          {isKo ? "MSRP 기준가 복원" : "Reset to MSRP"}
+        </button>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <div class="rounded-lg border border-emerald-200 bg-emerald-50/70 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-emerald-800">
+            {isKo ? "기준 단위당 실단가" : "True Cost / Benchmark Unit"}
+          </div>
+          <div id="pg-bench-cost" class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-900">
+            —
+          </div>
+          <div class="mt-0.5 text-xs text-emerald-800">
+            {isKo ? item.derived_math.benchmark_label_ko : item.derived_math.benchmark_label_en}
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "1회분(서빙) 단가" : "Cost per Serving"}
+          </div>
+          <div id="pg-serving-cost" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+            —
+          </div>
+          <div class="mt-0.5 text-xs text-slate-500">
+            {item.package_spec.total_servings} {isKo ? "회분 / 팩" : "servings / pack"}
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "비유효 중량 비율 (필러·수분)" : "Non-Active Weight (Carrier/Water)"}
+          </div>
+          <div id="pg-filler-pct" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+            {(100 - item.derived_math.purity_pct).toFixed(1)}%
+          </div>
+          <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+            <div
+              class="h-full rounded-full bg-emerald-600"
+              style={`width:${Math.min(100, Math.max(5, item.derived_math.purity_pct))}%`}
+            ></div>
+          </div>
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <span>{isKo ? "유효성분" : "Active"} {item.derived_math.purity_pct.toFixed(1)}%</span>
+            <span>{isKo ? "수분/부형제" : "Carrier"} {(100 - item.derived_math.purity_pct).toFixed(1)}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part B: Race / Intake Cost Planner -->
+    <div class="pt-6">
+      <h3 class="text-sm font-bold text-slate-900">
+        {isCarbProduct
+          ? isKo
+            ? "2. 마라톤·라이딩 시간당 탄수화물 보급 및 총 레이스 비용 플래너"
+            : "2. Endurance Carb Target (60/90/120 g/hr) × Race Duration Cost Planner"
+          : isCreatine
+            ? isKo
+              ? "2. 일일 섭취량 × 기간별 크레아틴 유지비 플래너"
+              : "2. Daily Creatine Dose × Cycle Duration Cost Planner"
+            : isKo
+              ? "2. 시간당 전해질 보급 × 세션 비용 플래너"
+              : "2. Hourly Electrolyte Intake × Session Cost Planner"}
+      </h3>
+
+      <div class="mt-3 grid gap-4 md:grid-cols-2">
+        <div>
+          <span class="block text-xs font-semibold text-slate-600">
+            {isCarbProduct
+              ? isKo
+                ? "시간당 탄수화물 목표 (g/hr)"
+                : "Hourly Carb Intake Target (g/hr)"
+              : isCreatine
+                ? isKo
+                  ? "일일 섭취 목표 (g/day)"
+                  : "Daily Dose Target (g/day)"
+                : isKo
+                  ? "시간당 섭취량 (회/hr)"
+                  : "Hourly Servings Target"}
+          </span>
+          <div id="pg-rate-btns" class="mt-2 flex gap-2">
+            {isCarbProduct ? (
+              <>
+                <button type="button" data-rate="60" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">60 g/hr</button>
+                <button type="button" data-rate="90" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">90 g/hr</button>
+                <button type="button" data-rate="120" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">120 g/hr</button>
+              </>
+            ) : isCreatine ? (
+              <>
+                <button type="button" data-rate="3" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">3 g/day</button>
+                <button type="button" data-rate="5" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">5 g/day</button>
+                <button type="button" data-rate="10" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">10 g/day</button>
+              </>
+            ) : (
+              <>
+                <button type="button" data-rate="1" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">1 /hr</button>
+                <button type="button" data-rate="1.5" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">1.5 /hr</button>
+                <button type="button" data-rate="2" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">2 /hr</button>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <label for="pg-duration-slider" class="block text-xs font-semibold text-slate-600">
+            {isCreatine
+              ? isKo
+                ? "섭취 기간 (일):"
+                : "Cycle Duration (days):"
+              : isKo
+                ? "레이스 / 훈련 시간 (1–6시간):"
+                : "Race / Ride Duration (1–6 hours):"}
+            <span id="pg-duration-val" class="ml-1 font-mono text-emerald-700">
+              {isCreatine ? "60" : "3"} {isCreatine ? (isKo ? "일" : "days") : isKo ? "시간" : "hr"}
+            </span>
+          </label>
+          <input
+            id="pg-duration-slider"
+            type="range"
+            min={isCreatine ? "30" : "1"}
+            max={isCreatine ? "180" : "6"}
+            step={isCreatine ? "30" : "0.5"}
+            value={isCreatine ? "60" : "3"}
+            class="lab-slider mt-3"
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-4">
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "총 필요 서빙(팩)" : "Total Servings Needed"}
+          </div>
+          <div id="pg-plan-packets" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+            —
+          </div>
+          <div id="pg-plan-per-unit" class="mt-0.5 text-[11px] text-slate-500"></div>
+        </div>
+
+        <div class="rounded-lg border border-emerald-200 bg-emerald-50/70 p-3">
+          <div class="font-mono text-[11px] uppercase text-emerald-800">
+            {isKo ? "총 예상 보급 비용" : "Total Planned Cost"}
+          </div>
+          <div id="pg-plan-cost" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-900">
+            —
+          </div>
+          <div class="mt-0.5 text-[11px] text-emerald-700">
+            {isKo ? "입력 가격 기준" : "Based on entered price"}
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "누적 나트륨 (Na)" : "Cumulative Sodium"}
+          </div>
+          <div id="pg-plan-na" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+            —
+          </div>
+          <div class="mt-0.5 text-[11px] text-slate-500">mg</div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "누적 카페인" : "Cumulative Caffeine"}
+          </div>
+          <div id="pg-plan-caf" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+            —
+          </div>
+          <div id="pg-plan-caf-note" class="mt-0.5 text-[11px] text-slate-500"></div>
+        </div>
+      </div>
+
+      <p id="pg-plan-ratio-note" class="mt-3 text-xs text-slate-600"></p>
+    </div>
+  </div>
+
+  <script type="application/json" id="pg-calc-data" set:html={safeJsonLd(payload)} />
+</section>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("pg-calc-data");
+    if (!dataEl) return;
+
+    interface PgCfg {
+      locale: string;
+      category: string;
+      isCarbProduct: boolean;
+      isCreatine: boolean;
+      usMsrp: number;
+      krMsrp: number;
+      krwPerUsd: number;
+      totalServings: number;
+      servingWeightG: number;
+      activePerServingG: number;
+      carbsG: number;
+      sodiumMg: number;
+      potassiumMg: number;
+      caffeineMg: number;
+      carbRatio: string | null;
+      purityPct: number;
+      totalPureActiveG: number;
+      benchmarkUnitG: number;
+      benchmarkLabel: string;
+      unitType: string;
+    }
+
+    let cfg: PgCfg;
+    try {
+      cfg = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = cfg.locale === "ko";
+    let currency = isKo ? "KRW" : "USD";
+    let targetRate = cfg.isCarbProduct ? 90 : cfg.isCreatine ? 5 : 1;
+
+    const btnUsd = document.getElementById("pg-cur-usd");
+    const btnKrw = document.getElementById("pg-cur-krw");
+    const curSym = document.getElementById("pg-cur-symbol");
+    const priceInput = document.getElementById("pg-price-input") as HTMLInputElement | null;
+    const resetBtn = document.getElementById("pg-reset-btn");
+
+    const benchCostEl = document.getElementById("pg-bench-cost");
+    const servingCostEl = document.getElementById("pg-serving-cost");
+
+    const rateBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".pg-rate-btn"));
+    const durSlider = document.getElementById("pg-duration-slider") as HTMLInputElement | null;
+    const durValEl = document.getElementById("pg-duration-val");
+    const planPacketsEl = document.getElementById("pg-plan-packets");
+    const planPerUnitEl = document.getElementById("pg-plan-per-unit");
+    const planCostEl = document.getElementById("pg-plan-cost");
+    const planNaEl = document.getElementById("pg-plan-na");
+    const planCafEl = document.getElementById("pg-plan-caf");
+    const planCafNoteEl = document.getElementById("pg-plan-caf-note");
+    const planRatioNoteEl = document.getElementById("pg-plan-ratio-note");
+
+    function fmtMoney(val: number) {
+      if (!Number.isFinite(val)) return "—";
+      if (currency === "KRW") {
+        const s = new Intl.NumberFormat("ko-KR").format(Math.round(val));
+        return isKo ? `${s}원` : `₩${s}`;
+      }
+      return `$${val.toFixed(2)}`;
+    }
+
+    function updateCurrencyButtons() {
+      if (btnUsd && btnKrw) {
+        btnUsd.className =
+          currency === "USD"
+            ? "px-3 py-1.5 transition-colors bg-slate-900 text-white"
+            : "px-3 py-1.5 transition-colors text-slate-600 hover:bg-slate-100";
+        btnKrw.className =
+          currency === "KRW"
+            ? "px-3 py-1.5 transition-colors bg-slate-900 text-white"
+            : "px-3 py-1.5 transition-colors text-slate-600 hover:bg-slate-100";
+      }
+      if (curSym) curSym.textContent = `(${currency})`;
+    }
+
+    function recalc() {
+      const price = Number(priceInput ? priceInput.value : 0);
+      const validPrice = Number.isFinite(price) && price > 0 ? price : 0;
+
+      const totalActive = Number(cfg.totalPureActiveG || 0);
+      const benchUnit = Number(cfg.benchmarkUnitG || 1);
+      const benchUnitsPerPack = totalActive > 0 && benchUnit > 0 ? totalActive / benchUnit : Number(cfg.totalServings || 1);
+      const costPerBench = benchUnitsPerPack > 0 ? validPrice / benchUnitsPerPack : 0;
+      const costPerServing = cfg.totalServings > 0 ? validPrice / cfg.totalServings : 0;
+
+      if (benchCostEl) benchCostEl.textContent = fmtMoney(costPerBench);
+      if (servingCostEl) servingCostEl.textContent = fmtMoney(costPerServing);
+
+      const dur = Number(durSlider ? durSlider.value : 3);
+      if (durValEl) {
+        durValEl.textContent = cfg.isCreatine
+          ? `${dur} ${isKo ? "일" : "days"}`
+          : `${dur} ${isKo ? "시간" : "hr"}`;
+      }
+
+      let servingsPerPeriod = 0;
+      let totalServingsNeeded = 0;
+
+      if (cfg.isCarbProduct && cfg.carbsG > 0) {
+        servingsPerPeriod = targetRate / cfg.carbsG;
+        totalServingsNeeded = servingsPerPeriod * dur;
+      } else if (cfg.isCreatine && cfg.activePerServingG > 0) {
+        servingsPerPeriod = targetRate / cfg.activePerServingG;
+        totalServingsNeeded = servingsPerPeriod * dur;
+      } else {
+        servingsPerPeriod = targetRate;
+        totalServingsNeeded = servingsPerPeriod * dur;
+      }
+
+      const wholePackets = Math.ceil(totalServingsNeeded);
+      const totalCost = totalServingsNeeded * costPerServing;
+      const totalNa = Math.round(totalServingsNeeded * Number(cfg.sodiumMg || 0));
+      const totalCaf = Math.round(totalServingsNeeded * Number(cfg.caffeineMg || 0));
+
+      if (planPacketsEl) {
+        planPacketsEl.textContent = `${totalServingsNeeded.toFixed(1)} (${wholePackets} ${isKo ? "개" : "pcs"})`;
+      }
+      if (planPerUnitEl) {
+        planPerUnitEl.textContent = cfg.isCreatine
+          ? `${servingsPerPeriod.toFixed(2)} ${isKo ? "스쿱/일" : "servings/day"}`
+          : `${servingsPerPeriod.toFixed(2)} ${isKo ? "개/시간" : "servings/hr"}`;
+      }
+      if (planCostEl) planCostEl.textContent = fmtMoney(totalCost);
+      if (planNaEl) planNaEl.textContent = `${new Intl.NumberFormat("en-US").format(totalNa)}`;
+      if (planCafEl) planCafEl.textContent = `${new Intl.NumberFormat("en-US").format(totalCaf)} mg`;
+
+      if (planCafNoteEl) {
+        if (totalCaf > 300) {
+          planCafNoteEl.className = "mt-0.5 text-[11px] font-semibold text-amber-700";
+          planCafNoteEl.textContent = isKo
+            ? "주의: 300mg 초과 — 무카페인 젤과 교차 보급 권장"
+            : "Notice: >300 mg — alternate with non-caf gels";
+        } else if (totalCaf === 0) {
+          planCafNoteEl.className = "mt-0.5 text-[11px] text-slate-500";
+          planCafNoteEl.textContent = isKo ? "무카페인" : "Caffeine-free";
+        } else {
+          planCafNoteEl.className = "mt-0.5 text-[11px] text-emerald-700";
+          planCafNoteEl.textContent = isKo ? "일반 레이스 안전 구간" : "Moderate race range";
+        }
+      }
+
+      if (planRatioNoteEl) {
+        if (cfg.isCarbProduct) {
+          if (targetRate >= 90 && cfg.carbRatio && cfg.carbRatio.includes("1:0.8")) {
+            planRatioNoteEl.textContent = isKo
+              ? `✓ 포도당:과당 ${cfg.carbRatio} 이중 수송체 비율로 시간당 90–120g 고탄수 보급 전략에 적합합니다.`
+              : `✓ ${cfg.carbRatio} dual-source glucose:fructose ratio supports high-intake 90–120 g/hr fueling targets.`;
+          } else if (targetRate >= 90) {
+            planRatioNoteEl.textContent = isKo
+              ? `참고: 본 제품의 당 비율(${cfg.carbRatio || "단일 당원"}) 기준으로 시간당 90g 이상 섭취 시 위장 적응 테스트를 권장합니다.`
+              : `Note: With ratio (${cfg.carbRatio || "single-source"}), test gut tolerance in training before racing at ${targetRate} g/hr.`;
+          } else {
+            planRatioNoteEl.textContent = isKo
+              ? `시간당 60g 목표는 단일·복합 당원 모두 안정적으로 흡수 가능한 표준 보급 구간입니다.`
+              : `60 g/hr is a standard endurance baseline well-suited to single or dual-source carb formulations.`;
+          }
+        } else {
+          planRatioNoteEl.textContent = "";
+        }
+      }
+    }
+
+    if (btnUsd) {
+      btnUsd.addEventListener("click", () => {
+        if (currency === "USD") return;
+        currency = "USD";
+        if (priceInput) priceInput.value = String(cfg.usMsrp);
+        updateCurrencyButtons();
+        recalc();
+      });
+    }
+
+    if (btnKrw) {
+      btnKrw.addEventListener("click", () => {
+        if (currency === "KRW") return;
+        currency = "KRW";
+        if (priceInput) priceInput.value = String(cfg.krMsrp);
+        updateCurrencyButtons();
+        recalc();
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (priceInput) {
+          priceInput.value = String(currency === "KRW" ? cfg.krMsrp : cfg.usMsrp);
+        }
+        recalc();
+      });
+    }
+
+    if (priceInput) priceInput.addEventListener("input", recalc);
+    if (durSlider) durSlider.addEventListener("input", recalc);
+
+    rateBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        targetRate = Number(b.getAttribute("data-rate") || targetRate);
+        rateBtns.forEach((other) => {
+          const on = other === b;
+          other.className = on
+            ? "pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white"
+            : "pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700";
+        });
+        recalc();
+      });
+    });
+
+    updateCurrencyButtons();
+    recalc();
+  })();
+</script>

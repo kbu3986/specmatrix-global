@@ -1,0 +1,213 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import MatrixTable from "../../../../components/MatrixTable.astro";
+import SafetyBanner from "../../../../components/SafetyBanner.astro";
+import AdSlotReserve from "../../../../components/AdSlotReserve.astro";
+
+import type { ActiveLocale, MatrixPage, PilotVertical } from "../../../../lib/types";
+import {
+  getAllMatrices,
+  getFxRates,
+  getItemsForMatrix,
+  getPrimaryVerticalHref,
+  getVerticalMatrices,
+  getVerticalVsInsights,
+} from "../../../../lib/data";
+import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META } from "../../../../lib/i18n";
+
+export function getStaticPaths() {
+  const all = getAllMatrices().filter((m) => m.archetype === "compat");
+  const paths: Array<{
+    params: { locale: ActiveLocale; vertical: PilotVertical; slug: string };
+    props: { matrix: MatrixPage };
+  }> = [];
+
+  for (const matrix of all) {
+    for (const locale of ACTIVE_LOCALES) {
+      paths.push({
+        params: {
+          locale,
+          vertical: matrix.vertical as PilotVertical,
+          slug: matrix.slug,
+        },
+        props: { matrix },
+      });
+    }
+  }
+  return paths;
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const vertical = Astro.params.vertical as PilotVertical;
+const { matrix } = Astro.props as { matrix: MatrixPage };
+
+const isKo = locale === "ko";
+const copy = matrix.i18n[locale];
+const fx = getFxRates();
+const items = getItemsForMatrix(matrix).filter((i) => i.available_locales.includes(locale));
+const vsInsights = getVerticalVsInsights(vertical);
+const siblingMatrices = getVerticalMatrices(vertical).filter((m) => m.slug !== matrix.slug);
+const verticalHref = getPrimaryVerticalHref(locale, vertical);
+const currentPath = `/${locale}/${vertical}/compat/${matrix.slug}`;
+
+const itemListElements = items.slice(0, 30).map((item, idx) => ({
+  "@type": "ListItem",
+  position: idx + 1,
+  name: item.i18n[locale]?.name ?? item.i18n.en.name,
+  url: `${SITE_URL}/${locale}/${vertical}/item/${item.slug}`,
+}));
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: copy.title,
+    description: copy.subtitle,
+    url: `${SITE_URL}${currentPath}`,
+    numberOfItems: itemListElements.length,
+    itemListElement: itemListElements,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: VERTICAL_META[vertical].shortName[locale],
+        item: `${SITE_URL}${verticalHref}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: copy.title,
+        item: `${SITE_URL}${currentPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${copy.title} | SpecMatrix Global`}
+  description={copy.subtitle}
+  locale={locale}
+  currentPath={currentPath}
+  activeVertical={vertical}
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <a href={`/${locale}`} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <a href={verticalHref} class="hover:text-blue-700 hover:underline">
+      {VERTICAL_META[vertical].shortName[locale]}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-800">{copy.title}</span>
+  </nav>
+
+  <!-- Compatibility Header -->
+  <section class="lab-card border-l-4 border-l-blue-600 bg-white p-6">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase ${VERTICAL_META[vertical].badgeBgClass}`}>
+        {VERTICAL_META[vertical].shortName[locale]} · COMPATIBILITY GUIDE
+      </span>
+      <span class="badge-pass font-mono">
+        {items.length} {isKo ? "개 검증 호환 모델" : "Verified Matching Models"}
+      </span>
+    </div>
+
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+      {copy.title}
+    </h1>
+    <p class="mt-2 text-sm font-medium text-slate-600 sm:text-base">{copy.subtitle}</p>
+    <p class="mt-3 text-sm leading-relaxed text-slate-700">{copy.intro}</p>
+
+    <div class="mt-5 grid gap-3 sm:grid-cols-3">
+      {copy.key_takeaways.map((tk, idx) => (
+        <div class="rounded-lg border border-emerald-200 bg-emerald-50/50 p-3.5 text-xs leading-relaxed text-slate-800">
+          <div class="font-mono text-[11px] font-bold text-emerald-800">
+            {isKo ? `체크포인트 #${idx + 1}` : `CHECKPOINT #${idx + 1}`}
+          </div>
+          <p class="mt-1">{tk}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <AdSlotReserve slotId={`compat-top-${vertical}`} variant="banner" locale={locale} />
+
+  <!-- Interactive Compatibility Filter Table -->
+  <MatrixTable
+    vertical={vertical}
+    items={items}
+    vsInsights={vsInsights}
+    fx={fx}
+    locale={locale}
+    isCompat={true}
+  />
+
+  <!-- Methodology Note -->
+  <section class="mt-8 lab-card p-5">
+    <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-500">
+      {isKo ? "호환성 판정 기준" : "Compatibility Verification Protocol"}
+    </h2>
+    <p class="mt-2 text-sm leading-relaxed text-slate-700">{copy.methodology_note}</p>
+  </section>
+
+  <div class="mt-6">
+    <SafetyBanner vertical={vertical} locale={locale} />
+  </div>
+
+  <!-- Related Links -->
+  {(siblingMatrices.length > 0 || vsInsights.length > 0) && (
+    <section class="mt-8 grid gap-6 md:grid-cols-2">
+      {siblingMatrices.length > 0 && (
+        <div class="space-y-2.5">
+          <h2 class="text-base font-bold text-slate-900">
+            {isKo ? "버티컬 매트릭스 허브" : "Vertical Matrix Hubs"}
+          </h2>
+          <div class="space-y-2">
+            {siblingMatrices.map((sm) => (
+              <a
+                href={`/${locale}/${vertical}/${sm.archetype}/${sm.slug}`}
+                class="lab-card flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+              >
+                <span>{sm.i18n[locale].title}</span>
+                <span class="font-mono text-xs text-blue-700">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {vsInsights.length > 0 && (
+        <div class="space-y-2.5">
+          <h2 class="text-base font-bold text-slate-900">
+            {isKo ? "관련 1:1 정밀 VS 비교" : "Related 1:1 VS Comparisons"}
+          </h2>
+          <div class="space-y-2">
+            {vsInsights.slice(0, 4).map((v) => (
+              <a
+                href={`/${locale}/${vertical}/vs/${v.pair_slug}`}
+                class="lab-card flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+              >
+                <span class="truncate">{v.verdict[locale].headline}</span>
+                <span class="shrink-0 font-mono text-xs text-blue-700">VS →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  )}
+</BaseLayout>

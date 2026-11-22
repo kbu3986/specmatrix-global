@@ -1,0 +1,82 @@
+---
+import type { ActiveLocale, AnyItem } from "../lib/types";
+import { buildMonetizationModel } from "../lib/monetization";
+
+interface Props {
+  item: AnyItem;
+  locale: ActiveLocale;
+  compact?: boolean;
+}
+
+const { item, locale, compact = false } = Astro.props;
+const m = buildMonetizationModel(item, locale);
+const isKo = locale === "ko";
+const statusBadgeClass =
+  m.statusTone === "pass"
+    ? "badge-pass"
+    : m.statusTone === "fail"
+      ? "badge-fail"
+      : "badge-caution";
+---
+
+<div class:list={["lab-card border-slate-200 bg-white", compact ? "p-4" : "p-5"]}>
+  <div class="flex flex-wrap items-start justify-between gap-2">
+    <div>
+      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        {isKo ? "MSRP 참고가 (실시간 스토어 판매가 아님)" : "MSRP Reference Benchmark"}
+      </div>
+      <div class="mt-1 flex items-baseline gap-2">
+        <span class="kpi-value font-mono text-2xl font-bold text-slate-900">
+          {m.benchmarkPriceFormatted}
+        </span>
+        <span class="font-mono text-xs text-slate-500">
+          ({m.benchmarkDate})
+        </span>
+      </div>
+    </div>
+    <span class={statusBadgeClass}>{m.statusLabel}</span>
+  </div>
+
+  <p class="mt-2 text-xs text-slate-600">
+    {m.benchmarkCaption}
+  </p>
+
+  {m.isPriceStale && (
+    <div class="mt-2.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+      {isKo
+        ? "참고가 기준일이 30일을 경과했습니다. 아래 스토어 버튼에서 실시간 결제 가격을 반드시 확인하세요."
+        : "Benchmark date is over 30 days old. Click through below to verify current checkout pricing."}
+    </div>
+  )}
+
+  {m.isDiscontinued && (
+    <div class="mt-2.5 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-900">
+      {isKo
+        ? "이 모델은 단종되었거나 판매 종료 상태입니다. 안전 검색 링크 및 하단 동급·후속 추천 모델을 확인하세요."
+        : "This SKU appears discontinued or unavailable. Links fall back to safe category search; inspect recommended successors below."}
+    </div>
+  )}
+
+  <div class="mt-4 flex flex-col gap-2">
+    {m.buttons.map((btn) => (
+      <a
+        href={btn.url}
+        rel={btn.rel}
+        target={btn.target}
+        class:list={[
+          "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
+          btn.isPrimary
+            ? "bg-blue-700 text-white hover:bg-blue-800"
+            : "border border-slate-300 bg-slate-50 text-slate-800 hover:border-slate-400 hover:bg-slate-100",
+        ]}
+      >
+        <span>{btn.label}</span>
+        <span class="font-mono text-xs opacity-85">↗</span>
+      </a>
+    ))}
+  </div>
+
+  <p class="mt-3 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+    {m.disclosureText}
+  </p>
+</div>

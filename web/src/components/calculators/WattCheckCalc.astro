@@ -1,0 +1,701 @@
+---
+import type { ActiveLocale, AirlineRecord, WattCheckItem } from "../../lib/types";
+import { REFERENCE_DEVICES } from "../../lib/derived";
+import { safeJsonLd } from "../../lib/i18n";
+
+interface Props {
+  item: WattCheckItem;
+  airlines: AirlineRecord[];
+  locale: ActiveLocale;
+}
+
+const { item, airlines, locale } = Astro.props;
+const isKo = locale === "ko";
+
+const regionOrder = isKo
+  ? ["KR", "APAC", "NA", "EU", "ME"]
+  : ["NA", "EU", "KR", "APAC", "ME"];
+
+const sortedAirlines = [...airlines].sort((a, b) => {
+  const ra = regionOrder.indexOf(a.region);
+  const rb = regionOrder.indexOf(b.region);
+  if (ra !== rb) return ra - rb;
+  return (isKo ? a.name_ko : a.name_en).localeCompare(isKo ? b.name_ko : b.name_en);
+});
+
+const payload = {
+  locale,
+  hasBattery: item.specs.has_battery,
+  wh: item.specs.battery_energy_wh,
+  eff: item.specs.conversion_efficiency_pct ?? 82,
+  whPrinted: item.specs.wh_printed_on_body,
+  cccCert: item.specs.ccc_certified,
+  maxTotalW: item.specs.max_total_output_w,
+  maxSingleW: item.specs.max_single_port_output_w,
+  japan100vCap: item.specs.japan_100v_output_limit_w,
+  supportsEpr: item.specs.supports_pd_3_1_epr,
+  supportsPps45: item.specs.supports_samsung_pps_45w,
+  renegDrop: item.specs.power_renegotiation_drop,
+  ports: item.specs.ports,
+  matrix: item.specs.port_allocation_matrix,
+  airlines: sortedAirlines.map((a) => ({
+    slug: a.slug,
+    iata: a.iata_code,
+    region: a.region,
+    name: isKo ? a.name_ko : a.name_en,
+    u100Max: a.under_100wh_max_pcs,
+    b100Max: a.between_100_160wh_max_pcs,
+    b100Appr: a.between_100_160wh_requires_approval,
+    noOverhead: a.overhead_bin_prohibited,
+    noInflight: a.inflight_charging_prohibited,
+    zipPouch: a.terminal_insulation_pouch_required,
+    whStrict: a.wh_marking_strict,
+    cccDom: a.ccc_marking_required_domestic,
+    notes: isKo ? a.notes_ko : a.notes_en,
+    url: a.official_policy_url,
+  })),
+  devices: REFERENCE_DEVICES.map((d) => ({
+    id: d.id,
+    name: isKo ? d.name_ko : d.name_en,
+    wh: d.wh,
+    maxW: d.max_w,
+  })),
+};
+---
+
+<section
+  id="wattcheck-calc"
+  class="lab-card overflow-hidden border-blue-200/80"
+  aria-labelledby="wc-calc-heading"
+>
+  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+          {isKo ? "INTERACTIVE LAB SIMULATOR" : "INTERACTIVE LAB SIMULATOR"}
+        </span>
+        <h2 id="wc-calc-heading" class="mt-0.5 text-lg font-bold">
+          {isKo
+            ? "기내반입 30개 항공사 · USB-PD 멀티포트 · 기기 완충 시뮬레이터"
+            : "30-Airline Carry-On, USB-PD Port Allocator & Device Charge Simulator"}
+        </h2>
+      </div>
+      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+        {item.specs.has_battery && item.specs.battery_energy_wh !== null
+          ? `${item.specs.battery_energy_wh} Wh · ${item.specs.max_total_output_w} W`
+          : `GaN · ${item.specs.max_total_output_w} W`}
+      </span>
+    </div>
+  </div>
+
+  <div class="divide-y divide-slate-200 p-5">
+    <!-- Part A: 30-Airline Checker -->
+    <div class="pb-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-sm font-bold text-slate-900">
+          {isKo ? "1. 항공사별 기내반입 · 국토부 2026 규정 즉시 조회" : "1. 30-Airline Carry-On & MOLIT 2026 Rule Checker"}
+        </h3>
+        <span class="font-mono text-xs text-slate-500">
+          {sortedAirlines.length} {isKo ? "개 항공사 DB" : "airlines loaded"}
+        </span>
+      </div>
+
+      <div class="mt-3 grid gap-4 md:grid-cols-12">
+        <div class="md:col-span-5">
+          <label for="wc-airline-select" class="block text-xs font-semibold text-slate-600">
+            {isKo ? "탑승 항공사 선택" : "Select Operating Airline"}
+          </label>
+          <select
+            id="wc-airline-select"
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-900 focus:border-blue-600 focus:outline-none"
+          >
+            {sortedAirlines.length === 0 ? (
+              <option value="">{isKo ? "IATA 표준 규정 (기본)" : "IATA Baseline Standard"}</option>
+            ) : (
+              sortedAirlines.map((a) => (
+                <option value={a.slug}>
+                  [{a.region}] {isKo ? a.name_ko : a.name_en} ({a.iata_code})
+                </option>
+              ))
+            )}
+          </select>
+        </div>
+
+        <div class="md:col-span-7">
+          <div id="wc-airline-result" class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span id="wc-airline-badge" class="badge-pass">
+                {item.airline_compliance_profile.carryon_allowed
+                  ? isKo
+                    ? "기내 반입 가능"
+                    : "Carry-On Allowed"
+                  : isKo
+                    ? "항공 반입 불가"
+                    : "Prohibited on Aircraft"}
+              </span>
+              <span id="wc-airline-pcs" class="font-mono text-xs font-semibold text-slate-700">
+                {item.specs.has_battery ? "IATA / MOLIT" : isKo ? "배터리 없음" : "No Battery"}
+              </span>
+            </div>
+            <div id="wc-airline-pills" class="mt-2.5 flex flex-wrap gap-1.5 text-xs"></div>
+            <p id="wc-airline-note" class="mt-2 text-xs leading-relaxed text-slate-600"></p>
+            <a
+              id="wc-airline-link"
+              href={sortedAirlines[0]?.official_policy_url ?? "https://www.iata.org/en/programs/cargo/dgr/lithium-batteries/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-2 inline-block font-mono text-xs font-medium text-blue-700 hover:underline"
+            >
+              {isKo ? "항공사 공식 수하물 규정 원문 ↗" : "Official Airline Baggage Policy ↗"}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part B: USB-PD Multi-Port Allocator -->
+    <div class="py-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-sm font-bold text-slate-900">
+          {isKo ? "2. USB-PD 멀티포트 동시 연결 출력 시뮬레이터" : "2. Live USB-PD Multi-Port Wattage Allocator"}
+        </h3>
+        <span
+          class:list={[
+            item.specs.power_renegotiation_drop ? "badge-caution" : "badge-pass",
+          ]}
+        >
+          {item.specs.power_renegotiation_drop
+            ? isKo
+              ? "포트 추가 시 순간 재협상 단절 주의"
+              : "Renegotiation Drop on Plug-In"
+            : isKo
+              ? "무단절 / 안정적 동적 배분"
+              : "No Renegotiation Drop"}
+        </span>
+      </div>
+
+      <p class="mt-1 text-xs text-slate-600">
+        {isKo
+          ? "동시에 연결할 포트를 클릭해 포트별 실출력(W) 배분과 합산 출력을 확인하세요."
+          : "Toggle active ports below to inspect real-time wattage splits from the manufacturer port allocation matrix."}
+      </p>
+
+      <div id="wc-port-toggles" class="mt-3 flex flex-wrap gap-2">
+        {item.specs.ports.map((port, idx) => (
+          <button
+            type="button"
+            data-port-id={port.id}
+            aria-pressed={idx === 0 ? "true" : "false"}
+            class:list={[
+              "wc-port-btn inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold transition-colors",
+              idx === 0
+                ? "border-blue-600 bg-blue-600 text-white"
+                : "border-slate-300 bg-white text-slate-700 hover:border-blue-400",
+            ]}
+          >
+            <span class="font-mono">{port.id}</span>
+            <span class="opacity-80">{port.type} · max {port.max_w}W</span>
+          </button>
+        ))}
+      </div>
+
+      <div id="wc-port-bars" class="mt-4 space-y-2.5 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
+          <span id="wc-port-combo-label">{isKo ? "활성 포트 조합" : "Active Port Combination"}</span>
+          <span id="wc-port-total" class="font-mono text-sm text-blue-700">
+            {item.specs.max_single_port_output_w} W
+          </span>
+        </div>
+        <div id="wc-port-rows" class="space-y-2"></div>
+        <p id="wc-port-hint" class="text-[11px] text-slate-500"></p>
+      </div>
+    </div>
+
+    <!-- Part C: Target Device Charge Estimator -->
+    <div class="pt-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-sm font-bold text-slate-900">
+          {item.specs.has_battery
+            ? isKo
+              ? "3. 내 기기 실측 완충 횟수 계산기 (변환효율 반영)"
+              : "3. Real-World Device Full-Charge Calculator"
+            : isKo
+              ? "3. 기기별 고속충전 호환 및 100V 출력 검증"
+              : "3. Target Device Fast-Charge & Protocol Matcher"}
+        </h3>
+        {item.specs.japan_100v_output_limit_w !== null && (
+          <span class="badge-caution">
+            {isKo
+              ? `일본 100V 최대 ${item.specs.japan_100v_output_limit_w}W 제한`
+              : `Japan 100V Cap: ${item.specs.japan_100v_output_limit_w}W`}
+          </span>
+        )}
+      </div>
+
+      <div id="wc-device-tabs" class="mt-3 flex flex-wrap gap-2">
+        {REFERENCE_DEVICES.map((dev, idx) => (
+          <button
+            type="button"
+            data-dev-id={dev.id}
+            class:list={[
+              "wc-dev-btn rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors",
+              idx === 0
+                ? "border-slate-900 bg-slate-900 text-white"
+                : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+            ]}
+          >
+            {isKo ? dev.name_ko : dev.name_en}
+          </button>
+        ))}
+      </div>
+
+      {item.specs.has_battery && (
+        <div class="mt-4 flex flex-wrap items-center gap-4">
+          <label for="wc-eff-slider" class="text-xs font-semibold text-slate-600">
+            {isKo ? "실제 DC-DC 변환효율 조정:" : "DC-DC Conversion Efficiency:"}
+            <span id="wc-eff-val" class="ml-1 font-mono text-blue-700">
+              {item.specs.conversion_efficiency_pct ?? 82}%
+            </span>
+          </label>
+          <input
+            id="wc-eff-slider"
+            type="range"
+            min="70"
+            max="92"
+            step="1"
+            value={item.specs.conversion_efficiency_pct ?? 82}
+            class="lab-slider max-w-xs"
+          />
+        </div>
+      )}
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {item.specs.has_battery
+              ? isKo
+                ? "예상 실완충 횟수"
+                : "Estimated Full Charges"
+              : isKo
+                ? "기기 인가 최대 출력"
+                : "Delivered Peak Power"}
+          </div>
+          <div id="wc-dev-primary" class="kpi-value mt-1 font-mono text-2xl font-bold text-blue-700">
+            —
+          </div>
+          <div id="wc-dev-primary-sub" class="mt-0.5 text-xs text-slate-500"></div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {item.specs.has_battery
+              ? isKo
+                ? "실가용 에너지 (손실 제외)"
+                : "Usable Energy Output"
+              : isKo
+                ? "0 → 50% 고속충전 추정"
+                : "Est. 0–50% Charge Time"}
+          </div>
+          <div id="wc-dev-secondary" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+            —
+          </div>
+          <div id="wc-dev-secondary-sub" class="mt-0.5 text-xs text-slate-500"></div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "프로토콜 매칭 판정" : "Protocol Compatibility"}
+          </div>
+          <div id="wc-dev-proto" class="mt-1 font-mono text-base font-bold text-emerald-700">
+            —
+          </div>
+          <div id="wc-dev-proto-sub" class="mt-0.5 text-xs text-slate-500"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="wc-calc-data" set:html={safeJsonLd(payload)} />
+</section>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("wc-calc-data");
+    if (!dataEl) return;
+
+    interface WcPort {
+      id: string;
+      type: string;
+      max_w: number;
+      protocols: string[];
+    }
+    interface WcMatrixRow {
+      active_ports: string[];
+      output_w: Record<string, number>;
+    }
+    interface WcAirline {
+      slug: string;
+      iata: string;
+      region: string;
+      name: string;
+      u100Max: number;
+      b100Max: number;
+      b100Appr: boolean;
+      noOverhead: boolean;
+      noInflight: boolean;
+      zipPouch: boolean;
+      whStrict: boolean;
+      cccDom: boolean;
+      notes: string;
+      url: string;
+    }
+    interface WcDevice {
+      id: string;
+      name: string;
+      wh: number;
+      maxW: number;
+    }
+    interface WcCfg {
+      locale: string;
+      hasBattery: boolean;
+      wh: number | null;
+      eff: number;
+      whPrinted: boolean | null;
+      cccCert: boolean;
+      maxTotalW: number;
+      maxSingleW: number;
+      japan100vCap: number | null;
+      supportsEpr: boolean;
+      supportsPps45: boolean;
+      renegDrop: boolean;
+      ports: WcPort[];
+      matrix: WcMatrixRow[];
+      airlines: WcAirline[];
+      devices: WcDevice[];
+    }
+
+    let cfg: WcCfg;
+    try {
+      cfg = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+    const isKo = cfg.locale === "ko";
+
+    // --- Part A: Airlines ---
+    const airlineSelect = document.getElementById("wc-airline-select") as HTMLSelectElement | null;
+    const badgeEl = document.getElementById("wc-airline-badge");
+    const pcsEl = document.getElementById("wc-airline-pcs");
+    const pillsEl = document.getElementById("wc-airline-pills");
+    const noteEl = document.getElementById("wc-airline-note");
+    const linkEl = document.getElementById("wc-airline-link");
+
+    function renderAirline() {
+      const slug = airlineSelect ? airlineSelect.value : "";
+      const airline = (cfg.airlines || []).find((a) => a.slug === slug) || (cfg.airlines || [])[0] || null;
+      if (!badgeEl || !pcsEl || !pillsEl || !noteEl || !linkEl) return;
+
+      if (!cfg.hasBattery) {
+        badgeEl.className = "badge-pass";
+        badgeEl.textContent = isKo ? "배터리 없음 · 기내/위탁 제한 없음" : "No Battery · Carry-On & Checked OK";
+        pcsEl.textContent = airline ? `${airline.name} (${airline.iata})` : "IATA";
+        pillsEl.innerHTML = "";
+        noteEl.textContent = isKo
+          ? "리튬 배터리가 내장되지 않은 순수 AC 충전기이므로 항공사 수하물 용량 제한 없이 기내 및 위탁 반입이 가능합니다."
+          : "Pure AC charger with no lithium battery. Exempt from lithium Wh carry-on and checked baggage limits.";
+        if (airline && airline.url) {
+          linkEl.setAttribute("href", airline.url);
+          linkEl.style.display = "inline-block";
+        } else {
+          linkEl.style.display = "none";
+        }
+        return;
+      }
+
+      const wh = Number(cfg.wh || 0);
+      if (wh > 160) {
+        badgeEl.className = "badge-fail";
+        badgeEl.textContent = isKo ? "항공 반입 불가 (160Wh 초과)" : "PROHIBITED (>160 Wh Cap)";
+        pcsEl.textContent = isKo ? "기내·위탁 모두 불가" : "0 pcs allowed";
+      } else if (wh > 100) {
+        const maxPcs = airline ? airline.b100Max : 2;
+        if (maxPcs <= 0) {
+          badgeEl.className = "badge-fail";
+          badgeEl.textContent = isKo ? "반입 불가 (항공사 자체 제한)" : "PROHIBITED by Airline";
+          pcsEl.textContent = "0 pcs";
+        } else {
+          badgeEl.className = "badge-caution";
+          badgeEl.textContent = isKo ? "항공사 사전 승인 필요 (100–160Wh)" : "Airline Approval Required (100–160 Wh)";
+          pcsEl.textContent = isKo ? `최대 ${maxPcs}개 (위탁 금지)` : `Max ${maxPcs} pcs (No Checked)`;
+        }
+      } else {
+        const maxPcs = airline ? airline.u100Max : 5;
+        badgeEl.className = "badge-pass";
+        badgeEl.textContent = isKo ? "무승인 기내 휴대 가능 (100Wh 이하)" : "Carry-On Allowed (<100 Wh)";
+        pcsEl.textContent = isKo ? `최대 ${maxPcs}개 (위탁 금지)` : `Max ${maxPcs} pcs (Carry-On Only)`;
+      }
+
+      const pills: Array<{ cls: string; txt: string }> = [];
+      if (airline) {
+        if (airline.noOverhead) {
+          pills.push({ cls: "badge-caution", txt: isKo ? "선반 보관 금지" : "No Overhead Bin" });
+        }
+        if (airline.noInflight) {
+          pills.push({ cls: "badge-caution", txt: isKo ? "기내 충전 금지" : "No In-Flight Charging" });
+        }
+        if (airline.zipPouch) {
+          pills.push({ cls: "badge-caution", txt: isKo ? "투명 지퍼백·단자 절연 필수" : "Zip Pouch / Terminal Insulation" });
+        }
+        if (airline.whStrict) {
+          pills.push({
+            cls: cfg.whPrinted ? "badge-pass" : "badge-fail",
+            txt: cfg.whPrinted
+              ? isKo
+                ? "본체 Wh 각인 확인됨"
+                : "Wh Printed on Body: OK"
+              : isKo
+                ? "본체 Wh 각인 미확인 (주의)"
+                : "Wh Marking Missing (Risk)",
+          });
+        }
+        if (airline.cccDom) {
+          pills.push({
+            cls: cfg.cccCert ? "badge-pass" : "badge-fail",
+            txt: cfg.cccCert
+              ? isKo
+                ? "중국 국내선 CCC 인증 OK"
+                : "China Domestic CCC: OK"
+              : isKo
+                ? "중국 국내선 CCC 미인증 (반입 제한)"
+                : "No CCC (China Domestic Risk)",
+          });
+        }
+        noteEl.textContent = airline.notes || "";
+        linkEl.setAttribute("href", airline.url || "#");
+        linkEl.style.display = airline.url ? "inline-block" : "none";
+      } else {
+        noteEl.textContent = isKo
+          ? "IATA 표준 기준: 100Wh 이하 무승인 기내 반입, 100–160Wh 승인 필요, 160Wh 초과 반입 금지."
+          : "IATA baseline: <=100 Wh carry-on allowed, 100–160 Wh requires approval, >160 Wh prohibited.";
+        linkEl.style.display = "none";
+      }
+
+      pillsEl.innerHTML = pills
+        .map((p) => `<span class="${p.cls}">${p.txt}</span>`)
+        .join("");
+    }
+
+    if (airlineSelect) {
+      airlineSelect.addEventListener("change", renderAirline);
+    }
+    renderAirline();
+
+    // --- Part B: Multi-Port Allocator ---
+    const portBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".wc-port-btn"));
+    const portRowsEl = document.getElementById("wc-port-rows");
+    const portTotalEl = document.getElementById("wc-port-total");
+    const portLabelEl = document.getElementById("wc-port-combo-label");
+    const portHintEl = document.getElementById("wc-port-hint");
+
+    const activeSet = new Set<string>();
+    if (cfg.ports && cfg.ports.length > 0) {
+      activeSet.add(cfg.ports[0].id);
+    }
+
+    function renderPorts() {
+      const selected = Array.from(activeSet);
+      portBtns.forEach((btn) => {
+        const pid = btn.getAttribute("data-port-id") || "";
+        const isOn = activeSet.has(pid);
+        btn.setAttribute("aria-pressed", isOn ? "true" : "false");
+        btn.className = isOn
+          ? "wc-port-btn inline-flex items-center gap-2 rounded-lg border border-blue-600 bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors"
+          : "wc-port-btn inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:border-blue-400 transition-colors";
+      });
+
+      if (!portRowsEl || !portTotalEl || !portLabelEl || !portHintEl) return;
+
+      if (selected.length === 0) {
+        portLabelEl.textContent = isKo ? "포트를 1개 이상 선택하세요" : "Select at least 1 port";
+        portTotalEl.textContent = "0 W";
+        portRowsEl.innerHTML = "";
+        portHintEl.textContent = "";
+        return;
+      }
+
+      const selKey = [...selected].sort().join("+");
+      const matrix = cfg.matrix || [];
+      const exact = matrix.find(
+        (row) => [...row.active_ports].sort().join("+") === selKey
+      );
+      let isEstimated = false;
+
+      let outputs: Record<string, number> = {};
+      if (exact) {
+        outputs = exact.output_w;
+      } else {
+        const superset = matrix.find((row) =>
+          selected.every((p) => row.active_ports.includes(p))
+        );
+        if (superset) {
+          selected.forEach((p) => {
+            outputs[p] = superset.output_w[p] || 0;
+          });
+          isEstimated = true;
+        } else {
+          let sumMax = 0;
+          selected.forEach((p) => {
+            const def = (cfg.ports || []).find((d) => d.id === p);
+            sumMax += def ? def.max_w : 0;
+          });
+          const scale = sumMax > cfg.maxTotalW ? cfg.maxTotalW / sumMax : 1;
+          selected.forEach((p) => {
+            const def = (cfg.ports || []).find((d) => d.id === p);
+            outputs[p] = Math.round((def ? def.max_w : 0) * scale);
+          });
+          isEstimated = true;
+        }
+      }
+
+      const totalW = Object.values(outputs).reduce((a, b) => a + Number(b || 0), 0);
+      portLabelEl.textContent = `${isKo ? "선택 조합" : "Active Combo"}: ${selected.join(" + ")}`;
+      portTotalEl.textContent = `${totalW} W / ${cfg.maxTotalW} W max`;
+
+      portRowsEl.innerHTML = selected
+        .map((pid) => {
+          const w = Number(outputs[pid] || 0);
+          const def = (cfg.ports || []).find((d) => d.id === pid);
+          const pct = Math.max(6, Math.min(100, Math.round((w / Math.max(cfg.maxSingleW, 1)) * 100)));
+          const protos = def ? def.protocols.join(" · ") : "";
+          return `
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-mono font-semibold text-slate-800">${pid} <span class="font-normal text-slate-500">(${protos})</span></span>
+                <span class="font-mono font-bold text-slate-900">${w} W</span>
+              </div>
+              <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+                <div class="h-full rounded-full bg-blue-600" style="width:${pct}%"></div>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      if (isEstimated) {
+        portHintEl.textContent = isKo
+          ? "* 제조사 매트릭스에 명시되지 않은 부분 조합은 상위 공식 배분표 기준으로 보수적 추정했습니다."
+          : "* Unlisted subset combo conservatively projected from the manufacturer multi-port allocation table.";
+      } else {
+        portHintEl.textContent = isKo
+          ? "✓ 제조사 공식 포트 출력 분배표와 100% 일치하는 조합입니다."
+          : "✓ Exact match from verified manufacturer port allocation matrix.";
+      }
+    }
+
+    portBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const pid = btn.getAttribute("data-port-id") || "";
+        if (activeSet.has(pid)) {
+          if (activeSet.size > 1) activeSet.delete(pid);
+        } else {
+          activeSet.add(pid);
+        }
+        renderPorts();
+      });
+    });
+    renderPorts();
+
+    // --- Part C: Device Estimator ---
+    const devBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".wc-dev-btn"));
+    const effSlider = document.getElementById("wc-eff-slider") as HTMLInputElement | null;
+    const effValEl = document.getElementById("wc-eff-val");
+    const primEl = document.getElementById("wc-dev-primary");
+    const primSubEl = document.getElementById("wc-dev-primary-sub");
+    const secEl = document.getElementById("wc-dev-secondary");
+    const secSubEl = document.getElementById("wc-dev-secondary-sub");
+    const protoEl = document.getElementById("wc-dev-proto");
+    const protoSubEl = document.getElementById("wc-dev-proto-sub");
+
+    let currentDevId = (cfg.devices && cfg.devices[0] && cfg.devices[0].id) || "mbp16";
+
+    function renderDevice() {
+      const dev = (cfg.devices || []).find((d) => d.id === currentDevId) || (cfg.devices || [])[0];
+      if (!dev || !primEl || !primSubEl || !secEl || !secSubEl || !protoEl || !protoSubEl) return;
+
+      devBtns.forEach((b) => {
+        const on = b.getAttribute("data-dev-id") === currentDevId;
+        b.className = on
+          ? "wc-dev-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
+          : "wc-dev-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+      });
+
+      const deliveredW = Math.min(cfg.maxSingleW, dev.maxW);
+
+      if (cfg.hasBattery && cfg.wh) {
+        const eff = effSlider ? Number(effSlider.value) : Number(cfg.eff || 82);
+        if (effValEl) effValEl.textContent = `${eff}%`;
+        const usable = (Number(cfg.wh) * eff) / 100;
+        const charges = usable / dev.wh;
+        primEl.textContent = `${charges.toFixed(2)}×`;
+        primSubEl.textContent = isKo
+          ? `${dev.name} (${dev.wh} Wh 배터리 기준)`
+          : `Full charges for ${dev.name} (${dev.wh} Wh)`;
+        secEl.textContent = `${usable.toFixed(1)} Wh`;
+        secSubEl.textContent = isKo
+          ? `정격 ${cfg.wh} Wh × ${eff}% 실효 변환`
+          : `Rated ${cfg.wh} Wh at ${eff}% efficiency`;
+      } else {
+        const mins50 = Math.max(12, Math.round(((dev.wh * 0.5) / Math.max(deliveredW * 0.85, 5)) * 60));
+        primEl.textContent = `${deliveredW} W`;
+        primSubEl.textContent = isKo
+          ? `${dev.name} 최대 요구 ${dev.maxW} W 중 ${deliveredW} W 공급`
+          : `Supplies ${deliveredW} W of ${dev.maxW} W max draw`;
+        secEl.textContent = `~${mins50} ${isKo ? "분" : "min"}`;
+        secSubEl.textContent = isKo ? "0→50% 고속구간 이론 추정치" : "Theoretical 0–50% fast-charge estimate";
+      }
+
+      if (dev.id === "mbp16") {
+        if (cfg.supportsEpr && cfg.maxSingleW >= 140) {
+          protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-700";
+          protoEl.textContent = isKo ? "PD 3.1 140W 풀스피드" : "PD 3.1 140W Full Speed";
+          protoSubEl.textContent = isKo ? "240W E-Marker 케이블 사용 권장" : "Use certified 240W E-Marker cable";
+        } else if (cfg.maxSingleW >= 100) {
+          protoEl.className = "mt-1 font-mono text-base font-bold text-blue-700";
+          protoEl.textContent = isKo ? `PD 3.0 ${deliveredW}W 호환` : `PD 3.0 ${deliveredW}W Compatible`;
+          protoSubEl.textContent = isKo ? "140W EPR 미지원 · 일반 작업 충분" : "No 140W EPR; solid for daily loads";
+        } else {
+          protoEl.className = "mt-1 font-mono text-base font-bold text-amber-700";
+          protoEl.textContent = isKo ? `저속 충전 (${deliveredW}W)` : `Slow Charge (${deliveredW}W)`;
+          protoSubEl.textContent = isKo ? "고부하 시 배터리 유지·완속 충전" : "Slow charge under heavy laptop load";
+        }
+      } else if (dev.id === "s25ultra") {
+        if (cfg.supportsPps45) {
+          protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-700";
+          protoEl.textContent = isKo ? "초고속충전 2.0 (45W PPS)" : "45W Super Fast 2.0 (PPS)";
+          protoSubEl.textContent = isKo ? "5A 지원 USB-C 케이블 필요" : "Requires 5A E-Marker USB-C cable";
+        } else {
+          protoEl.className = "mt-1 font-mono text-base font-bold text-amber-700";
+          protoEl.textContent = isKo ? "일반 고속충전 (~25W)" : "Standard Fast (~25W)";
+          protoSubEl.textContent = isKo ? "삼성 45W 5A PPS 미지원" : "45W 5A PPS profile not confirmed";
+        }
+      } else {
+        protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-700";
+        protoEl.textContent = deliveredW >= dev.maxW
+          ? isKo ? `최대 속도 지원 (${deliveredW}W)` : `Full Speed (${deliveredW}W)`
+          : isKo ? `부분 호환 (${deliveredW}W)` : `Partial (${deliveredW}W)`;
+        protoSubEl.textContent = isKo ? `기기 요구 ${dev.maxW}W 대비 검증됨` : `Matched vs ${dev.maxW}W device ceiling`;
+      }
+    }
+
+    devBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        currentDevId = b.getAttribute("data-dev-id") || currentDevId;
+        renderDevice();
+      });
+    });
+    if (effSlider) {
+      effSlider.addEventListener("input", renderDevice);
+    }
+    renderDevice();
+  })();
+</script>

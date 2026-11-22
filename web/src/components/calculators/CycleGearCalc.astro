@@ -1,0 +1,551 @@
+---
+import type { ActiveLocale, CycleGearItem } from "../../lib/types";
+import { safeJsonLd } from "../../lib/i18n";
+
+interface Props {
+  item: CycleGearItem;
+  locale: ActiveLocale;
+}
+
+const { item, locale } = Astro.props;
+const isKo = locale === "ko";
+
+const payload = {
+  locale,
+  category: item.category,
+  mountForm: item.specs.mount_or_form_factor,
+  connectivity: item.specs.connectivity,
+  hooklessCompat: item.specs.hookless_compatible,
+  hooklessMaxPsi: item.specs.hookless_max_psi,
+  tireWidthMm: item.specs.tire_width_mm,
+  drivetrainSpeeds: item.specs.drivetrain_speeds,
+  bbMount: item.compatibility_graph.bb_or_mount_standard,
+  freehubCleat: item.compatibility_graph.freehub_or_cleat_standard,
+  drivetrains: item.compatibility_graph.drivetrain_compatible,
+  headUnits: item.compatibility_graph.head_unit_or_app_verified,
+  incompatNotes: isKo
+    ? item.compatibility_graph.incompatible_notes_ko
+    : item.compatibility_graph.incompatible_notes_en,
+  requiresHooklessWarn: item.safety_warning.requires_hookless_warning,
+  torqueNote: isKo
+    ? item.safety_warning.torque_or_install_note_ko
+    : item.safety_warning.torque_or_install_note_en,
+};
+---
+
+<section
+  id="cyclegear-calc"
+  class="lab-card overflow-hidden border-amber-200/90"
+  aria-labelledby="cg-calc-heading"
+>
+  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-300">
+          INTERACTIVE BIKE COMPATIBILITY GUARD
+        </span>
+        <h2 id="cg-calc-heading" class="mt-0.5 text-lg font-bold">
+          {isKo
+            ? "내 자전거 호환성 · 후크리스 5.0 bar 안전 검증 체커"
+            : "Interactive Bike Compatibility & Hookless 5.0 bar / 72.5 psi Guard"}
+        </h2>
+      </div>
+      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+        {item.compatibility_graph.bb_or_mount_standard}
+      </span>
+    </div>
+  </div>
+
+  <div class="space-y-6 p-5">
+    <!-- Overall Verdict Banner -->
+    <div id="cg-verdict-box" class="rounded-xl border border-emerald-300 bg-emerald-50 p-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <span id="cg-verdict-badge" class="badge-pass">PASS</span>
+          <h3 id="cg-verdict-title" class="text-sm font-bold text-slate-900">
+            {isKo ? "선택한 자전거 세팅과 호환됩니다" : "Compatible with Selected Bike Profile"}
+          </h3>
+        </div>
+        <span class="font-mono text-xs text-slate-500">ISO/ETRTO & SpecMatrix Guard</span>
+      </div>
+      <p id="cg-verdict-desc" class="mt-2 text-xs leading-relaxed text-slate-700"></p>
+    </div>
+
+    <!-- Controls Grid -->
+    <div class="grid gap-4 md:grid-cols-2">
+      <!-- 1. Rim Type & Pressure -->
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-xs font-bold text-slate-900">
+            {isKo ? "1. 림 규격 & 목표 공기압 (5.0 bar 가드)" : "1. Rim Profile & Target Tire Pressure"}
+          </span>
+          <div class="inline-flex overflow-hidden rounded border border-slate-300 bg-white font-mono text-[11px] font-semibold">
+            <button type="button" id="cg-unit-bar" class="px-2 py-1 bg-slate-900 text-white">bar</button>
+            <button type="button" id="cg-unit-psi" class="px-2 py-1 text-slate-600">psi</button>
+          </div>
+        </div>
+
+        <div class="mt-2.5 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            data-rim="hooked"
+            class="cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
+          >
+            {isKo ? "훅드 림 (Hooked)" : "Hooked Rim"}
+          </button>
+          <button
+            type="button"
+            data-rim="hookless"
+            class="cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700"
+          >
+            {isKo ? "후크리스 (Hookless TSS)" : "Hookless (TSS)"}
+          </button>
+        </div>
+
+        <div class="mt-3">
+          <div class="flex items-center justify-between text-xs">
+            <label for="cg-pressure-slider" class="font-medium text-slate-600">
+              {isKo ? "주행 공기압 설정:" : "Target Inflation Pressure:"}
+            </label>
+            <span id="cg-pressure-display" class="font-mono font-bold text-slate-900">
+              4.8 bar (69.6 psi)
+            </span>
+          </div>
+          <input
+            id="cg-pressure-slider"
+            type="range"
+            min="3.0"
+            max="7.5"
+            step="0.1"
+            value="4.8"
+            class="lab-slider mt-2"
+          />
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <span>3.0 bar (43.5 psi)</span>
+            <span class="font-semibold text-rose-700">5.0 bar / 72.5 psi Hookless Cap</span>
+            <span>7.5 bar</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-4. Bike Standards -->
+      <div class="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div>
+          <label for="cg-bb-select" class="block text-xs font-bold text-slate-900">
+            {isKo ? "2. 프레임 BB / 마운트 규격" : "2. Frame Bottom Bracket / Mount Standard"}
+          </label>
+          <select
+            id="cg-bb-select"
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900"
+          >
+            <option value="bsa">BSA Threaded (68mm)</option>
+            <option value="pf86">PF86 / BB86 Press-Fit</option>
+            <option value="t47">T47 Threaded</option>
+            <option value="bb30">BB30 / PF30 (30mm Spindle)</option>
+            <option value="universal">{isKo ? "페달 스레드 (9/16\") / 범용 마운트" : "Standard Pedal Thread / Out-Front Mount"}</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="cg-freehub-select" class="block text-xs font-bold text-slate-900">
+            {isKo ? "3. 프리허브 / 구동계 규격" : "3. Freehub Body / Drivetrain Standard"}
+          </label>
+          <select
+            id="cg-freehub-select"
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900"
+          >
+            <option value="hg-l2">Shimano HG / HG-L2 (11–12s Road)</option>
+            <option value="xdr">SRAM XDR (12s AXS)</option>
+            <option value="n3w">Campagnolo N3W (12–13s)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="cg-headunit-select" class="block text-xs font-bold text-slate-900">
+            {isKo ? "4. 헤드유닛 / 트레이닝 앱" : "4. Head Unit / Training Ecosystem"}
+          </label>
+          <select
+            id="cg-headunit-select"
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900"
+          >
+            <option value="garmin">Garmin Edge (ANT+ / BLE)</option>
+            <option value="coros">COROS DURA (ANT+ / BLE)</option>
+            <option value="wahoo">Wahoo ELEMNT (ANT+ / BLE)</option>
+            <option value="zwift">Zwift / TrainerRoad (FTMS / BLE)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Check-by-check breakdown -->
+    <div id="cg-checks-grid" class="grid gap-3 sm:grid-cols-2"></div>
+
+    <!-- Known incompatibility notes -->
+    {item.compatibility_graph.incompatible_notes_en.length > 0 && (
+      <div class="rounded-lg border border-slate-200 bg-white p-4">
+        <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-600">
+          {isKo ? "검증된 비호환·간섭 주의사항" : "Verified Incompatibility & Clearance Notes"}
+        </h4>
+        <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-700">
+          {(isKo
+            ? item.compatibility_graph.incompatible_notes_ko
+            : item.compatibility_graph.incompatible_notes_en
+          ).map((note) => (
+            <li>{note}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+
+  <script type="application/json" id="cg-calc-data" set:html={safeJsonLd(payload)} />
+</section>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("cg-calc-data");
+    if (!dataEl) return;
+
+    interface CgCfg {
+      locale: string;
+      category: string;
+      mountForm: string;
+      connectivity: string[];
+      hooklessCompat: boolean | null;
+      hooklessMaxPsi: number | null;
+      tireWidthMm: number | null;
+      drivetrainSpeeds: number | null;
+      bbMount: string;
+      freehubCleat: string;
+      drivetrains: string[];
+      headUnits: string[];
+      incompatNotes: string[];
+      requiresHooklessWarn: boolean;
+      torqueNote: string;
+    }
+
+    let cfg: CgCfg;
+    try {
+      cfg = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = cfg.locale === "ko";
+    let rimType = "hooked";
+    let pressureUnit = "bar";
+
+    const rimBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".cg-rim-btn"));
+    const unitBarBtn = document.getElementById("cg-unit-bar");
+    const unitPsiBtn = document.getElementById("cg-unit-psi");
+    const pressureSlider = document.getElementById("cg-pressure-slider") as HTMLInputElement | null;
+    const pressureDisplay = document.getElementById("cg-pressure-display");
+    const bbSelect = document.getElementById("cg-bb-select") as HTMLSelectElement | null;
+    const freehubSelect = document.getElementById("cg-freehub-select") as HTMLSelectElement | null;
+    const headUnitSelect = document.getElementById("cg-headunit-select") as HTMLSelectElement | null;
+
+    const verdictBox = document.getElementById("cg-verdict-box");
+    const verdictBadge = document.getElementById("cg-verdict-badge");
+    const verdictTitle = document.getElementById("cg-verdict-title");
+    const verdictDesc = document.getElementById("cg-verdict-desc");
+    const checksGrid = document.getElementById("cg-checks-grid");
+
+    const norm = (s: string | null | undefined) => String(s || "").toLowerCase();
+    const joinedDt = (cfg.drivetrains || []).join(" ").toLowerCase();
+    const joinedHu = (cfg.headUnits || []).join(" ").toLowerCase();
+    const joinedConn = (cfg.connectivity || []).join(" ").toLowerCase();
+    const bbStr = norm(cfg.bbMount);
+
+    function evaluate() {
+      const barVal = Number(pressureSlider ? pressureSlider.value : 4.8);
+      const psiVal = barVal * 14.5038;
+      if (pressureDisplay) {
+        pressureDisplay.textContent =
+          pressureUnit === "bar"
+            ? `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)`
+            : `${psiVal.toFixed(1)} psi (${barVal.toFixed(1)} bar)`;
+      }
+
+      const checks: Array<{ status: "pass" | "caution" | "fail"; title: string; detail: string }> = [];
+
+      // Check 1: Rim & Pressure Guard
+      if (rimType === "hookless") {
+        if (cfg.hooklessCompat === false) {
+          checks.push({
+            status: "fail",
+            title: isKo ? "후크리스 림 호환성" : "Hookless Rim Compatibility",
+            detail: isKo
+              ? "이 모델은 후크리스(TSS) 림 호환이 승인되지 않았습니다. 훅드 림 전용입니다."
+              : "NOT approved for Hookless (TSS) rims. Use on hooked rims only.",
+          });
+        } else if (barVal > 5.0 || psiVal > 72.5) {
+          checks.push({
+            status: "fail",
+            title: isKo ? "후크리스 5.0 bar (72.5 psi) 초과 위험" : "OVER 5.0 bar / 72.5 psi Hookless Limit",
+            detail: isKo
+              ? `설정 공기압 ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)가 ISO/ETRTO 후크리스 절대 상한(5.0 bar / 72.5 psi)을 초과했습니다. 주행 중 타이어 이탈 위험이 있습니다!`
+              : `Target ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) EXCEEDS the mandatory ISO/ETRTO 5.0 bar / 72.5 psi hookless ceiling. Blow-off risk!`,
+          });
+        } else if (cfg.category === "road-tire") {
+          checks.push({
+            status: "caution",
+            title: isKo ? "후크리스 공기압 준수 · 휠 승인표 확인" : "Hookless Pressure OK · Verify Wheel List",
+            detail: isKo
+              ? `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)는 상한 이내입니다. 장착 전 휠 제조사 공식 호환 타이어 리스트를 최종 확인하세요.`
+              : `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) is within the 5.0 bar ceiling. Confirm this exact tire width on your wheelmaker's approved list.`,
+          });
+        } else {
+          checks.push({
+            status: "pass",
+            title: isKo ? "공기압 안전 기준 준수" : "Hookless Pressure Ceiling OK",
+            detail: isKo
+              ? "후크리스 5.0 bar(72.5 psi) 안전 범위 내입니다 (타이어 이외 컴포넌트)."
+              : "Within 5.0 bar / 72.5 psi ceiling (non-tire component).",
+          });
+        }
+      } else {
+        checks.push({
+          status: "pass",
+          title: isKo ? "훅드 림(Hooked) 세팅" : "Hooked Rim Setup",
+          detail: isKo
+            ? `훅드 림 ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) — 타이어 사이드월 표기 최대 공기압 이내로 세팅하세요.`
+            : `Hooked rim at ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) — stay within sidewall max rating.`,
+        });
+      }
+
+      // Check 2: BB / Mount Standard
+      const bbVal = bbSelect ? bbSelect.value : "bsa";
+      if (cfg.category === "power-meter" || cfg.category === "drivetrain") {
+        const isPedalMount = bbStr.includes("pedal") || bbStr.includes("9/16") || norm(cfg.mountForm).includes("pedal");
+        if (isPedalMount) {
+          checks.push({
+            status: "pass",
+            title: isKo ? "BB / 마운트 호환 (페달식)" : "BB / Mount (Pedal-Based)",
+            detail: isKo
+              ? `페달 스레드(9/16") 장착 방식으로 ${bbVal.toUpperCase()} 프레임 BB 규격과 무관하게 장착 가능합니다.`
+              : `Pedal-spindle mount installs independently of ${bbVal.toUpperCase()} bottom bracket shell.`,
+          });
+        } else if (bbVal === "bb30" && (bbStr.includes("24mm") || bbStr.includes("hollowtech") || bbStr.includes("shimano"))) {
+          checks.push({
+            status: "caution",
+            title: isKo ? "BB30 프레임 어댑터 필요" : "BB30 Adapter Required",
+            detail: isKo
+              ? `본 제품은 ${cfg.bbMount} 기반입니다. BB30/PF30 프레임에는 24mm 변환 BB 또는 스페이서 어댑터가 필요합니다.`
+              : `Requires 24mm conversion bottom bracket or adapter for BB30/PF30 frames (${cfg.bbMount}).`,
+          });
+        } else {
+          checks.push({
+            status: "pass",
+            title: isKo ? "BB / 프레임 마운트 호환" : "BB / Mount Standard Match",
+            detail: isKo
+              ? `기준 규격(${cfg.bbMount})과 ${bbVal.toUpperCase()} 세팅 조합 확인됨. 체인스테이 클리어런스 및 규정 토크 준수 필요.`
+              : `Matches ${cfg.bbMount} with ${bbVal.toUpperCase()} setup. Verify chainstay clearance and torque spec.`,
+          });
+        }
+      } else {
+        checks.push({
+          status: "pass",
+          title: isKo ? "장착 규격" : "Mount Standard",
+          detail: `${cfg.bbMount}`,
+        });
+      }
+
+      // Check 3: Freehub / Drivetrain
+      const fhVal = freehubSelect ? freehubSelect.value : "hg-l2";
+      if (cfg.category === "smart-trainer" || cfg.category === "drivetrain") {
+        if (fhVal === "xdr") {
+          const isShimanoOnly = joinedDt.includes("shimano") && !joinedDt.includes("sram");
+          if (isShimanoOnly) {
+            checks.push({
+              status: "fail",
+              title: isKo ? "SRAM XDR 비호환" : "SRAM XDR Incompatible",
+              detail: isKo
+                ? "Shimano 전용 구동계 규격으로 SRAM XDR 카세트·프리허브와 직접 호환되지 않습니다."
+                : "Shimano-specific drivetrain standard is incompatible with SRAM XDR freehub/cassettes.",
+            });
+          } else {
+            checks.push({
+              status: "caution",
+              title: isKo ? "XDR 프리허브 바디 별매 확인" : "Verify XDR Freehub Body",
+              detail: isKo
+                ? `기본 프리허브(${cfg.freehubCleat}) 구성 확인 필요 — SRAM 12단 AXS 장착 시 XDR 프리허브 바디가 별도로 필요할 수 있습니다.`
+                : `Stock standard is ${cfg.freehubCleat}. Confirm whether an XDR freehub adapter is included or sold separately.`,
+            });
+          }
+        } else if (fhVal === "n3w") {
+          checks.push({
+            status: "caution",
+            title: isKo ? "Campagnolo N3W 전용 어댑터 확인" : "Campagnolo N3W Adapter Check",
+            detail: isKo
+              ? `기본 규격(${cfg.freehubCleat})과 다릅니다. N3W 프리허브 바디 호환 여부를 제조사 공식 목록에서 확인하세요.`
+              : `Differs from default (${cfg.freehubCleat}). Confirm N3W freehub kit availability before purchase.`,
+          });
+        } else {
+          const isSramOnly = joinedDt.includes("sram") && !joinedDt.includes("shimano") && cfg.category === "drivetrain";
+          checks.push({
+            status: isSramOnly ? "fail" : "pass",
+            title: isSramOnly
+              ? isKo
+                ? "Shimano HG 프리허브 비호환"
+                : "Shimano HG Incompatible"
+              : isKo
+                ? "Shimano HG / HG-L2 호환"
+                : "Shimano HG / HG-L2 Compatible",
+            detail: isSramOnly
+              ? isKo
+                ? "SRAM AXS 12단 평탄 체인·XDR 카세트 전용으로 Shimano HG-L2와 호환되지 않습니다."
+                : "SRAM AXS 12s flattop/XDR architecture is not compatible with Shimano HG-L2."
+              : `${cfg.freehubCleat}`,
+          });
+        }
+      } else {
+        checks.push({
+          status: "pass",
+          title: isKo ? "구동계 / 클릿 규격" : "Drivetrain / Cleat Spec",
+          detail: `${cfg.freehubCleat} · ${(cfg.drivetrains || []).slice(0, 2).join(", ")}`,
+        });
+      }
+
+      // Check 4: Head Unit / Connectivity
+      const huVal = headUnitSelect ? headUnitSelect.value : "garmin";
+      if (cfg.category === "road-tire") {
+        checks.push({
+          status: "pass",
+          title: isKo ? "전자 통신 해당 없음" : "Mechanical Component",
+          detail: isKo ? "헤드유닛 페어링 불필요 (타이어 외주 입력만 필요)" : "No wireless pairing required; enter tire circumference on head unit.",
+        });
+      } else {
+        const hasWireless = joinedConn.includes("ant") || joinedConn.includes("ble") || joinedConn.includes("bluetooth");
+        const directMatch = joinedHu.includes(huVal) || joinedHu.includes("all ant+");
+        if (hasWireless && directMatch) {
+          checks.push({
+            status: "pass",
+            title: isKo ? "헤드유닛 / 앱 검증 완료" : "Head Unit / App Verified",
+            detail: isKo
+              ? `ANT+/BLE 통신으로 선택한 생태계(${huVal.toUpperCase()})와 공식 연동 검증됨.`
+              : `Verified ANT+/BLE pairing with ${huVal.toUpperCase()} ecosystem.`,
+          });
+        } else if (hasWireless) {
+          checks.push({
+            status: "caution",
+            title: isKo ? "표준 ANT+/BLE 호환 (일부 전용 지표 확인)" : "Standard ANT+/BLE (Check Proprietary Metrics)",
+            detail: isKo
+              ? `기본 전력/케이던스 연동 가능. 공식 검증 리스트: ${(cfg.headUnits || []).join(", ")}`
+              : `Core ANT+/BLE works; verified list: ${(cfg.headUnits || []).join(", ")}`,
+          });
+        } else {
+          checks.push({
+            status: "pass",
+            title: isKo ? "연동 정보" : "Ecosystem Status",
+            detail: (cfg.headUnits || []).join(", "),
+          });
+        }
+      }
+
+      // Compute overall verdict
+      const hasFail = checks.some((c) => c.status === "fail");
+      const hasCaution = checks.some((c) => c.status === "caution");
+
+      if (verdictBox && verdictBadge && verdictTitle && verdictDesc) {
+        if (hasFail) {
+          verdictBox.className = "rounded-xl border border-rose-300 bg-rose-50 p-4";
+          verdictBadge.className = "badge-fail";
+          verdictBadge.textContent = isKo ? "INCOMPATIBLE (비호환/위험)" : "INCOMPATIBLE / DANGER";
+          verdictTitle.textContent = isKo
+            ? "선택한 세팅에 안전 위험 또는 비호환 요소가 감지되었습니다"
+            : "Safety Violation or Hard Incompatibility Detected";
+          verdictDesc.textContent = isKo
+            ? "아래 빨간색 항목을 반드시 수정하거나 제조사 호환 모델을 선택하세요."
+            : "Resolve the red flagged condition(s) below before installing or riding.";
+        } else if (hasCaution) {
+          verdictBox.className = "rounded-xl border border-amber-300 bg-amber-50 p-4";
+          verdictBadge.className = "badge-caution";
+          verdictBadge.textContent = isKo ? "CAUTION (조건부 호환)" : "CAUTION — CONDITIONAL";
+          verdictTitle.textContent = isKo
+            ? "조건부 호환 — 어댑터·승인 목록 최종 확인 필요"
+            : "Conditionally Compatible — Verify Adapter / Approved List";
+          verdictDesc.textContent = cfg.torqueNote || "";
+        } else {
+          verdictBox.className = "rounded-xl border border-emerald-300 bg-emerald-50 p-4";
+          verdictBadge.className = "badge-pass";
+          verdictBadge.textContent = isKo ? "PASS (호환 검증됨)" : "PASS — COMPATIBLE";
+          verdictTitle.textContent = isKo
+            ? "선택한 자전거 세팅과 정상 호환됩니다"
+            : "Compatible with Your Selected Bike Setup";
+          verdictDesc.textContent = cfg.torqueNote || "";
+        }
+      }
+
+      if (checksGrid) {
+        checksGrid.innerHTML = checks
+          .map((c) => {
+            const cls =
+              c.status === "fail"
+                ? "badge-fail"
+                : c.status === "caution"
+                  ? "badge-caution"
+                  : "badge-pass";
+            const label =
+              c.status === "fail"
+                ? isKo
+                  ? "비호환/위험"
+                  : "FAIL"
+                : c.status === "caution"
+                  ? isKo
+                    ? "주의"
+                    : "CAUTION"
+                  : isKo
+                    ? "통과"
+                    : "PASS";
+            return `
+              <div class="rounded-lg border border-slate-200 bg-white p-3.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-bold text-slate-900">${c.title}</span>
+                  <span class="${cls}">${label}</span>
+                </div>
+                <p class="mt-1.5 text-xs leading-relaxed text-slate-600">${c.detail}</p>
+              </div>
+            `;
+          })
+          .join("");
+      }
+    }
+
+    rimBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        rimType = b.getAttribute("data-rim") || "hooked";
+        rimBtns.forEach((o) => {
+          const on = o === b;
+          o.className = on
+            ? "cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
+            : "cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700";
+        });
+        evaluate();
+      });
+    });
+
+    if (unitBarBtn && unitPsiBtn) {
+      unitBarBtn.addEventListener("click", () => {
+        pressureUnit = "bar";
+        unitBarBtn.className = "px-2 py-1 bg-slate-900 text-white";
+        unitPsiBtn.className = "px-2 py-1 text-slate-600";
+        evaluate();
+      });
+      unitPsiBtn.addEventListener("click", () => {
+        pressureUnit = "psi";
+        unitPsiBtn.className = "px-2 py-1 bg-slate-900 text-white";
+        unitBarBtn.className = "px-2 py-1 text-slate-600";
+        evaluate();
+      });
+    }
+
+    [pressureSlider, bbSelect, freehubSelect, headUnitSelect].forEach((el) => {
+      if (el) {
+        el.addEventListener("input", evaluate);
+        el.addEventListener("change", evaluate);
+      }
+    });
+
+    evaluate();
+  })();
+</script>

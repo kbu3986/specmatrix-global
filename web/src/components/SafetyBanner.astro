@@ -1,0 +1,103 @@
+---
+import type { ActiveLocale, AnyItem, PilotVertical } from "../lib/types";
+
+interface Props {
+  vertical: PilotVertical;
+  locale: ActiveLocale;
+  item?: AnyItem | null;
+}
+
+const { vertical, locale, item = null } = Astro.props;
+const isKo = locale === "ko";
+
+const cycleItem = item && item.vertical === "cyclegear" ? item : null;
+const wattItem = item && item.vertical === "wattcheck" ? item : null;
+---
+
+{vertical === "wattcheck" && (
+  <section
+    class="rounded-xl border border-amber-300 bg-amber-50/80 p-4 text-sm text-amber-950"
+    aria-label={isKo ? "항공 안전 및 국토부 규정 고지" : "Aviation Regulation Notice"}
+  >
+    <div class="flex items-start gap-3">
+      <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-200 font-mono text-xs font-bold text-amber-950">
+        !
+      </span>
+      <div class="space-y-1.5">
+        <h3 class="font-semibold text-amber-950">
+          {isKo
+            ? "항공기 기내 반입 및 국토교통부(2025–2026) 안전 고지"
+            : "IATA / FAA / Korea MOLIT (2025–2026) Aviation Compliance Notice"}
+        </h3>
+        <p class="text-xs leading-relaxed text-amber-900">
+          {isKo
+            ? "한국 출발 항공편의 보조배터리 기내 반입 시 단자 절연(투명 지퍼백 또는 절연 테이프) 보관, 기내 선반 보관 금지(직접 소지 또는 앞좌석 포켓 보관), 기내 충전·사용 금지 규정이 적용됩니다. 최종 반입 여부는 탑승 당일 공항 보안검색대와 운항 항공사의 현장 판단을 따릅니다."
+            : "Lithium battery carry-on rules vary by carrier and jurisdiction. Korea MOLIT 2025–2026 rules prohibit overhead-bin storage and in-flight charging and require terminal insulation / transparent zip pouches. Final boarding approval always rests with airport security and the operating airline on travel day."}
+        </p>
+        {wattItem && (
+          <p class="font-mono text-xs text-amber-900">
+            {isKo ? "SKU 국토부/IATA 노트: " : "SKU Compliance Note: "}
+            {wattItem.airline_compliance_profile.korea_molit_2026_notes}
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+{vertical === "puregram" && (
+  <section
+    class="rounded-xl border border-slate-300 bg-slate-50 p-4 text-sm text-slate-800"
+    aria-label={isKo ? "비의학적 성분 수학 고지" : "Non-Medical Label Math Notice"}
+  >
+    <div class="flex items-start gap-3">
+      <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-200 font-mono text-xs font-bold text-slate-800">
+        i
+      </span>
+      <div class="space-y-1">
+        <h3 class="font-semibold text-slate-900">
+          {isKo
+            ? "영양성분표 정량 계산 안내 (비의학적 정보)"
+            : "Objective Nutrition-Label Math Notice (Non-Medical)"}
+        </h3>
+        <p class="text-xs leading-relaxed text-slate-600">
+          {isKo
+            ? "본 페이지의 순도(%), 비유효 중량 비율, 1회분·기준 단위당 단가는 제조사 공식 영양성분표(Nutrition Facts) 수치를 그대로 사칙연산한 객관적 정보입니다. 의학적 진단·처방이나 개인 건강 조언이 아니며, 섭취량과 알레르기 성분은 제품 라벨과 전문가를 통해 확인하세요."
+            : "All purity ratios, carrier-weight percentages, and cost-per-active-unit figures on this page are deterministic arithmetic derived directly from official Nutrition Facts panels. This is informational math only — not medical or dietary advice. Verify allergens and dosing on the physical package label."}
+        </p>
+      </div>
+    </div>
+  </section>
+)}
+
+{vertical === "cyclegear" && (
+  <section
+    class="rounded-xl border border-rose-300 bg-rose-50/80 p-4 text-sm text-rose-950"
+    aria-label={isKo ? "후크리스 림 공기압 및 토크 안전 경고" : "Hookless & Torque Safety Notice"}
+  >
+    <div class="flex items-start gap-3">
+      <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-200 font-mono text-xs font-bold text-rose-950">
+        !
+      </span>
+      <div class="space-y-1.5">
+        <h3 class="font-semibold text-rose-950">
+          {isKo
+            ? "필수 안전 경고: 후크리스(Hookless) 5.0 bar / 72.5 psi 상한 및 규정 토크 준수"
+            : "Mandatory Cycling Safety: Hookless 5.0 bar / 72.5 psi Cap & Torque Spec"}
+        </h3>
+        <p class="text-xs leading-relaxed text-rose-900">
+          {isKo
+            ? "후크리스(TSS) 림 사용 시 ISO/ETRTO 규정 최대 공기압 5.0 bar(72.5 psi)를 절대 초과하지 마시고, 반드시 휠셋 제조사와 타이어 제조사의 공식 호환 승인 리스트를 교차 확인하세요. 파워미터·크랭크·구동계 장착 시 교정된 토크렌치로 제조사 매뉴얼 규정 토크를 준수해야 합니다."
+            : "Never exceed the ISO/ETRTO hookless (TSS) maximum inflation ceiling of 5.0 bar (72.5 psi), and always verify your exact tire-rim pairing on both wheel and tire manufacturer approved lists before riding. Install power meters, pedals, and drivetrain components using a calibrated torque wrench per manufacturer manuals."}
+        </p>
+        {cycleItem && (
+          <p class="rounded border border-rose-200 bg-white/80 px-3 py-2 font-mono text-xs text-rose-950">
+            {isKo
+              ? cycleItem.safety_warning.torque_or_install_note_ko
+              : cycleItem.safety_warning.torque_or_install_note_en}
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+)}

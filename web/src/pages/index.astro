@@ -1,0 +1,177 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  getAirlines,
+  getAllItems,
+  getAllMatrices,
+  getAllVsInsights,
+  getVerticalItems,
+} from "../lib/data";
+import { SITE_URL } from "../lib/i18n";
+
+const totalItems = getAllItems().length;
+const totalVs = getAllVsInsights().length;
+const totalMatrices = getAllMatrices().length;
+const totalAirlines = getAirlines().length;
+
+const wcCount = getVerticalItems("wattcheck").length;
+const pgCount = getVerticalItems("puregram").length;
+const cgCount = getVerticalItems("cyclegear").length;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "SpecMatrix Global",
+    url: `${SITE_URL}/`,
+    inLanguage: ["en", "ko"],
+    description:
+      "Evidence-anchored multi-locale specification comparison matrices and deterministic engineering calculators.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SpecMatrix Global",
+    url: `${SITE_URL}/`,
+  },
+];
+---
+
+<BaseLayout
+  title="SpecMatrix Global — Evidence-Anchored Spec Matrices & Calculators (EN / KO)"
+  description="Precision hardware, endurance nutrition, and road-cycling specification matrices verified against official manuals, nutrition labels, and aviation rules."
+  locale="en"
+  currentPath="/"
+  isRootPortal={true}
+  jsonLd={jsonLd}
+>
+  <section class="mx-auto max-w-4xl py-6 sm:py-12">
+    <div class="text-center">
+      <span class="badge-info font-mono">EVIDENCE-ANCHORED SPEC MATRIX · PHASE 1 LIVE</span>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+        SpecMatrix Global
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+        Zero-hallucination specification sheets, head-to-head quantitative comparisons, and
+        deterministic calculators anchored to official manufacturer manuals, nutrition panels, and
+        global airline regulations.
+      </p>
+      <p class="mx-auto mt-2 max-w-2xl text-sm text-slate-500">
+        제조사 공식 스펙시트·영양성분표·30개 항공사 규정에 근거한 정밀 비교 매트릭스 및 인터랙티브 검증 도구
+      </p>
+    </div>
+
+    <!-- Language Hint Banner (non-blocking) -->
+    <div
+      id="root-locale-hint"
+      class="mt-6 hidden items-center justify-between gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-950"
+    >
+      <span id="root-locale-hint-text"></span>
+      <a
+        id="root-locale-hint-link"
+        href="/ko"
+        class="shrink-0 rounded-md bg-blue-700 px-3 py-1.5 font-semibold text-white hover:bg-blue-800"
+      >
+        바로 이동 →
+      </a>
+    </div>
+
+    <!-- EN / KO Launch Cards -->
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      <a
+        href="/en"
+        class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
+      >
+        <div class="flex items-center justify-between">
+          <span class="rounded-md bg-slate-900 px-2.5 py-1 font-mono text-xs font-bold text-white">
+            EN · US / GLOBAL
+          </span>
+          <span class="font-mono text-xs text-slate-500">USD · 120V · FAA/TSA</span>
+        </div>
+        <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-blue-700">
+          Enter English Hub →
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          Amazon US MSRP reference benchmarks, IATA & FAA PackSafe flight rules, true cost per
+          active gram, and ISO/ETRTO hookless compatibility checkers.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+          <span>WattCheck ({wcCount})</span>
+          <span>·</span>
+          <span>PureGram ({pgCount})</span>
+          <span>·</span>
+          <span>CycleGear ({cgCount})</span>
+        </div>
+      </a>
+
+      <a
+        href="/ko"
+        class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
+      >
+        <div class="flex items-center justify-between">
+          <span class="rounded-md bg-blue-700 px-2.5 py-1 font-mono text-xs font-bold text-white">
+            KO · 대한민국
+          </span>
+          <span class="font-mono text-xs text-slate-500">KRW · 220V · 국토부/KC</span>
+        </div>
+        <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-blue-700">
+          한국어 허브 입장 →
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          국토교통부 2025–2026 기내 반입 규정(선반금지·투명 지퍼백)·KC 인증, 쿠팡·직구 실단가
+          계산기, 로드사이클 후크리스 5 bar 안전 검증기.
+        </p>
+        <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
+          <span>WattCheck ({wcCount})</span>
+          <span>·</span>
+          <span>PureGram ({pgCount})</span>
+          <span>·</span>
+          <span>CycleGear ({cgCount})</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Verified Index Summary -->
+    <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div class="lab-card p-4 text-center">
+        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalItems}</div>
+        <div class="mt-1 text-xs font-medium text-slate-500">Verified SKUs</div>
+      </div>
+      <div class="lab-card p-4 text-center">
+        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalAirlines}</div>
+        <div class="mt-1 text-xs font-medium text-slate-500">Global Airlines</div>
+      </div>
+      <div class="lab-card p-4 text-center">
+        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalVs}</div>
+        <div class="mt-1 text-xs font-medium text-slate-500">1:1 VS Breakdowns</div>
+      </div>
+      <div class="lab-card p-4 text-center">
+        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalMatrices}</div>
+        <div class="mt-1 text-xs font-medium text-slate-500">Interactive Matrices</div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  (() => {
+    const lang = (navigator.language || "").toLowerCase();
+    const box = document.getElementById("root-locale-hint");
+    const txt = document.getElementById("root-locale-hint-text");
+    const lnk = document.getElementById("root-locale-hint-link");
+    if (!box || !txt || !lnk) return;
+    if (lang.startsWith("ko")) {
+      txt.textContent = "한국어 브라우저 환경이 감지되었습니다. KRW · 국토부 규정 · 쿠팡/직구 기준으로 구성된 한국어 허브를 이용하세요.";
+      lnk.setAttribute("href", "/ko");
+      lnk.textContent = "한국어 허브로 이동 →";
+      box.classList.remove("hidden");
+      box.classList.add("flex");
+    } else {
+      txt.textContent = "Detected English locale. Launch the EN hub for USD benchmarks, FAA/IATA rules, and US store links.";
+      lnk.setAttribute("href", "/en");
+      lnk.textContent = "Go to English Hub →";
+      box.classList.remove("hidden");
+      box.classList.add("flex");
+    }
+  })();
+</script>
