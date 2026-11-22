@@ -5,7 +5,7 @@ import type {
   MonetizationViewModel,
   OutboundCtaButton,
 } from "./types";
-import { getMonetizationConfig } from "./data";
+import { getCoupangDeeplinks, getMonetizationConfig } from "./data";
 import { formatCurrency } from "./i18n";
 
 const REAL_ASIN_RE = /^B0[0-9A-Z]{8}$/;
@@ -13,6 +13,19 @@ const REAL_ASIN_RE = /^B0[0-9A-Z]{8}$/;
 function isValidAsin(asin: string | null | undefined): asin is string {
   if (!asin) return false;
   return REAL_ASIN_RE.test(asin);
+}
+
+function isOfficialCoupangShortLink(url: string | null | undefined): url is string {
+  if (!url) return false;
+  return /^https:\/\/link\.coupang\.com\//i.test(url.trim());
+}
+
+export function sanitizeCoupangIframeUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  const trimmed = url.trim();
+  return /^https:\/\/ads-partners\.coupang\.com\/widgets\.html\?/i.test(trimmed)
+    ? trimmed
+    : "";
 }
 
 function buildAmazonUsUrl(
@@ -34,11 +47,21 @@ function buildAmazonUsUrl(
 }
 
 function buildCoupangSearchUrl(
+  slug: string,
   searchQuery: string,
   partnersId: string,
-  subId: string
-): string {
-  return `https://www.coupang.com/np/search?q=${encodeURIComponent(searchQuery)}&lptag=${encodeURIComponent(partnersId)}&subid=${encodeURIComponent(subId)}`;
+  subId: string,
+  deeplinks: Record<string, string>,
+  forceSearch: boolean
+): { url: string; linkMode: "official_coupang" | "search_deeplink" } {
+  const official = deeplinks[slug];
+  if (!forceSearch && isOfficialCoupangShortLink(official)) {
+    return { url: official.trim(), linkMode: "official_coupang" };
+  }
+  return {
+    url: `https://www.coupang.com/np/search?q=${encodeURIComponent(searchQuery)}&lptag=${encodeURIComponent(partnersId)}&subId=${encodeURIComponent(subId)}`,
+    linkMode: "search_deeplink",
+  };
 }
 
 function getStatusMeta(
@@ -94,10 +117,14 @@ export function buildMonetizationModel(
   const buttons: OutboundCtaButton[] = [];
 
   if (isKo) {
-    const coupangUrl = buildCoupangSearchUrl(
+    const deeplinks = getCoupangDeeplinks();
+    const coupangBuilt = buildCoupangSearchUrl(
+      item.slug,
       isDiscontinued ? fallbackQuery : krOffer.search_query,
       coupangId,
-      coupangSubId
+      coupangSubId,
+      deeplinks,
+      isDiscontinued
     );
     const amazonBuilt = buildAmazonUsUrl(
       usOffer.asin,
@@ -113,11 +140,11 @@ export function buildMonetizationModel(
           ? "쿠팡 재고·실시간 최저가 확인"
           : "쿠팡에서 실시간 가격 확인",
       storeName: "Coupang KR",
-      url: coupangUrl,
+      url: coupangBuilt.url,
       rel: "sponsored nofollow noopener",
       target: "_blank",
       isPrimary: !isTempOos,
-      linkMode: "search_deeplink",
+      linkMode: coupangBuilt.linkMode,
     };
 
     const amazonBtn: OutboundCtaButton = {
@@ -136,6 +163,19 @@ export function buildMonetizationModel(
       buttons.push(amazonBtn, coupangBtn);
     } else {
       buttons.push(coupangBtn, amazonBtn);
+    }
+
+    const officialRedirect = cfg.coupang.redirectUrl;
+    if (isOfficialCoupangShortLink(officialRedirect)) {
+      buttons.push({
+        label: "쿠팡 파트너스 오늘의 특가·로켓배송 보기",
+        storeName: "Coupang Goldbox",
+        url: officialRedirect.trim(),
+        rel: "sponsored nofollow noopener",
+        target: "_blank",
+        isPrimary: false,
+        linkMode: "official_coupang",
+      });
     }
   } else {
     const amazonBuilt = buildAmazonUsUrl(

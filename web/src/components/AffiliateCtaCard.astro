@@ -63,6 +63,10 @@ const statusBadgeClass =
         href={btn.url}
         rel={btn.rel}
         target={btn.target}
+        data-affiliate-store={btn.storeName}
+        data-affiliate-vertical={item.vertical}
+        data-affiliate-sku={item.slug}
+        data-affiliate-mode={btn.linkMode}
         class:list={[
           "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
           btn.isPrimary

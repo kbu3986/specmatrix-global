@@ -63,6 +63,9 @@ const verticalNav = PILOT_VERTICALS.map((v) => ({
 
 const ldList = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 const isKo = locale === "ko";
+const ga4Id = (cfg.analytics?.ga4MeasurementId || "").trim();
+const clarityId = (cfg.analytics?.clarityProjectId || "").trim();
+const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
 ---
 
 <!doctype html>
@@ -75,12 +78,60 @@ const isKo = locale === "ko";
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 
     <!-- AdSense & Search Console Verification -->
-    <meta name="google-adsense-account" content={cfg.adsenseId} />
+    {cfg.adsenseId && (
+      <>
+        <meta name="google-adsense-account" content={cfg.adsenseId} />
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${cfg.adsenseId}`}
+          crossorigin="anonymous"
+        ></script>
+      </>
+    )}
     {cfg.verification.gsc && (
       <meta name="google-site-verification" content={cfg.verification.gsc} />
     )}
     {cfg.verification.naver && (
       <meta name="naver-site-verification" content={cfg.verification.naver} />
+    )}
+
+    <!-- Optional GA4 / Clarity / Cloudflare Web Analytics -->
+    {ga4Id && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
+        <script is:inline define:vars={{ ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            window.dataLayer.push(arguments);
+          }
+          window.gtag = gtag;
+          gtag("js", new Date());
+          gtag("config", ga4Id, { anonymize_ip: true });
+        </script>
+      </>
+    )}
+    {clarityId && (
+      <script is:inline define:vars={{ clarityId }}>
+        (function (c, l, a, r, i, t, y) {
+          c[a] =
+            c[a] ||
+            function () {
+              (c[a].q = c[a].q || []).push(arguments);
+            };
+          t = l.createElement(r);
+          t.async = 1;
+          t.src = "https://www.clarity.ms/tag/" + i;
+          y = l.getElementsByTagName(r)[0];
+          y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", clarityId);
+      </script>
+    )}
+    {cfBeaconToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+      ></script>
     )}
 
     <!-- Canonical & Symmetric Hreflang -->
@@ -256,5 +307,27 @@ const isKo = locale === "ko";
         </div>
       </div>
     </footer>
+
+    <script is:inline>
+      (function () {
+        document.addEventListener("click", function (ev) {
+          var target = ev.target && ev.target.closest ? ev.target.closest("a[data-affiliate-store]") : null;
+          if (!target) return;
+          var detail = {
+            store: target.getAttribute("data-affiliate-store") || "",
+            vertical: target.getAttribute("data-affiliate-vertical") || "",
+            sku: target.getAttribute("data-affiliate-sku") || "",
+            link_mode: target.getAttribute("data-affiliate-mode") || "",
+            locale: document.documentElement.lang || "en",
+          };
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "affiliate_click", detail);
+          }
+          if (typeof window.clarity === "function") {
+            window.clarity("set", "last_affiliate_sku", detail.sku);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

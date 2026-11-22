@@ -5,9 +5,23 @@
   "pricingMode": "msrp_benchmark_mode",
   "adsenseId": "ca-pub-8587506565277191",
   "adsTxtLine": "google.com, pub-8587506565277191, DIRECT, f08c47fec0942fa0",
+  "adsenseSlots": {
+    "hub-top": "",
+    "item-top-wattcheck": "",
+    "item-top-puregram": "",
+    "item-top-cyclegear": "",
+    "vs-top-wattcheck": "",
+    "vs-top-puregram": "",
+    "vs-top-cyclegear": "",
+    "matrix-top-wattcheck": "",
+    "matrix-top-puregram": "",
+    "matrix-top-cyclegear": ""
+  },
   "coupang": {
     "partnersId": "AF2200875",
     "defaultSubId": "ssalmeok-kr",
+    "redirectUrl": "",
+    "iframeUrl": "",
     "verticalSubIds": {
       "wattcheck": "sm-watt-kr",
       "puregram": "sm-pure-kr",
@@ -29,9 +43,15 @@
     "awinPublisherId": "",
     "impactAccountSid": ""
   },
+  "analytics": {
+    "ga4MeasurementId": "",
+    "clarityProjectId": "",
+    "cfBeaconToken": ""
+  },
   "verification": {
     "gsc": "srNR80vNCy3sBgCrxGn_bZLwTPgwsvqmdTxF4arEhw4",
-    "naver": "8c10763f9e41c812023c31dc42cce3517af9ad25"
+    "naver": "8c10763f9e41c812023c31dc42cce3517af9ad25",
+    "indexNowKey": "8f4a7c2e9b1d4063a5e8f2c7b9d1046e"
   },
   "releaseGate": {
     "activeLocales": ["en", "ko"],

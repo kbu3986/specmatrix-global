@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Official Coupang Partners short-link registry (https://link.coupang.com/a/...). Populate via `npm run coupang:sync` (Open API) or paste manually generated links from Coupang Partners Center.",
+  "updated_at": "2026-11-22",
+  "links": {}
+}

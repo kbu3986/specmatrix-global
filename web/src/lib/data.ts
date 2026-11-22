@@ -64,9 +64,12 @@ export function getMonetizationConfig(): MonetizationConfig {
     pricingMode: "msrp_benchmark_mode",
     adsenseId: "ca-pub-8587506565277191",
     adsTxtLine: "google.com, pub-8587506565277191, DIRECT, f08c47fec0942fa0",
+    adsenseSlots: {},
     coupang: {
       partnersId: "AF2200875",
       defaultSubId: "ssalmeok-kr",
+      redirectUrl: "",
+      iframeUrl: "",
       verticalSubIds: {
         wattcheck: "sm-watt-kr",
         puregram: "sm-pure-kr",
@@ -76,9 +79,15 @@ export function getMonetizationConfig(): MonetizationConfig {
     },
     amazonOneLink: { us: "kbu3986-20" },
     globalAffiliates: {},
+    analytics: {
+      ga4MeasurementId: "",
+      clarityProjectId: "",
+      cfBeaconToken: "",
+    },
     verification: {
       gsc: "srNR80vNCy3sBgCrxGn_bZLwTPgwsvqmdTxF4arEhw4",
       naver: "8c10763f9e41c812023c31dc42cce3517af9ad25",
+      indexNowKey: "",
     },
     releaseGate: {
       activeLocales: ["en", "ko"],
@@ -99,6 +108,17 @@ export function getMonetizationConfig(): MonetizationConfig {
     updatedAt: "2026-11-22",
   });
   return cachedConfig;
+}
+
+let cachedCoupangDeeplinks: Record<string, string> | null = null;
+export function getCoupangDeeplinks(): Record<string, string> {
+  if (cachedCoupangDeeplinks) return cachedCoupangDeeplinks;
+  const parsed = readJsonSafe<{ links?: Record<string, string> }>(
+    "config/coupang-deeplinks.json",
+    { links: {} }
+  );
+  cachedCoupangDeeplinks = parsed.links || {};
+  return cachedCoupangDeeplinks;
 }
 
 let cachedFx: FxRates | null = null;

@@ -30,16 +30,25 @@ export interface MonetizationConfig {
   pricingMode: "msrp_benchmark_mode";
   adsenseId: string;
   adsTxtLine: string;
+  adsenseSlots?: Record<string, string>;
   coupang: {
     partnersId: string;
     defaultSubId: string;
+    redirectUrl?: string;
+    iframeUrl?: string;
     verticalSubIds: Record<string, string>;
   };
   amazonOneLink: Record<string, string>;
   globalAffiliates: Record<string, string>;
+  analytics?: {
+    ga4MeasurementId?: string;
+    clarityProjectId?: string;
+    cfBeaconToken?: string;
+  };
   verification: {
     gsc: string;
     naver: string;
+    indexNowKey?: string;
   };
   releaseGate: {
     activeLocales: ("en" | "ko")[];
@@ -110,7 +119,7 @@ export interface OutboundCtaButton {
   rel: "sponsored nofollow noopener";
   target: "_blank";
   isPrimary: boolean;
-  linkMode: "direct_asin" | "search_deeplink";
+  linkMode: "direct_asin" | "official_coupang" | "search_deeplink";
 }
 
 export interface MonetizationViewModel {
