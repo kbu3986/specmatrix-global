@@ -1,0 +1,278 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AdSlotReserve from "../../components/AdSlotReserve.astro";
+import type { ActiveLocale, PilotVertical } from "../../lib/types";
+import {
+  getAirlines,
+  getPrimaryVerticalHref,
+  getVerticalItems,
+  getVerticalMatrices,
+  getVerticalVsInsights,
+} from "../../lib/data";
+import {
+  ACTIVE_LOCALES,
+  PILOT_VERTICALS,
+  SITE_URL,
+  VERTICAL_META,
+  formatCurrency,
+  getCategoryLabel,
+} from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return ACTIVE_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const isKo = locale === "ko";
+
+const airlines = getAirlines();
+
+const verticalBlocks = PILOT_VERTICALS.map((v: PilotVertical) => {
+  const items = getVerticalItems(v).filter((i) => i.available_locales.includes(locale));
+  const vs = getVerticalVsInsights(v);
+  const matrices = getVerticalMatrices(v);
+  return {
+    id: v,
+    meta: VERTICAL_META[v],
+    primaryHref: getPrimaryVerticalHref(locale, v),
+    items,
+    vs,
+    matrices,
+  };
+});
+
+const totalItems = verticalBlocks.reduce((acc, b) => acc + b.items.length, 0);
+const totalVs = verticalBlocks.reduce((acc, b) => acc + b.vs.length, 0);
+const totalMatrices = verticalBlocks.reduce((acc, b) => acc + b.matrices.length, 0);
+
+const pageTitle = isKo
+  ? "SpecMatrix Global 한국어 허브 — 실데이터 검증 비교 매트릭스 & 계산기"
+  : "SpecMatrix Global — Verified Spec Matrices, VS Comparisons & Lab Calculators";
+const pageDesc = isKo
+  ? "보조배터리·GaN(WattCheck), 에너지젤·보충제(PureGram), 로드사이클 장비(CycleGear) 공식 스펙 교차검증 DB 및 인터랙티브 계산기."
+  : "Evidence-anchored comparison matrices and deterministic calculators across WattCheck power gear, PureGram endurance nutrition, and CycleGear road cycling.";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: pageTitle,
+    description: pageDesc,
+    url: `${SITE_URL}/${locale}`,
+    inLanguage: locale,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "SpecMatrix Global", item: `${SITE_URL}/` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: isKo ? "한국어 허브" : "English Hub",
+        item: `${SITE_URL}/${locale}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={`/${locale}`}
+  jsonLd={jsonLd}
+>
+  <!-- Hero Section -->
+  <section class="lab-card bg-white p-6 sm:p-8">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="badge-pass">
+        {isKo ? "적대적 팩트체크 95+ 통과" : "Adversarial Fact-Check 95+ Gate"}
+      </span>
+      <span class="badge-info font-mono">
+        {isKo ? "MSRP 참고가 + 실시간 사용자 계산기" : "MSRP Benchmark + Live Calculators"}
+      </span>
+    </div>
+
+    <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+      {isKo
+        ? "출처가 고정된 정량 스펙 DB와 결정론적 비교 매트릭스"
+        : "Evidence-Anchored Spec Databases & Deterministic Comparison Matrices"}
+    </h1>
+    <p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
+      {isKo
+        ? "모든 수치는 제조사 공식 매뉴얼·영양성분표·항공사 규정 원문에 고정되어 있으며, 변환효율 실가용 Wh, 순수 유효성분 실단가, 후크리스 5 bar 안전 상한을 코드가 직접 검산합니다."
+        : "Every figure is anchored to manufacturer manuals, Nutrition Facts panels, and official carrier baggage rules — with zero-bloat calculators for real usable Wh, active gram cost, and hookless tire safety."}
+    </p>
+
+    <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "검증 완료 SKU" : "Verified SKUs"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{totalItems}</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "글로벌 항공사 규정" : "Airlines Tracked"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{airlines.length}</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "1:1 정밀 VS 비교" : "1:1 VS Matchups"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{totalVs}</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "필터·호환 매트릭스" : "Matrices & Compat"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{totalMatrices}</div>
+      </div>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId="hub-top" variant="banner" locale={locale} />
+
+  <!-- 3 Verticals Showcase -->
+  <div class="space-y-10">
+    {verticalBlocks.map((block) => (
+      <section id={block.id} class="space-y-4">
+        <div class="flex flex-wrap items-end justify-between gap-3 border-b border-slate-200 pb-3">
+          <div>
+            <span class={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase ${block.meta.badgeBgClass}`}>
+              {block.meta.shortName[locale]}
+            </span>
+            <h2 class="mt-1.5 text-xl font-bold tracking-tight text-slate-900">
+              {block.meta.name[locale]}
+            </h2>
+            <p class="mt-1 text-sm text-slate-600">{block.meta.tagline[locale]}</p>
+          </div>
+          <div class="flex items-center gap-2 font-mono text-xs text-slate-500">
+            <span>{block.items.length} SKUs</span>
+            {block.id === "wattcheck" && (
+              <>
+                <span>·</span>
+                <span>{airlines.length} {isKo ? "항공사" : "Airlines"}</span>
+              </>
+            )}
+            <span>·</span>
+            <span>{block.vs.length} VS</span>
+          </div>
+        </div>
+
+        <!-- Matrix & Compat Shortcuts -->
+        {block.matrices.length > 0 && (
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {block.matrices.map((m) => (
+              <a
+                href={`/${locale}/${block.id}/${m.archetype}/${m.slug}`}
+                class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
+              >
+                <div>
+                  <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-blue-700">
+                    {m.archetype === "compat"
+                      ? isKo
+                        ? "호환성 매트릭스"
+                        : "COMPAT MATRIX"
+                      : isKo
+                        ? "필터 랭킹 표"
+                        : "FILTER MATRIX"}
+                  </span>
+                  <h3 class="mt-1 text-sm font-bold text-slate-900 group-hover:text-blue-700">
+                    {m.i18n[locale].title}
+                  </h3>
+                </div>
+                <span class="mt-3 font-mono text-xs font-semibold text-blue-700">
+                  {isKo ? "매트릭스 열기 →" : "Open Matrix →"}
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        <!-- Featured VS Matchups -->
+        {block.vs.length > 0 && (
+          <div class="space-y-2">
+            <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {isKo ? "핵심 1:1 정밀 비교 (VS 시뮬레이터)" : "Featured 1:1 Head-to-Head VS"}
+            </h3>
+            <div class="grid gap-3 md:grid-cols-2">
+              {block.vs.slice(0, 4).map((v) => (
+                <a
+                  href={`/${locale}/${block.id}/vs/${v.pair_slug}`}
+                  class="lab-card group flex items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-500"
+                >
+                  <div class="min-w-0">
+                    <div class="truncate text-sm font-bold text-slate-900 group-hover:text-blue-700">
+                      {v.verdict[locale].headline}
+                    </div>
+                    <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+                      {v.pair_slug} · IG {v.info_gain_score}/100
+                    </div>
+                  </div>
+                  <span class="shrink-0 font-mono text-xs font-bold text-blue-700">VS →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Verified SKU Grid -->
+        {block.items.length > 0 ? (
+          <div class="space-y-2">
+            <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {isKo ? `검증 완료 제품 프로파일 (${block.items.length}종)` : `Verified SKU Profiles (${block.items.length})`}
+            </h3>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {block.items.map((item) => {
+                const copy = item.i18n[locale] ?? item.i18n.en;
+                const offer = isKo ? item.regional_offers.kr : item.regional_offers.us;
+                return (
+                  <a
+                    href={`/${locale}/${block.id}/item/${item.slug}`}
+                    class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
+                  >
+                    <div>
+                      <div class="flex items-center justify-between gap-2 text-[11px]">
+                        <span class="font-semibold text-slate-500">
+                          {item.brand} · {getCategoryLabel(item.category, locale)}
+                        </span>
+                        <span class="font-mono font-semibold text-emerald-700">
+                          Trust {item.audit.trust_score}
+                        </span>
+                      </div>
+                      <h4 class="mt-1.5 text-sm font-bold text-slate-900 group-hover:text-blue-700">
+                        {copy.name}
+                      </h4>
+                      <p class="mt-1 line-clamp-2 text-xs text-slate-600">{copy.summary}</p>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
+                      <span class="font-mono font-semibold text-slate-800">
+                        {isKo ? "MSRP " : "MSRP "}
+                        {formatCurrency(offer.msrp, offer.currency, locale)}
+                      </span>
+                      <span class="font-mono font-semibold text-blue-700">
+                        {isKo ? "스펙·계산기 →" : "Specs & Calc →"}
+                      </span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div class="lab-card p-5 text-sm text-slate-500">
+            {isKo
+              ? "해당 버티컬의 Phase 1 검증 JSON 데이터가 병합되면 자동으로 프로파일 카드가 표시됩니다."
+              : "Verified Phase 1 SKUs for this vertical will appear here automatically once data files are loaded."}
+          </div>
+        )}
+      </section>
+    ))}
+  </div>
+</BaseLayout>

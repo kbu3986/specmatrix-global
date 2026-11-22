@@ -1,0 +1,329 @@
+---
+import type { ActiveLocale, AirlineRecord } from "../lib/types";
+import { safeJsonLd } from "../lib/i18n";
+
+interface Props {
+  airlines: AirlineRecord[];
+  locale: ActiveLocale;
+}
+
+const { airlines, locale } = Astro.props;
+const isKo = locale === "ko";
+
+const regions = ["ALL", "KR", "NA", "EU", "APAC", "ME"] as const;
+
+const payload = {
+  locale,
+};
+---
+
+<section class="space-y-5" aria-labelledby="airlines-matrix-heading">
+  <!-- Interactive Wh & Airline Filter Workbench -->
+  <div class="lab-card overflow-hidden border-blue-200">
+    <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+      <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+        INTERACTIVE 30-AIRLINE WH CHECKER
+      </span>
+      <h2 id="airlines-matrix-heading" class="mt-0.5 text-lg font-bold">
+        {isKo
+          ? "내 보조배터리 Wh 입력 → 30개 글로벌 항공사 실시간 일괄 판정"
+          : "Enter Battery Wh → Instant 30-Airline Carry-On Rule Evaluator"}
+      </h2>
+    </div>
+
+    <div class="space-y-4 p-5">
+      <div class="grid gap-4 md:grid-cols-12">
+        <div class="md:col-span-5">
+          <label for="air-wh-input" class="block text-xs font-bold text-slate-700">
+            {isKo ? "보조배터리 정격 에너지 (Wh)" : "Power Bank Rated Energy (Wh)"}
+          </label>
+          <div class="mt-1.5 flex items-center gap-2">
+            <input
+              id="air-wh-input"
+              type="number"
+              min="1"
+              max="1000"
+              step="0.1"
+              value="99.5"
+              class="w-32 rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-base font-bold text-blue-700 focus:border-blue-600 focus:outline-none"
+            />
+            <span class="font-mono text-sm font-semibold text-slate-600">Wh</span>
+          </div>
+          <div class="mt-2 flex flex-wrap gap-1.5">
+            <button type="button" data-wh="37" class="air-wh-preset rounded border border-slate-300 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:bg-slate-100">37Wh (10K)</button>
+            <button type="button" data-wh="74" class="air-wh-preset rounded border border-slate-300 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:bg-slate-100">74Wh (20K)</button>
+            <button type="button" data-wh="99.5" class="air-wh-preset rounded border border-blue-300 bg-blue-50 px-2 py-1 font-mono text-[11px] font-semibold text-blue-800 hover:bg-blue-100">99.5Wh (27K)</button>
+            <button type="button" data-wh="135" class="air-wh-preset rounded border border-amber-300 bg-amber-50 px-2 py-1 font-mono text-[11px] font-semibold text-amber-800 hover:bg-amber-100">135Wh</button>
+            <button type="button" data-wh="245" class="air-wh-preset rounded border border-rose-300 bg-rose-50 px-2 py-1 font-mono text-[11px] font-semibold text-rose-800 hover:bg-rose-100">245Wh</button>
+          </div>
+        </div>
+
+        <div class="md:col-span-4">
+          <label for="air-search" class="block text-xs font-bold text-slate-700">
+            {isKo ? "항공사명 / IATA 코드 검색" : "Search Airline / IATA Code"}
+          </label>
+          <input
+            id="air-search"
+            type="search"
+            placeholder={isKo ? "예: 대한항공, KE, ANA, Delta..." : "e.g. Delta, KE, Lufthansa, ANA..."}
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-600 focus:outline-none"
+          />
+        </div>
+
+        <div class="md:col-span-3">
+          <span class="block text-xs font-bold text-slate-700">
+            {isKo ? "권역 필터" : "Region Filter"}
+          </span>
+          <div id="air-region-btns" class="mt-1.5 flex flex-wrap gap-1.5">
+            {regions.map((reg) => (
+              <button
+                type="button"
+                data-region={reg}
+                class:list={[
+                  "air-reg-btn rounded-md border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
+                  reg === "ALL"
+                    ? "border-slate-900 bg-slate-900 text-white"
+                    : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                ]}
+              >
+                {reg}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div id="air-summary-bar" class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs">
+        <span id="air-wh-verdict" class="font-semibold text-slate-800">
+          {isKo
+            ? "99.5 Wh 기준: IATA 100 Wh 이하 무승인 기내 휴대 구간"
+            : "At 99.5 Wh: Within IATA <=100 Wh no-approval carry-on tier"}
+        </span>
+        <span id="air-visible-count" class="font-mono text-slate-500">
+          {airlines.length} {isKo ? "개 항공사 표시" : "airlines shown"}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 30 Airlines Table -->
+  <div class="lab-table-wrap">
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th class="min-w-[180px]">{isKo ? "항공사 (IATA)" : "Airline (IATA)"}</th>
+          <th>{isKo ? "권역" : "Region"}</th>
+          <th class="min-w-[155px]">{isKo ? "입력 Wh 실시간 판정" : "Live Verdict for Wh"}</th>
+          <th>{isKo ? "선반 보관 / 기내 충전" : "Overhead / In-Flight"}</th>
+          <th>{isKo ? "절연 파우치 / CCC" : "Pouch / CCC"}</th>
+          <th class="min-w-[220px]">{isKo ? "핵심 규정 노트 & 원문" : "Verified Policy Notes"}</th>
+        </tr>
+      </thead>
+      <tbody id="air-tbody">
+        {airlines.length === 0 ? (
+          <tr>
+            <td colspan="6" class="py-8 text-center text-sm text-slate-500">
+              {isKo ? "항공사 규정 데이터 로드 대기 중" : "Airline compliance dataset pending load."}
+            </td>
+          </tr>
+        ) : (
+          airlines.map((a) => (
+            <tr
+              class="air-row"
+              data-region={a.region}
+              data-search={`${a.name_en} ${a.name_ko} ${a.iata_code} ${a.slug}`.toLowerCase()}
+              data-u100={a.under_100wh_max_pcs}
+              data-b100={a.between_100_160wh_max_pcs}
+              data-b100-appr={a.between_100_160wh_requires_approval ? "1" : "0"}
+            >
+              <td>
+                <div class="font-semibold text-slate-900">
+                  {isKo ? a.name_ko : a.name_en}
+                </div>
+                <div class="font-mono text-[11px] text-slate-500">
+                  {a.iata_code} · {isKo ? a.name_en : a.name_ko}
+                </div>
+              </td>
+              <td>
+                <span class="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs font-semibold text-slate-700">
+                  {a.region}
+                </span>
+              </td>
+              <td class="air-verdict-cell">
+                <span class="badge-pass">
+                  {isKo ? `기내 OK (최대 ${a.under_100wh_max_pcs}개)` : `Cabin OK (Max ${a.under_100wh_max_pcs})`}
+                </span>
+              </td>
+              <td>
+                <div class="flex flex-col gap-1">
+                  <span class={a.overhead_bin_prohibited ? "badge-caution" : "badge-info"}>
+                    {a.overhead_bin_prohibited
+                      ? isKo
+                        ? "선반 금지"
+                        : "No Overhead Bin"
+                      : isKo
+                        ? "선반 허용(주의)"
+                        : "Overhead Allowed"}
+                  </span>
+                  <span class={a.inflight_charging_prohibited ? "badge-caution" : "badge-pass"}>
+                    {a.inflight_charging_prohibited
+                      ? isKo
+                        ? "기내 충전 금지"
+                        : "No In-Flight Use"
+                      : isKo
+                        ? "기내 사용 가능"
+                        : "In-Flight OK"}
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="flex flex-col gap-1">
+                  {a.terminal_insulation_pouch_required && (
+                    <span class="badge-caution">{isKo ? "절연·지퍼백 필수" : "Zip Pouch Req."}</span>
+                  )}
+                  {a.ccc_marking_required_domestic && (
+                    <span class="badge-fail">{isKo ? "중국 국내 CCC 필수" : "China CCC Req."}</span>
+                  )}
+                  {!a.terminal_insulation_pouch_required && !a.ccc_marking_required_domestic && (
+                    <span class="font-mono text-xs text-slate-500">
+                      {a.wh_marking_strict
+                        ? isKo
+                          ? "Wh 표기 필수"
+                          : "Wh Mark Strict"
+                        : "IATA Standard"}
+                    </span>
+                  )}
+                </div>
+              </td>
+              <td>
+                <p class="text-xs leading-relaxed text-slate-700">
+                  {isKo ? a.notes_ko : a.notes_en}
+                </p>
+                <a
+                  href={a.official_policy_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-1 inline-block font-mono text-[11px] font-medium text-blue-700 hover:underline"
+                >
+                  {isKo ? `공식 규정 (${a.verified_at}) ↗` : `Official Policy (${a.verified_at}) ↗`}
+                </a>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <script type="application/json" id="air-matrix-cfg" set:html={safeJsonLd(payload)} />
+</section>
+
+<script>
+  (() => {
+    const cfgEl = document.getElementById("air-matrix-cfg");
+    const tbody = document.getElementById("air-tbody");
+    if (!cfgEl || !tbody) return;
+    let cfg: { locale: string };
+    try {
+      cfg = JSON.parse(cfgEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = cfg.locale === "ko";
+    const rows = Array.from(tbody.querySelectorAll<HTMLTableRowElement>(".air-row"));
+    const whInput = document.getElementById("air-wh-input") as HTMLInputElement | null;
+    const searchInput = document.getElementById("air-search") as HTMLInputElement | null;
+    const regBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".air-reg-btn"));
+    const whPresets = Array.from(document.querySelectorAll<HTMLButtonElement>(".air-wh-preset"));
+    const verdictSummary = document.getElementById("air-wh-verdict");
+    const visibleCountEl = document.getElementById("air-visible-count");
+
+    let activeRegion = "ALL";
+
+    function update() {
+      const whRaw = Number(whInput ? whInput.value : 99.5);
+      const wh = Number.isFinite(whRaw) && whRaw > 0 ? whRaw : 0;
+      const q = (searchInput ? searchInput.value : "").trim().toLowerCase();
+
+      if (verdictSummary) {
+        if (wh > 160) {
+          verdictSummary.textContent = isKo
+            ? `${wh} Wh 기준: 160 Wh 초과 — 전 세계 모든 여객기 기내·위탁 반입 전면 불가`
+            : `At ${wh} Wh: Exceeds 160 Wh — Prohibited on all passenger aircraft (carry-on & checked)`;
+        } else if (wh > 100) {
+          verdictSummary.textContent = isKo
+            ? `${wh} Wh 기준: 100–160 Wh 구간 — 항공사 사전 승인 및 최대 2개 제한 적용`
+            : `At ${wh} Wh: 100–160 Wh tier — Requires airline approval (typically max 2 pcs)`;
+        } else {
+          verdictSummary.textContent = isKo
+            ? `${wh} Wh 기준: 100 Wh 이하 — 사전 승인 없이 기내 휴대 가능 (항공사별 최대 개수 및 선반 규정 확인)`
+            : `At ${wh} Wh: <=100 Wh tier — Carry-on allowed without approval (check per-carrier piece & overhead rules)`;
+        }
+      }
+
+      let shown = 0;
+      rows.forEach((tr) => {
+        const reg = tr.getAttribute("data-region") || "";
+        const hay = tr.getAttribute("data-search") || "";
+        const ok = (activeRegion === "ALL" || reg === activeRegion) && (!q || hay.includes(q));
+        tr.style.display = ok ? "" : "none";
+        if (ok) shown += 1;
+
+        const cell = tr.querySelector<HTMLElement>(".air-verdict-cell");
+        if (!cell) return;
+        const u100 = Number(tr.getAttribute("data-u100") || 5);
+        const b100 = Number(tr.getAttribute("data-b100") || 2);
+        const bAppr = tr.getAttribute("data-b100-appr") === "1";
+
+        if (wh > 160) {
+          cell.innerHTML = `<span class="badge-fail">${isKo ? "반입 불가 (>160Wh)" : "PROHIBITED (>160Wh)"}</span>`;
+        } else if (wh > 100) {
+          if (b100 <= 0) {
+            cell.innerHTML = `<span class="badge-fail">${isKo ? "항공사 반입 금지" : "PROHIBITED"}</span>`;
+          } else {
+            cell.innerHTML = `<span class="badge-caution">${
+              bAppr
+                ? isKo
+                  ? `승인 필요 (최대 ${b100}개)`
+                  : `Approval Req (Max ${b100})`
+                : isKo
+                  ? `허용 (최대 ${b100}개)`
+                  : `Allowed (Max ${b100})`
+            }</span>`;
+          }
+        } else {
+          cell.innerHTML = `<span class="badge-pass">${isKo ? `기내 OK (최대 ${u100}개)` : `Cabin OK (Max ${u100})`}</span>`;
+        }
+      });
+
+      if (visibleCountEl) {
+        visibleCountEl.textContent = `${shown} / ${rows.length} ${isKo ? "개 항공사 표시" : "airlines shown"}`;
+      }
+    }
+
+    regBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        activeRegion = b.getAttribute("data-region") || "ALL";
+        regBtns.forEach((o) => {
+          const on = o === b;
+          o.className = on
+            ? "air-reg-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
+            : "air-reg-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 font-mono text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+        });
+        update();
+      });
+    });
+
+    whPresets.forEach((p) => {
+      p.addEventListener("click", () => {
+        if (whInput) whInput.value = p.getAttribute("data-wh") || "99.5";
+        update();
+      });
+    });
+
+    if (whInput) whInput.addEventListener("input", update);
+    if (searchInput) searchInput.addEventListener("input", update);
+    update();
+  })();
+</script>

@@ -1,0 +1,241 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import VsSimulator from "../../../../components/VsSimulator.astro";
+import AffiliateCtaCard from "../../../../components/AffiliateCtaCard.astro";
+import SafetyBanner from "../../../../components/SafetyBanner.astro";
+import AdSlotReserve from "../../../../components/AdSlotReserve.astro";
+
+import type { ActiveLocale, AnyItem, PilotVertical, VsInsight } from "../../../../lib/types";
+import {
+  getAllVsInsights,
+  getFxRates,
+  getItemBySlug,
+  getPrimaryVerticalHref,
+} from "../../../../lib/data";
+import { computeVsDiff } from "../../../../lib/derived";
+import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META } from "../../../../lib/i18n";
+
+export function getStaticPaths() {
+  const allVs = getAllVsInsights();
+  const paths: Array<{
+    params: { locale: ActiveLocale; vertical: PilotVertical; pairSlug: string };
+    props: { vs: VsInsight; itemA: AnyItem; itemB: AnyItem };
+  }> = [];
+
+  for (const vs of allVs) {
+    const v = vs.vertical as PilotVertical;
+    const itemA = getItemBySlug(v, vs.slug_a);
+    const itemB = getItemBySlug(v, vs.slug_b);
+    if (!itemA || !itemB) continue;
+
+    for (const locale of ACTIVE_LOCALES) {
+      if (!itemA.available_locales.includes(locale) || !itemB.available_locales.includes(locale)) {
+        continue;
+      }
+      paths.push({
+        params: { locale, vertical: v, pairSlug: vs.pair_slug },
+        props: { vs, itemA, itemB },
+      });
+    }
+  }
+  return paths;
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const vertical = Astro.params.vertical as PilotVertical;
+const { vs, itemA, itemB } = Astro.props as { vs: VsInsight; itemA: AnyItem; itemB: AnyItem };
+
+const isKo = locale === "ko";
+const fx = getFxRates();
+const diff = computeVsDiff(itemA, itemB, fx, locale);
+const nameA = itemA.i18n[locale]?.name ?? itemA.i18n.en.name;
+const nameB = itemB.i18n[locale]?.name ?? itemB.i18n.en.name;
+const verdict = vs.verdict[locale];
+const verticalHref = getPrimaryVerticalHref(locale, vertical);
+const currentPath = `/${locale}/${vertical}/vs/${vs.pair_slug}`;
+
+const pageTitle = `${nameA} vs ${nameB} — ${verdict.headline} | SpecMatrix Global`;
+const pageDesc = verdict.bottom_line;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: `${nameA} vs ${nameB} Priority Comparison Simulator`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    description: verdict.bottom_line,
+    url: `${SITE_URL}${currentPath}`,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: VERTICAL_META[vertical].shortName[locale],
+        item: `${SITE_URL}${verticalHref}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: `${nameA} vs ${nameB}`,
+        item: `${SITE_URL}${currentPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={currentPath}
+  activeVertical={vertical}
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <a href={`/${locale}`} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <a href={verticalHref} class="hover:text-blue-700 hover:underline">
+      {VERTICAL_META[vertical].shortName[locale]}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-800">{nameA} vs {nameB}</span>
+  </nav>
+
+  <!-- VS Header -->
+  <section class="lab-card bg-white p-6">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="badge-info font-mono">1:1 HEAD-TO-HEAD COMPARISON</span>
+      <span class="badge-pass font-mono">
+        IG Score {vs.info_gain_score}/100 · Trust {Math.min(itemA.audit.trust_score, itemB.audit.trust_score)}+
+      </span>
+    </div>
+
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+      {verdict.headline}
+    </h1>
+    <p class="mt-2.5 text-sm leading-relaxed text-slate-700 sm:text-base">
+      {verdict.bottom_line}
+    </p>
+
+    <div class="mt-4 flex flex-wrap gap-3 text-xs">
+      <a
+        href={`/${locale}/${vertical}/item/${itemA.slug}`}
+        class="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 font-semibold text-blue-800 hover:bg-blue-100"
+      >
+        <span>A · {nameA}</span>
+        <span>→</span>
+      </a>
+      <a
+        href={`/${locale}/${vertical}/item/${itemB.slug}`}
+        class="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 font-semibold text-emerald-800 hover:bg-emerald-100"
+      >
+        <span>B · {nameB}</span>
+        <span>→</span>
+      </a>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId={`vs-top-${vertical}`} variant="banner" locale={locale} />
+
+  <!-- Priority Simulator + Quantitative Diff Table -->
+  <VsSimulator itemA={itemA} itemB={itemB} diff={diff} locale={locale} />
+
+  <!-- Choose A if / Choose B if Decision Cards -->
+  <section class="mt-8 grid gap-5 md:grid-cols-2" aria-label={isKo ? "상황별 선택 가이드" : "Scenario Decision Cards"}>
+    <div class="lab-card border-t-4 border-t-blue-600 p-5">
+      <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-700">
+        {isKo ? `MODEL A 선택 조건` : `CHOOSE MODEL A IF...`}
+      </div>
+      <h2 class="mt-1 text-lg font-bold text-slate-900">{nameA}</h2>
+      <ul class="mt-3 space-y-2 text-sm text-slate-700">
+        {verdict.choose_a_if.map((reason) => (
+          <li class="flex items-start gap-2">
+            <span class="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-blue-600"></span>
+            <span>{reason}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="lab-card border-t-4 border-t-emerald-600 p-5">
+      <div class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-700">
+        {isKo ? `MODEL B 선택 조건` : `CHOOSE MODEL B IF...`}
+      </div>
+      <h2 class="mt-1 text-lg font-bold text-slate-900">{nameB}</h2>
+      <ul class="mt-3 space-y-2 text-sm text-slate-700">
+        {verdict.choose_b_if.map((reason) => (
+          <li class="flex items-start gap-2">
+            <span class="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-600"></span>
+            <span>{reason}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- SERP Information Gain Insights -->
+  <section class="mt-8 lab-card p-5" aria-labelledby="serp-ig-heading">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h2 id="serp-ig-heading" class="text-base font-bold text-slate-900">
+        {isKo
+          ? "일반 리뷰에서 놓치는 핵심 검증 포인트 (Information Gain)"
+          : "Key Engineering Differentiators Audited (Information Gain)"}
+      </h2>
+      <span class="font-mono text-xs text-slate-500">SERP IG {vs.info_gain_score}/100</span>
+    </div>
+    <ul class="mt-3 space-y-2 text-sm text-slate-700">
+      {vs.serp_gaps_captured.map((gap) => (
+        <li class="flex items-start gap-2.5">
+          <span class="mt-0.5 font-mono text-xs font-bold text-blue-700">✓</span>
+          <span>{gap}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Dual CTA Cards -->
+  <section class="mt-8 space-y-3" aria-labelledby="dual-cta-heading">
+    <h2 id="dual-cta-heading" class="text-lg font-bold tracking-tight text-slate-900">
+      {isKo ? "공식 출고가 참고 비교 & 스토어 실시간 확인" : "MSRP Benchmark Comparison & Live Store Check"}
+    </h2>
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="space-y-2">
+        <div class="flex items-center justify-between px-1 text-xs font-bold text-blue-800">
+          <span>A · {nameA}</span>
+          <a href={`/${locale}/${vertical}/item/${itemA.slug}`} class="hover:underline">
+            {isKo ? "상세 스펙 →" : "Full Spec →"}
+          </a>
+        </div>
+        <AffiliateCtaCard item={itemA} locale={locale} compact={true} />
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between px-1 text-xs font-bold text-emerald-800">
+          <span>B · {nameB}</span>
+          <a href={`/${locale}/${vertical}/item/${itemB.slug}`} class="hover:underline">
+            {isKo ? "상세 스펙 →" : "Full Spec →"}
+          </a>
+        </div>
+        <AffiliateCtaCard item={itemB} locale={locale} compact={true} />
+      </div>
+    </div>
+  </section>
+
+  <div class="mt-8">
+    <SafetyBanner vertical={vertical} locale={locale} />
+  </div>
+</BaseLayout>

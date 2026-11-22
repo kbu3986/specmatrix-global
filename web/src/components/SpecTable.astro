@@ -1,0 +1,209 @@
+---
+import type { ActiveLocale, AnyItem } from "../lib/types";
+import { formatInt, formatNum, getCategoryLabel } from "../lib/i18n";
+
+interface Props {
+  item: AnyItem;
+  locale: ActiveLocale;
+}
+
+const { item, locale } = Astro.props;
+const isKo = locale === "ko";
+
+interface SpecRow {
+  label: string;
+  value: string;
+  mono?: boolean;
+}
+
+const rows: SpecRow[] = [
+  { label: isKo ? "브랜드" : "Brand", value: item.brand },
+  { label: isKo ? "모델 번호 (MPN)" : "Model Number", value: item.model_number, mono: true },
+  { label: isKo ? "카테고리" : "Category", value: getCategoryLabel(item.category, locale) },
+  { label: isKo ? "원산지 / 본사 국가" : "Origin Country", value: item.origin_country, mono: true },
+];
+
+const yn = (b: boolean | null | undefined) => {
+  if (b === null || b === undefined) return "—";
+  return b ? (isKo ? "지원 / 예" : "Yes") : isKo ? "미지원 / 아니오" : "No";
+};
+
+if (item.vertical === "wattcheck") {
+  const s = item.specs;
+  const ac = item.airline_compliance_profile;
+  rows.push(
+    { label: isKo ? "배터리 내장 여부" : "Battery Included", value: yn(s.has_battery) },
+    {
+      label: isKo ? "정격 에너지 (Wh)" : "Rated Energy (Wh)",
+      value: s.battery_energy_wh !== null ? `${formatNum(s.battery_energy_wh, 2)} Wh` : isKo ? "해당 없음 (충전기)" : "N/A (Charger)",
+      mono: true,
+    },
+    {
+      label: isKo ? "표기 용량 (mAh)" : "Nominal Capacity (mAh)",
+      value: s.nominal_capacity_mah !== null ? `${formatInt(s.nominal_capacity_mah)} mAh` : "—",
+      mono: true,
+    },
+    {
+      label: isKo ? "5V 정격 용량 (mAh)" : "5V Rated Capacity",
+      value: s.rated_capacity_mah_5v !== null ? `${formatInt(s.rated_capacity_mah_5v)} mAh` : "—",
+      mono: true,
+    },
+    {
+      label: isKo ? "셀 공칭전압 / 화학계" : "Cell Voltage / Chemistry",
+      value:
+        s.nominal_voltage_v !== null
+          ? `${formatNum(s.nominal_voltage_v, 2)} V · ${s.cell_chemistry ?? "Li-ion"}`
+          : "—",
+      mono: true,
+    },
+    {
+      label: isKo ? "변환 효율 (추정/공식)" : "Conversion Efficiency",
+      value: s.conversion_efficiency_pct !== null ? `${formatNum(s.conversion_efficiency_pct, 0)}%` : "—",
+      mono: true,
+    },
+    {
+      label: isKo ? "최대 합산 출력" : "Max Total Output",
+      value: `${formatInt(s.max_total_output_w)} W`,
+      mono: true,
+    },
+    {
+      label: isKo ? "단일 포트 최대 출력" : "Max Single-Port Output",
+      value: `${formatInt(s.max_single_port_output_w)} W`,
+      mono: true,
+    },
+    {
+      label: isKo ? "최대 입력 (충전)" : "Max Input Power",
+      value: `${formatInt(s.max_input_w)} W`,
+      mono: true,
+    },
+    {
+      label: isKo ? "정격 입력 전압" : "Input Voltage Range",
+      value: s.input_voltage_range,
+      mono: true,
+    },
+    {
+      label: isKo ? "일본 100V 출력 제한" : "Japan 100V Output Cap",
+      value: s.japan_100v_output_limit_w !== null ? `${formatInt(s.japan_100v_output_limit_w)} W` : isKo ? "제한 없음 / 해당 없음" : "No derating / N/A",
+      mono: true,
+    },
+    {
+      label: isKo ? "USB-PD 3.1 EPR (140W)" : "USB-PD 3.1 EPR (140W)",
+      value: yn(s.supports_pd_3_1_epr),
+    },
+    {
+      label: isKo ? "삼성 초고속충전 2.0 (PPS 45W)" : "Samsung PPS 45W (5A)",
+      value: yn(s.supports_samsung_pps_45w),
+    },
+    {
+      label: isKo ? "패스스루 충전 / 포트 재협상 단절" : "Pass-Through / Renegotiation Drop",
+      value: `${yn(s.supports_pass_through)} / ${s.power_renegotiation_drop ? (isKo ? "단절 발생" : "Drops briefly") : isKo ? "무단절" : "Seamless"}`,
+    },
+    {
+      label: isKo ? "본체 무게 / 크기 (L×W×H)" : "Weight / Dimensions (L×W×H)",
+      value: `${formatInt(s.weight_g)} g · ${formatNum(s.dimensions_mm.l, 1)} × ${formatNum(s.dimensions_mm.w, 1)} × ${formatNum(s.dimensions_mm.h, 1)} mm`,
+      mono: true,
+    },
+    {
+      label: isKo ? "글로벌 안전인증" : "Safety Certifications",
+      value:
+        [
+          s.ul_etl_certified ? "UL/ETL" : null,
+          s.ce_certified ? "CE" : null,
+          s.kc_certified ? "KC" : null,
+          s.pse_certified ? "PSE" : null,
+          s.ccc_certified ? "CCC" : null,
+        ]
+          .filter(Boolean)
+          .join(", ") || "—",
+      mono: true,
+    },
+    {
+      label: isKo ? "기내 / 위탁 수하물 판정" : "Carry-On / Checked Bag",
+      value: `${ac.carryon_allowed ? (ac.carryon_no_approval ? (isKo ? "기내 무승인 가능" : "Carry-on OK (No Approval)") : isKo ? "기내 승인 필요" : "Carry-on (Approval Req.)") : isKo ? "기내 반입 불가" : "Carry-on Prohibited"} · ${ac.checked_baggage === "allowed" ? (isKo ? "위탁 가능" : "Checked OK") : isKo ? "위탁 금지" : "Checked Prohibited"}`,
+    }
+  );
+} else if (item.vertical === "puregram") {
+  const p = item.package_spec;
+  const nl = item.nutrition_label;
+  const dm = item.derived_math;
+  rows.push(
+    { label: isKo ? "총 내용량" : "Net Package Weight", value: `${formatNum(p.net_weight_g, 1)} g`, mono: true },
+    { label: isKo ? "총 제공 횟수 (서빙 수)" : "Total Servings", value: `${formatInt(p.total_servings)} (${p.unit_type})`, mono: true },
+    { label: isKo ? "1회 제공량 중량" : "Serving Weight", value: `${formatNum(p.serving_weight_g, 1)} g`, mono: true },
+    { label: isKo ? "핵심 유효성분 유형" : "Active Ingredient Type", value: nl.active_ingredient_type.replace(/_/g, " ") },
+    { label: isKo ? "1회당 유효성분" : "Active per Serving", value: `${formatNum(nl.active_per_serving_g, 1)} g`, mono: true },
+    { label: isKo ? "팩당 총 순수 유효성분" : "Total Pure Active / Pack", value: `${formatNum(dm.total_pure_active_g, 1)} g`, mono: true },
+    { label: isKo ? "유효성분 순도 / 등급" : "Purity Ratio / Grade", value: `${formatNum(dm.purity_pct, 1)}% (${dm.purity_grade})`, mono: true },
+    { label: isKo ? "열량 (1회분)" : "Calories / Serving", value: `${formatInt(nl.calories_kcal)} kcal`, mono: true },
+    { label: isKo ? "탄수화물 / 당류 / 식이섬유" : "Carbs / Sugar / Fiber", value: `${formatNum(nl.carbs_g, 1)} g / ${formatNum(nl.sugar_g, 1)} g / ${formatNum(nl.fiber_g, 1)} g`, mono: true },
+    { label: isKo ? "단백질 / 지방" : "Protein / Fat", value: `${formatNum(nl.protein_g, 1)} g / ${formatNum(nl.fat_g, 1)} g`, mono: true },
+    { label: isKo ? "포도당 : 과당 비율" : "Glucose : Fructose Ratio", value: nl.carb_ratio_glucose_to_fructose ?? "—", mono: true },
+    { label: isKo ? "제형 (하이드로젤/아이소토닉)" : "Delivery Form", value: nl.hydrogel_or_isotonic },
+    { label: isKo ? "카페인 함량" : "Caffeine / Serving", value: `${formatInt(nl.caffeine_mg)} mg`, mono: true },
+    { label: isKo ? "나트륨 / 칼륨 / 마그네슘" : "Na / K / Mg per Serving", value: `${formatInt(nl.sodium_mg)} mg / ${formatInt(nl.potassium_mg)} mg / ${formatInt(nl.magnesium_mg)} mg`, mono: true },
+    { label: isKo ? "Creapure 독일 원료 인증" : "Creapure Certified", value: yn(nl.creapure_certified) },
+    { label: isKo ? "유리 아미노산 원재료 기재" : "Free-Form Amino Listed", value: yn(nl.free_form_amino_listed) },
+    { label: isKo ? "인공감미료 기재 및 내역" : "Artificial Sweeteners", value: `${yn(nl.artificial_sweeteners_listed)} (${nl.sweetener_details})` },
+    { label: isKo ? "제3자 인증" : "Certifications", value: item.certifications.join(", ") }
+  );
+} else {
+  const s = item.specs;
+  const cg = item.compatibility_graph;
+  rows.push(
+    { label: isKo ? "공식 중량" : "Official Weight", value: `${formatInt(s.weight_g)} g`, mono: true },
+    { label: isKo ? "장착 방식 / 폼팩터" : "Mount / Form Factor", value: s.mount_or_form_factor },
+    { label: isKo ? "BB / 마운트 규격" : "BB / Mount Standard", value: cg.bb_or_mount_standard, mono: true },
+    { label: isKo ? "프리허브 / 클릿 규격" : "Freehub / Cleat Standard", value: cg.freehub_or_cleat_standard, mono: true },
+    { label: isKo ? "통신 프로토콜" : "Connectivity", value: s.connectivity.join(", ") || (isKo ? "해당 없음" : "None"), mono: true },
+    { label: isKo ? "방수 등급" : "Waterproof Rating", value: s.waterproof_rating ?? "—", mono: true },
+    { label: isKo ? "공칭 정확도 오차" : "Claimed Accuracy", value: s.claimed_accuracy_pct !== null ? `±${formatNum(s.claimed_accuracy_pct, 1)}%` : "—", mono: true },
+    { label: isKo ? "좌우 독립 밸런스" : "Dual-Sided L/R Balance", value: yn(s.left_right_balance) },
+    { label: isKo ? "배터리 구동 시간" : "Battery Life", value: s.battery_life_hours !== null ? `${formatInt(s.battery_life_hours)} hr` : "—", mono: true },
+    { label: isKo ? "타이어 폭 / 후크리스 호환" : "Tire Width / Hookless", value: s.tire_width_mm !== null ? `${formatInt(s.tire_width_mm)} mm · ${yn(s.hookless_compatible)}` : "—", mono: true },
+    { label: isKo ? "후크리스 최대 공기압" : "Hookless Max Pressure", value: s.hookless_max_psi !== null ? `${formatNum(s.hookless_max_psi, 1)} psi (${formatNum(s.hookless_max_psi / 14.5038, 2)} bar)` : "—", mono: true },
+    { label: isKo ? "트레이너 최대 와트 / 경사도 / 소음" : "Trainer Max W / Grade / Noise", value: s.max_trainer_watts !== null ? `${formatInt(s.max_trainer_watts)} W · ${formatNum(s.max_trainer_grade_pct, 0)}% · ${formatNum(s.trainer_noise_dba, 0)} dBA` : "—", mono: true },
+    { label: isKo ? "호환 구동계" : "Compatible Drivetrains", value: cg.drivetrain_compatible.join(", ") },
+    { label: isKo ? "검증된 헤드유닛 / 앱" : "Verified Head Units / Apps", value: cg.head_unit_or_app_verified.join(", ") }
+  );
+  for (const kv of s.key_specs_kv) {
+    rows.push({
+      label: isKo ? kv.key_ko : kv.key_en,
+      value: kv.value,
+      mono: true,
+    });
+  }
+}
+---
+
+<section class="space-y-3" aria-labelledby="spec-table-heading">
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h2 id="spec-table-heading" class="text-lg font-bold tracking-tight text-slate-900">
+      {isKo ? "공식 근거 고정 정밀 스펙표" : "Evidence-Anchored Specification Table"}
+    </h2>
+    <span class="font-mono text-xs text-slate-500">
+      {rows.length} {isKo ? "검증 필드 · 출처 " : "verified fields · "}
+      {item.citations.length} {isKo ? "건" : "citations"}
+    </span>
+  </div>
+
+  <div class="lab-table-wrap">
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th class="w-2/5">{isKo ? "검증 항목" : "Specification"}</th>
+          <th>{isKo ? "실측·공식 제원" : "Verified Value"}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr>
+            <th scope="row" class="font-medium text-slate-600">{r.label}</th>
+            <td class:list={["text-slate-900", r.mono ? "font-mono text-[13px]" : ""]}>
+              {r.value}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

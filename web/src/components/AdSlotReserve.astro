@@ -1,0 +1,22 @@
+---
+interface Props {
+  slotId: string;
+  variant?: "banner" | "rect";
+  locale: "en" | "ko";
+}
+
+const { slotId, variant = "banner", locale } = Astro.props;
+---
+
+<aside
+  class:list={[
+    "ad-slot-reserve my-6",
+    variant === "rect" ? "ad-slot-reserve--rect" : "ad-slot-reserve--banner",
+  ]}
+  data-ad-slot={slotId}
+  aria-label={locale === "ko" ? "광고 영역" : "Advertisement"}
+>
+  <span class="font-mono text-[11px] text-slate-400">
+    {locale === "ko" ? "ADVERTISEMENT · CLS RESERVE" : "ADVERTISEMENT · CLS RESERVE"}
+  </span>
+</aside>

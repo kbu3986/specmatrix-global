@@ -1,0 +1,259 @@
+---
+import "../styles/global.css";
+import type { ActiveLocale, PilotVertical } from "../lib/types";
+import { getMonetizationConfig, getPrimaryVerticalHref } from "../lib/data";
+import {
+  LEGAL_LABELS,
+  LEGAL_SLUGS,
+  PILOT_VERTICALS,
+  VERTICAL_META,
+  normalizePath,
+  safeJsonLd,
+  switchLocalePath,
+  toAbsoluteUrl,
+} from "../lib/i18n";
+
+interface Props {
+  title: string;
+  description: string;
+  locale: ActiveLocale;
+  currentPath: string;
+  activeVertical?: PilotVertical | null;
+  isRootPortal?: boolean;
+  availableLocales?: ActiveLocale[];
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description,
+  locale,
+  currentPath,
+  activeVertical = null,
+  isRootPortal = false,
+  availableLocales = ["en", "ko"],
+  jsonLd = [],
+} = Astro.props;
+
+const cfg = getMonetizationConfig();
+const normPath = normalizePath(currentPath);
+const canonical = toAbsoluteUrl(normPath);
+
+const enHref = isRootPortal
+  ? toAbsoluteUrl("/en")
+  : toAbsoluteUrl(switchLocalePath(normPath, "en"));
+const koHref = isRootPortal
+  ? toAbsoluteUrl("/ko")
+  : toAbsoluteUrl(switchLocalePath(normPath, "ko"));
+const xDefaultHref = isRootPortal ? toAbsoluteUrl("/") : enHref;
+
+const otherLocale: ActiveLocale = locale === "en" ? "ko" : "en";
+const toggleHref = isRootPortal
+  ? `/${otherLocale}`
+  : switchLocalePath(normPath, otherLocale);
+const hasOtherLocale = isRootPortal || availableLocales.includes(otherLocale);
+
+const verticalNav = PILOT_VERTICALS.map((v) => ({
+  id: v,
+  label: VERTICAL_META[v].shortName[locale],
+  href: getPrimaryVerticalHref(locale, v),
+  active: activeVertical === v,
+}));
+
+const ldList = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+const isKo = locale === "ko";
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- AdSense & Search Console Verification -->
+    <meta name="google-adsense-account" content={cfg.adsenseId} />
+    {cfg.verification.gsc && (
+      <meta name="google-site-verification" content={cfg.verification.gsc} />
+    )}
+    {cfg.verification.naver && (
+      <meta name="naver-site-verification" content={cfg.verification.naver} />
+    )}
+
+    <!-- Canonical & Symmetric Hreflang -->
+    <link rel="canonical" href={canonical} />
+    {(isRootPortal || availableLocales.includes("en")) && (
+      <link rel="alternate" hreflang="en" href={enHref} />
+    )}
+    {(isRootPortal || availableLocales.includes("ko")) && (
+      <link rel="alternate" hreflang="ko" href={koHref} />
+    )}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={cfg.siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={isKo ? "ko_KR" : "en_US"} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {ldList.map((schema) => (
+      <script type="application/ld+json" set:html={safeJsonLd(schema)} />
+    ))}
+  </head>
+  <body class="bg-lab-canvas text-lab-ink antialiased">
+    <header class="sticky top-0 z-40 border-b border-lab-border bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+        <div class="flex items-center gap-6">
+          <a
+            href={isRootPortal ? "/" : `/${locale}`}
+            class="flex items-center gap-2.5 text-slate-900 no-underline hover:opacity-90"
+          >
+            <span
+              class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold tracking-tight text-white"
+              aria-hidden="true"
+            >
+              SM
+            </span>
+            <span class="flex flex-col leading-none">
+              <span class="text-sm font-bold tracking-tight text-slate-900">
+                SpecMatrix
+              </span>
+              <span class="font-mono text-[10px] font-medium uppercase tracking-wider text-slate-500">
+                Verified Spec Lab
+              </span>
+            </span>
+          </a>
+
+          <nav aria-label={isKo ? "버티컬 내비게이션" : "Vertical navigation"} class="hidden items-center gap-1 md:flex">
+            {verticalNav.map((item) => (
+              <a
+                href={item.href}
+                class:list={[
+                  "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  item.active
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                ]}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[11px] font-medium text-emerald-800 sm:inline-flex">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+            {isKo ? "실데이터 교차검증" : "Evidence-Anchored"}
+          </span>
+
+          {hasOtherLocale && (
+            <a
+              href={toggleHref}
+              class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1.5 font-mono text-xs font-semibold text-slate-800 shadow-xs transition-colors hover:border-blue-500 hover:text-blue-700"
+              aria-label={isKo ? "Switch to English" : "한국어로 전환"}
+            >
+              <span class={locale === "en" ? "text-blue-700" : "text-slate-400"}>EN</span>
+              <span class="text-slate-300">↔</span>
+              <span class={locale === "ko" ? "text-blue-700" : "text-slate-400"}>KO</span>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Mobile horizontal quick-nav -->
+      <div class="border-t border-slate-100 px-4 py-2 md:hidden">
+        <nav aria-label={isKo ? "모바일 버티컬 내비게이션" : "Mobile vertical navigation"} class="flex items-center gap-2 overflow-x-auto">
+          {verticalNav.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
+                item.active
+                  ? "bg-slate-900 text-white"
+                  : "bg-slate-100 text-slate-700",
+              ]}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
+      <slot />
+    </main>
+
+    <footer class="mt-16 border-t border-lab-border bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <div class="grid gap-8 md:grid-cols-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded bg-slate-900 font-mono text-[10px] font-bold text-white">
+                SM
+              </span>
+              <span class="text-sm font-bold text-slate-900">SpecMatrix Global</span>
+            </div>
+            <p class="mt-2.5 text-xs leading-relaxed text-slate-600">
+              {isKo
+                ? "제조사 공식 스펙시트·규정 문서·영양성분표에 근거한 결정론적 비교 매트릭스 및 인터랙티브 검증 도구."
+                : "Evidence-anchored specification matrices and deterministic calculators verified against manufacturer manuals, nutrition labels, and aviation regulations."}
+            </p>
+          </div>
+
+          <div>
+            <h2 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {isKo ? "검증 매트릭스" : "Active Verticals"}
+            </h2>
+            <ul class="mt-2.5 space-y-1.5 text-sm">
+              {verticalNav.map((item) => (
+                <li>
+                  <a href={item.href} class="text-slate-700 hover:text-blue-700 hover:underline">
+                    {VERTICAL_META[item.id].name[locale]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {isKo ? "신뢰·정책 및 오류 제보" : "Trust, Policy & Legal"}
+            </h2>
+            <ul class="mt-2.5 space-y-1.5 text-sm">
+              {LEGAL_SLUGS.map((slug) => (
+                <li>
+                  <a
+                    href={`/${locale}/${slug}`}
+                    class="text-slate-700 hover:text-blue-700 hover:underline"
+                  >
+                    {LEGAL_LABELS[slug][locale]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-xs leading-relaxed text-slate-600">
+          {cfg.compliance.disclosures[locale]}
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-5 text-xs text-slate-500">
+          <span>© 2026 SpecMatrix Global. {isKo ? "All rights reserved." : "All rights reserved."}</span>
+          <span class="font-mono">
+            {isKo ? "가격 기준: MSRP Reference Benchmark" : "Pricing Mode: MSRP Reference Benchmark"} · {cfg.updatedAt}
+          </span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

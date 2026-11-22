@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  --color-lab-canvas: #f8fafc;
+  --color-lab-surface: #ffffff;
+  --color-lab-subtle: #f1f5f9;
+  --color-lab-border: #e2e8f0;
+  --color-lab-border-strong: #cbd5e1;
+  --color-lab-ink: #0f172a;
+  --color-lab-muted: #475569;
+  --color-lab-faint: #64748b;
+
+  --color-cobalt-600: #2563eb;
+  --color-cobalt-700: #1d4ed8;
+  --color-emerald-600: #059669;
+  --color-amber-600: #d97706;
+  --color-rose-600: #dc2626;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-lab-canvas);
+    color: var(--color-lab-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+}
+
+/* Precision engineering tabular numbers */
+.tabular-nums,
+table td,
+table th,
+.kpi-value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lab engineering card surface */
+.lab-card {
+  background-color: var(--color-lab-surface);
+  border: 1px solid var(--color-lab-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* Hairline lab table styling */
+.lab-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-lab-border);
+  border-radius: 0.75rem;
+  background-color: var(--color-lab-surface);
+}
+
+.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.lab-table thead th {
+  background-color: var(--color-lab-subtle);
+  color: var(--color-lab-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-lab-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.lab-table tbody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-lab-border);
+  vertical-align: middle;
+}
+
+.lab-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.lab-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Fixed min-height AdSense slot reserve for CLS < 0.05 */
+.ad-slot-reserve {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.5rem;
+  color: #64748b;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.ad-slot-reserve--rect {
+  min-height: 250px;
+}
+
+@media (min-width: 768px) {
+  .ad-slot-reserve--banner {
+    min-height: 90px;
+  }
+}
+
+/* Semantic pill badges */
+.badge-pass {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-caution {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-fail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Range sliders for interactive calculators */
+input[type="range"].lab-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  outline: none;
+}
+
+input[type="range"].lab-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #2563eb;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+  cursor: pointer;
+}
+
+input[type="range"].lab-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #2563eb;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+  cursor: pointer;
+}
