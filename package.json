@@ -1,0 +1,22 @@
+{
+  "name": "specmatrix-global",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SpecMatrix Global — Evidence-anchored multi-locale spec verification and high-intent comparison matrix factory",
+  "scripts": {
+    "validate": "node pipeline/validate-all.mjs",
+    "audit:ig": "node pipeline/serp-ig-audit.mjs",
+    "fx:update": "node pipeline/update-fx.mjs",
+    "test:pipeline": "node --test pipeline/tests/pipeline.test.mjs",
+    "web:install": "npm --prefix web install",
+    "web:dev": "npm --prefix web run dev",
+    "web:build": "npm --prefix web run build",
+    "web:preview": "npm --prefix web run preview",
+    "qa:stage6": "node pipeline/stage6-html-qa.mjs",
+    "build:all": "npm run validate && npm run test:pipeline && npm run web:build && npm run qa:stage6"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  }
+}

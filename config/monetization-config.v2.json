@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "2.0",
+  "siteUrl": "https://specmatrix.io",
+  "siteName": "SpecMatrix Global",
+  "pricingMode": "msrp_benchmark_mode",
+  "adsenseId": "ca-pub-8587506565277191",
+  "adsTxtLine": "google.com, pub-8587506565277191, DIRECT, f08c47fec0942fa0",
+  "coupang": {
+    "partnersId": "AF2200875",
+    "defaultSubId": "ssalmeok-kr",
+    "verticalSubIds": {
+      "wattcheck": "sm-watt-kr",
+      "puregram": "sm-pure-kr",
+      "cyclegear": "sm-cycle-kr",
+      "hometech": "sm-home-kr"
+    }
+  },
+  "amazonOneLink": {
+    "us": "kbu3986-20",
+    "jp": "",
+    "de": "",
+    "es": "",
+    "uk": "",
+    "ca": ""
+  },
+  "globalAffiliates": {
+    "iherbCode": "",
+    "aliexpressTrackingId": "",
+    "awinPublisherId": "",
+    "impactAccountSid": ""
+  },
+  "verification": {
+    "gsc": "srNR80vNCy3sBgCrxGn_bZLwTPgwsvqmdTxF4arEhw4",
+    "naver": "8c10763f9e41c812023c31dc42cce3517af9ad25"
+  },
+  "releaseGate": {
+    "activeLocales": ["en", "ko"],
+    "releaseWaveMax": 1,
+    "maxPublishedPages": 200,
+    "quarantineCircuitBreakerPct": 15,
+    "minTrustScore": 95,
+    "minInfoGainScore": 75,
+    "minCitations": 2
+  },
+  "compliance": {
+    "euCmpReady": true,
+    "disclosures": {
+      "en": "Disclosure: As an Amazon Associate and affiliate partner, SpecMatrix Global earns from qualifying purchases at no extra cost to you. Prices shown are manufacturer MSRP benchmarks; verify live checkout pricing on official stores.",
+      "ko": "고지: 이 페이지는 쿠팡 파트너스 및 아마존 어소시에이트 등 글로벌 제휴 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 표기 가격은 제조사 공식 출고가(MSRP) 기준 참고가이며, 실제 결제가는 공식 판매처에서 확인해 주세요."
+    }
+  },
+  "updatedAt": "2026-11-22"
+}

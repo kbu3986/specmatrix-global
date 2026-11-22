@@ -1,0 +1,131 @@
+{
+  "pilot_version": "phase1-week1-200p",
+  "active_locales": ["en", "ko"],
+  "target_core_pages": 200,
+  "breakdown": {
+    "items_per_locale": 60,
+    "vs_per_locale": 25,
+    "matrix_compat_per_locale": 10,
+    "legal_trust_per_locale": 5
+  },
+  "items": {
+    "wattcheck": [
+      "anker-prime-27650mah-250w",
+      "anker-prime-20000mah-200w",
+      "anker-737-powercore-24k-140w",
+      "anker-zolo-powerbank-20000mah-30w",
+      "anker-nano-powerbank-10000mah-30w",
+      "ugreen-nexode-powerbank-25000mah-200w",
+      "ugreen-nexode-powerbank-20000mah-130w",
+      "shargeek-170-powerbank-24000mah",
+      "shargeek-140-powerbank-20000mah",
+      "cuktech-20-powerbank-25000mah-210w",
+      "cuktech-15-powerbank-20000mah-150w",
+      "baseus-blade-hd-20000mah-100w",
+      "samsung-45w-battery-pack-20000mah",
+      "anker-prime-100w-gan-3port",
+      "anker-prime-200w-gan-6port-desktop",
+      "anker-prime-250w-gan-6port-desktop",
+      "anker-140w-gan-4port-charger",
+      "ugreen-nexode-pro-160w-gan-4port",
+      "ugreen-nexode-pro-100w-gan-3port",
+      "ugreen-nexode-300w-gan-5port-desktop",
+      "satechi-165w-usb-c-4port-gan",
+      "cio-novaport-trio-ii-67w-gan",
+      "apple-140w-usb-c-power-adapter",
+      "ecoflow-river-3-245wh",
+      "anker-solix-c300-dc-288wh"
+    ],
+    "puregram": [
+      "maurten-gel-100",
+      "maurten-gel-100-caf-100",
+      "maurten-gel-160",
+      "sis-beta-fuel-gel",
+      "sis-go-isotonic-energy-gel",
+      "precision-pf-30-gel",
+      "precision-pf-90-gel",
+      "gu-roctane-energy-gel",
+      "gu-original-energy-gel",
+      "neversecond-c30-energy-gel",
+      "skratch-labs-sport-hydration-mix",
+      "precision-ph-1500-electrolyte",
+      "precision-ph-1000-electrolyte",
+      "pocari-sweat-ion-powder-74g",
+      "tailwind-endurance-fuel",
+      "sis-hydro-electrolyte-tablets",
+      "amino-vital-perfect-energy",
+      "jarrow-formulas-creatine-monohydrate",
+      "esn-ultrapure-creatine-monohydrate",
+      "momentous-creatine-creapure"
+    ],
+    "cyclegear": [
+      "favero-assioma-pro-rs-2",
+      "favero-assioma-duo",
+      "garmin-rally-rs200",
+      "magene-pes-p505-base",
+      "coros-dura-solar-gps",
+      "garmin-edge-840-solar",
+      "garmin-edge-1050",
+      "wahoo-elemnt-roam-v2",
+      "wahoo-kickr-core",
+      "tacx-neo-2t-smart",
+      "continental-gp5000-s-tr-28",
+      "vittoria-corsa-pro-tlr-28",
+      "pirelli-p-zero-race-rs-tlr-28",
+      "shimano-dura-ace-r9270-di2-12s",
+      "sram-red-axs-e1-12s"
+    ]
+  },
+  "vs_pairs": {
+    "wattcheck": [
+      ["anker-737-powercore-24k-140w", "anker-prime-27650mah-250w"],
+      ["anker-prime-27650mah-250w", "shargeek-170-powerbank-24000mah"],
+      ["anker-prime-27650mah-250w", "ugreen-nexode-powerbank-25000mah-200w"],
+      ["anker-prime-20000mah-200w", "ugreen-nexode-powerbank-20000mah-130w"],
+      ["cuktech-20-powerbank-25000mah-210w", "shargeek-170-powerbank-24000mah"],
+      ["baseus-blade-hd-20000mah-100w", "cuktech-15-powerbank-20000mah-150w"],
+      ["anker-prime-100w-gan-3port", "ugreen-nexode-pro-100w-gan-3port"],
+      ["satechi-165w-usb-c-4port-gan", "ugreen-nexode-pro-160w-gan-4port"],
+      ["anker-prime-250w-gan-6port-desktop", "ugreen-nexode-300w-gan-5port-desktop"],
+      ["anker-solix-c300-dc-288wh", "ecoflow-river-3-245wh"]
+    ],
+    "puregram": [
+      ["maurten-gel-100", "sis-beta-fuel-gel"],
+      ["maurten-gel-160", "sis-beta-fuel-gel"],
+      ["maurten-gel-100", "precision-pf-30-gel"],
+      ["gu-roctane-energy-gel", "maurten-gel-100-caf-100"],
+      ["neversecond-c30-energy-gel", "precision-pf-30-gel"],
+      ["precision-ph-1500-electrolyte", "skratch-labs-sport-hydration-mix"],
+      ["esn-ultrapure-creatine-monohydrate", "momentous-creatine-creapure"],
+      ["amino-vital-perfect-energy", "sis-go-isotonic-energy-gel"]
+    ],
+    "cyclegear": [
+      ["favero-assioma-pro-rs-2", "garmin-rally-rs200"],
+      ["favero-assioma-duo", "favero-assioma-pro-rs-2"],
+      ["favero-assioma-pro-rs-2", "magene-pes-p505-base"],
+      ["coros-dura-solar-gps", "garmin-edge-840-solar"],
+      ["garmin-edge-1050", "wahoo-elemnt-roam-v2"],
+      ["continental-gp5000-s-tr-28", "vittoria-corsa-pro-tlr-28"],
+      ["shimano-dura-ace-r9270-di2-12s", "sram-red-axs-e1-12s"]
+    ]
+  },
+  "matrix_compat": {
+    "wattcheck": [
+      { "archetype": "matrix", "slug": "power-banks" },
+      { "archetype": "matrix", "slug": "gan-chargers" },
+      { "archetype": "matrix", "slug": "airlines-30" },
+      { "archetype": "compat", "slug": "macbook-pro-16-with-gan-powerbanks" }
+    ],
+    "puregram": [
+      { "archetype": "matrix", "slug": "energy-gels" },
+      { "archetype": "matrix", "slug": "creatine-electrolytes" },
+      { "archetype": "compat", "slug": "marathon-cycling-90g-carb-fueling" }
+    ],
+    "cyclegear": [
+      { "archetype": "matrix", "slug": "power-meters" },
+      { "archetype": "matrix", "slug": "gps-tires-trainers" },
+      { "archetype": "compat", "slug": "shimano-12s-di2-with-powermeters-headunits" }
+    ]
+  },
+  "legal_trust": ["about", "methodology", "disclaimer", "privacy", "contact"]
+}
