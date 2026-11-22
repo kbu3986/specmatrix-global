@@ -1,0 +1,34 @@
+{
+  "sku_slug": "skratch-labs-sport-hydration-mix",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "Skratch Labs Sport Hydration Drink Mix 440 g resealable bag provides 20 servings (1 scoop = 22 g) at $23.95 USD MSRP.",
+      "source_url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.electrolytes & carbs",
+      "quote": "Per 22 g scoop (Lemon & Lime): 80 kcal, 20 g total carbohydrates (19 g sugars from cane sugar and dextrose), 0 g fat, 0 g protein, 380 mg sodium, 40 mg potassium, 39 mg magnesium, 40 mg calcium.",
+      "source_url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Non-GMO, Kosher, Gluten-Free, Dairy-Free, Vegan; no active Informed Sport or NSF Certified for Sport listing.",
+      "source_url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 22 g x 20 = 440 g net weight (0.0% deviation) and Na+K conversion: (380 + 40)/1000 = 0.42 g active per serving.",
+    "Verified purity math: 0.42 g / 22 g * 100 = 1.91% electrolyte purity; total pure Na+K = 8.40 g.",
+    "Verified Atwater calorie match: 4 * 20 g = 80 kcal vs 80 kcal declared (0.0% deviation).",
+    "Explicitly verified absence of Informed Sport/NSF certification so no false anti-doping badge is displayed."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

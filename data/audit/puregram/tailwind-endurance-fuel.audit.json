@@ -1,0 +1,28 @@
+{
+  "sku_slug": "tailwind-endurance-fuel",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "Tailwind Endurance Fuel 50-serving bag (1,350 g net, 27 g per scoop) priced at $42.99 USD on tailwindnutrition.com.",
+      "source_url": "https://tailwindnutrition.com/products/endurance-fuel",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.macros & electrolytes",
+      "quote": "Per 1 scoop (27 g): 100 kcal, 25 g carbohydrates (25 g sugars from non-GMO dextrose and sucrose), 0 g fat, 0 g protein, 310 mg sodium, 90 mg potassium, 12 mg magnesium, 27 mg calcium.",
+      "source_url": "https://tailwindnutrition.com/products/endurance-fuel",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Adversarial check caught Tailwind's withdrawal from Informed-Choice and excluded stale anti-doping badges while flagging it transparently in local_gotchas.",
+    "Verified 27 g x 50 = 1350 g net weight (0.0% deviation) and 25 g / 27 g = 92.59% carb purity.",
+    "Verified Atwater calorie match: 4 * 25 g = 100 kcal vs 100 kcal declared (0.0% deviation); 90 g/hr = 3.60 scoops.",
+    "Confirmed zero legacy blocklist overlap and SM-05 factual compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

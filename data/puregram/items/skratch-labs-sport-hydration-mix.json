@@ -1,0 +1,135 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "electrolyte",
+  "slug": "skratch-labs-sport-hydration-mix",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Skratch Labs",
+  "model_number": "SKR-HYD-440",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 440,
+    "total_servings": 20,
+    "serving_weight_g": 22,
+    "unit_type": "scoop",
+    "flavors_tracked": [
+      "Lemon & Lime (Ref)",
+      "Strawberry Lemonade",
+      "Orange",
+      "Pineapple",
+      "Fruit Punch"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 80,
+    "active_ingredient_type": "electrolytes_sodium_potassium",
+    "active_per_serving_g": 0.42,
+    "protein_g": 0,
+    "carbs_g": 20,
+    "fat_g": 0,
+    "sugar_g": 19,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 380,
+    "potassium_mg": 40,
+    "magnesium_mg": 39,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (sweetened strictly with cane sugar, dextrose, and real fruit juice powder; zero artificial sweeteners or stevia)"
+  },
+  "derived_math": {
+    "purity_pct": 1.91,
+    "total_pure_active_g": 8.4,
+    "benchmark_unit_g": 1,
+    "benchmark_label_en": "per 1,000 mg Na+K",
+    "benchmark_label_ko": "순수 나트륨+칼륨 1,000 mg당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "C"
+  },
+  "certifications": [
+    "Non-GMO",
+    "Kosher",
+    "Gluten-Free",
+    "Vegan"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "SKR-HYD-440-US",
+      "msrp": 23.95,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Skratch Labs Sport Hydration Drink Mix 440g",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "SKR-HYD-440-KR",
+      "msrp": 39000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "스크래치 랩스 스포츠 하이드레이션 믹스 440g",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Skratch Labs Sport Hydration Drink Mix (440 g Bag)",
+      "title": "Skratch Labs Sport Hydration: Cost per 1,000 mg Na+K & Real-Fruit Sugar Math",
+      "summary": "Real-fruit hypotonic drink mix delivering 380 mg sodium, 40 mg potassium, 39 mg magnesium, and 20 g cane-sugar/dextrose carbs per 22 g scoop with zero artificial sweeteners.",
+      "best_for": "Cyclists and runners who want clean real-fruit taste with moderate sodium (380 mg/bottle) plus 20 g light fueling carbs per scoop",
+      "local_gotchas": [
+        "Pure Na+K mineral share is only 1.91% of scoop weight because 90.9% (20 g) is cane sugar and dextrose—so cost per 1,000 mg Na+K ($2.85 USD) looks high unless you value the included 400 g of fueling carbs.",
+        "Does NOT hold active Informed Sport or NSF Certified for Sport anti-doping certification—drug-tested athletes should verify compliance before race use.",
+        "Sodium is moderate (380 mg per 500 mL scoop); heavy salty sweaters (>1,000 mg/L) will need a dedicated high-sodium tablet like PH 1500."
+      ]
+    },
+    "ko": {
+      "name": "스크래치 랩스 스포츠 하이드레이션 믹스 (440 g 파우치)",
+      "title": "스크래치 랩스 스포츠 하이드레이션: 순수 Na+K 1,000 mg당 실단가·천연 과일 전해질 분석",
+      "summary": "인공감미료 없이 사탕수수당·포도당·천연 과즙 분말로 22 g 1스쿱당 나트륨 380 mg, 칼륨 40 mg, 마그네슘 39 mg과 탄수화물 20 g을 함께 보급하는 20회분 드링크 믹스입니다.",
+      "best_for": "인공감미료 뒷맛을 싫어하고 500 mL 보틀 한 통으로 적당한 나트륨(380 mg)과 가벼운 탄수화물(20 g)을 동시에 해결하려는 라이더·러너",
+      "local_gotchas": [
+        "1스쿱 22 g 중 20 g(90.9%)이 탄수화물(당류 19 g)이므로 순수 전해질(Na+K) 비중은 1.91%에 불과합니다. 순수 염분 보충 목적이라면 PH 1500 대비 1,000 mg당 단가가 2배 이상 높습니다.",
+        "Non-GMO·글루텐프리·비건 인증은 갖추었으나 인폼드 스포츠(Informed Sport)나 NSF Certified for Sport 반도핑 인증은 보유하고 있지 않습니다.",
+        "땀 나트륨 배출량이 많은 여름철 장거리 라이딩에서는 1스쿱(380 mg)만으로 부족할 수 있어 2스쿱 또는 고나트륨 발포정 병행이 필요합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Skratch Labs Official Product Page — Sport Hydration Drink Mix",
+      "url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "USDA / MyFoodData Nutrition Facts Reference — Skratch Labs Sport Hydration",
+      "url": "https://tools.myfooddata.com/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 92,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "precision-ph-1500-electrolyte",
+    "tailwind-endurance-fuel",
+    "pocari-sweat-ion-powder-74g"
+  ]
+}

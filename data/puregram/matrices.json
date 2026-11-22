@@ -1,0 +1,136 @@
+[
+  {
+    "slug": "energy-gels",
+    "vertical": "puregram",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": "energy-gel",
+    "featured_item_slugs": [
+      "maurten-gel-100",
+      "maurten-gel-100-caf-100",
+      "maurten-gel-160",
+      "sis-beta-fuel-gel",
+      "sis-go-isotonic-energy-gel",
+      "precision-pf-30-gel",
+      "precision-pf-90-gel",
+      "gu-roctane-energy-gel",
+      "gu-original-energy-gel",
+      "neversecond-c30-energy-gel",
+      "amino-vital-perfect-energy"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Endurance Energy Gels Matrix: True Cost per 30 g Carbs, Ratios & 90 g/hr Audit",
+        "subtitle": "Side-by-side label audit of 11 verified marathon and cycling gels ranked by pure carbohydrate unit cost, glucose:fructose ratio, caffeine, sodium, and pocket weight.",
+        "intro": "Per-packet pricing hides massive gaps in carbohydrate payload—from 19 g in GU Roctane to 90 g in Precision PF 90. This evidence-anchored matrix normalizes every verified energy gel to a standardized 30 g pure-carbohydrate benchmark and calculates exact packet counts and hourly fueling budgets for 60, 90, and 120 g/hr race protocols.",
+        "methodology_note": "All carb grams, sugars, caffeine, sodium, and serving weights are extracted from official manufacturer Nutrition Facts panels, verified against Atwater 4-4-9 calorie invariants, and benchmarked in msrp_benchmark_mode.",
+        "key_takeaways": [
+          "Precision PF 90 ($2.00/30 g) and PF 30 ($2.33/30 g) lead Informed Sport value, followed closely by SiS Beta Fuel ($2.50/30 g) in the 1:0.8 high-carb tier.",
+          "Maurten Gel 160 ($3.44/30 g) saves 24% per gram of carbs versus Maurten Gel 100 ($4.50/30 g) while using the identical 1:0.8 alginate hydrogel.",
+          "Low-carb packets can carry hidden unit-cost inflation: GU Roctane ($3.00/gel, 19 g carbs) costs $4.74 per 30 g carbs—nearly matching Maurten Caf 100 ($5.20/30 g).",
+          "Only Neversecond C30 (200 mg) and GU Roctane (180 mg) deliver meaningful built-in sodium; Maurten, SiS, and Precision PF gels require separate electrolyte pairing."
+        ]
+      },
+      "ko": {
+        "title": "마라톤·사이클 에너지젤 비교 매트릭스: 순수 탄수화물 30 g당 실단가·비율·90 g/hr 총정리",
+        "subtitle": "공식 영양성분표 교차검증을 완료한 11종 지구력 에너지젤의 30 g당 실단가, 포도당:과당 비율, 카페인·나트륨, 시간당 필요 포수를 한눈에 비교합니다.",
+        "intro": "에너지젤을 '1포당 가격'으로만 비교하면 19 g(GU 록테인)부터 90 g(프리시전 PF 90)까지 4.7배에 달하는 탄수화물 용량 차이를 놓치게 됩니다. 이 매트릭스는 11종 에너지젤을 순수 탄수화물 30 g 기준으로 정규화해 실제 가성비, 1:0.8 vs 2:1 흡수 비율, 포켓 무게, 인폼드 스포츠 인증 여부를 객관적으로 대조합니다.",
+        "methodology_note": "모든 탄수화물·당류·카페인·나트륨·중량 데이터는 제조사 공식 영양성분표 원문을 추출해 아트워크 4-4-9 열량 검산과 중량 불변 검사를 100% 통과한 값이며, 공식 출고가 참고 기준(msrp_benchmark_mode)으로 산출했습니다.",
+        "key_takeaways": [
+          "인폼드 스포츠 인증 젤 기준 국내외 최고 가성비는 프리시전 PF 90·PF 30과 SiS 베타퓨엘(30 g당 $2.00–$2.50 / 국내 3,200–3,700원대)입니다.",
+          "모르텐 젤 160(40 g)은 같은 하이드로겔인 모르텐 젤 100(25 g)보다 순수 탄수화물 30 g당 실단가가 약 20% 저렴(미국 24%, 한국 20%)하고 개봉 횟수도 2.25포/시간으로 줄어듭니다.",
+          "GU 록테인은 포당 가격이 저렴해 보이지만 19 g 함량 기준 30 g당 실단가가 $4.74에 달해 모르텐 젤 100과 거의 같은 프리미엄 구간에 속합니다.",
+          "네버세컨드 C30(나트륨 200 mg)과 GU 록테인(180 mg)을 제외한 대부분 젤은 나트륨이 0–32 mg에 불과하므로 여름철 장거리에는 별도 전해질 조합이 필수입니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "creatine-electrolytes",
+    "vertical": "puregram",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": null,
+    "featured_item_slugs": [
+      "precision-ph-1500-electrolyte",
+      "precision-ph-1000-electrolyte",
+      "sis-hydro-electrolyte-tablets",
+      "skratch-labs-sport-hydration-mix",
+      "pocari-sweat-ion-powder-74g",
+      "esn-ultrapure-creatine-monohydrate",
+      "jarrow-formulas-creatine-monohydrate",
+      "momentous-creatine-creapure"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Electrolytes & Creatine Matrix: True Cost per 1,000 mg Na+K & per 5 g Pure Creatine",
+        "subtitle": "Verified label-math leaderboard comparing 5 new endurance electrolytes and 3 third-party-screened creatines with zero overlap against legacy lists.",
+        "intro": "Electrolyte products hide dramatic sodium-density differences—from 0.99% mineral share in carb-heavy Pocari Sweat powder to 14.6% in Precision PH 1500 tablets—while creatine brands vary in scoop size (3.5 g EU vs 5 g US vs 6 g Jarrow) and anti-doping certification. Filter by category, sweetener type, sodium concentration, or certification to spot the true unit-cost winner.",
+        "methodology_note": "Electrolytes are standardized to cost per 1,000 mg pure Sodium + Potassium (active_per_serving_g = (Na + K)/1000); creatines are standardized to cost per 5 g pure creatine monohydrate regardless of label scoop size.",
+        "key_takeaways": [
+          "Precision PH 1500 tablets ($1.37 per 1,000 mg Na+K) beat same-priced PH 1000 ($1.92) by 29% and beat sugar-based Skratch Labs ($2.85) by 52% on pure electrolyte cost.",
+          "In South Korea, SiS GO Hydro tablets (₩2,012 per 1,000 mg Na+K) lead low-calorie KRW electrolyte value, closely followed by local Pocari Sweat 74 g powder (₩2,180 per 1,000 mg Na+K plus 360 g of isotonic carbs) and PH 1500 (₩2,229).",
+          "Among 100%-pure creatines, ESN Ultrapure ($0.32/5 g, Cologne List) and Jarrow Formulas ($0.34/5 g, German Creapure®) undercut NSF-certified Momentous ($0.48/5 g) by ~30%.",
+          "Adversarial sourcing catch: Momentous transitioned from German Creapure® to pharmaceutical-grade Signature Spec™ on June 16, 2026 while maintaining NSF Certified for Sport."
+        ]
+      },
+      "ko": {
+        "title": "전해질·크레아틴 정밀 비교 매트릭스: 순수 Na+K 1,000 mg당·순수 크레아틴 5 g당 실단가",
+        "subtitle": "신규 지구력 전해질 5종과 글로벌 검증 크레아틴 3종의 유효성분 순도, 인공감미료 유무, 반도핑 인증(NSF·인폼드·쾰른 리스트)을 한눈에 비교합니다.",
+        "intro": "전해질 제품은 당류가 97%인 이온음료 분말부터 고나트륨 무당 발포정까지 순도 격차가 14배 이상 벌어지며, 크레아틴 역시 유럽 3.5 g·미국 5 g·재로우 6 g 등 스쿱 기준이 제각각입니다. 이 매트릭스는 전해질은 순수 나트륨+칼륨 1,000 mg당, 크레아틴은 순수 5 g당 실단가로 통일해 필러세와 인증 프리미엄을 투명하게 분리합니다.",
+        "methodology_note": "전해질 유효성분은 공식 성분표의 (나트륨 mg + 칼륨 mg) ÷ 1,000 g 기준으로 1,000 mg당 단가를 산출하며, 크레아틴은 라벨 스쿱 크기와 무관하게 순수 모노하이드레이트 5 g당 실단가로 표준화했습니다.",
+        "key_takeaways": [
+          "고농도 발포정 PH 1500은 동일 가격의 PH 1000보다 전해질이 40% 더 들어 있어 순수 Na+K 1,000 mg당 실단가를 29% 절약할 수 있습니다.",
+          "국내 구매 기준 순수 Na+K 1,000 mg당 실단가는 SiS GO 하이드로(약 2,012원)가 저칼로리 1위이며, 포카리스웨트 74 g 분말(약 2,180원·당류 68 g/봉 동반)과 PH 1500(약 2,229원)이 근소하게 뒤따릅니다.",
+          "100% 순수 크레아틴 중 ESN 울트라퓨어(5 g당 약 453원, 쾰른 리스트)와 재로우(약 486원, 독일 크레아퓨어)가 NSF 인증 모멘터스(약 722원) 대비 약 33–37% 저렴합니다.",
+          "모멘터스 크레아틴은 2026년 6월 16일부로 독일 크레아퓨어에서 자체 Signature Spec™ 원료로 전환되었으므로 크레아퓨어 로고 필수 구매자는 재로우를 확인하세요."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "marathon-cycling-90g-carb-fueling",
+    "vertical": "puregram",
+    "archetype": "compat",
+    "release_wave": 1,
+    "filter_category": null,
+    "featured_item_slugs": [
+      "maurten-gel-160",
+      "sis-beta-fuel-gel",
+      "precision-pf-90-gel",
+      "precision-pf-30-gel",
+      "neversecond-c30-energy-gel",
+      "maurten-gel-100",
+      "maurten-gel-100-caf-100",
+      "tailwind-endurance-fuel",
+      "precision-ph-1500-electrolyte",
+      "precision-ph-1000-electrolyte"
+    ],
+    "i18n": {
+      "en": {
+        "title": "90 g/hr Marathon & Cycling Fueling Compatibility Matrix: Carb Ratios × Sodium Pairing",
+        "subtitle": "Verified high-carb race stacks pairing 1:0.8 and 2:1 gels or bottle mixes with exact sodium targets (500–1,500 mg/hr) and caffeine pacing caps.",
+        "intro": "Sustaining 90 g of carbohydrates per hour over a 3-hour marathon or 5-hour gran fondo requires two independent variables to align: dual-source glucose:fructose transport (2:1 or 1:0.8 to bypass the ~60 g/hr single-source SGLT1 bottleneck) and deliberate sweat-sodium pairing (because most high-carb gels carry 0–32 mg sodium). Use this compatibility matrix to build a zero-conflict race stack with exact hourly packet count and cost.",
+        "methodology_note": "Compatibility pairings enforce three deterministic guardrails: dual-source carb ratio verification (1:0.8 or 2:1 for >=90 g/hr), hourly sodium reconciliation (gel Na + bottle Na), and caffeine ceiling control (<=300 mg total for typical 3-hour races).",
+        "key_takeaways": [
+          "Lowest-cost 90 g/hr cycling stack: Tailwind Endurance Fuel (2 scoops = 50 g carbs + 620 mg Na in bottle) + 1 SiS Beta Fuel Gel (40 g carbs) = 90 g carbs & 650 mg Na for just $5.05/hr USD.",
+          "Zero-conflict modular race stack: 3 × Precision PF 30 (or 1 × PF 90 pouch = 90 g carbs, 0 mg Na) + 1 × Precision PH 1000 or PH 1500 bottle (500–750 mg Na) keeps fuel and hydration 100% independent.",
+          "Sensitive-gut marathon elite stack: 2 × Maurten Gel 160 (80 g) + water + dedicated sodium preload, swapping one standard Gel 100 for Gel 100 Caf 100 after 25 km without exceeding 100–200 mg caffeine.",
+          "Sodium overlap warning: Neversecond C30 already supplies 600 mg Na/hr at 3 gels/hr—pair with plain water or low-sodium bottles rather than stacking full-strength PH 1500 unless sweat testing confirms >1,300 mg/L loss."
+        ]
+      },
+      "ko": {
+        "title": "마라톤·사이클 시간당 90 g 탄수화물 보급 호환 매트릭스: 비율 × 나트륨 × 카페인 조합 가이드",
+        "subtitle": "1:0.8·2:1 고흡수 젤 및 보틀 카보 믹스에 최적 나트륨(500–1,500 mg/hr)과 카페인 페이싱을 충돌 없이 조합하는 실전 보급 호환표입니다.",
+        "intro": "풀코스 마라톤이나 150 km 이상 그란폰도에서 시간당 90 g 탄수화물을 소화하려면 두 가지 축이 동시에 맞아야 합니다. 단일 포도당 흡수 한계(~60 g/hr)를 넘는 2:1 또는 1:0.8 이중 탄수화물 비율과, 나트륨이 거의 없는(0–32 mg) 고탄수화물 젤에 맞춘 정밀 염분 페어링입니다. 이 호환 매트릭스에서 시간당 비용·포켓 무게·나트륨 중복 여부까지 한 번에 검증하세요.",
+        "methodology_note": "호환 조합은 ① 시간당 90 g 이상 구간 2:1 또는 1:0.8 이중 경로 확인, ② 젤 내장 나트륨 + 보틀 나트륨 합산 검증, ③ 카페인 과다 중첩 방지(고카페인 젤 교차 배치) 3대 룰을 결정론적으로 적용합니다.",
+        "key_takeaways": [
+          "최강 가성비 로드사이클 90 g/hr 조합: 보틀에 테일윈드 2스쿱(탄수화물 50 g + 나트륨 620 mg) + SiS 베타퓨엘 1포(40 g) = 시간당 90 g·나트륨 650 mg을 국내 기준 약 7,260원/시간에 구현합니다.",
+          "정밀 분리 모듈 조합: 프리시전 PF 30 3포(또는 PF 90 1파우치 = 90 g, 나트륨 0 mg) + PH 1000/1500 발포정 1보틀(나트륨 500–750 mg)로 탄수화물과 염분을 완벽히 독립 제어합니다.",
+          "마라톤 위장 안정 엘리트 조합: 모르텐 젤 160 2포(80 g)를 기본 축으로 두고 25–30 km 승부처에만 Caf 100 1포(카페인 100 mg)를 투입해 카페인 과다를 예방하세요.",
+          "나트륨 중복 주의: 네버세컨드 C30은 3포만으로 이미 나트륨 600 mg/hr을 공급하므로 맹물과 조합하는 것이 기본이며, 고농도 PH 1500 동시 복용은 초고발한 여름 레이스에만 권장합니다."
+        ]
+      }
+    }
+  }
+]

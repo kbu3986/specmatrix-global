@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "creatine",
+  "slug": "jarrow-formulas-creatine-monohydrate",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Jarrow Formulas",
+  "model_number": "JF-CREAT-325",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 325,
+    "total_servings": 54,
+    "serving_weight_g": 6,
+    "unit_type": "scoop",
+    "flavors_tracked": [
+      "Unflavored"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 0,
+    "active_ingredient_type": "creatine_monohydrate",
+    "active_per_serving_g": 6,
+    "protein_g": 0,
+    "carbs_g": 0,
+    "fat_g": 0,
+    "sugar_g": 0,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 0,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": true,
+    "hydrogel_or_isotonic": "none",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (100% pure unflavored German Creapure creatine monohydrate; zero fillers or sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 100,
+    "total_pure_active_g": 324,
+    "benchmark_unit_g": 5,
+    "benchmark_label_en": "per 5 g pure creatine",
+    "benchmark_label_ko": "순수 크레아틴 5 g당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "A+"
+  },
+  "certifications": [
+    "Creapure",
+    "Vegan",
+    "Non-GMO",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "JF-CREAT-325-US",
+      "msrp": 21.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Jarrow Formulas Creatine Monohydrate Creapure 325g",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "JF-CREAT-325-KR",
+      "msrp": 31500,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "재로우 포뮬라 크레아틴 모노하이드레이트 크레아퓨어 325g",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Jarrow Formulas Creatine Monohydrate (Creapure®, 325 g)",
+      "title": "Jarrow Formulas Creatine (Creapure®): Cost per 5 g, 6 g Scoop Trap & Purity Audit",
+      "summary": "100% pure German AlzChem Creapure® creatine monohydrate (zero fillers, 100% purity) delivering $0.34 per standardized 5 g dose—one of the cleanest value Creapure tubs available.",
+      "best_for": "Athletes specifically demanding German AlzChem Creapure® HPLC-verified raw material at a mid-tier daily price",
+      "local_gotchas": [
+        "Jarrow's official Supplement Facts uses a 6 g scoop (54 servings in 325 g), NOT the standard 5 g scoop—measure ~5/6 scoop (5 g) to get 65 daily doses per tub.",
+        "Not sold direct on jarrow.com US storefront; verify authorized retailer stock (325 g, 600 g, or 1 kg tubs) and look for the Creapure® seal with batch code.",
+        "Carries Creapure® raw-material purity verification but does NOT hold finished-product NSF Certified for Sport or Informed Sport testing."
+      ]
+    },
+    "ko": {
+      "name": "재로우 포뮬라 크레아틴 모노하이드레이트 (크레아퓨어 325 g)",
+      "title": "재로우 크레아틴(Creapure): 순수 크레아틴 5 g당 실단가·6 g 스쿱 함정 분석",
+      "summary": "독일 AlzChem 정품 크레아퓨어(Creapure®) 단일 원료 100% 무첨가 제품으로, 표준 5 g 환산 시 약 $0.34(국내 직구 약 486원)의 합리적 단가로 독일산 고순도 원료를 제공합니다.",
+      "best_for": "반도핑 인증 프리미엄 없이 순수하게 독일 정품 크레아퓨어(Creapure®) 원료를 가성비 있게 장기 복용하려는 헬스·사이클 동호인",
+      "local_gotchas": [
+        "라벨상 1회 제공량이 업계 표준 5 g이 아니라 6 g(325 g 기준 54회분)으로 표기되어 있습니다. 5 g 기준으로 나누어 먹으면 실제로는 65일 복용할 수 있습니다.",
+        "재로우 공식 미국 직영몰보다 아이허브·유럽·국내 해외직구 채널 유통 비중이 높으며 325 g·600 g·1 kg 용량별 5 g당 단가 편차가 크므로 계산기에 실결제가를 입력해 비교하세요.",
+        "원료 단계의 크레아퓨어 순도 보증은 갖추었으나 완제품 기준 NSF Certified for Sport·인폼드 스포츠 인증은 없습니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "NIH Dietary Supplement Label Database (DSLD) — Jarrow Formulas Creatine Monohydrate",
+      "url": "https://dsld.od.nih.gov/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "AlzChem Creapure® Official Quality & Verification Standard",
+      "url": "https://www.creapure.de/en/creapure/what-creapure",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "esn-ultrapure-creatine-monohydrate",
+    "momentous-creatine-creapure"
+  ]
+}

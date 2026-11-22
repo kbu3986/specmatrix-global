@@ -1,0 +1,34 @@
+{
+  "sku_slug": "momentous-creatine-creapure",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "Momentous Creatine Monohydrate 450 g (15.8 oz), 90 servings of 5 g per scoop; one-time MSRP $42.99 USD on livemomentous.com.",
+      "source_url": "https://www.livemomentous.com/products/creatine",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.creapure_certified (June 2026 sourcing audit)",
+      "quote": "On June 16, 2026, Momentous transitioned from Creapure to proprietary pharmaceutical-facility Signature Spec Creatine (99.99% purity spec) with PFAS, microplastics, and heavy-metal testing.",
+      "source_url": "https://www.livemomentous.com/products/creatine",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Maintains active NSF Certified for Sport batch certification for competitive athletes.",
+      "source_url": "https://www.nsfsport.com/",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Stage 2 Adversarial Audit caught the June 16, 2026 Creapure-to-Signature Spec transition despite the legacy search slug 'momentous-creatine-creapure', setting creapure_certified: false and explaining the transition prominently.",
+    "Verified 5.0 g x 90 = 450 g net weight (0.0% deviation) and 5.0 / 5.0 * 100 = 100.0% purity.",
+    "Verified NSF Certified for Sport status and zero legacy 48-slug blocklist overlap.",
+    "Confirmed SM-02 msrp_benchmark_mode and SM-05 objective factual compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,34 @@
+{
+  "sku_slug": "maurten-gel-100",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "package_spec.serving_weight_g & carbs_g",
+      "quote": "Each 40 g sachet contains 25 g of carbohydrates (100 kcal) in a 0.8:1 ratio of fructose to glucose; box of 12 servings (480 g net).",
+      "source_url": "https://maurten.com/products/gel-100",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.ingredients & sodium_mg",
+      "quote": "Six natural ingredients: Water, Glucose, Fructose, Calcium Carbonate, Gluconic Acid, Sodium Alginate; 20 mg sodium (~50 mg salt equivalent), 0 g fat, 0 g protein.",
+      "source_url": "https://maurten.com/products/gel-100",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Maurten Gel 100 batches are tested and certified under the Informed Sport anti-doping assurance program.",
+      "source_url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 40 g x 12 sachets = 480 g net weight (0.0% deviation) and 25 g / 40 g = 62.5% carbohydrate mass purity.",
+    "Verified Atwater calorie math: 4 * 25 g carbs = 100 kcal vs 100 kcal declared (0.0% deviation).",
+    "Cross-checked sodium (20 mg) vs EU salt equivalent (0.05 g) to prevent salt-vs-sodium unit inflation.",
+    "Confirmed zero overlap with legacy 48-slug blocklist and SM-05 non-medical factual language compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

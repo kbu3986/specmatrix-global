@@ -1,0 +1,34 @@
+{
+  "sku_slug": "precision-pf-30-gel",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & nutrition_label.carbs_g",
+      "quote": "PF 30 Gel delivers 30 g of carbohydrate (120 kcal, 12 g sugars, 2:1 glucose-to-fructose ratio) in each 51 g sachet with 0 mg sodium; sold in boxes of 15 ($34.99 USD).",
+      "source_url": "https://www.precisionhydration.com/products/pf-30-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.macros",
+      "quote": "Protein <0.1 g, Fat <0.1 g, Sodium 0 mg, Caffeine 0 mg (standard version).",
+      "source_url": "https://www.precisionhydration.com/products/pf-30-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "PF 30 Gel is Informed Sport batch-tested for WADA-prohibited substances; vegan and gluten-free.",
+      "source_url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 51 g x 15 = 765 g net weight (0.0% deviation) and 30 g / 51 g = 58.82% carb purity.",
+    "Verified Atwater calorie match: 4 * 30 g = 120 kcal vs 120 kcal declared (0.0% deviation).",
+    "Verified exact 90 g/hr rate: 90 / 30 = 3.00 sachets/hr; zero sodium flagged clearly in local_gotchas.",
+    "Confirmed zero legacy blocklist overlap and SM-05 factual compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

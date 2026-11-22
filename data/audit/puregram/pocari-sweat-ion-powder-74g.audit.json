@@ -1,0 +1,28 @@
+{
+  "sku_slug": "pocari-sweat-ion-powder-74g",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 96,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & nutrition_label.calories_kcal",
+      "quote": "Pocari Sweat Powder 74 g sachet (makes 1 liter): 288 kcal, Protein 0 g, Fat 0 g, Carbohydrates 72 g, Salt equivalent 1.32 g (~520 mg sodium).",
+      "source_url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.minerals & ingredients",
+      "quote": "Per 74 g sachet: Potassium ~214 mg, Calcium ~22 mg, Magnesium ~6 mg; Ingredients include sugar, glucose, powdered fruit juice, dextrin, salt, acidulant, vitamin C, potassium chloride, flavor enhancer (amino acids), calcium lactate, magnesium carbonate.",
+      "source_url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 74 g x 5 = 370 g net weight (0.0% deviation) and Na+K conversion: (520 + 214)/1000 = 0.734 g active.",
+    "Verified purity math: 0.734 / 74 * 100 = 0.99% mineral share; total pure Na+K = 3.67 g.",
+    "Verified Atwater calorie match: 4 * 72 g = 288 kcal vs 288 kcal declared (0.0% deviation).",
+    "Flagged KR vs JP regional MSRP gap ($11.99 US import vs ₩8,000 KR local retail) for strong KR Information Gain."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

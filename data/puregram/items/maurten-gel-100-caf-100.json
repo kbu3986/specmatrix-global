@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "maurten-gel-100-caf-100",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Maurten",
+  "model_number": "GEL100CAF-12",
+  "origin_country": "SE",
+  "package_spec": {
+    "net_weight_g": 480,
+    "total_servings": 12,
+    "serving_weight_g": 40,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Unflavored Hydrogel + 100 mg Caffeine"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 100,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 25,
+    "protein_g": 0,
+    "carbs_g": 25,
+    "fat_g": 0,
+    "sugar_g": 25,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "1:0.8",
+    "caffeine_mg": 100,
+    "sodium_mg": 22,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "hydrogel",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (natural glucose and fructose only; 100 mg caffeine produces mild unmasked bitterness)"
+  },
+  "derived_math": {
+    "purity_pct": 62.5,
+    "total_pure_active_g": 300,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 3.6,
+    "purity_grade": "A"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "MAURTEN-CAF100-12",
+      "msrp": 52,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Maurten Gel 100 Caf 100 box 12",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "MAURTEN-CAF100-12-KR",
+      "msrp": 96000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "모르텐 젤 100 카페인 12개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Maurten Gel 100 Caf 100 (Box of 12)",
+      "title": "Maurten Gel 100 Caf 100: Cost per 30 g Carbs, 100 mg Caffeine & Hydrogel Audit",
+      "summary": "Hydrogel-encapsulated 25 g dual-source carbohydrate gel paired with a high 100 mg caffeine dose (roughly 1.5 espressos) in a 7-ingredient Informed Sport certified pouch.",
+      "best_for": "Strategic late-race marathon kilometers or decisive cycling climbs requiring 100 mg caffeine without artificial flavors",
+      "local_gotchas": [
+        "100 mg caffeine per 25 g carbs means taking 3.6 packets/hr would hit 360 mg/hr of caffeine; alternate with non-caffeinated Gel 100 or Gel 160.",
+        "With zero flavoring agents, the 100 mg caffeine creates a noticeably bitter finish compared to standard Gel 100—test once in training before race day.",
+        "Very low sodium (22 mg per pouch) requires pairing with a separate sodium source on warm race courses."
+      ]
+    },
+    "ko": {
+      "name": "모르텐 젤 100 카페인 Caf 100 (12개입 박스)",
+      "title": "모르텐 젤 100 카페인(Caf 100): 순수 탄수화물 30 g당 실단가·카페인 100 mg 분석",
+      "summary": "하이드로겔 매트릭스에 1:0.8 탄수화물 25 g과 고함량 카페인 100 mg(에스프레소 약 1.5샷)을 7가지 원재료만으로 배합한 실전 승부처용 젤입니다.",
+      "best_for": "마라톤 30 km 이후 후반 스퍼트나 로드사이클 장거리 업힐 직전에 강력한 카페인 부스트가 필요한 상급자",
+      "local_gotchas": [
+        "1포당 카페인이 100 mg으로 높으므로 전 구간을 Caf 100으로만 채우면 카페인 과다 섭취가 됩니다. 일반 Gel 100·160과 교차 보급하세요.",
+        "인공 향료가 없어 카페인 특유의 쓴맛이 그대로 느껴지므로 대회 당일 첫 시도 대신 훈련에서 반드시 사전 적응이 필요합니다.",
+        "12개입 국내 기준가 약 96,000원(탄수화물 30 g당 9,600원)으로 단가가 가장 높은 축에 속하므로 핵심 레이스 승부처 1–2포로 전략 배분하는 것이 효율적입니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Maurten Official Product Page — Gel 100 Caf 100",
+      "url": "https://maurten.com/products/gel-100-caf-100",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Maurten",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "maurten-gel-100",
+    "gu-roctane-energy-gel",
+    "maurten-gel-160"
+  ]
+}

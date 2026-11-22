@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "maurten-gel-100",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Maurten",
+  "model_number": "GEL100-12",
+  "origin_country": "SE",
+  "package_spec": {
+    "net_weight_g": 480,
+    "total_servings": 12,
+    "serving_weight_g": 40,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Unflavored Hydrogel"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 100,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 25,
+    "protein_g": 0,
+    "carbs_g": 25,
+    "fat_g": 0,
+    "sugar_g": 25,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "1:0.8",
+    "caffeine_mg": 0,
+    "sodium_mg": 20,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "hydrogel",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (glucose and fructose only; zero added flavors, colorants, or artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 62.5,
+    "total_pure_active_g": 300,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 3.6,
+    "purity_grade": "A"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "MAURTEN-GEL100-12",
+      "msrp": 45,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Maurten Gel 100 Hydrogel box 12",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "MAURTEN-GEL100-12-KR",
+      "msrp": 84000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "모르텐 젤 100 에너지젤 12개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Maurten Gel 100 (Box of 12)",
+      "title": "Maurten Gel 100: True Cost per 30 g Carbs, 1:0.8 Hydrogel & 90 g/hr Math",
+      "summary": "Patented alginate-pectin hydrogel delivering 25 g of 1:0.8 fructose-to-glucose carbs in a 40 g sachet with just six ingredients and Informed Sport batch testing.",
+      "best_for": "Marathoners and road cyclists pushing 60–90 g/hr who prioritize sensitive-stomach tolerance over lowest cost per gram",
+      "local_gotchas": [
+        "Only 20 mg of sodium per sachet: pair with dedicated electrolyte tablets or drink mix in hot weather rather than relying on the gel for salt.",
+        "At 25 g carbs per packet, hitting 90 g/hr requires 3.6 sachets/hr ($13.50/hr at US MSRP), making Gel 160 noticeably cheaper per carb gram.",
+        "Firm jelly-cube texture requires tearing wide and squeezing cleanly rather than sipping like a liquid gel."
+      ]
+    },
+    "ko": {
+      "name": "모르텐 젤 100 (12개입 박스)",
+      "title": "모르텐 젤 100: 순수 탄수화물 30 g당 실단가·1:0.8 하이드로겔 정밀 분석",
+      "summary": "알긴산 하이드로겔 기술로 40 g 소형 파우치에 1:0.8 비율 탄수화물 25 g을 6가지 원재료만으로 담아낸 인폼드 스포츠 인증 엘리트 에너지젤입니다.",
+      "best_for": "풀코스 마라톤·그란폰도에서 위장 트러블 없이 시간당 60–90 g 고탄수화물 보급을 원하는 러너 및 사이클리스트",
+      "local_gotchas": [
+        "1포당 나트륨이 20 mg에 불과하므로 여름철 장거리 대회에서는 별도 전해질 발포정이나 염분 믹스 병행이 필수입니다.",
+        "국내 정발·직구 유통가는 12개입 약 84,000원 수준으로 순수 탄수화물 30 g당 약 8,400원에 달해 훈련용은 가성비 젤, 실전 대회용은 모르텐으로 이원화하는 전략이 유리합니다.",
+        "일반 시럽형 젤과 달리 단단한 묵·젤리 형태이므로 입구를 넓게 찢어 씹지 않고 물과 함께 삼키는 편이 호흡 유지에 편합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Maurten Official Product Sheet — Gel 100",
+      "url": "https://maurten.com/products/gel-100",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Maurten",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "maurten-gel-160",
+    "precision-pf-30-gel",
+    "sis-beta-fuel-gel"
+  ]
+}

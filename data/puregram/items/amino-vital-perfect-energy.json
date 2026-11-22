@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "amino-vital-perfect-energy",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Ajinomoto",
+  "model_number": "AV-PE-130G-6PK",
+  "origin_country": "JP",
+  "package_spec": {
+    "net_weight_g": 780,
+    "total_servings": 6,
+    "serving_weight_g": 130,
+    "unit_type": "pouch",
+    "flavors_tracked": [
+      "Grapefruit Jelly"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 180,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 41,
+    "protein_g": 5,
+    "carbs_g": 41,
+    "fat_g": 0,
+    "sugar_g": 2.2,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 14,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": true,
+    "artificial_sweeteners_listed": true,
+    "sweetener_details": "Acesulfame Potassium (Ace-K) paired with low-sugar dextrin and reduced dextrin"
+  },
+  "derived_math": {
+    "purity_pct": 31.54,
+    "total_pure_active_g": 246,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 2.2,
+    "purity_grade": "B"
+  },
+  "certifications": [
+    "Informed Choice",
+    "FSSC 22000"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "AV-PE-130G-6PK-US",
+      "msrp": 21.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Ajinomoto aminoVITAL Perfect Energy 130g 6 pack",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "AV-PE-130G-6PK-KR",
+      "msrp": 25800,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "아미노바이탈 퍼펙트 에너지 130g 6개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Ajinomoto aminoVITAL Perfect Energy Jelly (6 × 130 g)",
+      "title": "aminoVITAL Perfect Energy (130 g): Cost per 30 g Carbs, 5 g Alanine+Proline Audit",
+      "summary": "East Asian race-day staple delivering 41 g of dextrin carbs (only 2.2 g sugar) plus 5,000 mg declared free-form amino acids (4,500 mg L-alanine + 500 mg L-proline) in a 130 g spout pouch.",
+      "best_for": "Pre-race breakfast top-ups, marathon halfway drop bags, and cycling cafe-free endurance rides prioritizing low-sugar sustained energy",
+      "local_gotchas": [
+        "At 130 g per spout pouch (31.5% carb mass density), carrying 3 pouches adds 390 g—far bulkier in running shorts than 40–65 g flat tear gels.",
+        "Declares 5.0 g protein entirely from free-form L-alanine (4.5 g) and L-proline (0.5 g) rather than whole protein, transparently printed on the front panel.",
+        "Contains Acesulfame K (E950) to maintain grapefruit sweetness at just 2.2 g sugar; very low sodium (~14 mg) requires separate electrolytes."
+      ]
+    },
+    "ko": {
+      "name": "아지노모토 아미노바이탈 퍼펙트 에너지 (130 g × 6개입)",
+      "title": "아미노바이탈 퍼펙트 에너지: 순수 탄수화물 30 g당 실단가·알라닌·프롤린 5,000 mg 분석",
+      "summary": "130 g 스파우트 젤리 1팩에 덱스트린 기반 탄수화물 41 g(당류 2.2 g)과 알라닌 4,500 mg + 프롤린 500 mg을 담아 한국 러너·라이더에게 가성비와 목 넘김으로 검증된 보급식입니다.",
+      "best_for": "마라톤 출발 30분 전 사전 로딩, 풀코스 후반 에너지 보충, 로드사이클 져지 포켓 장거리 라이딩",
+      "local_gotchas": [
+        "1팩 무게가 130 g(탄수화물 밀도 31.5%)으로 러닝 벨트에 3팩 이상 휴대하면 390 g의 하중이 걸리므로 출발 전 1팩 + 주행 중 경량 젤 조합이 가장 효율적입니다.",
+        "단백질 5 g은 원재료명상 유리 아미노산 L-알라닌 4.5 g과 L-프롤린 0.5 g으로 구성된 지속 에너지 특화 배합입니다.",
+        "당류를 2.2 g으로 낮추는 대신 감미료 아세설팜칼륨(Ace-K)이 포함되어 있으며, 나트륨은 약 14 mg으로 극소량이므로 별도 염분 보급이 필수입니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Ajinomoto Official Product Page — aminoVITAL Perfect Energy",
+      "url": "https://www.ajinomoto.co.jp/aminovital/products/perfect_energy/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Choice Anti-Doping Program Registry — Ajinomoto aminoVITAL",
+      "url": "https://choice.wetestyoutrust.com/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "sis-go-isotonic-energy-gel",
+    "sis-beta-fuel-gel",
+    "precision-pf-90-gel"
+  ]
+}

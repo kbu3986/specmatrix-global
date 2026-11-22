@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "gu-roctane-energy-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "GU Energy Labs",
+  "model_number": "GU-ROCTANE-24",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 768,
+    "total_servings": 24,
+    "serving_weight_g": 32,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Sea Salt Chocolate (35 mg Caf — Ref)",
+      "Blueberry Pomegranate (35 mg Caf)",
+      "Strawberry Kiwi (0 mg Caf)",
+      "Cold Brew Coffee (70 mg Caf)"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 100,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 19,
+    "protein_g": 0,
+    "carbs_g": 19,
+    "fat_g": 1.5,
+    "sugar_g": 7,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "3:1 (approx. 75:25 maltodextrin:fructose)",
+    "caffeine_mg": 35,
+    "sodium_mg": 180,
+    "potassium_mg": 55,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": true,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (maltodextrin and fructose carbohydrate base; zero artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 59.38,
+    "total_pure_active_g": 456,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 4.74,
+    "purity_grade": "B+"
+  },
+  "certifications": [
+    "Informed Choice",
+    "Vegan",
+    "Gluten-Free",
+    "Kosher"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "GU-ROCTANE-24-US",
+      "msrp": 72,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "GU Roctane Energy Gel box 24",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "GU-ROCTANE-24-KR",
+      "msrp": 98000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "GU 록테인 에너지젤 24개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "GU Roctane Energy Gel (Box of 24)",
+      "title": "GU Roctane Energy Gel: True Cost per 30 g Carbs, 180 mg Sodium & Amino Label Audit",
+      "summary": "Compact 32 g endurance gel pairing 19–21 g dual-source carbs with 180 mg sodium, 35 mg caffeine, and a declared 1,425 mg free-form amino blend (BCAAs, taurine, beta-alanine) on the Sea Salt Chocolate label.",
+      "best_for": "Ultra-runners and long-course athletes wanting compact 32 g packets with higher built-in sodium (125–180 mg) and moderate 35 mg caffeine increments",
+      "local_gotchas": [
+        "Nutrition varies by flavor: Sea Salt Chocolate provides 19 g carbs, 1.5 g cocoa fat, and 180 mg sodium, while fruity flavors like Blueberry Pomegranate provide 21 g carbs, 0 g fat, and 125 mg sodium.",
+        "At $3.00/packet for 19 g carbs ($4.74 per 30 g carbs), Roctane costs nearly as much per carb gram as Maurten Gel 100 Caf 100 despite looking cheaper per packet.",
+        "Thick frosting-like paste requires immediate water intake to dilute osmolality; free-form amino blend (L-leucine, taurine, L-valine, beta-alanine, L-isoleucine) totals 1,425 mg per packet."
+      ]
+    },
+    "ko": {
+      "name": "GU 록테인 에너지젤 (24개입 박스)",
+      "title": "GU 록테인 에너지젤: 순수 탄수화물 30 g당 실단가·나트륨 180 mg·아미노산 성분 분석",
+      "summary": "32 g 초소형 파우치에 탄수화물 19 g(씨솔트 초콜릿 기준, 과일맛 21 g), 나트륨 180 mg, 카페인 35 mg, 유리 아미노산 복합물 1,425 mg을 담은 울트라·장거리 특화 젤입니다.",
+      "best_for": "작은 파우치 하나로 나트륨 125–180 mg과 적당한 카페인(35 mg)을 함께 보급하려는 트레일러너·울트라마라토너",
+      "local_gotchas": [
+        "맛별 성분 편차가 큽니다: 씨솔트 초콜릿은 코코아 지방 1.5 g·탄수화물 19 g·나트륨 180 mg인 반면 블루베리 석류 등 과일 맛은 지방 0 g·탄수화물 21 g·나트륨 125 mg입니다.",
+        "포당 가격은 모르텐보다 저렴해 보이지만 탄수화물이 19–21 g으로 적어 순수 탄수화물 30 g당 실단가는 미국 기준 $4.74로 모르텐 젤 100($4.50)을 오히려 상회합니다.",
+        "점도가 매우 진한 페이스트 제형이라 물 없이 먹기 어려우며, 영양성분표에 유리 아미노산 1,425 mg(BCAA·타우린·베타알라닌)이 명시되어 있습니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "GU Energy Labs Official Product Page — Roctane Energy Gel",
+      "url": "https://guenergy.com/products/roctane-energy-gel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Choice Certified Product Registry — GU Energy",
+      "url": "https://choice.wetestyoutrust.com/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "gu-original-energy-gel",
+    "maurten-gel-100-caf-100",
+    "neversecond-c30-energy-gel"
+  ]
+}

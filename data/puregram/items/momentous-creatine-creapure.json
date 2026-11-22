@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "creatine",
+  "slug": "momentous-creatine-creapure",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Momentous",
+  "model_number": "MOM-CREAT-90",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 450,
+    "total_servings": 90,
+    "serving_weight_g": 5,
+    "unit_type": "scoop",
+    "flavors_tracked": [
+      "Unflavored"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 0,
+    "active_ingredient_type": "creatine_monohydrate",
+    "active_per_serving_g": 5,
+    "protein_g": 0,
+    "carbs_g": 0,
+    "fat_g": 0,
+    "sugar_g": 0,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 0,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "none",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (single-ingredient unflavored micronized creatine monohydrate; zero fillers or sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 100,
+    "total_pure_active_g": 450,
+    "benchmark_unit_g": 5,
+    "benchmark_label_en": "per 5 g pure creatine",
+    "benchmark_label_ko": "순수 크레아틴 5 g당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "A+"
+  },
+  "certifications": [
+    "NSF Certified for Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "MOM-CREAT-90-US",
+      "msrp": 42.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Momentous Creatine Monohydrate 90 servings NSF Certified for Sport",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "MOM-CREAT-90-KR",
+      "msrp": 65000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "모멘터스 크레아틴 NSF 450g",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Momentous Creatine Monohydrate (90 Servings, 450 g)",
+      "title": "Momentous Creatine (NSF): Cost per 5 g & June 2026 Creapure-to-Signature Spec Audit",
+      "summary": "NSF Certified for Sport single-ingredient micronized creatine monohydrate (450 g / 90 × 5 g scoops, $0.48 per 5 g) screened for banned substances, heavy metals, PFAS, and microplastics.",
+      "best_for": "NCAA, pro, military, and drug-tested endurance/strength athletes requiring gold-standard NSF Certified for Sport documentation",
+      "local_gotchas": [
+        "Major June 2026 sourcing update: Momentous transitioned away from German Creapure® on June 16, 2026 to its proprietary pharmaceutical-grade 'Signature Spec™' creatine (99.99% purity spec)—check tub batch stamps if you specifically want legacy Creapure® stock.",
+        "At $42.99 MSRP ($0.48 per 5 g), it carries a 50% premium over ESN Ultrapure ($0.32/5 g) specifically for NSF Certified for Sport plus PFAS/microplastics testing.",
+        "For non-drug-tested recreational athletes who specifically want AlzChem Creapure® seal verification, Jarrow Formulas Creatine delivers Creapure® at ~29% lower cost per 5 g."
+      ]
+    },
+    "ko": {
+      "name": "모멘터스 크레아틴 모노하이드레이트 (450 g / 90회분)",
+      "title": "모멘터스 크레아틴(NSF): 순수 5 g당 실단가·2026년 6월 크레아퓨어 원료 전환 검증",
+      "summary": "미국 프로·대학 스포츠 표준인 NSF Certified for Sport 인증과 중금속·PFAS·미세플라스틱 추가 검사를 통과한 100% 단일 성분 크레아틴 모노하이드레이트(90회분)입니다.",
+      "best_for": "도핑 테스트 대상 선수 또는 NSF Certified for Sport·중금속·PFAS 최상위 품질 보증을 최우선으로 두는 소비자",
+      "local_gotchas": [
+        "중요 원료 변경(2026년 6월 16일): 모멘터스는 기존 독일 크레아퓨어(Creapure®) 원료에서 자체 의약품 등급 'Signature Spec™'(99.99% 순도 기준) 크레아틴으로 공식 전환했습니다. 구형 크레아퓨어 재고 여부를 구매 전 통 라벨에서 확인하세요.",
+        "정가 $42.99(국내 직구 약 65,000원, 5 g당 약 722원)로 일반 크레아틴 대비 고가이지만, NSF 스포츠 인증 및 추가 오염물 검사 비용이 반영된 가격입니다.",
+        "반드시 독일 AlzChem 크레아퓨어 로고가 필요하다면 재로우 크레아틴이 5 g당 약 30% 더 저렴한 대안입니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Momentous Official Product Page — Creatine Monohydrate (NSF)",
+      "url": "https://www.livemomentous.com/products/creatine",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "NSF Certified for Sport Official Product Registry — Momentous",
+      "url": "https://www.nsfsport.com/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "esn-ultrapure-creatine-monohydrate",
+    "jarrow-formulas-creatine-monohydrate"
+  ]
+}

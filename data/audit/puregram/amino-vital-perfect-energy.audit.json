@@ -1,0 +1,34 @@
+{
+  "sku_slug": "amino-vital-perfect-energy",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "nutrition_label.macros & amino_acids",
+      "quote": "Per 130 g pouch: Energy 180 kcal, Protein 5.0 g (Amino acids 5,000 mg: Alanine 4,500 mg, Proline 500 mg), Fat 0 g, Carbohydrates 41 g (Sugars ~2.2 g), Sodium ~11.5–15.7 mg.",
+      "source_url": "https://www.ajinomoto.co.jp/aminovital/products/perfect_energy/",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.ingredients & sweetener",
+      "quote": "Dextrin, Reduced dextrin, Alanine, Proline, Agar, Citric acid, Sodium citrate, Polysaccharide thickener, Flavorings, Sweetener (Acesulfame Potassium E950), Vitamin B2.",
+      "source_url": "https://www.ajinomoto.co.jp/aminovital/products/perfect_energy/",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Ajinomoto aminoVITAL sports line participates in Informed Choice batch anti-doping testing under FSSC 22000 quality systems.",
+      "source_url": "https://choice.wetestyoutrust.com/",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 130 g x 6 = 780 g net weight (0.0% deviation) and 41 g / 130 g = 31.54% carb purity.",
+    "Verified Atwater calorie match: 4*5 g protein + 4*41 g carbs = 184 kcal vs 180 kcal declared (2.22% deviation <= 15%).",
+    "Explicitly flagged 5,000 mg free-form L-alanine/L-proline as an objective nutrition-label fact without subjective claims (SM-05).",
+    "Confirmed zero legacy blocklist overlap and SM-02 msrp_benchmark_mode compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

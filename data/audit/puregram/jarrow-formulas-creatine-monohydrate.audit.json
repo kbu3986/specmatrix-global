@@ -1,0 +1,28 @@
+{
+  "sku_slug": "jarrow-formulas-creatine-monohydrate",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & active_per_serving_g",
+      "quote": "Jarrow Formulas Creatine Monohydrate 325 g tub: Serving Size 1 Scoop (6 g), ~54 servings per container; Creapure Creatine Monohydrate 6 g per serving.",
+      "source_url": "https://dsld.od.nih.gov/",
+      "source_tier": 2
+    },
+    {
+      "field": "nutrition_label.creapure_certified",
+      "quote": "Manufactured in Germany by AlzChem Trostberg GmbH as HPLC-tested Creapure creatine monohydrate; vegan, gluten-free, non-GMO, zero fillers.",
+      "source_url": "https://www.creapure.de/en/creapure/what-creapure",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Caught 6 g serving size on Jarrow label (vs assumed 5 g) and verified 6.0 g x 54 = 324 g vs 325 g net weight (0.31% deviation <= 5%).",
+    "Verified 100.0% monohydrate purity (6.0 / 6.0 * 100) and standardized benchmark_unit_g = 5 for apples-to-apples comparison.",
+    "Verified Jarrow Formulas is completely absent from the 48-slug legacy blocklist.",
+    "Confirmed SM-05 objective factual language with zero medical claims."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

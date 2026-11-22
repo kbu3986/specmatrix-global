@@ -1,0 +1,34 @@
+{
+  "sku_slug": "esn-ultrapure-creatine-monohydrate",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "ESN Ultrapure Creatine Monohydrate 500 g tub retailing at €29.90 on esn.com (~$31.90 USD at 0.94 EUR/USD); >200 mesh micronized.",
+      "source_url": "https://www.esn.com/products/esn-ultrapure-creatine-500g",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.serving_size & purity",
+      "quote": "Per 3.5 g neutral serving: 3.5 g Creatine Monohydrate (of which 3.0 g pure anhydrous creatine), 0 kcal, 0 g fat, 0 g carbs, 0 g protein, 0 g salt; 100 g creatine monohydrate per 100 g.",
+      "source_url": "https://www.esn.com/products/esn-ultrapure-creatine-500g",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Independently tested on the Cologne List (Kölner Liste) for minimized doping risk.",
+      "source_url": "https://www.koelnerliste.com/en/",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Reconciled EU 3.5 g creatine monohydrate (= 3.0 g anhydrous creatine) vs US 5 g labeling without losing 100% monohydrate purity math.",
+    "Verified 3.5 g x 142 = 497 g vs 500 g net weight (0.60% deviation <= 5%) and 3.5 / 3.5 * 100 = 100.0% purity.",
+    "Distinguished ESN Ultrapure (non-Creapure 200-mesh) from ESN's separate Creapure SKU (`creapure_certified: false`).",
+    "Confirmed zero legacy blocklist overlap and SM-05 factual compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

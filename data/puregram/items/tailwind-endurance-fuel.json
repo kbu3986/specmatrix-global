@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "carb-mix",
+  "slug": "tailwind-endurance-fuel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Tailwind Nutrition",
+  "model_number": "TW-EF-50",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 1350,
+    "total_servings": 50,
+    "serving_weight_g": 27,
+    "unit_type": "scoop",
+    "flavors_tracked": [
+      "Naked (Unflavored)",
+      "Mandarin",
+      "Lemon",
+      "Berry",
+      "Dauwaltermelon"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 100,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 25,
+    "protein_g": 0,
+    "carbs_g": 25,
+    "fat_g": 0,
+    "sugar_g": 25,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "approx. 2:1 (dextrose + sucrose)",
+    "caffeine_mg": 0,
+    "sodium_mg": 310,
+    "potassium_mg": 90,
+    "magnesium_mg": 12,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "isotonic",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (100% non-GMO dextrose and sucrose; zero artificial sweeteners, dyes, or preservatives)"
+  },
+  "derived_math": {
+    "purity_pct": 92.59,
+    "total_pure_active_g": 1250,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 3.6,
+    "purity_grade": "A+"
+  },
+  "certifications": [
+    "Non-GMO",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "TW-EF-50-US",
+      "msrp": 42.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Tailwind Endurance Fuel 50 serving bag",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "TW-EF-50-KR",
+      "msrp": 69000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "테일윈드 인듀어런스 퓨얼 50서빙",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Tailwind Endurance Fuel (50-Serving Bag, 1,350 g)",
+      "title": "Tailwind Endurance Fuel: True Cost per 30 g Carbs ($1.03!) & Bottle Fueling Math",
+      "summary": "Ultra-pure dry carb-and-electrolyte drink mix (92.6% carb purity) delivering 25 g dextrose/sucrose carbs + 310 mg sodium per 27 g scoop—cutting 90 g/hr fueling cost to $3.10/hr.",
+      "best_for": "Long-course cyclists, ultra-runners, and high-volume trainers replacing expensive energy gels with an all-in-one bottle mix",
+      "local_gotchas": [
+        "Tailwind previously held Informed-Choice certification but withdrew from the registry—drug-tested athletes requiring active WADA batch testing should choose Informed Sport alternatives.",
+        "1 scoop = 27 g (25 g carbs, 100 kcal, 310 mg sodium); 2 scoops = 54 g (50 g carbs, 200 kcal, 620 mg sodium). Confirm scoop count when logging calories.",
+        "At 3.6 scoops/hr (90 g carbs), you automatically receive 1,116 mg sodium/hr—ideal in heat, though Naked (unflavored) avoids flavor fatigue on 6+ hour rides."
+      ]
+    },
+    "ko": {
+      "name": "테일윈드 인듀어런스 퓨얼 (50서빙 1,350 g 대용량)",
+      "title": "테일윈드 인듀어런스 퓨얼: 순수 탄수화물 30 g당 실단가·올인원 보틀 보급 분석",
+      "summary": "27 g 1스쿱당 탄수화물 25 g(분말 순도 92.6%)과 나트륨 310 mg·칼륨 90 mg을 함께 담아, 에너지젤 대비 1/3 이하 단가(30 g당 약 $1.03 / 1,656원)로 시간당 90 g 보급이 가능한 올인원 카보 믹스입니다.",
+      "best_for": "매주 100–200 km 장거리 라이딩·울트라마라톤에서 에너지젤 비용을 획기적으로 줄이고 보틀 하나로 탄수화물과 염분을 해결하려는 선수·동호인",
+      "local_gotchas": [
+        "과거 보유했던 인폼드 초이스(Informed-Choice) 인증에서 철수하여 현재 활성 반도핑 배치 인증이 없으므로, 도핑 검사 대상 엘리트 선수는 인증 제품을 선택해야 합니다.",
+        "1스쿱(27 g)이 100 kcal(탄수화물 25 g), 표준 1회분 2스쿱(54 g)이 200 kcal(탄수화물 50 g)입니다. 시간당 90 g(3.6스쿱) 배합 시 나트륨 1,116 mg이 자동 보급됩니다.",
+        "장시간 주행 시 가향 제품의 단맛이 질릴 수 있으므로 무향(Naked) 버전을 선택하거나 다른 젤과 혼합 운용하는 라이더가 많습니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Tailwind Nutrition Official Product Page — Endurance Fuel",
+      "url": "https://tailwindnutrition.com/products/endurance-fuel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Tailwind Nutrition Official Carb & Electrolyte Composition Guide",
+      "url": "https://tailwindnutrition.com/pages/how-it-works",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "skratch-labs-sport-hydration-mix",
+    "precision-pf-90-gel",
+    "sis-beta-fuel-gel"
+  ]
+}
