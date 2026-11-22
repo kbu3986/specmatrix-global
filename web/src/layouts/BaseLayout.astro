@@ -11,6 +11,7 @@ import {
   safeJsonLd,
   switchLocalePath,
   toAbsoluteUrl,
+  withBase,
 } from "../lib/i18n";
 
 interface Props {
@@ -48,15 +49,15 @@ const koHref = isRootPortal
 const xDefaultHref = isRootPortal ? toAbsoluteUrl("/") : enHref;
 
 const otherLocale: ActiveLocale = locale === "en" ? "ko" : "en";
-const toggleHref = isRootPortal
-  ? `/${otherLocale}`
-  : switchLocalePath(normPath, otherLocale);
+const toggleHref = withBase(
+  isRootPortal ? `/${otherLocale}` : switchLocalePath(normPath, otherLocale)
+);
 const hasOtherLocale = isRootPortal || availableLocales.includes(otherLocale);
 
 const verticalNav = PILOT_VERTICALS.map((v) => ({
   id: v,
   label: VERTICAL_META[v].shortName[locale],
-  href: getPrimaryVerticalHref(locale, v),
+  href: withBase(getPrimaryVerticalHref(locale, v)),
   active: activeVertical === v,
 }));
 
@@ -71,7 +72,7 @@ const isKo = locale === "ko";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 
     <!-- AdSense & Search Console Verification -->
     <meta name="google-adsense-account" content={cfg.adsenseId} />
@@ -112,7 +113,7 @@ const isKo = locale === "ko";
       <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <div class="flex items-center gap-6">
           <a
-            href={isRootPortal ? "/" : `/${locale}`}
+            href={withBase(isRootPortal ? "/" : `/${locale}`)}
             class="flex items-center gap-2.5 text-slate-900 no-underline hover:opacity-90"
           >
             <span
@@ -232,7 +233,7 @@ const isKo = locale === "ko";
               {LEGAL_SLUGS.map((slug) => (
                 <li>
                   <a
-                    href={`/${locale}/${slug}`}
+                    href={withBase(`/${locale}/${slug}`)}
                     class="text-slate-700 hover:text-blue-700 hover:underline"
                   >
                     {LEGAL_LABELS[slug][locale]}

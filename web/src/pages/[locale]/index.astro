@@ -16,6 +16,7 @@ import {
   VERTICAL_META,
   formatCurrency,
   getCategoryLabel,
+  withBase,
 } from "../../lib/i18n";
 
 export function getStaticPaths() {
@@ -170,7 +171,7 @@ const jsonLd = [
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {block.matrices.map((m) => (
               <a
-                href={`/${locale}/${block.id}/${m.archetype}/${m.slug}`}
+                href={withBase(`/${locale}/${block.id}/${m.archetype}/${m.slug}`)}
                 class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
               >
                 <div>
@@ -204,7 +205,7 @@ const jsonLd = [
             <div class="grid gap-3 md:grid-cols-2">
               {block.vs.slice(0, 4).map((v) => (
                 <a
-                  href={`/${locale}/${block.id}/vs/${v.pair_slug}`}
+                  href={withBase(`/${locale}/${block.id}/vs/${v.pair_slug}`)}
                   class="lab-card group flex items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-500"
                 >
                   <div class="min-w-0">
@@ -234,7 +235,7 @@ const jsonLd = [
                 const offer = isKo ? item.regional_offers.kr : item.regional_offers.us;
                 return (
                   <a
-                    href={`/${locale}/${block.id}/item/${item.slug}`}
+                    href={withBase(`/${locale}/${block.id}/item/${item.slug}`)}
                     class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
                   >
                     <div>

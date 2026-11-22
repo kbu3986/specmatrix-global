@@ -13,7 +13,7 @@ import {
   getPrimaryVerticalHref,
 } from "../../../../lib/data";
 import { computeVsDiff } from "../../../../lib/derived";
-import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META } from "../../../../lib/i18n";
+import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META, withBase } from "../../../../lib/i18n";
 
 export function getStaticPaths() {
   const allVs = getAllVsInsights();
@@ -105,11 +105,11 @@ const jsonLd = [
 >
   <!-- Breadcrumb -->
   <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={`/${locale}`} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={verticalHref} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(verticalHref)} class="hover:text-blue-700 hover:underline">
       {VERTICAL_META[vertical].shortName[locale]}
     </a>
     <span>/</span>
@@ -134,14 +134,14 @@ const jsonLd = [
 
     <div class="mt-4 flex flex-wrap gap-3 text-xs">
       <a
-        href={`/${locale}/${vertical}/item/${itemA.slug}`}
+        href={withBase(`/${locale}/${vertical}/item/${itemA.slug}`)}
         class="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 font-semibold text-blue-800 hover:bg-blue-100"
       >
         <span>A · {nameA}</span>
         <span>→</span>
       </a>
       <a
-        href={`/${locale}/${vertical}/item/${itemB.slug}`}
+        href={withBase(`/${locale}/${vertical}/item/${itemB.slug}`)}
         class="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 font-semibold text-emerald-800 hover:bg-emerald-100"
       >
         <span>B · {nameB}</span>
@@ -217,7 +217,7 @@ const jsonLd = [
       <div class="space-y-2">
         <div class="flex items-center justify-between px-1 text-xs font-bold text-blue-800">
           <span>A · {nameA}</span>
-          <a href={`/${locale}/${vertical}/item/${itemA.slug}`} class="hover:underline">
+          <a href={withBase(`/${locale}/${vertical}/item/${itemA.slug}`)} class="hover:underline">
             {isKo ? "상세 스펙 →" : "Full Spec →"}
           </a>
         </div>
@@ -226,7 +226,7 @@ const jsonLd = [
       <div class="space-y-2">
         <div class="flex items-center justify-between px-1 text-xs font-bold text-emerald-800">
           <span>B · {nameB}</span>
-          <a href={`/${locale}/${vertical}/item/${itemB.slug}`} class="hover:underline">
+          <a href={withBase(`/${locale}/${vertical}/item/${itemB.slug}`)} class="hover:underline">
             {isKo ? "상세 스펙 →" : "Full Spec →"}
           </a>
         </div>

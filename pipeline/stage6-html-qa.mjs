@@ -152,7 +152,7 @@ export function extractInternalHrefs(html) {
 /**
  * Resolve an internal root-relative href ("/en/about", "/_astro/a.css", "/") against a built dist directory.
  */
-export function resolveInternalHref(distDir, href) {
+export function resolveInternalHref(distDir, href, basePath = "") {
   if (typeof href !== "string" || !href.startsWith("/") || href.startsWith("//")) {
     return false;
   }
@@ -162,6 +162,20 @@ export function resolveInternalHref(distDir, href) {
     cleanPath = decodeURIComponent(cleanPath);
   } catch {
     return false;
+  }
+
+  const normBase =
+    basePath && basePath !== "/"
+      ? `/${basePath.replace(/^\/+|\/+$/g, "")}`
+      : "";
+  if (normBase) {
+    if (cleanPath === normBase || cleanPath === `${normBase}/`) {
+      cleanPath = "/";
+    } else if (cleanPath.startsWith(`${normBase}/`)) {
+      cleanPath = cleanPath.slice(normBase.length);
+    } else {
+      return false;
+    }
   }
 
   if (cleanPath === "/" || cleanPath === "") {
@@ -414,6 +428,8 @@ function isContentRoute(routePath) {
 export function runStage6HtmlQa({
   distDir,
   configPath,
+  siteUrl: siteUrlOverride,
+  basePath: basePathOverride,
   minCorePages = DEFAULT_MIN_CORE_PAGES,
   maxTotalFiles = CLOUDFLARE_PAGES_MAX_FILES,
 } = {}) {
@@ -434,7 +450,14 @@ export function runStage6HtmlQa({
       // fall back to defaults
     }
   }
-  const siteUrl = String(config.siteUrl || "https://specmatrix.io").replace(/\/+$/, "");
+  const siteUrl = String(
+    siteUrlOverride || config.siteUrl || "https://specmatrix.io"
+  ).replace(/\/+$/, "");
+  const rawBasePath = String(basePathOverride || "").trim();
+  const basePath =
+    rawBasePath && rawBasePath !== "/"
+      ? `/${rawBasePath.replace(/^\/+|\/+$/g, "")}`
+      : "";
 
   const failures = [];
 
@@ -509,11 +532,11 @@ export function runStage6HtmlQa({
     const internalHrefs = extractInternalHrefs(html);
     for (const href of internalHrefs) {
       totalInternalLinksChecked += 1;
-      if (!resolveInternalHref(resolvedDist, href)) {
+      if (!resolveInternalHref(resolvedDist, href, basePath)) {
         failures.push({
           check: "broken_internal_link",
           file: relFile,
-          message: `Broken internal link href="${href}" does not resolve in web/dist`,
+          message: `Broken internal link href="${href}" does not resolve in web/dist (basePath="${basePath}")`,
         });
       }
     }
@@ -777,7 +800,7 @@ export function runStage6HtmlQa({
       totalSitemapUrls += 1;
       try {
         const u = new URL(loc);
-        if (!resolveInternalHref(resolvedDist, u.pathname)) {
+        if (!resolveInternalHref(resolvedDist, u.pathname, basePath)) {
           failures.push({
             check: "sitemap_url_404",
             file: req.file,
@@ -794,7 +817,11 @@ export function runStage6HtmlQa({
   for (const loc of indexedSitemapLocs) {
     try {
       const u = new URL(loc);
-      const fileName = u.pathname.replace(/^\/+/, "");
+      const relPathname =
+        basePath && u.pathname.startsWith(`${basePath}/`)
+          ? u.pathname.slice(basePath.length)
+          : u.pathname;
+      const fileName = relPathname.replace(/^\/+/, "");
       if (!fileName || validatedSitemaps.has(fileName)) continue;
       validatedSitemaps.add(fileName);
       const extraPath = path.join(resolvedDist, fileName);
@@ -819,7 +846,7 @@ export function runStage6HtmlQa({
         totalSitemapUrls += 1;
         try {
           const pu = new URL(pageLoc);
-          if (!resolveInternalHref(resolvedDist, pu.pathname)) {
+          if (!resolveInternalHref(resolvedDist, pu.pathname, basePath)) {
             failures.push({
               check: "sitemap_url_404",
               file: fileName,
@@ -864,7 +891,10 @@ function isDirectRun(metaUrl) {
 }
 
 if (isDirectRun(import.meta.url)) {
-  const report = runStage6HtmlQa();
+  const report = runStage6HtmlQa({
+    siteUrl: process.env.PUBLIC_SITE_URL,
+    basePath: process.env.PUBLIC_BASE_PATH,
+  });
   const s = report.stats;
 
   console.log("=== SpecMatrix Global — Stage 6 Static HTML QA Gate ===");

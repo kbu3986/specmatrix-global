@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { ActiveLocale, LegalSlug } from "../../lib/types";
 import { getMonetizationConfig } from "../../lib/data";
-import { ACTIVE_LOCALES, LEGAL_LABELS, LEGAL_SLUGS, SITE_URL } from "../../lib/i18n";
+import { ACTIVE_LOCALES, LEGAL_LABELS, LEGAL_SLUGS, SITE_URL, withBase } from "../../lib/i18n";
 
 export function getStaticPaths() {
   const paths: Array<{ params: { locale: ActiveLocale; legal: LegalSlug } }> = [];
@@ -380,7 +380,7 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <nav aria-label="Breadcrumb" class="mb-5 flex items-center gap-1.5 text-xs text-slate-500">
-    <a href={`/${locale}`} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
@@ -422,7 +422,7 @@ const jsonLd = [
           {LEGAL_SLUGS.map((s) => (
             <li>
               <a
-                href={`/${locale}/${s}`}
+                href={withBase(`/${locale}/${s}`)}
                 class:list={[
                   "block rounded-md px-3 py-2 font-medium transition-colors",
                   s === legal

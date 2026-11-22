@@ -14,7 +14,8 @@
     "web:build": "npm --prefix web run build",
     "web:preview": "npm --prefix web run preview",
     "qa:stage6": "node pipeline/stage6-html-qa.mjs",
-    "build:all": "npm run validate && npm run test:pipeline && npm run web:build && npm run qa:stage6"
+    "build:all": "npm run validate && npm run test:pipeline && npm run web:build && npm run qa:stage6",
+    "deploy:gh-pages": "powershell -ExecutionPolicy Bypass -File ops/deploy-gh-pages.ps1"
   },
   "dependencies": {
     "zod": "^3.24.2"

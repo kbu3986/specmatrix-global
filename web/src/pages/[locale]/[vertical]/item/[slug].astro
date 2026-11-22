@@ -24,6 +24,7 @@ import {
   VERTICAL_META,
   formatCurrency,
   getCategoryLabel,
+  withBase,
 } from "../../../../lib/i18n";
 
 export function getStaticPaths() {
@@ -139,11 +140,11 @@ const jsonLd = [
 >
   <!-- Breadcrumb -->
   <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={`/${locale}`} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={verticalHref} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(verticalHref)} class="hover:text-blue-700 hover:underline">
       {VERTICAL_META[vertical].shortName[locale]}
     </a>
     <span>/</span>
@@ -273,7 +274,7 @@ const jsonLd = [
         {isKo ? "공식 원천 근거 및 검증 출처" : "Official Citations & Evidence Anchors"}
       </h2>
       <a
-        href={`/${locale}/contact`}
+        href={withBase(`/${locale}/contact`)}
         class="font-mono text-xs font-medium text-blue-700 hover:underline"
       >
         {isKo ? "스펙 오류 제보 →" : "Report Spec Discrepancy →"}
@@ -312,7 +313,7 @@ const jsonLd = [
       <div class="grid gap-3 md:grid-cols-2">
         {relatedVs.map((vs) => (
           <a
-            href={`/${locale}/${vertical}/vs/${vs.pair_slug}`}
+            href={withBase(`/${locale}/${vertical}/vs/${vs.pair_slug}`)}
             class="lab-card group flex items-center justify-between gap-3 p-4 transition-colors hover:border-blue-500"
           >
             <div>
@@ -342,7 +343,7 @@ const jsonLd = [
           const po = isKo ? p.regional_offers.kr : p.regional_offers.us;
           return (
             <a
-              href={`/${locale}/${vertical}/item/${p.slug}`}
+              href={withBase(`/${locale}/${vertical}/item/${p.slug}`)}
               class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
             >
               <div>

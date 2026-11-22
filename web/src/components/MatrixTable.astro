@@ -11,7 +11,15 @@ import {
   computePureGramDerived,
   computeWattCheckDerived,
 } from "../lib/derived";
-import { formatCurrency, formatInt, formatNum, getCategoryLabel, safeJsonLd } from "../lib/i18n";
+import {
+  BASE_PATH,
+  formatCurrency,
+  formatInt,
+  formatNum,
+  getCategoryLabel,
+  safeJsonLd,
+  withBase,
+} from "../lib/i18n";
 
 interface Props {
   vertical: PilotVertical;
@@ -60,7 +68,7 @@ const rows: RowModel[] = items.map((item) => {
   const name = item.i18n[locale]?.name ?? item.i18n.en.name;
   const msrp = isKo ? item.regional_offers.kr.msrp : item.regional_offers.us.msrp;
   const msrpDisplay = formatCurrency(msrp, isKo ? "KRW" : "USD", locale);
-  const href = `/${locale}/${vertical}/item/${item.slug}`;
+  const href = withBase(`/${locale}/${vertical}/item/${item.slug}`);
 
   if (item.vertical === "wattcheck") {
     const d = computeWattCheckDerived(item, fx);
@@ -220,6 +228,7 @@ const colHeaders =
         };
 
 const clientPayload = {
+  basePath: BASE_PATH,
   locale,
   vertical,
   vsPairs: vsPairSet,
@@ -320,7 +329,7 @@ const clientPayload = {
     <div class="flex items-center gap-2">
       <a
         id="mx-compare-link"
-        href={`/${locale}`}
+        href={withBase(`/${locale}`)}
         class="hidden rounded-lg bg-blue-700 px-3.5 py-1.5 font-semibold text-white hover:bg-blue-800"
       >
         {isKo ? "1:1 정밀 VS 페이지 열기 →" : "Open 1:1 VS Breakdown →"}
@@ -454,7 +463,7 @@ const clientPayload = {
     const cfgEl = document.getElementById("mx-config-data");
     const tbody = document.getElementById("mx-tbody");
     if (!cfgEl || !tbody) return;
-    let cfg: { locale: string; vertical: string; vsPairs: string[] };
+    let cfg: { basePath?: string; locale: string; vertical: string; vsPairs: string[] };
     try {
       cfg = JSON.parse(cfgEl.textContent || "{}");
     } catch {
@@ -561,7 +570,8 @@ const clientPayload = {
       const [a, b] = [picked[0].slug, picked[1].slug].sort();
       const pairSlug = `${a}-vs-${b}`;
       if (vsSet.has(pairSlug)) {
-        compareLink.setAttribute("href", `/${cfg.locale}/${cfg.vertical}/vs/${pairSlug}`);
+        const bp = cfg.basePath || "";
+        compareLink.setAttribute("href", `${bp}/${cfg.locale}/${cfg.vertical}/vs/${pairSlug}`);
         compareLink.classList.remove("hidden");
         compareHint.textContent = "";
       } else {

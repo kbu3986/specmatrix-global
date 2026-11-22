@@ -15,7 +15,7 @@ import {
   getVerticalMatrices,
   getVerticalVsInsights,
 } from "../../../../lib/data";
-import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META } from "../../../../lib/i18n";
+import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META, withBase } from "../../../../lib/i18n";
 
 export function getStaticPaths() {
   const all = getAllMatrices().filter((m) => m.archetype === "matrix");
@@ -115,11 +115,11 @@ const jsonLd = [
 >
   <!-- Breadcrumb -->
   <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={`/${locale}`} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={verticalHref} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(verticalHref)} class="hover:text-blue-700 hover:underline">
       {VERTICAL_META[vertical].shortName[locale]}
     </a>
     <span>/</span>
@@ -210,7 +210,7 @@ const jsonLd = [
           <div class="space-y-2">
             {siblingMatrices.map((sm) => (
               <a
-                href={`/${locale}/${vertical}/${sm.archetype}/${sm.slug}`}
+                href={withBase(`/${locale}/${vertical}/${sm.archetype}/${sm.slug}`)}
                 class="lab-card group flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
               >
                 <span>{sm.i18n[locale].title}</span>
@@ -229,7 +229,7 @@ const jsonLd = [
           <div class="space-y-2">
             {vsInsights.slice(0, 5).map((v) => (
               <a
-                href={`/${locale}/${vertical}/vs/${v.pair_slug}`}
+                href={withBase(`/${locale}/${vertical}/vs/${v.pair_slug}`)}
                 class="lab-card group flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
               >
                 <span class="truncate">{v.verdict[locale].headline}</span>

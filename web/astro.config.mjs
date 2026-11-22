@@ -1,8 +1,20 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
+const rawBase = (process.env.PUBLIC_BASE_PATH || "").trim();
+const base =
+  rawBase && rawBase !== "/"
+    ? `/${rawBase.replace(/^\/+|\/+$/g, "")}`
+    : "/";
+
+const rawSite = (process.env.PUBLIC_SITE_URL || "https://specmatrix.io")
+  .trim()
+  .replace(/\/+$/, "");
+const siteOrigin = new URL(rawSite).origin;
+
 export default defineConfig({
-  site: "https://specmatrix.io",
+  site: siteOrigin,
+  base,
   output: "static",
   trailingSlash: "never",
   build: {

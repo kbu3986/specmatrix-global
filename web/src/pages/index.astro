@@ -7,7 +7,7 @@ import {
   getAllVsInsights,
   getVerticalItems,
 } from "../lib/data";
-import { SITE_URL } from "../lib/i18n";
+import { SITE_URL, withBase } from "../lib/i18n";
 
 const totalItems = getAllItems().length;
 const totalVs = getAllVsInsights().length;
@@ -69,7 +69,9 @@ const jsonLd = [
       <span id="root-locale-hint-text"></span>
       <a
         id="root-locale-hint-link"
-        href="/ko"
+        href={withBase("/ko")}
+        data-ko-href={withBase("/ko")}
+        data-en-href={withBase("/en")}
         class="shrink-0 rounded-md bg-blue-700 px-3 py-1.5 font-semibold text-white hover:bg-blue-800"
       >
         바로 이동 →
@@ -79,7 +81,7 @@ const jsonLd = [
     <!-- EN / KO Launch Cards -->
     <div class="mt-8 grid gap-5 md:grid-cols-2">
       <a
-        href="/en"
+        href={withBase("/en")}
         class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
       >
         <div class="flex items-center justify-between">
@@ -105,7 +107,7 @@ const jsonLd = [
       </a>
 
       <a
-        href="/ko"
+        href={withBase("/ko")}
         class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
       >
         <div class="flex items-center justify-between">
@@ -162,13 +164,13 @@ const jsonLd = [
     if (!box || !txt || !lnk) return;
     if (lang.startsWith("ko")) {
       txt.textContent = "한국어 브라우저 환경이 감지되었습니다. KRW · 국토부 규정 · 쿠팡/직구 기준으로 구성된 한국어 허브를 이용하세요.";
-      lnk.setAttribute("href", "/ko");
+      lnk.setAttribute("href", lnk.getAttribute("data-ko-href") || "/ko");
       lnk.textContent = "한국어 허브로 이동 →";
       box.classList.remove("hidden");
       box.classList.add("flex");
     } else {
       txt.textContent = "Detected English locale. Launch the EN hub for USD benchmarks, FAA/IATA rules, and US store links.";
-      lnk.setAttribute("href", "/en");
+      lnk.setAttribute("href", lnk.getAttribute("data-en-href") || "/en");
       lnk.textContent = "Go to English Hub →";
       box.classList.remove("hidden");
       box.classList.add("flex");

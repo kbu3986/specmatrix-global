@@ -1,6 +1,28 @@
 import type { ActiveLocale, PilotVertical, LegalSlug } from "./types";
 
-export const SITE_URL = "https://specmatrix.io";
+const RAW_BASE = (
+  (typeof process !== "undefined" && process.env?.PUBLIC_BASE_PATH) ||
+  ""
+).trim();
+
+export const BASE_PATH =
+  RAW_BASE && RAW_BASE !== "/"
+    ? `/${RAW_BASE.replace(/^\/+|\/+$/g, "")}`
+    : "";
+
+export const SITE_URL = (
+  (typeof process !== "undefined" && process.env?.PUBLIC_SITE_URL) ||
+  "https://specmatrix.io"
+)
+  .trim()
+  .replace(/\/+$/, "");
+
+export function withBase(pathname: string): string {
+  const norm = normalizePath(pathname);
+  if (!BASE_PATH) return norm;
+  if (norm === BASE_PATH || norm.startsWith(`${BASE_PATH}/`)) return norm;
+  return norm === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${norm}`;
+}
 export const ACTIVE_LOCALES: ActiveLocale[] = ["en", "ko"];
 export const PILOT_VERTICALS: PilotVertical[] = ["wattcheck", "puregram", "cyclegear"];
 export const LEGAL_SLUGS: LegalSlug[] = [

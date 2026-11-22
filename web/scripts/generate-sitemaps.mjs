@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WEB_DIR = path.resolve(__dirname, "..");
 const DIST_DIR = path.join(WEB_DIR, "dist");
-const SITE_URL = "https://specmatrix.io";
+const SITE_URL = (process.env.PUBLIC_SITE_URL || "https://specmatrix.io")
+  .trim()
+  .replace(/\/+$/, "");
 const VERTICALS = ["wattcheck", "puregram", "cyclegear"];
 const LOCALES = ["en", "ko"];
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -124,8 +126,15 @@ function main() {
     "utf-8"
   );
 
+  // Dynamic robots.txt matching active SITE_URL
+  const robotsTxt = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap-index.xml\n`;
+  fs.writeFileSync(path.join(DIST_DIR, "robots.txt"), robotsTxt, "utf-8");
+
+  // Required for GitHub Pages so _astro/ CSS/JS assets are never hidden by Jekyll
+  fs.writeFileSync(path.join(DIST_DIR, ".nojekyll"), "", "utf-8");
+
   console.log(
-    `[sitemaps] Generated sitemap-index.xml + ${generatedFiles.length} split sitemaps (${htmlFiles.length} total HTML pages).`
+    `[sitemaps] Generated sitemap-index.xml + ${generatedFiles.length} split sitemaps + robots.txt + .nojekyll (${htmlFiles.length} HTML pages, site=${SITE_URL}).`
   );
   for (const [k, list] of Object.entries(buckets)) {
     console.log(`  - ${k}: ${list.length} URLs`);
