@@ -1,0 +1,147 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "power-meter",
+  "slug": "magene-pes-p505-base",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Magene",
+  "model_number": "PES-P505-BASE",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "PES-P505-BASE",
+      "msrp": 299.0,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Magene PES P505 Base spider power meter crankset 24mm 110BCD",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PES-P505-BASE-KR",
+      "msrp": 460000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "마진 PES P505 베이스 스파이더 파워미터 크랭크 24mm",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 650,
+    "claimed_accuracy_pct": 1.5,
+    "left_right_balance": true,
+    "mount_or_form_factor": "Spider-based power meter + CNC alloy crankset (24 mm steel spindle, chainrings sold separately)",
+    "connectivity": ["ANT+", "Bluetooth 5.0"],
+    "battery_life_hours": 200,
+    "waterproof_rating": "IPX7",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Crankset + Spider Weight", "key_ko": "크랭크암+스파이더 무게", "value": "650 g (170 mm arms, without chainrings)" },
+      { "key_en": "Spindle Standard", "key_ko": "스핀들 규격", "value": "24 mm steel spindle (Shimano Hollowtech II BB compatible)" },
+      { "key_en": "Chainring BCD", "key_ko": "체인링 BCD 규격", "value": "110 mm BCD 4-bolt asymmetric (Shimano 11s/12s & Magene QED)" },
+      { "key_en": "Claimed Accuracy", "key_ko": "공식 정확도 오차", "value": "±1.5% (total spider power measurement)" },
+      { "key_en": "L/R Balance Method", "key_ko": "좌우 밸런스 방식", "value": "Estimated L/R balance from spider torque phase (not dual independent)" },
+      { "key_en": "Crank Length Options", "key_ko": "크랭크암 길이 옵션", "value": "165 / 167.5 / 170 / 172.5 / 175 mm" },
+      { "key_en": "Q-Factor", "key_ko": "Q-팩터", "value": "147 mm" },
+      { "key_en": "Battery & Runtime", "key_ko": "배터리 및 구동 시간", "value": "Rechargeable Li-ion (magnetic USB), up to 200 hrs" },
+      { "key_en": "Power & Cadence Range", "key_ko": "측정 범위", "value": "0–2,500 W / 20–200 RPM" },
+      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "24 mm Shimano Hollowtech II spindle (compatible with BSA 68 mm, BB86/PF86, T47-24mm road BBs; BB30/PF30 requires 24 mm conversion BB)",
+    "freehub_or_cleat_standard": "110 mm BCD 4-bolt asymmetric road chainrings (pedals/cleats completely independent)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9200 / Ultegra R8100 / 105 R7100 12s (reuse 110 BCD 4-bolt rings)",
+      "Shimano R9100 / R8000 / R7000 11s",
+      "Magene QED 11s/12s 110 BCD chainrings",
+      "SRAM 11s/12s (when paired with 12s Flattop-compatible 110 BCD aftermarket rings)"
+    ],
+    "head_unit_or_app_verified": [
+      "COROS DURA",
+      "Garmin Edge 840 Solar",
+      "Garmin Edge 1050",
+      "Wahoo ELEMNT ROAM V2",
+      "Hammerhead Karoo",
+      "Magene Utility App / Zwift / Intervals.icu"
+    ],
+    "incompatible_notes_en": [
+      "Not compatible with Trek BB90 frames or certain internal-cup T47 / asymmetric aero BB shells where the spider backing plate fouls the BB cup; verify clearance before ordering.",
+      "Chainrings are NOT included in the 'Base' package — you must transfer existing Shimano 110 BCD 4-bolt chainrings (note: R9200/R8100 inner bolt covers may not sit flush aesthetically) or buy Magene QED rings.",
+      "Not natively compatible with 30 mm (BB30/PF30) or SRAM DUB (28.99 mm) bottom brackets without installing a 24 mm Shimano-standard BB or reducer."
+    ],
+    "incompatible_notes_ko": [
+      "트렉(Trek) BB90 프레임이나 일부 내장형 T47·특수 에어로 BB 쉘 프레임에서는 스파이더 후면이 BB 컵과 간섭할 수 있으므로 장착 전 클리어런스 확인이 필수입니다.",
+      "'베이스(Base)' 단품에는 체인링이 미포함입니다. 기존 시마노 110 BCD 4볼트 체인링을 이식하거나 마진 QED 체인링을 별도 구매해야 하며, R9200/R8100 체인링 이식 시 암-체인링 단차가 발생할 수 있습니다.",
+      "BB30/PF30 또는 스램 DUB(28.99 mm) BB가 장착된 프레임은 시마노 24 mm 호환 BB로 교체해야 장착 가능합니다(BB86/BSA 시마노 프레임은 바로 장착 가능)."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Torque the spider lockring to 35–40 Nm, bearing preload bolt to 1–1.5 Nm, left crank pinch bolts to 12–14 Nm, and chainring bolts to 8 Nm (Magene bolts) or 10–15 Nm (Shimano bolts). CRITICAL: Magene explicitly mandates re-checking crank and chainring bolt torque with a torque wrench after your first 100 km of riding.",
+    "torque_or_install_note_ko": "스파이더 락링 35–40 Nm, 프리로드 볼트 1–1.5 Nm, 좌측 크랭크암 고정 볼트 12–14 Nm, 체인링 볼트 8 Nm(마진 볼트 기준 / 시마노 볼트 10–15 Nm)로 체결하세요. 필수 안전 수칙: 마진 공식 매뉴얼에 따라 최초 100 km 주행 후 반드시 토크렌치로 크랭크·체인링 볼트 풀림 여부를 재점검해야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Magene PES P505 Base",
+      "title": "Magene PES P505 Base Spider Power Meter: $299 24 mm Hollowtech II Specs & Fit Audit",
+      "summary": "Budget-disrupting 24 mm spindle spider power meter crankset offering total-power ±1.5% accuracy, 200-hour rechargeable battery, and direct drop-in replacement for Shimano Hollowtech II road bikes.",
+      "best_for": "Value-focused Shimano BSA/BB86 road cyclists who want reliable total-power measurement and 165–175 mm crank length options at under $300 without changing pedals or cleats.",
+      "local_gotchas": [
+        "Left/Right balance on a spider power meter is estimated from torque phase rather than measured via independent left and right strain gauges; total combined power is accurate (±1.5%), but rehab/asymmetry tracking belongs on dual-sided pedals.",
+        "Unlike pedal power meters, swapping between bikes requires pulling the crankset and matching 24 mm BBs — ideal for a single dedicated bike, less convenient for multi-bike travel.",
+        "When reusing Shimano 12-speed Dura-Ace R9200 or Ultegra R8100 chainrings, test front derailleur shift ramps carefully and torque Magene bolts strictly to 8 Nm to avoid stripping."
+      ]
+    },
+    "ko": {
+      "name": "마진 PES P505 베이스",
+      "title": "마진 PES P505 베이스 스파이더 파워미터: 40만 원대 시마노 24mm 호환·장착 총정리",
+      "summary": "시마노 할로우테크 II 24 mm BB에 그대로 호환되는 가성비 최강 스파이더 파워미터 크랭크셋입니다. 합산 출력 ±1.5% 정확도, 200시간 대용량 배터리, 165–175 mm 다양한 크랭크암 길이를 지원합니다.",
+      "best_for": "페달·클릿 변경 없이 BSA 또는 BB86(예: 라피에르 에어코드 DRS 등) 시마노 24 mm 로드바이크에 30–40만 원대로 신뢰도 높은 양발 합산 파워미터를 입문·운용하려는 라이더.",
+      "local_gotchas": [
+        "스파이더 방식은 양발 합산 총파워를 직접 계측(±1.5%)하므로 좌우 밸런스는 페달링 토크 위상 기반 '추정치'입니다. 정밀한 좌우 불균형 분석이 목적이라면 아시오마 프로 RS-2 같은 독립 양발 페달을 선택하세요.",
+        "국내 정발(46만 원대, 코멧바이시클 등)과 알리익스프레스 직구(30만 원대) 간 가격 차이가 크므로 A/S 보증 여부와 직구 관부가세(미화 150달러 초과)를 함께 비교해야 합니다.",
+        "초기 설치 후 100 km 주행 시 좌측 크랭크 고정 볼트 풀림 점검이 필수이며, 시마노 12단 R9200/R8100 체인링 이식 시 마진 볼트(8 Nm) 과토크로 인한 나사산 뭉개짐에 주의해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Magene PES P505 Base Power Meter Official Product Page",
+      "url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Magene Official Support & PES P505 User Manual Documentation",
+      "url": "https://www.magene.com/en/content/6-support",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ANT+ Certified Power Meter Directory",
+      "url": "https://www.thisisant.com/directory/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["favero-assioma-pro-rs-2", "favero-assioma-duo"]
+}

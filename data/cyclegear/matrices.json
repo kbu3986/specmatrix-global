@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "power-meters",
+    "vertical": "cyclegear",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": "power-meter",
+    "featured_item_slugs": [
+      "favero-assioma-pro-rs-2",
+      "favero-assioma-duo",
+      "garmin-rally-rs200",
+      "magene-pes-p505-base"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Road Cycling Power Meter Matrix: Weight, Accuracy, Cleat & BB Compatibility (2026)",
+        "subtitle": "Compare dual-sided SPD-SL & Look Keo pedals vs 24 mm Hollowtech II spider power meters on verified weight, stack height, Q-factor, and true cost.",
+        "intro": "Choosing a road power meter hinges on three hard engineering constraints: cleat/BB standard lock-in, true independent dual-leg vs spider total-power measurement, and multi-bike portability. Every specification in this matrix is verified against official manufacturer tech sheets — including exact pedal stack heights, spindle torque limits, and Q-factors — so you never trigger hidden saddle-height shifts or bottom-bracket interference.",
+        "methodology_note": "All accuracy figures (±1.0% to ±1.5%), weights, stack heights, and Q-factors come from Tier 1 manufacturer specifications. Prices reflect MSRP benchmark snapshots rather than scraped store prices.",
+        "key_takeaways": [
+          "Favero Assioma PRO RS-2 leads Shimano SPD-SL pedals at 247 g per pair (-73 g vs Rally RS200) and a native 10.5 mm stack height / +53 mm Q-factor.",
+          "Magene PES P505 Base delivers ±1.5% total combined power and 200-hour runtime at $299 for Shimano 24 mm (BSA/BB86) frames, but excludes chainrings and estimates L/R balance.",
+          "Garmin Rally RS200 remains the top choice for 120-hour replaceable CR1/3N battery ultra-endurance riding and Garmin-native OTA firmware updates."
+        ]
+      },
+      "ko": {
+        "title": "로드사이클 파워미터 비교 매트릭스: 무게·정확도·클릿·BB 호환성 총정리 (2026)",
+        "subtitle": "시마노 SPD-SL·룩 케오 양발 페달 파워미터와 24 mm 스파이더 파워미터의 실측 무게·스택 높이·Q-팩터·호환 함정을 한눈에 비교합니다.",
+        "intro": "로드바이크 파워미터 선택의 핵심은 단순 가격이 아니라 클릿·BB 규격 호환성, 진짜 독립 양발 측정 vs 스파이더 합산 측정의 구조적 차이, 그리고 다중 자전거 이식성입니다. 이 매트릭스는 제조사 공식 기술 문서 기준으로 검증된 페어 무게, 스택 높이, Q-팩터, 체결 토크와 장착 주의사항을 구조화해 구매 후 피팅 틀어짐이나 프레임 간섭을 원천 차단합니다.",
+        "methodology_note": "정확도(±1.0%–±1.5%), 무게, 스택 높이, Q-팩터는 모두 제조사 공식 스펙시트(Tier 1)를 교차 검증했으며, 가격은 공식 출고가 참고 스냅샷(MSRP 벤치마크 모드) 기준입니다.",
+        "key_takeaways": [
+          "파베로 아시오마 프로 RS-2는 시마노 SPD-SL 양발 페달 중 가장 가벼운 247 g(랠리 대비 -73 g)과 10.5 mm 낮은 스택, +53 mm 순정 Q-팩터를 구현했습니다.",
+          "마진 PES P505 베이스는 시마노 24 mm(BSA/BB86) 단일 프레임 기준 40만 원대(직구 30만 원대)로 ±1.5% 양발 합산 파워와 200시간 배터리를 제공하지만 체인링 별매 및 100 km 재토크 점검이 필수입니다.",
+          "가민 랠리 RS200은 120시간 교체형 CR1/3N 배터리로 충전이 어려운 장거리 브레베·투어링 및 가민 엣지 단일 생태계 통합에 강점이 있습니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "gps-tires-trainers",
+    "vertical": "cyclegear",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": null,
+    "featured_item_slugs": [
+      "coros-dura-solar-gps",
+      "garmin-edge-840-solar",
+      "garmin-edge-1050",
+      "wahoo-elemnt-roam-v2",
+      "wahoo-kickr-core",
+      "tacx-neo-2t-smart",
+      "continental-gp5000-s-tr-28",
+      "vittoria-corsa-pro-tlr-28",
+      "pirelli-p-zero-race-rs-tlr-28"
+    ],
+    "i18n": {
+      "en": {
+        "title": "GPS Bike Computers, 28 mm Tubeless Tires & Smart Trainers Performance Matrix",
+        "subtitle": "Filter verified battery life, mount/freehub compatibility, ETRTO 5.0 bar hookless safety limits, and Zwift Virtual Shifting across 9 flagship road essentials.",
+        "intro": "Modern road performance stretches across three interlocking pillars: cockpit telemetry (GPS computers), tarmac contact (28 mm tubeless tires), and winter power blocks (direct-drive smart trainers). Use this interactive matrix to filter by category, compare verified battery runtimes and weights, check mandatory ETRTO 5.0 bar (72.5 psi) hookless safety guards, and verify Zwift Cog & Click virtual shifting support before buying.",
+        "methodology_note": "Tire specifications rely strictly on official OEM data and ETRTO TSS standards (no paywalled third-party rolling-resistance tables are copied). Smart trainer acoustic figures note drivetrain-dominated public test ranges where manufacturers omit official dBA ratings.",
+        "key_takeaways": [
+          "COROS DURA dominates endurance battery life (120 hrs base + 2x solar gain at $249), whereas Garmin Edge 840 Solar (85 g) and Edge 1050 (3.5\" LCD + digital bell) lead standalone routing.",
+          "All three 28 mm flagship tubeless tires (GP5000 S TR 280 g, Corsa PRO 280 g, P Zero Race RS 290 g) carry a mandatory ETRTO 5.0 bar / 72.5 psi hookless ceiling — always verify your rim OEM approved tire list.",
+          "Both Wahoo KICKR CORE (1,800 W, ±2%) and Tacx NEO 2T (2,200 W, <±1%, beltless) now support Zwift Virtual Shifting over Bluetooth (NEO 2T requires firmware v2.6.0+)."
+        ]
+      },
+      "ko": {
+        "title": "GPS 속도계 · 28mm 튜블리스 타이어 · 스마트 트레이너 통합 성능 매트릭스",
+        "subtitle": "로드 핵심 장비 9종의 실사용 배터리, 마운트·프리허브 호환, ETRTO 5.0 bar 후크리스 안전 한계, 즈위프트 가상변속 지원 여부를 필터링해 비교합니다.",
+        "intro": "현대 로드사이클링의 퍼포먼스와 훈련 효율은 GPS 속도계(콕핏 텔레메트리), 28 mm 튜블리스 타이어(노면 접지·안전), 스마트 트레이너(동계 인도어 파워 훈련) 세 축으로 완성됩니다. 카테고리별 필터와 정렬 기능으로 배터리 수명·무게·후크리스 최대 공기압(5.0 bar / 72.5 psi)·즈위프트 코그 가상변속 및 Intervals.icu 연동성을 즉시 비교해 보세요.",
+        "methodology_note": "타이어 스펙은 제조사 공식 제원 및 ETRTO TSS 규정만 사용하며 유료 벤치마크 수치를 무단 복제하지 않습니다. 스마트 트레이너 소음(dBA)은 제조사 미공개 특성상 체인 소음 중심 공개 테스트 참고 범위임을 명시합니다.",
+        "key_takeaways": [
+          "코로스 듀라는 120시간 기본 배터리와 2배 솔라 효율(정발 42.9만 원)로 충전 해방을 실현하며, 가민 엣지 840 솔라(85 g)·1050(3.5인치 LCD·전자 벨)은 자체 내비와 클라임프로 완성도가 독보적입니다.",
+          "28c 3대 플래그십 타이어(GP5000 S TR 280 g·코르사 프로 280 g·피제로 레이스 RS 290 g) 모두 후크리스(TSS) 최대 공기압 5.0 bar(72.5 psi) 제한과 림 제조사 승인 리스트 사전 확인이 필수입니다.",
+          "와후 키커 코어(1,800 W)와 무벨트 탁스 네오 2T(2,200 W, 펌웨어 v2.6.0+ BLE) 모두 즈위프트 가상변속(Zwift Cog & Click)을 공식 지원해 12단 시마노·스램 자전거를 쾌적하게 거치할 수 있습니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "shimano-12s-di2-with-powermeters-headunits",
+    "vertical": "cyclegear",
+    "archetype": "compat",
+    "release_wave": 1,
+    "filter_category": null,
+    "featured_item_slugs": [
+      "shimano-dura-ace-r9270-di2-12s",
+      "favero-assioma-pro-rs-2",
+      "garmin-rally-rs200",
+      "magene-pes-p505-base",
+      "coros-dura-solar-gps",
+      "garmin-edge-840-solar",
+      "garmin-edge-1050",
+      "wahoo-elemnt-roam-v2"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Shimano 12-Speed Di2 (R9270) Compatibility Matrix: Power Meters, Head Units & Trainers",
+        "subtitle": "Verified plug-and-play matrix for Shimano 12s Dura-Ace R9270 Di2 across SPD-SL/24 mm power meters, hood-button GPS head units, BB86/BSA shells, and HG-L2 hubs.",
+        "intro": "Upgrading a Shimano Dura-Ace R9270 (or Ultegra R8170) 12-speed Di2 road bike with a power meter, GPS computer, or smart trainer exposes subtle compatibility traps: 12s CS-R9200 HG-L2 vs legacy 11s HG freehub directionality, built-in RD-R9250 D-Fly hood button mapping, BB86 24 mm Hollowtech II vs spider clearance, and SRAM Flattop/XDR non-interchangeability. Use this verified compatibility blueprint to assemble a zero-conflict cockpit and drivetrain.",
+        "methodology_note": "Cross-checked directly against Shimano SI Technical Documents (E-TUBE Compatibility Chart), Favero/Garmin/Magene spindle manuals, and COROS/Garmin/Wahoo ANT+ & BLE Di2 firmware notes.",
+        "key_takeaways": [
+          "Zero D-Fly dongle needed: RD-R9250 has ANT+/BLE built in, so COROS DURA, Garmin Edge 840/1050, and Wahoo ELEMNT ROAM V2 pair natively for gear ratios and hidden hood-button controls (including Edge 1050 digital bike bell).",
+          "Pedal power meters (Assioma PRO RS-2, Rally RS200) preserve factory FC-R9200 Hyperglide+ front shifting with zero BB/chainring risk; Magene PES P505 Base drops straight into 24 mm BSA/BB86 shells if you transfer your 110 BCD 4-bolt chainrings.",
+          "CS-R9200 12-speed cassettes fit legacy 11-speed Shimano HG smart-trainer freehubs (Wahoo KICKR CORE & Tacx NEO 2T) natively — but never mix SRAM 12s Flattop chains or XDR cassettes into a Shimano 12s drivetrain."
+        ]
+      },
+      "ko": {
+        "title": "시마노 12단 Di2(R9270) × 파워미터 · GPS 속도계 · 트레이너 완벽 호환성 매트릭스",
+        "subtitle": "듀라에이스 R9270 Di2 12단 프레임(BB86/BSA)에 파워미터·코로스/가민/와후 후드 버튼·스마트 로라를 간섭 없이 조합하는 검증 가이드.",
+        "intro": "시마노 듀라에이스 R9270(및 울테그라 R8170) 12단 Di2 로드바이크(예: BB86 쉘 기반 에어로 로드)에 파워미터와 GPS 속도계, 스마트 트레이너를 조합할 때는 의외의 함정이 숨어 있습니다. 뒷변속기 내장 D-Fly 후드 버튼 설정, 12단 HG-L2와 기존 11단 HG 프리허브의 단방향 호환성, 24 mm 할로우테크 II 스파이더 파워미터의 체인링 이식 및 스램 플랫탑·XDR 혼용 불가 원칙을 이 호환성 매트릭스에서 한 번에 검증하세요.",
+        "methodology_note": "시마노 공식 E-TUBE 호환성 차트(SI 기술 문서)와 파베로·가민·마진 공식 매뉴얼, 코로스·가민·와후 최신 펌웨어 Di2 연동 문서를 1:1 교차 검증해 작성했습니다.",
+        "key_takeaways": [
+          "별도 D-Fly 모듈(EW-WU111) 불필요: RD-R9250에 ANT+/BLE 송신기가 기본 내장되어 코로스 듀라·가민 엣지 840/1050·와후 롬 V2와 즉시 연결되며 상단 히든 후드 버튼으로 페이지 넘김·랩·전자 벨(엣지 1050)을 조작할 수 있습니다.",
+          "순정 FC-R9200 크랭크의 앞변속 성능과 BB86 베어링 내구성을 100% 지키려면 페달형(아시오마 프로 RS-2·랠리 RS200)이 무간섭 최선이며, 예산 절감이 목적이라면 시마노 24 mm BB에 직결되는 마진 PES P505 베이스(체인링 이식)가 현실적 대안입니다.",
+          "CS-R9200 12단 카세트는 와후 키커 코어·탁스 네오 2T의 기본 11단 HG 프리허브에 어댑터 없이 바로 장착됩니다(단, 스램 12단 플랫탑 체인·XDR 카세트 혼용 및 구형 11단 Di2 EW-SD50 배선 연결은 절대 불가)."
+        ]
+      }
+    }
+  }
+]

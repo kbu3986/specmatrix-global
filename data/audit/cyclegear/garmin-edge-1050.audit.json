@@ -1,0 +1,33 @@
+{
+  "sku_slug": "garmin-edge-1050",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Weight 161 g (5.7 oz); Display 3.5-inch (88.9 mm) vivid color liquid crystal touchscreen (480 x 800 pixels); 64 GB storage; IPX7",
+      "source_url": "https://www.garmin.com/p/905753",
+      "source_tier": 1
+    },
+    {
+      "field": "battery_life_hours",
+      "quote": "Battery life up to 20 hours in demanding use cases and up to 60 hours in battery saver mode; built-in speaker with on-device bike bell and Garmin Pay",
+      "source_url": "https://www.garmin.com/p/905753",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.bb_or_mount_standard",
+      "quote": "Replaceable quarter-turn mount tab positioned lower on the 118.5 mm rear housing; verify forward clearance on short integrated aero bar mounts",
+      "source_url": "https://www8.garmin.com/manuals/webhelp/GUID-08ACA9FC-DEE6-4C8D-8A95-F62181B512E7/EN-US/GUID-8661634E-5152-41F5-89A1-553408C86441.html",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Display & solar accuracy check: Confirmed Edge 1050 uses a transmissive 480x800 LCD (NOT MIP and NOT Solar), explaining the 20 hr demanding runtime vs Edge 1040 Solar.",
+    "Real-world fit trap verified: Flagged the lower-mounted quarter-turn tab clearance issue on short integrated aero cockpit mounts.",
+    "KR localization & SM-02 check: Noted Korean Garmin Pay issuer limitations and KR official retail 1,089,000 KRW vs US $699.99 under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

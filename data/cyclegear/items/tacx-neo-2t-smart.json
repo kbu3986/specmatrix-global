@@ -1,0 +1,146 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "smart-trainer",
+  "slug": "tacx-neo-2t-smart",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Garmin Tacx",
+  "model_number": "T2875.60",
+  "origin_country": "NL",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "T2875.60",
+      "msrp": 1099.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Garmin Tacx NEO 2T Smart direct drive trainer T2875.60",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "T2875.60-KR",
+      "msrp": 1690000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "가민 탁스 네오 2T 스마트 트레이너 로라 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 21500,
+    "claimed_accuracy_pct": 1.0,
+    "left_right_balance": true,
+    "mount_or_form_factor": "Beltless 32-neodymium-magnet direct-drive smart trainer (virtual flywheel + subtle lateral flex)",
+    "connectivity": ["ANT+ FE-C", "Bluetooth FTMS", "10 Hz Race Mode (firmware 2.6.0+)"],
+    "battery_life_hours": null,
+    "waterproof_rating": null,
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": 2200,
+    "max_trainer_grade_pct": 25,
+    "trainer_noise_dba": 52,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Total Unit Weight", "key_ko": "본체 총중량", "value": "21.5 kg (47.4 lbs; foldable chassis)" },
+      { "key_en": "Max Power Output", "key_ko": "최대 저항 출력", "value": "2,200 W (up to 85 Nm max torque)" },
+      { "key_en": "Max Simulated Grade", "key_ko": "최대 구현 경사도", "value": "25% incline + active descent simulation (when plugged in)" },
+      { "key_en": "Power Accuracy", "key_ko": "파워 측정 정확도", "value": "< ±1.0% (zero spindown calibration ever required)" },
+      { "key_en": "Typical Acoustic Profile", "key_ko": "실사용 소음 참고치", "value": "~52 dBA @ 30 km/h (beltless electromagnetic drive; no official Garmin dBA)" },
+      { "key_en": "Flywheel & Road Feel", "key_ko": "플라이휠 및 노면 질감", "value": "Virtual dynamic inertia (up to 125 kg equiv.) + cobblestone/gravel vibration" },
+      { "key_en": "Unplugged Self-Powered Mode", "key_ko": "무전원 자가발전 구동", "value": "Yes — operates unplugged (no downhill motor assist unplugged)" },
+      { "key_en": "Default Freehub Body", "key_ko": "기본 프리허브 바디", "value": "Shimano/SRAM 8–12s HG (EDCO/Type-2 XDR & Campagnolo bodies separate)" },
+      { "key_en": "Zwift Virtual Shifting", "key_ko": "즈위프트 가상변속", "value": "Supported via firmware v2.6.0+ over Bluetooth (Zwift Cog & Click ready)" },
+      { "key_en": "Axle Compatibility", "key_ko": "액슬 호환 규격", "value": "130/135 mm QR, 12×142 mm & 12×148 mm Thru-Axle (included)" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Direct-drive rear dropout mount (130/135 mm QR, 12×142 mm road disc, 12×148 mm Boost Thru-Axle)",
+    "freehub_or_cleat_standard": "Shimano/SRAM 8–12s HG freehub default (Tacx Type 2 XDR/XD & Campagnolo bodies optional; Zwift Cog compatible on stock HG body)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9270 / Ultegra R8170 / 105 R7170 12s (direct fit on stock HG freehub)",
+      "Shimano 8/9/10/11s HG cassettes",
+      "SRAM 12s AXS (with Garmin Tacx XDR Type-2 freehub T2875-01 OR Zwift Cog virtual shifting)",
+      "Campagnolo 11s/12s (with optional Campagnolo body or Zwift Cog)"
+    ],
+    "head_unit_or_app_verified": [
+      "Zwift (Virtual Shifting + Road Feel cobblestone/gravel + 10 Hz Race Mode)",
+      "Garmin Tacx Training App / TrainerRoad / Rouvy / MyWhoosh",
+      "Garmin Edge 840 Solar & Edge 1050 (native Tacx workout control)",
+      "COROS DURA (ANT+ FE-C / BLE FTMS)",
+      "Wahoo ELEMNT ROAM V2"
+    ],
+    "incompatible_notes_en": [
+      "Long-cage rear derailleurs or oversized pulley wheel systems (OSPW) may come close to the lower flywheel housing in the largest cog — verify cage clearance before pedaling under load.",
+      "Must install Tacx firmware v2.6.0+ via the Tacx Training App and connect to Zwift over Bluetooth (not ANT+) to unlock Zwift Virtual Shifting and 10 Hz Race Mode.",
+      "Requires Garmin Tacx Type-2 (12 mm axle) XDR freehub body (T2875-01); legacy NEO 1 / NEO 2 Type-1 (9 mm axle) freehub bodies do NOT fit NEO 2T."
+    ],
+    "incompatible_notes_ko": [
+      "빅풀리(OSPW)나 롱케이지 뒷변속기 장착 차량은 이너-로우(가장 큰 코그) 기어에서 케이지가 하단 디스크 하우징에 근접할 수 있으므로 장착 직후 손으로 크랭크를 돌려 간섭 여부를 반드시 확인하세요.",
+      "즈위프트 가상변속과 10 Hz 레이스 모드를 쓰려면 Tacx Training 앱에서 펌웨어 v2.6.0 이상으로 업데이트한 뒤 즈위프트에 ANT+가 아닌 블루투스(BLE)로 페어링해야 합니다.",
+      "스램 12단 XDR 실물 카세트 사용 시 반드시 NEO 2T 전용 Type-2(12 mm 액슬용 T2875-01) 프리허브를 구매해야 하며, 구형 NEO 1/2용 Type-1 프리허브는 호환되지 않습니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Use the included 2.7 mm disc brake caliper spacer if your flat-mount caliper contacts the NEO 2T disk housing, torque the cassette lockring to 40 Nm, and secure the rear thru-axle to frame spec (10–12 Nm). Lift using the built-in chassis recess (21.5 kg) with the legs locked before riding.",
+    "torque_or_install_note_ko": "플랫마운트 디스크 캘리퍼가 트레이너 본체와 닿는 프레임은 동봉된 2.7 mm 스페이서를 반드시 삽입하고, 카세트 락링 40 Nm·쓰루액슬 10–12 Nm 규정 토크를 준수하세요. 21.5 kg 고중량 장비이므로 다리 접이식 잠금 장치가 완전히 고정되었는지 확인 후 탑승해야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Tacx NEO 2T Smart",
+      "title": "Garmin Tacx NEO 2T Smart Trainer: 2,200 W Beltless ±1% Silent Direct-Drive Review",
+      "summary": "Beltless 32-magnet direct-drive flagship trainer offering 2,200 W sprint capacity, 25% incline plus active downhill simulation, <±1.0% zero-calibration accuracy, self-powered unplugged riding, and Zwift Virtual Shifting via firmware v2.6.0+.",
+      "best_for": "Apartment cyclists, high-wattage sprinters, and precision power athletes who want beltless zero-calibration ±1% accuracy, road-feel vibration, and ultra-quiet acoustic performance.",
+      "local_gotchas": [
+        "Zero belts and zero physical flywheel mean virtually zero mechanical whine (~52 dBA @ 30 km/h, chain-noise limited) and zero spindown calibration drift across room temperature swings.",
+        "Can run completely unplugged at race warmups (powering Bluetooth/ANT+ from your pedaling), though downhill drive and road-feel vibration require AC mains power.",
+        "Ships without a cassette (except dedicated Zwift Cog bundles) and lacks built-in Wi-Fi/Ethernet unless stepping up to the pricier NEO 3M with network adapter."
+      ]
+    },
+    "ko": {
+      "name": "가민 탁스 네오 2T 스마트",
+      "title": "가민 탁스 네오 2T(NEO 2T) 스마트 트레이너: 2,200W 무벨트·±1%·아파트 최강 정숙성",
+      "summary": "내부 벨트와 기계식 플라이휠 없이 32개 네오디뮴 자석 모터로 구동되는 플래그십 스마트 트레이너입니다. 최대 2,200 W·25% 경사도, 캘리브레이션 불필요 ±1% 정확도, 무전원 자가발전 및 펌웨어 업데이트를 통한 즈위프트 가상변속을 지원합니다.",
+      "best_for": "층간소음에 민감한 국내 아파트 환경에서 최상급 정숙성과 영점 보정 없는 ±1% 파워 정확도, 자갈길·코블스톤 노면 진동(Road Feel)을 원하는 고강도 로드 라이더.",
+      "local_gotchas": [
+        "벨트 마찰음 자체가 없는 다이렉트 전자기 모터 구조(~52 dBA 수준, 체인 소음 중심)로 국내 아파트 야간 라이딩에서 가장 검증된 정숙성을 보여줍니다(방진 매트 병행 권장).",
+        "전원 코드를 꽂지 않아도 페달링 자가발전으로 작동해 대회장 워밍업 용도로 활용할 수 있으며, 전원 연결 시에만 내리막 가속 및 노면 진동 기능이 활성화됩니다.",
+        "카세트는 기본 미포함이며(즈위프트 코그 번들 제외), 좌우 페달링 밸런스 분석과 10 Hz 레이스 모드·즈위프트 가상변속까지 펌웨어 2.6.0 이상에서 모두 활용 가능합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Garmin Tacx NEO 2T Smart Official Specifications",
+      "url": "https://www.garmin.com/p/690890",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Garmin Support — Tacx NEO 2T Freehub, Disc Caliper Spacer & Firmware Guide",
+      "url": "https://support.garmin.com/en-US/?productID=690890",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Zwift Official — Tacx NEO 2T Virtual Shifting & Race Mode Support",
+      "url": "https://support.zwift.com/en_us/zwift-ready-and-virtual-shifting-compatibility-rkG8wT80p",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["wahoo-kickr-core", "garmin-edge-840-solar"]
+}

@@ -1,0 +1,33 @@
+{
+  "sku_slug": "wahoo-elemnt-roam-v2",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Weight 3.3 oz (93 g); Dimensions 89 x 54.4 x 17.8 mm; 2.7-inch 64-color display (240 x 400); 32 GB storage; IPX7 waterproof",
+      "source_url": "https://support.wahoofitness.com/hc/en-us/articles/8064974955794-ELEMNT-ROAM-v2-2022-Product-Information",
+      "source_tier": 1
+    },
+    {
+      "field": "battery_life_hours",
+      "quote": "Battery life up to 17 hours via USB-C rechargeable lithium-ion; Dual-Band GPS (GPS, GLONASS, Galileo, Beidou, QZSS)",
+      "source_url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-v2-buy",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.drivetrain_compatible",
+      "quote": "Supports Shimano Di2 top hood buttons and SRAM AXS Bonus Buttons/Blips for page navigation and lap control alongside gear display",
+      "source_url": "https://support.wahoofitness.com/hc/en-us/articles/8064974955794-ELEMNT-ROAM-v2-2022-Product-Information",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Generation separation verified: WFCC6 (ROAM V2, 2022+) has 32 GB storage, Dual-Band GPS, USB-C, 64 colors, and convex buttons — clearly distinct from ROAM V1 (4 GB, micro-USB, 8 colors).",
+    "Mount safety check: Explicitly documented Wahoo 90-degree rotated mount tab incompatibility with Garmin pucks to prevent tab shear.",
+    "SM-02 check: Verified US $399.99 and KR 560,000 KRW MSRP benchmarks under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

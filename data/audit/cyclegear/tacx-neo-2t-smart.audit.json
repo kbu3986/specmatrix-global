@@ -1,0 +1,33 @@
+{
+  "sku_slug": "tacx-neo-2t-smart",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "max_trainer_watts",
+      "quote": "Max power 2200 watts, max incline 25%, accuracy <1%, max torque 85 Nm, weight 21.5 kg (47.4 lbs), beltless motor design",
+      "source_url": "https://www.garmin.com/p/690890",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.freehub_or_cleat_standard",
+      "quote": "Ships with Shimano/SRAM HG freehub body; Type-2 (12 mm axle) XDR/XD and Campagnolo bodies sold separately; 2.7 mm caliper spacer included",
+      "source_url": "https://support.garmin.com/en-US/?productID=690890",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.key_specs_kv",
+      "quote": "Tacx NEO 2T supports Zwift Virtual Shifting and 10 Hz Race Mode over Bluetooth with Tacx firmware v2.6.0 or newer",
+      "source_url": "https://support.zwift.com/en_us/zwift-ready-and-virtual-shifting-compatibility-rkG8wT80p",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics & range invariant checked: max_trainer_watts = 2200, max_trainer_grade_pct = 25, claimed_accuracy_pct = 1.0%, trainer_noise_dba = 52 (within 15–85, labeled as public reference since Garmin omits official dBA).",
+    "Freehub Type-1 vs Type-2 trap caught: Warned that NEO 2T requires 12 mm Type-2 XDR freehub (T2875-01), NOT legacy NEO 1/2 9 mm Type-1 bodies.",
+    "Firmware & SM-02 check: Verified Zwift Virtual Shifting requires firmware >= 2.6.0 via Bluetooth; asin set to null under msrp_benchmark_mode."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "power-meter",
+  "slug": "favero-assioma-pro-rs-2",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Favero Electronics",
+  "model_number": "773-20-02",
+  "origin_country": "IT",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "773-20-02",
+      "msrp": 759.0,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Favero Assioma PRO RS-2 Shimano SPD-SL dual power meter pedals",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "773-20-02-KR",
+      "msrp": 1190000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "파베로 아시오마 프로 RS-2 시마노 SPD-SL 양발 파워미터",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 247,
+    "claimed_accuracy_pct": 1.0,
+    "left_right_balance": true,
+    "mount_or_form_factor": "Dual-sided pod-free road power meter pedals (spindle-integrated sensor)",
+    "connectivity": ["ANT+ PWR", "Bluetooth 5.0", "IAV Cycling Dynamics"],
+    "battery_life_hours": 60,
+    "waterproof_rating": "IP67",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Pair Weight", "key_ko": "페달 페어 무게", "value": "247 g (123.5 g per pedal)" },
+      { "key_en": "Cleat System", "key_ko": "클릿 규격", "value": "Shimano SPD-SL (SM-SH10 / SM-SH11 / SM-SH12)" },
+      { "key_en": "Claimed Accuracy", "key_ko": "공식 정확도 오차", "value": "±1.0% (IAV Power System, oval chainring ready)" },
+      { "key_en": "Stack Height", "key_ko": "스택 높이", "value": "10.5 mm" },
+      { "key_en": "Q-Factor", "key_ko": "Q-팩터", "value": "+53 mm (native Shimano road Q-factor)" },
+      { "key_en": "Battery & Charging", "key_ko": "배터리 및 충전", "value": "Integrated Li-ion, 60+ hrs, dual magnetic USB charger" },
+      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IP67 (fully sealed internal spindle electronics)" },
+      { "key_en": "Cycling Dynamics", "key_ko": "사이클링 다이내믹스", "value": "L/R Balance, PCO, IAV Power Phase, Rider Position, TE, PS" },
+      { "key_en": "Operating Temp / Compensation", "key_ko": "온도 보정 범위", "value": "-10°C to +55°C automatic temperature compensation" },
+      { "key_en": "Modular Spindle Swap", "key_ko": "스핀들 바디 호환", "value": "Interchangeable with Favero PRO MX (SPD) pedal bodies" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Universal 9/16\"x20 TPI crank thread (zero BB dependency: BSA, BB86/PF86, T47, BB30, PF30)",
+    "freehub_or_cleat_standard": "Shimano SPD-SL road cleats (SM-SH10 / SM-SH11 / SM-SH12)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9270 / R9200 12s Di2",
+      "Shimano Ultegra R8170 / 105 R7170 12s Di2",
+      "Shimano 11s Road",
+      "SRAM RED / Force / Rival AXS 12s",
+      "Campagnolo 12s / 13s",
+      "Oval Chainrings (AbsoluteBlack, Rotor Q-Rings)"
+    ],
+    "head_unit_or_app_verified": [
+      "COROS DURA",
+      "Garmin Edge 840 Solar",
+      "Garmin Edge 1050",
+      "Wahoo ELEMNT ROAM V2",
+      "Hammerhead Karoo",
+      "Zwift / TrainerRoad / Intervals.icu (via head unit)"
+    ],
+    "incompatible_notes_en": [
+      "Incompatible with Look Keo or 2-bolt MTB SPD cleats unless swapping pedal bodies to Favero Assioma PRO MX (SPD) or choosing Assioma DUO (Look Keo).",
+      "Requires an 8 mm hex key from the back of the crank arm; standard 15 mm flat pedal wrenches cannot be used on the spindle."
+    ],
+    "incompatible_notes_ko": [
+      "룩 케오(Look Keo) 또는 MTB SPD 클릿과는 호환되지 않습니다(SPD 사용 시 PRO MX 바디 별도 교체, 룩 케오 사용 시 아시오마 DUO 선택 필요).",
+      "15 mm 평페달 렌치 홈이 없으므로 반드시 크랭크 안쪽에서 8 mm 육각 렌치(토크렌치)로 장착해야 합니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Grease crank threads lightly and torque spindles to 35–40 Nm using an 8 mm hex key (right pedal clockwise, left pedal counter-clockwise). Always set exact crank arm length in the Favero Assioma app or head unit before performing a zero-offset calibration.",
+    "torque_or_install_note_ko": "크랭크 나사산에 구리스를 얇게 도포한 뒤 8 mm 육각 렌치로 35–40 Nm 규정 토크로 체결하세요(우측 정나사, 좌측 역나사). 최초 주행 전 파베로 앱 또는 속도계에서 크랭크암 길이(예: 170/172.5 mm)를 정확히 입력하고 영점 교정(Zero-Offset)을 수행해야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Favero Assioma PRO RS-2",
+      "title": "Favero Assioma PRO RS-2 Power Meter: 247 g Pod-Free SPD-SL Specs & Compatibility",
+      "summary": "Pod-free dual-sided Shimano SPD-SL power meter pedals housing all strain gauges and a 60-hour Li-ion battery inside the spindle at 247 g per pair, 10.5 mm stack height, and ±1.0% IAV accuracy.",
+      "best_for": "Shimano SPD-SL road cyclists swapping one dual-sided power meter across aero frames, climbing bikes, or travel bikes with zero BB or Q-factor compromises.",
+      "local_gotchas": [
+        "Eliminates the Assioma DUO-Shi's +65 mm Q-factor penalty by restoring a native +53 mm Q-factor and 10.5 mm stack height matching Shimano Ultegra/Dura-Ace pedals.",
+        "Unlike Garmin Rally RS200 coin-cell batteries, the internal Li-ion battery charges via Favero's proprietary magnetic connector — pack the micro-cable on multi-week cycling trips.",
+        "Supports full PCO (Platform Center Offset) and IAV Power Phase over ANT+ on Garmin Edge and Wahoo units; COROS DURA reads power, cadence, and L/R balance natively."
+      ]
+    },
+    "ko": {
+      "name": "파베로 아시오마 프로 RS-2",
+      "title": "파베로 아시오마 프로 RS-2 양발 파워미터: 247g 포드리스 SPD-SL 스펙·호환성",
+      "summary": "스핀들 내부에 모든 센서와 60시간 리튬이온 배터리를 수납한 외장 포드리스 시마노 SPD-SL 양발 파워미터 페달입니다. 페어 247 g, 스택 높이 10.5 mm, ±1.0% IAV 정확도와 정통 +53 mm Q-팩터를 구현했습니다.",
+      "best_for": "시마노 SPD-SL 클릿을 유지하면서 BB·크랭크 규격 제약 없이 여러 대의 로드·에어로 프레임에 양발 파워미터를 옮겨 쓰고 싶은 동호인·레이서.",
+      "local_gotchas": [
+        "구형 아시오마 DUO-Shi의 최대 단점이던 65 mm 넓은 Q-팩터를 완전히 해결해 순정 시마노 페달과 동일한 53 mm Q-팩터와 10.5 mm 낮은 스택 높이를 제공합니다.",
+        "국내 정발(119만 원대)은 보증 및 스핀들 A/S가 편리하며, 해외 직구 시 미화 150달러(EU 150달러 기준) 초과로 관부가세 약 18%를 합산해 실구매가를 비교해야 합니다.",
+        "전용 자석식 충전 케이블을 사용하므로 국토종주나 해외 투어링 시 충전 커넥터를 반드시 챙겨야 하며, 듀라에이스 R9200 12단 및 코로스 듀라·가민 엣지·와후 전 기종과 완벽 연동됩니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Favero Assioma PRO RS-2 Official Product & Technical Specifications",
+      "url": "https://cycling.favero.com/en/assioma-pro-rs-2",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Favero Electronics Official Assioma Power Meter Documentation",
+      "url": "https://cycling.favero.com/en/support",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ANT+ Certified Power Meter Device Directory",
+      "url": "https://www.thisisant.com/directory/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["garmin-rally-rs200", "favero-assioma-duo"]
+}

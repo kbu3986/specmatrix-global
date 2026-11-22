@@ -1,0 +1,33 @@
+{
+  "sku_slug": "sram-red-axs-e1-12s",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "SRAM RED AXS E1 complete groupset weight: 2,496 g (48/35T power meter crankset, 10-28T XG-1290 cassette, 160 mm rotors, fluid, two AXS batteries)",
+      "source_url": "https://www.sram.com/en/sram/models/gs-red-e-e1",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.freehub_or_cleat_standard",
+      "quote": "Requires SRAM XDR driver body for 10T-start XG-1290 12-speed cassettes, SRAM DUB 28.99 mm bottom bracket, and 12-speed Flattop chain (not compatible with Shimano HG/HG+)",
+      "source_url": "https://www.sram.com/en/service/articles/sram-road-compatibility-map",
+      "source_tier": 1
+    },
+    {
+      "field": "torque_or_install_note_en",
+      "quote": "DUB crank arm bolt torque 54 Nm; XDR cassette lockring 40 Nm; DOT 5.1 hydraulic brake fluid; ~60 hr rechargeable AXS derailleur batteries and CR2032 shifter cells",
+      "source_url": "https://www.sram.com/en/service/models/gs-red-e-e1",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Generation check: Distinguished SRAM RED AXS E1 (2024+, 2,496 g, one-finger braking, Bonus Buttons, cut-out HollowPin Flattop chain) from legacy RED AXS D1.",
+    "Non-interchangeability check: Explicitly verified XDR freehub, DUB 28.99 mm BB, Flattop chain roller size, and DOT 5.1 brake fluid incompatibilities vs Shimano 12s Di2.",
+    "SM-02 check: Verified complete groupset US ($4,450) and KR (6,100,000 KRW) benchmarks under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,33 @@
+{
+  "sku_slug": "garmin-rally-rs200",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Weight: 320 g; Cleat type: SHIMANO SPD-SL; Q-factor: 53 mm (55 mm with provided 2 mm washer); Stack height: 12.2 mm",
+      "source_url": "https://www.garmin.com/p/658420",
+      "source_tier": 1
+    },
+    {
+      "field": "claimed_accuracy_pct",
+      "quote": "Accuracy: +/- 1%; Battery life: up to 120 hours; Battery type: LR44/SR44 (x4) or CR1/3N (x2); Water rating: IPX7",
+      "source_url": "https://www.garmin.com/p/658420",
+      "source_tier": 1
+    },
+    {
+      "field": "torque_or_install_note_en",
+      "quote": "Recommended installation torque: 34 N-m (25 lbf-ft) using a 15 mm pedal wrench; Max rider weight 105 kg",
+      "source_url": "https://www8.garmin.com/manuals/webhelp/GUID-F384D11E-79B0-4D97-BB69-DD8922C20299/EN-US/GUID-1D0B4F3B-45F9-4130-B5C3-5E1B8E0728E7.html",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Model number & variant check: Confirmed 010-02388-02 is dual-sensing Rally RS200 (Shimano SPD-SL), not single-sided RS100 or Look Keo RK200.",
+    "Physics & accuracy invariant verified: claimed_accuracy_pct = 1.0% inside [0.5%, 3.0%]; stack height 12.2 mm and weight 320 g verified directly against Garmin specs.",
+    "Real-world gotcha & SM-02 check: Included 15 mm wrench requirement and CR1/3N vs LR44 cell reliability note; asin set to null under msrp_benchmark_mode."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

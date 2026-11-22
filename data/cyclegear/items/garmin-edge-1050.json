@@ -1,0 +1,145 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "gps-computer",
+  "slug": "garmin-edge-1050",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Garmin",
+  "model_number": "010-02890-00",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "010-02890-00",
+      "msrp": 699.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Garmin Edge 1050 GPS cycling computer LCD 010-02890-00",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "010-02890-00-KR",
+      "msrp": 1089000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "가민 엣지 1050 자전거 GPS 속도계 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 161,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "3.5\" Vivid Transmissive LCD Touchscreen + Integrated Speaker/Bell (flagship large format)",
+    "connectivity": ["ANT+", "Bluetooth Low Energy (BLE)", "Wi-Fi", "Multi-Band GNSS", "NFC (Garmin Pay)"],
+    "battery_life_hours": 20,
+    "waterproof_rating": "IPX7",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Device Weight", "key_ko": "본체 무게", "value": "161 g (5.7 oz)" },
+      { "key_en": "Display Specs", "key_ko": "디스플레이", "value": "3.5\" (88.9 mm) vivid transmissive color LCD (480 × 800 px)" },
+      { "key_en": "Battery (Demanding / Saver)", "key_ko": "배터리 (일반 / 절전)", "value": "Up to 20 hrs demanding use / up to 60 hrs battery saver (non-solar)" },
+      { "key_en": "Dimensions", "key_ko": "외형 크기", "value": "60.2 × 118.5 × 16.3 mm (angled aero profile)" },
+      { "key_en": "Internal Storage", "key_ko": "내장 저장공간", "value": "64 GB (preloaded global routable cycle maps)" },
+      { "key_en": "Built-In Speaker & Bike Bell", "key_ko": "내장 스피커 및 전자 벨", "value": "Loud digital bike bell + spoken navigation & workout voice prompts" },
+      { "key_en": "Contactless Payment", "key_ko": "비접촉 결제", "value": "Garmin Pay built-in (region/bank dependent)" },
+      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 (USB-C charging, replaceable quarter-turn mount)" },
+      { "key_en": "GroupRide & Road Hazards", "key_ko": "그룹라이드·위험구간 알림", "value": "Community road-hazard alerts, GroupRide messaging & climb leaderboards" },
+      { "key_en": "Di2 / AXS & Analytics Sync", "key_ko": "구동계·플랫폼 연동", "value": "Shimano Di2 / SRAM AXS hood buttons, Varia Radar, Connect / Intervals.icu / Strava" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Replaceable Garmin quarter-turn mount (NOTE: mount puck sits lower on the back than Edge 1040 — check short integrated aero out-front mount clearance!)",
+    "freehub_or_cleat_standard": "N/A (head unit — ANT+ & BLE sensor hub)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9270 / Ultegra R8170 / 105 R7170 12s Di2 (gear display + hood buttons + digital bell trigger)",
+      "Shimano 11s Di2 (with D-Fly EW-WU111)",
+      "SRAM RED / Force / Rival AXS 12s (gear ratio + Bonus Button triggers)",
+      "Campagnolo EPS / WRL"
+    ],
+    "head_unit_or_app_verified": [
+      "Favero Assioma PRO RS-2 & DUO (full Cycling Dynamics)",
+      "Garmin Rally RS200 (native OTA + full Cycling Dynamics)",
+      "Magene PES P505 Base",
+      "Garmin Varia RTL515 / RCT715 & Magene L508 Radar",
+      "Tacx NEO 2T & Wahoo KICKR CORE",
+      "Garmin Connect / Intervals.icu / Strava / Komoot"
+    ],
+    "incompatible_notes_en": [
+      "CRITICAL MOUNT CHECK: Edge 1050 is 118.5 mm long with a repositioned quarter-turn tab — many older short integrated cockpit out-front mounts built for Edge 530/840 will NOT fit without an XL/extended mount arm.",
+      "Uses a high-brightness transmissive LCD instead of MIP/Solar; 20-hour demanding battery life is much shorter than Edge 1040 Solar or COROS DURA on multi-day bikepacking trips."
+    ],
+    "incompatible_notes_ko": [
+      "필수 마운트 간섭 체크: 엣지 1050은 전장 118.5 mm에 마운트 체결 위치가 1040 대비 하단으로 이동되어, 기존 530/840용 짧은 일체형 에어로 핸들바 마운트에서는 핸들바에 닿아 장착이 불가할 수 있습니다(롱 마운트 필요).",
+      "스마트폰급 고휘도 LCD(480×800) 채택으로 태양광 충전이 없으며 실사용 배터리는 최대 20시간 수준입니다. 1박 이상 무충전 초장거리 투어에는 코로스 듀라나 엣지 840 솔라가 유리합니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Verify at least 65 mm of forward clearance from your stem/bar face to the quarter-turn center before riding; torque the mount bolts to 1.5–2.0 Nm and always loop the safety tether around your bars to protect the 161 g unit on rough pavement.",
+    "torque_or_install_note_ko": "161 g의 묵직한 본체와 하단 편심 마운트 구조이므로 마운트 중심에서 스템 전면까지 최소 65 mm 이상 여유 공간을 확인하고, 마운트 볼트 규정 토크(1.5–2.0 Nm) 준수 및 안전 스트랩 체결을 권장합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Garmin Edge 1050",
+      "title": "Garmin Edge 1050: 3.5\" Vivid LCD, Digital Bike Bell, 64 GB Storage & Mount Check",
+      "summary": "Garmin's flagship 3.5\" high-resolution 480×800 LCD cycling computer featuring smartphone-grade map legibility, an integrated loud digital bike bell, spoken audio prompts, 64 GB storage, and 20-hour battery life.",
+      "best_for": "Riders prioritizing ultra-sharp map navigation, crisp sunlight/shade screen readability, an integrated Di2-triggerable bike bell, and Garmin's deepest training ecosystem.",
+      "local_gotchas": [
+        "Shimano Di2 hood buttons or SRAM RED AXS E1 Bonus Buttons can be mapped to trigger the Edge 1050's loud built-in digital bike bell without taking hands off the hoods.",
+        "Because the quarter-turn mount sits further down the back plate than on Edge 1040, test compatibility with integrated aero handlebar mounts (such as Lapierre/Canyon/Roval short mounts) before ordering.",
+        "Garmin Pay availability depends on participating card issuers; verify your bank before leaving a physical card behind on coffee rides."
+      ]
+    },
+    "ko": {
+      "name": "가민 엣지 1050",
+      "title": "가민 엣지 1050: 3.5인치 고휘도 LCD·내장 전자 벨·마운트 간섭 주의점 총정리",
+      "summary": "스마트폰급 3.5인치 480×800 고휘도 LCD, 64 GB 대용량 저장공간, 내장 스피커 기반 전자 벨과 음성 내비게이션을 탑재한 가민 최상위 플래그십 자전거 속도계입니다.",
+      "best_for": "선글라스 착용 상태나 그늘·터널 구간에서도 압도적으로 선명한 지도 가독성과 Di2 후드 버튼 연동 전자 벨, 풍부한 트레이닝 기능을 원하는 플래그십 지향 로드 라이더.",
+      "local_gotchas": [
+        "시마노 12단 Di2(R9270/R8170) 상단 히든 버튼이나 스램 RED E1 보너스 버튼에 엣지 1050 내장 전자 벨을 매핑하면 자전거도로 주행 시 별도 따르릉 벨 없이 안전하게 보행자 알림이 가능합니다.",
+        "국내에서는 가민 페이(Garmin Pay) 지원 카드사가 제한적이므로 결제 기능보다는 고해상도 지도·클라임프로·전자 벨·Di2/레이더 통합 가치 중심으로 선택하는 것이 현실적입니다.",
+        "161 g 무게와 하단 이동된 마운트 탭 때문에 일체형 카본 에어로 핸들바 기본 마운트와 간섭하는 사례가 잦으므로 반드시 확장형(XL) 마운트 호환 여부를 먼저 체크하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Garmin Edge 1050 Official Specifications & Product Page",
+      "url": "https://www.garmin.com/p/905753",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Garmin Edge 1050 Official Owner's Manual",
+      "url": "https://www8.garmin.com/manuals/webhelp/GUID-08ACA9FC-DEE6-4C8D-8A95-F62181B512E7/EN-US/GUID-8661634E-5152-41F5-89A1-553408C86441.html",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ANT+ Certified Cycling Computer Directory",
+      "url": "https://www.thisisant.com/directory/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["garmin-edge-840-solar", "wahoo-elemnt-roam-v2"]
+}

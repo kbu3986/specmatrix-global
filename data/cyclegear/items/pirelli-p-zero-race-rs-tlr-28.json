@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "road-tire",
+  "slug": "pirelli-p-zero-race-rs-tlr-28",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Pirelli",
+  "model_number": "4429700",
+  "origin_country": "IT",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "4429700",
+      "msrp": 117.9,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Pirelli P Zero Race TLR RS 700x28c SmartEVO2 SpeedCore tire",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "4429700-KR",
+      "msrp": 150000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "피렐리 피제로 레이스 RS TLR 28c 튜블리스 로드 타이어",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 290,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "700×28c (ETRTO 28-622) Made-in-Italy SpeedCore Tubeless-Ready Racing Tire",
+    "connectivity": [],
+    "battery_life_hours": null,
+    "waterproof_rating": null,
+    "tire_width_mm": 28,
+    "hookless_compatible": true,
+    "hookless_max_psi": 72.5,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "ETRTO Size", "key_ko": "ETRTO 규격", "value": "28-622 (700×28c)" },
+      { "key_en": "Official Claimed Weight", "key_ko": "공식 무게", "value": "290 g" },
+      { "key_en": "Casing Construction", "key_ko": "케이싱 구조 (TPI)", "value": "120 TPI SpeedCore (thin aramid-infused airtight inner layer)" },
+      { "key_en": "Rubber Compound", "key_ko": "컴파운드", "value": "SmartEVO² (WorldTour motorsport-derived racing compound)" },
+      { "key_en": "Manufacturing Origin", "key_ko": "생산지 및 인증", "value": "Made in Bollate (Milan), Italy — FSC-certified natural rubber" },
+      { "key_en": "Bead Architecture", "key_ko": "비드 설계", "value": "Redesigned TLR bead for secure retention on hooked & TSS hookless rims" },
+      { "key_en": "Hookless (TSS) Compatibility", "key_ko": "후크리스(TSS) 림 호환", "value": "Approved for 28 mm+ hookless rims (26 mm size is hooked-only!)" },
+      { "key_en": "Max Pressure (Hookless)", "key_ko": "최대 공기압 (후크리스)", "value": "5.0 bar / 72.5 psi (ETRTO TSS max limit)" },
+      { "key_en": "Recommended Internal Rim Width", "key_ko": "권장 내부 림폭", "value": "19–25 mm internal width (verify wheelset OEM approved tire chart)" },
+      { "key_en": "Air Retention Characteristic", "key_ko": "공기압 유지 특성", "value": "SpeedCore airtight aramid-rubber liner improves tubeless sealing & retention" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "700c (622 mm) Hooked and ETRTO TSS Hookless rims (28 mm+ ONLY; 26 mm version is hooked-only)",
+    "freehub_or_cleat_standard": "Tubeless-Ready (TLR) folding aramid bead (compatible with standard latex sealants)",
+    "drivetrain_compatible": [
+      "Universal 700c disc & rim road frames with >= 30 mm tire clearance"
+    ],
+    "head_unit_or_app_verified": [
+      "Pirelli Official Tire Pressure & Rim-Width Chart",
+      "ENVE / Zipp / Bontrager / DT Swiss Hookless Approved Tire Lists"
+    ],
+    "incompatible_notes_en": [
+      "NEVER inflate above 5.0 bar (72.5 psi) on hookless (TSS) rims, and confirm your wheelset's official compatibility chart — Pirelli restricts 26 mm RS TLR to hooked rims only.",
+      "Slightly heavier (290 g) than GP5000 S TR (280 g) and Corsa PRO (280 g) in 28c due to the SpeedCore inner liner and redesigned secure TLR bead."
+    ],
+    "incompatible_notes_ko": [
+      "후크리스(TSS) 림에서는 ETRTO 최대 허용 공기압 5.0 bar(72.5 psi)를 절대 초과하지 마십시오. 26 mm 모델은 후크리스 사용 불가이며 28 mm 이상만 후크리스 호환입니다.",
+      "강화된 SpeedCore 내부 기밀층과 고강도 TLR 비드 설계 덕분에 28c 기준 290 g으로 GP5000 S TR(280 g)·코르사 프로(280 g) 대비 약 10 g 무겁습니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": true,
+    "torque_or_install_note_en": "MANDATORY HOOKLESS SAFETY WARNING: On hookless (TSS) rims, NEVER exceed 5.0 bar (72.5 psi) ETRTO maximum pressure and ALWAYS check your rim manufacturer's official approved tire list before inflating. Confirm full 360-degree bead seating line visibility on both sides of the rim and use tubeless sealant when running hookless.",
+    "torque_or_install_note_ko": "필수 후크리스(Hookless) 안전 경고: 후크리스(TSS) 림 장착 시 ETRTO 최대 공기압 5.0 bar(72.5 psi)를 절대 넘기지 마시고, 주입 전 반드시 휠셋 제조사의 공식 승인 타이어 리스트를 확인하세요. 림 양쪽 비드 안착선을 360도 전 구간 육안 확인한 뒤 튜블리스 실란트를 넣어 사용해야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Pirelli P Zero Race RS TLR 28 mm",
+      "title": "Pirelli P Zero Race TLR RS (28 mm): Made-in-Italy SmartEVO² & SpeedCore Specs",
+      "summary": "Pirelli's flagship Made-in-Italy WorldTour racing tire pairing SmartEVO² compound with an aramid-infused SpeedCore casing (120 TPI, 290 g) for confident wet/dry grip, airtight tubeless ease, and 5.0 bar (72.5 psi) hookless support.",
+      "best_for": "Fast-group and race riders who want easy tubeless setup, strong air retention from the SpeedCore liner, and predictable wet/dry cornering grip with Italian factory quality control.",
+      "local_gotchas": [
+        "Unlike earlier P Zero Race TLR generations, the RS version moves production to Pirelli's Milan (Bollate) plant with FSC-certified natural rubber and a revised bead profile tailored for modern 21–25 mm internal rims.",
+        "Because the RS is Pirelli's fastest race-day compound, riders prioritizing winter durability or 6,000+ km mileage should cross-shop standard P Zero Race TLR or GP5000 AS TR.",
+        "Do not confuse 'P Zero Race TLR RS' (SmartEVO², race flagship) with older non-RS 'P Zero Race TLR' (SmartEVO) when comparing street prices."
+      ]
+    },
+    "ko": {
+      "name": "피렐리 피제로 레이스 RS TLR 28c",
+      "title": "피렐리 피제로 레이스 RS TLR 28mm: 이탈리아 생산 SmartEVO²·SpeedCore 스펙 총정리",
+      "summary": "이탈리아 밀라노 볼라테 공장에서 생산되는 피렐리 최상위 로드 레이스 튜블리스 타이어입니다. SmartEVO² 컴파운드와 아라미드 기밀층 SpeedCore(120 TPI, 290 g)로 민첩한 주행감과 쾌적한 튜블리스 장착성·공기압 유지를 동시에 달성했습니다.",
+      "best_for": "코튼 타이어의 공기압 누수나 타이트한 장착 스트레스 없이, 프로 펠로톤급 접지력과 안정적인 튜블리스 기밀성을 원하는 레이스·고속 팩 라이더.",
+      "local_gotchas": [
+        "동일한 피제로 라인업 내 일반 'P Zero Race TLR'(구형 SmartEVO)과 최상위 'P Zero Race TLR RS'(신형 SmartEVO²)는 컴파운드와 비드 설계가 완전히 다르므로 구매 시 'RS' 표기를 반드시 확인하세요.",
+        "SpeedCore 아라미드 고무 라이너 덕분에 플로어 펌프만으로도 비드 안착이 비교적 수월하고 공기압 유지력이 뛰어납니다.",
+        "국내 정발가(15만 원대)가 최상위 티어이므로 앞바퀴 그립과 뒷바퀴 마모를 고려해 시즌 레이스용으로 운용하거나 GP5000 S TR과 비교 선택하는 것이 효율적입니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Pirelli Cycling Official — P ZERO Race TLR RS Product Specifications",
+      "url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Pirelli Official — Bollate Italy Factory & FSC Certified SmartEVO² Technical Release",
+      "url": "https://www.pirelli.com/cycling/en-ww/road",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
+      "url": "https://www.etrto.org/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["continental-gp5000-s-tr-28", "vittoria-corsa-pro-tlr-28"]
+}

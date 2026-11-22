@@ -1,0 +1,146 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "power-meter",
+  "slug": "favero-assioma-duo",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Favero Electronics",
+  "model_number": "772-02",
+  "origin_country": "IT",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "772-02",
+      "msrp": 649.0,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Favero Assioma DUO dual sided power meter pedals Look Keo 772-02",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "772-02-KR",
+      "msrp": 950000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "파베로 아시오마 듀오 양발 파워미터 페달 룩 케오",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 303,
+    "claimed_accuracy_pct": 1.0,
+    "left_right_balance": true,
+    "mount_or_form_factor": "Dual-sided road power meter pedals with spindle-collar sensor pods",
+    "connectivity": ["ANT+ PWR", "Bluetooth 4.0", "IAV Cycling Dynamics"],
+    "battery_life_hours": 50,
+    "waterproof_rating": "IP67",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Pair Weight", "key_ko": "페달 페어 무게", "value": "303 g (151.5 g per pedal incl. battery)" },
+      { "key_en": "Cleat System", "key_ko": "클릿 규격", "value": "Look Keo (original Look Keo or supplied Favero/Xpedo red 6°)" },
+      { "key_en": "Claimed Accuracy", "key_ko": "공식 정확도 오차", "value": "±1.0% (IAV Power System, oval chainring compatible)" },
+      { "key_en": "Stack Height", "key_ko": "스택 높이", "value": "10.5 mm" },
+      { "key_en": "Q-Factor", "key_ko": "Q-팩터", "value": "+54 mm" },
+      { "key_en": "Battery & Runtime", "key_ko": "배터리 및 사용 시간", "value": "Rechargeable Li-ion, at least 50 hrs per charge" },
+      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IP67 (resin-potted electronics)" },
+      { "key_en": "Cycling Dynamics", "key_ko": "사이클링 다이내믹스", "value": "L/R Balance, IAV Power Phase, IAV Rider Position, TE, PS" },
+      { "key_en": "Operating Temp / ATC", "key_ko": "온도 보정 범위", "value": "-10°C to +60°C active temperature compensation" },
+      { "key_en": "Sensor Architecture", "key_ko": "센서 구조", "value": "External collar pod on both left and right spindles" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Universal 9/16\"x20 TPI crank thread (zero BB dependency: BSA, BB86/PF86, T47, BB30, PF30)",
+    "freehub_or_cleat_standard": "Look Keo 3-bolt road cleats (NOT Shimano SPD-SL)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9270 / Ultegra R8170 / 105 R7170 12s Di2",
+      "Shimano 11s Road",
+      "SRAM RED / Force / Rival AXS 12s",
+      "Campagnolo 11s / 12s / 13s",
+      "Oval Chainrings"
+    ],
+    "head_unit_or_app_verified": [
+      "COROS DURA",
+      "Garmin Edge 840 Solar",
+      "Garmin Edge 1050",
+      "Wahoo ELEMNT ROAM V2",
+      "Hammerhead Karoo",
+      "Zwift / TrainerRoad / Intervals.icu"
+    ],
+    "incompatible_notes_en": [
+      "Strictly incompatible with Shimano SPD-SL cleats; Shimano riders must switch shoes to Look Keo cleats or choose Favero Assioma PRO RS-2 instead.",
+      "External sensor collar pod requires at least 1–2 mm clearance from wide shoe soles and crank-arm boot protectors (remove silicone crank boots before installation)."
+    ],
+    "incompatible_notes_ko": [
+      "시마노 SPD-SL 클릿과는 호환되지 않습니다. 시마노 클릿을 그대로 유지하려면 아시오마 프로 RS-2 또는 가민 랠리 RS200을 선택해야 합니다.",
+      "스핀들 외장 포드 구조 특성상 두꺼운 실리콘 크랭크암 보호 커버(크랭크 부츠) 장착 시 포드와 간섭이 발생할 수 있으므로 보호 커버를 제거하고 장착해야 합니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Apply light grease to pedal threads and torque to 35–40 Nm with an 8 mm hex wrench; use the included washer only if the sensor pod sits closer than 1 mm to the crank arm face. Verify shoe-sole clearance from the pod before clipping in.",
+    "torque_or_install_note_ko": "나사산에 구리스를 바른 뒤 8 mm 육각 렌치로 35–40 Nm 규정 토크로 조여주세요. 센서 포드와 크랭크암 면 사이 간격이 1 mm 미만일 때만 동봉 와셔를 사용하며, 클릿 슈즈 바닥면과 포드 간섭 여부를 반드시 사전 확인하세요."
+  },
+  "i18n": {
+    "en": {
+      "name": "Favero Assioma DUO",
+      "title": "Favero Assioma DUO Power Meter: Proven ±1.0% Look Keo Dual-Sided Benchmark",
+      "summary": "Industry benchmark Look Keo dual-sided power meter pedals at 303 g per pair, ±1.0% IAV accuracy, 50-hour rechargeable battery, and automatic zero-offset reliability proven across years of racing.",
+      "best_for": "Look Keo riders seeking proven ±1.0% dual-sided accuracy and automatic temperature compensation at a lower street price than newer pod-free pedals.",
+      "local_gotchas": [
+        "Supplied Favero red cleats (6° float) use Xpedo geometry — many riders prefer genuine Look Keo Grip grey (4.5°) cleats for quieter clip-in and better walking grip.",
+        "External sensor pods can rub oversized winter overshoes or thick carbon sole arches if cleat lateral positioning is pushed all the way inward.",
+        "Unlike the newer Assioma PRO RS-2, DUO does not support PCO (Platform Center Offset) and uses legacy 2-pin magnetic charging clips."
+      ]
+    },
+    "ko": {
+      "name": "파베로 아시오마 듀오",
+      "title": "파베로 아시오마 듀오(DUO): 검증된 ±1.0% 룩 케오 양발 파워미터 스펙·호환성",
+      "summary": "수년간 로드 동호인과 프로 계측에서 신뢰성이 입증된 룩 케오(Look Keo) 양발 파워미터 페달입니다. 페어 303 g, ±1.0% IAV 정확도, 50시간 충전식 배터리와 IP67 완전 몰딩 방수를 제공합니다.",
+      "best_for": "이미 룩 케오 클릿을 사용 중이거나, 포드리스 신형 대비 합리적인 가격으로 검증된 양발 파워미터 정확도를 원하는 로드 라이더.",
+      "local_gotchas": [
+        "기본 동봉된 파베로 빨간 클릿(6도 유격, Xpedo 규격)은 삐걱거림이 발생할 수 있어 정품 룩 케오 그립(Look Keo Grip) 회색 4.5도 클릿으로 교체해 쓰는 라이더가 많습니다.",
+        "시마노 SPD-SL에서 넘어오는 경우 페달 본체 외에 룩 케오 클릿 교체 비용과 안장 높이 미세 조정이 필요하므로 신형 아시오마 프로 RS-2와의 총비용 차이를 꼭 비교하세요.",
+        "외장 센서 포드 때문에 방한 슈즈 커버나 클릿을 최대한 안쪽으로 밀착 세팅할 때 포드 마찰이 생기지 않도록 간격을 확인해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Favero Assioma DUO Official Specifications Page",
+      "url": "https://cycling.favero.com/en/assiomaduo",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Favero Assioma Official User Manual & Technical Support",
+      "url": "https://cycling.favero.com/en/support",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ANT+ Certified Power Meter Device Directory",
+      "url": "https://www.thisisant.com/directory/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 92,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["favero-assioma-pro-rs-2", "garmin-rally-rs200"]
+}

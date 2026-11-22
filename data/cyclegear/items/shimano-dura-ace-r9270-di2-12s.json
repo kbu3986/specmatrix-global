@@ -1,0 +1,145 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "drivetrain",
+  "slug": "shimano-dura-ace-r9270-di2-12s",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Shimano",
+  "model_number": "R9270-DI2-12S",
+  "origin_country": "JP",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "R9270-DI2-12S",
+      "msrp": 4199.0,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Shimano Dura-Ace R9270 Di2 12 speed hydraulic disc groupset",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "R9270-DI2-12S-KR",
+      "msrp": 5100000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "시마노 듀라에이스 R9270 Di2 12단 디스크 그룹셋 나눅스",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 2480,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "12-speed semi-wireless hydraulic disc electronic road groupset (ST-R9270 / RD-R9250 / FD-R9250 / FC-R9200)",
+    "connectivity": ["Shimano Proprietary Wireless (Shifters)", "ANT+ D-Fly (built-in RD-R9250)", "Bluetooth LE (E-TUBE PROJECT)"],
+    "battery_life_hours": 35,
+    "waterproof_rating": "Weather-sealed (EW-SD300 gasketed)",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": 12,
+    "key_specs_kv": [
+      { "key_en": "Complete Groupset Weight", "key_ko": "풀 그룹셋 기준 무게", "value": "~2,480 g (52/36T, 11-30T, rotors, calipers, BT-DN300, EW-SD300 wires)" },
+      { "key_en": "Shifting Architecture", "key_ko": "변속 통신 구조", "value": "Semi-wireless: wireless ST-R9270 hoods → RD-R9250 hub; wired EW-SD300 to BT-DN300 & FD" },
+      { "key_en": "Main Battery & Runtime", "key_ko": "메인 배터리 및 수명", "value": "BT-DN300 internal Li-ion (52 g, 3× SD300 ports) — ~1,000 km (~35 hrs riding)" },
+      { "key_en": "Shifter Coin Batteries", "key_ko": "레버 코인 배터리", "value": "1× CR1632 per ST-R9270 lever (1.5–2 yrs life; optional wired SD300 port)" },
+      { "key_en": "Freehub Compatibility", "key_ko": "프리허브 바디 규격", "value": "CS-R9200 12s fits BOTH 12s HG-L2 AND legacy 11s Shimano HG-EV road freehubs" },
+      { "key_en": "Cassette & Chain Standard", "key_ko": "카세트·체인 규격", "value": "CS-R9200 Hyperglide+ (11-30T / 11-34T) + CN-M9100 12s HG+ chain" },
+      { "key_en": "Crank Spindle / BB Standard", "key_ko": "크랭크 스핀들 / BB 규격", "value": "FC-R9200 24 mm Shimano Hollowtech II (BSA, BB86/PF86, T47-24mm)" },
+      { "key_en": "Electronic Wire Standard", "key_ko": "전동 케이블 규격", "value": "EW-SD300 (2.4 mm slim plugs; charging via magnetic EW-EC300 port on RD-R9250)" },
+      { "key_en": "Hydraulic Brake Fluid", "key_ko": "유압 브레이크 오일", "value": "Shimano Mineral Oil + SERVO WAVE calipers (10% wider pad clearance)" },
+      { "key_en": "Built-In D-Fly Hood Controls", "key_ko": "내장 D-Fly 후드 버튼", "value": "RD-R9250 integrates ANT+/BLE D-Fly natively — map top hood buttons to head units" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Shimano Hollowtech II 24 mm spindle (native BSA 68 mm & BB86/PF86 such as Lapierre Aircode DRS; T47/BB30/PF30 with 24 mm BB) + Flat-Mount Disc",
+    "freehub_or_cleat_standard": "Shimano 12s HG-L2 & backward-compatible 11s HG-EV road freehub (NOT SRAM XDR)",
+    "drivetrain_compatible": [
+      "Shimano Ultegra R8170 / 105 R7170 12s Di2 components (cross-compatible EW-SD300 & cassettes)",
+      "Favero Assioma PRO RS-2 & DUO / Garmin Rally RS200 (zero crank conflict)",
+      "Magene PES P505 Base 24 mm spindle power meter (reuses 110 BCD 4-bolt R9200 chainrings)",
+      "Wahoo KICKR CORE & Tacx NEO 2T (12s CS-R9200 mounts directly to stock 11s HG trainer freehub!)"
+    ],
+    "head_unit_or_app_verified": [
+      "COROS DURA (native BLE/ANT+ gear ratio + hood button page/lap control)",
+      "Garmin Edge 840 Solar & Edge 1050 (gear display + hood button bell/page control)",
+      "Wahoo ELEMNT ROAM V2 (gear display + hood button control)",
+      "Shimano E-TUBE PROJECT Cyclist App (Synchro Shift & button customization)"
+    ],
+    "incompatible_notes_en": [
+      "STRICTLY INCOMPATIBLE with SRAM 12-speed Flattop chains or SRAM XDR cassettes — Flattop chains use larger rollers that accelerate wear and cause poor shifting on Shimano Hyperglide+ teeth.",
+      "12-speed EW-SD300 wires (2.4 mm) and RD-R9250/FD-R9250 derailleurs are NOT directly cross-compatible with 11-speed R9150/R8050 Di2 components or legacy BT-DN110 batteries.",
+      "While CS-R9200 12s cassettes fit legacy 11s HG road hubs, older 11s Shimano cassettes will NOT slide onto 12s-only Shimano HG-L2 wheelset freehubs (such as WH-R9270 wheels)."
+    ],
+    "incompatible_notes_ko": [
+      "스램 12단 플랫탑(Flattop) 체인 및 XDR 카세트와는 절대 혼용 불가입니다(롤러 직경·피치 설계가 달라 시마노 하이퍼글라이드+ 변속 트러블 및 급격한 마모 유발).",
+      "12단 EW-SD300(2.4 mm) 케이블과 R9250 앞·뒤 변속기는 구형 11단 Di2(EW-SD50 / BT-DN110 / R9150)와 호환되지 않습니다.",
+      "CS-R9200 12단 카세트는 기존 11단 HG 로드 프리허브(스마트 로라 포함)에 바로 장착되지만, 반대로 12단 전용 HG-L2 프리허브(예: WH-R9270 휠셋)에는 구형 11단 카세트가 장착되지 않습니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Torque FC-R9200 left crank arm pinch bolts alternately to 12–14 Nm (after seating the safety stopper plate), CS-R9200 cassette lockring to 40 Nm (30–50 Nm range), and Centerlock rotor lockrings to 40 Nm. Use ONLY genuine Shimano Mineral Oil — DOT brake fluid will destroy caliper seals immediately.",
+    "torque_or_install_note_ko": "FC-R9200 좌측 크랭크암 고정 볼트 2개는 안전 스토퍼 핀 삽입 후 번갈아가며 12–14 Nm로 체결하고, 카세트 락링과 센터락 로터 락링은 40 Nm로 조여주세요. 유압 브레이크에는 반드시 시마노 순정 미네랄 오일만 사용해야 하며 DOT 오일 혼입 시 씰이 즉각 파손됩니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Shimano Dura-Ace R9270 Di2 12s",
+      "title": "Shimano Dura-Ace R9270 Di2 12-Speed: Semi-Wireless EW-SD300, HG-L2 & Compatibility Guide",
+      "summary": "Shimano's flagship 12-speed semi-wireless hydraulic disc groupset (~2,480 g) featuring lightning-fast Hyperglide+ shifting, built-in RD-R9250 D-Fly wireless head-unit controls, backward-compatible 11/12s HG cassette fitment, and 24 mm Hollowtech II rigidity.",
+      "best_for": "Racers and fast road cyclists seeking the fastest front-derailleur shifting under load, 11/12-speed wheelset & trainer HG freehub compatibility, and mineral-oil hydraulic modulation.",
+      "local_gotchas": [
+        "Because the wireless ANT+/BLE D-Fly chip is now built directly into RD-R9250, you do NOT need to buy an inline EW-WU111 module to control COROS DURA, Garmin Edge, or Wahoo ROAM from the top hood buttons.",
+        "Unlike SRAM AXS removable derailleur batteries, the BT-DN300 sits hidden inside the seatpost — bring the proprietary EW-EC300 magnetic charging cable on multi-week trips (~1,000 km per charge).",
+        "If installing on a BB86 frame (e.g., Lapierre Aircode DRS, Giant Propel), Shimano's 24 mm Hollowtech II spindle leaves generous room for durable large-ball bearings inside the 41 mm shell."
+      ]
+    },
+    "ko": {
+      "name": "시마노 듀라에이스 R9270 Di2 12단",
+      "title": "시마노 듀라에이스 R9270 Di2 12단: 세미무선 EW-SD300·HG-L2·호환성 완벽 가이드",
+      "summary": "폭발적인 부하 상태에서도 번개처럼 변속되는 하이퍼글라이드+ 12단과 세미무선 통신, 뒷변속기 내장 D-Fly 무선 칩을 결합한 시마노 최상위 로드 전동 그룹셋(~2,480 g)입니다.",
+      "best_for": "최상급 앞변속 속도와 부드러운 시마노 미네랄 오일 브레이크 필링, 기존 11단 HG 휠셋·스마트 로라와의 호환성, 코로스·가민·와후 후드 버튼 연동을 중시하는 본격 로드 사이클리스트.",
+      "local_gotchas": [
+        "12단 RD-R9250 뒷변속기에 무선 D-Fly(ANT+/BLE)가 기본 내장되어 구형 11단처럼 EW-WU111 모듈을 별도 구매할 필요 없이 코로스 듀라·가민 엣지·와후 롬과 바로 후드 버튼 연동이 됩니다.",
+        "싯포스트 내장 BT-DN300 단일 배터리는 1회 충전 약 1,000 km를 주행하며 뒷변속기 전용 EW-EC300 케이블로 충전합니다(레버는 각 CR1632 코인 배터리 1개, 약 1.5–2년 수명).",
+        "라피에르 에어코드 DRS·자이언트 프로펠 같은 BB86(41 mm 쉘) 에어로 프레임에서는 24 mm 할로우테크 II 스핀들이 대구경 베어링 공간 확보에 유리해 내구성 면에서 강점이 큽니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Shimano Official — DURA-ACE R9200 12-Speed Series Component Lineup",
+      "url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Shimano Technical Documents (SI) — DURA-ACE R9200 Dealer Manuals & Torque Specs",
+      "url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Shimano E-TUBE Compatibility Chart (EW-SD300 / BT-DN300 / HG-L2)",
+      "url": "https://productinfo.shimano.com/en/compatibility",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["sram-red-axs-e1-12s", "favero-assioma-pro-rs-2"]
+}
