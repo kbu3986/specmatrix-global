@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "electrolyte",
+  "slug": "pocari-sweat-ion-powder-74g",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Otsuka Pharmaceutical",
+  "model_number": "POCARI-PWD-74G-5PK",
+  "origin_country": "JP",
+  "package_spec": {
+    "net_weight_g": 370,
+    "total_servings": 5,
+    "serving_weight_g": 74,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Original Citrus Ion"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 288,
+    "active_ingredient_type": "electrolytes_sodium_potassium",
+    "active_per_serving_g": 0.734,
+    "protein_g": 0,
+    "carbs_g": 72,
+    "fat_g": 0,
+    "sugar_g": 68,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 520,
+    "potassium_mg": 214,
+    "magnesium_mg": 6,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "isotonic",
+    "free_form_amino_listed": true,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (sweetened with sugar, glucose, and dextrin; zero artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 0.99,
+    "total_pure_active_g": 3.67,
+    "benchmark_unit_g": 1,
+    "benchmark_label_en": "per 1,000 mg Na+K",
+    "benchmark_label_ko": "순수 나트륨+칼륨 1,000 mg당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "C"
+  },
+  "certifications": [
+    "HACCP",
+    "FSSC 22000"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "POCARI-74G-5PK-US",
+      "msrp": 11.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Pocari Sweat Ion Supply Powder 74g 5 pack",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "POCARI-74G-5PK-KR",
+      "msrp": 8000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "동아오츠카 포카리스웨트 분말 74g 5개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Otsuka Pocari Sweat Ion Supply Powder 74 g (5-Pack / 5 L)",
+      "title": "Pocari Sweat 74 g Powder: Cost per 1,000 mg Na+K, 72 g Sugar & Isotonic Audit",
+      "summary": "Classic Japanese isotonic ion-drink sachet (74 g makes 1 L) delivering 520 mg sodium, 214 mg potassium, and 72 g carbohydrates with zero artificial sweeteners.",
+      "best_for": "Budget endurance training in Korea/Japan where 1 L of isotonic carb-and-electrolyte drink costs under ₩1,600 per liter",
+      "local_gotchas": [
+        "Electrolyte purity by powder mass is just 0.99% because 97.3% (72 g) is sugar, glucose, and dextrin—treat it as a combined carb+electrolyte drink, not a low-calorie salt replacement.",
+        "Regional KR (Dong-A Otsuka) vs JP (Otsuka) labels show slight sodium-reporting differences (typically ~490–520 mg/L on standard 74 g packs); check the local nutrition panel.",
+        "Ingredient list includes amino-acid flavor enhancers (MSG/seasoning amino acids) alongside citric acid and powdered fruit juice."
+      ]
+    },
+    "ko": {
+      "name": "동아오츠카 포카리스웨트 분말 74 g (5개입 / 5 L용)",
+      "title": "포카리스웨트 분말 74 g: 순수 Na+K 1,000 mg당 실단가·72 g 당류·이온음료 분석",
+      "summary": "물 1 L에 녹이는 74 g 1봉당 나트륨 520 mg, 칼륨 214 mg, 탄수화물 72 g(288 kcal)을 공급하며, 국내 5개입 8,000원 기준 리터당 1,600원꼴로 압도적 접근성과 가성비를 제공합니다.",
+      "best_for": "국내 일상 로드사이클·장거리 러닝 훈련에서 저비용으로 수분·탄수화물·기초 전해질을 함께 보충하려는 입문 및 중급 동호인",
+      "local_gotchas": [
+        "74 g 중 72 g(97.3%)이 설탕·포도당·덱스트린이라 순수 전해질(Na+K) 밀도는 0.99%에 불과합니다. 저칼로리 염분 보충이나 다이어트 중 수분 섭취 용도로는 부적합합니다.",
+        "500 mL 보틀 1통(반 봉, 37 g) 기준 나트륨이 약 260 mg이므로 한여름 장거리 고발한 라이딩에는 PH 1500·1000 등 고나트륨 발포정과 병행이 필요합니다.",
+        "원재료명에 조미용 아미노산(향미증진제)이 표기되어 있으며, 인공감미료는 미사용(설탕·포도당 기반)입니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Otsuka Pharmaceutical Official Product Page — Pocari Sweat",
+      "url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Otsuka Pocari Sweat Powder 74 g Official Specification Reference",
+      "url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/powder/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 96,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "skratch-labs-sport-hydration-mix",
+    "tailwind-endurance-fuel",
+    "sis-hydro-electrolyte-tablets"
+  ]
+}

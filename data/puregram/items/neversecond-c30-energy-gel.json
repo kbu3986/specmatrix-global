@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "neversecond-c30-energy-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Neversecond",
+  "model_number": "N2-C30-GEL-12",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 720,
+    "total_servings": 12,
+    "serving_weight_g": 60,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Citrus",
+      "Berry",
+      "Passion Fruit",
+      "Fruit Punch",
+      "Unflavored"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 120,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 30,
+    "protein_g": 0,
+    "carbs_g": 30,
+    "fat_g": 0,
+    "sugar_g": 10,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "2:1",
+    "caffeine_mg": 0,
+    "sodium_mg": 200,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (2:1 maltodextrin and fructose with natural flavors; zero artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 50,
+    "total_pure_active_g": 360,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 3,
+    "purity_grade": "B+"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "N2-C30-GEL-12-US",
+      "msrp": 42,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Neversecond C30 Energy Gel box 12",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "N2-C30-GEL-12-KR",
+      "msrp": 66000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "네버세컨드 C30 에너지젤 12개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Neversecond C30 Energy Gel (Box of 12)",
+      "title": "Neversecond C30 Energy Gel: Cost per 30 g Carbs, 200 mg Sodium & Fluid Texture Audit",
+      "summary": "WorldTour-adopted 60 g thin-liquid gel delivering a modular 30 g of 2:1 carbs plus 200 mg sodium per pouch—designed to be swallowed easily with or without water.",
+      "best_for": "Marathoners and pro-style road cyclists who want 30 g carbs AND 200 mg sodium bundled into one easy-to-swallow fluid pouch",
+      "local_gotchas": [
+        "At 200 mg sodium per gel, 3 gels/hr automatically supply 600 mg sodium/hr—ideal in warm races, though watch total sodium if also drinking high-salt mixes.",
+        "Marketed as thin-liquid 'no water required', though 30 g carbs in 60 mL is denser than strictly isotonic SiS GO (22 g/60 mL); sipping water still helps in heat.",
+        "At $3.50 per 30 g carbs, it costs 50% more than Precision PF 30 ($2.33/30 g)—you are paying for built-in sodium and fluid viscosity."
+      ]
+    },
+    "ko": {
+      "name": "네버세컨드 C30 에너지젤 (12개입 박스)",
+      "title": "네버세컨드 C30 에너지젤: 순수 탄수화물 30 g당 실단가·나트륨 200 mg 올인원 분석",
+      "summary": "월드투어 사이클링 팀들이 채택한 60 g 묽은 액상 젤로, 1포에 2:1 탄수화물 30 g과 나트륨 200 mg을 함께 담아 물 없이도 목 넘김이 빠릅니다.",
+      "best_for": "별도 염분 정제를 챙기기 번거롭고, 시간당 3포(탄수화물 90 g + 나트륨 600 mg)로 깔끔하게 올인원 보급하려는 로드사이클리스트·마라토너",
+      "local_gotchas": [
+        "1포에 나트륨 200 mg이 기본 포함되므로 시간당 3포 섭취 시 나트륨 600 mg이 자동 보급됩니다. 고염분 전해질 음료(PH 1500 등)와 중복 과다 섭취를 점검하세요.",
+        "물 없이 섭취 가능한 묽은 액상 제형이지만, 60 mL에 탄수화물 30 g(밀도 50%)이 들어 있어 순수 등장성 젤보다는 농도가 높으므로 더운 날에는 수분 보충을 병행하는 것이 좋습니다.",
+        "30 g 탄수화물 기준 단가는 프리시전 PF 30 대비 약 50% 높지만, 내장 나트륨과 액상 편의성이 핵심 차별점입니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Neversecond Official Product Sheet — C30 Energy Gel",
+      "url": "https://never2.com/products/c30-energy-gel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Product Page — Neversecond C30 Energy Gel",
+      "url": "https://www.informed-sport.com/countries/global/certified-product/neversecond/c30-energy-gel",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "precision-pf-30-gel",
+    "sis-beta-fuel-gel",
+    "maurten-gel-100"
+  ]
+}

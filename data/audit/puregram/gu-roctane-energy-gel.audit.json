@@ -1,0 +1,34 @@
+{
+  "sku_slug": "gu-roctane-energy-gel",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "GU Roctane Energy Gel box of 24 x 32 g packets (768 g net) retailing at $72.00 USD on guenergy.com.",
+      "source_url": "https://guenergy.com/products/roctane-energy-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label (Sea Salt Chocolate reference)",
+      "quote": "Per 32 g packet (Sea Salt Chocolate): 100 kcal, 19 g total carbs (7 g sugars), 1.5 g total fat, 0 g protein, 180 mg sodium, 55 mg potassium, 35 mg caffeine, 1,425 mg Roctane Amino Blend (L-Leucine, Taurine, L-Valine, Beta-Alanine, L-Isoleucine).",
+      "source_url": "https://guenergy.com/products/roctane-energy-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "GU Roctane Energy Gels are Informed Choice certified, vegan, gluten-free, and kosher.",
+      "source_url": "https://choice.wetestyoutrust.com/",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 32 g x 24 = 768 g net weight (0.0% deviation) and 19 g / 32 g = 59.38% carb purity.",
+    "Verified Atwater calorie math on Sea Salt Chocolate panel: 4*19 + 9*1.5 = 89.5 kcal vs 100 kcal declared (10.5% deviation <= 15%, remaining kcal from 1.425 g free amino acids).",
+    "Documented Sea Salt Chocolate (19 g carbs, 180 mg Na) vs fruit flavors (21 g carbs, 125 mg Na) variance transparently.",
+    "Reported free-form amino blend purely as an objective label fact under SM-05 YMYL rules."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

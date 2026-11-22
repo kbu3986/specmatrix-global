@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "electrolyte",
+  "slug": "sis-hydro-electrolyte-tablets",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Science in Sport",
+  "model_number": "SIS-HYDRO-20",
+  "origin_country": "GB",
+  "package_spec": {
+    "net_weight_g": 84,
+    "total_servings": 20,
+    "serving_weight_g": 4.2,
+    "unit_type": "tablet",
+    "flavors_tracked": [
+      "Berry",
+      "Lemon",
+      "Pineapple & Mango",
+      "Pink Grapefruit",
+      "Cola (+75 mg Caf)"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 9,
+    "active_ingredient_type": "electrolytes_sodium_potassium",
+    "active_per_serving_g": 0.41,
+    "protein_g": 0,
+    "carbs_g": 0.8,
+    "fat_g": 0,
+    "sugar_g": 0.1,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 345,
+    "potassium_mg": 65,
+    "magnesium_mg": 8.1,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "none",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": true,
+    "sweetener_details": "Sucralose and sorbitol (low-calorie effervescent electrolyte tablet)"
+  },
+  "derived_math": {
+    "purity_pct": 9.76,
+    "total_pure_active_g": 8.2,
+    "benchmark_unit_g": 1,
+    "benchmark_label_en": "per 1,000 mg Na+K",
+    "benchmark_label_ko": "순수 나트륨+칼륨 1,000 mg당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "B"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "SIS-HYDRO-20-US",
+      "msrp": 11.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SiS GO Hydro Electrolyte Tablets 20 tube",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "SIS-HYDRO-20-KR",
+      "msrp": 16500,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SiS GO 하이드로 전해질 발포정 20정",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "SiS GO Hydro Electrolyte Tablets (Tube of 20)",
+      "title": "SiS GO Hydro Tablets: Cost per 1,000 mg Na+K, 345 mg Sodium & Informed Sport Audit",
+      "summary": "Virtually zero-calorie (9 kcal) Informed Sport certified effervescent tablets packing 345 mg sodium and 65 mg potassium per 4.2 g tablet at $1.46 per 1,000 mg Na+K.",
+      "best_for": "Everyday indoor trainer sessions, Z2 rides, and budget-friendly Informed Sport electrolyte replenishment without added sugar",
+      "local_gotchas": [
+        "Moderate sodium (345 mg per 500 mL tablet = 690 mg/L) suits cool-to-warm training, whereas salty sweaters in summer heat often double up or use PH 1500.",
+        "Contains sucralose and sorbitol—sensitive stomachs should avoid exceeding SiS's label cap of 4 tablets per day.",
+        "Cola flavor adds 75 mg caffeine per tablet while Berry, Lemon, and Pineapple & Mango are 0 mg caffeine."
+      ]
+    },
+    "ko": {
+      "name": "SiS GO 하이드로 전해질 발포정 (20정 튜브)",
+      "title": "SiS GO 하이드로 발포정: 순수 Na+K 1,000 mg당 실단가·저칼로리 9 kcal 분석",
+      "summary": "1정(4.2 g)당 9 kcal 초저열량으로 나트륨 345 mg·칼륨 65 mg·마그네슘 8.1 mg을 공급하며 20정 튜브 16,500원(국내 기준)으로 일상 인도어·로드 훈련 가성비가 뛰어난 인폼드 스포츠 인증 발포정입니다.",
+      "best_for": "즈위프트 인도어 트레이닝, 존2 유산소 라이딩, 당류 없이 가볍게 전해질만 보충하려는 러너 및 사이클리스트",
+      "local_gotchas": [
+        "1정당 나트륨이 345 mg(1 L 기준 690 mg)으로 일상 훈련에는 충분하지만, 한여름 고온 장거리 대회나 고염분 발한자에게는 PH 1000/1500이 더 적합합니다.",
+        "수크랄로스와 소르비톨이 함유되어 있어 제조사 권장 상한(1일 최대 4정)을 초과하면 복부 팽만감이 생길 수 있습니다.",
+        "콜라 맛은 1정당 카페인 75 mg이 포함되고 베리·레몬·파인애플망고 맛은 무카페인(0 mg)이므로 야간 인도어 세션 전 맛 구성을 확인하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Science in Sport Official Product Page — GO Hydro Tablets",
+      "url": "https://www.scienceinsport.com/go-hydro-tablets",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 90,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "precision-ph-1000-electrolyte",
+    "precision-ph-1500-electrolyte",
+    "skratch-labs-sport-hydration-mix"
+  ]
+}

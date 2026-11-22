@@ -1,0 +1,34 @@
+{
+  "sku_slug": "maurten-gel-100-caf-100",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "Maurten Gel 100 Caf 100 box of 12 servings (40 g sachet, 480 g net) listed at $52.00 USD on maurten.com.",
+      "source_url": "https://maurten.com/products/gel-100-caf-100",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.caffeine_mg & carbs_g",
+      "quote": "Per 40 g serving: 100 kcal (425 kJ), 25 g carbohydrates (25 g sugars, 0.8:1 fructose-to-glucose), 100 mg caffeine, ~22 mg sodium (0.06 g salt), 0 g fat, 0 g protein.",
+      "source_url": "https://maurten.com/products/gel-100-caf-100",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Batch-tested under Informed Sport anti-doping program; vegan formulation with 7 ingredients.",
+      "source_url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 40 g x 12 = 480 g net weight (0.0% deviation) and 25 g / 40 g = 62.5% purity.",
+    "Verified calorie consistency: 4 * 25 g = 100 kcal vs 100 kcal declared (0.0% deviation).",
+    "Flagged caffeine stacking limit (3.6 sachets/hr = 360 mg caffeine) in EN/KO local_gotchas.",
+    "Verified zero overlap with legacy 48-slug blocklist and SM-02 msrp_benchmark_mode compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

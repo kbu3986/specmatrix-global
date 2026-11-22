@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "creatine",
+  "slug": "esn-ultrapure-creatine-monohydrate",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "ESN",
+  "model_number": "ESN-CREAT-500",
+  "origin_country": "DE",
+  "package_spec": {
+    "net_weight_g": 500,
+    "total_servings": 142,
+    "serving_weight_g": 3.5,
+    "unit_type": "scoop",
+    "flavors_tracked": [
+      "Neutral (Unflavored)"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 0,
+    "active_ingredient_type": "creatine_monohydrate",
+    "active_per_serving_g": 3.5,
+    "protein_g": 0,
+    "carbs_g": 0,
+    "fat_g": 0,
+    "sugar_g": 0,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 0,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "none",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None on Neutral unflavored tub (100% micronized creatine monohydrate; flavored ESN variants use sucralose)"
+  },
+  "derived_math": {
+    "purity_pct": 100,
+    "total_pure_active_g": 497,
+    "benchmark_unit_g": 5,
+    "benchmark_label_en": "per 5 g pure creatine",
+    "benchmark_label_ko": "순수 크레아틴 5 g당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "A+"
+  },
+  "certifications": [
+    "Cologne List (Kölner Liste)",
+    "Vegan",
+    "200-Mesh Micronized"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "ESN-CREAT-500-USD",
+      "msrp": 31.9,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "ESN Ultrapure Creatine Monohydrate 500g",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "ESN-CREAT-500-KR",
+      "msrp": 45000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "ESN 울트라퓨어 크레아틴 모노하이드레이트 500g",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "ESN Ultrapure Creatine Monohydrate (500 g Tub)",
+      "title": "ESN Ultrapure Creatine (500 g): Cost per 5 g, EU 3.5 g Scoop & Cologne List Audit",
+      "summary": "Germany's benchmark >200-mesh micronized creatine monohydrate (100% pure, Cologne List tested) priced at €29.90 (~$31.90 USD) for 500 g—just $0.32 per standardized 5 g serving.",
+      "best_for": "Value-focused athletes in Europe and Korea wanting independent anti-doping screening (Cologne List) and fine >200-mesh solubility at 33% below NSF-certified US rivals",
+      "local_gotchas": [
+        "EU EFSA labeling lists 3.5 g creatine monohydrate yielding 3.0 g pure anhydrous creatine (monohydrate is ~88% creatine + ~12% water)—taking US-standard 5 g/day yields 100 doses, not 142.",
+        "ESN Ultrapure is ultra-fine >200-mesh micronized creatine monohydrate, NOT AlzChem Creapure® (ESN sells a separate higher-priced Creapure® SKU).",
+        "Stick to the Neutral (unflavored) tub for 100% purity; flavored ESN Ultrapure tubs increase serving size to 4.0 g and add flavoring/sweeteners."
+      ]
+    },
+    "ko": {
+      "name": "ESN 울트라퓨어 크레아틴 모노하이드레이트 (500 g)",
+      "title": "ESN 울트라퓨어 크레아틴 500 g: 순수 5 g당 실단가·유럽 3.5 g 라벨·쾰른 리스트 분석",
+      "summary": "독일 1위 스포츠 영양 브랜드 ESN의 200메쉬 초미분화 100% 순수 크레아틴 모노하이드레이트로, 유럽 반도핑 검증(쾰른 리스트)을 갖추면서도 5 g당 약 $0.32(약 453원)의 우수한 가성비를 제공합니다.",
+      "best_for": "반도핑 검증(쾰른 리스트)과 찬물 용해력(200메쉬)을 확보하면서 모멘터스 대비 약 33% 저렴한 5 g당 단가를 원하는 운동인",
+      "local_gotchas": [
+        "유럽(EU) 표기 규정상 1스쿱 3.5 g 모노하이드레이트(= 무수 순수 크레아틴 3.0 g) 기준 142회분으로 표기됩니다. 한국·미국식 하루 5 g 기준으로는 정확히 100회분입니다.",
+        "이 제품(Ultrapure)은 일반 200메쉬 미분화 원료이며, 독일 크레아퓨어(Creapure®) 정품 원료는 ESN의 별도 상위 라인업 제품이므로 혼동하지 마세요.",
+        "무맛(Neutral)만 100% 단일 원료 무첨가이며, 가향 버전은 1회 4 g으로 늘어나고 감미료가 추가됩니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "ESN Official Product Page — Ultrapure Creatine Monohydrate 500 g",
+      "url": "https://www.esn.com/products/esn-ultrapure-creatine-500g",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Cologne List (Kölner Liste) Independent Anti-Doping Registry",
+      "url": "https://www.koelnerliste.com/en/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "momentous-creatine-creapure",
+    "jarrow-formulas-creatine-monohydrate"
+  ]
+}

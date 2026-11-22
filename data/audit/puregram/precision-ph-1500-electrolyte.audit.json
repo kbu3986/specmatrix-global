@@ -1,0 +1,34 @@
+{
+  "sku_slug": "precision-ph-1500-electrolyte",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & nutrition_label.sodium_mg",
+      "quote": "PH 1500 effervescent tube contains 10 tablets (60 g net weight, 6 g per tablet): 1,500 mg sodium, 250 mg potassium, 48 mg calcium, 24 mg magnesium per liter (750 mg Na / 125 mg K / 12 mg Mg per 500 ml tablet).",
+      "source_url": "https://www.precisionhydration.com/products/ph-1500-electrolyte-drink",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.macros & sweetener",
+      "quote": "Per tablet (500 ml serving): 16 kcal (67 kJ), 1.8 g carbohydrates (1.0 g sugars), <0.1 g protein, <0.1 g fat; sweetened with sucralose.",
+      "source_url": "https://www.precisionhydration.com/products/ph-1500-electrolyte-drink",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Precision Fuel & Hydration low-calorie effervescent tablets (PH 500, PH 1000, PH 1500) carry NSF Certified for Sport batch testing.",
+      "source_url": "https://www.nsfsport.com/",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Caught per-liter (1,500 mg Na) vs per-tablet (750 mg Na) naming trap and encoded exact per-tablet values (0.875 g Na+K per 6.0 g tablet).",
+    "Verified 6.0 g x 10 = 60 g net weight (0.0% deviation) and 0.875 / 6.0 * 100 = 14.58% Na+K purity.",
+    "Verified total pure Na+K = 8.75 g (8,750 mg); calories = 16 kcal (<20 kcal effervescent citric-acid base).",
+    "Confirmed zero legacy blocklist overlap and SM-05 factual compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

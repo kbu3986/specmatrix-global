@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "gu-original-energy-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "GU Energy Labs",
+  "model_number": "GU-ORIG-24",
+  "origin_country": "US",
+  "package_spec": {
+    "net_weight_g": 768,
+    "total_servings": 24,
+    "serving_weight_g": 32,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Tri-Berry (20 mg Caf — Ref)",
+      "Jet Blackberry (40 mg Caf)",
+      "Strawberry Banana (0 mg Caf)",
+      "Salted Caramel (20 mg Caf)"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 100,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 23,
+    "protein_g": 0,
+    "carbs_g": 23,
+    "fat_g": 0,
+    "sugar_g": 7,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "3:1 (approx. 75:25 maltodextrin:fructose)",
+    "caffeine_mg": 20,
+    "sodium_mg": 55,
+    "potassium_mg": 30,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": true,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (maltodextrin and fructose base; zero artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 71.88,
+    "total_pure_active_g": 552,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 3.91,
+    "purity_grade": "A+"
+  },
+  "certifications": [
+    "Informed Choice",
+    "Vegan",
+    "Gluten-Free",
+    "Kosher"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "GU-ORIG-24-US",
+      "msrp": 48,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "GU Original Energy Gel box 24",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "GU-ORIG-24-KR",
+      "msrp": 68000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "GU 구 에너지젤 오리지널 24개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "GU Original Energy Gel (Box of 24)",
+      "title": "GU Original Energy Gel: True Cost per 30 g Carbs, 71.9% Density & Flavor Matrix",
+      "summary": "Ultra-compact 32 g packet packing 23 g of maltodextrin-fructose carbs (71.9% carb mass density), 450 mg BCAAs, and 20 mg caffeine (Tri-Berry ref) at $2.61 per 30 g carbs.",
+      "best_for": "Budget-conscious runners and cyclists seeking compact pocket fit, wide flavor variety, and Informed Choice testing at $2.00 per gel",
+      "local_gotchas": [
+        "High carb density (71.9% by weight) produces a thick paste—always take with 150–200 mL of water to prevent stomach sloshing.",
+        "Caffeine ranges from 0 mg (Strawberry Banana, Lemon Sublime) to 20 mg (Tri-Berry, Salted Caramel) to 40 mg (Jet Blackberry, Espresso Love) across flavors.",
+        "Glucose-heavy (~3:1) maltodextrin-to-fructose ratio suits 45–75 g/hr well, but athletes pushing 90+ g/hr often tolerate 2:1 or 1:0.8 formulas better."
+      ]
+    },
+    "ko": {
+      "name": "GU 오리지널 에너지젤 (24개입 박스)",
+      "title": "GU 오리지널 에너지젤: 순수 탄수화물 30 g당 실단가·71.9% 고밀도 성분 분석",
+      "summary": "32 g 소형 파우치에 탄수화물 23 g(질량 대비 탄수화물 밀도 71.9%)과 BCAA 450 mg을 담아 포당 2,800원대(국내 24개입 기준)로 일상 장거리 훈련에 최적화된 스테디셀러 젤입니다.",
+      "best_for": "부피가 작은 주머니 수납과 다양한 맛 선택지, 훈련용 합리적 단가를 중시하는 러너 및 사이클리스트",
+      "local_gotchas": [
+        "수분 함량이 적은 고밀도 페이스트(탄수화물 비중 71.9%)이므로 반드시 급수대 직전이나 물통과 함께 섭취해야 삼투압 부담이 줄어듭니다.",
+        "맛에 따라 카페인이 0 mg(스트로베리 바나나), 20 mg(트리베리·솔티드 카라멜), 40 mg(제트 블랙베리·에스프레소)으로 다르므로 주문 전 라벨을 확인하세요.",
+        "말토덱스트린 비중이 높은 약 3:1 비율이므로 시간당 60–75 g 훈련 보급에 강하며, 시간당 90 g 이상 실전에서는 1:0.8 비율 제품과 비교가 필요합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "GU Energy Labs Official Product Page — Original Energy Gel",
+      "url": "https://guenergy.com/products/energy-gel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Choice Certified Product Registry — GU Energy",
+      "url": "https://choice.wetestyoutrust.com/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "gu-roctane-energy-gel",
+    "precision-pf-30-gel",
+    "sis-go-isotonic-energy-gel"
+  ]
+}

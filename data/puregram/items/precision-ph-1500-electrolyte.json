@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "electrolyte",
+  "slug": "precision-ph-1500-electrolyte",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Precision Fuel & Hydration",
+  "model_number": "PH1500-TAB-10",
+  "origin_country": "GB",
+  "package_spec": {
+    "net_weight_g": 60,
+    "total_servings": 10,
+    "serving_weight_g": 6,
+    "unit_type": "tablet",
+    "flavors_tracked": [
+      "Mild Citrus"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 16,
+    "active_ingredient_type": "electrolytes_sodium_potassium",
+    "active_per_serving_g": 0.875,
+    "protein_g": 0,
+    "carbs_g": 1.8,
+    "fat_g": 0,
+    "sugar_g": 1,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": null,
+    "caffeine_mg": 0,
+    "sodium_mg": 750,
+    "potassium_mg": 125,
+    "magnesium_mg": 12,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "none",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": true,
+    "sweetener_details": "Sucralose (low-calorie effervescent tablet; PH 1500 powder packets use cane sugar instead)"
+  },
+  "derived_math": {
+    "purity_pct": 14.58,
+    "total_pure_active_g": 8.75,
+    "benchmark_unit_g": 1,
+    "benchmark_label_en": "per 1,000 mg Na+K",
+    "benchmark_label_ko": "순수 나트륨+칼륨 1,000 mg당",
+    "servings_for_90g_per_hour": null,
+    "purity_grade": "A"
+  },
+  "certifications": [
+    "NSF Certified for Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "PH1500-TAB-10-US",
+      "msrp": 11.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Precision Hydration PH 1500 electrolyte tablets tube 10",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PH1500-TAB-10-KR",
+      "msrp": 19500,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "프리시전 하이드레이션 PH 1500 전해질 발포정",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Precision Hydration PH 1500 Electrolyte Tablets (Tube of 10)",
+      "title": "Precision PH 1500 Tablets: True Cost per 1,000 mg Na+K & High-Sodium Preload Audit",
+      "summary": "NSF Certified for Sport effervescent tablets delivering 750 mg sodium + 125 mg potassium per 6 g tablet (1,500 mg Na/L) at just $1.37 per 1,000 mg Na+K and only 16 kcal.",
+      "best_for": "Heavy or salty sweaters, hot-weather race pre-loading, and athletes decoupling high sodium intake from carbohydrate gels",
+      "local_gotchas": [
+        "The '1500' name denotes 1,500 mg sodium per 1 LITER (2 tablets); each single 500 mL tablet delivers 750 mg sodium and 125 mg potassium.",
+        "PH 1500 tablets cost the same per tube as PH 1000 ($11.99) while delivering 40% more Na+K (8,750 mg vs 6,250 mg)—buying PH 1500 and diluting in 750 mL lowers true electrolyte cost by 29%.",
+        "Low-calorie tablet format uses sucralose; if you strictly avoid artificial sweeteners, choose Precision's 20 g cane-sugar PH 1500 drink-mix packets instead."
+      ]
+    },
+    "ko": {
+      "name": "프리시전 하이드레이션 PH 1500 전해질 발포정 (10정 튜브)",
+      "title": "프리시전 PH 1500 발포정: 순수 Na+K 1,000 mg당 실단가·초고나트륨 1,500 mg/L 분석",
+      "summary": "NSF Certified for Sport 인증을 받은 저칼로리(16 kcal) 발포정으로 1정(500 mL 기준)당 나트륨 750 mg·칼륨 125 mg(1 L당 1,500 mg)을 공급해 국내외 고나트륨 전해질 중 최상위 가성비를 기록합니다.",
+      "best_for": "땀에 흰 소금 자국이 남는 고염분 발한자, 한여름 장거리 라이딩·마라톤 프리로딩 및 0 mg 나트륨 젤(PF 30/모르텐) 병용자",
+      "local_gotchas": [
+        "제품명의 '1500'은 1정 함량이 아니라 물 1 L(2정) 희석 기준 농도이며, 1정(500 mL 보틀)당 실제 나트륨은 750 mg, 칼륨은 125 mg입니다.",
+        "PH 1000과 튜브 가격이 동일하지만 총 전해질(Na+K)이 40% 더 많이 들어 있어, PH 1500 1정을 750 mL 보틀에 타 마시면 1,000 mg당 실단가를 약 29% 절약할 수 있습니다.",
+        "저칼로리 발포정 제형에는 수크랄로스가 포함되어 있으므로 인공감미료를 피해야 한다면 설탕 기반 PH 1500 파우더 패킷(20 g) 버전을 선택하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Precision Fuel & Hydration Official Product Page — PH 1500",
+      "url": "https://www.precisionhydration.com/products/ph-1500-electrolyte-drink",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "NSF Certified for Sport Registry — Precision Fuel & Hydration",
+      "url": "https://www.nsfsport.com/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "precision-ph-1000-electrolyte",
+    "sis-hydro-electrolyte-tablets",
+    "skratch-labs-sport-hydration-mix"
+  ]
+}

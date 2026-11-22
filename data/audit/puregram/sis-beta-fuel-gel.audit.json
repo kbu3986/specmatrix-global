@@ -1,0 +1,34 @@
+{
+  "sku_slug": "sis-beta-fuel-gel",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "nutrition_label.carbs_g & carb_ratio_glucose_to_fructose",
+      "quote": "Per 60 ml serving: Energy 673 kJ / 158 kcal, Carbohydrate 40 g (of which sugars 19 g) in an optimized 1:0.8 maltodextrin-to-fructose ratio, Fat 0 g, Protein 0 g, Salt 0.03 g (~30 mg sodium).",
+      "source_url": "https://www.scienceinsport.com/beta-fuel",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.ingredients",
+      "quote": "Water, Maltodextrin (from Maize) (30%), Fructose (23%), Flavourings, Acidity Regulators (Citric Acid, Sodium Citrate), Gelling Agents (Gellan Gum, Xanthan Gum), Preservatives (Sodium Benzoate, Potassium Sorbate), Sodium Chloride.",
+      "source_url": "https://www.scienceinsport.com/beta-fuel",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Every batch of SiS Beta Fuel Gel is independently tested under the Informed Sport program for WADA-prohibited substances.",
+      "source_url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Distinguished 60 mL fluid volume from ~68 g net syrup weight (40 g dissolved carbs increase density to ~1.13 g/mL), preventing inflated 66.7% purity distortion.",
+    "Verified Atwater calorie match: 4 * 40 g = 160 kcal vs 158 kcal declared (1.27% deviation <= 15%).",
+    "Clarified Beta Fuel is NOT isotonic (unlike SiS GO Isotonic Gel) in EN/KO gotchas to prevent GI mistakes.",
+    "Confirmed zero legacy blocklist overlap and SM-02 msrp_benchmark_mode compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

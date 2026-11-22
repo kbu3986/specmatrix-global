@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "precision-pf-90-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Precision Fuel & Hydration",
+  "model_number": "PF90-GEL-3PK",
+  "origin_country": "GB",
+  "package_spec": {
+    "net_weight_g": 459,
+    "total_servings": 3,
+    "serving_weight_g": 153,
+    "unit_type": "pouch",
+    "flavors_tracked": [
+      "Original Neutral Citrus"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 360,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 90,
+    "protein_g": 0,
+    "carbs_g": 90,
+    "fat_g": 0,
+    "sugar_g": 36,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "2:1",
+    "caffeine_mg": 0,
+    "sodium_mg": 0,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (maltodextrin and fructose 2:1 base with pectin; zero artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 58.82,
+    "total_pure_active_g": 270,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 1,
+    "purity_grade": "A"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "PF90-GEL-3PK-US",
+      "msrp": 17.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Precision Fuel PF 90 Gel 3 pack",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PF90-GEL-3PK-KR",
+      "msrp": 29000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "프리시전 퓨얼 PF 90 점보 젤",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Precision Fuel PF 90 Gel (3-Pack Resealable Pouches)",
+      "title": "Precision Fuel PF 90 Gel: 90 g Carbs in 1 Pouch — True Cost per 30 g Audit",
+      "summary": "Resealable 153 g jumbo pouch holding a full 90 g of 2:1 carbohydrates (360 kcal) for $2.00 per 30 g carbs—cutting single-use wrapper trash by 67% on long bike rides and ultras.",
+      "best_for": "Road cyclists, gravel racers, and ultra-runners who want 1 hour of 90 g/hr fuel in a single screw-cap pouch",
+      "local_gotchas": [
+        "153 g per pouch is too heavy to bounce cleanly in minimal running shorts—best suited for cycling jersey pockets, top-tube bento bags, or trail vests.",
+        "Zero sodium (0 mg): pair with separate electrolyte bottles (e.g., PH 1000 or PH 1500) during multi-hour efforts.",
+        "Because there are no printed graduation marks on the opaque foil, sip roughly one-third every 20 minutes to pace 90 g/hr evenly."
+      ]
+    },
+    "ko": {
+      "name": "프리시전 퓨얼 PF 90 점보 젤 (3개입 팩)",
+      "title": "프리시전 퓨얼 PF 90 젤: 1파우치 90 g 탄수화물·30 g당 최저 실단가 분석",
+      "summary": "재밀봉 스크류 캡이 달린 153 g 대용량 파우치 1개에 PF 30 젤 3개 분량(탄수화물 90 g, 360 kcal)을 담아 30 g당 단가와 라이딩 중 개봉 스트레스를 동시에 줄여줍니다.",
+      "best_for": "장거리 로드사이클·그란폰도·트레일러닝 베스트에서 쓰레기를 줄이고 시간당 90 g을 1파우치로 해결하려는 라이더·러너",
+      "local_gotchas": [
+        "1파우치당 153 g으로 일반 마라톤 반바지 주머니에서는 출렁임이 크므로 로드사이클 져지 뒷포켓·탑튜브 백·트레일 베스트 휴대용으로 가장 적합합니다.",
+        "나트륨이 0 mg이므로 장거리 더위 속에서는 반드시 전해질 보틀(PH 1000/1500 등)과 함께 운용하세요.",
+        "불투명 파우치라 잔량 눈금이 없으므로 20분마다 약 1/3씩 나눠 마시는 리듬을 훈련에서 미리 익혀두는 것이 좋습니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Precision Fuel & Hydration Official Product Page — PF 90 Gel",
+      "url": "https://www.precisionhydration.com/products/pf-90-gel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Precision Fuel & Hydration",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 92,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "precision-pf-30-gel",
+    "maurten-gel-160",
+    "sis-beta-fuel-gel"
+  ]
+}

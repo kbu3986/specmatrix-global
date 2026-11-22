@@ -1,0 +1,34 @@
+{
+  "sku_slug": "precision-pf-90-gel",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & nutrition_label",
+      "quote": "153 g resealable pouch equals three PF 30 Gels: 360 kcal, 90 g carbohydrates (36 g sugars, 2:1 glucose-to-fructose), <0.1 g protein, <0.1 g fat, 0 mg sodium.",
+      "source_url": "https://www.precisionhydration.com/products/pf-90-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label.ingredients",
+      "quote": "Maltodextrin, Water, Fructose, Pectin, Acidity Regulator (Citric Acid), Preservatives (Potassium Sorbate, Calcium Lactate).",
+      "source_url": "https://www.precisionhydration.com/products/pf-90-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "PF 90 Gel is Informed Sport batch-tested for banned substances.",
+      "source_url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 153 g x 3 = 459 g net weight (0.0% deviation) and 90 g / 153 g = 58.82% carb purity (identical formula ratio to PF 30).",
+    "Verified Atwater calorie match: 4 * 90 g = 360 kcal vs 360 kcal declared (0.0% deviation).",
+    "Verified 90 g/hr serving rate = 1.00 pouch/hr.",
+    "Confirmed zero legacy blocklist overlap and SM-05 factual compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

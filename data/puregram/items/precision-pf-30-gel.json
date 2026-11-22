@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "precision-pf-30-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Precision Fuel & Hydration",
+  "model_number": "PF30-GEL-15",
+  "origin_country": "GB",
+  "package_spec": {
+    "net_weight_g": 765,
+    "total_servings": 15,
+    "serving_weight_g": 51,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Original Neutral Citrus"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 120,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 30,
+    "protein_g": 0,
+    "carbs_g": 30,
+    "fat_g": 0,
+    "sugar_g": 12,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "2:1",
+    "caffeine_mg": 0,
+    "sodium_mg": 0,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (mild neutral sweetness strictly from maltodextrin and fructose; zero artificial sweeteners)"
+  },
+  "derived_math": {
+    "purity_pct": 58.82,
+    "total_pure_active_g": 450,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 3,
+    "purity_grade": "A"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "PF30-GEL-15-US",
+      "msrp": 34.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Precision Fuel PF 30 Gel box 15",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "PF30-GEL-15-KR",
+      "msrp": 55000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "프리시전 퓨얼 PF 30 에너지젤 15개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "Precision Fuel PF 30 Gel (Box of 15)",
+      "title": "Precision Fuel PF 30 Gel: True Cost per 30 g Carbs, Zero-Sodium Modular Math",
+      "summary": "Clean 51 g gel packing an exact 30 g modular dose of 2:1 glucose-to-fructose carbs at $2.33 per 30 g—among the best values in Informed Sport certified endurance gels.",
+      "best_for": "Endurance athletes who want effortless 30/60/90 g/hr carb math, mild neutral flavor, and decoupled sodium management",
+      "local_gotchas": [
+        "Contains intentionally 0 mg sodium so you can tune sweat-sodium separately with PH 1000 or PH 1500—do not forget electrolytes in heat.",
+        "Uses a 2:1 glucose-to-fructose ratio (12 g sugar, 18 g maltodextrin); well tolerated up to 90 g/hr, though 1:0.8 ratios can feel smoother above 100 g/hr.",
+        "Mild neutral citrus flavor minimizes palate fatigue across 4–6 hour rides and Ironman bike legs."
+      ]
+    },
+    "ko": {
+      "name": "프리시전 퓨얼 PF 30 에너지젤 (15개입 박스)",
+      "title": "프리시전 퓨얼 PF 30 젤: 순수 탄수화물 30 g당 실단가·모듈형 보급 분석",
+      "summary": "51 g 파우치 1개에 2:1 비율 탄수화물 정확히 30 g(120 kcal)을 담아 2포=60 g, 3포=90 g 계산이 직관적이며 인폼드 스포츠 인증 젤 중 최상위 가성비를 제공합니다.",
+      "best_for": "시간당 60–90 g 보급 계산을 단순화하고 강한 인공 향·단맛 피로 없이 장시간 섭취하려는 마라토너·트라이애슬릿",
+      "local_gotchas": [
+        "전해질(나트륨)을 의도적으로 0 mg으로 설계해 수분·염분과 탄수화물 보급을 분리했으므로, PH 1000/1500 같은 별도 전해질 믹스를 반드시 조합해야 합니다.",
+        "포도당:과당 2:1 배합(당류 12 g)으로 시간당 90 g까지 무난하지만, 시간당 100–120 g 초고용량 레이스에서는 1:0.8 비율 제품과 비교 테스트를 권장합니다.",
+        "국내 정식 유통 물량이 한정적이라 직구 시 배송비 포함 실구매가를 계산기에 입력해 모르텐·SiS 베타퓨엘과 실단가를 비교해 보세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Precision Fuel & Hydration Official Product Page — PF 30 Gel",
+      "url": "https://www.precisionhydration.com/products/pf-30-gel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Precision Fuel & Hydration",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "neversecond-c30-energy-gel",
+    "precision-pf-90-gel",
+    "sis-beta-fuel-gel"
+  ]
+}

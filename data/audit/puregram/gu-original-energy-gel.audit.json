@@ -1,0 +1,34 @@
+{
+  "sku_slug": "gu-original-energy-gel",
+  "vertical": "puregram",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "package_spec & price",
+      "quote": "GU Original Energy Gel box of 24 x 32 g packets (768 g net) retailing at $48.00 USD on guenergy.com.",
+      "source_url": "https://guenergy.com/products/energy-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "nutrition_label (Tri-Berry reference)",
+      "quote": "Per 32 g packet (Tri-Berry): 100 kcal, 23 g total carbs (7 g sugars), 0 g fat, 0 g protein, 55 mg sodium, 30 mg potassium, 20 mg caffeine, 450 mg BCAA blend (L-Leucine, L-Valine, L-Isoleucine).",
+      "source_url": "https://guenergy.com/products/energy-gel",
+      "source_tier": 1
+    },
+    {
+      "field": "certifications",
+      "quote": "Informed Choice certified, vegan, gluten-free, kosher.",
+      "source_url": "https://choice.wetestyoutrust.com/",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Verified 32 g x 24 = 768 g net weight (0.0% deviation) and 23 g / 32 g = 71.88% carb purity.",
+    "Verified Atwater calorie match: 4 * 23 g = 92 kcal vs 100 kcal declared (8.0% deviation <= 15%).",
+    "Documented flavor-to-flavor caffeine range (0 / 20 / 40 mg) and 450 mg BCAA label fact objectively under SM-05.",
+    "Confirmed zero legacy blocklist overlap and SM-02 msrp_benchmark_mode compliance."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

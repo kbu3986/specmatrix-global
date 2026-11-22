@@ -1,0 +1,133 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "sis-beta-fuel-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Science in Sport",
+  "model_number": "SIS-BF-GEL-30",
+  "origin_country": "GB",
+  "package_spec": {
+    "net_weight_g": 2040,
+    "total_servings": 30,
+    "serving_weight_g": 68,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Orange",
+      "Strawberry & Lime",
+      "Apple",
+      "Neutral"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 158,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 40,
+    "protein_g": 0,
+    "carbs_g": 40,
+    "fat_g": 0,
+    "sugar_g": 19,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "1:0.8",
+    "caffeine_mg": 0,
+    "sodium_mg": 30,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "standard",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": false,
+    "sweetener_details": "None (sweetened strictly via 30% maize maltodextrin and 23% fructose; zero artificial sweeteners on standard Beta Fuel Gel)"
+  },
+  "derived_math": {
+    "purity_pct": 58.82,
+    "total_pure_active_g": 1200,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 2.25,
+    "purity_grade": "A"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "SIS-BF-30-US",
+      "msrp": 99.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SiS Beta Fuel Energy Gel 40g carbs box 30",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "SIS-BF-30-KR",
+      "msrp": 135000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SiS 베타퓨엘 에너지젤 30개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "SiS Beta Fuel Energy Gel (Box of 30)",
+      "title": "SiS Beta Fuel Gel (40 g Carbs): Cost per 30 g Carbs & 1:0.8 Ratio Breakdown",
+      "summary": "High-density 60 mL (~68 g) energy gel delivering 40 g of 1:0.8 maltodextrin-to-fructose carbs at $2.50 per 30 g carbs—27% below Maurten Gel 160 with full Informed Sport testing.",
+      "best_for": "High-volume marathoners and road cyclists fueling 80–120 g/hr who want 1:0.8 dual-source performance at a practical training-and-race price",
+      "local_gotchas": [
+        "Unlike SiS GO Isotonic Gel, Beta Fuel packs 40 g carbs into 60 mL (hypertonic syrup, ~68 g net weight), so chase each gel with a sip of water.",
+        "Uses maltodextrin (30%) plus fructose (23%) so declared sugars stay at 19 g per 40 g carbs—less cloying than pure sugar gels, though fruit flavors still taste sweet.",
+        "Low sodium (30 mg per pouch) means you still need separate electrolytes during multi-hour summer sessions."
+      ]
+    },
+    "ko": {
+      "name": "SiS 베타퓨엘 에너지젤 (30개입 박스)",
+      "title": "SiS 베타퓨엘 에너지젤: 순수 탄수화물 30 g당 실단가·1:0.8 고탄수화물 분석",
+      "summary": "60 mL(실중량 약 68 g) 파우치에 1:0.8 비율 말토덱스트린·과당 탄수화물 40 g을 담아 모르텐 젤 160 대비 국내 기준 절반 수준의 단가로 시간당 90 g 보급을 구현합니다.",
+      "best_for": "훈련과 실전 대회 모두에서 시간당 80–120 g 고탄수화물 전략을 합리적인 단가로 실행하려는 로드사이클리스트·마라토너",
+      "local_gotchas": [
+        "같은 브랜드의 SiS GO 아이소토닉과 달리 60 mL에 탄수화물 40 g이 농축된 고장성(Hypertonic) 시럽 제형이므로 섭취 직후 물 한 모금을 곁들이는 편이 위장에 안전합니다.",
+        "총 탄수화물 40 g 중 당류는 19 g(나머지 21 g은 말토덱스트린)으로 단맛 피로도가 순수 당류 젤보다 덜하지만, 오렌지·딸기라임 향이 강하므로 장거리에는 뉴트럴 맛도 고려해 보세요.",
+        "1포당 나트륨이 30 mg 수준이므로 여름철 3시간 이상 라이딩 시 별도 전해질 보틀과 병행해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Science in Sport Official Product Page — Beta Fuel Gel",
+      "url": "https://www.scienceinsport.com/beta-fuel",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "maurten-gel-160",
+    "precision-pf-30-gel",
+    "neversecond-c30-energy-gel"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "puregram",
+  "category": "energy-gel",
+  "slug": "sis-go-isotonic-energy-gel",
+  "release_wave": 1,
+  "available_locales": [
+    "en",
+    "ko"
+  ],
+  "brand": "Science in Sport",
+  "model_number": "SIS-GO-ISO-30",
+  "origin_country": "GB",
+  "package_spec": {
+    "net_weight_g": 1800,
+    "total_servings": 30,
+    "serving_weight_g": 60,
+    "unit_type": "packet",
+    "flavors_tracked": [
+      "Orange",
+      "Lemon & Lime",
+      "Apple",
+      "Tropical",
+      "Blackcurrant"
+    ]
+  },
+  "nutrition_label": {
+    "calories_kcal": 87,
+    "active_ingredient_type": "carbohydrates",
+    "active_per_serving_g": 22,
+    "protein_g": 0,
+    "carbs_g": 22,
+    "fat_g": 0,
+    "sugar_g": 0.6,
+    "fiber_g": 0,
+    "carb_ratio_glucose_to_fructose": "1:0 (maltodextrin only)",
+    "caffeine_mg": 0,
+    "sodium_mg": 10,
+    "potassium_mg": 0,
+    "magnesium_mg": 0,
+    "creapure_certified": false,
+    "hydrogel_or_isotonic": "isotonic",
+    "free_form_amino_listed": false,
+    "artificial_sweeteners_listed": true,
+    "sweetener_details": "Acesulfame K (Ace-K) added to sweeten the ultra-low-sugar (0.6 g) maltodextrin isotonic matrix"
+  },
+  "derived_math": {
+    "purity_pct": 36.67,
+    "total_pure_active_g": 660,
+    "benchmark_unit_g": 30,
+    "benchmark_label_en": "per 30 g pure carbs",
+    "benchmark_label_ko": "순수 탄수화물 30 g당",
+    "servings_for_90g_per_hour": 4.09,
+    "purity_grade": "B"
+  },
+  "certifications": [
+    "Informed Sport",
+    "Vegan",
+    "Gluten-Free"
+  ],
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "SIS-GO-ISO-30-US",
+      "msrp": 59.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SiS GO Isotonic Energy Gel 22g carbs box 30",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "SIS-GO-ISO-30-KR",
+      "msrp": 82000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SiS GO 아이소토닉 에너지젤 30개입",
+      "status": "IN_STOCK"
+    }
+  },
+  "i18n": {
+    "en": {
+      "name": "SiS GO Isotonic Energy Gel (Box of 30)",
+      "title": "SiS GO Isotonic Gel (22 g Carbs): Cost per 30 g Carbs, Ace-K & Pocket Weight Audit",
+      "summary": "True isotonic 60 g gel delivering 22 g single-source maltodextrin carbs with only 0.6 g sugar so it digests cleanly without water—ideal up to 60 g/hr, though bulky for 90 g/hr.",
+      "best_for": "Runners and riders fueling 40–60 g/hr who hate carrying extra water to chase sticky syrupy gels",
+      "local_gotchas": [
+        "Single-source maltodextrin (no fructose) caps intestinal SGLT1 absorption near ~60 g/hr; for 90 g/hr racing, switch to a 1:0.8 or 2:1 dual-source gel.",
+        "Because water makes up ~63% of each 60 g pouch (36.7% carb density), carrying 4 gels for 88 g carbs adds 240 g of pocket weight.",
+        "Contains Acesulfame K (artificial sweetener) to keep declared sugars at 0.6 g—avoid if you are sensitive to Ace-K aftertaste."
+      ]
+    },
+    "ko": {
+      "name": "SiS GO 아이소토닉 에너지젤 (30개입 박스)",
+      "title": "SiS GO 아이소토닉 젤: 순수 탄수화물 30 g당 실단가·무물 섭취 등장성 분석",
+      "summary": "60 g 파우치에 말토덱스트린 기반 탄수화물 22 g(당류 0.6 g)을 등장성 비율로 희석해 물 없이도 목 넘김이 부드러운 인폼드 스포츠 인증 입문·훈련용 표준 젤입니다.",
+      "best_for": "하프마라톤·2시간 이내 라이딩에서 물 없이 깔끔하게 시간당 44–66 g을 보급하려는 러너 및 입문 사이클리스트",
+      "local_gotchas": [
+        "과당이 없는 단일 말토덱스트린 구조이므로 시간당 60 g을 초과하는 고강도 보급(90 g/hr)에는 SiS 베타퓨엘이나 모르텐 같은 이중 탄수화물 제품이 유리합니다.",
+        "물 없이 먹기 위해 수분 비중이 높아 60 g당 순수 탄수화물은 22 g(밀도 36.7%)이며, 시간당 90 g을 맞추려면 4포(240 g)를 휴대해야 해 포켓 부피 부담이 큽니다.",
+        "당류를 0.6 g으로 낮추는 대신 인공감미료 아세설팜칼륨(Ace-K)이 함유되어 있으므로 감미료 특유의 뒷맛에 민감하다면 사전 확인이 필요합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Science in Sport Official Product Page — GO Isotonic Energy Gel",
+      "url": "https://www.scienceinsport.com/go-isotonic-gels",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 91,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": [
+    "sis-beta-fuel-gel",
+    "neversecond-c30-energy-gel",
+    "amino-vital-perfect-energy"
+  ]
+}

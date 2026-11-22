@@ -1,0 +1,354 @@
+[
+  {
+    "pair_slug": "maurten-gel-100-vs-sis-beta-fuel-gel",
+    "vertical": "puregram",
+    "slug_a": "maurten-gel-100",
+    "slug_b": "sis-beta-fuel-gel",
+    "release_wave": 1,
+    "info_gain_score": 94,
+    "serp_gaps_captured": [
+      "Deterministic 90 g/hr race-cost math: SiS Beta Fuel cuts hourly cost by 44% USD ($7.50 vs $13.50/hr) and 60% KRW (₩10,125 vs ₩25,200/hr) while using the identical 1:0.8 dual-source ratio.",
+      "Packet-count & pocket-weight audit: 2.25 SiS Beta Fuel pouches (153 g total) vs 3.60 Maurten Gel 100 pouches (144 g total) per 90 g/hr.",
+      "Sugar-vs-maltodextrin osmolality split: Maurten encapsulates 25 g pure glucose+fructose in alginate hydrogel (25 g sugars), whereas SiS pairs 21 g maltodextrin with 19 g fructose (40 g total) in a standard liquid gel.",
+      "Both supply minimal sodium (20 mg vs 30 mg per pouch), requiring separate electrolyte pairing on warm marathons and gran fondos."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "SiS Beta Fuel Wins High-Carb Value by 44%; Maurten Gel 100 Wins Sensitive-Gut Hydrogel",
+        "choose_a_if": [
+          "You suffer GI distress from flavored syrupy gels and rely on Maurten's unflavored 6-ingredient alginate hydrogel matrix.",
+          "You prefer smaller 25 g carb micro-doses every 20 minutes in compact 40 g sachets for marathon shorts pockets.",
+          "Race-day budget is secondary to predictable, zero-preservative stomach tolerance."
+        ],
+        "choose_b_if": [
+          "You target 80–120 g/hr and want 40 g carbs per tear (2.25 vs 3.60 packets/hr) at $2.50 per 30 g carbs instead of $4.50.",
+          "You train high-volume weeks where fueling 90 g/hr costs $7.50/hr with Beta Fuel vs $13.50/hr with Maurten Gel 100.",
+          "You prefer a traditional pourable fruit gel with lower free-sugar ratio (19 g sugars out of 40 g carbs via maltodextrin)."
+        ],
+        "bottom_line": "Both deliver the gold-standard 1:0.8 glucose-to-fructose ratio with Informed Sport batch testing. SiS Beta Fuel dominates on pure-carb economics ($2.50 vs $4.50 per 30 g) and fewer packets per hour, while Maurten Gel 100 remains the clean-label hydrogel benchmark for sensitive race stomachs."
+      },
+      "ko": {
+        "headline": "고탄수화물 가성비는 SiS 베타퓨엘 압승, 위장 안정성·무향 하이드로겔은 모르텐 젤 100",
+        "choose_a_if": [
+          "인공 향료나 시럽형 젤만 먹으면 속이 거북해 6가지 무향 원재료의 알긴산 하이드로겔 제형이 꼭 필요한 경우",
+          "40 g 초소형 파우치로 20분마다 25 g씩 잘게 나눠 마라톤 하프타이즈 포켓에 분산 수납하려는 경우",
+          "훈련보다 풀코스 실전 대회 1회의 위장 리스크 최소화가 단가보다 우선인 경우"
+        ],
+        "choose_b_if": [
+          "동일한 1:0.8 비율과 인폼드 스포츠 인증을 유지하면서 30 g당 실단가를 국내 기준 약 60% 절감(3,375원 vs 8,400원)하려는 경우",
+          "1포에 40 g이 들어 있어 시간당 90 g 보급 시 개봉 횟수를 3.6포에서 2.25포로 확 줄이고 싶은 경우",
+          "말토덱스트린 비중이 높아 당류(19 g/40 g)와 가격 부담을 낮춰 장거리 훈련과 대회를 같은 젤로 통일하려는 경우"
+        ],
+        "bottom_line": "두 제품 모두 검증된 1:0.8 비율과 인폼드 스포츠 인증을 갖췄습니다. 시간당 90 g 실비용과 개봉 편의성은 SiS 베타퓨엘이 압도적으로 유리하며, 모르텐 젤 100은 6가지 무첨가 하이드로겔 특유의 위장 안정성으로 승부합니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "maurten-gel-160-vs-sis-beta-fuel-gel",
+    "vertical": "puregram",
+    "slug_a": "maurten-gel-160",
+    "slug_b": "sis-beta-fuel-gel",
+    "release_wave": 1,
+    "info_gain_score": 95,
+    "serp_gaps_captured": [
+      "True 40 g vs 40 g head-to-head: identical 1:0.8 ratio and 2.25 sachets/hr for 90 g/hr, isolating the exact hydrogel-vs-standard price premium ($3.44 vs $2.50 per 30 g carbs USD; ₩6,750 vs ₩3,375 KRW).",
+      "Box-count & net-weight accuracy: Maurten Gel 160 ships in 12 x 65 g boxes (780 g, 61.5% carb purity) vs SiS Beta Fuel 30 x ~68 g boxes (2,040 g, 58.8% carb purity).",
+      "Carbohydrate composition contrast: Maurten delivers 40 g pure glucose+fructose sugars inside hydrogel with zero preservatives, while SiS uses 21 g maltodextrin + 19 g fructose with gellan/xanthan gums and preservatives.",
+      "Korea market import spread: Maurten's local KR markup widens the per-30 g cost gap from 27% in the US to 50% in South Korea."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Identical 40 g / 1:0.8 Engine: SiS Beta Fuel Saves 27% USD (50% KRW) vs Maurten Hydrogel",
+        "choose_a_if": [
+          "You want 40 g carbs with zero flavorings, zero preservatives, and firm alginate hydrogel encapsulation for sensitive stomachs.",
+          "You appreciate slightly higher carb density (61.5% vs 58.8%, 65 g vs ~68 g per pouch) and unflavored neutral taste on 3+ hour races.",
+          "You are racing an A-priority marathon or gran fondo where paying an extra $2.81/hr at 90 g/hr is worth hydrogel peace of mind."
+        ],
+        "choose_b_if": [
+          "You want the exact same 40 g carb payload and 1:0.8 oxidation ratio at $2.50 per 30 g carbs instead of $3.44 (saving 27% USD / 50% KRW).",
+          "You prefer a pourable flavored liquid gel (Orange, Strawberry & Lime, Apple, or Neutral) over Maurten's firm jelly texture.",
+          "You fuel 80–120 g/hr every weekend in training and need a 30-count bulk box that keeps monthly nutrition spend under control."
+        ],
+        "bottom_line": "This is the purest 40 g, 1:0.8 showdown in endurance fueling. Both require exactly 2.25 sachets/hr to hit 90 g/hr and carry Informed Sport testing. Pick SiS Beta Fuel for high-volume value and easier swallowing; step up to Maurten Gel 160 if unflavored preservative-free hydrogel visibly calms your stomach at race pace."
+      },
+      "ko": {
+        "headline": "동일 40 g·1:0.8 대결: 훈련·가성비는 SiS 베타퓨엘(국내 반값), 실전 무첨가 하이드로겔은 모르텐 젤 160",
+        "choose_a_if": [
+          "인공 향료·보존료가 전혀 없는 순수 무향 하이드로겔 제형으로 마라톤·그란폰도 실전 위장 부담을 최소화하려는 경우",
+          "파우치당 실중량이 미세하게 더 가볍고(65 g vs 약 68 g) 묵처럼 뭉쳐 흘리지 않고 삼키는 제형을 선호하는 경우",
+          "연 1–2회 핵심 기록 도전 대회에 집중 투자하며 40 g 대용량 모르텐의 효율(Gel 100 대비 약 20% 절감)을 누리려는 경우"
+        ],
+        "choose_b_if": [
+          "똑같은 40 g 탄수화물·1:0.8 비율·인폼드 스포츠 인증을 국내 기준 절반 가격(30 g당 3,375원 vs 6,750원)으로 확보하려는 경우",
+          "30개입 대용량 박스로 주말 장거리 훈련부터 실전 대회까지 동일한 보급 루틴을 부담 없이 유지하려는 경우",
+          "단단한 젤리보다 목으로 자연스럽게 넘어가는 시럽형 과일 맛(또는 뉴트럴)과 낮은 당류 비중(19 g vs 40 g)을 선호하는 경우"
+        ],
+        "bottom_line": "둘 다 2.25포로 시간당 90 g을 채우는 최정상급 40 g 1:0.8 젤입니다. 순수 탄수화물 실단가는 SiS 베타퓨엘이 미국 27%, 한국 50% 저렴해 훈련·가성비 최강이며, 모르텐 젤 160은 무향·무보존료 하이드로겔이 필요한 A-레이스용 프리미엄 선택지입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "maurten-gel-100-vs-precision-pf-30-gel",
+    "vertical": "puregram",
+    "slug_a": "maurten-gel-100",
+    "slug_b": "precision-pf-30-gel",
+    "release_wave": 1,
+    "info_gain_score": 93,
+    "serp_gaps_captured": [
+      "Modular hourly math contrast: Precision PF 30 hits 90 g/hr in exactly 3.00 gels/hr vs Maurten Gel 100's awkward 3.60 gels/hr (90 g = 3.6 packets).",
+      "Near-half price gap for Informed Sport gels: PF 30 delivers 30 g carbs at $2.33 USD (₩3,667 KRW) vs Maurten Gel 100 at $4.50 USD (₩8,400 KRW) — a 48% USD / 56% KRW savings.",
+      "Ratio & osmolality trade-off: Maurten's 1:0.8 hydrogel (25 g pure sugars) vs PF 30's 2:1 maltodextrin-fructose gel (12 g sugars, 0 mg sodium, mild neutral citrus).",
+      "Pocket footprint per 90 g/hr: 3 x PF 30 = 153 g (3 wrappers) vs 3.6 x Gel 100 = 144 g (4 wrappers needed to clear 90 g)."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Precision PF 30 Cuts Cost by 48% with Clean 30 g Math; Maurten Keeps 1:0.8 Hydrogel Edge",
+        "choose_a_if": [
+          "You plan to exceed 90 g/hr (100–120 g/hr) where Maurten's 1:0.8 glucose-to-fructose ratio offers a higher fructose-pathway ceiling than 2:1.",
+          "You specifically benefit from Maurten's 6-ingredient alginate hydrogel with zero preservatives.",
+          "You prefer slightly lighter 40 g packets for tight marathon split-short pockets."
+        ],
+        "choose_b_if": [
+          "You want clean 30 / 60 / 90 g/hr race math (1, 2, or 3 gels per hour) with zero half-sachet leftovers.",
+          "You want Informed Sport certified clean-tasting fueling at $2.33 per 30 g carbs—48% cheaper than Maurten Gel 100.",
+          "You prefer mild neutral citrus texture with lower free sugar (12 g vs 25 g) and decoupled 0 mg sodium paired with PH 1000/1500."
+        ],
+        "bottom_line": "For 60–90 g/hr fueling, Precision PF 30 Gel wins decisively on arithmetic simplicity (3.0 vs 3.6 gels/hr) and value ($7.00/hr vs $13.50/hr at 90 g/hr). Maurten Gel 100 earns its nearly 2× price only if you push past 90 g/hr or specifically need preservative-free hydrogel encapsulation."
+      },
+      "ko": {
+        "headline": "프리시전 PF 30은 반값 실단가와 완벽한 30 g 단위 계산, 모르텐 젤 100은 1:0.8 하이드로겔 우위",
+        "choose_a_if": [
+          "시간당 90–120 g 초고용량 보급에서 2:1보다 과당 흡수 상한이 높은 1:0.8 비율과 알긴산 하이드로겔이 필요한 경우",
+          "보존료가 전혀 없는 6가지 최소 원재료 구성을 최우선으로 두는 경우",
+          "개당 40 g의 컴팩트한 파우치 크기로 러닝 쇼츠 포켓 부피를 줄이고 싶은 경우"
+        ],
+        "choose_b_if": [
+          "시간당 60 g(2포)·90 g(3포)으로 딱 떨어지는 직관적 보급 계산(모르텐은 3.6포)을 원하는 경우",
+          "인폼드 스포츠 인증을 유지하면서 순수 탄수화물 30 g당 단가를 절반 이하(미국 48%, 한국 56% 절감)로 낮추고 싶은 경우",
+          "당류 비중이 낮고(12 g vs 25 g) 자극 없는 순한 시트러스 맛을 선호하며 나트륨은 PH 1000/1500으로 분리 관리하려는 경우"
+        ],
+        "bottom_line": "시간당 60–90 g 구간에서는 프리시전 PF 30 젤이 30 g 단위 계산 편의성과 약 절반 수준의 단가로 압도적 실용성을 보여줍니다. 모르텐 젤 100은 시간당 90 g 이상 초고탄수화물 구간이거나 무보존료 하이드로겔이 꼭 필요한 러너에게 의미가 있습니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "gu-roctane-energy-gel-vs-maurten-gel-100-caf-100",
+    "vertical": "puregram",
+    "slug_a": "gu-roctane-energy-gel",
+    "slug_b": "maurten-gel-100-caf-100",
+    "release_wave": 1,
+    "info_gain_score": 95,
+    "serp_gaps_captured": [
+      "Hidden unit-cost shock: despite GU Roctane costing less per packet ($3.00 vs $4.33), its 19 g carb payload (Sea Salt Chocolate ref) puts true cost per 30 g carbs at $4.74 vs Maurten Caf 100's $5.20—only a 9% gap.",
+      "Caffeine pacing architecture: GU Roctane's 35 mg/gel allows taking 3–4 caffeinated gels safely (105–140 mg total), whereas Maurten Caf 100 packs 100 mg/gel (limiting intake to 1–3 packets across an entire marathon).",
+      "Electrolyte & amino contrast: GU Roctane delivers 8.2x more sodium (180 mg vs 22 mg) plus 1,425 mg declared free-form amino acids (BCAAs, taurine, beta-alanine), whereas Maurten supplies pure 1:0.8 hydrogel carbs + caffeine.",
+      "Water & texture penalty: GU's thick 32 g paste demands immediate water chasing, while Maurten's 40 g hydrogel encapsulates sugar without added flavors."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Maurten Caf 100 Delivers 2.9× Caffeine & 1:0.8 Hydrogel; GU Roctane Packs 8× Sodium & Gradual 35 mg Dosing",
+        "choose_a_if": [
+          "You want steady, stackable 35 mg caffeine increments (and 0 mg or 70 mg flavor options) instead of an abrupt 100 mg espresso-level spike.",
+          "You need built-in sodium (125–180 mg per gel) plus 1,425 mg declared BCAAs/taurine/beta-alanine in tiny 32 g ultra-running packets.",
+          "You enjoy rich dessert/fruit flavors like Sea Salt Chocolate or Blueberry Pomegranate and always carry water to chase thick paste."
+        ],
+        "choose_b_if": [
+          "You want a decisive 100 mg caffeine kick paired with 25 g of 1:0.8 hydrogel carbs for late-race marathon kilometers or key climbs.",
+          "You need Informed Sport (batch-tested every lot) rather than Informed Choice, plus zero artificial flavors or preservatives.",
+          "You want higher carb efficiency per packet (3.60 vs 4.74 packets/hr for 90 g) with zero fat and minimal stomach heaviness."
+        ],
+        "bottom_line": "Looking only at per-packet price is misleading: per 30 g of pure carbs, GU Roctane ($4.74 USD) nearly matches Maurten Gel 100 Caf 100 ($5.20 USD). Choose GU Roctane for modular 35 mg caffeine + high sodium on hot trail ultras, and Maurten Caf 100 for high-dose 100 mg late-race surges with 1:0.8 hydrogel."
+      },
+      "ko": {
+        "headline": "강력한 100 mg 카페인·하이드로겔은 모르텐 Caf 100, 점진적 35 mg 카페인·고나트륨(180 mg)은 GU 록테인",
+        "choose_a_if": [
+          "한 번에 100 mg 카페인이 부담스러워 35 mg씩 완만하게 여러 포 나누어 섭취(또는 0 mg/70 mg 맛 선택)하려는 경우",
+          "32 g 소형 파우치 하나에 나트륨 125–180 mg과 아미노산 복합물 1,425 mg(BCAA·타우린·베타알라닌)까지 함께 챙기려는 트레일·울트러너",
+          "무향 젤리보다 진한 씨솔트 초콜릿·과일 맛을 선호하며 섭취 직후 물과 함께 먹을 수 있는 환경인 경우"
+        ],
+        "choose_b_if": [
+          "마라톤 30 km 후반이나 로드사이클 결정적 업힐에서 1포에 카페인 100 mg + 1:0.8 하이드로겔 탄수화물 25 g을 한 번에 투입하려는 경우",
+          "지방 0 g, 보존료·향료 무첨가, 전 배치 인폼드 스포츠(Informed Sport) 인증의 깔끔한 레이스 스펙을 원하는 경우",
+          "시간당 90 g 환산 시 GU 록테인(4.74포)보다 적은 3.60포로 탄수화물 효율을 높이려는 경우"
+        ],
+        "bottom_line": "포당 가격은 GU 록테인이 저렴하지만 탄수화물 함량(19 g vs 25 g)을 보정하면 미국 기준 30 g당 실단가는 $4.74 vs $5.20으로 격차가 9%에 불과합니다. 고나트륨·분할 카페인 전략은 GU 록테인, 고강도 승부처 100 mg 카페인·1:0.8 하이드로겔은 모르텐 Caf 100이 정답입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "neversecond-c30-energy-gel-vs-precision-pf-30-gel",
+    "vertical": "puregram",
+    "slug_a": "neversecond-c30-energy-gel",
+    "slug_b": "precision-pf-30-gel",
+    "release_wave": 1,
+    "info_gain_score": 94,
+    "serp_gaps_captured": [
+      "Identical 30 g / 2:1 / Informed Sport baseline isolates the exact cost of Neversecond's 200 mg sodium + fluid texture: +$1.17 per 30 g carbs (+50% USD) and +9 g per packet (60 g vs 51 g).",
+      "Hourly sodium architecture: 3 Neversecond C30 gels automatically supply 600 mg sodium/hr (zero extra salt pills needed for mild sweaters), whereas 3 PF 30 gels supply 0 mg sodium by design.",
+      "Swallowability without water: Neversecond's thinner 60 mL fluid consistency goes down cleanly mid-sprint without chasing water, while PF 30's 51 g gel is thicker and slightly lighter in pockets.",
+      "Exact 90 g/hr budget impact: 3 hours at 90 g/hr costs $31.50 USD (₩49,500 KRW) on Neversecond C30 vs $21.00 USD (₩33,000 KRW) on Precision PF 30."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Both Nail 30 g 2:1 Modular Math: Neversecond Adds 200 mg Sodium + Liquid Flow; PF 30 Saves 33%",
+        "choose_a_if": [
+          "You want 30 g carbs AND 200 mg sodium in a single pouch (600 mg Na/hr at 3 gels/hr) so you don't juggle separate salt capsules.",
+          "You race high-intensity criteriums, road races, or marathons where swallowing a thin liquid gel without reaching for a water bottle matters.",
+          "You prefer crisp mild fruit flavors (Citrus, Berry, Passion Fruit) backed by WorldTour peloton adoption and Informed Sport testing."
+        ],
+        "choose_b_if": [
+          "You want the exact same 30 g 2:1 carb dose and Informed Sport certification for 33% less money ($2.33 vs $3.50 per 30 g carbs).",
+          "You already dial personalized sodium levels via PH 1000 or PH 1500 bottles and want strictly 0 mg sodium in your gels to avoid over-salting.",
+          "You want 15% lighter, slimmer packets (51 g vs 60 g) when stuffing 6–9 gels into a marathon belt or aero jersey pocket."
+        ],
+        "bottom_line": "Neversecond C30 and Precision PF 30 are the two cleanest 30 g / 2:1 modular gels on the market—both Informed Sport certified and 3.00 gels/hr for 90 g/hr. Pay the 50% premium for Neversecond if built-in 200 mg sodium and thin no-water liquidity simplify your race; choose Precision PF 30 if you separate hydration from carbs and want $2.33/30 g value."
+      },
+      "ko": {
+        "headline": "똑같은 30 g·2:1 모듈형 대결: 나트륨 200 mg·액상 목넘김은 네버세컨드 C30, 33% 절감·분리 보급은 프리시전 PF 30",
+        "choose_a_if": [
+          "별도 염분 정제 없이 젤 3포만으로 시간당 탄수화물 90 g과 나트륨 600 mg을 한 번에 해결하려는 경우",
+          "급수대 밖이나 고강도 펠로톤 주행 중 물 없이도 술술 넘어가는 묽은 액상 제형을 선호하는 경우",
+          "시트러스·베리·패션프루트 등 깔끔한 과일 향과 월드투어 팀 검증 30 g 시스템을 원하는 경우"
+        ],
+        "choose_b_if": [
+          "동일한 30 g·2:1 배합과 인폼드 스포츠 인증을 33% 더 저렴한 단가(30 g당 3,667원 vs 5,500원)로 확보하려는 경우",
+          "땀 나트륨 배출량에 맞춰 PH 1000/1500 보틀로 염분을 정밀 조절하므로 젤은 나트륨 0 mg이어야 계산이 깔끔한 경우",
+          "개당 9 g 가벼운 51 g 컴팩트 파우치로 마라톤 벨트나 에어로 져지 수납 부피를 줄이려는 경우"
+        ],
+        "bottom_line": "두 제품 모두 30 g 단위 2:1 배합과 인폼드 스포츠 인증의 정석입니다. 젤 하나로 나트륨과 무물 액상 편의성까지 챙기려면 네버세컨드 C30, 염분은 보틀로 분리하고 탄수화물 순수 가성비를 극대화하려면 프리시전 PF 30이 명쾌한 승자입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "precision-ph-1500-electrolyte-vs-skratch-labs-sport-hydration-mix",
+    "vertical": "puregram",
+    "slug_a": "precision-ph-1500-electrolyte",
+    "slug_b": "skratch-labs-sport-hydration-mix",
+    "release_wave": 1,
+    "info_gain_score": 95,
+    "serp_gaps_captured": [
+      "Pure electrolyte math exposes a 2.08x cost gap per 1,000 mg Na+K: PH 1500 costs $1.37 USD (₩2,229 KRW) vs Skratch Labs at $2.85 USD (₩4,643 KRW).",
+      "Filler-vs-fuel composition split: PH 1500 tablet is 14.6% pure Na+K (only 16 kcal / 1.8 g carbs), whereas Skratch scoop is 1.91% Na+K because 90.9% (20 g) is cane sugar and dextrose for active fueling.",
+      "Anti-doping & sweetener divergence: PH 1500 tablets are NSF Certified for Sport but contain sucralose, whereas Skratch uses 100% real fruit and cane sugar with zero artificial sweeteners but lacks NSF/Informed Sport certification.",
+      "Bottle sodium density: 1 PH 1500 tablet supplies 750 mg sodium per 500 mL (1,500 mg/L), nearly double Skratch's 380 mg per 500 mL scoop."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "PH 1500 Wins Pure Sodium Value by 52% & NSF Testing; Skratch Wins Real-Fruit Natural Fueling",
+        "choose_a_if": [
+          "You are a salty or heavy sweater needing 750 mg sodium per 500 mL bottle (1,500 mg/L) or pre-race hyper-hydration loading.",
+          "You want the lowest true cost per 1,000 mg Na+K ($1.37 vs $2.85) with minimal calories (16 kcal) so your gels control carb intake.",
+          "You require NSF Certified for Sport anti-doping assurance and portable waterproof tubes for travel or race drop bags."
+        ],
+        "choose_b_if": [
+          "You strictly avoid artificial sweeteners like sucralose and want real fruit juice powder, cane sugar, and clean natural taste.",
+          "You want every 500 mL bottle to contribute 20 g of easy-digesting fueling carbs (80 kcal) alongside 380 mg sodium and 39 mg magnesium.",
+          "You train moderately in cool-to-warm weather where 760 mg sodium/L (2 scoops) is more palatable than intense 1,500 mg/L salt water."
+        ],
+        "bottom_line": "These two products solve different jobs. Measured strictly on pure electrolytes, PH 1500 delivers double the sodium per bottle at less than half the cost per 1,000 mg Na+K ($1.37 vs $2.85) with NSF Certified for Sport testing. Skratch Labs earns its place when you reject sucralose and value 400 g of real-fruit cane-sugar fueling carbs inside every bag."
+      },
+      "ko": {
+        "headline": "순수 염분 실단가(52% 저렴)·NSF 인증은 PH 1500, 무인공감미료·천연 과일+탄수화물 겸용은 스크래치 랩스",
+        "choose_a_if": [
+          "500 mL 보틀당 750 mg(1 L당 1,500 mg)의 초고농도 나트륨이 필요한 고발한자이거나 대회 전날 프리로딩 용도인 경우",
+          "탄수화물은 에너지젤로 따로 조절하고, 순수 전해질(Na+K) 1,000 mg당 실단가를 절반 수준(2,229원 vs 4,643원)으로 낮추려는 경우",
+          "NSF Certified for Sport 반도핑 인증과 튜브형 발포정의 휴대성·저칼로리(16 kcal)를 중시하는 경우"
+        ],
+        "choose_b_if": [
+          "수크랄로스 같은 인공감미료를 배제하고 사탕수수당과 천연 과즙 분말의 자연스러운 맛을 최우선으로 두는 경우",
+          "보틀 하나로 나트륨 380 mg·마그네슘 39 mg뿐 아니라 가벼운 탄수화물 20 g(80 kcal)까지 함께 보충하려는 경우",
+          "PH 1500의 강한 짠맛 대신 일상 1–3시간 라이딩·러닝에서 부담 없이 마실 수 있는 상큼한 음료를 찾는 경우"
+        ],
+        "bottom_line": "순수 전해질(Na+K) 1,000 mg당 실단가와 고농도 나트륨 공급 효율은 PH 1500 발포정이 압도적(절반 이하 가격, NSF 인증)입니다. 반면 스크래치 랩스는 스쿱의 91%가 탄수화물인 '천연 과일 탄수화물+전해질 겸용 믹스'로 인공감미료를 피하는 사용자에게 최적입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "esn-ultrapure-creatine-monohydrate-vs-momentous-creatine-creapure",
+    "vertical": "puregram",
+    "slug_a": "esn-ultrapure-creatine-monohydrate",
+    "slug_b": "momentous-creatine-creapure",
+    "release_wave": 1,
+    "info_gain_score": 96,
+    "serp_gaps_captured": [
+      "June 2026 sourcing fact-check: Momentous transitioned from German Creapure® to its proprietary 99.99% Signature Spec™ creatine on June 16, 2026, eliminating the old 'Creapure vs non-Creapure' assumption while keeping NSF Certified for Sport.",
+      "True standardized 5 g cost math: ESN Ultrapure costs $0.32 per 5 g USD (₩453 KRW) vs Momentous at $0.48 per 5 g USD (₩722 KRW)—a 50% premium for NSF + PFAS/microplastics testing.",
+      "EU vs US scoop trap exposed: ESN's 3.5 g EU serving (yielding 3.0 g anhydrous creatine) gives 142 label servings but 100 US-equivalent 5 g doses, compared to Momentous's 90 x 5 g doses in 450 g.",
+      "Anti-doping jurisdiction match: Cologne List (Kölner Liste) for European/general athletes vs NSF Certified for Sport mandated by NCAA/US pro leagues."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "ESN Ultrapure Saves 33% per 5 g with Cologne List; Momentous Adds NSF Sport & PFAS Testing",
+        "choose_a_if": [
+          "You want 100% pure >200-mesh micronized creatine monohydrate at $0.32 per 5 g (33% cheaper than Momentous) with 500 g per tub.",
+          "Independent European Cologne List (Kölner Liste) anti-doping testing meets your competition standards.",
+          "You dose 3.5–5 g/day unflavored and want maximum pure grams per dollar without paying US NSF certification overhead."
+        ],
+        "choose_b_if": [
+          "You are an NCAA, US pro, or military athlete specifically required to use NSF Certified for Sport certified supplements.",
+          "You prioritize expanded contaminant screening (heavy metals, PFAS, microplastics) under Momentous's June 2026 Signature Spec™ pharmaceutical standard.",
+          "You prefer a standard 5 g US scoop (90 exact daily servings) and wide US domestic availability."
+        ],
+        "bottom_line": "Both deliver 100.0% filler-free micronized creatine monohydrate, and neither currently uses AlzChem Creapure® after Momentous's June 2026 shift to Signature Spec™. Choose ESN Ultrapure for 33% lower cost per 5 g plus Cologne List screening; pay the Momentous premium only if NSF Certified for Sport or PFAS/microplastic testing is non-negotiable."
+      },
+      "ko": {
+        "headline": "순수 5 g 실단가 33% 절감·쾰른 리스트는 ESN 울트라퓨어, NSF 스포츠·PFAS 정밀 검사는 모멘터스",
+        "choose_a_if": [
+          "100% 순수 200메쉬 초미분화 크레아틴 모노하이드레이트를 5 g당 약 453원(모멘터스 대비 약 37% 저렴)으로 500 g 대용량 구매하려는 경우",
+          "유럽 공인 반도핑 검증인 쾰른 리스트(Kölner Liste) 수준이면 충분한 동호인·유럽권·국내 소비자",
+          "유럽 표기 3.5 g 스쿱 기준(5 g 섭취 시 100회분)을 이해하고 순수 그램당 가성비를 극대화하려는 경우"
+        ],
+        "choose_b_if": [
+          "미국 프로·대학 스포츠 표준인 NSF Certified for Sport 인증서가 반드시 필요한 도핑 검사 대상 선수인 경우",
+          "2026년 6월 크레아퓨어에서 전환된 자체 의약품 등급 Signature Spec™의 중금속·PFAS·미세플라스틱 추가 검사까지 중시하는 경우",
+          "정확한 5 g 스쿱(90회분)과 미국 직구 채널 접근성을 선호하는 경우"
+        ],
+        "bottom_line": "두 제품 모두 첨가물 0%의 순수 크레아틴 모노하이드레이트이며, 2026년 6월 모멘터스의 원료 전환으로 현재 두 제품 모두 AlzChem 크레아퓨어 원료가 아닙니다. 5 g당 실단가와 쾰른 리스트 균형은 ESN이 유리하고, NSF 스포츠·PFAS 정밀 안전 검증이 필수라면 모멘터스가 적합합니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "amino-vital-perfect-energy-vs-sis-go-isotonic-energy-gel",
+    "vertical": "puregram",
+    "slug_a": "amino-vital-perfect-energy",
+    "slug_b": "sis-go-isotonic-energy-gel",
+    "release_wave": 1,
+    "info_gain_score": 94,
+    "serp_gaps_captured": [
+      "Near-identical USD cost per 30 g carbs ($2.68 vs $2.73), while aminoVITAL pulls ahead by 16% in South Korea (₩3,146 vs ₩3,727 per 30 g) thanks to domestic East Asian distribution.",
+      "Single-pouch payload vs pocket weight: aminoVITAL delivers 86% more carbs per tear (41 g vs 22 g) plus 5,000 mg L-alanine/L-proline, but weighs 2.17x more per pouch (130 g vs 60 g).",
+      "Shared low-sugar Ace-K design: both rely on maltodextrin/dextrin to keep sugar ultra-low (2.2 g vs 0.6 g) and both use Acesulfame K (Ace-K) artificial sweetener.",
+      "Anti-doping & water-free distinction: SiS GO Isotonic is clinically isotonic (zero water needed) with Informed Sport batch certification, while aminoVITAL is a thicker resealable jelly best suited for pre-race or cycling pockets."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "aminoVITAL Packs 41 g Carbs + 5 g Amino Acids for Pre-Race/Bike; SiS GO Wins Lightweight Isotonic Running",
+        "choose_a_if": [
+          "You want 41 g of low-sugar dextrin carbs (2.2 g sugar) plus 5,000 mg declared L-alanine and L-proline in a resealable screw-cap pouch.",
+          "You are fueling pre-race (30 min before start), at marathon drop bags, or from cycling jersey pockets where a 130 g pouch is easy to carry.",
+          "You buy in Korea/Japan where aminoVITAL costs 16% less per 30 g carbs than imported SiS GO Isotonic."
+        ],
+        "choose_b_if": [
+          "You need a truly isotonic gel that absorbs smoothly mid-run without water and fits flat in running shorts (60 g vs 130 g pouch).",
+          "You require lot-by-lot Informed Sport anti-doping certification across all 30 sachets in a bulk training box.",
+          "You want smaller 22 g carb increments every 20–30 minutes without carrying bulky spout caps."
+        ],
+        "bottom_line": "Both keep sugar remarkably low (≤2.2 g) using dextrin/maltodextrin plus Ace-K sweetener and tie closely on USD cost per 30 g carbs ($2.68 vs $2.73). Use aminoVITAL Perfect Energy as a 41 g pre-race or cycling-pocket jelly powerhouse, and SiS GO Isotonic when pocket weight and water-free mid-run isotonics matter most."
+      },
+      "ko": {
+        "headline": "사전 로딩·져지 보급·국내 가성비는 아미노바이탈(41 g+아미노산 5 g), 가벼운 러닝 중 무물 섭취는 SiS GO 아이소토닉",
+        "choose_a_if": [
+          "1팩에 저당 덱스트린 탄수화물 41 g(당류 2.2 g)과 L-알라닌 4.5 g·L-프롤린 0.5 g을 스파우트 캡으로 편하게 나눠 마시려는 경우",
+          "마라톤 출발 30분 전 사전 로딩이나 로드사이클 져지 뒷포켓 장거리 보급용으로 국내 16% 더 저렴한 실단가(30 g당 3,146원)를 원하는 경우",
+          "자몽 맛 젤리 특유의 포만감과 깔끔한 목 넘김을 선호하는 경우"
+        ],
+        "choose_b_if": [
+          "러닝 중 130 g 스파우트 팩의 무게·부피가 부담스러워 60 g 납작한 파우치를 하프타이즈에 여러 개 휴대하려는 경우",
+          "급수대 없이도 바로 흡수되는 진정한 등장성(Isotonic) 제형과 30개입 박스 전량 인폼드 스포츠 인증이 필요한 경우",
+          "20–30분 간격으로 22 g씩 부담 없이 소량 분할 보급하려는 경우"
+        ],
+        "bottom_line": "두 제품 모두 저당 덱스트린·말토덱스트린과 Ace-K 감미료를 사용하며 미국 기준 30 g당 단가는 거의 동일합니다($2.68 vs $2.73). 국내 실구매가와 1팩 보급량(41 g + 아미노산 5 g)은 아미노바이탈이 앞서고, 달리는 중 휴대 무게와 무물 등장성 편의성은 SiS GO 아이소토닉이 명확한 강점을 갖습니다."
+      }
+    }
+  }
+]
