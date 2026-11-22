@@ -1,0 +1,33 @@
+{
+  "sku_slug": "shimano-dura-ace-r9270-di2-12s",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "specs.architecture",
+      "quote": "Semi-wireless 12-speed Di2: wireless ST-R9270 levers (CR1632), RD-R9250 wireless master hub with built-in ANT+/BLE, hardwired via EW-SD300 to BT-DN300 (52 g, ~1,000 km) and FD-R9250",
+      "source_url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.freehub_or_cleat_standard",
+      "quote": "CS-R9200 12-speed Hyperglide+ cassettes fit both 12-speed-only HG-L2 spline and legacy 11-speed road HG freehub bodies; incompatible with SRAM XDR or Flattop chains",
+      "source_url": "https://productinfo.shimano.com/en/compatibility",
+      "source_tier": 1
+    },
+    {
+      "field": "torque_or_install_note_en",
+      "quote": "FC-R9200 left crank fixing bolts 12-14 Nm; CS-R9200 cassette lockring 30-50 Nm (target 40 Nm); Shimano Mineral Oil hydraulic system only",
+      "source_url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Freehub directionality checked: Correctly documented that 12s CS-R9200 fits legacy 11s HG hubs, whereas 11s cassettes do NOT fit 12s-only HG-L2 hubs.",
+    "Drivetrain & cable trap verified: Distinguished EW-SD300 (12s) from EW-SD50 (11s), confirmed 1x CR1632 per ST-R9270 lever, and verified built-in D-Fly wireless chip in RD-R9250.",
+    "Safety & SM-02 check: Highlighted Mineral Oil vs DOT incompatibility and set asin: null under msrp_benchmark_mode."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

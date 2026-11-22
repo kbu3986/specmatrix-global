@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "road-tire",
+  "slug": "vittoria-corsa-pro-tlr-28",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Vittoria",
+  "model_number": "11A00452",
+  "origin_country": "IT",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "11A00452",
+      "msrp": 111.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Vittoria Corsa PRO TLR 700x28c 320 TPI cotton tubeless road tire",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "11A00452-KR",
+      "msrp": 145000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "비토리아 코르사 프로 TLR 28c 튜블리스 로드 타이어",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 280,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "700×28c (ETRTO 28-622) 320 TPI Cotton-Corespun Tubeless-Ready Racing Tire",
+    "connectivity": [],
+    "battery_life_hours": null,
+    "waterproof_rating": null,
+    "tire_width_mm": 28,
+    "hookless_compatible": true,
+    "hookless_max_psi": 72.5,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "ETRTO Size", "key_ko": "ETRTO 규격", "value": "28-622 (700×28c)" },
+      { "key_en": "Official Claimed Weight", "key_ko": "공식 무게", "value": "280 g" },
+      { "key_en": "Casing Construction", "key_ko": "케이싱 구조 (TPI)", "value": "320 TPI Corespun-K Cotton + Aramid seamless vulcanized casing" },
+      { "key_en": "Rubber Compound", "key_ko": "컴파운드", "value": "Graphene + Silica dual race compound" },
+      { "key_en": "Puncture Protection", "key_ko": "펑크 방지 벨트", "value": "High-density under-tread puncture protection belt + Bead Shield" },
+      { "key_en": "Construction Innovation", "key_ko": "접합 공법", "value": "Electrical vulcanization fusing tread seamlessly onto cotton casing" },
+      { "key_en": "Hookless (TSS) Compatibility", "key_ko": "후크리스(TSS) 림 호환", "value": "Approved for 28 mm+ hookless rims (24 mm & 26 mm sizes are hooked-only!)" },
+      { "key_en": "Max Pressure (Hookless / Hooked)", "key_ko": "최대 공기압 (후크리스 / 후크드)", "value": "5.0 bar / 72.5 psi (Hookless ETRTO max) · 6.0 bar / 87 psi (Hooked 28c)" },
+      { "key_en": "Recommended Internal Rim Width", "key_ko": "권장 내부 림폭", "value": "19–25 mm internal width (verify rim OEM list for >= 23 mm TSS)" },
+      { "key_en": "Tubeless Sealant Note", "key_ko": "실란트 및 공기압 관리", "value": "Ammonia-free tubeless sealant recommended (cotton walls breathe slightly more air)" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "700c (622 mm) Hooked and ETRTO TSS Hookless rims (28 mm+ ONLY; smaller Corsa PRO widths are hooked-only)",
+    "freehub_or_cleat_standard": "Tubeless-Ready (TLR) Zylon/Aramid bead (ammonia-free latex sealant recommended)",
+    "drivetrain_compatible": [
+      "Universal 700c disc & rim road frames with >= 30 mm actual tire clearance"
+    ],
+    "head_unit_or_app_verified": [
+      "Vittoria Official Tire Pressure Guide",
+      "Zipp / ENVE / Giant CADEX / DT Swiss Hookless Approved Tire Lists"
+    ],
+    "incompatible_notes_en": [
+      "NEVER inflate above 5.0 bar (72.5 psi) on hookless (TSS) rims, and note that ONLY 28 mm and wider Corsa PRO TLR sizes are hookless-approved (24 mm and 26 mm are strictly hooked-only).",
+      "Supple 320 TPI cotton casing prioritizes race-day road feel and cornering grip over sharp-flint cut resistance; riders on glass-heavy commuter roads should check Corsa PRO Control or GP5000 S TR."
+    ],
+    "incompatible_notes_ko": [
+      "후크리스(TSS) 림 장착 시 ETRTO 상한 5.0 bar(72.5 psi)를 절대 초과하지 마십시오. 또한 코르사 프로 TLR은 28 mm 이상 사이즈만 후크리스 공식 호환이며 24/26 mm는 후크드 전용입니다.",
+      "320 TPI 초유연 코튼 케이싱은 레이스 승차감과 코너링 그립에 특화되어 있어, 유리 파편·쇄석이 많은 도심 출퇴근로나 내구성 위주 운용 시 GP5000 S TR 대비 사이드월 절단·마모가 빠를 수 있습니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": true,
+    "torque_or_install_note_en": "MANDATORY HOOKLESS SAFETY WARNING: On hookless (TSS) rims, NEVER exceed 5.0 bar (72.5 psi) ETRTO maximum pressure and ALWAYS verify your rim manufacturer's official approved tire compatibility list before inflation. Ensure the 28c (28-622) bead indicator line sits evenly above the rim flange on both sides before riding.",
+    "torque_or_install_note_ko": "필수 후크리스(Hookless) 안전 경고: 후크리스(TSS) 림에서는 ETRTO 최대 허용 공기압 5.0 bar(72.5 psi)를 절대 초과하지 마시고, 장착 전 반드시 림 제조사의 공식 승인 타이어 리스트를 재확인하세요. 28c(28-622) 비드 라인이 양쪽 림 플랜지에 균일하게 안착했는지 확인 후 주행해야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Vittoria Corsa PRO TLR 28 mm",
+      "title": "Vittoria Corsa PRO TLR (28 mm): 320 TPI Cotton Pro-Peloton Specs & Hookless Audit",
+      "summary": "WorldTour-winning 320 TPI cotton-corespun tubeless road racing tire featuring electrical vulcanization, Graphene + Silica compound, 280 g claimed weight, and supple cornering compliance with 5.0 bar (72.5 psi) hookless compatibility.",
+      "best_for": "Racers and road purists prioritizing unmatched 320 TPI cotton road feel, high-speed wet/dry cornering confidence, and classic tan-wall aesthetics on smooth tarmac and race courses.",
+      "local_gotchas": [
+        "Cotton tubeless casings lose pressure slightly faster overnight than butyl-lined nylon casings — pump and check pressure with a calibrated gauge before every ride.",
+        "Seamless vulcanization fixes the old Corsa G2.0 tread delamination issue, but the soft Graphene + Silica race tread wears faster than GP5000 S TR (typically 2,500–4,000 km rear).",
+        "Avoid ammonia-based tubeless sealants or harsh degreaser overspray on the cotton sidewalls to preserve casing longevity."
+      ]
+    },
+    "ko": {
+      "name": "비토리아 코르사 프로 TLR 28c",
+      "title": "비토리아 코르사 프로(Corsa PRO) TLR 28mm: 320 TPI 코튼 승차감·후크리스 호환 총정리",
+      "summary": "월드투어 프로 펠로톤을 석권한 320 TPI 코튼-아라미드 케이싱 튜블리스 레이싱 타이어입니다. 일체형 전기 가황 공법과 그래핀+실리카 컴파운드로 280 g 무게에 독보적인 노면 추종성과 코너링 그립을 제공합니다.",
+      "best_for": "쫀득한 320 TPI 코튼 특유의 승차감과 고속 다운힐 코너링 접지력, 클래식한 검월(탄월) 비주얼을 최우선으로 삼는 레이서·동호인.",
+      "local_gotchas": [
+        "320 TPI 코튼 케이싱 특성상 나일론 타이어보다 하룻밤 공기압 자연 손실이 다소 빠르므로 매 라이딩 출발 전 정밀 게이지로 공기압을 점검하는 습관이 필수입니다.",
+        "구형 코르사 G2.0의 트레드 들뜸 현상을 전기 가황 공법으로 개선했지만, 레이스 지향 소프트 컴파운드라 리어 기준 마일리지는 GP5000 S TR 대비 짧게 체감됩니다.",
+        "코튼 사이드월 손상을 막기 위해 암모니아 무첨가 실란트를 사용하고, 세차 시 강한 디그리서가 타이어 측면에 튀지 않도록 주의하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Vittoria Official — Corsa PRO TLR Technical Specifications",
+      "url": "https://www.vittoria.com/products/corsa-pro-tlr",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Vittoria Official — Hookless Compatibility & Tire Pressure Guidelines",
+      "url": "https://www.vittoria.com/pages/tire-pressure-guide",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
+      "url": "https://www.etrto.org/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 95,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["continental-gp5000-s-tr-28", "pirelli-p-zero-race-rs-tlr-28"]
+}

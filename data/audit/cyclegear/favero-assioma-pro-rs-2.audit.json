@@ -1,0 +1,39 @@
+{
+  "sku_slug": "favero-assioma-pro-rs-2",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "123.5 g per pedal (247 g pair weight including integrated spindle power sensor)",
+      "source_url": "https://cycling.favero.com/en/assioma-pro-rs-2",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.stack_height_and_q_factor",
+      "quote": "Stack height 10.5 mm, Q-Factor +53 mm, Shimano SPD-SL cleat compatibility (SM-SH10, SM-SH11, SM-SH12)",
+      "source_url": "https://cycling.favero.com/en/assioma-pro-rs-2",
+      "source_tier": 1
+    },
+    {
+      "field": "claimed_accuracy_pct",
+      "quote": "Power measurement accuracy ±1% via IAV Power System with automatic temperature compensation and IP67 waterproofing",
+      "source_url": "https://cycling.favero.com/en/assioma-pro-rs-2",
+      "source_tier": 1
+    },
+    {
+      "field": "battery_life_hours",
+      "quote": "Rechargeable lithium-ion battery delivering at least 60 hours of operating time per charge",
+      "source_url": "https://cycling.favero.com/en/support",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Generation separation verified: Assioma PRO RS-2 (Art. 773-20-02, pod-free spindle, 247 g, +53 mm Q-factor, Shimano SPD-SL) distinguished from legacy Assioma DUO (Look Keo, external pod, 303 g) and Assioma DUO-Shi (+65 mm Q-factor).",
+    "Physics & accuracy invariant checked: claimed_accuracy_pct = 1.0% lies within [0.5%, 3.0%]; dual-sided true independent L/R strain gauge architecture verified.",
+    "Torque & SM-02 compliance checked: 35–40 Nm 8 mm hex installation torque verified; asin set to null (zero placeholder ASINs) under msrp_benchmark_mode."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

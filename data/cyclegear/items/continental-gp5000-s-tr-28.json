@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "road-tire",
+  "slug": "continental-gp5000-s-tr-28",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Continental",
+  "model_number": "0101867",
+  "origin_country": "DE",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "0101867",
+      "msrp": 114.95,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Continental Grand Prix 5000 S TR 700x28c tubeless road tire",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "0101867-KR",
+      "msrp": 140000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "콘티넨탈 그랑프리 GP5000 S TR 28c 튜블리스 로드 타이어",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 280,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "700×28c (ETRTO 28-622) Folding Tubeless-Ready (TLR) Road Racing Tire",
+    "connectivity": [],
+    "battery_life_hours": null,
+    "waterproof_rating": null,
+    "tire_width_mm": 28,
+    "hookless_compatible": true,
+    "hookless_max_psi": 72.5,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "ETRTO Size", "key_ko": "ETRTO 규격", "value": "28-622 (700×28c)" },
+      { "key_en": "Official Claimed Weight", "key_ko": "공식 무게", "value": "280 g (Black sidewall; ~275 g Transparent sidewall)" },
+      { "key_en": "Casing Construction", "key_ko": "케이싱 구조 (TPI)", "value": "2-ply / 220 TPI nylon carcass (3-ply under tread)" },
+      { "key_en": "Rubber Compound", "key_ko": "컴파운드", "value": "BlackChili Compound (Handmade in Korbach, Germany)" },
+      { "key_en": "Puncture Protection", "key_ko": "펑크 방지 벨트", "value": "Vectran Breaker (liquid-crystalline polymer)" },
+      { "key_en": "Tread & Ride Tech", "key_ko": "트레드·승차감 기술", "value": "Lazer Grip shoulder micro-profile + Active Comfort Technology" },
+      { "key_en": "Hookless (TSS) Compatibility", "key_ko": "후크리스(TSS) 림 호환", "value": "Approved for 28 mm+ TSS hookless rims (verify rim brand list)" },
+      { "key_en": "Max Pressure (Hookless / Hooked)", "key_ko": "최대 공기압 (후크리스 / 후크드)", "value": "5.0 bar / 72.5 psi (Hookless ETRTO max) · 6.5 bar / 94 psi (Hooked)" },
+      { "key_en": "Recommended Internal Rim Width", "key_ko": "권장 내부 림폭", "value": "19–25 mm internal width (optimized around 21–23 mm modern aero rims)" },
+      { "key_en": "Tubed / TPU Fallback", "key_ko": "클린처/TPU 튜브 사용", "value": "Can be run with inner tube (butyl/TPU) on hooked rims; tubeless sealant required on hookless" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "700c (622 mm) Hooked (crotchet) and ETRTO TSS Hookless road rims (19–25 mm internal width)",
+    "freehub_or_cleat_standard": "Tubeless-Ready (TLR) folding bead (compatible with ammonia-free latex sealants)",
+    "drivetrain_compatible": [
+      "Universal 700c disc & rim road frames with >= 30 mm actual tire clearance (expands to ~29.5–30.5 mm on 23–25 mm internal rims)"
+    ],
+    "head_unit_or_app_verified": [
+      "Silca / SRAM AXS Tire Pressure Calculator (for weight-based bar/psi tuning)",
+      "Zipp / ENVE / Giant CADEX / DT Swiss Rim Approved Tire Lists"
+    ],
+    "incompatible_notes_en": [
+      "NEVER inflate above 5.0 bar (72.5 psi) on hookless (TSS) rims — over-inflation risks catastrophic tire blow-off.",
+      "Not approved on ultra-wide 25 mm+ hookless rims unless explicitly listed as compatible by BOTH Continental and the wheelset manufacturer (ETRTO 2024+ 28 mm / 25 mm internal rim guidance)."
+    ],
+    "incompatible_notes_ko": [
+      "후크리스(TSS) 림 장착 시 어떠한 경우에도 ETRTO 최대 허용 공기압 5.0 bar(72.5 psi)를 초과 주입해서는 안 됩니다(과압 시 주행 중 타이어 이탈 사고 위험).",
+      "내부 림폭 25 mm 이상의 광폭 후크리스 림에서는 최신 ETRTO 규정상 28 mm 타이어 호환이 제한될 수 있으므로 반드시 휠셋 제조사의 공식 승인 타이어 리스트를 먼저 확인하세요."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": true,
+    "torque_or_install_note_en": "MANDATORY HOOKLESS SAFETY WARNING: On hookless (TSS) rims, NEVER exceed the ETRTO maximum of 5.0 bar (72.5 psi) and ALWAYS verify your rim manufacturer's official approved tire list before mounting and inflating. Inspect bead seating line uniformly around both sides of the rim before riding and inject >= 30–40 ml of tubeless sealant.",
+    "torque_or_install_note_ko": "필수 후크리스(Hookless) 안전 경고: 후크리스(TSS) 림 장착 시 ETRTO 법정 최대 공기압 5.0 bar(72.5 psi)를 절대 초과하지 마십시오. 장착·주입 전 반드시 사용 중인 휠셋(림) 제조사의 공식 호환 승인 타이어 리스트에 등재되어 있는지 확인하고, 양쪽 비드 안착 라인이 균일하게 자리 잡았는지 육안 점검 후 실란트(30–40 ml 이상)를 주입하세요."
+  },
+  "i18n": {
+    "en": {
+      "name": "Continental GP5000 S TR 28 mm",
+      "title": "Continental Grand Prix 5000 S TR (28 mm): 280 g All-Round Benchmark & Hookless Safety Specs",
+      "summary": "Handmade-in-Germany all-round tubeless racing benchmark combining BlackChili compound, Vectran puncture breaker, 2/220 TPI nylon casing, 280 g weight, and ETRTO 5.0 bar (72.5 psi) hookless approval.",
+      "best_for": "All-season road racers and high-mileage enthusiasts seeking the best balance of low rolling resistance, wet grip, Vectran puncture durability, and consistent tubeless air retention.",
+      "local_gotchas": [
+        "Compared to cotton-casing tires like Vittoria Corsa PRO, the vulcanized nylon carcass holds tubeless air noticeably longer between rides and resists sidewall cuts better on rough chipseal.",
+        "On modern 23 mm internal aero wheelsets, the 28c GP5000 S TR typically measures ~29.5–30.0 mm wide — verify chainstay/fork crown clearance on older rim-brake or tight aero frames.",
+        "Initial tubeless bead mounting can feel snug on deep-channel carbon rims; push both beads into the center rim well and use soapy water rather than metal tire levers."
+      ]
+    },
+    "ko": {
+      "name": "콘티넨탈 GP5000 S TR 28c",
+      "title": "콘티넨탈 그랑프리 GP5000 S TR 28mm: 280g 올라운드 표준·후크리스 안전 규격 총정리",
+      "summary": "독일 코르바흐 공장에서 수작업 생산되는 올라운드 로드 튜블리스의 절대 기준입니다. 블랙칠리 컴파운드, 벡트란 펑크 방지 벨트, 2/220 TPI 나일론 케이싱, 280 g 중량으로 속도·내구성·공기압 유지력의 균형이 탁월합니다.",
+      "best_for": "주말 장거리 라이딩과 레이스·평일 훈련을 한 세트로 소화하며 펑크 내구성과 우천 접지력, 안정적인 튜블리스 공기압 유지를 동시에 원하는 로드 라이더.",
+      "local_gotchas": [
+        "코튼 케이싱(비토리아 코르사 프로 등) 대비 나일론 가황 케이싱 구조라 튜블리스 실란트 밀봉력과 공기압 유지력이 우수해 며칠 방치 후에도 압력 손실이 적습니다.",
+        "최근 유행하는 내부 림폭 21–23 mm 카본 에어로 휠셋에 장착 시 실측 폭이 약 29.5–30.0 mm까지 불어나므로 프레임 클리어런스를 사전에 확인하세요.",
+        "일부 카본 림에서는 비드가 타이트해 맨손 장착이 뻑뻑할 수 있으므로 비드를 림 중앙 홈으로 깊게 밀어 넣고 플라스틱 레버와 비눗물을 활용하는 것이 안전합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Continental Tires Official — Grand Prix 5000 S TR Specifications",
+      "url": "https://www.continental-tires.com/products/bicycle/tires/grand-prix-5000-s-tr/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Continental Tires Official — Hookless (TSS) Rim Compatibility & Pressure Guide",
+      "url": "https://www.continental-tires.com/products/bicycle/tire-knowledge/hookless-rims/",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
+      "url": "https://www.etrto.org/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["vittoria-corsa-pro-tlr-28", "pirelli-p-zero-race-rs-tlr-28"]
+}

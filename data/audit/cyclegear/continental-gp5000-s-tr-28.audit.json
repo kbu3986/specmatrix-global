@@ -1,0 +1,27 @@
+{
+  "sku_slug": "continental-gp5000-s-tr-28",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Grand Prix 5000 S TR 28-622 (700x28c): 280 g (Black), 2/220 TPI, BlackChili Compound, Vectran Breaker, Lazer Grip, Active Comfort Technology",
+      "source_url": "https://www.continental-tires.com/products/bicycle/tires/grand-prix-5000-s-tr/",
+      "source_tier": 1
+    },
+    {
+      "field": "hookless_max_psi",
+      "quote": "Hookless (TSS) compatible in 28-622 up to ETRTO maximum pressure 5.0 bar / 72.5–73 psi; verify wheel manufacturer approved tire list",
+      "source_url": "https://www.continental-tires.com/products/bicycle/tire-knowledge/hookless-rims/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "SM-05 hookless safety invariant verified: requires_hookless_warning = true, tire_width_mm = 28 (within 23–45 mm), hookless_max_psi = 72.5 (<= 72.5 ETRTO 5.0 bar), and mandatory rim OEM approved tire list verification included in EN and KO.",
+    "SM-05 copyright compliance verified: Zero paywalled BRR rolling resistance wattage or puncture-score figures copied; only official Continental manufacturer specs and ETRTO rules used.",
+    "SM-02 compliance verified: asin set to null under msrp_benchmark_mode with realistic US ($114.95) and KR (140,000 KRW) per-tire benchmarks."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

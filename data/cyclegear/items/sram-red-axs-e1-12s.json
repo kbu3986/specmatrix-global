@@ -1,0 +1,146 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "drivetrain",
+  "slug": "sram-red-axs-e1-12s",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "SRAM",
+  "model_number": "GS-RED-E-E1",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "GS-RED-E-E1",
+      "msrp": 4450.0,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "SRAM RED AXS E1 12 speed hydraulic disc groupset",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "GS-RED-E-E1-KR",
+      "msrp": 6100000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "스램 레드 AXS E1 12단 무선 전동 그룹셋 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 2496,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "12-speed 100% wireless hydraulic disc electronic road groupset (E1 HRD levers + Bonus Buttons)",
+    "connectivity": ["SRAM AXS Proprietary Wireless", "ANT+", "Bluetooth Low Energy (AXS App)"],
+    "battery_life_hours": 60,
+    "waterproof_rating": "IPX7",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": 12,
+    "key_specs_kv": [
+      { "key_en": "Complete Groupset Weight", "key_ko": "풀 그룹셋 공식 무게", "value": "2,496 g (incl. 48/35T power meter crank, 10-28T, 2×160 mm rotors, batteries)" },
+      { "key_en": "Shifting Architecture", "key_ko": "변속 통신 구조", "value": "100% fully wireless (zero shift wires in frame; independent FD & RD batteries)" },
+      { "key_en": "Derailleur Batteries", "key_ko": "변속기 배터리 시스템", "value": "2× interchangeable SRAM eTap/AXS Li-ion packs (~25 g each, ~60 hrs ride time)" },
+      { "key_en": "Shifter Batteries & Ergonomics", "key_ko": "레버 배터리·인체공학", "value": "1× CR2032 per lever (~2 yrs); E1 one-finger hood braking (80% less effort)" },
+      { "key_en": "Bonus Buttons", "key_ko": "내장 보너스 버튼", "value": "Inner-hood programmable Bonus Buttons for shifting OR ANT+ head-unit control" },
+      { "key_en": "Freehub Requirement", "key_ko": "필수 프리허브 규격", "value": "SRAM XDR 12-speed driver body mandatory (supports 10T small cog)" },
+      { "key_en": "Cassette & Chain Standard", "key_ko": "카세트·체인 규격", "value": "XG-1290 (10-28/30/33/36T) + RED E1 HollowPin Flattop 12s chain" },
+      { "key_en": "Crank Spindle / BB Standard", "key_ko": "크랭크 스핀들 / BB 규격", "value": "SRAM DUB 28.99 mm spindle (requires DUB-specific BB for BSA/BB86/T47/PF30)" },
+      { "key_en": "Hydraulic Brake Fluid", "key_ko": "유압 브레이크 오일", "value": "DOT 5.1 hydraulic fluid (Bleeding Edge caliper port)" },
+      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 sealed electronic derailleurs, shifters, and integrated Quarq power meter" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "SRAM DUB 28.99 mm spindle (BSA DUB, BB86/PF86 DUB, T47 DUB, BB30/PF30 DUB) + Flat-Mount Disc",
+    "freehub_or_cleat_standard": "SRAM XDR 12-speed road freehub body ONLY (incompatible with Shimano HG / HG-L2)",
+    "drivetrain_compatible": [
+      "SRAM Force AXS D2 / Rival AXS D1 12s AXS road components (full AXS cross-compatibility)",
+      "SRAM RED AXS E1 integrated Quarq spider power meter (±1.5%)",
+      "Favero Assioma PRO RS-2 & DUO / Garmin Rally RS200 (zero crank conflict)",
+      "Wahoo KICKR CORE & Tacx NEO 2T (requires optional XDR freehub for real XG-1290 cassette, OR runs directly on Zwift Cog via virtual shifting)"
+    ],
+    "head_unit_or_app_verified": [
+      "Hammerhead Karoo (deepest native SRAM AXS integration)",
+      "Garmin Edge 840 Solar & Edge 1050 (gear ratio + Bonus Button control)",
+      "COROS DURA (gear ratio + Bonus Button ANT+ control)",
+      "Wahoo ELEMNT ROAM V2 (gear ratio + Bonus Button mapping)",
+      "SRAM AXS Mobile App (Sequential / Compensating shift modes)"
+    ],
+    "incompatible_notes_en": [
+      "STRICTLY INCOMPATIBLE with Shimano HG / HG-L2 freehubs and Shimano 12-speed Hyperglide+ chains/cassettes — requires SRAM XDR freehub body and SRAM 12-speed Flattop chain.",
+      "Requires a SRAM DUB (28.99 mm) bottom bracket — Shimano 24 mm Hollowtech II bottom brackets will NOT accept a DUB crank spindle.",
+      "RED E1 integrated Quarq power meter chainrings are one-piece direct-mount units (non-replaceable individual rings when worn, though SRAM offers a trade-in replacement discount)."
+    ],
+    "incompatible_notes_ko": [
+      "시마노 HG / HG-L2 프리허브 및 시마노 12단 하이퍼글라이드+ 체인·카세트와 절대 호환되지 않습니다. 반드시 스램 XDR 프리허브 바디와 스램 12단 플랫탑 체인을 사용해야 합니다.",
+      "28.99 mm 스램 DUB 스핀들 규격이므로 기존 시마노 24 mm BB(예: BB86/BSA)는 반드시 스램 DUB 규격 BB로 교체해야 합니다.",
+      "RED E1 파워미터 일체형 체인링은 1피스 구조로 체인링 마모 시 전체 교체(스램 보상 교체 프로그램 적용)가 필요하므로, 마일리지 유지비를 중시하면 스파이더 분리형이나 페달 파워미터 조합도 함께 검토하세요."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Torque the SRAM DUB self-extracting crank bolt to 54 Nm (8 mm hex), XG-1290 XDR cassette to 40 Nm, and Centerlock rotor lockrings to 40 Nm. Use ONLY DOT 5.1 brake fluid (NEVER Shimano Mineral Oil) and avoid skin/paint contact when bleeding.",
+    "torque_or_install_note_ko": "스램 DUB 크랭크 메인 볼트는 8 mm 육각 렌치로 54 Nm, XG-1290 XDR 카세트와 센터락 로터는 40 Nm 규정 토크로 체결하세요. 유압 브레이크는 반드시 DOT 5.1 오일만 사용해야 하며(미네랄 오일 혼입 절대 금지), 블리딩 시 프레임 도장면에 DOT 오일이 묻지 않도록 즉시 닦아내야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "SRAM RED AXS E1 12s",
+      "title": "SRAM RED AXS E1 12-Speed: 2,496 g Fully Wireless, One-Finger Braking & XDR/Flattop Specs",
+      "summary": "The lightest flagship electronic road disc groupset at 2,496 g (including integrated power meter), introducing effortless one-finger hood braking, inner-hood Bonus Buttons, 100% wire-free frame builds, and swappable 60-hour AXS derailleur batteries.",
+      "best_for": "Weight-weenie builders, clean internal-cockpit fans, and riders prioritizing effortless one-finger hood braking and hot-swappable wireless batteries with zero internal shift wiring.",
+      "local_gotchas": [
+        "Because front and rear derailleurs share identical snap-off batteries (~60 hrs), a dead rear battery mid-ride can be swapped with the front derailleur battery in 10 seconds to ride home in the small or big ring.",
+        "Red E1's 2,496 g official weight INCLUDES the integrated dual-sided Quarq spider power meter — making it lighter than Dura-Ace R9270 once a power meter is added to Shimano.",
+        "Switching from Shimano to SRAM RED AXS E1 carries hidden ecosystem costs: you must swap wheelset and smart-trainer freehubs to SRAM XDR (unless using Zwift Cog) and install a DUB bottom bracket."
+      ]
+    },
+    "ko": {
+      "name": "스램 레드 AXS E1 12단",
+      "title": "스램 레드(RED) AXS E1 12단: 2,496g 완전무선·원핑거 브레이킹·XDR/플랫탑 호환 분석",
+      "summary": "파워미터 크랭크를 포함하고도 2,496 g으로 현존 최경량 전동 디스크 그룹셋을 달성한 스램의 신형 플래그십입니다. 손가락 하나로 잡히는 원핑거 브레이킹, 내장 보너스 버튼, 배선 제로 완전무선과 탈착식 배터리가 핵심입니다.",
+      "best_for": "초경량 클라이밍·올라운드 빌드와 프레임 내부 전동 배선 없는 깔끔한 조립, 적은 악력으로도 강력한 원핑거 브레이킹과 탈착식 배터리 편의성을 원하는 하이엔드 라이더.",
+      "local_gotchas": [
+        "앞·뒤 변속기 배터리가 동일 규격의 탈착식(약 60시간)이라 라이딩 중 뒷변속기가 방전돼도 10초 만에 앞변속기 배터리와 맞바꿔 안전하게 복귀할 수 있습니다.",
+        "국내에서 시마노 구동계 자전거를 스램 RED E1으로 기변할 때는 그룹셋 외에 휠셋 XDR 프리허브(약 10–20만 원), DUB BB 교체, 스마트 로라 XDR 바디(또는 즈위프트 코그) 추가 비용을 반드시 예산에 포함해야 합니다.",
+        "신형 E1 레버의 브레이크 레버비 개선과 후드 내측 보너스 버튼(변속 또는 코로스·가민·와후 속도계 페이지 넘김 설정)은 구형 D1 대비 체감 업그레이드 폭이 매우 큽니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "SRAM Official — RED AXS E1 Groupset Specifications & Technical Docs",
+      "url": "https://www.sram.com/en/sram/models/gs-red-e-e1",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "SRAM Service & Manuals — RED AXS E1 DUB Torque & XDR Compatibility",
+      "url": "https://www.sram.com/en/service/models/gs-red-e-e1",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "SRAM Official — AXS Road 12-Speed Compatibility Map",
+      "url": "https://www.sram.com/en/service/articles/sram-road-compatibility-map",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["shimano-dura-ace-r9270-di2-12s", "favero-assioma-pro-rs-2"]
+}

@@ -1,0 +1,33 @@
+{
+  "sku_slug": "wahoo-kickr-core",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "max_trainer_watts",
+      "quote": "Max power output 1800W, max simulated grade 16%, power accuracy +/- 2%, weight 40 lbs (18.1 kg), 12 lb flywheel",
+      "source_url": "https://www.wahoofitness.com/devices/indoor-cycling/kickr-core-buy",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.freehub_or_cleat_standard",
+      "quote": "Shimano/SRAM 8/9/10/11/12-speed HG freehub standard (XDR freehub body sold separately); available with pre-installed Zwift Cog & Click for virtual shifting",
+      "source_url": "https://support.wahoofitness.com/hc/en-us/categories/360000344039-KICKR-CORE",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.drivetrain_compatible",
+      "quote": "Zwift Cog mounts to HG freehub body and supports 8- to 12-speed chains including SRAM Flattop via Bluetooth virtual shifting in Zwift",
+      "source_url": "https://support.zwift.com/en_us/zwift-ready-and-virtual-shifting-compatibility-rkG8wT80p",
+      "source_tier": 2
+    }
+  ],
+  "adversarial_checks": [
+    "Physics & range invariant checked: max_trainer_watts = 1800, max_trainer_grade_pct = 16, claimed_accuracy_pct = 2.0% (within 0.5–3.0%), trainer_noise_dba = 58 (within 15–85, clearly labeled as non-OEM reference since Wahoo publishes no official dBA).",
+    "Freehub & Zwift Cog nuance audited: Accurately separated mounting a real SRAM XDR cassette (requires Wahoo XDR body) vs running a SRAM 12s chain on the HG-mounted Zwift Cog via virtual shifting.",
+    "Safety & SM-02 check: Included updated bevelled 12x142 thru-axle adapter caliper clearance check and set asin: null under msrp_benchmark_mode."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

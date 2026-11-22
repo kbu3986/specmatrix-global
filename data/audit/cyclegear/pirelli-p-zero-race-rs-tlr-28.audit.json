@@ -1,0 +1,27 @@
+{
+  "sku_slug": "pirelli-p-zero-race-rs-tlr-28",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "P ZERO Race TLR RS 28-622 (700x28c): 290 g, 120 TPI SpeedCore aramid-infused casing, SmartEVO2 compound, Made in Bollate Italy with FSC-certified rubber",
+      "source_url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
+      "source_tier": 1
+    },
+    {
+      "field": "hookless_max_psi",
+      "quote": "Sizes 28 mm and wider are compatible with TSS hookless rims up to 5.0 bar (72.5 psi ETRTO limit); 26 mm size is not hookless compatible",
+      "source_url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Model generation check: Distinguished flagship 'P Zero Race TLR RS' (SmartEVO2, Bollate Italy) from legacy non-RS 'P Zero Race TLR' (SmartEVO).",
+    "SM-05 hookless safety & copyright check: requires_hookless_warning = true, hookless_max_psi = 72.5, mandatory rim OEM approved tire list verification included; zero paywalled BRR numbers copied.",
+    "SM-02 check: asin set to null under msrp_benchmark_mode with US ($117.90) and KR (150,000 KRW) single-tire benchmarks."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

@@ -1,0 +1,33 @@
+{
+  "sku_slug": "garmin-edge-840-solar",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Physical dimensions 57.8 x 85.1 x 19.6 mm; Weight 84.8 g; Display 2.6 inch (246 x 322 pixels) touchscreen + physical buttons; IPX7",
+      "source_url": "https://www.garmin.com/p/797864",
+      "source_tier": 1
+    },
+    {
+      "field": "battery_life_hours",
+      "quote": "Battery life: up to 32 hours in demanding use with solar charging (up to 60 hours in battery saver mode); 32 GB internal memory; Multi-band GNSS",
+      "source_url": "https://www.garmin.com/p/797864",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.drivetrain_compatible",
+      "quote": "Native Shimano Di2 and SRAM AXS electronic shifting integration displaying gear ratios, battery status, and hood button mapping",
+      "source_url": "https://www8.garmin.com/manuals/webhelp/GUID-16B12CFE-F96E-4DE9-9F5F-8C4A5936D3B9/EN-US/GUID-4D2584D4-AD77-402F-9254-A7F6E51D9880.html",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Model SKU separation verified: Part 010-02695-20 is Edge 840 Solar (touchscreen + buttons + solar), distinct from Edge 540 Solar (no touch) and Edge 840 non-solar.",
+    "Realistic solar expectations checked: Highlighted 26 hr non-solar / 32 hr solar gain (~25 min/hr @ 75k lux) vs COROS DURA's 2x solar ratio to prevent marketing exaggeration.",
+    "SM-02 & price benchmark check: US MSRP $549.99 and KR retail 750,000 KRW under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

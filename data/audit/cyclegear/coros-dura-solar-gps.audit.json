@@ -1,0 +1,33 @@
+{
+  "sku_slug": "coros-dura-solar-gps",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "battery_life_hours",
+      "quote": "120 hours of continuous riding on a single charge with full GPS (All Systems), 70 hours in Dual-Frequency mode; 1 hour of direct sunlight generates up to 2 hours of extra ride time",
+      "source_url": "https://coros.com/dura",
+      "source_tier": 1
+    },
+    {
+      "field": "weight_g",
+      "quote": "Device weight 102g (mount 53g); dimensions 99.5 x 60.8 x 15.7 mm; 2.7-inch 64-color MIP touchscreen (400 x 240); 32GB storage; IP67 waterproof",
+      "source_url": "https://coros.com/dura",
+      "source_tier": 1
+    },
+    {
+      "field": "compatibility_graph.drivetrain_compatible",
+      "quote": "Supports Shimano Di2 & SRAM AXS electronic shifting data and customizable Di2 hood button controls, ANT+ radar alerts, and native Intervals.icu two-way sync",
+      "source_url": "https://support.coros.com/hc/en-us/sections/25563580115732-DURA",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Pricing & KR official MSRP verified: Global US MSRP $249 USD and official Korea Joyworks MSRP 429,000 KRW verified without confusing bundle pricing.",
+    "Navigation caveat audited: Explicitly noted that smart Google Maps rerouting depends on smartphone Bluetooth connection via COROS App while offline maps remain on-device.",
+    "Mount & ecosystem check: Confirmed Garmin quarter-turn compatibility, native Intervals.icu 2-way sync, and Di2/AXS hood button mapping; asin set to null per SM-02."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

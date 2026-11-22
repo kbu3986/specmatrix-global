@@ -1,0 +1,33 @@
+{
+  "sku_slug": "magene-pes-p505-base",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "specs.spindle_and_bcd",
+      "quote": "24mm steel spindle (compatible with Shimano Hollowtech II bottom brackets), 110BCD 4-bolt spider, Q-factor 147mm",
+      "source_url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
+      "source_tier": 1
+    },
+    {
+      "field": "claimed_accuracy_pct",
+      "quote": "Power accuracy ±1.5%, 200-hour battery life, IPX7 waterproof, weight ~650g (170mm without chainrings)",
+      "source_url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
+      "source_tier": 1
+    },
+    {
+      "field": "torque_or_install_note_en",
+      "quote": "Spider lockring 35-40 Nm, left crank pinch bolt 12-14 Nm, preload cap 1-1.5 Nm, Magene chainring bolts 8 Nm; re-check torque after 100 km",
+      "source_url": "https://www.magene.com/en/content/6-support",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Architecture truth check: Explicitly flagged that spider-based P505 measures true combined total power (±1.5%) while L/R balance is estimated rather than independent dual-leg strain gauges.",
+    "Torque sanity check: Distinguished spider lockring torque (35–40 Nm) from left crank pinch bolts (12–14 Nm) and Magene chainring bolts (8 Nm) to prevent stripping hazards.",
+    "BB & Base-kit check: Verified chainrings are excluded in Base kit and Trek BB90 / internal T47 clearance caveats are explicitly documented; asin set to null per SM-02."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

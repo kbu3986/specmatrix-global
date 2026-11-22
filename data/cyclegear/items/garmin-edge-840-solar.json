@@ -1,0 +1,145 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "gps-computer",
+  "slug": "garmin-edge-840-solar",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Garmin",
+  "model_number": "010-02695-20",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "010-02695-20",
+      "msrp": 549.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Garmin Edge 840 Solar GPS bike computer 010-02695-20",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "010-02695-20-KR",
+      "msrp": 750000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "가민 엣지 840 솔라 자전거 GPS 속도계 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 85,
+    "claimed_accuracy_pct": null,
+    "left_right_balance": null,
+    "mount_or_form_factor": "2.6\" Power Glass Solar Touchscreen + Full 7-Button Dual Control (compact aero profile)",
+    "connectivity": ["ANT+", "Bluetooth Low Energy (BLE)", "Wi-Fi", "Multi-Band GNSS"],
+    "battery_life_hours": 32,
+    "waterproof_rating": "IPX7",
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": null,
+    "max_trainer_grade_pct": null,
+    "trainer_noise_dba": null,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Device Weight", "key_ko": "본체 무게", "value": "84.8 g (85 g compact aero chassis)" },
+      { "key_en": "Battery (Demanding / Saver)", "key_ko": "배터리 (일반+솔라 / 절전)", "value": "Up to 32 hrs with solar (26 hrs non-solar) / 60 hrs battery saver" },
+      { "key_en": "Display Specs", "key_ko": "디스플레이", "value": "2.6\" (66 mm) transflective color MIP touchscreen (246 × 322 px)" },
+      { "key_en": "Dual Input Interface", "key_ko": "이중 조작 인터페이스", "value": "Full capacitive touchscreen + complete 7 physical side/bottom buttons" },
+      { "key_en": "Dimensions", "key_ko": "외형 크기", "value": "57.8 × 85.1 × 19.6 mm" },
+      { "key_en": "Internal Storage", "key_ko": "내장 저장공간", "value": "32 GB (preloaded routable Garmin Cycle Map)" },
+      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 (USB-C charging)" },
+      { "key_en": "Navigation & ClimbPro", "key_ko": "내비게이션 및 클라임프로", "value": "Standalone on-device routing + Free-Ride ClimbPro (no course needed)" },
+      { "key_en": "Performance Metrics", "key_ko": "트레이닝 분석 기능", "value": "Real-Time Stamina, Power Guide, Cycling Ability, Daily Workouts" },
+      { "key_en": "Di2 / AXS & Radar Support", "key_ko": "구동계·레이더·연동", "value": "Full Shimano Di2/SRAM AXS hood control, Varia Radar, Connect/Intervals.icu/Strava" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Standard Garmin quarter-turn mount (replaceable tabs; fits all aero integrated stem mounts)",
+    "freehub_or_cleat_standard": "N/A (head unit — ANT+ & BLE sensor hub)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9270 / Ultegra R8170 / 105 R7170 12s Di2 (native wireless gear & hood buttons)",
+      "Shimano 11s Di2 (via EW-WU111/EW-WU101 D-Fly)",
+      "SRAM RED / Force / Rival AXS 12s (native ANT+ shifting + Bonus Buttons)",
+      "Campagnolo EPS / WRL"
+    ],
+    "head_unit_or_app_verified": [
+      "Favero Assioma PRO RS-2 & DUO (full Cycling Dynamics incl. PCO)",
+      "Garmin Rally RS200 (native OTA firmware + full Cycling Dynamics)",
+      "Magene PES P505 Base",
+      "Garmin Varia RTL515 / RCT715 & Magene L508 Radar",
+      "Tacx NEO 2T & Wahoo KICKR CORE (ANT+ FE-C control)",
+      "Garmin Connect / Intervals.icu (auto-sync via Connect) / Strava / TrainingPeaks"
+    ],
+    "incompatible_notes_en": [
+      "Power Glass solar lens sits over the screen bezel and adds mild reflection compared to the non-solar Edge 840; solar gain tops out at ~25 min/hr in 75,000 lux direct sun (far less than COROS DURA).",
+      "Does not include Edge 1050's built-in speaker/electronic bell or Garmin Pay contactless payment."
+    ],
+    "incompatible_notes_ko": [
+      "파워 글래스 태양광 패널은 75,000 럭스 직사광선 기준 시간당 약 25분 연장 수준으로 코로스 듀라만큼의 자급자족 충전은 아니며, 비솔라(일반 840) 대비 화면 반사가 미세하게 더 있습니다.",
+      "엣지 1050에 탑재된 내장 스피커(전자 벨)와 가민 페이 기능은 지원하지 않습니다(경고음은 피에조 비퍼 방식)."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Install the flush out-front mount cleanly without over-torquing carbon bar clamps (max 1.5–2.0 Nm) and attach the tether strap. Configure Garmin Incident Detection emergency contacts in Garmin Connect before solo training rides.",
+    "torque_or_install_note_ko": "카본 핸들바 마운트 체결 시 1.5–2.0 Nm 이내로 조이고 안전 스트랩을 반드시 체결하세요. 단독 라이딩 전 가민 커넥트 앱에서 사고 감지(Incident Detection) 긴급 연락처를 설정해 두면 낙차 시 자동 위치 전송이 작동합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Garmin Edge 840 Solar",
+      "title": "Garmin Edge 840 Solar: 85 g Compact Touchscreen + Buttons, ClimbPro & Di2 Specs",
+      "summary": "The gold-standard compact performance GPS computer combining an 85 g aero chassis, both touchscreen and full 7-button operation, standalone on-device routing, Free-Ride ClimbPro, and up to 32-hour Power Glass solar battery.",
+      "best_for": "Competitive road racers and climbers wanting full Garmin navigation, Free-Ride ClimbPro, Real-Time Stamina, and rain-proof physical buttons in a compact 85 g aero form factor.",
+      "local_gotchas": [
+        "Dual control (touchscreen + complete 7 buttons) solves wet-ride and winter-glove frustrations where touchscreen-only computers misfire.",
+        "Free-Ride ClimbPro automatically triggers gradient profiles on any road climb without pre-loading a GPX route — a huge advantage over route-dependent computers.",
+        "Connects seamlessly to Intervals.icu via Garmin Connect API (both completed activities and scheduled structured workouts auto-sync)."
+      ]
+    },
+    "ko": {
+      "name": "가민 엣지 840 솔라",
+      "title": "가민 엣지 840 솔라: 85g 경량 터치+버튼 겸용·프리라이드 클라임프로 스펙 총정리",
+      "summary": "85 g 컴팩트 에어로 바디에 정전식 터치스크린과 7개 물리 버튼을 모두 탑재한 올라운드 레이스 속도계입니다. 경로 미입력 상태에서도 작동하는 프리라이드 클라임프로, 파워 가이드, 솔라 최대 32시간 배터리를 제공합니다.",
+      "best_for": "에어로 콕핏에 부담 없는 경량·컴팩트 사이즈를 선호하면서 우천·동계 장갑에서도 오작동 없는 물리 버튼과 완성도 높은 자체 내비게이션·클라임프로를 원하는 로드 레이서.",
+      "local_gotchas": [
+        "터치와 물리 버튼 7개를 완벽 병행하므로 장마철 우천 라이딩이나 겨울철 두꺼운 장갑 착용 시 터치 잠금 후 버튼만으로 모든 조작이 가능합니다.",
+        "GPX 코스를 넣지 않고 자유 주행할 때도 업힐 구간을 자동 감지해 경사도와 잔여 거리를 띄워주는 프리라이드 클라임프로(Free-Ride ClimbPro)가 국내 산악 라이딩에서 매우 유용합니다.",
+        "가민 코리아 정발(75만 원대) 제품은 한국어 지도와 한글 알림을 기본 내장하며, 가민 커넥트를 통해 Intervals.icu와 워크아웃·라이딩 기록이 양방향 자동 동기화됩니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Garmin Edge 840 Solar Official Specifications",
+      "url": "https://www.garmin.com/p/797864",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Garmin Edge 840 Series Official Owner's Manual (Di2 & Sensor Pairing)",
+      "url": "https://www8.garmin.com/manuals/webhelp/GUID-16B12CFE-F96E-4DE9-9F5F-8C4A5936D3B9/EN-US/GUID-4D2584D4-AD77-402F-9254-A7F6E51D9880.html",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "ANT+ Certified Cycling Computer Directory",
+      "url": "https://www.thisisant.com/directory/",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["coros-dura-solar-gps", "garmin-edge-1050"]
+}

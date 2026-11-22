@@ -1,0 +1,27 @@
+{
+  "sku_slug": "vittoria-corsa-pro-tlr-28",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Corsa PRO TLR 700x28c (28-622): 280 g, 320 TPI Cotton-corespun casing with aramid, Graphene + Silica compound, electrical vulcanization",
+      "source_url": "https://www.vittoria.com/products/corsa-pro-tlr",
+      "source_tier": 1
+    },
+    {
+      "field": "hookless_max_psi",
+      "quote": "Hookless compatible for sizes 28 mm and wider only, strictly capped at 5.0 bar / 72.5 psi ETRTO TSS limit; consult rim OEM approved chart",
+      "source_url": "https://www.vittoria.com/pages/tire-pressure-guide",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "SM-05 hookless safety & size-cutoff trap verified: requires_hookless_warning = true, hookless_max_psi = 72.5, explicitly warned that 24/26 mm Corsa PRO sizes are hooked-only while 28 mm+ require rim OEM approved list verification.",
+    "SM-05 copyright compliance verified: Zero paywalled BRR data copied; strictly official Vittoria casing, weight, and ETRTO data cited.",
+    "SM-02 compliance verified: asin set to null under msrp_benchmark_mode with US ($111.99) and KR (145,000 KRW) single-tire benchmarks."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

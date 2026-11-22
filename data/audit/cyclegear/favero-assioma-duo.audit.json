@@ -1,0 +1,33 @@
+{
+  "sku_slug": "favero-assioma-duo",
+  "vertical": "cyclegear",
+  "audited_at": "2026-11-22",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "weight_g",
+      "quote": "Total weight per pedal: 151.5 g (battery included) — 303 g per pair",
+      "source_url": "https://cycling.favero.com/en/assiomaduo",
+      "source_tier": 1
+    },
+    {
+      "field": "claimed_accuracy_pct",
+      "quote": "Accuracy of power measurement: ± 1% with IAV Power System, built-in gyroscope and cadence sensor",
+      "source_url": "https://cycling.favero.com/en/assiomaduo",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.cleat_and_q_factor",
+      "quote": "Compatible cleats: Original LOOK Kéo and Favero cleats; Q-factor 54 mm; IP67 waterproof rating; at least 50 hours battery life",
+      "source_url": "https://cycling.favero.com/en/assiomaduo",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Cleat verification passed: Confirmed Assioma DUO (Model 772-02) is Look Keo ONLY, clearly separated from Assioma PRO RS-2 (Shimano SPD-SL).",
+    "Physics & invariant check: claimed_accuracy_pct = 1.0% inside [0.5%, 3.0%]; Q-factor 54 mm and stack height 10.5 mm verified against Favero spec sheet.",
+    "SM-02 check: asin set to null under msrp_benchmark_mode with realistic US ($649) and KR (950,000 KRW) MSRP benchmarks."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

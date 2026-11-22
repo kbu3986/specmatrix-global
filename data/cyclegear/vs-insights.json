@@ -1,0 +1,275 @@
+[
+  {
+    "pair_slug": "favero-assioma-pro-rs-2-vs-garmin-rally-rs200",
+    "vertical": "cyclegear",
+    "slug_a": "favero-assioma-pro-rs-2",
+    "slug_b": "garmin-rally-rs200",
+    "release_wave": 1,
+    "info_gain_score": 95,
+    "serp_gaps_captured": [
+      "Exact stack-height (10.5 mm vs 12.2 mm) and 73 g pair weight delta quantifying saddle-height adjustment when migrating from Shimano Dura-Ace/Ultegra pedals.",
+      "Side-by-side spindle wrench requirement (8 mm internal hex at 35–40 Nm vs 15 mm open-end pedal wrench at 34 Nm) and CR1/3N vs LR44 cell reliability trap.",
+      "Korean official distributor pricing delta (1,190,000 KRW vs 1,390,000 KRW) alongside direct-import customs duty threshold calculation."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Assioma PRO RS-2 Wins on Weight (-73 g), Stack (-1.7 mm) & Value; Rally RS200 Wins on 120-Hr Replaceable Battery",
+        "choose_a_if": [
+          "You want the lightest pod-free Shimano SPD-SL power meter pedals (247 g vs 320 g) with Shimano-native 10.5 mm stack height and +53 mm Q-factor.",
+          "You prefer sealed IP67 rechargeable lithium batteries (60+ hrs) and an 8 mm hex spindle installation at a $341 lower US MSRP ($759 vs $1,099.99)."
+        ],
+        "choose_b_if": [
+          "You ride multi-day ultra-endurance events or bikepacking routes where 120-hour user-replaceable CR1/3N batteries eliminate carrying proprietary charging cables.",
+          "You want native over-the-air firmware updates directly from Garmin Edge head units and official Garmin Rally XC/RK pedal body conversion kits."
+        ],
+        "bottom_line": "For 90% of Shimano SPD-SL road cyclists, the Favero Assioma PRO RS-2 is the superior engineering buy: it sheds 73 g, sits 1.7 mm closer to the spindle axis, matches ±1.0% dual-sided accuracy with PCO/IAV dynamics, and undercuts Garmin's official MSRP cleanly. Pick the Garmin Rally RS200 only if 120-hour disposable CR1/3N cells or Garmin-native OTA updates outweigh the weight and stack-height penalty."
+      },
+      "ko": {
+        "headline": "무게(-73g)·스택(-1.7mm)·가격은 아시오마 프로 RS-2 압승, 120시간 교체형 배터리는 가민 랠리 RS200 우세",
+        "choose_a_if": [
+          "시마노 순정 페달에 가장 가까운 10.5 mm 낮은 스택 높이와 247 g 초경량(-73 g), +53 mm Q-팩터를 원하는 로드 레이서.",
+          "배터리 캡 부식·접점 이슈가 없는 IP67 완전 밀봉 충전식(60시간+)과 국내 정발 20만 원 더 합리적인 가격(119만 vs 139만 원)을 선호하는 경우."
+        ],
+        "choose_b_if": [
+          "충전 케이블 없이 120시간을 버티는 교체형 CR1/3N 배터리로 초장거리 브레베·국토종주·해외 투어를 소화하려는 라이더.",
+          "가민 엣지 속도계에서 곧바로 펌웨어 업데이트와 사이클링 다이내믹스를 통합 관리하고 싶거나, 랠리 XC(MTB) 바디 전환을 계획 중인 경우."
+        ],
+        "bottom_line": "대다수 시마노 SPD-SL 로드 동호인에게는 파베로 아시오마 프로 RS-2가 무게(-73 g), 스택 높이(-1.7 mm), 8 mm 육각 렌치 장착 편의성, 가격 모두에서 앞서는 완성형 선택입니다. 가민 랠리 RS200은 충전이 불가능한 초장거리 무지원 투어링(120시간 CR1/3N)이나 가민 단일 생태계 통합 가치가 최우선일 때 선택하세요."
+      }
+    }
+  },
+  {
+    "pair_slug": "favero-assioma-duo-vs-favero-assioma-pro-rs-2",
+    "vertical": "cyclegear",
+    "slug_a": "favero-assioma-duo",
+    "slug_b": "favero-assioma-pro-rs-2",
+    "release_wave": 1,
+    "info_gain_score": 93,
+    "serp_gaps_captured": [
+      "Direct cleat-ecosystem switching math: Look Keo (DUO) vs Shimano SPD-SL (PRO RS-2) total cost including cleats, float geometry, and shoe-sole pod clearance.",
+      "Hardware architecture audit comparing external spindle-collar pods (303 g, 54 mm Q-factor, 50 hrs) against internal pod-free spindles (247 g, 53 mm Q-factor, 60+ hrs, PCO).",
+      "Clear differentiation from legacy Assioma DUO-Shi (+65 mm Q-factor) so Shimano riders avoid outdated forum advice."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Cleat Ecosystem Decides First: Look Keo Value (DUO) vs Pod-Free 247 g Shimano SPD-SL (PRO RS-2)",
+        "choose_a_if": [
+          "You already ride Look Keo cleats across all your cycling shoes and want proven ±1.0% dual-sided accuracy while saving $110 vs PRO RS-2.",
+          "You don't need Platform Center Offset (PCO) metrics or modular SPD pedal body swaps and prefer the battle-tested DUO platform."
+        ],
+        "choose_b_if": [
+          "You ride Shimano SPD-SL cleats and want zero external sensor pods, 56 g lighter pair weight (247 g vs 303 g), and native +53 mm Q-factor.",
+          "You want 60+ hours battery life, Platform Center Offset (PCO), zero overshoe pod-rub risk, and future PRO MX (MTB SPD) pedal body interchangeability."
+        ],
+        "bottom_line": "Both pedals share Favero's rock-solid ±1.0% IAV power engine and 10.5 mm stack height, so cleat standard and pod ergonomics drive the decision. Shimano SPD-SL riders should go straight to the Assioma PRO RS-2 (56 g lighter, zero pod interference, PCO support), whereas committed Look Keo riders can pocket $110–240,000 KRW by choosing the proven Assioma DUO."
+      },
+      "ko": {
+        "headline": "클릿 규격이 승부를 가른다: 룩 케오 가성비(DUO) vs 247g 포드리스 시마노 SPD-SL(PRO RS-2)",
+        "choose_a_if": [
+          "이미 모든 사이클링 슈즈가 룩 케오(Look Keo) 클릿으로 세팅되어 있고, 정발가 기준 24만 원(95만 vs 119만 원)을 아끼면서 ±1.0% 양발 정확도를 얻고 싶은 경우.",
+          "PCO(페달 중심 오프셋) 데이터나 외장 포드 유무보다 검증된 장기 내구성과 합리적 가격을 최우선으로 보는 라이더."
+        ],
+        "choose_b_if": [
+          "시마노 SPD-SL 클릿을 그대로 유지하면서 56 g 더 가볍고(247 g vs 303 g) 외장 포드 간섭이 전혀 없는 완벽한 +53 mm Q-팩터를 원하는 경우.",
+          "60시간+ 늘어난 배터리, PCO 사이클링 다이내믹스, 겨울 슈즈커버 간섭 제로, 향후 PRO MX(SPD) 바디 호환성까지 챙기고 싶은 경우."
+        ],
+        "bottom_line": "두 모델 모두 파베로 특유의 ±1.0% IAV 정확도와 10.5 mm 스택 높이를 공유합니다. 기존에 시마노 SPD-SL을 쓰고 있다면 클릿 교체·피팅 재조정 비용과 56 g 경량·포드리스 장점을 감안해 신형 아시오마 프로 RS-2가 압도적으로 유리하며, 룩 케오 유저라면 24만 원 저렴한 아시오마 DUO가 여전히 최고의 가성비입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "favero-assioma-pro-rs-2-vs-magene-pes-p505-base",
+    "vertical": "cyclegear",
+    "slug_a": "favero-assioma-pro-rs-2",
+    "slug_b": "magene-pes-p505-base",
+    "release_wave": 1,
+    "info_gain_score": 96,
+    "serp_gaps_captured": [
+      "Engineering distinction between true independent dual-leg pedal sensors (±1.0%) vs spider combined-power sensors (±1.5%) with estimated L/R balance.",
+      "Total cost & compatibility audit including Magene Base's excluded chainrings, BB86/BSA 24 mm Hollowtech II fitment vs Trek BB90/T47 clearance traps, and 100 km mandatory bolt re-torque.",
+      "Multi-bike ownership math: 3-minute pedal swap vs fixed single-bike crankset installation across a 2.5x price spread ($759 vs $299 / 1,190,000 vs 460,000 KRW)."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "True Dual-Leg Portability & ±1.0% Precision (Assioma PRO RS-2) vs Unbeatable $299 Total Power (Magene P505)",
+        "choose_a_if": [
+          "You own multiple bikes, travel with rentals, or want true independent left/right strain gauges (±1.0%) with PCO and cycling dynamics.",
+          "You ride a non-24 mm BB frame (BB30, PF30, SRAM DUB, Trek BB90) or refuse to touch your factory Dura-Ace R9200 crankset aesthetics and shifting."
+        ],
+        "choose_b_if": [
+          "You ride one Shimano 24 mm (BSA/BB86) road bike, already have 110 BCD 4-bolt chainrings, and want accurate ±1.5% combined total power plus 200-hour battery life for $460 less.",
+          "You want to experiment with shorter 165 mm or 167.5 mm crank arms while keeping your favorite non-power pedals (e.g., Dura-Ace PD-R9100 or Speedplay)."
+        ],
+        "bottom_line": "If you train on a single Shimano BSA/BB86 bike and primarily care about reliable total watts (FTP, TSS, Intervals.icu pacing), the Magene PES P505 Base delivers 95% of the training value at roughly 40% of the price — just remember chainrings are sold separately and re-torque bolts at 100 km. Choose the Favero Assioma PRO RS-2 when you want zero BB/crank compromises, true independent L/R balance, and 3-minute bike-to-bike swaps."
+      },
+      "ko": {
+        "headline": "진짜 독립 양발·3분 기변 호환성(아시오마 프로 RS-2) vs 40만 원대 시마노 24mm 최강 가성비(마진 P505)",
+        "choose_a_if": [
+          "2대 이상의 자전거를 보유하거나 해외 원정 라이딩이 잦고, 추정치가 아닌 '진짜 독립 좌우 스트레인 게이지(±1.0%)'와 PCO 데이터를 원하는 경우.",
+          "순정 듀라에이스 R9200 크랭크의 변속감과 디자인을 그대로 유지하고 싶거나, BB30·스램 DUB 등 24 mm 외 BB 규격 프레임을 타는 경우."
+        ],
+        "choose_b_if": [
+          "BSA 또는 BB86(예: 라피에르 에어코드 DRS) 시마노 24 mm 단일 자전거에서 73만 원(정발 기준)을 절약하며 ±1.5% 양발 합산 파워와 200시간 배터리를 얻고 싶은 경우.",
+          "파워미터 도입과 동시에 165/167.5 mm 숏크랭크 피팅을 시도하거나, 기존 듀라에이스·스피드플레이 페달을 그대로 유지하고 싶은 경우."
+        ],
+        "bottom_line": "단일 시마노 24 mm 로드바이크에서 FTP·파워존 훈련과 Intervals.icu 데이터 관리가 주 목적이라면 마진 PES P505 베이스가 압도적 가성비를 제공합니다(체인링 별매 및 100 km 후 볼트 재토크 필수). 반면 순정 크랭크 유지, 정밀한 좌우 독립 밸런스, 3분 페달 이식성까지 완벽을 추구한다면 파베로 아시오마 프로 RS-2가 정답입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "coros-dura-solar-gps-vs-garmin-edge-840-solar",
+    "vertical": "cyclegear",
+    "slug_a": "coros-dura-solar-gps",
+    "slug_b": "garmin-edge-840-solar",
+    "release_wave": 1,
+    "info_gain_score": 96,
+    "serp_gaps_captured": [
+      "Real-world solar & battery math: COROS 120 hrs base + 2 hrs/hr direct sun vs Garmin Edge 840 Solar 26 hrs base / 32 hrs with solar (~25 min/hr gain).",
+      "Offline standalone rerouting & Free-Ride ClimbPro (Edge 840) vs phone-assisted Google Maps rerouting and native 2-way Intervals.icu workflow (COROS DURA).",
+      "Di2/AXS hood button support, cockpit weight/size delta (102 g vs 85 g), and $301 / 321,000 KRW price-value audit."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "120-Hr True Solar Endurance & Half the Price (COROS DURA) vs Standalone Routing & 7-Button Control (Edge 840 Solar)",
+        "choose_a_if": [
+          "You want 3.75x longer base battery life (120 hrs vs 32 hrs) with solar panels that genuinely add +2 hrs per hour of sun — going weeks without charging for $249.",
+          "You run Intervals.icu and COROS Training Hub, value a quick tactile scroll dial, and already carry a smartphone on rides for smart rerouting."
+        ],
+        "choose_b_if": [
+          "You want an ultra-compact 85 g (-17 g) aero profile with complete 7-button rain/glove operation alongside a touchscreen.",
+          "You rely on standalone phone-free on-device routing, Free-Ride ClimbPro without preloaded GPX courses, and Garmin Real-Time Stamina / Power Guide."
+        ],
+        "bottom_line": "Both computers natively integrate Shimano Di2/SRAM AXS hood buttons, ANT+ rear radars, and two-way Intervals.icu workout sync on standard Garmin quarter-turn mounts. Choose the COROS DURA to save $300+ and virtually erase charging anxiety with 120-hour real solar endurance; choose the Garmin Edge 840 Solar if phone-free navigation, Free-Ride ClimbPro, and full 7-button tactile control justify the $549.99 premium."
+      },
+      "ko": {
+        "headline": "120시간 진짜 솔라·반값 가성비(코로스 듀라) vs 자체 내비·7버튼·85g 컴팩트(가민 엣지 840 솔라)",
+        "choose_a_if": [
+          "충전 케이블을 잊고 살 수준의 120시간 기본 배터리(태양광 1시간당 +2시간)와 정발가 429,000원(-32만 원)의 압도적 가성비를 원하는 라이더.",
+          "코로스 트레이닝 허브·Intervals.icu 양방향 워크아웃 연동과 측면 다이얼 조작을 선호하며, 항상 스마트폰을 휴대해 라이딩하는 경우."
+        ],
+        "choose_b_if": [
+          "에어로 콕핏에 딱 맞는 85 g(-17 g) 컴팩트 바디와 장마·동계 장갑에서도 완벽한 7개 물리 버튼+터치 이중 조작을 원하는 경우.",
+          "스마트폰 연결 없이 자체 완결되는 오프라인 경로 재탐색과 GPX 없이도 업힐을 띄워주는 프리라이드 클라임프로, 스태미나 분석이 필수인 경우."
+        ],
+        "bottom_line": "두 제품 모두 가민 마운트 호환, 시마노 Di2·스램 AXS 후드 버튼 제어, ANT+ 레이더, Intervals.icu 양방향 연동을 빠짐없이 지원합니다. 충전 스트레스 해방과 32만 원 이상 가격 절감이 최우선이라면 코로스 듀라가, 프리라이드 클라임프로·독립 내비게이션·7개 물리 버튼 완성도를 중시한다면 가민 엣지 840 솔라가 더 탄탄한 선택입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "garmin-edge-1050-vs-wahoo-elemnt-roam-v2",
+    "vertical": "cyclegear",
+    "slug_a": "garmin-edge-1050",
+    "slug_b": "wahoo-elemnt-roam-v2",
+    "release_wave": 1,
+    "info_gain_score": 94,
+    "serp_gaps_captured": [
+      "Display & input philosophy clash: 3.5\" 480×800 vivid transmissive LCD + digital bike bell (161 g) vs 2.7\" anti-glare non-touch + convex buttons + Quicklook LEDs (93 g).",
+      "Aero cockpit mounting traps on BOTH units: Edge 1050's lower-shifted Garmin tab colliding with short integrated mounts vs ROAM V2's 90-degree rotated Wahoo insert.",
+      "68 g weight penalty and $300 / 529,000 KRW price spread mapped against real-world training & map navigation use cases."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Smartphone-Grade 3.5\" LCD & Digital Bell (Edge 1050) vs 93 g Pure-Button Simplicity & -$300 Value (ROAM V2)",
+        "choose_a_if": [
+          "You want the sharpest 3.5\" 480×800 color LCD map visibility in shaded forests or bright sun, 64 GB storage, and a loud Di2-triggerable built-in digital bike bell.",
+          "You love Garmin's deepest on-device training analytics (Real-Time Stamina, Power Guide, GroupRide hazard alerts) and have an XL out-front mount for its 118.5 mm chassis."
+        ],
+        "choose_b_if": [
+          "You ride in rain or winter gloves and insist on zero-misfire convex physical buttons, Perfect View Zoom rockers, and peripheral Quicklook LED power/radar bars.",
+          "You want a 68 g lighter cockpit setup (93 g vs 161 g), effortless smartphone-app page configuration, and $300 / 529,000 KRW back in your wallet."
+        ],
+        "bottom_line": "The Garmin Edge 1050 is an unapologetic flagship cockpit tablet with dazzling LCD clarity and a built-in speaker/bell, at the cost of 161 g weight, $699.99 MSRP, and aero-mount clearance checks. The Wahoo ELEMNT ROAM V2 delivers focused, distraction-free race ergonomics at 93 g and $399.99 — choose Edge 1050 for luxury navigation and bells, or ROAM V2 for pure button discipline and weight savings."
+      },
+      "ko": {
+        "headline": "3.5인치 고휘도 LCD·전자 벨 플래그십(엣지 1050) vs 93g 순수 물리 버튼·53만 원 절감(와후 롬 V2)",
+        "choose_a_if": [
+          "선글라스 너머로도 스마트폰처럼 선명한 3.5인치 480×800 LCD 지도 가독성과 Di2 후드 버튼으로 울리는 내장 전자 벨, 64 GB 저장공간을 원하는 경우.",
+          "가민 스태미나·파워 가이드·위험구간 공유 등 최상위 트레이닝 기능을 원하며 118.5 mm 대형 바디를 수용할 롱 마운트를 장착할 수 있는 경우."
+        ],
+        "choose_b_if": [
+          "터치 오작동 없는 볼록 물리 버튼과 측면 퍼펙트 뷰 줌, 시선 이동을 줄여주는 퀵룩 LED 파워·레이더 알림을 최우선으로 삼는 실전파 라이더.",
+          "핸들바 앞쪽 무게를 68 g 줄이고(93 g vs 161 g), 국내 정발 기준 529,000원(56만 vs 108.9만 원)을 아껴 파워미터나 타이어에 투자하고 싶은 경우."
+        ],
+        "bottom_line": "가민 엣지 1050은 압도적인 3.5인치 LCD 시인성과 내장 전자 벨이 빛나는 럭셔리 플래그십이지만 161 g 무게·100만 원대 가격·에어로 마운트 간섭 체크가 따릅니다. 와후 엘리먼트 롬 V2는 군더더기 없는 93 g 물리 버튼 조작과 퀵룩 LED로 주행 집중도를 극대화하며 가격 부담을 절반 가까이 낮춰줍니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "continental-gp5000-s-tr-28-vs-vittoria-corsa-pro-tlr-28",
+    "vertical": "cyclegear",
+    "slug_a": "continental-gp5000-s-tr-28",
+    "slug_b": "vittoria-corsa-pro-tlr-28",
+    "release_wave": 1,
+    "info_gain_score": 95,
+    "serp_gaps_captured": [
+      "Structural casing physics comparison at identical 280 g claimed weight: 2/220 TPI vulcanized nylon + Vectran Breaker vs 320 TPI seamless cotton-aramid.",
+      "Mandatory ETRTO 5.0 bar (72.5 psi) hookless (TSS) safety audit highlighting Vittoria's 28 mm+ minimum size cutoff and rim OEM list verification.",
+      "Real-world maintenance & total cost per 1,000 km: tubeless overnight air retention, sidewall cut durability, and sealant compatibility (ammonia-free for cotton)."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Identical 280 g Weight, Opposite DNA: All-Round Nylon Durability (GP5000 S TR) vs 320 TPI Cotton Road Feel (Corsa PRO)",
+        "choose_a_if": [
+          "You want one fast 28c tubeless set for both daily training and racing with superior overnight tubeless air retention, longer tread mileage, and Vectran puncture resilience.",
+          "You ride chipped tarmac, wet shoulder debris, or want low-maintenance tubeless sealing without worrying about cotton sidewall staining or degreaser sensitivity."
+        ],
+        "choose_b_if": [
+          "You chase the unmistakable supple road feel and high-speed cornering compliance of a 320 TPI WorldTour cotton-corespun casing.",
+          "You already check tire pressure before every ride, prioritize race-day grip and classic tan-wall aesthetics, and accept shorter rear-tire mileage."
+        ],
+        "bottom_line": "Both 28 mm flagship tubeless tires weigh an identical 280 g and share the ETRTO 5.0 bar (72.5 psi) hookless ceiling (always verify your rim OEM approved list!). Pick Continental GP5000 S TR for the best all-around mix of speed, Vectran durability, and airtight nylon practicality; pick Vittoria Corsa PRO TLR when 320 TPI cotton suppleness and race-day cornering feel trump longevity."
+      },
+      "ko": {
+        "headline": "동일 280g, 완전히 다른 DNA: 올라운드 내구성·기밀성(GP5000 S TR) vs 320 TPI 코튼 승차감(코르사 프로)",
+        "choose_a_if": [
+          "평일 훈련부터 주말 장거리·대회까지 한 세트로 소화하며, 벡트란 펑크 내구성과 나일론 케이싱 특유의 뛰어난 튜블리스 공기압 유지력을 중시하는 경우.",
+          "노면 상태가 거친 국도·자전거도로 비중이 높고 긴 트레드 마일리지와 관리 편의성을 원하는 라이더."
+        ],
+        "choose_b_if": [
+          "320 TPI 코튼 케이싱만이 구현하는 노면에 착 감기는 승차감과 고속 다운힐 코너링 그립, 클래식 탄월 비주얼을 최우선으로 삼는 경우.",
+          "매 라이딩 전 공기압 체크가 습관화되어 있으며, 리어 마일리지보다 실전 레이스·그란폰도 퍼포먼스 감각을 우선하는 라이더."
+        ],
+        "bottom_line": "두 타이어 모두 28c 기준 공식 무게 280 g, 후크리스(TSS) 최대 허용 공기압 5.0 bar(72.5 psi, 림 제조사 승인 리스트 확인 필수)로 규격이 같습니다. 내구성과 공기압 유지·올라운드 실속은 콘티넨탈 GP5000 S TR이, 320 TPI 코튼의 극상 승차감과 코너링 피드백은 비토리아 코르사 프로 TLR이 각각 우세합니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "shimano-dura-ace-r9270-di2-12s-vs-sram-red-axs-e1-12s",
+    "vertical": "cyclegear",
+    "slug_a": "shimano-dura-ace-r9270-di2-12s",
+    "slug_b": "sram-red-axs-e1-12s",
+    "release_wave": 1,
+    "info_gain_score": 97,
+    "serp_gaps_captured": [
+      "Apples-to-apples weight & power-meter accounting: Dura-Ace R9270 (~2,480 g without power meter) vs SRAM RED AXS E1 (2,496 g INCLUDING integrated Quarq spider power meter).",
+      "Hidden ecosystem migration checklist: HG-L2 + legacy 11s HG-EV & 24 mm Hollowtech II (ideal on BB86 shells) vs mandatory SRAM XDR freehub, Flattop chain, DUB 28.99 mm BB, and DOT 5.1 fluid.",
+      "Shifting & power architecture trade-off: semi-wireless EW-SD300 seatpost BT-DN300 (~1,000 km) + fastest FD shift under load vs 100% wireless hot-swappable batteries (~60 hrs) + E1 one-finger hood braking."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Fastest Front Shifting & HG/BB86 Ecosystem Ease (Dura-Ace R9270) vs Lightest Wire-Free One-Finger Braking (RED AXS E1)",
+        "choose_a_if": [
+          "You prioritize the crispest, fastest front-derailleur shifts under full sprint load, Mineral Oil brake maintenance, and native 24 mm Hollowtech II durability on BB86 aero frames.",
+          "You already own 11/12-speed Shimano HG road wheelsets and smart trainers and want zero freehub swap costs plus ~1,000 km single-battery endurance."
+        ],
+        "choose_b_if": [
+          "You want the lightest complete disc groupset with power meter included (2,496 g), effortless E1 one-finger hood braking, and 100% wire-free internal frame assembly.",
+          "You value snap-off interchangeable FD/RD derailleur batteries (emergency swap mid-ride) and SRAM's 10T XDR wide gearing (10-33T / 10-36T) with Bonus Buttons."
+        ],
+        "bottom_line": "Shimano Dura-Ace R9270 Di2 remains the benchmark for under-load front shifting speed, Mineral Oil practicality, and seamless HG/24 mm BB compatibility across wheelsets and trainers. SRAM RED AXS E1 takes the crown for total power-meter-included weight (2,496 g), revolutionary one-finger hood braking ergonomics, and wire-free hot-swappable battery convenience — just budget for XDR freehubs and a DUB bottom bracket when switching camps."
+      },
+      "ko": {
+        "headline": "최강 앞변속·HG/BB86 호환·미네랄 오일(듀라에이스 R9270) vs 최경량 완전무선·원핑거 브레이킹(스램 레드 E1)",
+        "choose_a_if": [
+          "고부하 업힐·스프린트 상황에서의 번개 같은 앞변속 안정성, 미네랄 오일 정비성, 그리고 BB86 프레임(예: 라피에르 에어코드 DRS)에서의 24 mm 할로우테크 II 베어링 내구성을 중시하는 경우.",
+          "기존 11/12단 시마노 HG 휠셋·스마트 로라를 프리허브 교체 없이 바로 쓰고 싶으며, 1회 충전 약 1,000 km 가는 단일 배터리 관리를 선호하는 경우."
+        ],
+        "choose_b_if": [
+          "파워미터를 포함하고도 2,496 g에 불과한 현존 최경량 빌드와, 손가락 하나로 부드럽게 잡히는 E1 원핑거 브레이킹·배선 제로 완전무선 조립을 원하는 경우.",
+          "방전 시 앞·뒤 변속기 배터리를 10초 만에 맞바꿀 수 있는 탈착식 배터리와 10-33T/10-36T 광폭 기어비, 후드 보너스 버튼을 최우선으로 보는 경우."
+        ],
+        "bottom_line": "시마노 듀라에이스 R9270 Di2는 부하 변속 신뢰성과 HG 프리허브·24 mm BB 호환성, 미네랄 오일 정비 편의성에서 여전히 로드 레이스의 절대 기준입니다. 반면 스램 레드 AXS E1은 파워미터 포함 최경량(2,496 g)과 차원이 다른 원핑거 브레이크 레버 인체공학, 완전무선 탈착 배터리가 압도적이며, 시마노에서 기변 시 XDR 프리허브와 DUB BB 교체 비용을 함께 계산해야 합니다."
+      }
+    }
+  }
+]

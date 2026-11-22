@@ -1,0 +1,146 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "cyclegear",
+  "category": "smart-trainer",
+  "slug": "wahoo-kickr-core",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Wahoo Fitness",
+  "model_number": "WFBKTR4",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "WFBKTR4",
+      "msrp": 499.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "Wahoo KICKR CORE smart bike trainer Zwift Cog Click",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "WFBKTR4-KR",
+      "msrp": 950000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-22",
+      "search_query": "와후 키커 코어 스마트 로라 트레이너 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "weight_g": 18100,
+    "claimed_accuracy_pct": 2.0,
+    "left_right_balance": false,
+    "mount_or_form_factor": "Belt-driven electromagnetic direct-drive smart trainer (5.4 kg flywheel)",
+    "connectivity": ["ANT+", "ANT+ FE-C", "Bluetooth FTMS (up to 3 simultaneous)"],
+    "battery_life_hours": null,
+    "waterproof_rating": null,
+    "tire_width_mm": null,
+    "hookless_compatible": null,
+    "hookless_max_psi": null,
+    "max_trainer_watts": 1800,
+    "max_trainer_grade_pct": 16,
+    "trainer_noise_dba": 58,
+    "drivetrain_speeds": null,
+    "key_specs_kv": [
+      { "key_en": "Total Unit Weight", "key_ko": "본체 총중량", "value": "18.1 kg (40 lbs; 5.4 kg / 12 lb physical flywheel)" },
+      { "key_en": "Max Power Output", "key_ko": "최대 저항 출력", "value": "1,800 W" },
+      { "key_en": "Max Simulated Grade", "key_ko": "최대 구현 경사도", "value": "16%" },
+      { "key_en": "Power Accuracy", "key_ko": "파워 측정 정확도", "value": "±2.0% (auto spindown calibration via firmware)" },
+      { "key_en": "Typical Acoustic Profile", "key_ko": "실사용 소음 참고치", "value": "~58 dBA @ 30 km/h (drivetrain-dominated; manufacturer publishes no official dBA)" },
+      { "key_en": "Default Freehub Body", "key_ko": "기본 프리허브 바디", "value": "Shimano/SRAM 8–12s HG (or pre-installed Zwift Cog on Zwift One edition)" },
+      { "key_en": "Zwift Virtual Shifting", "key_ko": "즈위프트 가상변속", "value": "Supported natively with Zwift Cog & Click (BLE, 24 virtual gears)" },
+      { "key_en": "Axle Compatibility", "key_ko": "액슬 호환 규격", "value": "130/135 mm QR, 12×142 mm & 12×148 mm Thru-Axle (adapters included)" },
+      { "key_en": "Power Supply", "key_ko": "전원 입력", "value": "AC mains required (100–240 V 50/60 Hz universal adapter)" },
+      { "key_en": "Ecosystem Add-Ons", "key_ko": "생태계 확장 기기", "value": "Compatible with Wahoo KICKR CLIMB & KICKR HEADWIND" }
+    ]
+  },
+  "compatibility_graph": {
+    "bb_or_mount_standard": "Direct-drive rear dropout mount (130/135 mm QR, 12×142 mm road disc, 12×148 mm Boost Thru-Axle)",
+    "freehub_or_cleat_standard": "Shimano/SRAM 8–12s HG freehub default (SRAM XDR/XD & Campagnolo freehub bodies sold separately; Zwift Cog mounts on stock HG freehub)",
+    "drivetrain_compatible": [
+      "Shimano Dura-Ace R9270 / Ultegra R8170 / 105 R7170 12s (fits stock HG freehub directly)",
+      "Shimano 8/9/10/11s HG cassettes",
+      "SRAM 12s AXS (with Wahoo XDR freehub adapter OR directly via Zwift Cog single-speed virtual shifting)",
+      "Campagnolo 11s/12s (with optional Campagnolo freehub or Zwift Cog)"
+    ],
+    "head_unit_or_app_verified": [
+      "Zwift (full Zwift Virtual Shifting & Cog/Click support via BLE)",
+      "TrainerRoad / Wahoo SYSTM / MyWhoosh / Rouvy",
+      "COROS DURA (ANT+ FE-C / BLE FTMS)",
+      "Garmin Edge 840 Solar & Edge 1050",
+      "Wahoo ELEMNT ROAM V2 (native KICKR control)"
+    ],
+    "incompatible_notes_en": [
+      "To mount a real 12-speed SRAM XDR cassette (10T small cog), you MUST purchase Wahoo's separate XDR freehub body — however, Zwift Cog edition lets a SRAM Flattop 12s chain run directly on the stock HG freehub via virtual shifting.",
+      "Requires AC wall power at all times (cannot operate unplugged like Tacx NEO 2T) and lacks built-in Wi-Fi / Direct Connect ethernet port found on KICKR V6.",
+      "Check disc-brake caliper clearance on certain flat-mount aero road frames using updated Wahoo thru-axle spin-cap adapters (post-2021 revision)."
+    ],
+    "incompatible_notes_ko": [
+      "실물 스램 12단 XDR 카세트(10T)를 장착하려면 와후 전용 XDR 프리허브 바디를 별도 구매해야 합니다. 단, 즈위프트 코그(Zwift Cog) 에디션은 기본 HG 프리허브 위에서 스램 플랫탑 12단 체인도 가상변속으로 바로 주행 가능합니다.",
+      "상시 AC 전원 연결이 필수이며(탁스 네오 2T처럼 무전원 자가발전 구동 불가), 상위 모델 키커 V6에 있는 내장 Wi-Fi 및 유선 다이렉트 커넥트 포트는 지원하지 않습니다.",
+      "일부 플랫마운트 디스크 에어로 프레임은 2021년 이후 개선형 쓰루액슬 스핀캡 어댑터를 정확히 장착해야 캘리퍼 간섭과 프레임 긁힘을 막을 수 있습니다."
+    ]
+  },
+  "safety_warning": {
+    "requires_hookless_warning": false,
+    "torque_or_install_note_en": "Confirm you are using the latest bevelled Wahoo 12×142 mm thru-axle adapters before clamping carbon disc frames, torque your cassette lockring to 40 Nm, and torque rear thru-axle to your frame manufacturer's specification (typically 10–12 Nm). Place a high-density trainer mat underneath in apartments to damp low-frequency floor vibration.",
+    "torque_or_install_note_ko": "카본 디스크 프레임(12×142 mm) 거치 전 최신형 와후 쓰루액슬 어댑터 방향을 정확히 확인하고, 카세트 락링은 40 Nm, 리어 쓰루액슬은 프레임 제조사 규정 토크(보통 10–12 Nm)로 체결하세요. 국내 아파트 환경에서는 저주파 바닥 진동 차단을 위해 고밀도 방진 매트 사용이 필수입니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Wahoo KICKR CORE",
+      "title": "Wahoo KICKR CORE Smart Trainer: 1,800 W, 16% Grade, Zwift Cog & Freehub Matrix",
+      "summary": "The benchmark mid-range direct-drive smart trainer delivering 1,800 W max resistance, 16% grade simulation, ±2.0% accuracy, whisper-quiet belt drive, and native Zwift Cog & Click virtual shifting at half the flagship price.",
+      "best_for": "Indoor cyclists running Zwift, TrainerRoad, or Intervals.icu ERG workouts who want rock-solid 1,800 W direct-drive feel and multi-bike Zwift Cog convenience under $500.",
+      "local_gotchas": [
+        "Standard KICKR CORE ships without a cassette unless you buy the cassette bundle or the Zwift Cog & Click edition — verify box contents before ordering.",
+        "Zwift Virtual Shifting works exclusively over Bluetooth inside Zwift; if you train in TrainerRoad or MyWhoosh using ERG mode, a standard cassette (or ERG without shifting) works seamlessly.",
+        "Although quiet (~58 dBA at 30 km/h, mostly drivetrain noise), belt-driven flywheel trainers still transmit bass floor rumble through wooden joists without an isolation mat."
+      ]
+    },
+    "ko": {
+      "name": "와후 키커 코어",
+      "title": "와후 키커 코어(KICKR CORE): 1,800W·16% 경사·즈위프트 코그·프리허브 호환 총정리",
+      "summary": "최대 저항 1,800 W, 경사도 16%, ±2.0% 파워 정확도와 정숙한 벨트 구동계를 갖춘 국민 중급 다이렉트 드라이브 스마트 로라입니다. 즈위프트 코그 & 클릭 가상변속으로 8–12단 자전거를 카세트 교체 없이 공유할 수 있습니다.",
+      "best_for": "동계 인도어 트레이닝(즈위프트·트레이너로드·Intervals.icu ERG 워크아웃)을 100만 원 미만 가성비로 정숙하고 탄탄하게 구축하려는 로드 사이클리스트.",
+      "local_gotchas": [
+        "일반 단품에는 카세트가 미포함이므로 시마노 12단/11단 카세트를 별도 장착하거나, 즈위프트 유저라면 카세트 세팅이 필요 없는 '즈위프트 코그 & 클릭(Zwift One)' 구성을 선택하는 것이 합리적입니다.",
+        "한국 220 V / 60 Hz 전원에 완벽 대응하는 100–240 V 프리볼트 어댑터가 기본 제공되며, 국내 정발(나눅스네트웍스) 구매 시 18 kg 대형 장비의 국내 보증·수리가 훨씬 수월합니다.",
+        "주행 소음은 약 58 dBA 수준으로 체인 소리보다 조용하지만, 아파트 층간소음 방지를 위해 고탄성 트레이너 매트와 방진 패드(세탁기용 방진 고무 등) 병행을 권장합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Wahoo KICKR CORE Official Specifications & Product Page",
+      "url": "https://www.wahoofitness.com/devices/indoor-cycling/kickr-core-buy",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Wahoo Support — KICKR CORE Thru-Axle, Freehub & Zwift Cog Compatibility",
+      "url": "https://support.wahoofitness.com/hc/en-us/categories/360000344039-KICKR-CORE",
+      "source_tier": 1,
+      "verified_at": "2026-11-22"
+    },
+    {
+      "label": "Zwift Official — Zwift Cog & Virtual Shifting Compatibility Guide",
+      "url": "https://support.zwift.com/en_us/zwift-ready-and-virtual-shifting-compatibility-rkG8wT80p",
+      "source_tier": 2,
+      "verified_at": "2026-11-22"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-22",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 93,
+    "human_spot_checked": false
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["tacx-neo-2t-smart", "wahoo-elemnt-roam-v2"]
+}
