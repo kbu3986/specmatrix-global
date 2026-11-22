@@ -25,13 +25,23 @@ This runs Stage 2 validation (`npm run validate`), 40 pipeline tests (`npm run t
 
 ---
 
-## 3. Daily FX Rate Refresh
+## 3. Daily FX Rate Refresh, Coupang Official Links & Instant IndexNow
 
 ```powershell
+# Refresh live FX snapshot (ECB/open.er-api with ±15% guard)
 npm run fx:update
+
+# Convert all 60 KO URLs via Coupang Partners Open API (once API keys are unlocked)
+npm run coupang:sync
+# Or export all 60 search URLs for Coupang Partners Center manual link generator
+npm run coupang:export
+
+# Instantly notify Bing / Naver / Yandex / DuckDuckGo via IndexNow
+npm run indexnow:submit
 ```
 
-Updates `data/snapshots/fx-rates.json` from `open.er-api.com` with a 4.5s timeout and ±15% anomaly guardrail.
+- **Analytics**: Paste `ga4MeasurementId` (`G-...`), `clarityProjectId`, or `cfBeaconToken` into `config/monetization-config.v2.json` and re-run `npm run deploy:gh-pages` to activate visitor & outbound `affiliate_click` tracking.
+- **Day-1 Community Seeding**: Copy-ready value-first posts for 도싸·클리앙·Reddit are stored in `ops/seeding-posts.md`.
 
 ---
 
