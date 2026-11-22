@@ -20,8 +20,8 @@
   "coupang": {
     "partnersId": "AF2200875",
     "defaultSubId": "ssalmeok-kr",
-    "redirectUrl": "",
-    "iframeUrl": "",
+    "redirectUrl": "https://link.coupang.com/a/iTctub5D1U",
+    "iframeUrl": "https://ads-partners.coupang.com/widgets.html?id=1054684&template=carousel&trackingCode=AF2200875&subId=&width=680&height=140&tsource=",
     "verticalSubIds": {
       "wattcheck": "sm-watt-kr",
       "puregram": "sm-pure-kr",
