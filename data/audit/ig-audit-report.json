@@ -1,0 +1,1597 @@
+{
+  "generated_at": "2026-11-22T10:14:52.627Z",
+  "overall_passed": true,
+  "thresholds": {
+    "minStructuredFields": 15,
+    "minDerivedMetrics": 3,
+    "minLocalGotchas": 2,
+    "minCitations": 2,
+    "minInfoGainScore": 75,
+    "minVsSerpGaps": 3,
+    "minVsDiffRows": 5
+  },
+  "summary": {
+    "items_total": 60,
+    "items_passed": 60,
+    "items_failed": 0,
+    "avg_item_ig_score": 93.15,
+    "vs_total": 25,
+    "vs_passed": 25,
+    "vs_failed": 0,
+    "avg_vs_ig_score": 94.68
+  },
+  "items": [
+    {
+      "slug": "anker-prime-27650mah-250w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-prime-20000mah-200w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-737-powercore-24k-140w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-zolo-powerbank-20000mah-30w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 89,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-nano-powerbank-10000mah-30w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 88,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ugreen-nexode-powerbank-25000mah-200w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ugreen-nexode-powerbank-20000mah-130w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "shargeek-170-powerbank-24000mah",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "shargeek-140-powerbank-20000mah",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "cuktech-20-powerbank-25000mah-210w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "cuktech-15-powerbank-20000mah-150w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "baseus-blade-hd-20000mah-100w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "samsung-45w-battery-pack-20000mah",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 90,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-prime-100w-gan-3port",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-prime-200w-gan-6port-desktop",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-prime-250w-gan-6port-desktop",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-140w-gan-4port-charger",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ugreen-nexode-pro-160w-gan-4port",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ugreen-nexode-pro-100w-gan-3port",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ugreen-nexode-300w-gan-5port-desktop",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "satechi-165w-usb-c-4port-gan",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "cio-novaport-trio-ii-67w-gan",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "apple-140w-usb-c-power-adapter",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 26,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ecoflow-river-3-245wh",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "anker-solix-c300-dc-288wh",
+      "vertical": "wattcheck",
+      "passed": true,
+      "structured_fields_count": 33,
+      "derived_metrics_count": 6,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "maurten-gel-100",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "maurten-gel-100-caf-100",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "maurten-gel-160",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "sis-beta-fuel-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "sis-go-isotonic-energy-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "precision-pf-30-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "precision-pf-90-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "gu-roctane-energy-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "gu-original-energy-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "neversecond-c30-energy-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "skratch-labs-sport-hydration-mix",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "precision-ph-1500-electrolyte",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "precision-ph-1000-electrolyte",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "pocari-sweat-ion-powder-74g",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "tailwind-endurance-fuel",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "sis-hydro-electrolyte-tablets",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 90,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "amino-vital-perfect-energy",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "jarrow-formulas-creatine-monohydrate",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 91,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "esn-ultrapure-creatine-monohydrate",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "momentous-creatine-creapure",
+      "vertical": "puregram",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "favero-assioma-pro-rs-2",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "favero-assioma-duo",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "garmin-rally-rs200",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "magene-pes-p505-base",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 24,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "coros-dura-solar-gps",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "garmin-edge-840-solar",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "garmin-edge-1050",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "wahoo-elemnt-roam-v2",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "wahoo-kickr-core",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 25,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "tacx-neo-2t-smart",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 25,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "continental-gp5000-s-tr-28",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 4,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "vittoria-corsa-pro-tlr-28",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 4,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "pirelli-p-zero-race-rs-tlr-28",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 22,
+      "derived_metrics_count": 4,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "shimano-dura-ace-r9270-di2-12s",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "sram-red-axs-e1-12s",
+      "vertical": "cyclegear",
+      "passed": true,
+      "structured_fields_count": 23,
+      "derived_metrics_count": 5,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    }
+  ],
+  "vs_pairs": [
+    {
+      "pair_slug": "anker-737-powercore-24k-140w-vs-anker-prime-27650mah-250w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "anker-prime-27650mah-250w-vs-shargeek-170-powerbank-24000mah",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "anker-prime-27650mah-250w-vs-ugreen-nexode-powerbank-25000mah-200w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "anker-prime-20000mah-200w-vs-ugreen-nexode-powerbank-20000mah-130w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 93,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "cuktech-20-powerbank-25000mah-210w-vs-shargeek-170-powerbank-24000mah",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "baseus-blade-hd-20000mah-100w-vs-cuktech-15-powerbank-20000mah-150w",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 93,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "anker-prime-100w-gan-3port-vs-ugreen-nexode-pro-100w-gan-3port",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 10,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "satechi-165w-usb-c-4port-gan-vs-ugreen-nexode-pro-160w-gan-4port",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 10,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "anker-prime-250w-gan-6port-desktop-vs-ugreen-nexode-300w-gan-5port-desktop",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 10,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "anker-solix-c300-dc-288wh-vs-ecoflow-river-3-245wh",
+      "vertical": "wattcheck",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "maurten-gel-100-vs-sis-beta-fuel-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 12,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "maurten-gel-160-vs-sis-beta-fuel-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 12,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "maurten-gel-100-vs-precision-pf-30-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 93,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 12,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "gu-roctane-energy-gel-vs-maurten-gel-100-caf-100",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 12,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "neversecond-c30-energy-gel-vs-precision-pf-30-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 12,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "precision-ph-1500-electrolyte-vs-skratch-labs-sport-hydration-mix",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 9,
+      "scored_metrics_count": 8,
+      "errors": []
+    },
+    {
+      "pair_slug": "esn-ultrapure-creatine-monohydrate-vs-momentous-creatine-creapure",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 9,
+      "scored_metrics_count": 7,
+      "errors": []
+    },
+    {
+      "pair_slug": "amino-vital-perfect-energy-vs-sis-go-isotonic-energy-gel",
+      "vertical": "puregram",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 4,
+      "diff_rows_count": 12,
+      "scored_metrics_count": 10,
+      "errors": []
+    },
+    {
+      "pair_slug": "favero-assioma-pro-rs-2-vs-garmin-rally-rs200",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 8,
+      "scored_metrics_count": 8,
+      "errors": []
+    },
+    {
+      "pair_slug": "favero-assioma-duo-vs-favero-assioma-pro-rs-2",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 93,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 8,
+      "scored_metrics_count": 8,
+      "errors": []
+    },
+    {
+      "pair_slug": "favero-assioma-pro-rs-2-vs-magene-pes-p505-base",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 8,
+      "scored_metrics_count": 8,
+      "errors": []
+    },
+    {
+      "pair_slug": "coros-dura-solar-gps-vs-garmin-edge-840-solar",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 7,
+      "scored_metrics_count": 7,
+      "errors": []
+    },
+    {
+      "pair_slug": "garmin-edge-1050-vs-wahoo-elemnt-roam-v2",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 7,
+      "scored_metrics_count": 7,
+      "errors": []
+    },
+    {
+      "pair_slug": "continental-gp5000-s-tr-28-vs-vittoria-corsa-pro-tlr-28",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 95,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 7,
+      "scored_metrics_count": 6,
+      "errors": []
+    },
+    {
+      "pair_slug": "shimano-dura-ace-r9270-di2-12s-vs-sram-red-axs-e1-12s",
+      "vertical": "cyclegear",
+      "passed": true,
+      "declared_ig_score": 97,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 7,
+      "scored_metrics_count": 7,
+      "errors": []
+    }
+  ]
+}

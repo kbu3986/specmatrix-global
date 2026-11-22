@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-11-22T10:18:24.837Z",
+  "pilot_version": "phase1-week1-200p",
+  "overall_passed": true,
+  "circuit_breaker": {
+    "threshold_pct": 15,
+    "quarantined_count": 0,
+    "total_items": 60,
+    "quarantine_ratio_pct": 0,
+    "triggered": false,
+    "status": "GREEN"
+  },
+  "counts": {
+    "items": {
+      "expected": 60,
+      "found": 60,
+      "passed": 60,
+      "failed": 0
+    },
+    "audit_logs": {
+      "expected": 60,
+      "found": 60,
+      "passed": 60,
+      "failed": 0
+    },
+    "airlines": {
+      "expected": 30,
+      "found": 30,
+      "passed": 30,
+      "failed": 0
+    },
+    "vs_pairs": {
+      "expected": 25,
+      "found": 25,
+      "passed": 25,
+      "failed": 0
+    },
+    "matrices": {
+      "expected": 10,
+      "found": 10,
+      "passed": 10,
+      "failed": 0
+    }
+  },
+  "by_vertical": {
+    "wattcheck": {
+      "items": {
+        "expected": 25,
+        "found": 25,
+        "passed": 25,
+        "failed": 0
+      },
+      "audit_logs": {
+        "expected": 25,
+        "found": 25,
+        "passed": 25,
+        "failed": 0
+      },
+      "vs_pairs": {
+        "expected": 10,
+        "found": 10,
+        "passed": 10,
+        "failed": 0
+      },
+      "matrices": {
+        "expected": 4,
+        "found": 4,
+        "passed": 4,
+        "failed": 0
+      }
+    },
+    "puregram": {
+      "items": {
+        "expected": 20,
+        "found": 20,
+        "passed": 20,
+        "failed": 0
+      },
+      "audit_logs": {
+        "expected": 20,
+        "found": 20,
+        "passed": 20,
+        "failed": 0
+      },
+      "vs_pairs": {
+        "expected": 8,
+        "found": 8,
+        "passed": 8,
+        "failed": 0
+      },
+      "matrices": {
+        "expected": 3,
+        "found": 3,
+        "passed": 3,
+        "failed": 0
+      }
+    },
+    "cyclegear": {
+      "items": {
+        "expected": 15,
+        "found": 15,
+        "passed": 15,
+        "failed": 0
+      },
+      "audit_logs": {
+        "expected": 15,
+        "found": 15,
+        "passed": 15,
+        "failed": 0
+      },
+      "vs_pairs": {
+        "expected": 7,
+        "found": 7,
+        "passed": 7,
+        "failed": 0
+      },
+      "matrices": {
+        "expected": 3,
+        "found": 3,
+        "passed": 3,
+        "failed": 0
+      }
+    }
+  },
+  "quarantined_slugs": [],
+  "warnings": [],
+  "failures": []
+}
