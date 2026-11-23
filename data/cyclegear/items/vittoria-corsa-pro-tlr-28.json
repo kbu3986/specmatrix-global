@@ -4,7 +4,10 @@
   "category": "road-tire",
   "slug": "vittoria-corsa-pro-tlr-28",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Vittoria",
   "model_number": "11A00452",
   "origin_country": "IT",
@@ -46,16 +49,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "ETRTO Size", "key_ko": "ETRTO 규격", "value": "28-622 (700×28c)" },
-      { "key_en": "Official Claimed Weight", "key_ko": "공식 무게", "value": "280 g" },
-      { "key_en": "Casing Construction", "key_ko": "케이싱 구조 (TPI)", "value": "320 TPI Corespun-K Cotton + Aramid seamless vulcanized casing" },
-      { "key_en": "Rubber Compound", "key_ko": "컴파운드", "value": "Graphene + Silica dual race compound" },
-      { "key_en": "Puncture Protection", "key_ko": "펑크 방지 벨트", "value": "High-density under-tread puncture protection belt + Bead Shield" },
-      { "key_en": "Construction Innovation", "key_ko": "접합 공법", "value": "Electrical vulcanization fusing tread seamlessly onto cotton casing" },
-      { "key_en": "Hookless (TSS) Compatibility", "key_ko": "후크리스(TSS) 림 호환", "value": "Approved for 28 mm+ hookless rims (24 mm & 26 mm sizes are hooked-only!)" },
-      { "key_en": "Max Pressure (Hookless / Hooked)", "key_ko": "최대 공기압 (후크리스 / 후크드)", "value": "5.0 bar / 72.5 psi (Hookless ETRTO max) · 6.0 bar / 87 psi (Hooked 28c)" },
-      { "key_en": "Recommended Internal Rim Width", "key_ko": "권장 내부 림폭", "value": "19–25 mm internal width (verify rim OEM list for >= 23 mm TSS)" },
-      { "key_en": "Tubeless Sealant Note", "key_ko": "실란트 및 공기압 관리", "value": "Ammonia-free tubeless sealant recommended (cotton walls breathe slightly more air)" }
+      {
+        "key_en": "ETRTO Size",
+        "key_ko": "ETRTO 규격",
+        "value": "28-622 (700×28c)"
+      },
+      {
+        "key_en": "Official Claimed Weight",
+        "key_ko": "공식 무게",
+        "value": "280 g"
+      },
+      {
+        "key_en": "Casing Construction",
+        "key_ko": "케이싱 구조 (TPI)",
+        "value": "320 TPI Corespun-K Cotton + Aramid seamless vulcanized casing"
+      },
+      {
+        "key_en": "Rubber Compound",
+        "key_ko": "컴파운드",
+        "value": "Graphene + Silica dual race compound"
+      },
+      {
+        "key_en": "Puncture Protection",
+        "key_ko": "펑크 방지 벨트",
+        "value": "High-density under-tread puncture protection belt + Bead Shield"
+      },
+      {
+        "key_en": "Construction Innovation",
+        "key_ko": "접합 공법",
+        "value": "Electrical vulcanization fusing tread seamlessly onto cotton casing"
+      },
+      {
+        "key_en": "Hookless (TSS) Compatibility",
+        "key_ko": "후크리스(TSS) 림 호환",
+        "value": "Approved for 28 mm+ hookless rims (24 mm & 26 mm sizes are hooked-only!)"
+      },
+      {
+        "key_en": "Max Pressure (Hookless / Hooked)",
+        "key_ko": "최대 공기압 (후크리스 / 후크드)",
+        "value": "5.0 bar / 72.5 psi (Hookless ETRTO max) · 6.0 bar / 87 psi (Hooked 28c)"
+      },
+      {
+        "key_en": "Recommended Internal Rim Width",
+        "key_ko": "권장 내부 림폭",
+        "value": "19–25 mm internal width (verify rim OEM list for >= 23 mm TSS)"
+      },
+      {
+        "key_en": "Tubeless Sealant Note",
+        "key_ko": "실란트 및 공기압 관리",
+        "value": "Ammonia-free tubeless sealant recommended (cotton walls breathe slightly more air)"
+      }
     ]
   },
   "compatibility_graph": {
@@ -115,9 +158,9 @@
     },
     {
       "label": "Vittoria Official — Hookless Compatibility & Tire Pressure Guidelines",
-      "url": "https://www.vittoria.com/pages/tire-pressure-guide",
+      "url": "https://int.vittoria.com/pages/tire-pressure",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
@@ -134,5 +177,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["continental-gp5000-s-tr-28", "pirelli-p-zero-race-rs-tlr-28"]
+  "auto_fallback_slugs": [
+    "continental-gp5000-s-tr-28",
+    "pirelli-p-zero-race-rs-tlr-28"
+  ]
 }

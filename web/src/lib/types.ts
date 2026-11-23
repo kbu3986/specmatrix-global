@@ -14,13 +14,14 @@ export type {
   AirlineRecord,
   PureGramItem,
   CycleGearItem,
+  HomeTechItem,
   AnyItem,
   VsInsight,
   MatrixPage,
   FxRates,
 } from "../../../schemas/ssot-types";
 
-export type PilotVertical = "wattcheck" | "puregram" | "cyclegear";
+export type PilotVertical = "wattcheck" | "puregram" | "cyclegear" | "hometech";
 export type LegalSlug = "about" | "methodology" | "disclaimer" | "privacy" | "contact";
 
 export interface MonetizationConfig {

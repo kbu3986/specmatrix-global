@@ -60,7 +60,7 @@ function sanitizeSimpleId(raw) {
 }
 
 function loadAllKoCoupangExportLines() {
-  const verticals = ["wattcheck", "puregram", "cyclegear"];
+  const verticals = ["wattcheck", "puregram", "cyclegear", "hometech"];
   const rows = [];
   for (const v of verticals) {
     const dir = path.join(REPO_ROOT, "data", v, "items");

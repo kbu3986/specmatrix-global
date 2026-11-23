@@ -17,6 +17,7 @@ const totalAirlines = getAirlines().length;
 const wcCount = getVerticalItems("wattcheck").length;
 const pgCount = getVerticalItems("puregram").length;
 const cgCount = getVerticalItems("cyclegear").length;
+const htCount = getVerticalItems("hometech").length;
 
 const jsonLd = [
   {
@@ -26,7 +27,15 @@ const jsonLd = [
     url: `${SITE_URL}/`,
     inLanguage: ["en", "ko"],
     description:
-      "Evidence-anchored multi-locale specification comparison matrices and deterministic engineering calculators.",
+      "Evidence-anchored multi-locale specification comparison matrices and deterministic engineering calculators across power gear, endurance nutrition, cycling hardware, and HomeTech 3-year TCO.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/en/tools?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   },
   {
     "@context": "https://schema.org",
@@ -38,8 +47,8 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="SpecMatrix Global — Evidence-Anchored Spec Matrices & Calculators (EN / KO)"
-  description="Precision hardware, endurance nutrition, and road-cycling specification matrices verified against official manuals, nutrition labels, and aviation rules."
+  title="SpecMatrix Global — Evidence-Anchored Spec Matrices & Lab Calculators (EN / KO)"
+  description="Precision hardware, endurance nutrition, road-cycling, and HomeTech 3-year TCO specification matrices verified against official manuals, nutrition labels, and aviation rules."
   locale="en"
   currentPath="/"
   isRootPortal={true}
@@ -47,17 +56,17 @@ const jsonLd = [
 >
   <section class="mx-auto max-w-4xl py-6 sm:py-12">
     <div class="text-center">
-      <span class="badge-info font-mono">EVIDENCE-ANCHORED SPEC MATRIX · PHASE 1 LIVE</span>
+      <span class="badge-info font-mono">EVIDENCE-ANCHORED SPEC MATRIX · 4 VERTICALS LIVE</span>
       <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
         SpecMatrix Global
       </h1>
       <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
         Zero-hallucination specification sheets, head-to-head quantitative comparisons, and
-        deterministic calculators anchored to official manufacturer manuals, nutrition panels, and
-        global airline regulations.
+        deterministic calculators anchored to official manufacturer manuals, nutrition panels,
+        KEPCO/US electricity tariffs, and global airline regulations.
       </p>
       <p class="mx-auto mt-2 max-w-2xl text-sm text-slate-500">
-        제조사 공식 스펙시트·영양성분표·30개 항공사 규정에 근거한 정밀 비교 매트릭스 및 인터랙티브 검증 도구
+        제조사 공식 스펙시트·영양성분표·한전 전력 TCO·30개 항공사 규정에 근거한 정밀 비교 매트릭스 및 인터랙티브 검증 스튜디오
       </p>
     </div>
 
@@ -94,8 +103,8 @@ const jsonLd = [
           Enter English Hub →
         </h2>
         <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          Amazon US MSRP reference benchmarks, IATA & FAA PackSafe flight rules, true cost per
-          active gram, and ISO/ETRTO hookless compatibility checkers.
+          Amazon US MSRP benchmarks, IATA & FAA PackSafe flight rules, true cost per active gram,
+          hookless 5.0 bar safety checkers, and 3-year MiniPC/NAS/UPS TCO simulators.
         </p>
         <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
           <span>WattCheck ({wcCount})</span>
@@ -103,6 +112,8 @@ const jsonLd = [
           <span>PureGram ({pgCount})</span>
           <span>·</span>
           <span>CycleGear ({cgCount})</span>
+          <span>·</span>
+          <span>HomeTech ({htCount})</span>
         </div>
       </a>
 
@@ -114,14 +125,14 @@ const jsonLd = [
           <span class="rounded-md bg-blue-700 px-2.5 py-1 font-mono text-xs font-bold text-white">
             KO · 대한민국
           </span>
-          <span class="font-mono text-xs text-slate-500">KRW · 220V · 국토부/KC</span>
+          <span class="font-mono text-xs text-slate-500">KRW · 220V · 국토부/한전</span>
         </div>
         <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-blue-700">
           한국어 허브 입장 →
         </h2>
         <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          국토교통부 2025–2026 기내 반입 규정(선반금지·투명 지퍼백)·KC 인증, 쿠팡·직구 실단가
-          계산기, 로드사이클 후크리스 5 bar 안전 검증기.
+          국토교통부 2025–2026 기내 반입 규정·KC 인증, 쿠팡·직구 실단가 계산기, 후크리스 5 bar
+          안전 검증기, 한전 누진제 3년 전기요금 TCO 계산기.
         </p>
         <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
           <span>WattCheck ({wcCount})</span>
@@ -129,12 +140,83 @@ const jsonLd = [
           <span>PureGram ({pgCount})</span>
           <span>·</span>
           <span>CycleGear ({cgCount})</span>
+          <span>·</span>
+          <span>HomeTech ({htCount})</span>
         </div>
       </a>
     </div>
 
+    <!-- Interactive Lab Studios Banner -->
+    <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-white shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <span class="inline-block rounded-full border border-blue-400/40 bg-blue-500/20 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-blue-200">
+            INTERACTIVE LAB STUDIOS
+          </span>
+          <h2 class="mt-2 text-lg font-bold tracking-tight text-white sm:text-xl">
+            Zero-Bloat Engineering Workbenches / 인터랙티브 검증 스튜디오
+          </h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <a
+            href={withBase("/en/tools")}
+            class="rounded-md border border-slate-600 bg-slate-800 px-3 py-1.5 font-mono text-xs font-semibold text-slate-100 hover:border-blue-400 hover:text-white"
+          >
+            All Tools (EN) →
+          </a>
+          <a
+            href={withBase("/ko/tools")}
+            class="rounded-md bg-blue-600 px-3 py-1.5 font-mono text-xs font-semibold text-white hover:bg-blue-500"
+          >
+            전체 도구 (KO) →
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <a
+          href={withBase("/en/compare")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
+        >
+          <div class="font-mono text-[11px] font-bold text-blue-300">ANY-VS-ANY WORKBENCH</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
+            Live 1:1 Compare Studio →
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            Compare any 2 of {totalItems} verified SKUs with live weighting sliders & Markdown export.
+          </p>
+        </a>
+
+        <a
+          href={withBase("/en/tools/travel-power-kit")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
+        >
+          <div class="font-mono text-[11px] font-bold text-emerald-300">WATTCHECK × 30 AIRLINES</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-emerald-200">
+            Travel Power Kit Optimizer →
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            Match your laptop/phone wattage + airline carry-on Wh/CCC constraints instantly.
+          </p>
+        </a>
+
+        <a
+          href={withBase("/en/tools/fueling-planner")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-amber-400"
+        >
+          <div class="font-mono text-[11px] font-bold text-amber-300">PUREGRAM RACE PACK</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-amber-200">
+            Race Fueling Mix Planner →
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            Build marathon & cycling hourly carb, sodium, and caffeine packs with live cost math.
+          </p>
+        </a>
+      </div>
+    </div>
+
     <!-- Verified Index Summary -->
-    <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
       <div class="lab-card p-4 text-center">
         <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalItems}</div>
         <div class="mt-1 text-xs font-medium text-slate-500">Verified SKUs</div>
@@ -163,7 +245,7 @@ const jsonLd = [
     const lnk = document.getElementById("root-locale-hint-link");
     if (!box || !txt || !lnk) return;
     if (lang.startsWith("ko")) {
-      txt.textContent = "한국어 브라우저 환경이 감지되었습니다. KRW · 국토부 규정 · 쿠팡/직구 기준으로 구성된 한국어 허브를 이용하세요.";
+      txt.textContent = "한국어 브라우저 환경이 감지되었습니다. KRW · 국토부 규정 · 한전 누진제 TCO 기준으로 구성된 한국어 허브를 이용하세요.";
       lnk.setAttribute("href", lnk.getAttribute("data-ko-href") || "/ko");
       lnk.textContent = "한국어 허브로 이동 →";
       box.classList.remove("hidden");

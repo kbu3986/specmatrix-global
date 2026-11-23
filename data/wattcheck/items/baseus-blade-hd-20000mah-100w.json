@@ -228,15 +228,15 @@
   "citations": [
     {
       "label": "Baseus Official Product Page — Blade HD 100W 20,000mAh",
-      "url": "https://www.baseus.com/products/baseus-blade-laptop-power-bank-100w-20000mah",
+      "url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Baseus Blade HD PPBLD100HD Official Specification Sheet",
-      "url": "https://www.baseus.com/pages/support",
+      "url": "https://support.baseus.com/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     }
   ],
   "audit": {

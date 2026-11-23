@@ -233,7 +233,45 @@ export interface CycleGearItem extends BaseItem {
   };
 }
 
-export type AnyItem = WattCheckItem | PureGramItem | CycleGearItem;
+export interface HomeTechItem extends BaseItem {
+  vertical: "hometech";
+  category: "minipc" | "nas" | "ups" | "robot-vacuum";
+  specs: {
+    idle_power_w: number;
+    typical_load_w: number;
+    peak_power_w: number;
+    default_daily_hours_active: number;
+    annual_consumables_usd: number;
+    annual_consumables_krw: number;
+    noise_idle_dba: number | null;
+    noise_load_dba: number | null;
+    weight_g: number;
+    dimensions_mm: { l: number; w: number; h: number };
+    input_voltage_range: string;
+    dual_voltage_100_240v: boolean;
+    cpu_or_soc: string | null;
+    ram_gb_default: number | null;
+    drive_bays: number | null;
+    lan_speed_gbps: number | null;
+    ups_va_rating: number | null;
+    ups_watt_rating: number | null;
+    ups_waveform: "pure-sine" | "simulated-sine" | null;
+    ups_runtime_half_load_min: number | null;
+    suction_pa: number | null;
+    dustbag_capacity_l: number | null;
+    certifications: string[];
+    key_specs_kv: Array<{ key_en: string; key_ko: string; value: string }>;
+  };
+  tco_profile: {
+    always_on_24_7: boolean;
+    expected_lifespan_years: number;
+    battery_or_filter_cycle_months: number | null;
+    korea_220v_note_en: string;
+    korea_220v_note_ko: string;
+  };
+}
+
+export type AnyItem = WattCheckItem | PureGramItem | CycleGearItem | HomeTechItem;
 
 export interface VsInsight {
   pair_slug: string;

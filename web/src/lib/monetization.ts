@@ -4,9 +4,17 @@ import type {
   AvailabilityStatus,
   MonetizationViewModel,
   OutboundCtaButton,
+  PilotVertical,
 } from "./types";
 import { getCoupangDeeplinks, getMonetizationConfig } from "./data";
 import { formatCurrency } from "./i18n";
+
+const DEFAULT_VERTICAL_SUB_IDS: Record<PilotVertical, string> = {
+  wattcheck: "sm-watt-kr",
+  puregram: "sm-pure-kr",
+  cyclegear: "sm-cycle-kr",
+  hometech: "sm-home-kr",
+};
 
 const REAL_ASIN_RE = /^B0[0-9A-Z]{8}$/;
 
@@ -111,7 +119,10 @@ export function buildMonetizationModel(
   const usTag = cfg.amazonOneLink.us || "kbu3986-20";
   const coupangId = cfg.coupang.partnersId || "AF2200875";
   const coupangSubId =
-    cfg.coupang.verticalSubIds[item.vertical] || cfg.coupang.defaultSubId || "ssalmeok-kr";
+    cfg.coupang.verticalSubIds?.[item.vertical] ||
+    DEFAULT_VERTICAL_SUB_IDS[item.vertical as PilotVertical] ||
+    cfg.coupang.defaultSubId ||
+    "ssalmeok-kr";
 
   const fallbackQuery = `${item.brand} ${item.category.replace(/-/g, " ")}`;
   const buttons: OutboundCtaButton[] = [];

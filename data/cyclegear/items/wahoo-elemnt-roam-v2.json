@@ -4,7 +4,10 @@
   "category": "gps-computer",
   "slug": "wahoo-elemnt-roam-v2",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Wahoo Fitness",
   "model_number": "WFCC6",
   "origin_country": "US",
@@ -35,7 +38,12 @@
     "claimed_accuracy_pct": null,
     "left_right_balance": null,
     "mount_or_form_factor": "2.7\" Non-Touch Anti-Glare 64-Color Display + Convex Tactile Buttons + Dual Quicklook LEDs",
-    "connectivity": ["ANT+", "Bluetooth", "Wi-Fi", "Dual-Band GNSS (L1+L5)"],
+    "connectivity": [
+      "ANT+",
+      "Bluetooth",
+      "Wi-Fi",
+      "Dual-Band GNSS (L1+L5)"
+    ],
     "battery_life_hours": 17,
     "waterproof_rating": "IPX7",
     "tire_width_mm": null,
@@ -46,16 +54,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Device Weight", "key_ko": "본체 무게", "value": "93 g (3.3 oz)" },
-      { "key_en": "Display Specs", "key_ko": "디스플레이", "value": "2.7\" (68.6 mm) 64-color Gorilla Glass anti-glare (240 × 400 px, non-touch)" },
-      { "key_en": "Battery Life", "key_ko": "배터리 수명", "value": "Up to 17 hrs (USB-C rechargeable Li-ion)" },
-      { "key_en": "Physical Controls", "key_ko": "물리 조작부", "value": "Convex tactile front/side buttons + Perfect View Zoom side rockers" },
-      { "key_en": "Quicklook LED Bars", "key_ko": "퀵룩 LED 인디케이터", "value": "Top + left-side LED strips for power/HR zones, turns, and radar alerts" },
-      { "key_en": "Dimensions", "key_ko": "외형 크기", "value": "89.0 × 54.4 × 17.8 mm" },
-      { "key_en": "Internal Storage", "key_ko": "내장 저장공간", "value": "32 GB (global preloaded maps)" },
-      { "key_en": "GNSS & Sensors", "key_ko": "위성 수신 및 센서", "value": "Dual-Band GNSS (GPS, GLONASS, Galileo, Beidou, QZSS) + barometric altimeter" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 (up to 1.5 m / 5 ft)" },
-      { "key_en": "Di2 / AXS & Climb Features", "key_ko": "구동계·업힐·연동", "value": "Shimano Di2 & SRAM AXS hood buttons, Summit Freeride, Strava / Intervals.icu" }
+      {
+        "key_en": "Device Weight",
+        "key_ko": "본체 무게",
+        "value": "93 g (3.3 oz)"
+      },
+      {
+        "key_en": "Display Specs",
+        "key_ko": "디스플레이",
+        "value": "2.7\" (68.6 mm) 64-color Gorilla Glass anti-glare (240 × 400 px, non-touch)"
+      },
+      {
+        "key_en": "Battery Life",
+        "key_ko": "배터리 수명",
+        "value": "Up to 17 hrs (USB-C rechargeable Li-ion)"
+      },
+      {
+        "key_en": "Physical Controls",
+        "key_ko": "물리 조작부",
+        "value": "Convex tactile front/side buttons + Perfect View Zoom side rockers"
+      },
+      {
+        "key_en": "Quicklook LED Bars",
+        "key_ko": "퀵룩 LED 인디케이터",
+        "value": "Top + left-side LED strips for power/HR zones, turns, and radar alerts"
+      },
+      {
+        "key_en": "Dimensions",
+        "key_ko": "외형 크기",
+        "value": "89.0 × 54.4 × 17.8 mm"
+      },
+      {
+        "key_en": "Internal Storage",
+        "key_ko": "내장 저장공간",
+        "value": "32 GB (global preloaded maps)"
+      },
+      {
+        "key_en": "GNSS & Sensors",
+        "key_ko": "위성 수신 및 센서",
+        "value": "Dual-Band GNSS (GPS, GLONASS, Galileo, Beidou, QZSS) + barometric altimeter"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IPX7 (up to 1.5 m / 5 ft)"
+      },
+      {
+        "key_en": "Di2 / AXS & Climb Features",
+        "key_ko": "구동계·업힐·연동",
+        "value": "Shimano Di2 & SRAM AXS hood buttons, Summit Freeride, Strava / Intervals.icu"
+      }
     ]
   },
   "compatibility_graph": {
@@ -116,15 +164,15 @@
   "citations": [
     {
       "label": "Wahoo ELEMNT ROAM V2 Official Product Page",
-      "url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-v2-buy",
+      "url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-buy",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Wahoo Support — ELEMNT ROAM v2 (WFCC6) Technical Specs & Di2/AXS Guide",
-      "url": "https://support.wahoofitness.com/hc/en-us/articles/8064974955794-ELEMNT-ROAM-v2-2022-Product-Information",
+      "url": "https://support.wahoofitness.com/hc/en-us",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "ANT+ Device Directory — Wahoo ELEMNT ROAM",
@@ -141,5 +189,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["garmin-edge-840-solar", "coros-dura-solar-gps"]
+  "auto_fallback_slugs": [
+    "garmin-edge-840-solar",
+    "coros-dura-solar-gps"
+  ]
 }

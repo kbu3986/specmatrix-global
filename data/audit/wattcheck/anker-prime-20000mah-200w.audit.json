@@ -7,13 +7,13 @@
     {
       "field": "battery_energy_wh",
       "quote": "20,000mAh (4 x 5,000mAh cells, 72Wh), Weight 545g, Dimensions 126.9 x 54.6 x 49.65 mm",
-      "source_url": "https://www.anker.com/products/a1336",
+      "source_url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
       "source_tier": 1
     },
     {
       "field": "port_allocation_matrix",
       "quote": "Total 200W Max; USB-C1/C2 100W Max each (100W + 100W dual laptop charging); USB-A 65W Max; 100W input recharge",
-      "source_url": "https://www.anker.com/products/a1336",
+      "source_url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
       "source_tier": 1
     }
   ],

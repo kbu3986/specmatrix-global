@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "ups",
+  "slug": "cyberpower-cp1500pfclcd",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "CyberPower",
+  "model_number": "CP1500PFCLCD",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "CP1500PFCLCD",
+      "msrp": 274.95,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "CyberPower CP1500PFCLCD PFC Sinewave UPS 1500VA 1000W",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "CP1500EPFCLCD",
+      "msrp": 640000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "사이버파워 CP1500EPFCLCD 220V 정현파 UPS 무정전전원장치",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 6,
+    "typical_load_w": 12,
+    "peak_power_w": 65,
+    "default_daily_hours_active": 24,
+    "annual_consumables_usd": 18,
+    "annual_consumables_krw": 24000,
+    "noise_idle_dba": 22,
+    "noise_load_dba": 45,
+    "weight_g": 11290,
+    "dimensions_mm": {
+      "l": 356,
+      "w": 99,
+      "h": 279
+    },
+    "input_voltage_range": "120V AC nominal (88-144V AVR window), 57-63Hz (US 120V ONLY)",
+    "dual_voltage_100_240v": false,
+    "cpu_or_soc": null,
+    "ram_gb_default": null,
+    "drive_bays": null,
+    "lan_speed_gbps": null,
+    "ups_va_rating": 1500,
+    "ups_watt_rating": 1000,
+    "ups_waveform": "pure-sine",
+    "ups_runtime_half_load_min": 10,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["UL1778", "cUL / CSA C22.2 No. 107.3", "FCC Class B", "ENERGY STAR", "CEC", "RoHS"],
+    "key_specs_kv": [
+      { "key_en": "Output Capacity", "key_ko": "출력 용량 (VA / W)", "value": "1,500 VA / 1,000 W (PF 0.67; EU/KR sibling CP1500EPFCLCD is 1,500 VA / 900 W)" },
+      { "key_en": "Topology & Waveform", "key_ko": "토폴로지 및 출력 파형", "value": "Line-Interactive AVR / True Pure Sine Wave (Active PFC PSU safe)" },
+      { "key_en": "Half / Full Load Runtime", "key_ko": "반부하 / 최대부하 런타임", "value": "~10 min at 500 W half load / ~2.5 min at 1,000 W full load" },
+      { "key_en": "UPS Self-Power Overhead", "key_ko": "UPS 자체 소비전력 (TCO 기준)", "value": "~6 W GreenPower bypass idle / ~12 W 24/7 overhead / ~65 W dual-cell recharge" },
+      { "key_en": "Input Voltage & Outlets", "key_ko": "입력 전압 및 콘센트", "value": "120V AC (88-144V), 12 × NEMA 5-15R (6 battery+surge, 6 surge-only) + USB-A/C" },
+      { "key_en": "Battery Cartridge & Cycle", "key_ko": "내장 배터리 및 유지비", "value": "2 × 12V 9Ah SLA (RB1290X2), hot-swappable, 3-5 yr (~$18 / ₩24,000/yr)" },
+      { "key_en": "NAS Auto-Shutdown Sync", "key_ko": "NAS 자동종료 연동", "value": "Native USB HID (Type-B) — Synology DSM officially verified plug-and-play" },
+      { "key_en": "Display & Controls", "key_ko": "전면 디스플레이", "value": "Tiltable multifunction color LCD showing load W, VA, voltage & runtime" },
+      { "key_en": "Dimensions & Weight", "key_ko": "크기 및 무게", "value": "279 × 99 × 356 mm (H×W×D), 11,290 g (24.9 lbs)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 6,
+    "battery_or_filter_cycle_months": 42,
+    "korea_220v_note_en": "CRITICAL VOLTAGE WARNING: The US CP1500PFCLCD is strictly 120V AC (NEMA 5-15P) and will suffer immediate electrical failure if plugged into Korea's 220V/60Hz wall outlet. Users in Korea/EU MUST buy the 230V sibling CP1500EPFCLCD (1500VA/900W, 6x Schuko sockets, ~640,000 KRW imported).",
+    "korea_220v_note_ko": "필수 220V 경고: 미국판 CP1500PFCLCD는 120V 전용(NEMA 5-15P)이므로 한국 220V 콘센트에 직결 시 즉시 회로 파손·화재 위험이 있습니다. 한국에서는 반드시 230V 전용 형제 모델인 CP1500EPFCLCD(1500VA/900W, 슈코 6구, 직구·수입 약 64만 원대)를 구매해야 합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "CyberPower CP1500PFCLCD PFC Sinewave UPS",
+      "title": "CyberPower CP1500PFCLCD (1500VA/1000W Pure Sinewave): Active PFC, Synology USB HID & 120V Trap",
+      "summary": "Flagship 1,500 VA / 1,000 W pure sinewave line-interactive UPS featuring Active-PFC PSU safety, ~10-minute 500 W runtime, GreenPower bypass efficiency, tiltable color LCD, and native Synology DSM USB HID compatibility.",
+      "best_for": "120V North American homelabs, multi-NAS racks, and Active-PFC workstations needing clean pure sinewave power protection, ~10-minute half-load runtime, and effortless Synology USB HID auto-shutdown.",
+      "local_gotchas": [
+        "Strictly 120V North American model (dual_voltage_100_240v: false): never import the US CP1500PFCLCD to 220-230V countries like Korea or the EU; order the 230V CP1500EPFCLCD (900 W, 6x Schuko) instead and avoid wasteful step-down transformers.",
+        "Battery cartridge check: Current 1,000 W revisions use the RB1290X2 (2x 12V 9Ah) replacement pack, whereas legacy 900 W serial prefixes (CR9/CXF/CQC) require RB1280X2B — verify your serial label before ordering replacements.",
+        "Only 6 of the 12 rear NEMA outlets provide battery backup + surge protection (the other 6 are surge-only); plug your NAS, router, and ONT strictly into the 'Battery + Surge' bank."
+      ]
+    },
+    "ko": {
+      "name": "사이버파워 CP1500PFCLCD (순수 정현파 1500VA/1000W)",
+      "title": "사이버파워 CP1500PFCLCD 순수 정현파 UPS: Active PFC 보호·120V 직구 금지·CP1500EPFCLCD 비교",
+      "summary": "Active PFC 고출력 파워서플라이와 멀티 NAS 홈랩을 완벽 보호하는 1,500 VA / 1,000 W 순수 정현파 라인 인터랙티브 UPS로, 반부하(500 W) 10분 런타임과 시놀로지 DSM 네이티브 USB HID 연동을 지원합니다.",
+      "best_for": "Active PFC 워크스테이션·고성능 미니PC·4베이 NAS 여러 대를 한 번에 순수 정현파로 보호하려는 미국 120V 사용자(한국 220V 사용자는 반드시 CP1500EPFCLCD 선택).",
+      "local_gotchas": [
+        "미국 아마존 직구 절대 주의: CP1500PFCLCD는 120V 전용(88~144V)이므로 한국 220V 환경에서는 사용 불가하며, 대용량 다운트랜스를 물리면 대기전력 손실과 발열이 극심해집니다. 국내에서는 230V 슈코 6구 모델인 CP1500EPFCLCD(900W)를 선택해야 합니다.",
+        "11.29 kg에 달하는 납축 배터리 2개(12V 9Ah × 2) 무게 때문에 해외 직구 시 항공 배송비와 관부가세가 크게 붙어 한국 체감가가 미국 MSRP($274.95) 대비 2배 가까이 높아지는 TCO 격차가 발생합니다.",
+        "배터리 교체 시 신형 1,000 W 리비전은 RB1290X2(12V 9Ah × 2)를 쓰며 구형 900 W(시리얼 CR9/CXF/CQC)는 RB1280X2B 규격이므로 3~4년 후 배터리 리필 전 본체 하단 시리얼을 확인해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "CyberPower Official PFC Sinewave Product Documentation (CP1500EPFCLCD / Series)",
+      "url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Synology Official Third-Party UPS Compatibility List (CyberPower CP1500PFCLCD USB HID)",
+      "url": "https://www.synology.com/en-us/compatibility?search_by=category&category=upses",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["apc-back-ups-bx750mi", "synology-ds423-plus"]
+}

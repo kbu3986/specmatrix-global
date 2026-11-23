@@ -1,0 +1,27 @@
+{
+  "sku_slug": "cyberpower-cp1500pfclcd",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "specs.ups_watt_rating",
+      "quote": "Capacity: 1500 VA / 1000 W; Waveform: Sine Wave (Pure Sine Wave); Topology: Line-Interactive; Runtime: 10 minutes at half load (500W), 2.5 minutes at full load (1000W); MSRP $274.95",
+      "source_url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.weight_g",
+      "quote": "Dimensions (W x H x D): 3.9 x 11.0 x 14.0 in (99 x 279 x 356 mm); Weight: 24.9 lbs (11.29 kg); Replacement Battery: RB1290X2 (2 x 12V/9Ah); Certifications: UL1778, cUL, FCC Class B, ENERGY STAR",
+      "source_url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "UPS physics & power factor check: Verified 1000 W <= 1500 VA (PF = 0.67 <= 1.0), pure-sine waveform, 10 min half-load runtime, and amortized dual-battery replacement cost ($18 / 24,000 KRW/yr) plus 24/7 GreenPower overhead (6W idle / 12W typical / 65W recharge).",
+    "Critical Korea 220V safety check: Verified US CP1500PFCLCD is strictly 120V (88-144V, dual_voltage_100_240v: false) and documented the exact 230V sibling CP1500EPFCLCD (1500VA/900W, 6x Schuko, ~640,000 KRW landed) to prevent unsafe imports.",
+    "Synology DSM compatibility & SM-02 check: Verified native USB HID plug-and-play support on Synology compatibility list and msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

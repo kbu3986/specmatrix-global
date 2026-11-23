@@ -1,0 +1,33 @@
+{
+  "sku_slug": "ugreen-nasync-dxp4800-plus",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "specs.cpu_or_soc",
+      "quote": "UGREEN NASync DXP4800 Plus: Intel Pentium Gold 8505 (5-core / 6-thread, up to 4.4 GHz), 8 GB DDR5 RAM (expandable to 64 GB), 128 GB OS SSD, 4x SATA bays + 2x M.2 NVMe slots, 1x 10GbE + 1x 2.5GbE RJ-45, 257.5 x 178 x 178 mm.",
+      "source_url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.typical_load_w",
+      "quote": "TechPowerUp lab testing of DXP4800 Plus: ~3.9 kg bare metal net weight, 19V/7.9A (150W) HuntKey DC adapter (100-240V AC), ~19-26 W HDD sleep/idle, ~42-50 W 4-HDD active load, up to ~67-76 W heavy stress load.",
+      "source_url": "https://www.techpowerup.com/review/ugreen-nasync-dxp4800-plus/",
+      "source_tier": 2
+    },
+    {
+      "field": "specs.noise_idle_dba",
+      "quote": "Aluminum alloy chassis with rear exhaust fan and magnetic dust filter rated ~29-34 dBA in quiet/standard operation; ramps under sustained VM or 4K transcode workloads.",
+      "source_url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Net weight vs shipping weight disambiguation: Separated ~3,900 g bare metal chassis weight from ~6.02 kg boxed shipping weight often misquoted on retailer listings.",
+    "10GbE 24/7 power TCO check: Verified power hierarchy 19 W <= 48 W <= 76 W (well inside 150 W 19V/7.9A adapter) and quantified the 24/7 electricity premium over Synology DS423+ due to Pentium 8505 + 10GBASE-T PHY draw.",
+    "SM-02 & Korea release check: Recorded US MSRP $699.99 vs KR official retail benchmark 949,000 KRW under msrp_benchmark_mode with asin: null, noting wide KR Wadiz/open-market variance and KC certification verification."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

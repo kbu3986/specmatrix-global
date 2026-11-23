@@ -12,6 +12,8 @@ const isKo = locale === "ko";
 
 const cycleItem = item && item.vertical === "cyclegear" ? item : null;
 const wattItem = item && item.vertical === "wattcheck" ? item : null;
+const homeItem = item && item.vertical === "hometech" ? item : null;
+const homeVoltageRisk = Boolean(homeItem && !homeItem.specs.dual_voltage_100_240v);
 ---
 
 {vertical === "wattcheck" && (
@@ -95,6 +97,70 @@ const wattItem = item && item.vertical === "wattcheck" ? item : null;
             {isKo
               ? cycleItem.safety_warning.torque_or_install_note_ko
               : cycleItem.safety_warning.torque_or_install_note_en}
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+{vertical === "hometech" && (
+  <section
+    class:list={[
+      "rounded-xl border p-4 text-sm",
+      homeVoltageRisk
+        ? "border-amber-300 bg-amber-50/85 text-amber-950"
+        : "border-blue-300 bg-blue-50/80 text-blue-950",
+    ]}
+    aria-label={isKo ? "220V 전기 안전 · UPS 파형 및 전기요금 고지" : "Electrical Safety, 220V Voltage & TCO Disclaimer"}
+  >
+    <div class="flex items-start gap-3">
+      <span
+        class:list={[
+          "mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold",
+          homeVoltageRisk
+            ? "bg-amber-200 text-amber-950"
+            : "bg-blue-200 text-blue-950",
+        ]}
+      >
+        {homeVoltageRisk ? "!" : "i"}
+      </span>
+      <div class="space-y-1.5">
+        <h3 class:list={["font-semibold", homeVoltageRisk ? "text-amber-950" : "text-blue-950"]}>
+          {homeVoltageRisk
+            ? isKo
+              ? "전압 주의: 100–240V 프리볼트 미지원 — 한국 220V/60Hz 직접 연결 전 정격 전압 필수 확인"
+              : "Voltage Warning: Non-Dual-Voltage Unit — Verify Mains Voltage Before Plug-In"
+            : isKo
+              ? "전기 안전 · 220V 플러그 · UPS 순수 정현파 및 한전 누진제 고지"
+              : "Electrical Safety, 220V Mains, Active PFC UPS & Electricity TCO Notice"}
+        </h3>
+
+        {homeVoltageRisk && homeItem && (
+          <p class="rounded border border-amber-300 bg-white/90 px-3 py-2 text-xs font-semibold text-amber-950">
+            {isKo
+              ? `경고: 본 모델의 정격 입력 전압은 [${homeItem.specs.input_voltage_range}]이며 100–240V 프리볼트를 지원하지 않습니다. 120V 전용 북미 모델을 한국 220V 콘센트에 직결하면 즉시 고장 및 화재 위험이 있으므로 반드시 220–230V 정식 버전 또는 고용량 강압 변압기(트랜스) 사용 여부를 확인하세요.`
+              : `WARNING: Rated input is [${homeItem.specs.input_voltage_range}] (NOT 100–240V dual voltage). Never connect a 120V-only North American SKU directly to 220V–230V mains; confirm regional 230V SKU compatibility or use an appropriately rated step-down transformer.`}
+          </p>
+        )}
+
+        <p class:list={["text-xs leading-relaxed", homeVoltageRisk ? "text-amber-900" : "text-blue-900"]}>
+          {isKo
+            ? "해외 직구 전원 어댑터·UPS·로봇청소기 도크는 한국 220V/60Hz 접지(Type C/F) 규격 및 KC 안전인증 여부를 반드시 확인하세요. Active PFC 전원장치가 탑재된 NAS·미니PC·PC 보호 시 유사 정현파(Simulated Sine) UPS는 배터리 전환 순간 전원이 꺼질 수 있으므로 순수 정현파(Pure Sine Wave) UPS 조합을 권장합니다. 전기요금·3년 TCO 수치는 기준 단가(한전 누진 2구간 214원/kWh, 미국 $0.17/kWh, 독일 €0.38/kWh) 기반 결정론적 추정치이며 계절별 누진 구간·부하율·HDD 절전 설정에 따라 달라질 수 있습니다."
+            : "Always verify regional mains voltage, grounding plug type (Type C/F for Korea 220V/60Hz), and local electrical safety certifications before operating imported power hardware. For NAS, Mini PCs, and workstations with Active PFC power supplies, a Pure Sine Wave UPS is strongly recommended because stepped/simulated-sine UPS units can cause transfer dropouts under load. Electricity and 3-year TCO outputs are deterministic estimates using baseline tariffs (US $0.17/kWh, KR KEPCO Tier 2 ₩214/kWh, DE €0.38/kWh) and vary with seasonal progressive tiers, duty cycle, and HDD spin-down settings."}
+        </p>
+
+        {homeItem && (
+          <p
+            class:list={[
+              "rounded border px-3 py-2 font-mono text-xs",
+              homeVoltageRisk
+                ? "border-amber-200 bg-white/80 text-amber-950"
+                : "border-blue-200 bg-white/80 text-blue-950",
+            ]}
+          >
+            {isKo ? "한국 220V / 전원 검증 노트: " : "Regional 220V / Power Note: "}
+            {isKo ? homeItem.tco_profile.korea_220v_note_ko : homeItem.tco_profile.korea_220v_note_en}
           </p>
         )}
       </div>

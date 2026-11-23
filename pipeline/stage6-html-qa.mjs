@@ -8,7 +8,13 @@
  *  4. Symmetric hreflang (en, ko, x-default) & self-referencing <link rel="canonical"> on all /en/... and /ko/... pages
  *  5. Affiliate disclosure presence & rel="sponsored nofollow noopener" on all affiliate outbound links
  *  6. Valid JSON-LD <script type="application/ld+json"> parsing on every content page
- *  7. ads.txt, robots.txt, sitemap-index.xml, and all 6 split vertical-locale sitemaps
+ *  7. ads.txt, robots.txt, sitemap-index.xml, and all 8 split vertical-locale sitemaps
+ *  8. Social cards: <meta property="og:image"> + <meta name="twitter:card"> on every localized page,
+ *     og:image resolving inside web/dist, and 5 PNG OG cards in web/dist/og/ with valid PNG signatures
+ *  9. Client-side search index: web/dist/search-index.json parses cleanly with non-empty
+ *     SKU items, airlines, VS, and matrix entries whose paths resolve to built pages
+ *
+ * Non-localized fallback error pages (404.html) are excluded from canonical/hreflang/social checks.
  */
 
 import fs from "node:fs";
@@ -25,7 +31,40 @@ export const REQUIRED_SPLIT_SITEMAPS = [
   { file: "sitemap-puregram-ko.xml", vertical: "puregram", locale: "ko" },
   { file: "sitemap-cyclegear-en.xml", vertical: "cyclegear", locale: "en" },
   { file: "sitemap-cyclegear-ko.xml", vertical: "cyclegear", locale: "ko" },
+  { file: "sitemap-hometech-en.xml", vertical: "hometech", locale: "en" },
+  { file: "sitemap-hometech-ko.xml", vertical: "hometech", locale: "ko" },
 ];
+
+export const REQUIRED_OG_IMAGES = [
+  "og-default.png",
+  "og-wattcheck.png",
+  "og-puregram.png",
+  "og-cyclegear.png",
+  "og-hometech.png",
+];
+
+export const SEARCH_INDEX_FILE = "search-index.json";
+
+export const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+const SEARCH_INDEX_REQUIRED_GROUPS = [
+  { key: "items", label: "SKU item" },
+  { key: "airlines", label: "airline" },
+  { key: "vs", label: "VS matchup" },
+  { key: "matrices", label: "matrix/compat" },
+];
+
+const SEARCH_INDEX_TYPE_TO_GROUP = {
+  sku: "items",
+  item: "items",
+  product: "items",
+  airline: "airlines",
+  vs: "vs",
+  matrix: "matrices",
+  compat: "matrices",
+};
+
+const MAX_SEARCH_PATH_FAILURES_REPORTED = 25;
 
 export const FORBIDDEN_LEAK_TOKENS = [
   { id: "NaN", regex: /\bNaN\b/ },
@@ -423,6 +462,116 @@ function isContentRoute(routePath) {
 }
 
 /**
+ * True for non-localized fallback error pages (e.g. `404.html`, `404/index.html`, `en/404.html`)
+ * which must be excluded from canonical / hreflang / social-card checks.
+ */
+export function isErrorFallbackPage(relFile) {
+  const rel = String(relFile || "").replace(/\\/g, "/").replace(/^\/+/, "").toLowerCase();
+  return /(^|\/)(404|500)(\.html|\/index\.html)$/.test(rel);
+}
+
+/**
+ * Extract <meta> tags keyed by lowercase `property` or `name` (first occurrence wins).
+ */
+export function extractMetaTags(html) {
+  const clean = stripScriptsStylesComments(html);
+  const meta = {};
+  const metaRe = /<meta\b([^>]*)>/gi;
+  let m;
+  while ((m = metaRe.exec(clean)) !== null) {
+    const attrs = parseAttributes(m[1]);
+    const key = (attrs.property || attrs.name || "").trim().toLowerCase();
+    if (!key || Object.prototype.hasOwnProperty.call(meta, key)) continue;
+    meta[key] = typeof attrs.content === "string" ? attrs.content.trim() : "";
+  }
+  return meta;
+}
+
+/**
+ * True when the buffer starts with the 8-byte PNG signature (89 50 4E 47 0D 0A 1A 0A).
+ */
+export function isValidPngBuffer(buf) {
+  if (!buf || typeof buf.length !== "number" || buf.length < PNG_SIGNATURE.length) return false;
+  for (let i = 0; i < PNG_SIGNATURE.length; i += 1) {
+    if (buf[i] !== PNG_SIGNATURE[i]) return false;
+  }
+  return true;
+}
+
+function classifySearchEntry(entry) {
+  const rawType = String(entry?.t ?? entry?.type ?? entry?.kind ?? "").toLowerCase();
+  return SEARCH_INDEX_TYPE_TO_GROUP[rawType] || null;
+}
+
+/**
+ * Validate a parsed search-index payload.
+ *
+ * Supports both shapes:
+ *  - Flat:  `{ items: [{ t: "sku" | "airline" | "vs" | "matrix" | "tool", p: "/..." }, ...] }`
+ *  - Split: `{ items: [...], airlines: [...], vs: [...], matrices: [...] }`
+ *
+ * Requires non-empty SKU items, airlines, VS, and matrix/compat groups.
+ */
+export function validateSearchIndexPayload(payload) {
+  const errors = [];
+  const counts = { items: 0, airlines: 0, vs: 0, matrices: 0, total_entries: 0 };
+  const entries = [];
+
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return {
+      valid: false,
+      errors: ["search-index.json root must be a JSON object"],
+      counts,
+      entries,
+    };
+  }
+
+  const isSplitShape = ["airlines", "vs", "matrices"].some((k) => Array.isArray(payload[k]));
+
+  if (isSplitShape) {
+    for (const group of SEARCH_INDEX_REQUIRED_GROUPS) {
+      const arr = payload[group.key];
+      if (!Array.isArray(arr)) {
+        errors.push(`search-index.json missing "${group.key}" array`);
+        continue;
+      }
+      counts[group.key] = arr.length;
+      entries.push(...arr);
+    }
+  } else if (!Array.isArray(payload.items)) {
+    errors.push('search-index.json missing "items" array');
+  } else {
+    entries.push(...payload.items);
+    for (const entry of payload.items) {
+      const group = classifySearchEntry(entry);
+      if (group) counts[group] += 1;
+    }
+  }
+
+  counts.total_entries = entries.length;
+
+  for (const group of SEARCH_INDEX_REQUIRED_GROUPS) {
+    if (counts[group.key] === 0 && !errors.some((e) => e.includes(`"${group.key}"`))) {
+      errors.push(`search-index.json has 0 ${group.label} entries (expected non-empty "${group.key}")`);
+    }
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    counts,
+    entries,
+  };
+}
+
+function resolveSearchEntryPath(distDir, rawPath, basePath) {
+  const p = String(rawPath || "").split("#")[0];
+  if (!p.startsWith("/") || p.startsWith("//")) return false;
+  const localized = /^\/(en|ko)(\/|$)/.test(p) ? p : `/en${p === "/" ? "" : p}`;
+  return resolveInternalHref(distDir, `${basePath}${localized}`, basePath);
+}
+
+/**
  * Run complete Stage 6 HTML QA audit on a built `web/dist` directory.
  */
 export function runStage6HtmlQa({
@@ -432,6 +581,9 @@ export function runStage6HtmlQa({
   basePath: basePathOverride,
   minCorePages = DEFAULT_MIN_CORE_PAGES,
   maxTotalFiles = CLOUDFLARE_PAGES_MAX_FILES,
+  requireSocialMeta = true,
+  requireOgImages = true,
+  requireSearchIndex = true,
 } = {}) {
   const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
   const resolvedDist = path.resolve(distDir || path.join(repoRoot, "web", "dist"));
@@ -483,9 +635,20 @@ export function runStage6HtmlQa({
         jsonld_blocks_checked: 0,
         sitemap_files_validated: 0,
         sitemap_urls_checked: 0,
+        error_fallback_pages: 0,
+        social_meta_pages_checked: 0,
+        og_images_validated: 0,
+        search_index_entries: 0,
       },
       failures,
     };
+  }
+
+  let siteHost = "";
+  try {
+    siteHost = new URL(siteUrl).host;
+  } catch {
+    siteHost = "";
   }
 
   const allFiles = walkFiles(resolvedDist);
@@ -512,11 +675,15 @@ export function runStage6HtmlQa({
   let totalInternalLinksChecked = 0;
   let totalAffiliateLinksChecked = 0;
   let totalJsonLdBlocksChecked = 0;
+  let errorFallbackPages = 0;
+  let socialMetaPagesChecked = 0;
 
   for (const htmlFile of htmlFiles) {
     const relFile = path.relative(resolvedDist, htmlFile).replace(/\\/g, "/");
     const routePath = htmlFileToRoutePath(resolvedDist, htmlFile);
     const html = fs.readFileSync(htmlFile, "utf8");
+    const isErrorPage = isErrorFallbackPage(relFile);
+    if (isErrorPage) errorFallbackPages += 1;
 
     // 2. Forbidden leak tokens in visible text
     const leakHits = scanVisibleLeakTokens(html);
@@ -541,8 +708,8 @@ export function runStage6HtmlQa({
       }
     }
 
-    // 4. Canonical & hreflang on /en/... and /ko/... pages
-    const locMatch = routePath.match(/^\/(en|ko)(\/.*)?$/);
+    // 4. Canonical & hreflang on /en/... and /ko/... pages (404/500 fallback pages excluded)
+    const locMatch = isErrorPage ? null : routePath.match(/^\/(en|ko)(\/.*)?$/);
     if (locMatch) {
       const locale = locMatch[1];
       const rest = locMatch[2] || "";
@@ -616,6 +783,53 @@ export function runStage6HtmlQa({
           file: relFile,
           message: `Missing required ${locale.toUpperCase()} affiliate disclosure text`,
         });
+      }
+
+      // 8a. Social card meta tags (og:image + twitter:card) on localized pages
+      if (requireSocialMeta) {
+        socialMetaPagesChecked += 1;
+        const meta = extractMetaTags(html);
+        const ogImage = meta["og:image"] || "";
+        const twitterCard = meta["twitter:card"] || "";
+
+        if (!ogImage) {
+          failures.push({
+            check: "og_image_meta_missing",
+            file: relFile,
+            message: 'Missing non-empty <meta property="og:image" content="...">',
+          });
+        } else if (!/^https:\/\//i.test(ogImage)) {
+          failures.push({
+            check: "og_image_meta_not_absolute",
+            file: relFile,
+            message: `og:image must be an absolute https:// URL (got "${ogImage}")`,
+          });
+        } else {
+          try {
+            const ogUrl = new URL(ogImage);
+            if (siteHost && ogUrl.host === siteHost && !resolveInternalHref(resolvedDist, ogUrl.pathname, basePath)) {
+              failures.push({
+                check: "og_image_unresolved",
+                file: relFile,
+                message: `og:image "${ogImage}" does not resolve to a built file in web/dist`,
+              });
+            }
+          } catch {
+            failures.push({
+              check: "og_image_meta_not_absolute",
+              file: relFile,
+              message: `og:image is not a valid URL: "${ogImage}"`,
+            });
+          }
+        }
+
+        if (!twitterCard) {
+          failures.push({
+            check: "twitter_card_meta_missing",
+            file: relFile,
+            message: 'Missing non-empty <meta name="twitter:card" content="...">',
+          });
+        }
       }
     }
 
@@ -734,7 +948,7 @@ export function runStage6HtmlQa({
     }
   }
 
-  // 7c. sitemap-index.xml & all 6 split vertical-locale sitemaps
+  // 7c. sitemap-index.xml & all 8 split vertical-locale sitemaps
   const sitemapIndexPath = path.join(resolvedDist, "sitemap-index.xml");
   let indexedSitemapLocs = [];
   if (!fs.existsSync(sitemapIndexPath)) {
@@ -862,6 +1076,107 @@ export function runStage6HtmlQa({
     }
   }
 
+  // 8b. OG social card PNGs in web/dist/og/
+  let ogImagesValidated = 0;
+  if (requireOgImages) {
+    for (const fileName of REQUIRED_OG_IMAGES) {
+      const relOg = `og/${fileName}`;
+      const ogPath = path.join(resolvedDist, "og", fileName);
+      if (!fs.existsSync(ogPath) || !fs.statSync(ogPath).isFile()) {
+        failures.push({
+          check: "og_image_missing",
+          file: relOg,
+          message: `Missing required OG social card: web/dist/${relOg}`,
+        });
+        continue;
+      }
+      let header = Buffer.alloc(0);
+      try {
+        const fd = fs.openSync(ogPath, "r");
+        try {
+          header = Buffer.alloc(PNG_SIGNATURE.length);
+          const bytesRead = fs.readSync(fd, header, 0, PNG_SIGNATURE.length, 0);
+          header = header.subarray(0, bytesRead);
+        } finally {
+          fs.closeSync(fd);
+        }
+      } catch {
+        header = Buffer.alloc(0);
+      }
+      if (!isValidPngBuffer(header)) {
+        failures.push({
+          check: "og_image_invalid_png",
+          file: relOg,
+          message: `web/dist/${relOg} is not a valid PNG (missing 89 50 4E 47 0D 0A 1A 0A signature)`,
+        });
+        continue;
+      }
+      ogImagesValidated += 1;
+    }
+  }
+
+  // 9. Client-side search index (web/dist/search-index.json)
+  let searchIndexEntries = 0;
+  if (requireSearchIndex) {
+    const searchIndexPath = path.join(resolvedDist, SEARCH_INDEX_FILE);
+    if (!fs.existsSync(searchIndexPath)) {
+      failures.push({
+        check: "search_index_missing",
+        file: SEARCH_INDEX_FILE,
+        message: `Missing web/dist/${SEARCH_INDEX_FILE}`,
+      });
+    } else {
+      let payload = null;
+      let parseError = null;
+      try {
+        payload = JSON.parse(fs.readFileSync(searchIndexPath, "utf8"));
+      } catch (err) {
+        parseError = err;
+      }
+
+      if (parseError) {
+        failures.push({
+          check: "search_index_invalid_json",
+          file: SEARCH_INDEX_FILE,
+          message: `${SEARCH_INDEX_FILE} JSON.parse error: ${parseError.message}`,
+        });
+      } else {
+        const res = validateSearchIndexPayload(payload);
+        searchIndexEntries = res.counts.total_entries;
+        for (const err of res.errors) {
+          failures.push({
+            check: "search_index_invalid",
+            file: SEARCH_INDEX_FILE,
+            message: err,
+          });
+        }
+
+        let brokenPaths = 0;
+        for (const entry of res.entries) {
+          const rawPath = entry?.p ?? entry?.path ?? null;
+          if (typeof rawPath !== "string") continue;
+          if (!resolveSearchEntryPath(resolvedDist, rawPath, basePath)) {
+            brokenPaths += 1;
+            if (brokenPaths <= MAX_SEARCH_PATH_FAILURES_REPORTED) {
+              failures.push({
+                check: "search_index_broken_path",
+                file: SEARCH_INDEX_FILE,
+                message: `Search entry path "${rawPath}" does not resolve to a built /en page in web/dist`,
+              });
+            }
+          }
+        }
+        if (brokenPaths > MAX_SEARCH_PATH_FAILURES_REPORTED) {
+          failures.push({
+            check: "search_index_broken_path",
+            file: SEARCH_INDEX_FILE,
+            message: `... and ${brokenPaths - MAX_SEARCH_PATH_FAILURES_REPORTED} more unresolved search entry paths`,
+          });
+        }
+      }
+    }
+  }
+
   return {
     generated_at: new Date().toISOString(),
     overall_passed: failures.length === 0,
@@ -878,6 +1193,10 @@ export function runStage6HtmlQa({
       jsonld_blocks_checked: totalJsonLdBlocksChecked,
       sitemap_files_validated: validatedSitemaps.size,
       sitemap_urls_checked: totalSitemapUrls,
+      error_fallback_pages: errorFallbackPages,
+      social_meta_pages_checked: socialMetaPagesChecked,
+      og_images_validated: ogImagesValidated,
+      search_index_entries: searchIndexEntries,
     },
     failures,
   };
@@ -905,6 +1224,8 @@ if (isDirectRun(import.meta.url)) {
   console.log(`Affiliate Links: ${s.affiliate_links_checked} checked`);
   console.log(`JSON-LD Blocks:  ${s.jsonld_blocks_checked} checked`);
   console.log(`Sitemaps:        ${s.sitemap_files_validated} files / ${s.sitemap_urls_checked} URLs checked`);
+  console.log(`Social Meta:     ${s.social_meta_pages_checked} localized pages | OG PNGs: ${s.og_images_validated}/${REQUIRED_OG_IMAGES.length}`);
+  console.log(`Search Index:    ${s.search_index_entries} entries | Fallback pages excluded: ${s.error_fallback_pages}`);
 
   if (!report.overall_passed) {
     console.error(`\nSTAGE 6 QA FAILED (${report.failures.length} issues):`);

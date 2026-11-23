@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "robot-vacuum",
+  "slug": "roborock-s8-maxv-ultra",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Roborock",
+  "model_number": "S8 MaxV Ultra (Dock EWFD13HRR/14HRR)",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "S8MaxVUltra-US",
+      "msrp": 1799.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Roborock S8 MaxV Ultra robot vacuum mop RockDock Ultra",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "S8MaxVUltra-KR",
+      "msrp": 1840000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "로보락 S8 MaxV Ultra 로봇청소기 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 4.5,
+    "typical_load_w": 74,
+    "peak_power_w": 1350,
+    "default_daily_hours_active": 1.5,
+    "annual_consumables_usd": 85,
+    "annual_consumables_krw": 110000,
+    "noise_idle_dba": 22,
+    "noise_load_dba": 67,
+    "weight_g": 4500,
+    "dimensions_mm": {
+      "l": 353,
+      "w": 350,
+      "h": 103
+    },
+    "input_voltage_range": "Regional fixed: 120V AC 60Hz (US) / 220-240V AC 50/60Hz (KR/EU)",
+    "dual_voltage_100_240v": false,
+    "cpu_or_soc": "Reactive AI 2.0 RGB + Structured Light SoC (PreciSense LiDAR)",
+    "ram_gb_default": null,
+    "drive_bays": null,
+    "lan_speed_gbps": null,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": 10000,
+    "dustbag_capacity_l": 2.5,
+    "certifications": ["FCC", "CE", "KC", "UL Solutions Matter Certified", "TUV Rheinland Privacy"],
+    "key_specs_kv": [
+      { "key_en": "Suction Power", "key_ko": "최대 흡입력", "value": "10,000 Pa HyperForce with DuoRoller Riser dual rubber brushes" },
+      { "key_en": "Mopping Architecture", "key_ko": "물걸레 청소 방식", "value": "VibraRise 3.0 sonic scrubbing (4,000/min, 20 mm lift) + Extra Edge spinning side mop" },
+      { "key_en": "Edge & Corner Cleaning", "key_ko": "모서리 확장 시스템", "value": "FlexiArm Design extending side brush + dedicated Extra Edge mop (<1.68 mm margin)" },
+      { "key_en": "RockDock Ultra Station", "key_ko": "올인원 도크 (RockDock Ultra)", "value": "60°C hot-water mop wash, 60°C warm-air drying, auto detergent dispenser, 2.5 L dust bag" },
+      { "key_en": "Power Consumption", "key_ko": "소비전력 (대기 / 평균 / 온수피크)", "value": "~4.5 W standby / ~74 W active cycle avg / ~1,350 W (6A @ 220V) 60°C hot-water peak" },
+      { "key_en": "Annual Consumables TCO", "key_ko": "연간 소모품 유지비", "value": "~$85 / ₩110,000/yr (6× 2.5L bags, 2× HEPA filters, DuoRollers, sonic+edge mops, detergent)" },
+      { "key_en": "Battery & Runtime", "key_ko": "배터리 용량", "value": "5,200 mAh Li-ion (14.4 V, up to ~180 min quiet mode)" },
+      { "key_en": "Acoustic Noise", "key_ko": "주행 소음", "value": "67 dB(A) balanced vacuuming (brief auto-empty spike ~75 dBA)" },
+      { "key_en": "Dimensions & Weight", "key_ko": "크기 및 무게", "value": "Robot 353 × 350 × 103 mm (~4.5 kg); Dock 409 × 419 × 470 mm (~18.3 kg system)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": false,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": 6,
+    "korea_220v_note_en": "Strictly region-locked single voltage (dual_voltage_100_240v: false): the RockDock Ultra 60°C hot-water heater draws up to 6A on 220-240V grids (120V US units cannot run safely on Korea 220V without a 2kVA+ transformer). Korean official units carry KC certification and local Roborock Korea A/S.",
+    "korea_220v_note_ko": "온수 세척 히터(220V 기준 6A / 약 1,350 W 피크)와 집진 모터 때문에 국가별 단전압(프리볼트 불가)으로 출고됩니다. 미국 120V 직구나 중국 내수판(앱 지역락) 대신 KC 인증을 받은 한국 정발(220V) 제품을 구매해야 안전하며 공식 A/S를 받을 수 있습니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Roborock S8 MaxV Ultra",
+      "title": "Roborock S8 MaxV Ultra: 10,000 Pa, 60°C RockDock Ultra, Consumables & 3-Year TCO Audit",
+      "summary": "Roborock's sonic-mopping flagship combining 10,000 Pa HyperForce suction, DuoRoller Riser brushes, FlexiArm extending side brush, Extra Edge mop, Matter smart-home support, and an 8-in-1 60°C hot-water RockDock Ultra.",
+      "best_for": "Mixed hardwood-and-carpet households wanting the highest 20 mm sonic mop lift for medium-pile rugs, auto detergent dosing, built-in 'Hello Rocky' voice control, and official Matter certification.",
+      "local_gotchas": [
+        "Hidden consumables & dock maintenance TCO: At ~$85/year (2.5 L dust bags, HEPA filters, dual rubber rollers, sonic + edge mops, cleaning solution), consumables cost ~6x more per year than its electricity bill (~77 kWh/yr).",
+        "The RockDock Ultra washboard tray is NOT fully removable like Qrevo Master's tray — it uses a motorized self-cleaning brush track that still requires manual wipe-downs every 2–4 weeks to prevent biofilm odor.",
+        "Single-voltage regional dock (120V US vs 220-240V KR/EU) and regional cloud server binding: never cross-import China mainland or mismatched-voltage docks."
+      ]
+    },
+    "ko": {
+      "name": "로보락 S8 MaxV Ultra",
+      "title": "로보락 S8 MaxV Ultra: 10,000 Pa·60℃ 온수 도크·연간 소모품 포함 3년 실유지비(TCO) 분석",
+      "summary": "10,000 Pa 흡입력, 듀오롤러 라이저, 플렉시암 사이드 브러시와 엑스트라 엣지 물걸레, 60℃ 온수 세척·자동 세제 투입·열풍 건조를 지원하는 RockDock Ultra를 탑재한 로보락 음파진동 플래그십 로봇청소기입니다.",
+      "best_for": "러그·카펫이 깔린 거실에서 20 mm 높은 음파 물걸레 리프팅과 자동 세제 투입, 한국어 내장 음성인식('헬로 로키'), 매터(Matter) 스마트홈 연동 및 탄탄한 국내 정발 A/S를 중시하는 가정.",
+      "local_gotchas": [
+        "전기요금보다 소모품 유지비가 6배 큽니다: 매일 1.5시간 가동·열풍건조해도 연간 전기료는 한전 2단계 기준 약 1.6만 원(약 77 kWh)이지만, 2.5 L 더스트백·HEPA 필터·듀오롤러·음파/엣지 걸레·세정제 정품 소모품은 연간 약 11만 원이 듭니다.",
+        "큐레보 마스터나 드리미 X40과 달리 도크 하단 세척판이 통째로 분리되지 않고 내부 스크래퍼 브러시로 자가 세척하는 구조이므로, 2~4주마다 수동 물티슈 관리를 해줘야 하수구 냄새를 막을 수 있습니다.",
+        "온수 히터(최대 1,350 W급) 탑재 도크는 220V 전용(프리볼트 불가)이며, 중국 내수 직구판은 지역락·앱 제한 및 국내 A/S 불가 이슈가 있어 국내 정발(184만 원 출고가 기준) 선택이 안전합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Roborock S8 MaxV Ultra Official Product Page & Specifications",
+      "url": "https://us.roborock.com/pages/roborock-s8-maxv-ultra",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Roborock Global Official Product & Support Portal",
+      "url": "https://global.roborock.com/",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["roborock-qrevo-master", "dreame-x40-ultra"]
+}

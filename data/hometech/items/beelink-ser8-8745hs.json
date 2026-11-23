@@ -1,0 +1,126 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "minipc",
+  "slug": "beelink-ser8-8745hs",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Beelink",
+  "model_number": "SER8-8745HS-32G1T",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "SER8-8745HS-32G1T",
+      "msrp": 649,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Beelink SER8 AMD Ryzen 7 8745HS 32GB 1TB Mini PC",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "SER8-8745HS-32G1T-KR",
+      "msrp": 899000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "비링크 SER8 라이젠 7 8745HS 32GB 1TB 미니PC",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 9.5,
+    "typical_load_w": 38,
+    "peak_power_w": 82,
+    "default_daily_hours_active": 6,
+    "annual_consumables_usd": 0,
+    "annual_consumables_krw": 0,
+    "noise_idle_dba": 29,
+    "noise_load_dba": 36,
+    "weight_g": 750,
+    "dimensions_mm": {
+      "l": 135,
+      "w": 135,
+      "h": 44.7
+    },
+    "input_voltage_range": "100-240V AC, 50/60Hz (19V/5.26A 100W-120W DC adapter)",
+    "dual_voltage_100_240v": true,
+    "cpu_or_soc": "AMD Ryzen 7 8745HS (8C/16T Zen 4, 3.8-4.9 GHz, Radeon 780M iGPU, NPU disabled)",
+    "ram_gb_default": 32,
+    "drive_bays": null,
+    "lan_speed_gbps": 2.5,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["FCC", "CE", "RoHS", "UL (Power Adapter)"],
+    "key_specs_kv": [
+      { "key_en": "CPU & Graphics", "key_ko": "CPU 및 내장 그래픽", "value": "AMD Ryzen 7 8745HS (8C/16T up to 4.9 GHz) + Radeon 780M (12 CU, 2600 MHz)" },
+      { "key_en": "BIOS TDP Profiles", "key_ko": "BIOS TDP 설정", "value": "54 W Balanced Mode / 65 W Performance Mode (MSC 2.0 vapor chamber cooling)" },
+      { "key_en": "Wall Power (Idle / Peak)", "key_ko": "실측 소비전력 (유휴 / 피크)", "value": "~9.5 W optimized idle / ~38 W typical active / ~82 W full combined load" },
+      { "key_en": "Acoustics (Idle / Load)", "key_ko": "소음 (유휴 / 풀로드)", "value": "~29 dBA whisper-quiet idle / ~32–38 dBA under sustained 65 W load" },
+      { "key_en": "Memory & Dual NVMe Expansion", "key_ko": "메모리·스토리지 확장성", "value": "32 GB DDR5-5600 SO-DIMM (2 slots, max 256 GB) + 2× M.2 2280 PCIe 4.0 x4 SSD" },
+      { "key_en": "Networking", "key_ko": "네트워크 규격", "value": "1× 2.5 GbE RJ-45 LAN + Intel AX210 Wi-Fi 6 / Bluetooth 5.2" },
+      { "key_en": "Display & High-Speed Ports", "key_ko": "디스플레이·고속 포트", "value": "Triple display: 1× USB4 (40 Gbps), 1× HDMI 2.1, 1× DisplayPort 1.4" },
+      { "key_en": "Chassis & Dimensions", "key_ko": "섀시 및 외형 크기", "value": "135 × 135 × 44.7 mm (0.814 L), ~750 g CNC unibody aluminum with bottom dust mesh" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": null,
+    "korea_220v_note_en": "Ships with a universal 100-240V AC external 19V power brick that works natively on South Korea's 220V/60Hz grid; US-plug direct imports simply require swapping the detachable AC input cord for a grounded Korean KC-certified cable (or solid EU/KR plug adapter).",
+    "korea_220v_note_ko": "100–240V 50/60Hz 프리볼트 19V 외장 어댑터가 기본 포함되어 국내 220V 환경에서 변압기 없이 사용 가능합니다. 해외 직구(미국 110V 플러그) 제품 구매 시에는 어댑터 본체는 그대로 두고 탈착식 AC 전원 코드만 접지형 한국 KC 인증 케이블로 교체하는 것이 안전하며, $150 초과 직구 시 관부가세(부가세 10%)가 부과됩니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Beelink SER8 (Ryzen 7 8745HS, 32GB / 1TB)",
+      "title": "Beelink SER8 (8745HS): Whisper-Quiet 65W Vapor Chamber, 9.5W Idle & 32GB/1TB TCO Review",
+      "summary": "A CNC aluminum unibody mini PC pairing the 8-core AMD Ryzen 7 8745HS (NPU-disabled sibling of the 8845HS) with Beelink's ultra-quiet MSC 2.0 vapor chamber, 32 GB DDR5-5600, dual PCIe 4.0 M.2 slots, and 2.5 GbE networking.",
+      "best_for": "Quiet desktop workstation, 1080p Radeon 780M gaming, and Proxmox/Docker homelab buyers who want 32 GB RAM, dual NVMe expansion, and sub-38 dBA acoustics at a lower price than NPU-equipped Ryzen 8040 models.",
+      "local_gotchas": [
+        "The Ryzen 7 8745HS permanently disables the Hawk Point Ryzen AI NPU present on the 8845HS; CPU and Radeon 780M iGPU speeds are identical, but Copilot+ or NPU-only ONNX workloads will fall back to CPU/GPU.",
+        "The solid aluminum unibody shell can attenuate internal Intel AX210 Wi-Fi/Bluetooth range when placed behind thick monitors or desks; using the rear 2.5 GbE RJ-45 port is strongly recommended for 24/7 server duty.",
+        "Stock Windows installations occasionally idle at 13–17 W due to the AMD GPIO driver (amdgpio2.sys) preventing deep C-states; switching to Linux or updating chipset drivers drops wall idle down to ~7–10 W."
+      ]
+    },
+    "ko": {
+      "name": "비링크 SER8 (라이젠 7 8745HS, 32GB / 1TB)",
+      "title": "비링크 SER8 8745HS: 36dBA 저소음 베이퍼챔버·32GB 확장성·유휴전력 TCO 분석",
+      "summary": "CNC 알루미늄 유니바디와 MSC 2.0 베이퍼챔버 쿨링을 적용한 고성능 미니PC로, 8코어 라이젠 7 8745HS(라데온 780M), 32GB DDR5-5600, 듀얼 PCIe 4.0 M.2 슬롯, 2.5GbE 유선 랜을 기본 제공합니다.",
+      "best_for": "32GB 대용량 램과 듀얼 NVMe 확장성, 36dBA급 초저소음 쿨링을 모두 원하면서 100만 원 미만으로 홈랩·개발·라이트 게이밍 머신을 구축하려는 사용자.",
+      "local_gotchas": [
+        "라이젠 7 8745HS는 8845HS와 CPU·Radeon 780M 성능은 동일하지만 Ryzen AI NPU가 비활성화된 칩셋입니다. 로컬 NPU 가속이 필수라면 8945HS 탑재 UM890 Pro를, 순수 CPU·iGPU 가성비가 목적이라면 SER8이 유리합니다.",
+        "통알루미늄 섀시 구조상 책상 아래나 모니터 뒤에 설치 시 내장 Wi-Fi 6·블루투스 수신 감도가 약해질 수 있어 24시간 홈서버 용도라면 후면 2.5GbE 유선 랜 직결을 권장합니다.",
+        "국내 공식 총판 정발보다 알리익스프레스·아마존 직구 비중이 높아 $150 초과에 따른 부가세 10%와 해외 RMA 배송 리스크를 초기 TCO에 반드시 반영해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Beelink SER8 AMD Ryzen 7 8745HS Official Product & Specifications Page",
+      "url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "AMD Ryzen 7 8745HS Official Processor Specifications",
+      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 93,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["minisforum-um890-pro", "apple-mac-mini-m4"]
+}

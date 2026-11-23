@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T10:14:52.627Z",
+  "generated_at": "2026-11-23T01:13:15.074Z",
   "overall_passed": true,
   "thresholds": {
     "minStructuredFields": 15,
@@ -11,14 +11,14 @@
     "minVsDiffRows": 5
   },
   "summary": {
-    "items_total": 60,
-    "items_passed": 60,
+    "items_total": 72,
+    "items_passed": 72,
     "items_failed": 0,
-    "avg_item_ig_score": 93.15,
-    "vs_total": 25,
-    "vs_passed": 25,
+    "avg_item_ig_score": 93.36,
+    "vs_total": 31,
+    "vs_passed": 31,
     "vs_failed": 0,
-    "avg_vs_ig_score": 94.68
+    "avg_vs_ig_score": 94.94
   },
   "items": [
     {
@@ -1340,6 +1340,270 @@
         "localized_regulatory_value": 20
       },
       "errors": []
+    },
+    {
+      "slug": "apple-mac-mini-m4",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 28,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "beelink-ser8-8745hs",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 29,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "minisforum-um890-pro",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 29,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "gmktec-nucbox-g3-plus-n150",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 29,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 92,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "synology-ds423-plus",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 30,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 3,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "ugreen-nasync-dxp4800-plus",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 30,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "synology-ds224-plus",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 31,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 94,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "apc-back-ups-bx750mi",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 32,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "cyberpower-cp1500pfclcd",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 32,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 96,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "roborock-s8-maxv-ultra",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 31,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "roborock-qrevo-master",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 31,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 93,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
+    },
+    {
+      "slug": "dreame-x40-ultra",
+      "vertical": "hometech",
+      "passed": true,
+      "structured_fields_count": 31,
+      "derived_metrics_count": 7,
+      "local_gotchas_by_locale": {
+        "en": 3,
+        "ko": 3
+      },
+      "min_local_gotchas": 3,
+      "citations_count": 2,
+      "declared_ig_score": 95,
+      "computed_ig_score": 100,
+      "score_breakdown": {
+        "quantitative_specs": 30,
+        "derived_metrics": 30,
+        "real_world_caveats": 20,
+        "localized_regulatory_value": 20
+      },
+      "errors": []
     }
   ],
   "vs_pairs": [
@@ -1591,6 +1855,66 @@
       "serp_gaps_count": 3,
       "diff_rows_count": 7,
       "scored_metrics_count": 7,
+      "errors": []
+    },
+    {
+      "pair_slug": "apple-mac-mini-m4-vs-beelink-ser8-8745hs",
+      "vertical": "hometech",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 13,
+      "scored_metrics_count": 13,
+      "errors": []
+    },
+    {
+      "pair_slug": "beelink-ser8-8745hs-vs-minisforum-um890-pro",
+      "vertical": "hometech",
+      "passed": true,
+      "declared_ig_score": 94,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "gmktec-nucbox-g3-plus-n150-vs-synology-ds224-plus",
+      "vertical": "hometech",
+      "passed": true,
+      "declared_ig_score": 97,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 14,
+      "scored_metrics_count": 14,
+      "errors": []
+    },
+    {
+      "pair_slug": "synology-ds423-plus-vs-ugreen-nasync-dxp4800-plus",
+      "vertical": "hometech",
+      "passed": true,
+      "declared_ig_score": 97,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 15,
+      "scored_metrics_count": 15,
+      "errors": []
+    },
+    {
+      "pair_slug": "apc-back-ups-bx750mi-vs-cyberpower-cp1500pfclcd",
+      "vertical": "hometech",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 18,
+      "scored_metrics_count": 18,
+      "errors": []
+    },
+    {
+      "pair_slug": "dreame-x40-ultra-vs-roborock-s8-maxv-ultra",
+      "vertical": "hometech",
+      "passed": true,
+      "declared_ig_score": 96,
+      "serp_gaps_count": 3,
+      "diff_rows_count": 17,
+      "scored_metrics_count": 17,
       "errors": []
     }
   ]

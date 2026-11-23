@@ -1,0 +1,1228 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SafetyBanner from "../../../components/SafetyBanner.astro";
+import AdSlotReserve from "../../../components/AdSlotReserve.astro";
+import type { ActiveLocale, AirlineRecord, WattCheckItem } from "../../../lib/types";
+import {
+  getAirlines,
+  getFxRates,
+  getMonetizationConfig,
+  getWattCheckItems,
+} from "../../../lib/data";
+import { computeWattCheckDerived } from "../../../lib/derived";
+import { buildMonetizationModel } from "../../../lib/monetization";
+import {
+  ACTIVE_LOCALES,
+  BASE_PATH,
+  SITE_URL,
+  formatCurrency,
+  getCategoryLabel,
+  safeJsonLd,
+  withBase,
+} from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return ACTIVE_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const isKo = locale === "ko";
+const fx = getFxRates();
+const cfg = getMonetizationConfig();
+
+const wattItems: WattCheckItem[] = getWattCheckItems().filter((i) =>
+  i.available_locales.includes(locale)
+);
+const airlines: AirlineRecord[] = getAirlines();
+
+const REGION_ORDER: Array<AirlineRecord["region"]> = ["KR", "NA", "EU", "APAC", "ME"];
+const REGION_LABELS: Record<AirlineRecord["region"], Record<ActiveLocale, string>> = {
+  KR: { en: "South Korea (MOLIT 2025–2026)", ko: "대한민국 (국토부 2025–2026 강화 지침)" },
+  NA: { en: "North America (FAA / Transport Canada)", ko: "북미 (미국·캐나다)" },
+  EU: { en: "Europe (EASA / UK CAA)", ko: "유럽 (EU·영국)" },
+  APAC: { en: "Asia-Pacific (Japan / China / SEA / ANZ)", ko: "아시아·태평양 (일본·중국·동남아·호주)" },
+  ME: { en: "Middle East", ko: "중동" },
+};
+
+const groupedAirlines = REGION_ORDER.map((reg) => ({
+  region: reg,
+  label: REGION_LABELS[reg][locale],
+  carriers: airlines.filter((a) => a.region === reg),
+})).filter((g) => g.carriers.length > 0);
+
+const defaultAirlineSlug = isKo
+  ? airlines.find((a) => a.slug === "korean-air")?.slug ?? airlines[0]?.slug ?? ""
+  : airlines.find((a) => a.region === "NA")?.slug ?? airlines[0]?.slug ?? "";
+
+interface DeviceDef {
+  id: string;
+  nameEn: string;
+  nameKo: string;
+  maxW: number;
+  wh: number;
+  needsEpr: boolean;
+  needsPps: boolean;
+  defaultChecked: boolean;
+  tag: string;
+}
+
+const DEVICES: DeviceDef[] = [
+  {
+    id: "mbp16",
+    nameEn: 'MacBook Pro 16"',
+    nameKo: '맥북 프로 16"',
+    maxW: 140,
+    wh: 100,
+    needsEpr: true,
+    needsPps: false,
+    defaultChecked: true,
+    tag: "140W EPR · 100Wh",
+  },
+  {
+    id: "mba15",
+    nameEn: 'MacBook Air 15"',
+    nameKo: '맥북 에어 15"',
+    maxW: 70,
+    wh: 66,
+    needsEpr: false,
+    needsPps: false,
+    defaultChecked: false,
+    tag: "70W PD · 66Wh",
+  },
+  {
+    id: "iphone16pro",
+    nameEn: "iPhone 16 Pro",
+    nameKo: "아이폰 16 프로",
+    maxW: 30,
+    wh: 13.8,
+    needsEpr: false,
+    needsPps: false,
+    defaultChecked: true,
+    tag: "30W PD · 13.8Wh",
+  },
+  {
+    id: "s25ultra",
+    nameEn: "Galaxy S25 Ultra",
+    nameKo: "갤럭시 S25 울트라",
+    maxW: 45,
+    wh: 19.4,
+    needsEpr: false,
+    needsPps: true,
+    defaultChecked: false,
+    tag: "45W PPS · 19.4Wh",
+  },
+  {
+    id: "ipadpro13",
+    nameEn: 'iPad Pro 13"',
+    nameKo: '아이패드 프로 13"',
+    maxW: 38,
+    wh: 39,
+    needsEpr: false,
+    needsPps: false,
+    defaultChecked: false,
+    tag: "38W PD · 39Wh",
+  },
+  {
+    id: "steamdeck",
+    nameEn: "Steam Deck OLED",
+    nameKo: "스팀덱 OLED",
+    maxW: 45,
+    wh: 50,
+    needsEpr: false,
+    needsPps: false,
+    defaultChecked: false,
+    tag: "45W PD · 50Wh",
+  },
+  {
+    id: "switchcam",
+    nameEn: "Nintendo Switch / Camera",
+    nameKo: "닌텐도 스위치 / 카메라",
+    maxW: 18,
+    wh: 16,
+    needsEpr: false,
+    needsPps: false,
+    defaultChecked: false,
+    tag: "18W PD · 16Wh",
+  },
+];
+
+interface KitSkuPayload {
+  slug: string;
+  name: string;
+  brand: string;
+  category: "power-bank" | "gan-charger" | "power-station";
+  categoryLabel: string;
+  href: string;
+  hasBattery: boolean;
+  batteryWh: number | null;
+  usableWh: number | null;
+  weightG: number;
+  maxTotalW: number;
+  maxSingleW: number;
+  wPer100g: number;
+  whPer100g: number | null;
+  usbCPorts: number;
+  totalPorts: number;
+  portAllocations: Array<{ count: number; totalW: number; maxSingleW: number; outputs: number[] }>;
+  supportsEpr: boolean;
+  supportsPps: boolean;
+  renegotiationDrop: boolean;
+  japan100vLimitW: number | null;
+  cccOk: boolean;
+  carryonAllowed: boolean;
+  carryonNoApproval: boolean;
+  iataTier: string;
+  kcCertified: boolean;
+  pseCertified: boolean;
+  certCount: number;
+  msrp: number;
+  msrpUsd: number;
+  msrpDisplay: string;
+  statusLabel: string;
+  statusTone: "pass" | "caution" | "fail";
+  ctaButtons: Array<{
+    label: string;
+    storeName: string;
+    url: string;
+    linkMode: string;
+    isPrimary: boolean;
+  }>;
+}
+
+const serializedSkus: KitSkuPayload[] = wattItems.map((item) => {
+  const copy = item.i18n[locale] ?? item.i18n.en;
+  const d = computeWattCheckDerived(item, fx);
+  const m = buildMonetizationModel(item, locale);
+  const s = item.specs;
+  const ac = item.airline_compliance_profile;
+  const msrp = isKo ? item.regional_offers.kr.msrp : item.regional_offers.us.msrp;
+  const usbCPorts = s.ports.filter((p) => p.type === "USB-C").length;
+
+  const portAllocations = s.port_allocation_matrix.map((row) => {
+    const outputs = Object.values(row.output_w)
+      .filter((w) => Number.isFinite(w) && w > 0)
+      .sort((a, b) => b - a);
+    const totalW = outputs.reduce((acc, w) => acc + w, 0);
+    return {
+      count: row.active_ports.length,
+      totalW,
+      maxSingleW: outputs[0] ?? 0,
+      outputs,
+    };
+  });
+
+  return {
+    slug: item.slug,
+    name: copy.name,
+    brand: item.brand,
+    category: item.category,
+    categoryLabel: getCategoryLabel(item.category, locale),
+    href: withBase(`/${locale}/wattcheck/item/${item.slug}`),
+    hasBattery: s.has_battery,
+    batteryWh: s.battery_energy_wh,
+    usableWh: d.usableWh,
+    weightG: s.weight_g,
+    maxTotalW: s.max_total_output_w,
+    maxSingleW: s.max_single_port_output_w,
+    wPer100g: d.wPer100g,
+    whPer100g: d.whPer100g,
+    usbCPorts,
+    totalPorts: s.ports.length,
+    portAllocations,
+    supportsEpr: s.supports_pd_3_1_epr,
+    supportsPps: s.supports_samsung_pps_45w,
+    renegotiationDrop: s.power_renegotiation_drop,
+    japan100vLimitW: s.japan_100v_output_limit_w,
+    cccOk: ac.china_domestic_ccc_ok,
+    carryonAllowed: ac.carryon_allowed,
+    carryonNoApproval: ac.carryon_no_approval,
+    iataTier: ac.iata_tier,
+    kcCertified: s.kc_certified,
+    pseCertified: s.pse_certified,
+    certCount: d.certCount,
+    msrp,
+    msrpUsd: item.regional_offers.us.msrp,
+    msrpDisplay: formatCurrency(msrp, isKo ? "KRW" : "USD", locale),
+    statusLabel: m.statusLabel,
+    statusTone: m.statusTone,
+    ctaButtons: m.buttons.slice(0, 2).map((b) => ({
+      label: b.label,
+      storeName: b.storeName,
+      url: b.url,
+      linkMode: b.linkMode,
+      isPrimary: b.isPrimary,
+    })),
+  };
+});
+
+const clientPayload = {
+  locale,
+  basePath: BASE_PATH,
+  disclosure: cfg.compliance.disclosures[locale],
+  devices: DEVICES,
+  airlines,
+  items: serializedSkus,
+};
+
+const currentPath = `/${locale}/tools/travel-power-kit`;
+const pageTitle = isKo
+  ? "출장·여행 멀티기기 전력 & 30개 항공사 키트 최적화기 | SpecMatrix Global"
+  : "Multi-Device Travel Power & 30-Airline Kit Optimizer | SpecMatrix Global";
+const pageDesc = isKo
+  ? `탑승 항공사와 노트북·스마트폰·핸드헬드 조합을 선택하면 동시 요구 W, PD 3.1/PPS 규격, 국토부·CCC 기내 규정에 맞는 ${serializedSkus.length}종 검증 보조배터리·GaN 충전기를 실시간 랭킹합니다.`
+  : `Select your carrier from ${airlines.length} airlines and check off your travel devices to rank the best verified WattCheck power banks and GaN chargers by weight, MSRP, headroom, or density.`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: isKo
+      ? "SpecMatrix 출장·여행 전력 키트 최적화기"
+      : "SpecMatrix Travel Power & Airline Kit Optimizer",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    description: pageDesc,
+    url: `${SITE_URL}${currentPath}`,
+    inLanguage: locale,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
+        item: `${SITE_URL}/${locale}/tools`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: isKo ? "여행 전력 키트 최적화기" : "Travel Power Kit Optimizer",
+        item: `${SITE_URL}${currentPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={currentPath}
+  activeVertical="wattcheck"
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-800">
+      {isKo ? "여행 전력 키트 최적화기" : "Travel Power Kit Optimizer"}
+    </span>
+  </nav>
+
+  <!-- Hero Header -->
+  <section class="lab-card overflow-hidden border-blue-200/80 bg-white">
+    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full border border-sky-400/40 bg-sky-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-300">
+            WATTCHECK × {airlines.length}-AIRLINE KIT OPTIMIZER
+          </span>
+          <span class="font-mono text-xs text-slate-300">
+            {serializedSkus.length} {isKo ? "종 검증 전력 SKU" : "Verified Power SKUs"}
+          </span>
+        </div>
+        <button
+          type="button"
+          id="tpk-copy-plan"
+          class="rounded-lg border border-white/25 bg-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-white/20"
+        >
+          {isKo ? "추천 키트 요약 복사" : "Copy Travel Kit Plan"}
+        </button>
+      </div>
+
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+        {isKo
+          ? "출장·여행 멀티기기 전력 & 30개 항공사 키트 최적화기"
+          : "Multi-Device Travel Power & Airline Kit Optimizer"}
+      </h1>
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+        {isKo
+          ? "탑승 항공사 규정(국토부·IATA·중국 CCC·일본 100V)과 내 휴대 기기 목록을 조합하면, 실제 멀티포트 출력 분배표 기준으로 최적의 보조배터리·GaN 충전기를 자동 매칭합니다."
+          : "Combine your operating airline's lithium rules with your exact multi-device loadout to simulate real simultaneous port allocation and rank top verified power banks & GaN chargers."}
+      </p>
+    </div>
+
+    <!-- 3-Step Configuration Grid -->
+    <div class="space-y-6 p-6">
+      <!-- Step 1: Airline & Compliance Constraints -->
+      <div class="space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-sm font-extrabold text-slate-900">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">1</span>
+            {isKo ? "탑승 항공사 및 지역 규정 선택" : "Select Operating Airline & Compliance Rules"}
+          </h2>
+          <a
+            href={withBase(`/${locale}/wattcheck/matrix/airlines-30`)}
+            class="font-mono text-xs font-semibold text-blue-700 hover:underline"
+          >
+            {isKo ? "30개 항공사 전체 규정표 보기 →" : "Full 30-Airline Matrix →"}
+          </a>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-12">
+          <div class="md:col-span-5">
+            <label for="tpk-airline" class="sr-only">
+              {isKo ? "운항 항공사 선택" : "Operating Airline"}
+            </label>
+            <select
+              id="tpk-airline"
+              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
+            >
+              {groupedAirlines.map((grp) => (
+                <optgroup label={grp.label}>
+                  {grp.carriers.map((a) => (
+                    <option value={a.slug} selected={a.slug === defaultAirlineSlug}>
+                      [{a.iata_code}] {isKo ? `${a.name_ko} (${a.name_en})` : `${a.name_en} (${a.name_ko})`}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 md:col-span-7">
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 hover:border-blue-400">
+              <input id="tpk-carryon-only" type="checkbox" checked class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+              <span>{isKo ? "기내 무승인만 (<100Wh)" : "Carry-On Only (<100Wh)"}</span>
+            </label>
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 hover:border-blue-400">
+              <input id="tpk-need-ccc" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+              <span>{isKo ? "중국 국내선 CCC 필수" : "Need China Domestic CCC?"}</span>
+            </label>
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 hover:border-blue-400">
+              <input id="tpk-need-jp100" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+              <span>{isKo ? "일본 100V 풀출력 필수" : "Need Japan 100V Full Output?"}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Devices Carrying -->
+      <div class="space-y-3 border-t border-slate-100 pt-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-sm font-extrabold text-slate-900">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">2</span>
+            {isKo ? "휴대할 기기 모두 체크" : "Check Off Devices You Are Carrying"}
+          </h2>
+          <div class="flex gap-1.5">
+            <button
+              type="button"
+              id="tpk-preset-light"
+              class="rounded border border-slate-300 bg-white px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:border-blue-500"
+            >
+              {isKo ? "경량 출장 (에어+폰)" : "Light Trip"}
+            </button>
+            <button
+              type="button"
+              id="tpk-preset-pro"
+              class="rounded border border-slate-300 bg-white px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:border-blue-500"
+            >
+              {isKo ? "프로 크리에이터 (MBP16+폰+패드)" : "Pro Creator"}
+            </button>
+          </div>
+        </div>
+
+        <div class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+          {DEVICES.map((dev) => (
+            <label class="tpk-dev-card flex cursor-pointer items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-blue-400">
+              <input
+                type="checkbox"
+                value={dev.id}
+                checked={dev.defaultChecked}
+                class="tpk-dev-chk mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600"
+              />
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-slate-900">
+                  {isKo ? dev.nameKo : dev.nameEn}
+                </div>
+                <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+                  {dev.tag}
+                </div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Step 3: Gear Type & Priority -->
+      <div class="grid gap-4 border-t border-slate-100 pt-5 md:grid-cols-2">
+        <div>
+          <h2 class="text-sm font-extrabold text-slate-900">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">3A</span>
+            {isKo ? "추천 장비 유형" : "Gear Type"}
+          </h2>
+          <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={isKo ? "장비 유형 선택" : "Gear Type"}>
+            {[
+              { id: "both", label: isKo ? "전체 (배터리 + GaN)" : "Both" },
+              { id: "power-bank", label: isKo ? "보조배터리만" : "Power Bank" },
+              { id: "gan-charger", label: isKo ? "GaN 충전기만" : "GaN Charger" },
+            ].map((g, idx) => (
+              <button
+                type="button"
+                data-gear={g.id}
+                class:list={[
+                  "tpk-gear-btn rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors",
+                  idx === 0
+                    ? "border-slate-900 bg-slate-900 text-white"
+                    : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                ]}
+              >
+                {g.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-sm font-extrabold text-slate-900">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">3B</span>
+            {isKo ? "최적화 우선순위" : "Optimization Priority"}
+          </h2>
+          <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={isKo ? "최적화 우선순위" : "Optimization Priority"}>
+            {[
+              { id: "headroom", label: isKo ? "최대 여유 출력" : "Max Headroom" },
+              { id: "weight", label: isKo ? "초경량 우선" : "Lightest Weight" },
+              { id: "msrp", label: isKo ? "최저 MSRP" : "Lowest MSRP" },
+              { id: "density", label: isKo ? "최고 출력 밀도" : "Highest Power Density" },
+            ].map((p, idx) => (
+              <button
+                type="button"
+                data-prio={p.id}
+                class:list={[
+                  "tpk-prio-btn rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors",
+                  idx === 0
+                    ? "border-blue-600 bg-blue-600 text-white"
+                    : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                ]}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Telemetry & Airline Boarding Checklist -->
+  <section class="mt-6 grid gap-5 lg:grid-cols-12" aria-label={isKo ? "실시간 전력 수요 및 항공사 체크리스트" : "Power Demand & Airline Checklist"}>
+    <div class="lab-card bg-white p-5 lg:col-span-6">
+      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        {isKo ? "실시간 기기 조합 전력 수요" : "LIVE MULTI-DEVICE POWER PROFILE"}
+      </div>
+      <div class="mt-3 grid grid-cols-3 gap-2.5">
+        <div class="rounded-lg border border-blue-200 bg-blue-50/70 p-3">
+          <div class="font-mono text-[10px] uppercase text-blue-800">
+            {isKo ? "동시 요구 출력" : "Simultaneous W"}
+          </div>
+          <div id="tpk-demand-w" class="kpi-value mt-0.5 font-mono text-xl font-bold text-blue-900">170 W</div>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="font-mono text-[10px] uppercase text-slate-500">
+            {isKo ? "필요 USB-C 포트" : "USB-C Ports"}
+          </div>
+          <div id="tpk-demand-ports" class="kpi-value mt-0.5 font-mono text-xl font-bold text-slate-900">2</div>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="font-mono text-[10px] uppercase text-slate-500">
+            {isKo ? "총 배터리 합계" : "Device Wh Pool"}
+          </div>
+          <div id="tpk-demand-wh" class="kpi-value mt-0.5 font-mono text-xl font-bold text-slate-900">113.8 Wh</div>
+        </div>
+      </div>
+
+      <div id="tpk-protocol-flags" class="mt-3 flex flex-wrap gap-2">
+        <span class="badge-info font-mono">PD 3.1 140W EPR</span>
+      </div>
+    </div>
+
+    <div class="lab-card bg-white p-5 lg:col-span-6">
+      <div class="flex items-center justify-between gap-2">
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          {isKo ? "선택 항공사 기내 반입 체크리스트" : "SELECTED AIRLINE BOARDING CHECKLIST"}
+        </span>
+        <span id="tpk-air-badge" class="badge-info font-mono">KE</span>
+      </div>
+      <div id="tpk-air-pills" class="mt-3 flex flex-wrap gap-2"></div>
+      <p id="tpk-air-notes" class="mt-2.5 text-xs leading-relaxed text-slate-600"></p>
+      <a
+        id="tpk-air-policy-url"
+        href="https://www.koreanair.com/legal/restricted-items"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-2 inline-block font-mono text-[11px] font-semibold text-blue-700 hover:underline"
+      >
+        {isKo ? "항공사 공식 규정 원문 확인 ↗" : "Verify Official Carrier Policy ↗"}
+      </a>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId="travel-kit-mid" variant="banner" locale={locale} />
+
+  <!-- Ranked Matching WattCheck Results -->
+  <section class="mt-6 space-y-4" aria-labelledby="tpk-results-heading">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <h2 id="tpk-results-heading" class="text-lg font-extrabold tracking-tight text-slate-900">
+          {isKo ? "조건별 TOP 추천 검증 WattCheck 모델" : "Top Matching Verified WattCheck Models"}
+        </h2>
+        <p class="text-xs text-slate-500">
+          {isKo
+            ? "실제 제조사 포트 분배표(Port Allocation Matrix)와 기내 반입 규격을 교차 계산해 순위를 산정합니다."
+            : "Ranked deterministically using official port allocation matrices, weight, MSRP benchmarks, and carrier rules."}
+        </p>
+      </div>
+      <span id="tpk-match-count" class="font-mono text-xs font-semibold text-slate-600"></span>
+    </div>
+
+    <div id="tpk-results-grid" class="grid gap-4 md:grid-cols-2">
+      <div class="lab-card p-6 text-center text-xs text-slate-500 md:col-span-2">
+        {isKo ? "추천 전력 키트 계산 중..." : "Computing optimal travel power kit rankings..."}
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-[11px] leading-relaxed text-slate-500">
+      {cfg.compliance.disclosures[locale]}
+    </div>
+  </section>
+
+  <!-- Safety Banner -->
+  <div class="mt-8">
+    <SafetyBanner vertical="wattcheck" locale={locale} />
+  </div>
+
+  <script type="application/json" id="tpk-data" set:html={safeJsonLd(clientPayload)} />
+</BaseLayout>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("tpk-data");
+    if (!dataEl) return;
+
+    interface DeviceDef {
+      id: string;
+      nameEn: string;
+      nameKo: string;
+      maxW: number;
+      wh: number;
+      needsEpr: boolean;
+      needsPps: boolean;
+    }
+
+    interface AirlineRec {
+      slug: string;
+      iata_code: string;
+      region: string;
+      name_en: string;
+      name_ko: string;
+      under_100wh_max_pcs: number;
+      between_100_160wh_max_pcs: number;
+      between_100_160wh_requires_approval: boolean;
+      overhead_bin_prohibited: boolean;
+      inflight_charging_prohibited: boolean;
+      terminal_insulation_pouch_required: boolean;
+      wh_marking_strict: boolean;
+      ccc_marking_required_domestic: boolean;
+      notes_en: string;
+      notes_ko: string;
+      official_policy_url: string;
+      verified_at: string;
+    }
+
+    interface KitSku {
+      slug: string;
+      name: string;
+      brand: string;
+      category: "power-bank" | "gan-charger" | "power-station";
+      categoryLabel: string;
+      href: string;
+      hasBattery: boolean;
+      batteryWh: number | null;
+      usableWh: number | null;
+      weightG: number;
+      maxTotalW: number;
+      maxSingleW: number;
+      wPer100g: number;
+      whPer100g: number | null;
+      usbCPorts: number;
+      totalPorts: number;
+      portAllocations: Array<{ count: number; totalW: number; maxSingleW: number; outputs: number[] }>;
+      supportsEpr: boolean;
+      supportsPps: boolean;
+      renegotiationDrop: boolean;
+      japan100vLimitW: number | null;
+      cccOk: boolean;
+      carryonAllowed: boolean;
+      carryonNoApproval: boolean;
+      iataTier: string;
+      kcCertified: boolean;
+      pseCertified: boolean;
+      certCount: number;
+      msrp: number;
+      msrpUsd: number;
+      msrpDisplay: string;
+      statusLabel: string;
+      statusTone: string;
+      ctaButtons: Array<{
+        label: string;
+        storeName: string;
+        url: string;
+        linkMode: string;
+        isPrimary: boolean;
+      }>;
+    }
+
+    interface TpkPayload {
+      locale: string;
+      basePath: string;
+      disclosure: string;
+      devices: DeviceDef[];
+      airlines: AirlineRec[];
+      items: KitSku[];
+    }
+
+    let payload: TpkPayload;
+    try {
+      payload = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = payload.locale === "ko";
+    const deviceMap = new Map<string, DeviceDef>();
+    payload.devices.forEach((d) => deviceMap.set(d.id, d));
+    const airlineMap = new Map<string, AirlineRec>();
+    payload.airlines.forEach((a) => airlineMap.set(a.slug, a));
+
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    const esc = (s: unknown): string =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    // DOM elements
+    const airlineSel = document.getElementById("tpk-airline") as HTMLSelectElement | null;
+    const carryonChk = document.getElementById("tpk-carryon-only") as HTMLInputElement | null;
+    const cccChk = document.getElementById("tpk-need-ccc") as HTMLInputElement | null;
+    const jp100Chk = document.getElementById("tpk-need-jp100") as HTMLInputElement | null;
+    const devChks = Array.from(document.querySelectorAll<HTMLInputElement>(".tpk-dev-chk"));
+    const gearBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".tpk-gear-btn"));
+    const prioBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".tpk-prio-btn"));
+    const presetLight = document.getElementById("tpk-preset-light");
+    const presetPro = document.getElementById("tpk-preset-pro");
+    const copyPlanBtn = document.getElementById("tpk-copy-plan") as HTMLButtonElement | null;
+
+    const demandWEl = document.getElementById("tpk-demand-w");
+    const demandPortsEl = document.getElementById("tpk-demand-ports");
+    const demandWhEl = document.getElementById("tpk-demand-wh");
+    const protocolFlagsEl = document.getElementById("tpk-protocol-flags");
+
+    const airBadgeEl = document.getElementById("tpk-air-badge");
+    const airPillsEl = document.getElementById("tpk-air-pills");
+    const airNotesEl = document.getElementById("tpk-air-notes");
+    const airPolicyUrlEl = document.getElementById("tpk-air-policy-url") as HTMLAnchorElement | null;
+
+    const matchCountEl = document.getElementById("tpk-match-count");
+    const resultsGridEl = document.getElementById("tpk-results-grid");
+
+    let activeGear: "both" | "power-bank" | "gan-charger" = "both";
+    let activePrio: "headroom" | "weight" | "msrp" | "density" = "headroom";
+    let lastRanked: Array<{ sku: KitSku; score: number; simW: number; simPorts: number }> = [];
+
+    function estimateSimultaneousW(sku: KitSku, selectedDevices: DeviceDef[]): { simW: number; simPorts: number } {
+      if (selectedDevices.length === 0) {
+        return { simW: sku.maxSingleW, simPorts: 1 };
+      }
+      const needed = [...selectedDevices].sort((a, b) => b.maxW - a.maxW);
+      const maxSlots = Math.min(needed.length, sku.totalPorts);
+
+      let bestDelivered = 0;
+      let bestSlots = 1;
+
+      // Evaluate actual official port_allocation_matrix rows
+      for (const alloc of sku.portAllocations) {
+        if (alloc.count > needed.length) continue;
+        let delivered = 0;
+        const limit = Math.min(alloc.outputs.length, needed.length);
+        for (let i = 0; i < limit; i++) {
+          delivered += Math.min(alloc.outputs[i], needed[i].maxW);
+        }
+        if (delivered > bestDelivered || (delivered === bestDelivered && alloc.count > bestSlots)) {
+          bestDelivered = delivered;
+          bestSlots = alloc.count;
+        }
+      }
+
+      if (bestDelivered === 0) {
+        const cap = Math.min(sku.maxTotalW, needed.slice(0, maxSlots).reduce((a, d) => a + d.maxW, 0));
+        bestDelivered = Math.round(cap);
+        bestSlots = maxSlots;
+      }
+
+      return { simW: Math.round(bestDelivered), simPorts: bestSlots };
+    }
+
+    function updateAirlinePanel(airline: AirlineRec | null) {
+      if (!airline) return;
+      if (airBadgeEl) {
+        airBadgeEl.textContent = `${airline.iata_code} · ${isKo ? airline.name_ko : airline.name_en}`;
+      }
+      if (airNotesEl) {
+        airNotesEl.textContent = isKo ? airline.notes_ko : airline.notes_en;
+      }
+      if (airPolicyUrlEl) {
+        airPolicyUrlEl.href = airline.official_policy_url;
+        airPolicyUrlEl.textContent = isKo
+          ? `공식 규정 원문 (${airline.verified_at} 확인) ↗`
+          : `Official Carrier Policy (Verified ${airline.verified_at}) ↗`;
+      }
+      if (airPillsEl) {
+        const pills: Array<{ cls: string; text: string }> = [
+          {
+            cls: "badge-pass",
+            text: isKo
+              ? `100Wh 이하 무승인 최대 ${airline.under_100wh_max_pcs}개`
+              : `<=100Wh OK (Max ${airline.under_100wh_max_pcs} pcs)`,
+          },
+          {
+            cls: airline.overhead_bin_prohibited ? "badge-caution" : "badge-info",
+            text: airline.overhead_bin_prohibited
+              ? isKo
+                ? "기내 선반 보관 금지"
+                : "No Overhead Bin"
+              : isKo
+                ? "선반 보관 허용(주의)"
+                : "Overhead Allowed",
+          },
+          {
+            cls: airline.inflight_charging_prohibited ? "badge-caution" : "badge-pass",
+            text: airline.inflight_charging_prohibited
+              ? isKo
+                ? "기내 충전·사용 금지"
+                : "No In-Flight Charging"
+              : isKo
+                ? "기내 사용 가능"
+                : "In-Flight OK",
+          },
+        ];
+        if (airline.terminal_insulation_pouch_required) {
+          pills.push({
+            cls: "badge-caution",
+            text: isKo ? "국토부 지퍼백·단자 절연 필수" : "MOLIT Zip Pouch / Insulation Req.",
+          });
+        }
+        if (airline.ccc_marking_required_domestic || (cccChk && cccChk.checked)) {
+          pills.push({
+            cls: "badge-fail",
+            text: isKo ? "중국 국내선 CCC 각인 필수" : "China Domestic CCC Required",
+          });
+        }
+        airPillsEl.innerHTML = pills
+          .map((p) => `<span class="${p.cls}">${esc(p.text)}</span>`)
+          .join("");
+      }
+    }
+
+    function recompute(emitEvent = false) {
+      const airSlug = airlineSel ? airlineSel.value : "";
+      const airline = airlineMap.get(airSlug) || payload.airlines[0] || null;
+      updateAirlinePanel(airline);
+
+      const carryonOnly = Boolean(carryonChk && carryonChk.checked);
+      const needCcc = Boolean(cccChk && cccChk.checked) || Boolean(airline && airline.ccc_marking_required_domestic);
+      const needJp100 = Boolean(jp100Chk && jp100Chk.checked);
+
+      const selectedDevs: DeviceDef[] = [];
+      devChks.forEach((chk) => {
+        const card = chk.closest(".tpk-dev-card");
+        if (chk.checked) {
+          const d = deviceMap.get(chk.value);
+          if (d) selectedDevs.push(d);
+          if (card) {
+            card.classList.add("border-blue-500", "bg-blue-50/70");
+            card.classList.remove("border-slate-200", "bg-slate-50");
+          }
+        } else if (card) {
+          card.classList.remove("border-blue-500", "bg-blue-50/70");
+          card.classList.add("border-slate-200", "bg-slate-50");
+        }
+      });
+
+      const totalDemandW = selectedDevs.reduce((acc, d) => acc + d.maxW, 0);
+      const peakSingleW = selectedDevs.reduce((acc, d) => Math.max(acc, d.maxW), 0);
+      const totalDeviceWh = selectedDevs.reduce((acc, d) => acc + d.wh, 0);
+      const neededPorts = Math.max(1, selectedDevs.length);
+      const needsEpr = selectedDevs.some((d) => d.needsEpr);
+      const needsPps = selectedDevs.some((d) => d.needsPps);
+
+      if (demandWEl) demandWEl.textContent = `${totalDemandW} W`;
+      if (demandPortsEl) demandPortsEl.textContent = `${selectedDevs.length}`;
+      if (demandWhEl) demandWhEl.textContent = `${totalDeviceWh.toFixed(1)} Wh`;
+
+      if (protocolFlagsEl) {
+        const flags: Array<{ cls: string; text: string }> = [];
+        if (needsEpr) {
+          flags.push({
+            cls: "badge-info font-mono",
+            text: isKo ? "PD 3.1 140W EPR 필요" : "PD 3.1 140W EPR Required",
+          });
+        }
+        if (needsPps) {
+          flags.push({
+            cls: "badge-pass font-mono",
+            text: isKo ? "삼성 45W PPS 5A 필요" : "Samsung 45W PPS 5A Required",
+          });
+        }
+        if (peakSingleW > 0 && !needsEpr) {
+          flags.push({
+            cls: "badge-info font-mono",
+            text: isKo ? `단일 최대 ${peakSingleW}W 요구` : `Peak Single-Port ${peakSingleW}W`,
+          });
+        }
+        if (selectedDevs.length === 0) {
+          flags.push({
+            cls: "badge-caution",
+            text: isKo ? "기기를 1개 이상 체크하세요" : "Select at least 1 device above",
+          });
+        }
+        protocolFlagsEl.innerHTML = flags
+          .map((f) => `<span class="${f.cls}">${esc(f.text)}</span>`)
+          .join("");
+      }
+
+      // Filter eligible SKUs
+      const eligible = payload.items.filter((sku) => {
+        if (activeGear === "power-bank" && sku.category !== "power-bank") return false;
+        if (activeGear === "gan-charger" && sku.category !== "gan-charger") return false;
+        if (carryonOnly && sku.hasBattery && !sku.carryonNoApproval) return false;
+        if (needCcc && !sku.cccOk) return false;
+        if (needJp100 && sku.japan100vLimitW !== null) return false;
+        return true;
+      });
+
+      const minWeight = Math.min(...eligible.map((s) => s.weightG), 100);
+      const minMsrp = Math.min(...eligible.map((s) => s.msrpUsd), 25);
+      const maxDensity = Math.max(...eligible.map((s) => s.wPer100g), 20);
+
+      const ranked = eligible
+        .map((sku) => {
+          const { simW, simPorts } = estimateSimultaneousW(sku, selectedDevs);
+          const wattFulfill =
+            totalDemandW > 0 ? Math.min(1, simW / totalDemandW) : 1;
+          const singleFulfill =
+            peakSingleW > 0 ? Math.min(1, sku.maxSingleW / peakSingleW) : 1;
+          const portFulfill = Math.min(1, sku.totalPorts / neededPorts);
+
+          let baseScore = wattFulfill * 34 + singleFulfill * 22 + portFulfill * 14;
+          if (needsEpr) baseScore += sku.supportsEpr ? 8 : -8;
+          if (needsPps) baseScore += sku.supportsPps ? 7 : -5;
+          if (!sku.renegotiationDrop) baseScore += 3;
+          if (needJp100 && sku.pseCertified) baseScore += 4;
+          if (isKo && sku.kcCertified) baseScore += 3;
+
+          // Optimization priority bonus (0..22 pts)
+          let prioBonus = 0;
+          if (activePrio === "weight") {
+            prioBonus = (minWeight / Math.max(sku.weightG, 50)) * 22;
+          } else if (activePrio === "msrp") {
+            prioBonus = (minMsrp / Math.max(sku.msrpUsd, 10)) * 22;
+          } else if (activePrio === "density") {
+            prioBonus = (sku.wPer100g / maxDensity) * 22;
+          } else {
+            // Max Headroom
+            const headroomRatio = totalDemandW > 0 ? Math.min(1.5, sku.maxTotalW / totalDemandW) : 1;
+            const whBonus = sku.usableWh ? Math.min(6, sku.usableWh / 14) : 3;
+            prioBonus = headroomRatio * 11 + whBonus;
+          }
+
+          const finalScore = Math.max(15, Math.min(99, Math.round(baseScore + prioBonus)));
+          return { sku, score: finalScore, simW, simPorts };
+        })
+        .sort((a, b) => b.score - a.score || a.sku.weightG - b.sku.weightG);
+
+      lastRanked = ranked;
+
+      if (matchCountEl) {
+        matchCountEl.textContent = isKo
+          ? `${ranked.length}개 검증 모델 조건 충족 (상위 ${Math.min(6, ranked.length)}종 표시)`
+          : `${ranked.length} verified models match (showing top ${Math.min(6, ranked.length)})`;
+      }
+
+      if (!resultsGridEl) return;
+      if (ranked.length === 0) {
+        resultsGridEl.innerHTML = `
+          <div class="lab-card border-amber-300 bg-amber-50 p-6 text-center md:col-span-2">
+            <p class="text-sm font-bold text-amber-950">${
+              isKo
+                ? "현재 필터 조합을 모두 만족하는 모델이 없습니다."
+                : "No verified WattCheck models match every strict filter simultaneously."
+            }</p>
+            <p class="mt-1 text-xs text-amber-900">${
+              isKo
+                ? "중국 CCC 또는 장비 유형 필터를 완화해 전체 기내 반입 가능 모델을 확인해 보세요."
+                : "Try relaxing the China CCC or Gear Type filter to inspect alternative flight-safe models."
+            }</p>
+          </div>
+        `;
+        return;
+      }
+
+      const topList = ranked.slice(0, 6);
+      const bp = payload.basePath || "";
+
+      resultsGridEl.innerHTML = topList
+        .map((entry, idx) => {
+          const { sku, score, simW, simPorts } = entry;
+          const runnerUp = topList[idx === 0 ? 1 : 0]?.sku.slug || sku.slug;
+          const compareHref = `${bp}/${payload.locale}/compare#wattcheck:${sku.slug}:${runnerUp}`;
+          const usableChargesText =
+            sku.hasBattery && sku.usableWh !== null
+              ? totalDeviceWh > 0
+                ? isKo
+                  ? `선택 기기 합계 약 ${(sku.usableWh / totalDeviceWh).toFixed(2)}회 · 실가용 ${sku.usableWh.toFixed(1)}Wh`
+                  : `~${(sku.usableWh / totalDeviceWh).toFixed(2)}× kit charge · ${sku.usableWh.toFixed(1)} Wh usable`
+                : `${sku.usableWh.toFixed(1)} Wh usable`
+              : isKo
+                ? "AC 벽면 전원 (배터리 무제한 · 기내/위탁 OK)"
+                : "AC Wall Power (Unlimited runtime · Cabin & Checked OK)";
+
+          const badges: Array<{ cls: string; text: string }> = [];
+          if (!sku.hasBattery) {
+            badges.push({ cls: "badge-pass", text: isKo ? "배터리 없음 OK" : "No Battery OK" });
+          } else if (sku.carryonNoApproval) {
+            badges.push({ cls: "badge-pass", text: isKo ? `기내 OK (${sku.batteryWh}Wh)` : `Cabin OK (${sku.batteryWh}Wh)` });
+          } else {
+            badges.push({ cls: "badge-fail", text: isKo ? `기내 불가 (${sku.batteryWh}Wh)` : `No Flight (${sku.batteryWh}Wh)` });
+          }
+          if (sku.cccOk) badges.push({ cls: "badge-info", text: "CCC OK" });
+          if (sku.supportsEpr) badges.push({ cls: "badge-info", text: "PD 3.1 EPR" });
+          if (sku.supportsPps) badges.push({ cls: "badge-pass", text: "45W PPS" });
+          if (!sku.renegotiationDrop) badges.push({ cls: "badge-pass", text: isKo ? "무단절" : "Seamless" });
+
+          const primaryCta = sku.ctaButtons[0];
+          const ctaHtml = primaryCta
+            ? `<a href="${esc(primaryCta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(primaryCta.storeName)}" data-affiliate-vertical="wattcheck" data-affiliate-sku="${esc(sku.slug)}" data-affiliate-mode="${esc(primaryCta.linkMode)}" class="inline-flex flex-1 items-center justify-center gap-1 rounded-lg bg-blue-700 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-800"><span>${esc(primaryCta.label)}</span><span>↗</span></a>`
+            : "";
+
+          return `
+            <article class="lab-card flex flex-col justify-between bg-white p-5 ${idx === 0 ? "border-blue-400 ring-1 ring-blue-200" : ""}">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span class="rounded bg-slate-900 px-2 py-0.5 font-mono text-[10px] font-bold text-white">#${idx + 1}</span>
+                      <span class="text-[11px] font-semibold text-slate-500">${esc(sku.brand)} · ${esc(sku.categoryLabel)}</span>
+                    </div>
+                    <h3 class="mt-1.5 text-base font-extrabold text-slate-900">
+                      <a href="${esc(sku.href)}" class="hover:text-blue-700 hover:underline">${esc(sku.name)}</a>
+                    </h3>
+                  </div>
+                  <div class="shrink-0 rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-1 text-right">
+                    <div class="font-mono text-[9px] font-bold uppercase text-blue-700">MATCH</div>
+                    <div class="font-mono text-base font-extrabold text-blue-900">${score}</div>
+                  </div>
+                </div>
+
+                <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-500">${isKo ? "예상 동시출력" : "Est. Sim. Speed"}</div>
+                    <div class="font-mono text-xs font-bold text-blue-700">${simW}W (${simPorts}p)</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-500">${isKo ? "무게 / 밀도" : "Weight / Dens."}</div>
+                    <div class="font-mono text-xs font-bold text-slate-900">${sku.weightG}g · ${sku.wPer100g}W</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-500">MSRP</div>
+                    <div class="font-mono text-xs font-bold text-slate-900">${esc(sku.msrpDisplay)}</div>
+                  </div>
+                </div>
+
+                <p class="mt-2.5 font-mono text-[11px] text-slate-600">${esc(usableChargesText)}</p>
+
+                <div class="mt-2.5 flex flex-wrap gap-1.5">
+                  ${badges.map((b) => `<span class="${b.cls}">${esc(b.text)}</span>`).join("")}
+                </div>
+              </div>
+
+              <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                <div class="flex flex-wrap gap-2">
+                  ${ctaHtml}
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <a href="${esc(sku.href)}" class="font-semibold text-slate-700 hover:text-blue-700 hover:underline">
+                    ${isKo ? "상세 포트 분배표 →" : "Full Port Matrix →"}
+                  </a>
+                  <a href="${esc(compareHref)}" class="font-mono font-semibold text-blue-700 hover:underline">
+                    ${isKo ? "1:1 실시간 비교 →" : "Compare Live →"}
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      if (emitEvent) {
+        track("travel_kit_optimize", {
+          airline: airSlug,
+          gear_type: activeGear,
+          priority: activePrio,
+          device_count: selectedDevs.length,
+        });
+      }
+    }
+
+    function copyText(text: string): Promise<boolean> {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        return navigator.clipboard
+          .writeText(text)
+          .then(() => true)
+          .catch(() => false);
+      }
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return Promise.resolve(ok);
+      } catch {
+        return Promise.resolve(false);
+      }
+    }
+
+    // Event wiring
+    if (airlineSel) {
+      airlineSel.addEventListener("change", () => {
+        const a = airlineMap.get(airlineSel.value);
+        if (a && cccChk && a.ccc_marking_required_domestic) {
+          cccChk.checked = true;
+        }
+        recompute(true);
+      });
+    }
+
+    [carryonChk, cccChk, jp100Chk, ...devChks].forEach((chk) => {
+      if (chk) chk.addEventListener("change", () => recompute(true));
+    });
+
+    gearBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const g = (btn.getAttribute("data-gear") || "both") as "both" | "power-bank" | "gan-charger";
+        activeGear = g;
+        gearBtns.forEach((o) => {
+          const on = o === btn;
+          o.className = on
+            ? "tpk-gear-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition-colors"
+            : "tpk-gear-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+        });
+        recompute(true);
+      });
+    });
+
+    prioBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const p = (btn.getAttribute("data-prio") || "headroom") as "headroom" | "weight" | "msrp" | "density";
+        activePrio = p;
+        prioBtns.forEach((o) => {
+          const on = o === btn;
+          o.className = on
+            ? "tpk-prio-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-bold text-white transition-colors"
+            : "tpk-prio-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+        });
+        recompute(true);
+      });
+    });
+
+    if (presetLight) {
+      presetLight.addEventListener("click", () => {
+        const set = new Set(["mba15", "iphone16pro"]);
+        devChks.forEach((c) => {
+          c.checked = set.has(c.value);
+        });
+        recompute(true);
+      });
+    }
+
+    if (presetPro) {
+      presetPro.addEventListener("click", () => {
+        const set = new Set(["mbp16", "iphone16pro", "ipadpro13"]);
+        devChks.forEach((c) => {
+          c.checked = set.has(c.value);
+        });
+        recompute(true);
+      });
+    }
+
+    if (copyPlanBtn) {
+      const def = isKo ? "추천 키트 요약 복사" : "Copy Travel Kit Plan";
+      const ok = isKo ? "키트 요약 복사됨 ✓" : "Kit Plan Copied ✓";
+      copyPlanBtn.addEventListener("click", () => {
+        const air = airlineMap.get(airlineSel ? airlineSel.value : "");
+        const top3 = lastRanked
+          .slice(0, 3)
+          .map(
+            (r, i) =>
+              `${i + 1}. ${r.sku.name} (Match ${r.score}, ${r.simW}W, ${r.sku.weightG}g, MSRP ${r.sku.msrpDisplay})`
+          );
+        const lines = [
+          isKo
+            ? `[SpecMatrix 여행 전력 키트] ${air ? `${air.name_ko}(${air.iata_code})` : ""} · 수요 ${demandWEl?.textContent || ""}`
+            : `[SpecMatrix Travel Power Kit] ${air ? `${air.name_en} (${air.iata_code})` : ""} · Demand ${demandWEl?.textContent || ""}`,
+          ...top3,
+          window.location.href,
+        ];
+        copyText(lines.join("\n")).then(() => {
+          copyPlanBtn.textContent = ok;
+          window.setTimeout(() => {
+            copyPlanBtn.textContent = def;
+          }, 1800);
+        });
+      });
+    }
+
+    recompute(false);
+  })();
+</script>

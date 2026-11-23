@@ -4,7 +4,10 @@
   "category": "power-meter",
   "slug": "favero-assioma-duo",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Favero Electronics",
   "model_number": "772-02",
   "origin_country": "IT",
@@ -12,7 +15,7 @@
     "us": {
       "asin": null,
       "sku": "772-02",
-      "msrp": 649.0,
+      "msrp": 649,
       "currency": "USD",
       "price_mode": "msrp_benchmark_mode",
       "price_checked_at": "2026-11-22",
@@ -32,10 +35,14 @@
   },
   "specs": {
     "weight_g": 303,
-    "claimed_accuracy_pct": 1.0,
+    "claimed_accuracy_pct": 1,
     "left_right_balance": true,
     "mount_or_form_factor": "Dual-sided road power meter pedals with spindle-collar sensor pods",
-    "connectivity": ["ANT+ PWR", "Bluetooth 4.0", "IAV Cycling Dynamics"],
+    "connectivity": [
+      "ANT+ PWR",
+      "Bluetooth 4.0",
+      "IAV Cycling Dynamics"
+    ],
     "battery_life_hours": 50,
     "waterproof_rating": "IP67",
     "tire_width_mm": null,
@@ -46,16 +53,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Pair Weight", "key_ko": "페달 페어 무게", "value": "303 g (151.5 g per pedal incl. battery)" },
-      { "key_en": "Cleat System", "key_ko": "클릿 규격", "value": "Look Keo (original Look Keo or supplied Favero/Xpedo red 6°)" },
-      { "key_en": "Claimed Accuracy", "key_ko": "공식 정확도 오차", "value": "±1.0% (IAV Power System, oval chainring compatible)" },
-      { "key_en": "Stack Height", "key_ko": "스택 높이", "value": "10.5 mm" },
-      { "key_en": "Q-Factor", "key_ko": "Q-팩터", "value": "+54 mm" },
-      { "key_en": "Battery & Runtime", "key_ko": "배터리 및 사용 시간", "value": "Rechargeable Li-ion, at least 50 hrs per charge" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IP67 (resin-potted electronics)" },
-      { "key_en": "Cycling Dynamics", "key_ko": "사이클링 다이내믹스", "value": "L/R Balance, IAV Power Phase, IAV Rider Position, TE, PS" },
-      { "key_en": "Operating Temp / ATC", "key_ko": "온도 보정 범위", "value": "-10°C to +60°C active temperature compensation" },
-      { "key_en": "Sensor Architecture", "key_ko": "센서 구조", "value": "External collar pod on both left and right spindles" }
+      {
+        "key_en": "Pair Weight",
+        "key_ko": "페달 페어 무게",
+        "value": "303 g (151.5 g per pedal incl. battery)"
+      },
+      {
+        "key_en": "Cleat System",
+        "key_ko": "클릿 규격",
+        "value": "Look Keo (original Look Keo or supplied Favero/Xpedo red 6°)"
+      },
+      {
+        "key_en": "Claimed Accuracy",
+        "key_ko": "공식 정확도 오차",
+        "value": "±1.0% (IAV Power System, oval chainring compatible)"
+      },
+      {
+        "key_en": "Stack Height",
+        "key_ko": "스택 높이",
+        "value": "10.5 mm"
+      },
+      {
+        "key_en": "Q-Factor",
+        "key_ko": "Q-팩터",
+        "value": "+54 mm"
+      },
+      {
+        "key_en": "Battery & Runtime",
+        "key_ko": "배터리 및 사용 시간",
+        "value": "Rechargeable Li-ion, at least 50 hrs per charge"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IP67 (resin-potted electronics)"
+      },
+      {
+        "key_en": "Cycling Dynamics",
+        "key_ko": "사이클링 다이내믹스",
+        "value": "L/R Balance, IAV Power Phase, IAV Rider Position, TE, PS"
+      },
+      {
+        "key_en": "Operating Temp / ATC",
+        "key_ko": "온도 보정 범위",
+        "value": "-10°C to +60°C active temperature compensation"
+      },
+      {
+        "key_en": "Sensor Architecture",
+        "key_ko": "센서 구조",
+        "value": "External collar pod on both left and right spindles"
+      }
     ]
   },
   "compatibility_graph": {
@@ -117,9 +164,9 @@
   "citations": [
     {
       "label": "Favero Assioma DUO Official Specifications Page",
-      "url": "https://cycling.favero.com/en/assiomaduo",
+      "url": "https://cycling.favero.com/shop/assioma-duo/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Favero Assioma Official User Manual & Technical Support",
@@ -142,5 +189,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["favero-assioma-pro-rs-2", "garmin-rally-rs200"]
+  "auto_fallback_slugs": [
+    "favero-assioma-pro-rs-2",
+    "garmin-rally-rs200"
+  ]
 }

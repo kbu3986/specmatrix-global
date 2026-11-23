@@ -4,7 +4,10 @@
   "category": "gps-computer",
   "slug": "garmin-edge-1050",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Garmin",
   "model_number": "010-02890-00",
   "origin_country": "US",
@@ -35,7 +38,13 @@
     "claimed_accuracy_pct": null,
     "left_right_balance": null,
     "mount_or_form_factor": "3.5\" Vivid Transmissive LCD Touchscreen + Integrated Speaker/Bell (flagship large format)",
-    "connectivity": ["ANT+", "Bluetooth Low Energy (BLE)", "Wi-Fi", "Multi-Band GNSS", "NFC (Garmin Pay)"],
+    "connectivity": [
+      "ANT+",
+      "Bluetooth Low Energy (BLE)",
+      "Wi-Fi",
+      "Multi-Band GNSS",
+      "NFC (Garmin Pay)"
+    ],
     "battery_life_hours": 20,
     "waterproof_rating": "IPX7",
     "tire_width_mm": null,
@@ -46,16 +55,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Device Weight", "key_ko": "본체 무게", "value": "161 g (5.7 oz)" },
-      { "key_en": "Display Specs", "key_ko": "디스플레이", "value": "3.5\" (88.9 mm) vivid transmissive color LCD (480 × 800 px)" },
-      { "key_en": "Battery (Demanding / Saver)", "key_ko": "배터리 (일반 / 절전)", "value": "Up to 20 hrs demanding use / up to 60 hrs battery saver (non-solar)" },
-      { "key_en": "Dimensions", "key_ko": "외형 크기", "value": "60.2 × 118.5 × 16.3 mm (angled aero profile)" },
-      { "key_en": "Internal Storage", "key_ko": "내장 저장공간", "value": "64 GB (preloaded global routable cycle maps)" },
-      { "key_en": "Built-In Speaker & Bike Bell", "key_ko": "내장 스피커 및 전자 벨", "value": "Loud digital bike bell + spoken navigation & workout voice prompts" },
-      { "key_en": "Contactless Payment", "key_ko": "비접촉 결제", "value": "Garmin Pay built-in (region/bank dependent)" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 (USB-C charging, replaceable quarter-turn mount)" },
-      { "key_en": "GroupRide & Road Hazards", "key_ko": "그룹라이드·위험구간 알림", "value": "Community road-hazard alerts, GroupRide messaging & climb leaderboards" },
-      { "key_en": "Di2 / AXS & Analytics Sync", "key_ko": "구동계·플랫폼 연동", "value": "Shimano Di2 / SRAM AXS hood buttons, Varia Radar, Connect / Intervals.icu / Strava" }
+      {
+        "key_en": "Device Weight",
+        "key_ko": "본체 무게",
+        "value": "161 g (5.7 oz)"
+      },
+      {
+        "key_en": "Display Specs",
+        "key_ko": "디스플레이",
+        "value": "3.5\" (88.9 mm) vivid transmissive color LCD (480 × 800 px)"
+      },
+      {
+        "key_en": "Battery (Demanding / Saver)",
+        "key_ko": "배터리 (일반 / 절전)",
+        "value": "Up to 20 hrs demanding use / up to 60 hrs battery saver (non-solar)"
+      },
+      {
+        "key_en": "Dimensions",
+        "key_ko": "외형 크기",
+        "value": "60.2 × 118.5 × 16.3 mm (angled aero profile)"
+      },
+      {
+        "key_en": "Internal Storage",
+        "key_ko": "내장 저장공간",
+        "value": "64 GB (preloaded global routable cycle maps)"
+      },
+      {
+        "key_en": "Built-In Speaker & Bike Bell",
+        "key_ko": "내장 스피커 및 전자 벨",
+        "value": "Loud digital bike bell + spoken navigation & workout voice prompts"
+      },
+      {
+        "key_en": "Contactless Payment",
+        "key_ko": "비접촉 결제",
+        "value": "Garmin Pay built-in (region/bank dependent)"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IPX7 (USB-C charging, replaceable quarter-turn mount)"
+      },
+      {
+        "key_en": "GroupRide & Road Hazards",
+        "key_ko": "그룹라이드·위험구간 알림",
+        "value": "Community road-hazard alerts, GroupRide messaging & climb leaderboards"
+      },
+      {
+        "key_en": "Di2 / AXS & Analytics Sync",
+        "key_ko": "구동계·플랫폼 연동",
+        "value": "Shimano Di2 / SRAM AXS hood buttons, Varia Radar, Connect / Intervals.icu / Strava"
+      }
     ]
   },
   "compatibility_graph": {
@@ -116,15 +165,15 @@
   "citations": [
     {
       "label": "Garmin Edge 1050 Official Specifications & Product Page",
-      "url": "https://www.garmin.com/p/905753",
+      "url": "https://www.garmin.com/en-US/p/1196129/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
-      "label": "Garmin Edge 1050 Official Owner's Manual",
-      "url": "https://www8.garmin.com/manuals/webhelp/GUID-08ACA9FC-DEE6-4C8D-8A95-F62181B512E7/EN-US/GUID-8661634E-5152-41F5-89A1-553408C86441.html",
+      "label": "Garmin Edge 1050 Official Owner's Manual & Support Hub",
+      "url": "https://support.garmin.com/en-US/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "ANT+ Certified Cycling Computer Directory",
@@ -141,5 +190,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["garmin-edge-840-solar", "wahoo-elemnt-roam-v2"]
+  "auto_fallback_slugs": [
+    "garmin-edge-840-solar",
+    "wahoo-elemnt-roam-v2"
+  ]
 }

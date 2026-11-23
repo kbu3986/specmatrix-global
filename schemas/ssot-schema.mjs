@@ -284,6 +284,65 @@ export const CycleGearItemSchema = BaseItemSchema.extend({
   }),
 });
 
+// ---------------- Vertical 4: HomeTech ----------------
+
+export const HomeTechItemSchema = BaseItemSchema.extend({
+  vertical: z.literal("hometech"),
+  category: z.enum(["minipc", "nas", "ups", "robot-vacuum"]),
+  specs: z
+    .object({
+      idle_power_w: z.number().positive().max(500),
+      typical_load_w: z.number().positive().max(2500),
+      peak_power_w: z.number().positive().max(3500),
+      default_daily_hours_active: z.number().positive().max(24),
+      annual_consumables_usd: z.number().nonnegative(),
+      annual_consumables_krw: z.number().nonnegative(),
+      noise_idle_dba: z.number().min(15).max(85).nullable(),
+      noise_load_dba: z.number().min(15).max(85).nullable(),
+      weight_g: z.number().positive(),
+      dimensions_mm: z.object({
+        l: z.number().positive(),
+        w: z.number().positive(),
+        h: z.number().positive(),
+      }),
+      input_voltage_range: z.string().min(4),
+      dual_voltage_100_240v: z.boolean(),
+      cpu_or_soc: z.string().min(1).nullable(),
+      ram_gb_default: z.number().positive().nullable(),
+      drive_bays: z.number().int().positive().nullable(),
+      lan_speed_gbps: z.number().positive().nullable(),
+      ups_va_rating: z.number().positive().nullable(),
+      ups_watt_rating: z.number().positive().nullable(),
+      ups_waveform: z.enum(["pure-sine", "simulated-sine"]).nullable(),
+      ups_runtime_half_load_min: z.number().positive().nullable(),
+      suction_pa: z.number().positive().nullable(),
+      dustbag_capacity_l: z.number().positive().nullable(),
+      certifications: z.array(z.string().min(2)).min(1),
+      key_specs_kv: z
+        .array(
+          z.object({
+            key_en: z.string().min(2),
+            key_ko: z.string().min(2),
+            value: z.string().min(1),
+          })
+        )
+        .min(6),
+    })
+    .refine(
+      (s) => s.idle_power_w <= s.typical_load_w && s.typical_load_w <= s.peak_power_w,
+      {
+        message: "Power hierarchy must satisfy idle_power_w <= typical_load_w <= peak_power_w",
+      }
+    ),
+  tco_profile: z.object({
+    always_on_24_7: z.boolean(),
+    expected_lifespan_years: z.number().min(3).max(10),
+    battery_or_filter_cycle_months: z.number().positive().nullable(),
+    korea_220v_note_en: z.string().min(10),
+    korea_220v_note_ko: z.string().min(10),
+  }),
+});
+
 // ---------------- VS Insights & Matrix/Compat & Audit Log ----------------
 
 export const VsInsightSchema = z.object({

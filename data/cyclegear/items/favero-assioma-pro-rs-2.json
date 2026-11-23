@@ -4,7 +4,10 @@
   "category": "power-meter",
   "slug": "favero-assioma-pro-rs-2",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Favero Electronics",
   "model_number": "773-20-02",
   "origin_country": "IT",
@@ -12,7 +15,7 @@
     "us": {
       "asin": null,
       "sku": "773-20-02",
-      "msrp": 759.0,
+      "msrp": 759,
       "currency": "USD",
       "price_mode": "msrp_benchmark_mode",
       "price_checked_at": "2026-11-22",
@@ -32,10 +35,14 @@
   },
   "specs": {
     "weight_g": 247,
-    "claimed_accuracy_pct": 1.0,
+    "claimed_accuracy_pct": 1,
     "left_right_balance": true,
     "mount_or_form_factor": "Dual-sided pod-free road power meter pedals (spindle-integrated sensor)",
-    "connectivity": ["ANT+ PWR", "Bluetooth 5.0", "IAV Cycling Dynamics"],
+    "connectivity": [
+      "ANT+ PWR",
+      "Bluetooth 5.0",
+      "IAV Cycling Dynamics"
+    ],
     "battery_life_hours": 60,
     "waterproof_rating": "IP67",
     "tire_width_mm": null,
@@ -46,16 +53,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Pair Weight", "key_ko": "페달 페어 무게", "value": "247 g (123.5 g per pedal)" },
-      { "key_en": "Cleat System", "key_ko": "클릿 규격", "value": "Shimano SPD-SL (SM-SH10 / SM-SH11 / SM-SH12)" },
-      { "key_en": "Claimed Accuracy", "key_ko": "공식 정확도 오차", "value": "±1.0% (IAV Power System, oval chainring ready)" },
-      { "key_en": "Stack Height", "key_ko": "스택 높이", "value": "10.5 mm" },
-      { "key_en": "Q-Factor", "key_ko": "Q-팩터", "value": "+53 mm (native Shimano road Q-factor)" },
-      { "key_en": "Battery & Charging", "key_ko": "배터리 및 충전", "value": "Integrated Li-ion, 60+ hrs, dual magnetic USB charger" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IP67 (fully sealed internal spindle electronics)" },
-      { "key_en": "Cycling Dynamics", "key_ko": "사이클링 다이내믹스", "value": "L/R Balance, PCO, IAV Power Phase, Rider Position, TE, PS" },
-      { "key_en": "Operating Temp / Compensation", "key_ko": "온도 보정 범위", "value": "-10°C to +55°C automatic temperature compensation" },
-      { "key_en": "Modular Spindle Swap", "key_ko": "스핀들 바디 호환", "value": "Interchangeable with Favero PRO MX (SPD) pedal bodies" }
+      {
+        "key_en": "Pair Weight",
+        "key_ko": "페달 페어 무게",
+        "value": "247 g (123.5 g per pedal)"
+      },
+      {
+        "key_en": "Cleat System",
+        "key_ko": "클릿 규격",
+        "value": "Shimano SPD-SL (SM-SH10 / SM-SH11 / SM-SH12)"
+      },
+      {
+        "key_en": "Claimed Accuracy",
+        "key_ko": "공식 정확도 오차",
+        "value": "±1.0% (IAV Power System, oval chainring ready)"
+      },
+      {
+        "key_en": "Stack Height",
+        "key_ko": "스택 높이",
+        "value": "10.5 mm"
+      },
+      {
+        "key_en": "Q-Factor",
+        "key_ko": "Q-팩터",
+        "value": "+53 mm (native Shimano road Q-factor)"
+      },
+      {
+        "key_en": "Battery & Charging",
+        "key_ko": "배터리 및 충전",
+        "value": "Integrated Li-ion, 60+ hrs, dual magnetic USB charger"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IP67 (fully sealed internal spindle electronics)"
+      },
+      {
+        "key_en": "Cycling Dynamics",
+        "key_ko": "사이클링 다이내믹스",
+        "value": "L/R Balance, PCO, IAV Power Phase, Rider Position, TE, PS"
+      },
+      {
+        "key_en": "Operating Temp / Compensation",
+        "key_ko": "온도 보정 범위",
+        "value": "-10°C to +55°C automatic temperature compensation"
+      },
+      {
+        "key_en": "Modular Spindle Swap",
+        "key_ko": "스핀들 바디 호환",
+        "value": "Interchangeable with Favero PRO MX (SPD) pedal bodies"
+      }
     ]
   },
   "compatibility_graph": {
@@ -118,9 +165,9 @@
   "citations": [
     {
       "label": "Favero Assioma PRO RS-2 Official Product & Technical Specifications",
-      "url": "https://cycling.favero.com/en/assioma-pro-rs-2",
+      "url": "https://cycling.favero.com/shop/assioma-pro-rs2/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Favero Electronics Official Assioma Power Meter Documentation",
@@ -143,5 +190,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["garmin-rally-rs200", "favero-assioma-duo"]
+  "auto_fallback_slugs": [
+    "garmin-rally-rs200",
+    "favero-assioma-duo"
+  ]
 }

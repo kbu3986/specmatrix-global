@@ -1,0 +1,27 @@
+{
+  "sku_slug": "roborock-s8-maxv-ultra",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "specs.suction_pa",
+      "quote": "10,000 Pa Extreme Suction, VibraRise 3.0 Sonic Mopping System with Extra Edge Mopping System & FlexiArm Design Side Brush, DuoRoller Riser Brush, 5,200 mAh battery",
+      "source_url": "https://us.roborock.com/pages/roborock-s8-maxv-ultra",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.peak_power_w",
+      "quote": "Empty Wash Fill Dock (EWFD13HRR/14HRR): 220-240VAC 50-60Hz (regional fixed), Dust Collection 3A, Hot Water Mop Washing 6A (~1,350 W), Charging & Drying 0.75A; 2.5 L dust bag; 67 dB balanced noise",
+      "source_url": "https://global.roborock.com/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Robot-vacuum physics & TCO check: Verified suction_pa = 10000 (>=1000), dustbag_capacity_l = 2.5 (>0), 4.5 W idle <= 74 W typical <= 1350 W hot-water peak, and positive annual consumables ($85 / 110,000 KRW).",
+    "Regional voltage & hardware caveat check: Verified single-voltage dock heater (dual_voltage_100_240v: false) and highlighted non-removable RockDock Ultra washboard vs Qrevo Master's removable tray.",
+    "KR localization & SM-02 check: Verified April 2024 KR official launch price 1,840,000 KRW vs US $1,799.99 under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

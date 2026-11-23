@@ -116,8 +116,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Long-haul hybrid carrier enforcing Korea MOLIT 2025-2026 rules: carry-on only, individual pouch/terminal insulation required, banned from overhead bins, and prohibited from inflight charging (use built-in seat AC/USB ports instead).",
     "notes_ko": "미주·유럽 중장거리 노선 포함 국토부 2025~2026 지침 적용: 개별 지퍼백·단자 절연 필수, 기내 선반 보관 및 보조배터리 사용 전면 금지(장거리 기내 충전은 좌석 내장 AC/USB 포트 이용 권장).",
-    "official_policy_url": "https://www.airpremia.com/en/support/baggage/restricted-item",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.airpremia.com/a/en/customer/notice/686",
+    "verified_at": "2026-11-23"
   },
   {
     "slug": "air-busan",
@@ -276,8 +276,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Since May 2025, Southwest mandates that portable chargers MUST remain in plain sight whenever actively charging a device—never inside a bag or overhead bin. Strictly carry-on only.",
     "notes_ko": "2025년 5월부터 사우스웨스트는 보조배터리로 기기를 충전할 때 반드시 눈에 보이는 곳(테이블·손 위)에 두도록 의무화했습니다. 가방 내부 충전과 선반 보관은 전면 금지됩니다.",
-    "official_policy_url": "https://www.southwest.com/help/baggage/tsa-security-directives-batteries",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://support.southwest.com/helpcenter/article/Traveling-with-lithium-batteries-e-cigarettes-and-lighters",
+    "verified_at": "2026-11-23"
   },
   {
     "slug": "air-canada",
@@ -296,8 +296,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Transport Canada / IATA rules: power banks are banned in checked luggage, require individual short-circuit protection, must be kept under seat or on person out of overhead bins, and 100-160 Wh requires advance airline approval.",
     "notes_ko": "캐나다 교통부(Transport Canada)·IATA 기준: 위탁 수하물 금지, 개별 단자 절연 보호 및 좌석 하단 보관 필수(선반 금지), 100~160 Wh는 사전 승인 후 최대 2개 허용.",
-    "official_policy_url": "https://www.aircanada.com/ca/en/aco/home/plan/baggage/restricted-items.html",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.aircanada.com/ca/en/aco/home/plan/baggage/restricted-and-prohibited-items.html",
+    "verified_at": "2026-11-23"
   },
   {
     "slug": "lufthansa",
@@ -376,8 +376,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Strict 100 Wh hard ceiling for power banks—units over 100 Wh (even 100-160 Wh) are NOT permitted. Must stay in under-seat personal bag (never overhead bin); inflight phone charging allowed at cruise only (never during taxi/takeoff/landing).",
     "notes_ko": "보조배터리 용량 상한이 100 Wh로 엄격 제한되어 100~160 Wh 구간도 반입 불가합니다. 선반 보관 금지(좌석 하단 가방 보관)이며, 이착륙 중 사용 및 기내 전원 재충전이 금지됩니다.",
-    "official_policy_url": "https://help.ryanair.com/hc/en-us/articles/12488887856401-What-items-s-permitted-on-board",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://help.ryanair.com/hc/en-gb/categories/12502999419409-Permitted-Items-On-Board",
+    "verified_at": "2026-11-23"
   },
   {
     "slug": "easyjet",
@@ -476,8 +476,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Effective April 2025 onward: Singapore Airlines strictly bans charging personal devices via power banks AND recharging power banks via in-seat USB/AC ports throughout the flight. Max 2 pcs carry-on only, kept out of overhead bins.",
     "notes_ko": "2025년 4월부터 기내 보조배터리 사용(기기 충전) 및 좌석 전원을 이용한 보조배터리 자체 충전을 전면 금지했습니다. 기내 휴대 최대 2개(100~160 Wh 사전 승인), 선반 보관 금지.",
-    "official_policy_url": "https://www.singaporeair.com/en_UK/sg/travel-info/baggage/baggage-restrictions/",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.caas.gov.sg/resources/media-and-publication/newsroom/new-power-bank-safety-restrictions-to-be-implemented-on-flights-departing-singapore/",
+    "verified_at": "2026-11-23"
   },
   {
     "slug": "cathay-pacific",

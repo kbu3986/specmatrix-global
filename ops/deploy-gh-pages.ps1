@@ -107,7 +107,7 @@ try {
             Invoke-NativeChecked -Command { git -c core.autocrlf=false init -q -b gh-pages }
             Invoke-NativeChecked -Command { git remote add origin $RemoteUrl }
             Invoke-NativeChecked -Command { git -c core.autocrlf=false add -A }
-            Invoke-NativeChecked -Command { git commit -q -m "deploy: SpecMatrix Global Phase 1 Pilot ($(Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))" }
+            Invoke-NativeChecked -Command { git commit -q -m "deploy: SpecMatrix Global v2 (4-Vertical + Live Studios) ($(Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))" }
             $PushedSha = (git rev-parse HEAD).Trim()
             Invoke-NativeChecked -Command { git push -q -u origin gh-pages --force } -ErrorMessage "Failed pushing gh-pages branch"
         } finally {
@@ -160,8 +160,16 @@ try {
         "$LiveUrl/ko/wattcheck/item/anker-prime-27650mah-250w",
         "$LiveUrl/ko/puregram/item/maurten-gel-100-caf-100",
         "$LiveUrl/ko/cyclegear/item/continental-gp5000-s-tr-28",
+        "$LiveUrl/ko/hometech/item/apple-mac-mini-m4",
+        "$LiveUrl/ko/hometech/matrix/minipc-nas-tco",
         "$LiveUrl/en/cyclegear/vs/favero-assioma-pro-rs-2-vs-garmin-rally-rs200",
         "$LiveUrl/ko/wattcheck/matrix/airlines-30",
+        "$LiveUrl/ko/compare",
+        "$LiveUrl/ko/tools",
+        "$LiveUrl/ko/tools/fueling-planner",
+        "$LiveUrl/ko/tools/travel-power-kit",
+        "$LiveUrl/search-index.json",
+        "$LiveUrl/og/og-default.png",
         "$LiveUrl/sitemap-index.xml",
         "$LiveUrl/ads.txt",
         "$LiveUrl/robots.txt"

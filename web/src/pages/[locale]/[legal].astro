@@ -2,7 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { ActiveLocale, LegalSlug } from "../../lib/types";
 import { getMonetizationConfig } from "../../lib/data";
-import { ACTIVE_LOCALES, LEGAL_LABELS, LEGAL_SLUGS, SITE_URL, withBase } from "../../lib/i18n";
+import {
+  ACTIVE_LOCALES,
+  LEGAL_LABELS,
+  LEGAL_SLUGS,
+  SITE_URL,
+  safeJsonLd,
+  withBase,
+} from "../../lib/i18n";
 
 export function getStaticPaths() {
   const paths: Array<{ params: { locale: ActiveLocale; legal: LegalSlug } }> = [];
@@ -36,21 +43,22 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
     en: {
       title: "About SpecMatrix Global",
       subtitle:
-        "An evidence-anchored specification verification database and deterministic decision matrix for high-intent hardware, nutrition, and cycling gear.",
+        "An evidence-anchored specification verification database and deterministic decision matrix for high-intent hardware, nutrition, cycling gear, and 24/7 HomeTech TCO.",
       sections: [
         {
           heading: "Our Engineering Mission",
           body: [
-            "Most online buying guides summarize marketing claims without verifying underlying electrical ratings, nutrition-label arithmetic, or mechanical standards. SpecMatrix Global was built to reverse that model: every quantitative specification on this site is anchored to official manufacturer manuals, regulatory filings, or printed Nutrition Facts panels.",
-            "Instead of static prose, every product profile, 1:1 comparison, and category hub ships with deterministic, zero-bloat calculators so buyers can evaluate their exact airline, target device, cart price, or bike drivetrain standard in seconds.",
+            "Most online buying guides summarize marketing claims without verifying underlying electrical ratings, nutrition-label arithmetic, 24/7 idle power consumption, or mechanical standards. SpecMatrix Global was built to reverse that model: every quantitative specification on this site is anchored to official manufacturer manuals, regulatory filings, or printed Nutrition Facts panels.",
+            "Instead of static prose, every product profile, 1:1 comparison, and interactive studio ships with deterministic, zero-bloat calculators so buyers can evaluate their exact airline, target device, cart price, electricity tariff, or bike drivetrain standard in seconds.",
           ],
         },
         {
-          heading: "Active Phase 1 Verticals",
+          heading: "Active Verified Verticals (4 Matrices)",
           body: [
             "WattCheck Matrix: Power banks, multi-port GaN chargers, portable power stations, USB-PD port allocation matrices, and carry-on compliance across 30 major global airlines.",
             "PureGram Matrix: Endurance energy gels, electrolyte mixes, and creatine monohydrate evaluated by objective active-ingredient purity, carrier weight ratio, and true cost per benchmark gram.",
             "CycleGear Matrix: Power meters, GPS cycling computers, smart trainers, road tubeless tires, and electronic drivetrains audited for bottom bracket, freehub, head-unit, and ISO/ETRTO hookless safety compatibility.",
+            "HomeTech TCO Matrix: Mini PCs, NAS servers, pure-sine/simulated-sine UPS units, and flagship robot vacuums audited for 24/7 idle and load wattage, KEPCO/US/DE electricity cost, annual consumables, and 3-year total cost of ownership (TCO).",
           ],
         },
         {
@@ -64,21 +72,22 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
     ko: {
       title: "SpecMatrix Global 소개",
       subtitle:
-        "제조사 공식 매뉴얼·영양성분표·항공 규정에 근거한 실데이터 교차검증 비교 매트릭스 및 결정론적 계산기 플랫폼입니다.",
+        "제조사 공식 매뉴얼·영양성분표·항공 규정·전력 측정 제원에 근거한 실데이터 교차검증 비교 매트릭스 및 결정론적 계산기 플랫폼입니다.",
       sections: [
         {
           heading: "구축 철학: 출처 없는 숫자는 싣지 않습니다",
           body: [
-            "온라인의 수많은 구매 가이드는 실제 정격 용량, 멀티포트 출력 낙폭, 1회분 유효성분 원가, 프레임·림 규격 호환성을 검증하지 않은 채 홍보 문구를 반복합니다. SpecMatrix Global은 모든 정량 스펙을 제조사 공식 PDF 매뉴얼, 규제 인증 DB, 공식 영양성분표에 고정합니다.",
-            "단순 텍스트 리뷰 대신 모든 제품 프로파일과 1:1 비교 페이지에 결정론적 인터랙티브 계산기를 탑재해 사용자가 본인의 탑승 항공사, 실제 장바구니 가격, 자전거 림·BB 규격을 입력해 즉시 판정을 확인할 수 있도록 설계했습니다.",
+            "온라인의 수많은 구매 가이드는 실제 정격 용량, 멀티포트 출력 낙폭, 1회분 유효성분 원가, 프레임·림 규격 호환성, 24시간 상시 가동 전기요금을 검증하지 않은 채 홍보 문구를 반복합니다. SpecMatrix Global은 모든 정량 스펙을 제조사 공식 PDF 매뉴얼, 규제 인증 DB, 공식 영양성분표에 고정합니다.",
+            "단순 텍스트 리뷰 대신 모든 제품 프로파일과 1:1 비교 페이지, 인터랙티브 도구 스튜디오에 결정론적 계산기를 탑재해 사용자가 본인의 탑승 항공사, 실제 장바구니 가격, 한전 누진 구간, 자전거 림·BB 규격을 입력해 즉시 판정을 확인할 수 있도록 설계했습니다.",
           ],
         },
         {
-          heading: "Phase 1 집중 검증 3대 버티컬",
+          heading: "집중 검증 4대 버티컬",
           body: [
             "WattCheck Matrix: 보조배터리·GaN 충전기·포터블 파워스테이션의 USB-PD 멀티포트 출력 분배표, 변환효율 실가용 Wh, 국토교통부 2025–2026 및 글로벌 30개 항공사 기내반입 검증.",
             "PureGram Matrix: 지구력 에너지젤·전해질·크레아틴의 영양성분표 기반 순수 유효성분 기준 단가, 비유효 중량 비율, 시간당 90g 레이스 보급 비용 계산.",
             "CycleGear Matrix: 파워미터·GPS 사이클링 컴퓨터·스마트 트레이너·로드 튜블리스 타이어·전동 구동계의 BB/프리허브/헤드유닛 호환성 및 후크리스 5.0 bar 안전 검증.",
+            "HomeTech TCO Matrix: 미니PC·NAS·UPS·플래그십 로봇청소기의 대기/부하 소비전력(W), 한전 누진 구간별 연간 전기요금, 연간 소모품 유지비 및 3년 총소유비용(TCO) 정밀 검증.",
           ],
         },
         {
@@ -105,9 +114,10 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
           ],
         },
         {
-          heading: "2. Deterministic Physics & Math Invariants",
+          heading: "2. Deterministic Physics, Electrical & Math Invariants",
           body: [
             "Arithmetic is never left to guesswork. Every SKU must pass automated code checks before publication: battery energy cross-check (Wh vs mAh × cell nominal voltage within 5%), port allocation sum <= rated max wattage, IATA 100 Wh and 160 Wh rule invariants, nutrition serving-weight and calorie-macro consistency, and hookless tire pressure ceilings (<= 72.5 psi / 5.0 bar).",
+            "For HomeTech TCO hardware, automated validators enforce power-tier ordering (0 < idle_power_w <= typical_load_w <= peak_power_w), UPS power factor bounds (ups_watt_rating <= ups_va_rating), weighted average power and annual kWh (weighted_avg_w × 8.76), and 3-year TCO baselines anchored to US $0.17/kWh, KEPCO Tier 2 ₩214/kWh, and Germany €0.38/kWh.",
           ],
         },
         {
@@ -138,9 +148,10 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
           ],
         },
         {
-          heading: "2. 결정론적 물리·수학 불변 조건 검산",
+          heading: "2. 결정론적 물리·전력·수학 불변 조건 검산",
           body: [
             "모든 파생 수치는 코드가 직접 계산합니다. 배터리 에너지 역산(Wh 대 mAh × 공칭전압 오차 5% 이내), 멀티포트 합산 출력 상한, 100Wh/160Wh 기내 반입 불변식, 영양성분표 총중량·매크로 칼로리 합산 검산, 후크리스 타이어 최대 공기압(5.0 bar / 72.5 psi) 상한 검사를 통과하지 못한 레코드는 빌드가 자동 차단됩니다.",
+            "HomeTech TCO 버티컬의 경우 전력 계층 불변식(0 < 대기전력 <= 일반부하 <= 피크전력), UPS 역률 상한(유효출력 W <= 피상전력 VA), 가중 평균 소비전력·연간 전력량(W × 8.76 kWh/yr), 한전 누진 2구간(214원/kWh)·미국($0.17/kWh)·독일(€0.38/kWh) 기준 3년 TCO 산식을 자동 검증합니다.",
           ],
         },
         {
@@ -162,7 +173,7 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
     en: {
       title: "Safety, Regulatory & Affiliate Disclaimers",
       subtitle:
-        "Mandatory safety boundaries for aviation battery transport, nutrition label arithmetic, cycling hardware installation, and affiliate transparency.",
+        "Mandatory safety boundaries for aviation battery transport, nutrition label arithmetic, cycling hardware installation, HomeTech electrical/UPS safety, and affiliate transparency.",
       sections: [
         {
           heading: "1. Aviation & Lithium Battery Disclaimer (WattCheck)",
@@ -186,7 +197,14 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
           ],
         },
         {
-          heading: "4. Affiliate & Pricing Transparency (FTC Compliance)",
+          heading: "4. Electrical, UPS Load & 220V Voltage Safety Disclaimer (HomeTech)",
+          body: [
+            "Always verify the physical AC input voltage rating printed on the device or power adapter before connecting to mains power. North American 120V-only UPS models and robot vacuum docks are NOT compatible with 220V–240V grids (such as South Korea 220V/60Hz or Europe 230V/50Hz) and can suffer permanent damage or create a fire hazard if plugged into 220V mains without the region-matched model.",
+            "UPS runtime estimates and electricity TCO figures are engineering approximations based on manufacturer datasheets and benchmark utility rates (US $0.17/kWh, KEPCO Tier 2 ₩214/kWh, DE €0.38/kWh). Never overload a UPS beyond its rated Watt capacity, never connect laser printers or space heaters to battery-backup outlets, and prefer Pure Sine Wave UPS units for Active PFC power supplies and critical NAS arrays.",
+          ],
+        },
+        {
+          heading: "5. Affiliate & Pricing Transparency (FTC Compliance)",
           body: [
             cfg.compliance.disclosures.en,
             "Outbound store links are marked with rel='sponsored nofollow noopener'. Where exact region-verified ASINs are unavailable, links route safely to official retailer search pages.",
@@ -195,9 +213,9 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
       ],
     },
     ko: {
-      title: "안전·규정·건강 및 제휴 면책 고지",
+      title: "안전·규정·건강·전기 및 제휴 면책 고지",
       subtitle:
-        "항공기 리튬배터리 반입, 영양성분 정량 계산, 로드사이클 후크리스·토크 안전 및 제휴 마케팅 투명성에 관한 필수 고지사항입니다.",
+        "항공기 리튬배터리 반입, 영양성분 정량 계산, 로드사이클 후크리스·토크 안전, HomeTech 220V/UPS 전기 안전 및 제휴 마케팅 투명성에 관한 필수 고지사항입니다.",
       sections: [
         {
           heading: "1. 항공기 기내 반입 및 배터리 안전 면책 (WattCheck)",
@@ -221,7 +239,14 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
           ],
         },
         {
-          heading: "4. 제휴 마케팅 및 가격 표기 고지 (공정거래위원회 준수)",
+          heading: "4. 220V 전기 안전·UPS 부하 및 TCO 추정 면책 (HomeTech)",
+          body: [
+            "해외 직구 미니PC, NAS, UPS, 로봇청소기 스테이션 연결 전 반드시 제품 본체 및 어댑터의 정격 입력 전압(100–240V 프리볼트 여부 및 KC 안전인증)을 확인하십시오. 북미 전용 120V UPS나 로봇청소기 열풍·온수 도크를 대한민국 220V/60Hz 전원에 직접 연결할 경우 기기 파손 및 화재 위험이 발생합니다.",
+            "UPS 백업 런타임 및 한전 누진제 전기요금·3년 TCO 산출값은 제조사 공식 스펙과 기준 단가(한전 2구간 214원/kWh, 미국 $0.17/kWh, 독일 €0.38/kWh)에 기반한 참고 추정치입니다. UPS 정격 유효 출력(W)을 초과하는 부하나 레이저 프린터·전열기기를 연결하지 마십시오. Active PFC 파워서플라이와 NAS에는 순수 정현파(Pure Sine Wave) UPS 사용을 권장합니다.",
+          ],
+        },
+        {
+          heading: "5. 제휴 마케팅 및 가격 표기 고지 (공정거래위원회 준수)",
           body: [
             cfg.compliance.disclosures.ko,
             "모든 제휴 아웃바운드 링크에는 rel='sponsored nofollow noopener' 속성이 자동 적용됩니다.",
@@ -239,7 +264,7 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
         {
           heading: "1. Zero-Upload Client-Side Calculators",
           body: [
-            "All SpecMatrix interactive calculators (airline checkers, USB-PD port allocators, cart price calculators, priority weighting simulators, and bike compatibility checkers) execute 100% locally in your browser. Inputs you type or select are never transmitted to or stored on SpecMatrix servers.",
+            "All SpecMatrix interactive calculators (airline checkers, USB-PD port allocators, cart price calculators, priority weighting simulators, bike compatibility checkers, and HomeTech TCO estimators) execute 100% locally in your browser. Inputs you type or select are never transmitted to or stored on SpecMatrix servers.",
           ],
         },
         {
@@ -257,7 +282,7 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
         {
           heading: "4. Outbound Affiliate Links & Your Rights",
           body: [
-            "When you click an outbound affiliate link (e.g., Amazon Associates or Coupang Partners), the destination retailer applies its own privacy and cookie policy. Depending on your jurisdiction (GDPR, CCPA, Korea PIPA), you have the right to inquire about or request deletion of any correspondence emailed to our editorial desk.",
+            "When you click an outbound affiliate link (e.g., Amazon Associates or Coupang Partners), the destination retailer applies its own privacy and cookie policy. Depending on your jurisdiction (GDPR, CCPA, Korea PIPA), you have the right to inquire about or request deletion of any correspondence submitted to our editorial desk.",
           ],
         },
       ],
@@ -270,7 +295,7 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
         {
           heading: "1. 회원가입 없음 · 브라우저 로컬 계산기 처리",
           body: [
-            "SpecMatrix Global은 별도의 회원가입이나 로그인을 요구하지 않으며, 항공사 조회·USB-PD 시뮬레이터·장바구니 실단가 계산기·자전거 호환 체커에 입력한 모든 값은 사용자 브라우저 내에서만 100% 로컬 연산됩니다. 입력값은 당사 서버로 전송되거나 저장되지 않습니다.",
+            "SpecMatrix Global은 별도의 회원가입이나 로그인을 요구하지 않으며, 항공사 조회·USB-PD 시뮬레이터·장바구니 실단가 계산기·자전거 호환 체커·HomeTech 전력 TCO 계산기에 입력한 모든 값은 사용자 브라우저 내에서만 100% 로컬 연산됩니다. 입력값은 당사 서버로 전송되거나 저장되지 않습니다.",
           ],
         },
         {
@@ -288,7 +313,7 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
         {
           heading: "4. 외부 제휴 링크 및 이용자 권리",
           body: [
-            "쿠팡 파트너스, 아마존 어소시에이트 등 외부 스토어 링크를 클릭해 이동한 이후에는 해당 쇼핑몰의 개인정보처리방침이 적용됩니다. 오류 제보 이메일 등을 통해 당사에 전달된 문의 내역의 열람·삭제는 문의 페이지를 통해 언제든 요청할 수 있습니다.",
+            "쿠팡 파트너스, 아마존 어소시에이트 등 외부 스토어 링크를 클릭해 이동한 이후에는 해당 쇼핑몰의 개인정보처리방침이 적용됩니다. 오류 제보 등을 통해 당사에 전달된 문의 내역의 열람·삭제는 문의 페이지를 통해 언제든 요청할 수 있습니다.",
           ],
         },
       ],
@@ -296,43 +321,29 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
   },
   contact: {
     en: {
-      title: "Contact & Spec Discrepancy Reporting",
+      title: "Contact & Interactive Spec Discrepancy Reporter",
       subtitle:
-        "Spotted a manufacturer hardware revision, updated airline battery rule, or nutrition label reformulation? Help keep the matrix 100% accurate.",
+        "Spotted a manufacturer hardware revision, updated airline battery rule, nutrition label reformulation, or 220V/power discrepancy? Submit an instant pre-filled GitHub correction report or copy structured Markdown below.",
       sections: [
         {
-          heading: "Report a Specification Error (Priority Queue)",
+          heading: "Priority Verification SLA",
           body: [
-            "Safety-critical corrections (airline Wh/MOLIT rule changes, hookless tire pressure limits, or electrical certification updates) are triaged within 24 hours.",
-            "Email: corrections@specmatrix.io — Please include: (1) Exact SpecMatrix page URL, (2) Field name & current value, (3) Official Tier-1 source URL (manufacturer PDF manual, airline policy page, or updated Nutrition Facts label).",
-          ],
-        },
-        {
-          heading: "Editorial & Data Inquiries",
-          body: [
-            "General editorial inquiries, new SKU verification requests, and compliance questions: editorial@specmatrix.io",
-            "Note: We do not accept paid placement, sponsored rankings, or link exchanges.",
+            "Safety-critical corrections (airline Wh/MOLIT rule changes, hookless tire pressure limits, 120V/220V electrical ratings, or UPS waveform updates) are triaged within 24 hours against Tier-1 official documentation.",
+            "Editorial Policy: We do not accept paid placement, sponsored rankings, or link exchanges. All updates require a verifiable manufacturer datasheet, regulatory filing, or official label source.",
           ],
         },
       ],
     },
     ko: {
-      title: "문의 및 스펙 오류 제보 (Spec Corrections)",
+      title: "스펙 오류 제보 및 데이터 정정 (Spec Corrections)",
       subtitle:
-        "제조사 리비전(신버전 변경), 항공사 기내 규정 개정, 영양성분 리뉴얼을 발견하셨다면 공식 근거 링크와 함께 제보해 주세요.",
+        "제조사 하드웨어 리비전, 항공사 기내 규정 개정, 영양성분 리뉴얼, 220V·소비전력 오차를 발견하셨나요? 아래 인터랙티브 제보 폼에서 GitHub 정정 이슈를 원클릭 생성하거나 마크다운 리포트를 복사할 수 있습니다.",
       sections: [
         {
-          heading: "스펙 오류·규정 변경 긴급 제보",
+          heading: "안전·규정 오류 최우선 검증 원칙",
           body: [
-            "안전과 직결되는 항목(항공사 Wh·국토부 규정 변경, 후크리스 최대 공기압, 안전인증 변동)은 접수 후 24시간 이내 최우선 재검증 및 핫픽스를 원칙으로 합니다.",
-            "제보 이메일: corrections@specmatrix.io — ① 해당 SpecMatrix 페이지 URL, ② 오류 항목명, ③ 제조사 공식 매뉴얼·항공사 규정·최신 영양성분표 원문 URL을 함께 보내주시면 가장 빠르게 반영됩니다.",
-          ],
-        },
-        {
-          heading: "일반 편집·신규 모델 검증 요청",
-          body: [
-            "신규 SKU 추가 요청 및 일반 문의: editorial@specmatrix.io",
-            "안내: 유료 순위 조작, 협찬 리뷰, 백링크 교환 요청에는 응하지 않습니다.",
+            "안전과 직결되는 항목(항공사 Wh·국토부 규정 변경, 후크리스 최대 공기압, 120V/220V 전압·UPS 파형, KC/PSE 안전인증 변동)은 공식 원천 근거 확인 후 24시간 이내 최우선 핫픽스를 원칙으로 합니다.",
+            "편집 독립성 안내: 유료 순위 조작, 협찬 리뷰, 백링크 교환 요청에는 응하지 않으며 모든 정정 요청은 제조사 공식 매뉴얼·규제 DB 출처 확인 후 반영됩니다.",
           ],
         },
       ],
@@ -341,6 +352,13 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
 };
 
 const pageData = CONTENT[legal][locale];
+
+const reporterCfg = {
+  locale,
+  repoIssuesUrl: "https://github.com/kbu3986/specmatrix-global/issues/new",
+  copiedText: isKo ? "마크다운 리포트 복사됨 ✓" : "Copied Report Markdown ✓",
+  copyBtnText: isKo ? "리포트 마크다운 복사" : "Copy Report Markdown",
+};
 
 const jsonLd = [
   {
@@ -397,6 +415,147 @@ const jsonLd = [
         <p class="mt-2 text-sm leading-relaxed text-slate-600">{pageData.subtitle}</p>
       </header>
 
+      {legal === "contact" && (
+        <section
+          id="spec-discrepancy-form"
+          data-config={safeJsonLd(reporterCfg)}
+          class="rounded-xl border border-blue-200 bg-slate-50/80 p-5 space-y-4"
+          aria-labelledby="reporter-heading"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="badge-pass font-mono text-[11px]">
+                {isKo ? "LIVE GITHUB ISSUE & MARKDOWN GENERATOR" : "LIVE GITHUB ISSUE & MARKDOWN GENERATOR"}
+              </span>
+              <h2 id="reporter-heading" class="mt-2 text-lg font-bold text-slate-900">
+                {isKo ? "인터랙티브 스펙 오류 제보 폼" : "Interactive Spec Discrepancy Reporter"}
+              </h2>
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label for="rep-vertical" class="block font-mono text-xs font-semibold uppercase text-slate-600">
+                {isKo ? "버티컬 (Vertical)" : "Vertical"}
+              </label>
+              <select
+                id="rep-vertical"
+                class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none"
+              >
+                <option value="wattcheck">WattCheck (Power Bank / GaN / Airlines)</option>
+                <option value="puregram">PureGram (Energy Gel / Electrolytes / Creatine)</option>
+                <option value="cyclegear">CycleGear (Power Meter / GPS / Tires / Hookless)</option>
+                <option value="hometech">HomeTech (MiniPC / NAS / UPS / Robot Vacuum)</option>
+                <option value="tools">Tools / Live Compare / General</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="rep-sku" class="block font-mono text-xs font-semibold uppercase text-slate-600">
+                {isKo ? "제품 슬러그 또는 페이지 경로" : "SKU Slug or Page Route"}
+              </label>
+              <input
+                id="rep-sku"
+                type="text"
+                placeholder={isKo ? "예: apple-mac-mini-m4" : "e.g. apple-mac-mini-m4"}
+                class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label for="rep-field" class="block font-mono text-xs font-semibold uppercase text-slate-600">
+                {isKo ? "오류 항목 선택" : "Specification Field"}
+              </label>
+              <select
+                id="rep-field"
+                class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none"
+              >
+                <option value="Power / Wh / Wattage">
+                  {isKo ? "소비전력 / Wh / 출력 (W)" : "Power Draw / Wh / Wattage"}
+                </option>
+                <option value="Port Allocation / Protocols">
+                  {isKo ? "멀티포트 분배 / PD·PPS 프로토콜" : "Port Allocation / PD·PPS Protocols"}
+                </option>
+                <option value="Airline Carry-On Rule">
+                  {isKo ? "항공사 기내반입 / 국토부·CCC 규정" : "Airline Carry-On / MOLIT / CCC Rule"}
+                </option>
+                <option value="Nutrition Facts / Active Cost">
+                  {isKo ? "영양성분표 / 유효성분 함량" : "Nutrition Facts / Active Weight"}
+                </option>
+                <option value="Hookless / Bike Compatibility">
+                  {isKo ? "후크리스 공기압 / BB·구동계 호환" : "Hookless 5 bar / Bike Compatibility"}
+                </option>
+                <option value="UPS Waveform / 220V Voltage">
+                  {isKo ? "UPS 정현파 / 100-240V·220V 전압" : "UPS Waveform / 100-240V Voltage"}
+                </option>
+                <option value="MSRP / Discontinued Status">
+                  {isKo ? "공식 MSRP / 단종·후속 모델" : "Official MSRP / Discontinued Status"}
+                </option>
+                <option value="Other / Translation">
+                  {isKo ? "기타 / 번역·오탈자" : "Other / Localization"}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label for="rep-source" class="block font-mono text-xs font-semibold uppercase text-slate-600">
+                {isKo ? "공식 원천 출처 URL (Tier 1–2 권장)" : "Official Source URL (Tier 1–2 HTTPS)"}
+              </label>
+              <input
+                id="rep-source"
+                type="url"
+                placeholder="https://manufacturer.com/manual.pdf"
+                class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="rep-details" class="block font-mono text-xs font-semibold uppercase text-slate-600">
+              {isKo ? "현재 표기값 vs 공식 확인값 및 상세 설명" : "Current vs Official Verified Value & Notes"}
+            </label>
+            <textarea
+              id="rep-details"
+              rows="3"
+              placeholder={isKo
+                ? "예: 현재 Idle 9W로 표기되어 있으나 공식 v2 매뉴얼 p.14 기준 7.5W입니다."
+                : "e.g. Listed idle power is 9W, but official rev.2 datasheet p.14 states 7.5W."}
+              class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-500 focus:outline-none"
+            ></textarea>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-3">
+            <div class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              {isKo ? "생성된 마크다운 미리보기" : "Generated Markdown Preview"}
+            </div>
+            <pre
+              id="rep-preview"
+              class="mt-1.5 max-h-40 overflow-auto whitespace-pre-wrap font-mono text-xs leading-relaxed text-slate-700"
+            ></pre>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a
+              id="rep-github-link"
+              href="https://github.com/kbu3986/specmatrix-global/issues/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              <span>{isKo ? "GitHub 정정 이슈 바로 열기 ↗" : "Open Pre-Filled GitHub Issue ↗"}</span>
+            </a>
+
+            <button
+              id="rep-copy-btn"
+              type="button"
+              class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:border-blue-500 hover:text-blue-700"
+            >
+              {reporterCfg.copyBtnText}
+            </button>
+          </div>
+        </section>
+      )}
+
       <div class="space-y-6">
         {pageData.sections.map((sec) => (
           <section class="space-y-2.5">
@@ -439,3 +598,121 @@ const jsonLd = [
     </aside>
   </div>
 </BaseLayout>
+
+{legal === "contact" && (
+  <script is:inline>
+    (function () {
+      var box = document.getElementById("spec-discrepancy-form");
+      if (!box) return;
+      var cfg = {};
+      try {
+        cfg = JSON.parse(box.getAttribute("data-config") || "{}");
+      } catch (_e) {
+        cfg = {};
+      }
+
+      var verticalEl = document.getElementById("rep-vertical");
+      var skuEl = document.getElementById("rep-sku");
+      var fieldEl = document.getElementById("rep-field");
+      var sourceEl = document.getElementById("rep-source");
+      var detailsEl = document.getElementById("rep-details");
+      var previewEl = document.getElementById("rep-preview");
+      var ghLink = document.getElementById("rep-github-link");
+      var copyBtn = document.getElementById("rep-copy-btn");
+
+      // Prefill from ?sku=&vertical= query params
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var qVertical = (params.get("vertical") || "").trim().toLowerCase();
+        var qSku = (params.get("sku") || "").trim();
+        if (qVertical && verticalEl) {
+          for (var i = 0; i < verticalEl.options.length; i++) {
+            if (verticalEl.options[i].value === qVertical) {
+              verticalEl.value = qVertical;
+              break;
+            }
+          }
+        }
+        if (qSku && skuEl) {
+          skuEl.value = qSku;
+        }
+      } catch (_e) {
+        // ignore URLSearchParams errors
+      }
+
+      function buildReport() {
+        var vertical = verticalEl ? verticalEl.value : "wattcheck";
+        var sku = (skuEl && skuEl.value ? skuEl.value : "").trim() || "(not specified)";
+        var field = fieldEl ? fieldEl.value : "Other";
+        var source = (sourceEl && sourceEl.value ? sourceEl.value : "").trim() || "(please attach official URL)";
+        var details = (detailsEl && detailsEl.value ? detailsEl.value : "").trim() || "(describe current vs official value)";
+
+        var title = "[Spec Correction] [" + vertical + "] " + sku + " — " + field;
+        var markdown = [
+          "### SpecMatrix Discrepancy Report",
+          "- **Locale:** `" + (cfg.locale || "en") + "`",
+          "- **Vertical:** `" + vertical + "`",
+          "- **SKU / Route:** `" + sku + "`",
+          "- **Field:** " + field,
+          "- **Official Source URL:** " + source,
+          "",
+          "#### Verified Discrepancy Details",
+          details,
+        ].join("\n");
+
+        if (previewEl) previewEl.textContent = markdown;
+        if (ghLink) {
+          var base = cfg.repoIssuesUrl || "https://github.com/kbu3986/specmatrix-global/issues/new";
+          var qs =
+            "?title=" +
+            encodeURIComponent(title) +
+            "&body=" +
+            encodeURIComponent(markdown) +
+            "&labels=" +
+            encodeURIComponent("spec-correction");
+          ghLink.setAttribute("href", base + qs);
+        }
+        return markdown;
+      }
+
+      [verticalEl, skuEl, fieldEl, sourceEl, detailsEl].forEach(function (el) {
+        if (!el) return;
+        el.addEventListener("input", buildReport);
+        el.addEventListener("change", buildReport);
+      });
+
+      if (ghLink) {
+        ghLink.addEventListener("click", function () {
+          if (typeof window.smTrack === "function") {
+            window.smTrack("spec_report_github", {
+              vertical: verticalEl ? verticalEl.value : "",
+              sku: skuEl ? skuEl.value : "",
+            });
+          }
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", function () {
+          var md = buildReport();
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(md).then(function () {
+              copyBtn.textContent = cfg.copiedText || "Copied ✓";
+              setTimeout(function () {
+                copyBtn.textContent = cfg.copyBtnText || "Copy Report Markdown";
+              }, 2000);
+            });
+          }
+          if (typeof window.smTrack === "function") {
+            window.smTrack("spec_report_copy", {
+              vertical: verticalEl ? verticalEl.value : "",
+              sku: skuEl ? skuEl.value : "",
+            });
+          }
+        });
+      }
+
+      buildReport();
+    })();
+  </script>
+)}

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
-const VERTICALS = ["wattcheck", "puregram", "cyclegear"];
+const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
 const OUT_FILE = path.join(REPO_ROOT, "config", "coupang-deeplinks.json");
 
 function loadAllItems() {
@@ -81,7 +81,7 @@ async function main() {
     : { schema_version: "1.0.0", updated_at: "", links: {} };
 
   if (exportOnly) {
-    console.log("# Coupang Partners Batch Conversion URLs (60 SKUs)");
+    console.log(`# Coupang Partners Batch Conversion URLs (${items.length} SKUs)`);
     for (const item of items) {
       const rawUrl = buildRawCoupangSearchUrl(item.regional_offers.kr.search_query);
       console.log(`${item.slug}\t${rawUrl}`);

@@ -8,7 +8,7 @@ const DIST_DIR = path.join(WEB_DIR, "dist");
 const SITE_URL = (process.env.PUBLIC_SITE_URL || "https://specmatrix.io")
   .trim()
   .replace(/\/+$/, "");
-const VERTICALS = ["wattcheck", "puregram", "cyclegear"];
+const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
 const LOCALES = ["en", "ko"];
 const TODAY = new Date().toISOString().slice(0, 10);
 
@@ -89,6 +89,10 @@ function main() {
   }
 
   for (const rel of htmlFiles) {
+    const relNorm = rel.replace(/\\/g, "/").toLowerCase();
+    if (relNorm === "404.html" || relNorm === "404/index.html") {
+      continue;
+    }
     const url = htmlRelToUrl(rel);
     const pathname = url.slice(SITE_URL.length);
     const segs = pathname.split("/").filter(Boolean);
@@ -106,7 +110,7 @@ function main() {
   fs.writeFileSync(path.join(DIST_DIR, coreName), buildUrlSetXml(buckets.core), "utf-8");
   generatedFiles.push(coreName);
 
-  // 6 split vertical-locale sitemaps
+  // 8 split vertical-locale sitemaps
   for (const v of VERTICALS) {
     for (const l of LOCALES) {
       const fileName = `sitemap-${v}-${l}.xml`;

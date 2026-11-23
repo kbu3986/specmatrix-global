@@ -259,15 +259,15 @@
   "citations": [
     {
       "label": "UGREEN Official Product Page — Nexode 300W 5-Port GaN CD333",
-      "url": "https://www.ugreen.com/products/ugreen-nexode-300w-usb-c-gan-charger",
+      "url": "https://us.ugreen.com/products/ugreen-nexode-300w-charger",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "TechPowerUp Hardware Review — UGREEN Nexode 300W Weight & Thermal Audit",
-      "url": "https://www.techpowerup.com/review/ugreen-nexode-300w-gan-fast-charger/",
+      "url": "https://www.techpowerup.com/review/quick-look-ugreen-nexode-300w-gan-desktop-charger/",
       "source_tier": 3,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     }
   ],
   "audit": {

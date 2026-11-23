@@ -4,7 +4,10 @@
   "category": "drivetrain",
   "slug": "sram-red-axs-e1-12s",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "SRAM",
   "model_number": "GS-RED-E-E1",
   "origin_country": "US",
@@ -12,7 +15,7 @@
     "us": {
       "asin": null,
       "sku": "GS-RED-E-E1",
-      "msrp": 4450.0,
+      "msrp": 4450,
       "currency": "USD",
       "price_mode": "msrp_benchmark_mode",
       "price_checked_at": "2026-11-22",
@@ -35,7 +38,11 @@
     "claimed_accuracy_pct": null,
     "left_right_balance": null,
     "mount_or_form_factor": "12-speed 100% wireless hydraulic disc electronic road groupset (E1 HRD levers + Bonus Buttons)",
-    "connectivity": ["SRAM AXS Proprietary Wireless", "ANT+", "Bluetooth Low Energy (AXS App)"],
+    "connectivity": [
+      "SRAM AXS Proprietary Wireless",
+      "ANT+",
+      "Bluetooth Low Energy (AXS App)"
+    ],
     "battery_life_hours": 60,
     "waterproof_rating": "IPX7",
     "tire_width_mm": null,
@@ -46,16 +53,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": 12,
     "key_specs_kv": [
-      { "key_en": "Complete Groupset Weight", "key_ko": "풀 그룹셋 공식 무게", "value": "2,496 g (incl. 48/35T power meter crank, 10-28T, 2×160 mm rotors, batteries)" },
-      { "key_en": "Shifting Architecture", "key_ko": "변속 통신 구조", "value": "100% fully wireless (zero shift wires in frame; independent FD & RD batteries)" },
-      { "key_en": "Derailleur Batteries", "key_ko": "변속기 배터리 시스템", "value": "2× interchangeable SRAM eTap/AXS Li-ion packs (~25 g each, ~60 hrs ride time)" },
-      { "key_en": "Shifter Batteries & Ergonomics", "key_ko": "레버 배터리·인체공학", "value": "1× CR2032 per lever (~2 yrs); E1 one-finger hood braking (80% less effort)" },
-      { "key_en": "Bonus Buttons", "key_ko": "내장 보너스 버튼", "value": "Inner-hood programmable Bonus Buttons for shifting OR ANT+ head-unit control" },
-      { "key_en": "Freehub Requirement", "key_ko": "필수 프리허브 규격", "value": "SRAM XDR 12-speed driver body mandatory (supports 10T small cog)" },
-      { "key_en": "Cassette & Chain Standard", "key_ko": "카세트·체인 규격", "value": "XG-1290 (10-28/30/33/36T) + RED E1 HollowPin Flattop 12s chain" },
-      { "key_en": "Crank Spindle / BB Standard", "key_ko": "크랭크 스핀들 / BB 규격", "value": "SRAM DUB 28.99 mm spindle (requires DUB-specific BB for BSA/BB86/T47/PF30)" },
-      { "key_en": "Hydraulic Brake Fluid", "key_ko": "유압 브레이크 오일", "value": "DOT 5.1 hydraulic fluid (Bleeding Edge caliper port)" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 sealed electronic derailleurs, shifters, and integrated Quarq power meter" }
+      {
+        "key_en": "Complete Groupset Weight",
+        "key_ko": "풀 그룹셋 공식 무게",
+        "value": "2,496 g (incl. 48/35T power meter crank, 10-28T, 2×160 mm rotors, batteries)"
+      },
+      {
+        "key_en": "Shifting Architecture",
+        "key_ko": "변속 통신 구조",
+        "value": "100% fully wireless (zero shift wires in frame; independent FD & RD batteries)"
+      },
+      {
+        "key_en": "Derailleur Batteries",
+        "key_ko": "변속기 배터리 시스템",
+        "value": "2× interchangeable SRAM eTap/AXS Li-ion packs (~25 g each, ~60 hrs ride time)"
+      },
+      {
+        "key_en": "Shifter Batteries & Ergonomics",
+        "key_ko": "레버 배터리·인체공학",
+        "value": "1× CR2032 per lever (~2 yrs); E1 one-finger hood braking (80% less effort)"
+      },
+      {
+        "key_en": "Bonus Buttons",
+        "key_ko": "내장 보너스 버튼",
+        "value": "Inner-hood programmable Bonus Buttons for shifting OR ANT+ head-unit control"
+      },
+      {
+        "key_en": "Freehub Requirement",
+        "key_ko": "필수 프리허브 규격",
+        "value": "SRAM XDR 12-speed driver body mandatory (supports 10T small cog)"
+      },
+      {
+        "key_en": "Cassette & Chain Standard",
+        "key_ko": "카세트·체인 규격",
+        "value": "XG-1290 (10-28/30/33/36T) + RED E1 HollowPin Flattop 12s chain"
+      },
+      {
+        "key_en": "Crank Spindle / BB Standard",
+        "key_ko": "크랭크 스핀들 / BB 규격",
+        "value": "SRAM DUB 28.99 mm spindle (requires DUB-specific BB for BSA/BB86/T47/PF30)"
+      },
+      {
+        "key_en": "Hydraulic Brake Fluid",
+        "key_ko": "유압 브레이크 오일",
+        "value": "DOT 5.1 hydraulic fluid (Bleeding Edge caliper port)"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IPX7 sealed electronic derailleurs, shifters, and integrated Quarq power meter"
+      }
     ]
   },
   "compatibility_graph": {
@@ -117,9 +164,9 @@
   "citations": [
     {
       "label": "SRAM Official — RED AXS E1 Groupset Specifications & Technical Docs",
-      "url": "https://www.sram.com/en/sram/models/gs-red-e-e1",
+      "url": "https://www.sram.com/en/sram/road/series/red-axs",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "SRAM Service & Manuals — RED AXS E1 DUB Torque & XDR Compatibility",
@@ -142,5 +189,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["shimano-dura-ace-r9270-di2-12s", "favero-assioma-pro-rs-2"]
+  "auto_fallback_slugs": [
+    "shimano-dura-ace-r9270-di2-12s",
+    "favero-assioma-pro-rs-2"
+  ]
 }

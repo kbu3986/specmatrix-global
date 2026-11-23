@@ -8,6 +8,7 @@ import type {
 } from "../lib/types";
 import {
   computeCycleGearDerived,
+  computeHomeTechDerived,
   computePureGramDerived,
   computeWattCheckDerived,
 } from "../lib/derived";
@@ -152,6 +153,66 @@ const rows: RowModel[] = items.map((item) => {
     };
   }
 
+  if (item.vertical === "hometech") {
+    const d = computeHomeTechDerived(item, fx);
+    const s = item.specs;
+    const tp = item.tco_profile;
+    const tco3yr = isKo ? d.tco3yrKrw : d.tco3yrUsd;
+    const noiseVal = s.noise_load_dba ?? s.noise_idle_dba ?? 0;
+    const noiseDisp =
+      s.noise_load_dba !== null
+        ? `${formatNum(s.noise_load_dba, 1)} dBA`
+        : s.noise_idle_dba !== null
+          ? `${formatNum(s.noise_idle_dba, 1)} dBA`
+          : "—";
+    const weightDisp =
+      s.weight_g >= 1000
+        ? `${formatNum(s.weight_g / 1000, 2)} kg`
+        : `${formatInt(s.weight_g)} g`;
+    const isHighFeature =
+      s.ups_waveform === "pure-sine" ||
+      (s.lan_speed_gbps !== null && s.lan_speed_gbps >= 2.5) ||
+      (s.suction_pa !== null && s.suction_pa >= 10000);
+    return {
+      slug: item.slug,
+      name,
+      brand: item.brand,
+      category: item.category,
+      categoryLabel: getCategoryLabel(item.category, locale),
+      href,
+      msrp,
+      msrpDisplay,
+      trustScore: item.audit.trust_score,
+      metric1: tco3yr,
+      metric1Display: formatCurrency(tco3yr, isKo ? "KRW" : "USD", locale),
+      metric2: d.weightedAvgW,
+      metric2Display: `${formatNum(d.weightedAvgW, 1)} W (${formatInt(d.annualKwh)} kWh)`,
+      metric3: noiseVal,
+      metric3Display: noiseDisp,
+      metric4: s.weight_g,
+      metric4Display: weightDisp,
+      flagA: tp.always_on_24_7 || s.idle_power_w < 12,
+      flagB: s.dual_voltage_100_240v,
+      flagC: isHighFeature,
+      compatBadge: !s.dual_voltage_100_240v
+        ? isKo
+          ? "전압 확인 필요"
+          : "Check Voltage"
+        : tp.always_on_24_7 && s.idle_power_w < 12
+          ? isKo
+            ? "24/7 저전력"
+            : "24/7 Low-Idle"
+          : s.ups_waveform === "pure-sine"
+            ? isKo
+              ? "순수 정현파"
+              : "Pure Sine"
+            : isKo
+              ? "220V 검증"
+              : "Dual-Volt OK",
+      compatTone: !s.dual_voltage_100_240v ? "caution" : "pass",
+    };
+  }
+
   // CycleGear
   const d = computeCycleGearDerived(item, fx);
   const s = item.specs;
@@ -217,15 +278,25 @@ const colHeaders =
           fB: isKo ? "무인공감미료" : "No Artif. Sweeteners",
           fC: isKo ? "Informed Sport / Creapure" : "Informed Sport / Creapure",
         }
-      : {
-          m1: isKo ? "무게 (g)" : "Weight (g)",
-          m2: isKo ? "핵심 스펙" : "Key Metric",
-          m3: isKo ? "호환 지수" : "Compat Score",
-          m4: isKo ? "100g당 기준가" : "Cost / 100g",
-          fA: isKo ? "후크리스 안전 / 비대상" : "Hookless Safe / N/A",
-          fB: isKo ? "ANT+ / 좌우밸런스" : "ANT+ / L-R Balance",
-          fC: isKo ? "Shimano 12단 호환" : "Shimano 12s Ready",
-        };
+      : vertical === "hometech"
+        ? {
+            m1: isKo ? "3년 총소유비용(TCO)" : "3-Year TCO",
+            m2: isKo ? "평균 W / 연 kWh" : "Avg W / Annual kWh",
+            m3: isKo ? "소음 (dBA)" : "Noise (dBA)",
+            m4: isKo ? "무게" : "Weight",
+            fA: isKo ? "24/7 상시구동 / 저전력(<12W)" : "24/7 Always-On / Low Idle (<12W)",
+            fB: isKo ? "100–240V 프리볼트" : "100–240V Dual Voltage",
+            fC: isKo ? "정현파 / 2.5GbE+ / 고흡입" : "Pure Sine / 2.5GbE+ / High Suction",
+          }
+        : {
+            m1: isKo ? "무게 (g)" : "Weight (g)",
+            m2: isKo ? "핵심 스펙" : "Key Metric",
+            m3: isKo ? "호환 지수" : "Compat Score",
+            m4: isKo ? "100g당 기준가" : "Cost / 100g",
+            fA: isKo ? "후크리스 안전 / 비대상" : "Hookless Safe / N/A",
+            fB: isKo ? "ANT+ / 좌우밸런스" : "ANT+ / L-R Balance",
+            fC: isKo ? "Shimano 12단 호환" : "Shimano 12s Ready",
+          };
 
 const clientPayload = {
   basePath: BASE_PATH,
@@ -301,19 +372,28 @@ const clientPayload = {
       </div>
     </div>
 
-    <div class="flex flex-wrap items-center gap-4 border-t border-slate-100 pt-3 text-xs font-medium text-slate-700">
-      <label class="inline-flex cursor-pointer items-center gap-1.5">
-        <input id="mx-flag-a" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
-        <span>{colHeaders.fA}</span>
-      </label>
-      <label class="inline-flex cursor-pointer items-center gap-1.5">
-        <input id="mx-flag-b" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
-        <span>{colHeaders.fB}</span>
-      </label>
-      <label class="inline-flex cursor-pointer items-center gap-1.5">
-        <input id="mx-flag-c" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
-        <span>{colHeaders.fC}</span>
-      </label>
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3 text-xs font-medium text-slate-700">
+      <div class="flex flex-wrap items-center gap-4">
+        <label class="inline-flex cursor-pointer items-center gap-1.5">
+          <input id="mx-flag-a" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+          <span>{colHeaders.fA}</span>
+        </label>
+        <label class="inline-flex cursor-pointer items-center gap-1.5">
+          <input id="mx-flag-b" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+          <span>{colHeaders.fB}</span>
+        </label>
+        <label class="inline-flex cursor-pointer items-center gap-1.5">
+          <input id="mx-flag-c" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+          <span>{colHeaders.fC}</span>
+        </label>
+      </div>
+      <button
+        type="button"
+        id="mx-copy-filter"
+        class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700 transition-colors hover:border-blue-500 hover:text-blue-700"
+      >
+        <span>{isKo ? "필터 링크 복사" : "Copy Filter Link"}</span>
+      </button>
     </div>
   </div>
 
@@ -326,13 +406,20 @@ const clientPayload = {
       <span class="badge-info">{isKo ? "1:1 비교 선택" : "Compare Tray"}</span>
       <span id="mx-compare-names"></span>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <a
         id="mx-compare-link"
         href={withBase(`/${locale}`)}
+        class="hidden rounded-lg bg-slate-900 px-3 py-1.5 font-semibold text-white hover:bg-slate-800"
+      >
+        {isKo ? "에디토리얼 1:1 VS 열기 →" : "Open Curated 1:1 VS →"}
+      </a>
+      <a
+        id="mx-live-compare-link"
+        href={withBase(`/${locale}/compare`)}
         class="hidden rounded-lg bg-blue-700 px-3.5 py-1.5 font-semibold text-white hover:bg-blue-800"
       >
-        {isKo ? "1:1 정밀 VS 페이지 열기 →" : "Open 1:1 VS Breakdown →"}
+        {isKo ? "실시간 1:1 비교 워크벤치 열기 →" : "Open Live 1:1 Compare Workbench →"}
       </a>
       <span id="mx-compare-hint" class="font-mono text-[11px] text-blue-800"></span>
       <button
@@ -481,21 +568,82 @@ const clientPayload = {
     const flagB = document.getElementById("mx-flag-b") as HTMLInputElement | null;
     const flagC = document.getElementById("mx-flag-c") as HTMLInputElement | null;
     const resetBtn = document.getElementById("mx-reset");
+    const copyFilterBtn = document.getElementById("mx-copy-filter") as HTMLButtonElement | null;
     const countLabel = document.getElementById("mx-count-label");
     const sortBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".mx-sort-btn"));
 
     const compareBar = document.getElementById("mx-compare-bar");
     const compareNames = document.getElementById("mx-compare-names");
     const compareLink = document.getElementById("mx-compare-link");
+    const liveCompareLink = document.getElementById("mx-live-compare-link");
     const compareHint = document.getElementById("mx-compare-hint");
     const compareClear = document.getElementById("mx-compare-clear");
     const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>(".mx-cmp-chk"));
 
     let sortKey = "";
     let sortAsc = true;
+    let trackedFilter = false;
     const picked: Array<{ slug: string; label: string }> = [];
 
-    function applyFilter() {
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    function markFilterUsed() {
+      if (trackedFilter) return;
+      trackedFilter = true;
+      track("matrix_filter", { vertical: cfg.vertical });
+    }
+
+    function syncHashFromState() {
+      const params = new URLSearchParams();
+      const q = (searchInput ? searchInput.value : "").trim();
+      const cat = catSelect ? catSelect.value : "";
+      const brand = brandSelect ? brandSelect.value : "";
+      if (q) params.set("q", q);
+      if (cat) params.set("cat", cat);
+      if (brand) params.set("brand", brand);
+      if (flagA && flagA.checked) params.set("fa", "1");
+      if (flagB && flagB.checked) params.set("fb", "1");
+      if (flagC && flagC.checked) params.set("fc", "1");
+      if (sortKey) params.set("sort", `${sortKey}:${sortAsc ? "asc" : "desc"}`);
+      const encoded = params.toString();
+      const nextUrl = encoded
+        ? `#${encoded}`
+        : window.location.pathname + window.location.search;
+      try {
+        window.history.replaceState(null, "", nextUrl);
+      } catch {
+        // ignore history API restriction
+      }
+    }
+
+    function restoreStateFromHash() {
+      const rawHash = window.location.hash.replace(/^#/, "");
+      if (!rawHash) return;
+      const params = new URLSearchParams(rawHash);
+      if (searchInput && params.has("q")) searchInput.value = params.get("q") || "";
+      if (catSelect && params.has("cat")) catSelect.value = params.get("cat") || "";
+      if (brandSelect && params.has("brand")) brandSelect.value = params.get("brand") || "";
+      if (flagA) flagA.checked = params.get("fa") === "1";
+      if (flagB) flagB.checked = params.get("fb") === "1";
+      if (flagC) flagC.checked = params.get("fc") === "1";
+
+      const sortParam = params.get("sort") || "";
+      if (sortParam) {
+        const [k, dir] = sortParam.split(":");
+        if (k && ["name", "m1", "m2", "m3", "m4", "msrp"].includes(k)) {
+          sortKey = k;
+          sortAsc = dir !== "desc";
+          renderSortedRows(k, sortAsc);
+        }
+      }
+    }
+
+    function applyFilter(syncHash = true) {
       const q = (searchInput ? searchInput.value : "").trim().toLowerCase();
       const cat = catSelect ? catSelect.value : "";
       const brand = brandSelect ? brandSelect.value : "";
@@ -522,6 +670,24 @@ const clientPayload = {
       if (countLabel) {
         countLabel.textContent = `${visible} / ${allRows.length} ${isKo ? "개 모델 표시 중" : "models shown"}`;
       }
+      if (syncHash) syncHashFromState();
+    }
+
+    function renderSortedRows(key: string, asc: boolean) {
+      const sorted = [...allRows].sort((a, b) => {
+        if (key === "name") {
+          const sa = a.getAttribute("data-name") || "";
+          const sb = b.getAttribute("data-name") || "";
+          return asc ? sa.localeCompare(sb) : sb.localeCompare(sa);
+        }
+        const na = Number(a.getAttribute(`data-${key}`) || 0);
+        const nb = Number(b.getAttribute(`data-${key}`) || 0);
+        return asc ? na - nb : nb - na;
+      });
+
+      const targetBody = tbody;
+      if (!targetBody) return;
+      sorted.forEach((tr) => targetBody.appendChild(tr));
     }
 
     function applySort(key: string) {
@@ -531,25 +697,13 @@ const clientPayload = {
         sortKey = key;
         sortAsc = key === "name" || key === "msrp";
       }
-
-      const sorted = [...allRows].sort((a, b) => {
-        if (key === "name") {
-          const sa = a.getAttribute("data-name") || "";
-          const sb = b.getAttribute("data-name") || "";
-          return sortAsc ? sa.localeCompare(sb) : sb.localeCompare(sa);
-        }
-        const na = Number(a.getAttribute(`data-${key}`) || 0);
-        const nb = Number(b.getAttribute(`data-${key}`) || 0);
-        return sortAsc ? na - nb : nb - na;
-      });
-
-      const targetBody = tbody;
-      if (!targetBody) return;
-      sorted.forEach((tr) => targetBody.appendChild(tr));
+      renderSortedRows(key, sortAsc);
+      markFilterUsed();
+      syncHashFromState();
     }
 
     function updateCompareBar() {
-      if (!compareBar || !compareNames || !compareLink || !compareHint) return;
+      if (!compareBar || !compareNames || !compareLink || !liveCompareLink || !compareHint) return;
       if (picked.length === 0) {
         compareBar.classList.add("hidden");
         compareBar.classList.remove("flex");
@@ -561,6 +715,7 @@ const clientPayload = {
 
       if (picked.length < 2) {
         compareLink.classList.add("hidden");
+        liveCompareLink.classList.add("hidden");
         compareHint.textContent = isKo
           ? "비교할 모델을 1개 더 선택하세요."
           : "Select 1 more model to compare.";
@@ -569,23 +724,56 @@ const clientPayload = {
 
       const [a, b] = [picked[0].slug, picked[1].slug].sort();
       const pairSlug = `${a}-vs-${b}`;
+      const bp = cfg.basePath || "";
+
+      liveCompareLink.setAttribute(
+        "href",
+        `${bp}/${cfg.locale}/compare#${cfg.vertical}:${a}:${b}`
+      );
+      liveCompareLink.classList.remove("hidden");
+
       if (vsSet.has(pairSlug)) {
-        const bp = cfg.basePath || "";
         compareLink.setAttribute("href", `${bp}/${cfg.locale}/${cfg.vertical}/vs/${pairSlug}`);
         compareLink.classList.remove("hidden");
         compareHint.textContent = "";
       } else {
         compareLink.classList.add("hidden");
-        compareHint.textContent = isKo
-          ? "해당 조합의 전용 VS 페이지는 준비 중입니다 (각 모델 상세 페이지에서 스펙을 확인하세요)."
-          : "Curated VS page not published for this exact pair yet — open either model profile for full specs.";
+        compareHint.textContent = "";
+      }
+    }
+
+    function copyText(text: string): Promise<boolean> {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        return navigator.clipboard
+          .writeText(text)
+          .then(() => true)
+          .catch(() => false);
+      }
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return Promise.resolve(ok);
+      } catch {
+        return Promise.resolve(false);
       }
     }
 
     [searchInput, catSelect, brandSelect, flagA, flagB, flagC].forEach((el) => {
       if (el) {
-        el.addEventListener("input", applyFilter);
-        el.addEventListener("change", applyFilter);
+        el.addEventListener("input", () => {
+          markFilterUsed();
+          applyFilter(true);
+        });
+        el.addEventListener("change", () => {
+          markFilterUsed();
+          applyFilter(true);
+        });
       }
     });
 
@@ -597,7 +785,25 @@ const clientPayload = {
         if (flagA) flagA.checked = false;
         if (flagB) flagB.checked = false;
         if (flagC) flagC.checked = false;
-        applyFilter();
+        sortKey = "";
+        sortAsc = true;
+        applyFilter(true);
+      });
+    }
+
+    if (copyFilterBtn) {
+      const defLabel = isKo ? "필터 링크 복사" : "Copy Filter Link";
+      const okLabel = isKo ? "링크 복사됨 ✓" : "Link Copied ✓";
+      copyFilterBtn.addEventListener("click", () => {
+        syncHashFromState();
+        copyText(window.location.href).then(() => {
+          copyFilterBtn.textContent = okLabel;
+          copyFilterBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          window.setTimeout(() => {
+            copyFilterBtn.textContent = defLabel;
+            copyFilterBtn.classList.remove("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          }, 1800);
+        });
       });
     }
 
@@ -638,5 +844,12 @@ const clientPayload = {
         updateCompareBar();
       });
     }
+
+    restoreStateFromHash();
+    applyFilter(false);
+    window.addEventListener("hashchange", () => {
+      restoreStateFromHash();
+      applyFilter(false);
+    });
   })();
 </script>

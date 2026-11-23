@@ -9,19 +9,23 @@ import {
   WattCheckItemSchema,
   PureGramItemSchema,
   CycleGearItemSchema,
+  HomeTechItemSchema,
 } from "../../schemas/ssot-schema.mjs";
 import {
   verifyWattCheckPhysics,
   verifyPureGramPhysics,
   verifyCycleGearPhysics,
+  verifyHomeTechPhysics,
   verifyCrossAuditGuards,
   scanYmylForbiddenTerms,
 } from "../physics-math.mjs";
 import {
   DEFAULT_FX_RATES,
+  HOMETECH_ELEC_RATES,
   computeWattCheckDerived,
   computePureGramDerived,
   computeCycleGearDerived,
+  computeHomeTechDerived,
   computeVsDiffTable,
 } from "../derived-metrics.mjs";
 import { validateFxRatesUpdate, updateFxSnapshot } from "../update-fx.mjs";
@@ -33,6 +37,13 @@ import {
 } from "../serp-ig-audit.mjs";
 import { runValidation } from "../validate-all.mjs";
 import {
+  classifyHttpStatus,
+  checkSingleUrl,
+  mapWithConcurrency,
+  summarizeHealthResults,
+  runLinkHealthCheck,
+} from "../check-links-health.mjs";
+import {
   scanVisibleLeakTokens,
   extractInternalHrefs,
   resolveInternalHref,
@@ -40,8 +51,14 @@ import {
   extractAffiliateLinks,
   extractJsonLdBlocks,
   validateSitemapXml,
+  isErrorFallbackPage,
+  extractMetaTags,
+  isValidPngBuffer,
+  validateSearchIndexPayload,
   runStage6HtmlQa,
   REQUIRED_SPLIT_SITEMAPS,
+  REQUIRED_OG_IMAGES,
+  PNG_SIGNATURE,
 } from "../stage6-html-qa.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -1573,7 +1590,17 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
     const tmpDist = fs.mkdtempSync(path.join(os.tmpdir(), "sm-stage6-dist-"));
     const siteUrl = "https://specmatrix.io";
 
-    function writePage(routePath, { locale = null, extraBody = "", includeJsonLd = true, omitKoHreflang = false } = {}) {
+    function writePage(
+      routePath,
+      {
+        locale = null,
+        extraBody = "",
+        includeJsonLd = true,
+        omitKoHreflang = false,
+        omitSocialMeta = false,
+        ogImageFile = "og-default.png",
+      } = {}
+    ) {
       const rest = locale ? routePath.replace(new RegExp(`^/${locale}`), "") : "";
       const dir = routePath === "/" ? tmpDist : path.join(tmpDist, routePath.replace(/^\//, ""));
       fs.mkdirSync(dir, { recursive: true });
@@ -1589,6 +1616,12 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
           <link rel="alternate" hreflang="en" href="${siteUrl}/en${rest}" />
           ${omitKoHreflang ? "" : `<link rel="alternate" hreflang="ko" href="${siteUrl}/ko${rest}" />`}
           <link rel="alternate" hreflang="x-default" href="${siteUrl}/en${rest}" />
+          ${
+            omitSocialMeta
+              ? ""
+              : `<meta property="og:image" content="${siteUrl}/og/${ogImageFile}" />
+          <meta name="twitter:card" content="summary_large_image" />`
+          }
         `
         : "";
 
@@ -1617,24 +1650,36 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
     }
 
     try {
-      // Build a complete small dist covering root, en/ko portals, and all 6 vertical-locale pairs
+      // Build a complete small dist covering root, en/ko portals, 404.html, and all 8 vertical-locale pairs
       writePage("/");
       writePage("/en", { locale: "en" });
       writePage("/ko", { locale: "ko" });
 
+      // Non-localized 404.html fallback (no canonical/hreflang/og:image — must be excluded cleanly)
+      fs.writeFileSync(
+        path.join(tmpDist, "404.html"),
+        `<!doctype html><html lang="en"><head><meta charset="utf-8" /><title>404 Not Found</title></head><body><main><h1>Page Not Found</h1><a href="/en">EN Hub</a><a href="/ko">KO Hub</a></main></body></html>`,
+        "utf8"
+      );
+
       const sampleRoutes = [
-        "/wattcheck/item/anker-prime-27650mah-250w",
-        "/puregram/item/maurten-gel-100",
-        "/cyclegear/item/favero-assioma-pro-rs-2",
+        { route: "/wattcheck/item/anker-prime-27650mah-250w", og: "og-wattcheck.png" },
+        { route: "/wattcheck/matrix/airlines-30", og: "og-wattcheck.png" },
+        { route: "/puregram/item/maurten-gel-100", og: "og-puregram.png" },
+        { route: "/cyclegear/item/favero-assioma-pro-rs-2", og: "og-cyclegear.png" },
+        { route: "/hometech/item/apple-mac-mini-m4", og: "og-hometech.png" },
+        { route: "/hometech/vs/apple-mac-mini-m4-vs-beelink-ser8-8745hs", og: "og-hometech.png" },
       ];
 
-      for (const r of sampleRoutes) {
-        writePage(`/en${r}`, {
+      for (const { route, og } of sampleRoutes) {
+        writePage(`/en${route}`, {
           locale: "en",
+          ogImageFile: og,
           extraBody: `<a href="https://www.amazon.com/s?k=test&tag=kbu3986-20" rel="sponsored nofollow noopener">Check Amazon</a>`,
         });
-        writePage(`/ko${r}`, {
+        writePage(`/ko${route}`, {
           locale: "ko",
+          ogImageFile: og,
           extraBody: `<a href="https://www.coupang.com/np/search?q=test&lptag=AF2200875&subid=sm-watt-kr" rel="sponsored nofollow noopener">쿠팡 확인</a>`,
         });
       }
@@ -1651,7 +1696,36 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         "utf8"
       );
 
-      // 6 split sitemaps + sitemap-index.xml
+      // 5 valid PNG OG social cards in dist/og/
+      fs.mkdirSync(path.join(tmpDist, "og"), { recursive: true });
+      const minimalPng = Buffer.concat([PNG_SIGNATURE, Buffer.alloc(16, 0)]);
+      for (const ogFile of REQUIRED_OG_IMAGES) {
+        fs.writeFileSync(path.join(tmpDist, "og", ogFile), minimalPng);
+      }
+
+      // Client-side search-index.json with non-empty SKU items, airlines, VS, and matrices
+      fs.writeFileSync(
+        path.join(tmpDist, "search-index.json"),
+        JSON.stringify(
+          {
+            generated_at: "2026-11-23",
+            counts: { sku: 2, airline: 1, vs: 1, matrix: 1 },
+            items: [
+              { t: "sku", v: "wattcheck", en: "Anker Prime 27650", p: "/wattcheck/item/anker-prime-27650mah-250w" },
+              { t: "sku", v: "hometech", en: "Apple Mac mini M4", p: "/hometech/item/apple-mac-mini-m4" },
+              { t: "airline", v: "wattcheck", en: "Korean Air (KE)", p: "/wattcheck/matrix/airlines-30#KE" },
+              { t: "vs", v: "hometech", en: "Mac mini M4 vs SER8", p: "/hometech/vs/apple-mac-mini-m4-vs-beelink-ser8-8745hs" },
+              { t: "matrix", v: "wattcheck", en: "30 Global Airlines Matrix", p: "/wattcheck/matrix/airlines-30" },
+            ],
+          },
+          null,
+          2
+        ),
+        "utf8"
+      );
+
+      // 8 split sitemaps + sitemap-index.xml
+      assert.equal(REQUIRED_SPLIT_SITEMAPS.length, 8);
       const indexEntries = REQUIRED_SPLIT_SITEMAPS.map(
         (s) => `<sitemap><loc>${siteUrl}/${s.file}</loc></sitemap>`
       ).join("\n");
@@ -1665,6 +1739,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         wattcheck: "anker-prime-27650mah-250w",
         puregram: "maurten-gel-100",
         cyclegear: "favero-assioma-pro-rs-2",
+        hometech: "apple-mac-mini-m4",
       };
       for (const s of REQUIRED_SPLIT_SITEMAPS) {
         const pageUrl = `${siteUrl}/${s.locale}/${s.vertical}/item/${itemSlugByVertical[s.vertical]}`;
@@ -1675,26 +1750,31 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         );
       }
 
-      // 1. Passing run (using minCorePages: 9 for the small fixture)
-      const passQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 9 });
+      // 1. Passing run (3 portals + 1 404.html + 6*2 routes = 16 HTML files)
+      const passQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 16 });
       assert.equal(passQa.overall_passed, true, JSON.stringify(passQa.failures, null, 2));
-      assert.equal(passQa.stats.html_files, 9);
-      assert.equal(passQa.stats.affiliate_links_checked, 6);
+      assert.equal(passQa.stats.html_files, 16);
+      assert.equal(passQa.stats.affiliate_links_checked, 12);
+      assert.equal(passQa.stats.error_fallback_pages, 1);
+      assert.equal(passQa.stats.og_images_validated, REQUIRED_OG_IMAGES.length);
+      assert.equal(passQa.stats.search_index_entries, 5);
 
       // 2. Verify resolveInternalHref helper
       assert.equal(resolveInternalHref(tmpDist, "/en/wattcheck/item/anker-prime-27650mah-250w"), true);
+      assert.equal(resolveInternalHref(tmpDist, "/en/hometech/item/apple-mac-mini-m4"), true);
       assert.equal(resolveInternalHref(tmpDist, "/en/does-not-exist"), false);
       assert.equal(resolveInternalHref(tmpDist, "/../../etc/passwd"), false);
 
-      // 3. Inject defects: broken internal link, visible NaN, missing JSON-LD, asymmetric hreflang
+      // 3. Inject defects: broken internal link, visible NaN, missing JSON-LD, asymmetric hreflang, missing social meta
       writePage("/en/wattcheck/item/anker-prime-27650mah-250w", {
         locale: "en",
         extraBody: `<a href="/en/broken-page">Broken</a><p>Weight: NaN g</p>`,
         includeJsonLd: false,
         omitKoHreflang: true,
+        omitSocialMeta: true,
       });
 
-      const failQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 9 });
+      const failQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 16 });
       assert.equal(failQa.overall_passed, false);
       const checks = new Set(failQa.failures.map((f) => f.check));
       assert.ok(checks.has("broken_internal_link"));
@@ -1702,8 +1782,10 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
       assert.ok(checks.has("jsonld_missing_on_content_page"));
       assert.ok(checks.has("hreflang_missing"));
       assert.ok(checks.has("hreflang_asymmetric_backlink"));
+      assert.ok(checks.has("og_image_meta_missing"));
+      assert.ok(checks.has("twitter_card_meta_missing"));
 
-      // 4. Verify minCorePages enforcement (default 200 fails when only 9 pages built) & maxTotalFiles cap
+      // 4. Verify minCorePages enforcement (default 200 fails when only 16 pages built) & maxTotalFiles cap
       const underCapQa = runStage6HtmlQa({ distDir: tmpDist });
       assert.ok(underCapQa.failures.some((f) => f.check === "min_core_pages"));
 
@@ -1718,17 +1800,581 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
       </body></html>`;
       assert.deepEqual(extractInternalHrefs(scriptHtml), ["/en/about#faq"]);
 
-      // 6. Verify missing ads.txt, robots.txt, and split sitemap are caught
+      // 6. Verify missing ads.txt, robots.txt, hometech split sitemap, corrupt OG PNG, and missing search-index.json are caught
       fs.unlinkSync(path.join(tmpDist, "ads.txt"));
       fs.unlinkSync(path.join(tmpDist, "robots.txt"));
-      fs.unlinkSync(path.join(tmpDist, "sitemap-puregram-ko.xml"));
-      const missingMetaQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 9 });
+      fs.unlinkSync(path.join(tmpDist, "sitemap-hometech-ko.xml"));
+      fs.writeFileSync(path.join(tmpDist, "og", "og-hometech.png"), "not-a-png-file", "utf8");
+      fs.unlinkSync(path.join(tmpDist, "search-index.json"));
+      const missingMetaQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 16 });
       const missingChecks = new Set(missingMetaQa.failures.map((f) => f.check));
       assert.ok(missingChecks.has("ads_txt_missing"));
       assert.ok(missingChecks.has("robots_txt_missing"));
       assert.ok(missingChecks.has("split_sitemap_missing"));
+      assert.ok(missingChecks.has("og_image_invalid_png"));
+      assert.ok(missingChecks.has("search_index_missing"));
     } finally {
       fs.rmSync(tmpDist, { recursive: true, force: true });
     }
+  });
+});
+
+// =============================================================================
+// 6. HomeTech Vertical Fixtures & Physics / Derived Metrics / VS Diff Tests
+// =============================================================================
+
+function makeHomeTechMiniPcItem(overrides = {}) {
+  const base = {
+    schema_version: "2.0.0",
+    vertical: "hometech",
+    category: "minipc",
+    slug: "apple-mac-mini-m4",
+    release_wave: 1,
+    available_locales: ["en", "ko"],
+    brand: "Apple",
+    model_number: "MU9D3LL/A",
+    origin_country: "US",
+    regional_offers: {
+      us: {
+        asin: null,
+        sku: "MU9D3LL/A",
+        msrp: 599,
+        currency: "USD",
+        price_mode: "msrp_benchmark_mode",
+        price_checked_at: "2026-11-23",
+        search_query: "Apple Mac mini M4 16GB 256GB",
+        status: "IN_STOCK",
+      },
+      kr: {
+        asin: null,
+        sku: "MU9D3KH/A",
+        msrp: 890000,
+        currency: "KRW",
+        price_mode: "msrp_benchmark_mode",
+        price_checked_at: "2026-11-23",
+        search_query: "애플 맥미니 M4 16GB 256GB",
+        status: "IN_STOCK",
+      },
+    },
+    i18n: {
+      en: {
+        name: "Apple Mac mini M4",
+        title: "Apple Mac mini M4: 24/7 Power Draw & 3-Year TCO Audit",
+        summary:
+          "Compact Apple Silicon desktop idling at 4 W with internal 100-240 V PSU for low-cost always-on home server duty.",
+        best_for: "Developers and 24/7 homelab operators prioritizing minimal electricity costs.",
+        local_gotchas: [
+          "Standard base SKU includes 1GbE; 10GbE must be configured at factory order.",
+          "Bottom-mounted power button requires lifting the chassis if placed in tight shelves.",
+        ],
+      },
+      ko: {
+        name: "애플 맥 미니 M4",
+        title: "애플 맥 미니 M4: 24시간 소비전력 및 3년 유지비 TCO 분석",
+        summary:
+          "유휴 4 W 초저전력 설계와 100-240 V 내장 파워를 갖춰 24시간 홈서버 및 데스크톱 용도에 최적화된 미니PC입니다.",
+        best_for: "한전 누진제 구간에서도 전기요금 부담을 줄이려는 상시 구동 사용자.",
+        local_gotchas: [
+          "기본 모델은 1GbE 유선랜이며 10GbE 옵션은 주문 시 CTO로만 추가 가능합니다.",
+          "한국 정식 출시 모델은 220V 전원 케이블 동봉 및 KC 인증이 완료되어 있습니다.",
+        ],
+      },
+    },
+    citations: [
+      {
+        label: "Apple Mac mini M4 Official Tech Specs",
+        url: "https://www.apple.com/mac-mini/specs/",
+        source_tier: 1,
+        verified_at: "2026-11-23",
+      },
+      {
+        label: "Apple Mac mini Power Consumption & Thermal Output",
+        url: "https://support.apple.com/en-us/103253",
+        source_tier: 1,
+        verified_at: "2026-11-23",
+      },
+    ],
+    audit: {
+      fact_checked_at: "2026-11-23",
+      adversarial_pass: true,
+      trust_score: 98,
+      info_gain_score: 93,
+      human_spot_checked: true,
+    },
+    specs: {
+      idle_power_w: 4,
+      typical_load_w: 20,
+      peak_power_w: 65,
+      default_daily_hours_active: 6,
+      annual_consumables_usd: 0,
+      annual_consumables_krw: 0,
+      noise_idle_dba: 18,
+      noise_load_dba: 26,
+      weight_g: 670,
+      dimensions_mm: { l: 127, w: 127, h: 50 },
+      input_voltage_range: "100-240V ~ 50/60Hz",
+      dual_voltage_100_240v: true,
+      cpu_or_soc: "Apple M4 (10-core CPU)",
+      ram_gb_default: 16,
+      drive_bays: null,
+      lan_speed_gbps: 1,
+      ups_va_rating: null,
+      ups_watt_rating: null,
+      ups_waveform: null,
+      ups_runtime_half_load_min: null,
+      suction_pa: null,
+      dustbag_capacity_l: null,
+      certifications: ["FCC", "CE", "UL", "KC"],
+      key_specs_kv: [
+        { key_en: "CPU / SoC", key_ko: "칩셋", value: "Apple M4 (10-Core)" },
+        { key_en: "Default RAM", key_ko: "기본 메모리", value: "16 GB Unified" },
+        { key_en: "Default Storage", key_ko: "기본 저장장치", value: "256 GB SSD" },
+        { key_en: "Ethernet", key_ko: "유선랜", value: "1 Gbps (10GbE CTO)" },
+        { key_en: "Idle Power", key_ko: "유휴 전력", value: "4 W" },
+        { key_en: "Power Supply", key_ko: "전원부", value: "Internal 100-240V" },
+      ],
+    },
+    tco_profile: {
+      always_on_24_7: true,
+      expected_lifespan_years: 6,
+      battery_or_filter_cycle_months: null,
+      korea_220v_note_en: "Internal 100-240V universal PSU operates natively on Korean 220V/60Hz power.",
+      korea_220v_note_ko: "100-240V 프리볼트 내장 파워로 한국 220V/60Hz 환경에서 변압기 없이 사용 가능합니다.",
+    },
+  };
+  return Object.assign(base, overrides);
+}
+
+function makeHomeTechNasItem(overrides = {}) {
+  const base = clone(makeHomeTechMiniPcItem());
+  base.category = "nas";
+  base.slug = "synology-ds423-plus";
+  base.brand = "Synology";
+  base.model_number = "DS423+";
+  base.origin_country = "TW";
+  base.regional_offers.us.msrp = 499.99;
+  base.regional_offers.kr.msrp = 819000;
+  base.specs = {
+    ...base.specs,
+    idle_power_w: 8.45,
+    typical_load_w: 28.3,
+    peak_power_w: 90,
+    default_daily_hours_active: 8,
+    noise_idle_dba: 19.8,
+    noise_load_dba: 26.5,
+    weight_g: 2180,
+    dimensions_mm: { l: 223, w: 199, h: 166 },
+    cpu_or_soc: "Intel Celeron J4125",
+    ram_gb_default: 2,
+    drive_bays: 4,
+    lan_speed_gbps: 1,
+  };
+  return Object.assign(base, overrides);
+}
+
+function makeHomeTechUpsItem(overrides = {}) {
+  const base = clone(makeHomeTechMiniPcItem());
+  base.category = "ups";
+  base.slug = "cyberpower-cp1500pfclcd";
+  base.brand = "CyberPower";
+  base.model_number = "CP1500PFCLCD";
+  base.regional_offers.us.msrp = 274.95;
+  base.regional_offers.kr.msrp = 640000;
+  base.specs = {
+    ...base.specs,
+    idle_power_w: 6,
+    typical_load_w: 12,
+    peak_power_w: 65,
+    default_daily_hours_active: 24,
+    annual_consumables_usd: 18,
+    annual_consumables_krw: 24000,
+    noise_idle_dba: 22,
+    noise_load_dba: 45,
+    weight_g: 11250,
+    dimensions_mm: { l: 356, w: 100, h: 265 },
+    input_voltage_range: "120V ~ 60Hz (US)",
+    dual_voltage_100_240v: false,
+    cpu_or_soc: null,
+    ram_gb_default: null,
+    drive_bays: null,
+    lan_speed_gbps: null,
+    ups_va_rating: 1500,
+    ups_watt_rating: 1000,
+    ups_waveform: "pure-sine",
+    ups_runtime_half_load_min: 10,
+  };
+  base.tco_profile.battery_or_filter_cycle_months = 36;
+  return Object.assign(base, overrides);
+}
+
+function makeHomeTechVacuumItem(overrides = {}) {
+  const base = clone(makeHomeTechMiniPcItem());
+  base.category = "robot-vacuum";
+  base.slug = "roborock-s8-maxv-ultra";
+  base.brand = "Roborock";
+  base.model_number = "S8MaxVUltra";
+  base.origin_country = "CN";
+  base.regional_offers.us.msrp = 1799.99;
+  base.regional_offers.kr.msrp = 1840000;
+  base.specs = {
+    ...base.specs,
+    idle_power_w: 4.5,
+    typical_load_w: 74,
+    peak_power_w: 1350,
+    default_daily_hours_active: 1.5,
+    annual_consumables_usd: 85,
+    annual_consumables_krw: 110000,
+    noise_idle_dba: 22,
+    noise_load_dba: 67,
+    weight_g: 4500,
+    dimensions_mm: { l: 353, w: 350, h: 103 },
+    input_voltage_range: "220V ~ 60Hz (KR) / 120V (US)",
+    dual_voltage_100_240v: false,
+    cpu_or_soc: null,
+    ram_gb_default: null,
+    drive_bays: null,
+    lan_speed_gbps: null,
+    suction_pa: 10000,
+    dustbag_capacity_l: 2.5,
+  };
+  base.tco_profile.always_on_24_7 = false;
+  base.tco_profile.battery_or_filter_cycle_months = 6;
+  return Object.assign(base, overrides);
+}
+
+describe("physics-math: HomeTech invariants", () => {
+  it("passes valid MiniPC, NAS, UPS, and Robot Vacuum against HomeTechItemSchema & verifyHomeTechPhysics", () => {
+    const fixtures = [
+      makeHomeTechMiniPcItem(),
+      makeHomeTechNasItem(),
+      makeHomeTechUpsItem(),
+      makeHomeTechVacuumItem(),
+    ];
+    for (const item of fixtures) {
+      const zRes = HomeTechItemSchema.safeParse(item);
+      assert.equal(zRes.success, true, `${item.slug} Zod failed: ${JSON.stringify(zRes.error?.issues)}`);
+      const pRes = verifyHomeTechPhysics(item);
+      assert.equal(pRes.passed, true, `${item.slug} physics failed: ${JSON.stringify(pRes.errors)}`);
+      assert.ok(countStructuredFields(item) >= 15);
+      assert.equal(auditItemInformationGain(item, DEFAULT_FX_RATES).passed, true);
+    }
+  });
+
+  it("rejects power hierarchy violations (idle > typical, typical > peak) and daily hours out of range", () => {
+    const badIdle = makeHomeTechMiniPcItem();
+    badIdle.specs.idle_power_w = 30;
+    badIdle.specs.typical_load_w = 20;
+    assert.equal(HomeTechItemSchema.safeParse(badIdle).success, false);
+    assert.ok(verifyHomeTechPhysics(badIdle).errors.some((e) => e.code === "HOME_POWER_HIERARCHY"));
+
+    const badPeak = makeHomeTechMiniPcItem();
+    badPeak.specs.typical_load_w = 80;
+    badPeak.specs.peak_power_w = 65;
+    assert.equal(HomeTechItemSchema.safeParse(badPeak).success, false);
+    assert.ok(verifyHomeTechPhysics(badPeak).errors.some((e) => e.code === "HOME_POWER_HIERARCHY"));
+
+    const badHours = makeHomeTechMiniPcItem();
+    badHours.specs.default_daily_hours_active = 28;
+    assert.ok(verifyHomeTechPhysics(badHours).errors.some((e) => e.code === "HOME_DAILY_HOURS_RANGE"));
+  });
+
+  it("rejects UPS power factor > 1.0 (watt > va), missing waveform, and missing runtime", () => {
+    const badUps = makeHomeTechUpsItem();
+    badUps.specs.ups_va_rating = 1000;
+    badUps.specs.ups_watt_rating = 1200; // PF = 1.2 > 1.0
+    badUps.specs.ups_waveform = null;
+    badUps.specs.ups_runtime_half_load_min = null;
+
+    const res = verifyHomeTechPhysics(badUps);
+    assert.equal(res.passed, false);
+    const codes = new Set(res.errors.map((e) => e.code));
+    assert.ok(codes.has("HOME_UPS_POWER_FACTOR_EXCEEDS_1"));
+    assert.ok(codes.has("HOME_UPS_WAVEFORM_REQUIRED"));
+    assert.ok(codes.has("HOME_UPS_RUNTIME_REQUIRED"));
+  });
+
+  it("rejects acoustic noise outside 15–85 dBA and idle > load + 1 dBA", () => {
+    const lowNoise = makeHomeTechMiniPcItem();
+    lowNoise.specs.noise_idle_dba = 8;
+    assert.ok(verifyHomeTechPhysics(lowNoise).errors.some((e) => e.code === "HOME_NOISE_IDLE_RANGE"));
+
+    const highNoise = makeHomeTechMiniPcItem();
+    highNoise.specs.noise_load_dba = 95;
+    assert.ok(verifyHomeTechPhysics(highNoise).errors.some((e) => e.code === "HOME_NOISE_LOAD_RANGE"));
+
+    const invertedNoise = makeHomeTechMiniPcItem();
+    invertedNoise.specs.noise_idle_dba = 42;
+    invertedNoise.specs.noise_load_dba = 35;
+    assert.ok(verifyHomeTechPhysics(invertedNoise).errors.some((e) => e.code === "HOME_NOISE_ORDER"));
+  });
+
+  it("rejects NAS missing drive_bays/lan_speed_gbps and Robot Vacuum missing suction_pa/consumables", () => {
+    const badNas = makeHomeTechNasItem();
+    badNas.specs.drive_bays = null;
+    badNas.specs.lan_speed_gbps = null;
+    const nasCodes = new Set(verifyHomeTechPhysics(badNas).errors.map((e) => e.code));
+    assert.ok(nasCodes.has("HOME_NAS_DRIVE_BAYS_REQUIRED"));
+    assert.ok(nasCodes.has("HOME_NAS_LAN_SPEED_REQUIRED"));
+
+    const badVac = makeHomeTechVacuumItem();
+    badVac.specs.suction_pa = 500;
+    badVac.specs.annual_consumables_usd = 0;
+    badVac.specs.annual_consumables_krw = 0;
+    const vacCodes = new Set(verifyHomeTechPhysics(badVac).errors.map((e) => e.code));
+    assert.ok(vacCodes.has("HOME_VACUUM_SUCTION_REQUIRED"));
+    assert.ok(vacCodes.has("HOME_VACUUM_CONSUMABLES_USD_REQUIRED"));
+    assert.ok(vacCodes.has("HOME_VACUUM_CONSUMABLES_KRW_REQUIRED"));
+  });
+});
+
+describe("derived-metrics: HomeTech TCO & VS diff table", () => {
+  it("computes exact weighted_avg_w, annual_kwh, US/KR/DE electricity cost, 3-yr TCO, and UPS PF", () => {
+    assert.equal(HOMETECH_ELEC_RATES.usd_per_kwh, 0.17);
+    assert.equal(HOMETECH_ELEC_RATES.krw_per_kwh, 214);
+    assert.equal(HOMETECH_ELEC_RATES.eur_de_per_kwh, 0.38);
+
+    const mac = makeHomeTechMiniPcItem();
+    // weighted_avg_w = (20*6 + 4*18) / 24 = 8.0 W; annual_kwh = 8 * 8.76 = 70.08
+    const dMac = computeHomeTechDerived(mac, DEFAULT_FX_RATES);
+    assert.equal(dMac.weighted_avg_w, 8);
+    assert.equal(dMac.annual_kwh, 70.08);
+    assert.equal(dMac.annual_elec_usd, 11.91); // 70.08 * 0.17 = 11.9136
+    assert.equal(dMac.annual_elec_krw, 14997); // Math.round(70.08 * 214 = 14997.12)
+    assert.equal(dMac.annual_elec_eur_de, 26.63); // 70.08 * 0.38 = 26.6304
+    assert.equal(dMac.tco_3yr_usd, 634.73); // 599 + 3 * (11.91 + 0)
+    assert.equal(dMac.tco_3yr_krw, 934991); // 890000 + 3 * (14997 + 0)
+    assert.equal(dMac.ups_power_factor, null);
+    assert.ok(dMac.derived_metric_count >= 5);
+
+    const ups = makeHomeTechUpsItem();
+    // 24h active -> weighted_avg_w = 12 W; annual_kwh = 12 * 8.76 = 105.12
+    const dUps = computeHomeTechDerived(ups, DEFAULT_FX_RATES);
+    assert.equal(dUps.weighted_avg_w, 12);
+    assert.equal(dUps.annual_kwh, 105.12);
+    assert.equal(dUps.annual_elec_usd, 17.87); // 105.12 * 0.17 = 17.8704
+    assert.equal(dUps.annual_elec_krw, 22496); // Math.round(105.12 * 214 = 22495.68)
+    assert.equal(dUps.tco_3yr_usd, 382.56); // 274.95 + 3 * (17.87 + 18)
+    assert.equal(dUps.tco_3yr_krw, 779488); // 640000 + 3 * (22496 + 24000)
+    assert.equal(dUps.ups_power_factor, 0.67); // 1000 / 1500
+  });
+
+  it("produces >= 7 zero-NaN quantitative VS diff rows for HomeTech pairs (MiniPC & UPS)", () => {
+    const mac = makeHomeTechMiniPcItem({ slug: "apple-mac-mini-m4" });
+    const ser8 = makeHomeTechMiniPcItem({ slug: "beelink-ser8-8745hs" });
+    ser8.regional_offers.us.msrp = 649;
+    ser8.regional_offers.kr.msrp = 899000;
+    ser8.specs.idle_power_w = 9.5;
+    ser8.specs.typical_load_w = 38;
+    ser8.specs.peak_power_w = 82;
+    ser8.specs.lan_speed_gbps = 2.5;
+    ser8.specs.weight_g = 750;
+
+    const pcDiff = computeVsDiffTable(mac, ser8, DEFAULT_FX_RATES);
+    assert.ok(pcDiff.rows.length >= 7);
+    assert.equal(pcDiff.canonical_order_valid, true);
+    for (const r of pcDiff.rows) {
+      assert.ok(!Number.isNaN(r.value_a) && !Number.isNaN(r.value_b) && !Number.isNaN(r.delta_a_minus_b));
+    }
+    const pcMap = new Map(pcDiff.rows.map((r) => [r.key, r]));
+    assert.equal(pcMap.get("tco_3yr_usd").winner, "a");
+    assert.equal(pcMap.get("annual_kwh").winner, "a");
+    assert.equal(pcMap.get("lan_speed_gbps").winner, "b");
+
+    // UPS vs UPS includes ups_power_factor and ups_runtime_half_load_min
+    const upsA = makeHomeTechUpsItem({ slug: "apc-back-ups-bx750mi" });
+    upsA.specs.ups_va_rating = 750;
+    upsA.specs.ups_watt_rating = 410;
+    upsA.specs.ups_waveform = "simulated-sine";
+    upsA.specs.ups_runtime_half_load_min = 8.5;
+    const upsB = makeHomeTechUpsItem({ slug: "cyberpower-cp1500pfclcd" });
+    const upsDiff = computeVsDiffTable(upsA, upsB, DEFAULT_FX_RATES);
+    const upsMap = new Map(upsDiff.rows.map((r) => [r.key, r]));
+    assert.equal(upsMap.get("ups_power_factor").winner, "b"); // 0.67 > 0.55
+    assert.equal(upsMap.get("ups_runtime_half_load_min").winner, "b"); // 10 > 8.5
+  });
+});
+
+// =============================================================================
+// 7. Tier 3 Link Health Checker & Stage 6 v2 Helper Tests (100% Offline)
+// =============================================================================
+
+describe("check-links-health: pure classifiers, HEAD->GET fallback, concurrency & offline mock run", () => {
+  it("classifies HTTP status codes accurately into OK / REDIRECT / BOT_CHALLENGE / DEAD", () => {
+    assert.equal(classifyHttpStatus(200), "OK");
+    assert.equal(classifyHttpStatus(204), "OK");
+    assert.equal(classifyHttpStatus(200, { redirected: true }), "REDIRECT");
+    assert.equal(classifyHttpStatus(301), "REDIRECT");
+    assert.equal(classifyHttpStatus(302), "REDIRECT");
+    assert.equal(classifyHttpStatus(403), "BOT_CHALLENGE");
+    assert.equal(classifyHttpStatus(429), "BOT_CHALLENGE");
+    assert.equal(classifyHttpStatus(404), "DEAD");
+    assert.equal(classifyHttpStatus(410), "DEAD");
+    assert.equal(classifyHttpStatus(500), "DEAD");
+    assert.equal(classifyHttpStatus(503), "DEAD");
+    assert.equal(classifyHttpStatus(null, { error: "ENOTFOUND" }), "DEAD");
+  });
+
+  it("handles HEAD 200 without GET, falls back to GET on HEAD 405, and classifies 403/timeout cleanly", async () => {
+    // 1. Clean HEAD 200 -> 1 call only
+    const headCalls = [];
+    const okRes = await checkSingleUrl("https://example.com/ok", {
+      fetchImpl: async (url, opts) => {
+        headCalls.push(opts.method);
+        return { status: 200, redirected: false, url };
+      },
+    });
+    assert.deepEqual(headCalls, ["HEAD"]);
+    assert.equal(okRes.classification, "OK");
+    assert.equal(okRes.method_used, "HEAD");
+
+    // 2. HEAD 405 -> automatic GET fallback -> 200 OK
+    const fallbackCalls = [];
+    const fbRes = await checkSingleUrl("https://example.com/no-head", {
+      fetchImpl: async (url, opts) => {
+        fallbackCalls.push(opts.method);
+        if (opts.method === "HEAD") return { status: 405, redirected: false, url };
+        return { status: 200, redirected: true, url: "https://example.com/final" };
+      },
+    });
+    assert.deepEqual(fallbackCalls, ["HEAD", "GET"]);
+    assert.equal(fbRes.method_used, "GET");
+    assert.equal(fbRes.classification, "REDIRECT");
+    assert.equal(fbRes.final_url, "https://example.com/final");
+
+    // 3. Persistent 403 -> BOT_CHALLENGE
+    const botRes = await checkSingleUrl("https://example.com/waf", {
+      fetchImpl: async (url) => ({ status: 403, redirected: false, url }),
+    });
+    assert.equal(botRes.classification, "BOT_CHALLENGE");
+
+    // 4. Timeout via AbortController -> DEAD
+    const timeoutRes = await checkSingleUrl("https://example.com/slow", {
+      timeoutMs: 20,
+      fetchImpl: (_url, { signal }) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener("abort", () => {
+            const err = new Error("Aborted");
+            err.name = "AbortError";
+            reject(err);
+          });
+        }),
+    });
+    assert.equal(timeoutRes.classification, "DEAD");
+    assert.match(timeoutRes.error, /timeout/i);
+  });
+
+  it("enforces bounded concurrency, preserves order, and executes offline mock runLinkHealthCheck", async () => {
+    let inFlight = 0;
+    let peakInFlight = 0;
+    const output = await mapWithConcurrency([1, 2, 3, 4, 5, 6, 7, 8], 3, async (item) => {
+      inFlight += 1;
+      if (inFlight > peakInFlight) peakInFlight = inFlight;
+      await new Promise((r) => setTimeout(r, 5));
+      inFlight -= 1;
+      return item * 2;
+    });
+    assert.deepEqual(output, [2, 4, 6, 8, 10, 12, 14, 16]);
+    assert.ok(peakInFlight <= 3, `Expected peak concurrency <= 3, got ${peakInFlight}`);
+
+    // End-to-end offline mock workspace test
+    const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sm-linkhealth-test-"));
+    try {
+      fs.mkdirSync(path.join(tmpRoot, "data", "hometech", "items"), { recursive: true });
+      fs.mkdirSync(path.join(tmpRoot, "data", "wattcheck"), { recursive: true });
+      fs.mkdirSync(path.join(tmpRoot, "config"), { recursive: true });
+
+      fs.writeFileSync(
+        path.join(tmpRoot, "data", "hometech", "items", "apple-mac-mini-m4.json"),
+        JSON.stringify(makeHomeTechMiniPcItem(), null, 2)
+      );
+      fs.writeFileSync(
+        path.join(tmpRoot, "data", "wattcheck", "airlines.json"),
+        JSON.stringify([makeAirline(1, "KR")], null, 2)
+      );
+      fs.writeFileSync(
+        path.join(tmpRoot, "config", "coupang-deeplinks.json"),
+        JSON.stringify({ links: { "apple-mac-mini-m4": "https://link.coupang.com/a/mock123" } }, null, 2)
+      );
+
+      // Dry-run makes zero fetch calls
+      let fetchCalls = 0;
+      const dry = await runLinkHealthCheck({
+        rootDir: tmpRoot,
+        dryRun: true,
+        writeReport: false,
+        fetchImpl: async () => {
+          fetchCalls += 1;
+          return { status: 200 };
+        },
+      });
+      assert.equal(dry.dry_run, true);
+      assert.equal(fetchCalls, 0);
+      assert.equal(dry.collection.unique_urls, 4);
+
+      // Live mock run writes data/audit/link-health-report.json
+      const live = await runLinkHealthCheck({
+        rootDir: tmpRoot,
+        concurrency: 2,
+        dryRun: false,
+        writeReport: true,
+        fetchImpl: async (url) => {
+          if (url.includes("apple.com/mac-mini")) return { status: 200, redirected: false, url };
+          if (url.includes("support.apple.com")) return { status: 404, redirected: false, url };
+          if (url.includes("coupang.com")) return { status: 200, redirected: true, url: "https://www.coupang.com/vp" };
+          return { status: 403, redirected: false, url };
+        },
+      });
+      assert.equal(live.summary.total_unique_urls, 4);
+      assert.equal(live.summary.ok, 1);
+      assert.equal(live.summary.redirect, 1);
+      assert.equal(live.summary.bot_challenge, 1);
+      assert.equal(live.summary.dead, 1);
+      assert.equal(live.summary.dead_rate_pct, 25);
+      assert.ok(fs.existsSync(path.join(tmpRoot, "data", "audit", "link-health-report.json")));
+
+      const directSummary = summarizeHealthResults(live.results);
+      assert.equal(directSummary.healthy_count, 2);
+    } finally {
+      fs.rmSync(tmpRoot, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("stage6-html-qa: v2 helpers (404 exclusion, PNG signature, social meta, search-index)", () => {
+  it("validates 404 fallback detection, PNG magic bytes, social meta extraction, and search-index shapes", () => {
+    assert.equal(isErrorFallbackPage("404.html"), true);
+    assert.equal(isErrorFallbackPage("404/index.html"), true);
+    assert.equal(isErrorFallbackPage("en/index.html"), false);
+
+    assert.equal(isValidPngBuffer(PNG_SIGNATURE), true);
+    assert.equal(isValidPngBuffer(Buffer.from("GIF89a123456")), false);
+
+    const meta = extractMetaTags(
+      `<head><meta property="og:image" content="https://specmatrix.io/og/og-hometech.png" /><meta name="twitter:card" content="summary_large_image" /></head>`
+    );
+    assert.equal(meta["og:image"], "https://specmatrix.io/og/og-hometech.png");
+    assert.equal(meta["twitter:card"], "summary_large_image");
+
+    const flatValid = validateSearchIndexPayload({
+      items: [
+        { t: "sku", p: "/hometech/item/apple-mac-mini-m4" },
+        { t: "airline", p: "/wattcheck/matrix/airlines-30#KE" },
+        { t: "vs", p: "/hometech/vs/a-vs-b" },
+        { t: "matrix", p: "/hometech/matrix/minipc-nas-tco" },
+      ],
+    });
+    assert.equal(flatValid.valid, true);
+
+    const splitValid = validateSearchIndexPayload({
+      items: [{ p: "/hometech/item/apple-mac-mini-m4" }],
+      airlines: [{ p: "/wattcheck/matrix/airlines-30#KE" }],
+      vs: [{ p: "/hometech/vs/a-vs-b" }],
+      matrices: [{ p: "/hometech/matrix/minipc-nas-tco" }],
+    });
+    assert.equal(splitValid.valid, true);
+
+    const missingGroups = validateSearchIndexPayload({ items: [{ t: "sku", p: "/a" }] });
+    assert.equal(missingGroups.valid, false);
+    assert.equal(missingGroups.errors.length, 3);
   });
 });

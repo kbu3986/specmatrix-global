@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import GlobalSearchModal from "../components/GlobalSearchModal.astro";
 import type { ActiveLocale, PilotVertical } from "../lib/types";
 import { getMonetizationConfig, getPrimaryVerticalHref } from "../lib/data";
 import {
@@ -21,6 +22,7 @@ interface Props {
   currentPath: string;
   activeVertical?: PilotVertical | null;
   isRootPortal?: boolean;
+  noindex?: boolean;
   availableLocales?: ActiveLocale[];
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
@@ -32,6 +34,7 @@ const {
   currentPath,
   activeVertical = null,
   isRootPortal = false,
+  noindex = false,
   availableLocales = ["en", "ko"],
   jsonLd = [],
 } = Astro.props;
@@ -61,6 +64,14 @@ const verticalNav = PILOT_VERTICALS.map((v) => ({
   active: activeVertical === v,
 }));
 
+const toolsHref = withBase(`/${locale}/tools`);
+const compareHref = withBase(`/${locale}/compare`);
+const isToolsActive = normPath === `/${locale}/tools` || normPath.startsWith(`/${locale}/tools/`);
+const isCompareActive = normPath === `/${locale}/compare`;
+
+const ogImagePath = activeVertical ? `/og/og-${activeVertical}.png` : "/og/og-default.png";
+const ogImageUrl = toAbsoluteUrl(ogImagePath);
+
 const ldList = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 const isKo = locale === "ko";
 const ga4Id = (cfg.analytics?.ga4MeasurementId || "").trim();
@@ -75,6 +86,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 
     <!-- AdSense & Search Console Verification -->
@@ -110,6 +122,13 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
         </script>
       </>
     )}
+    <script is:inline>
+      window.smTrack = function (name, params) {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", name, params || {});
+        }
+      };
+    </script>
     {clarityId && (
       <script is:inline define:vars={{ clarityId }}>
         (function (c, l, a, r, i, t, y) {
@@ -144,28 +163,40 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
     )}
     <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
-    <!-- OpenGraph -->
+    <!-- OpenGraph & Twitter Large Image Cards -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={cfg.siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={isKo ? "ko_KR" : "en_US"} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     {ldList.map((schema) => (
       <script type="application/ld+json" set:html={safeJsonLd(schema)} />
     ))}
   </head>
   <body class="bg-lab-canvas text-lab-ink antialiased">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-slate-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
+    >
+      {isKo ? "본문으로 바로가기" : "Skip to main content"}
+    </a>
+
     <header class="sticky top-0 z-40 border-b border-lab-border bg-white/95 backdrop-blur">
-      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-        <div class="flex items-center gap-6">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
+        <div class="flex items-center gap-4 lg:gap-5">
           <a
             href={withBase(isRootPortal ? "/" : `/${locale}`)}
-            class="flex items-center gap-2.5 text-slate-900 no-underline hover:opacity-90"
+            class="flex shrink-0 items-center gap-2.5 text-slate-900 no-underline hover:opacity-90"
           >
             <span
               class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold tracking-tight text-white"
@@ -183,12 +214,15 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             </span>
           </a>
 
-          <nav aria-label={isKo ? "버티컬 내비게이션" : "Vertical navigation"} class="hidden items-center gap-1 md:flex">
+          <nav
+            aria-label={isKo ? "버티컬 및 도구 내비게이션" : "Primary navigation"}
+            class="hidden items-center gap-0.5 lg:flex"
+          >
             {verticalNav.map((item) => (
               <a
                 href={item.href}
                 class:list={[
-                  "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
                   item.active
                     ? "bg-slate-900 text-white"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
@@ -197,14 +231,55 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
                 {item.label}
               </a>
             ))}
+            <span class="mx-1 h-4 w-px bg-slate-200" aria-hidden="true"></span>
+            <a
+              href={toolsHref}
+              class:list={[
+                "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
+                isToolsActive
+                  ? "bg-blue-700 text-white"
+                  : "text-slate-700 hover:bg-blue-50 hover:text-blue-700",
+              ]}
+            >
+              {isKo ? "도구" : "Tools"}
+            </a>
+            <a
+              href={compareHref}
+              class:list={[
+                "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
+                isCompareActive
+                  ? "bg-blue-700 text-white"
+                  : "text-slate-700 hover:bg-blue-50 hover:text-blue-700",
+              ]}
+            >
+              {isKo ? "1:1 비교" : "Compare"}
+            </a>
           </nav>
         </div>
 
         <div class="flex items-center gap-2">
-          <span class="hidden items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[11px] font-medium text-emerald-800 sm:inline-flex">
-            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-            {isKo ? "실데이터 교차검증" : "Evidence-Anchored"}
-          </span>
+          <button
+            type="button"
+            data-open-search
+            class="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-slate-50 px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-blue-500 hover:bg-white hover:text-slate-900"
+            aria-label={isKo ? "통합 스펙 검색 열기 (Ctrl+K)" : "Open Global Search (Cmd/Ctrl+K)"}
+          >
+            <svg
+              class="h-3.5 w-3.5 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" stroke-linecap="round" />
+            </svg>
+            <span class="hidden sm:inline">{isKo ? "검색" : "Search"}</span>
+            <kbd class="rounded border border-slate-300 bg-white px-1 py-0.5 font-mono text-[10px] font-semibold text-slate-500">
+              ⌘K
+            </kbd>
+          </button>
 
           {hasOtherLocale && (
             <a
@@ -220,9 +295,12 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
         </div>
       </div>
 
-      <!-- Mobile horizontal quick-nav -->
-      <div class="border-t border-slate-100 px-4 py-2 md:hidden">
-        <nav aria-label={isKo ? "모바일 버티컬 내비게이션" : "Mobile vertical navigation"} class="flex items-center gap-2 overflow-x-auto">
+      <!-- Mobile & Tablet horizontal quick-nav -->
+      <div class="border-t border-slate-100 px-4 py-2 lg:hidden">
+        <nav
+          aria-label={isKo ? "모바일 빠른 내비게이션" : "Mobile quick navigation"}
+          class="flex items-center gap-1.5 overflow-x-auto"
+        >
           {verticalNav.map((item) => (
             <a
               href={item.href}
@@ -236,11 +314,33 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
               {item.label}
             </a>
           ))}
+          <a
+            href={toolsHref}
+            class:list={[
+              "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
+              isToolsActive
+                ? "bg-blue-700 text-white"
+                : "border border-blue-200 bg-blue-50 text-blue-800",
+            ]}
+          >
+            {isKo ? "도구" : "Tools"}
+          </a>
+          <a
+            href={compareHref}
+            class:list={[
+              "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
+              isCompareActive
+                ? "bg-blue-700 text-white"
+                : "border border-blue-200 bg-blue-50 text-blue-800",
+            ]}
+          >
+            {isKo ? "1:1 비교" : "Compare"}
+          </a>
         </nav>
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 focus:outline-none">
       <slot />
     </main>
 
@@ -259,11 +359,25 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
                 ? "제조사 공식 스펙시트·규정 문서·영양성분표에 근거한 결정론적 비교 매트릭스 및 인터랙티브 검증 도구."
                 : "Evidence-anchored specification matrices and deterministic calculators verified against manufacturer manuals, nutrition labels, and aviation regulations."}
             </p>
+            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+              <a
+                href={toolsHref}
+                class="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-medium text-slate-700 hover:border-blue-400 hover:text-blue-700"
+              >
+                {isKo ? "인터랙티브 도구 허브 →" : "Lab Tools Hub →"}
+              </a>
+              <a
+                href={compareHref}
+                class="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-medium text-slate-700 hover:border-blue-400 hover:text-blue-700"
+              >
+                {isKo ? "실시간 1:1 비교 →" : "Live 1:1 Compare →"}
+              </a>
+            </div>
           </div>
 
           <div>
             <h2 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
-              {isKo ? "검증 매트릭스" : "Active Verticals"}
+              {isKo ? "검증 매트릭스 (4대 버티컬)" : "Active Verticals"}
             </h2>
             <ul class="mt-2.5 space-y-1.5 text-sm">
               {verticalNav.map((item) => (
@@ -300,13 +414,15 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
         </div>
 
         <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-5 text-xs text-slate-500">
-          <span>© 2026 SpecMatrix Global. {isKo ? "All rights reserved." : "All rights reserved."}</span>
+          <span>© 2026 SpecMatrix Global. All rights reserved.</span>
           <span class="font-mono">
             {isKo ? "가격 기준: MSRP Reference Benchmark" : "Pricing Mode: MSRP Reference Benchmark"} · {cfg.updatedAt}
           </span>
         </div>
       </div>
     </footer>
+
+    <GlobalSearchModal locale={locale} />
 
     <script is:inline>
       (function () {
@@ -320,8 +436,8 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             link_mode: target.getAttribute("data-affiliate-mode") || "",
             locale: document.documentElement.lang || "en",
           };
-          if (typeof window.gtag === "function") {
-            window.gtag("event", "affiliate_click", detail);
+          if (typeof window.smTrack === "function") {
+            window.smTrack("affiliate_click", detail);
           }
           if (typeof window.clarity === "function") {
             window.clarity("set", "last_affiliate_sku", detail.sku);

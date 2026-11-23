@@ -7,13 +7,13 @@
     {
       "field": "dimensions_mm_weight_g",
       "quote": "Model A2683, Dimensions 112 x 76 x 35 mm (4.4 x 3.0 x 1.4 in), Weight 563 g (excluding AC cord), Input 100-240V~ 3.2-2.5A",
-      "source_url": "https://www.anker.com/products/a2683",
+      "source_url": "https://www.anker.com/products/a2683-anker-prime-charger-200w-6-ports-gan",
       "source_tier": 1
     },
     {
       "field": "port_allocation_matrix",
       "quote": "4x USB-C (100W each) + 2x USB-A (22.5W each); 2C=100+100W; 3C=100+70+30W; 4C=65+65+45+25W; 6-port=65+45+45+20+12+12W (199W)",
-      "source_url": "https://support.anker.com/s/article/Anker-Prime-Charger-200W-6-Ports-GaN-A2683",
+      "source_url": "https://service.anker.com/product-description/a08J1000000Xkc2IAC",
       "source_tier": 1
     }
   ],

@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-11-22T11:11:38.807Z",
-  "pilot_version": "phase1-week1-200p",
+  "generated_at": "2026-11-23T01:13:41.689Z",
+  "pilot_version": "phase1-week2-254p",
   "overall_passed": true,
   "circuit_breaker": {
     "threshold_pct": 15,
     "quarantined_count": 0,
-    "total_items": 60,
+    "total_items": 72,
     "quarantine_ratio_pct": 0,
     "triggered": false,
     "status": "GREEN"
   },
   "counts": {
     "items": {
-      "expected": 60,
-      "found": 60,
-      "passed": 60,
+      "expected": 72,
+      "found": 72,
+      "passed": 72,
       "failed": 0
     },
     "audit_logs": {
-      "expected": 60,
-      "found": 60,
-      "passed": 60,
+      "expected": 72,
+      "found": 72,
+      "passed": 72,
       "failed": 0
     },
     "airlines": {
@@ -30,15 +30,15 @@
       "failed": 0
     },
     "vs_pairs": {
-      "expected": 25,
-      "found": 25,
-      "passed": 25,
+      "expected": 31,
+      "found": 31,
+      "passed": 31,
       "failed": 0
     },
     "matrices": {
-      "expected": 10,
-      "found": 10,
-      "passed": 10,
+      "expected": 13,
+      "found": 13,
+      "passed": 13,
       "failed": 0
     }
   },
@@ -112,6 +112,32 @@
         "expected": 7,
         "found": 7,
         "passed": 7,
+        "failed": 0
+      },
+      "matrices": {
+        "expected": 3,
+        "found": 3,
+        "passed": 3,
+        "failed": 0
+      }
+    },
+    "hometech": {
+      "items": {
+        "expected": 12,
+        "found": 12,
+        "passed": 12,
+        "failed": 0
+      },
+      "audit_logs": {
+        "expected": 12,
+        "found": 12,
+        "passed": 12,
+        "failed": 0
+      },
+      "vs_pairs": {
+        "expected": 6,
+        "found": 6,
+        "passed": 6,
         "failed": 0
       },
       "matrices": {

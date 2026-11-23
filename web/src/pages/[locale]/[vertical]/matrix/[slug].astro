@@ -128,15 +128,23 @@ const jsonLd = [
 
   <!-- Matrix Header -->
   <section class="lab-card bg-white p-6">
-    <div class="flex flex-wrap items-center gap-2">
-      <span class={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase ${VERTICAL_META[vertical].badgeBgClass}`}>
-        {VERTICAL_META[vertical].shortName[locale]} · MATRIX
-      </span>
-      <span class="badge-pass font-mono">
-        {isAirlinesPage
-          ? `${airlines.length} ${isKo ? "개 항공사 검증" : "Airlines Verified"}`
-          : `${items.length} ${isKo ? "개 모델 검증" : "SKUs Verified"}`}
-      </span>
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase ${VERTICAL_META[vertical].badgeBgClass}`}>
+          {VERTICAL_META[vertical].shortName[locale]} · MATRIX
+        </span>
+        <span class="badge-pass font-mono">
+          {isAirlinesPage
+            ? `${airlines.length} ${isKo ? "개 항공사 검증" : "Airlines Verified"}`
+            : `${items.length} ${isKo ? "개 모델 검증" : "SKUs Verified"}`}
+        </span>
+      </div>
+      <a
+        href={withBase(`/${locale}/compare#${vertical}::`)}
+        class="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1 font-mono text-xs font-bold text-blue-800 transition-colors hover:bg-blue-600 hover:text-white"
+      >
+        {isKo ? "1:1 실시간 비교 →" : "Live 1:1 Compare →"}
+      </a>
     </div>
 
     <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">

@@ -1,0 +1,27 @@
+{
+  "sku_slug": "apc-back-ups-bx750mi",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "specs.ups_watt_rating",
+      "quote": "APC Back-UPS 750VA, 230V, AVR, 4 IEC C13 sockets; Maximum configurable power: 410 W / 750 VA; Waveform type: Stepped approximation to a sinewave; Transfer time: 6 ms typical (10 ms max)",
+      "source_url": "https://www.se.com/ww/en/product/BX750MI/apc-back-ups-750va-tower-230v-4-iec-c13-avr/",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.ups_runtime_half_load_min",
+      "quote": "Input voltage limits: 140-300 V, 50/60 Hz +/-5 Hz auto-sensing; Half-load backup runtime ~8 min 30 sec (~200 W); Net weight 5.4 kg; Dimensions 160 x 120 x 355 mm; Acoustic level 40 dBA at 1 m",
+      "source_url": "https://www.se.com/ww/en/product/BX750MI-GR/apc-back-ups-750va-230v-avr-4-schuko-outlets/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "UPS physics & power factor check: Verified 410 W <= 750 VA (PF = 0.55 <= 1.0), simulated-sine waveform, and modeled parasitic 24/7 UPS self-consumption (4W idle / 8W typical / 35W recharge peak) plus amortized RBC17 SLA battery replacement ($12 / 15,000 KRW/yr) without double-counting attached NAS wattage.",
+    "Real-world Synology DSM / NUT verification: Confirmed USB Type-B HID port exists and explicitly documented the documented APC BX-MI 95% low-battery reporting quirk with fixed-timer Safe Mode workaround.",
+    "Regional voltage & socket audit: Confirmed 230V-only single-voltage grid (dual_voltage_100_240v: false) compatible with Korea 220V/60Hz, contrasting BX750MI (IEC C13) vs BX750MI-GR (Schuko Type F) under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

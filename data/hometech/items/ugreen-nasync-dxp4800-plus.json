@@ -1,0 +1,126 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "nas",
+  "slug": "ugreen-nasync-dxp4800-plus",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "UGREEN",
+  "model_number": "DXP4800 Plus",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "DXP4800-PLUS",
+      "msrp": 699.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "UGREEN NASync DXP4800 Plus 4-Bay NAS 10GbE",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "DXP4800-PLUS-KR",
+      "msrp": 949000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "유그린 NASync DXP4800 Plus 4베이 나스 10GbE",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 19,
+    "typical_load_w": 48,
+    "peak_power_w": 76,
+    "default_daily_hours_active": 8,
+    "annual_consumables_usd": 0,
+    "annual_consumables_krw": 0,
+    "noise_idle_dba": 29,
+    "noise_load_dba": 34,
+    "weight_g": 3900,
+    "dimensions_mm": {
+      "l": 257.5,
+      "w": 178,
+      "h": 178
+    },
+    "input_voltage_range": "100-240V AC, 50/60Hz (19V/7.9A 150W external DC adapter)",
+    "dual_voltage_100_240v": true,
+    "cpu_or_soc": "Intel Pentium Gold 8505 (5C/6T: 1P+4E, up to 4.4 GHz, 48 EU Intel UHD Graphics)",
+    "ram_gb_default": 8,
+    "drive_bays": 4,
+    "lan_speed_gbps": 10,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["FCC", "CE", "RoHS", "UL/TUV (Adapter)", "KC (KR Official Release)"],
+    "key_specs_kv": [
+      { "key_en": "CPU & Transcoding iGPU", "key_ko": "CPU 및 트랜스코딩 iGPU", "value": "Intel Pentium Gold 8505 (5C/6T up to 4.4 GHz, 15 W base / 55 W turbo, 48 EU Quick Sync)" },
+      { "key_en": "Memory & Dedicated OS SSD", "key_ko": "메모리·전용 OS SSD", "value": "8 GB DDR5-4800 (2× SO-DIMM, max 64 GB) + dedicated 128 GB internal OS SSD" },
+      { "key_en": "Drive Bays & Dual M.2 NVMe", "key_ko": "드라이브 베이·M.2 NVMe", "value": "4× tool-less 3.5\"/2.5\" SATA bays + 2× M.2 2280 PCIe 4.0 NVMe slots (open brand policy)" },
+      { "key_en": "Multi-Gigabit Networking", "key_ko": "초고속 멀티기가 랜", "value": "1× 10 GbE (10GBASE-T) + 1× 2.5 GbE RJ-45 ports" },
+      { "key_en": "Measured Power (Sleep / Active / Peak)", "key_ko": "실측 소비전력 (절전 / 활성 / 피크)", "value": "~19–26 W HDD sleep / ~42–50 W 4-HDD RAID 5 active / ~67–76 W peak (150 W 19V/7.9A brick)" },
+      { "key_en": "Acoustics & Cooling", "key_ko": "소음 및 냉각 구조", "value": "~29–34 dBA quiet mode; aluminum alloy shell + large rear fan with magnetic dust filter" },
+      { "key_en": "Creator I/O Ports", "key_ko": "크리에이터 입출력 포트", "value": "Front USB-C 10 Gbps, USB-A 10 Gbps, SD 3.0 card reader + Rear 4K HDMI 2.1" },
+      { "key_en": "Dimensions & Bare Metal Weight", "key_ko": "외형 크기·본체 무게", "value": "257.5 × 178 × 178 mm, ~3,900 g bare metal chassis (without drives)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 7,
+    "battery_or_filter_cycle_months": null,
+    "korea_220v_note_en": "Ships with a universal 100-240V AC 50/60Hz 150W (19V/7.9A) external power brick compatible with South Korea's 220V grid; replace only the detachable AC cable with a grounded Korean KC 220V cord if imported from the US, and note that keeping 10GBASE-T active adds ~3-5 W continuous draw over 2.5GbE.",
+    "korea_220v_note_ko": "100–240V 50/60Hz 프리볼트 150W(19V/7.9A) 외장 어댑터를 사용해 국내 220V 환경에서 그대로 동작하며, 정식 국내 출시(KC 인증) 모델은 한국형 접지 전원 코드가 기본 제공됩니다. 다만 10GbE RJ-45 포트는 2.5GbE 대비 상시 ~3–5W 발열·전력이 추가 소모되므로 한국전력 누진제 구간에 민감한 24시간 운영 시 평소엔 2.5GbE 포트를 쓰는 전략이 유리합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "UGREEN NASync DXP4800 Plus (4-Bay 10GbE NAS)",
+      "title": "UGREEN NASync DXP4800 Plus: Pentium 8505, 10GbE + 2.5GbE, 8GB DDR5 & 24/7 Power TCO",
+      "summary": "A hardware-first aluminum 4-bay NAS featuring Intel's 5-core Pentium Gold 8505, 8 GB upgradable DDR5 RAM, dual PCIe 4.0 M.2 slots with zero brand lock-in, native 10 GbE + 2.5 GbE ports, and a dedicated 128 GB OS SSD.",
+      "best_for": "Video editors, Docker/VM power users, and TrueNAS/Unraid/UGOS Pro builders who need native 10 GbE speed, modern 48-EU Quick Sync transcoding, and unrestricted third-party NVMe/HDD compatibility.",
+      "local_gotchas": [
+        "Higher 24/7 power footprint (~19–26 W idle, ~48 W active with 4 HDDs) than Synology DS423+ (8.45 W / 28.3 W) due to the Alder Lake-P Pentium Gold 8505 platform and 10GBASE-T Ethernet PHY—factor an extra ~150–200 kWh/year into 5-year TCO.",
+        "UGOS Pro software is improving rapidly but still lacks the decade-deep enterprise backup/surveillance maturity of Synology DSM; fortunately, the open BIOS lets advanced users install TrueNAS SCALE, Unraid, or Proxmox cleanly.",
+        "Bare chassis net weight is ~3.9 kg (aluminum alloy), and the rear exhaust fan ramps up noticeably under sustained VM or 4K transcode workloads compared to DS423+'s 19.8 dBA idle floor."
+      ]
+    },
+    "ko": {
+      "name": "유그린 NASync DXP4800 Plus (4베이 10GbE NAS)",
+      "title": "유그린 NASync DXP4800 Plus: 10GbE·DDR5 8GB·펜티엄 8505 성능 vs 24시간 전기요금 TCO",
+      "summary": "인텔 펜티엄 골드 8505(5코어 6스레드), 8GB DDR5(최대 64GB 확장), 10GbE+2.5GbE 듀얼 유선 랜, 128GB 전용 OS SSD와 브랜드 제한 없는 듀얼 M.2 PCIe 4.0 슬롯을 탑재한 고성능 알루미늄 4베이 NAS입니다.",
+      "best_for": "시놀로지 1GbE·메모리·정품 SSD 제한을 벗어나 10GbE 고속 영상 편집, Docker·가상 머신 다중 운용, TrueNAS/Unraid 커스텀 NAS를 구축하려는 크리에이터 및 파워 유저.",
+      "local_gotchas": [
+        "12세대 알더레이크 기반 펜티엄 골드 8505와 10GbE 컨트롤러 특성상 4베이 HDD 장착 시 실측 소비전력(절전 약 19–26W, 활성 약 48W)이 시놀로지 DS423+(8.45W/28.3W)보다 뚜렷하게 높아 5년 누적 전기요금이 더 많이 발생합니다.",
+        "유그린 자체 OS(UGOS Pro)는 시놀로지 DSM 대비 백업·모바일 앱 생태계가 아직 성장 단계이지만, BIOS 잠금이 열려 있어 TrueNAS SCALE·Unraid·Proxmox 등 서드파티 OS 설치가 자유롭습니다.",
+        "국내 정발(와디즈·오픈마켓)과 해외 직구 판매처 간 가격 편차가 크며(60만 원 후반~100만 원대), 정식 국내 KC 인증 및 A/S 보증 여부를 반드시 확인해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "UGREEN NASync DXP4800 Plus Official Product & Specifications Page",
+      "url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "TechPowerUp Lab Review — UGREEN NASync DXP4800 Plus Power, Thermal & 10GbE Testing",
+      "url": "https://www.techpowerup.com/review/ugreen-nasync-dxp4800-plus/",
+      "source_tier": 2,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["synology-ds423-plus", "synology-ds224-plus"]
+}

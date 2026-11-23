@@ -1,0 +1,27 @@
+{
+  "sku_slug": "dreame-x40-ultra",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "specs.suction_pa",
+      "quote": "12,000 Pa Vormax Suction, MopExtend RoboSwing, 10.5 mm mop lift + automatic mop detachment at base station, 6,400 mAh battery, 3.2 L dust bag (~75 days), 70°C hot water mop & washboard self-cleaning",
+      "source_url": "https://global.dreametech.com/products/x40-ultra",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.peak_power_w",
+      "quote": "Robot RLX63CE Rated Power 75 W (14.4 V), 350 x 350 x 103.8 mm, 4.53 kg; Base Station RCXE0307 Rated Power (Hot Water Cleaning) 1,160 W, 456.7 x 340 x 590.5 mm, 9.09 kg",
+      "source_url": "https://global.dreametech.com/products/x40-ultra",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Robot-vacuum physics & TCO check: Verified suction_pa = 12000 (>=1000), dustbag_capacity_l = 3.2 (>0), 5.5 W idle <= 75 W typical <= 1160 W hot-water peak, and positive annual consumables ($80 / 105,000 KRW).",
+    "Physical fitment & hardware caveat check: Flagged tall 590.5 mm base station cabinet clearance trap, ~5.5 W standby draw, and TriCut brush bundle distinction.",
+    "KR localization & SM-02 check: Verified single-voltage regional dock (dual_voltage_100_240v: false) and noted KR official launch MSRP 1,799,000 KRW undercuts US $1,899.99 under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

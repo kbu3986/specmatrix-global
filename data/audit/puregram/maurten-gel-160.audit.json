@@ -7,13 +7,13 @@
     {
       "field": "package_spec & price",
       "quote": "Maurten Gel 160 box contains 12 servings (65 g per sachet, 780 g net) retailing at $55.00 USD on maurten.com.",
-      "source_url": "https://maurten.com/products/gel-160",
+      "source_url": "https://www.maurten.com/products/gel-160-box",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.carbs_g & calories_kcal",
       "quote": "40 g carbohydrates (160 kcal) per 65 g hydrogel sachet in a 0.8:1 fructose-to-glucose ratio; ~80 mg salt (~32 mg sodium), 0 g protein, 0 g fat.",
-      "source_url": "https://maurten.com/products/gel-160",
+      "source_url": "https://www.maurten.com/products/gel-160-box",
       "source_tier": 1
     },
     {

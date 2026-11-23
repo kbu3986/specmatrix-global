@@ -50,6 +50,8 @@ async function main() {
     `https://${host}/specmatrix-global/sitemap-puregram-ko.xml`,
     `https://${host}/specmatrix-global/sitemap-cyclegear-en.xml`,
     `https://${host}/specmatrix-global/sitemap-cyclegear-ko.xml`,
+    `https://${host}/specmatrix-global/sitemap-hometech-en.xml`,
+    `https://${host}/specmatrix-global/sitemap-hometech-ko.xml`,
     `https://${host}/pin2pin-global/sitemap.xml`,
     `https://${host}/sitemap.xml`,
   ];

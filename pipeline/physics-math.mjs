@@ -5,6 +5,7 @@
  *  - WattCheck (battery Wh math, port allocation matrix, IATA/MOLIT carry-on rules, GaN guards)
  *  - PureGram  (net-weight math, macro & active ceilings, purity %, total active, kcal, YMYL filter)
  *  - CycleGear (power-meter accuracy, road-tire width & hookless safety cap, trainer noise dBA)
+ *  - HomeTech  (power hierarchy, daily duty cycle, acoustic dBA bounds, UPS PF <= 1.0, NAS & vacuum invariants)
  *  - Cross-Audit Guards (SM-01 legacy 48-slug blocklist, SM-02 MSRP mode & unique real ASINs,
  *    citations >= 2, trust_score >= 95, info_gain_score >= 75)
  */
@@ -797,6 +798,341 @@ export function verifyCycleGearPhysics(item) {
   };
 }
 
+/**
+ * Verify HomeTech TCO physics, electrical bounds, acoustic limits, and category-specific invariants.
+ */
+export function verifyHomeTechPhysics(item) {
+  const errors = [];
+  const checks = {};
+
+  if (!item || typeof item !== "object" || !item.specs || !item.tco_profile) {
+    errors.push(
+      makeError(
+        "HOME_MISSING_SECTIONS",
+        "specs",
+        "HomeTech item must include specs and tco_profile"
+      )
+    );
+    return { passed: false, errors, checks };
+  }
+
+  const { category, specs, tco_profile: tco } = item;
+
+  // 1. Power hierarchy: 0 < idle_power_w <= typical_load_w <= peak_power_w (and max bounds)
+  const idle = specs.idle_power_w;
+  const typical = specs.typical_load_w;
+  const peak = specs.peak_power_w;
+
+  checks.idle_power_w = idle;
+  checks.typical_load_w = typical;
+  checks.peak_power_w = peak;
+
+  if (typeof idle !== "number" || !Number.isFinite(idle) || idle <= 0 || idle > 500 + EPS) {
+    errors.push(
+      makeError(
+        "HOME_IDLE_POWER_RANGE",
+        "specs.idle_power_w",
+        `idle_power_w (${idle}) must satisfy 0 < idle_power_w <= 500 W`
+      )
+    );
+  }
+  if (typeof typical !== "number" || !Number.isFinite(typical) || typical <= 0 || typical > 2500 + EPS) {
+    errors.push(
+      makeError(
+        "HOME_TYPICAL_POWER_RANGE",
+        "specs.typical_load_w",
+        `typical_load_w (${typical}) must satisfy 0 < typical_load_w <= 2500 W`
+      )
+    );
+  }
+  if (typeof peak !== "number" || !Number.isFinite(peak) || peak <= 0 || peak > 3500 + EPS) {
+    errors.push(
+      makeError(
+        "HOME_PEAK_POWER_RANGE",
+        "specs.peak_power_w",
+        `peak_power_w (${peak}) must satisfy 0 < peak_power_w <= 3500 W`
+      )
+    );
+  }
+
+  if (
+    typeof idle === "number" &&
+    Number.isFinite(idle) &&
+    typeof typical === "number" &&
+    Number.isFinite(typical) &&
+    idle > typical + EPS
+  ) {
+    errors.push(
+      makeError(
+        "HOME_POWER_HIERARCHY",
+        "specs.typical_load_w",
+        `Power hierarchy violated: idle_power_w (${idle} W) exceeds typical_load_w (${typical} W)`
+      )
+    );
+  }
+  if (
+    typeof typical === "number" &&
+    Number.isFinite(typical) &&
+    typeof peak === "number" &&
+    Number.isFinite(peak) &&
+    typical > peak + EPS
+  ) {
+    errors.push(
+      makeError(
+        "HOME_POWER_HIERARCHY",
+        "specs.peak_power_w",
+        `Power hierarchy violated: typical_load_w (${typical} W) exceeds peak_power_w (${peak} W)`
+      )
+    );
+  }
+
+  // 2. Daily duty cycle: 0 < default_daily_hours_active <= 24
+  const dailyHours = specs.default_daily_hours_active;
+  checks.default_daily_hours_active = dailyHours;
+  if (
+    typeof dailyHours !== "number" ||
+    !Number.isFinite(dailyHours) ||
+    dailyHours <= 0 ||
+    dailyHours > 24 + EPS
+  ) {
+    errors.push(
+      makeError(
+        "HOME_DAILY_HOURS_RANGE",
+        "specs.default_daily_hours_active",
+        `default_daily_hours_active (${dailyHours}) must satisfy 0 < hours <= 24`
+      )
+    );
+  }
+
+  // 3. Acoustic bounds (15..85 dBA when non-null) and noise_idle_dba <= noise_load_dba + 1
+  const noiseIdle = specs.noise_idle_dba;
+  const noiseLoad = specs.noise_load_dba;
+  checks.noise_idle_dba = noiseIdle ?? null;
+  checks.noise_load_dba = noiseLoad ?? null;
+
+  if (noiseIdle !== null && noiseIdle !== undefined) {
+    if (typeof noiseIdle !== "number" || !Number.isFinite(noiseIdle) || noiseIdle < 15 - EPS || noiseIdle > 85 + EPS) {
+      errors.push(
+        makeError(
+          "HOME_NOISE_IDLE_RANGE",
+          "specs.noise_idle_dba",
+          `noise_idle_dba (${noiseIdle}) must be within 15–85 dBA`
+        )
+      );
+    }
+  }
+  if (noiseLoad !== null && noiseLoad !== undefined) {
+    if (typeof noiseLoad !== "number" || !Number.isFinite(noiseLoad) || noiseLoad < 15 - EPS || noiseLoad > 85 + EPS) {
+      errors.push(
+        makeError(
+          "HOME_NOISE_LOAD_RANGE",
+          "specs.noise_load_dba",
+          `noise_load_dba (${noiseLoad}) must be within 15–85 dBA`
+        )
+      );
+    }
+  }
+  if (
+    typeof noiseIdle === "number" &&
+    Number.isFinite(noiseIdle) &&
+    typeof noiseLoad === "number" &&
+    Number.isFinite(noiseLoad) &&
+    noiseIdle > noiseLoad + 1 + EPS
+  ) {
+    errors.push(
+      makeError(
+        "HOME_NOISE_ORDER",
+        "specs.noise_idle_dba",
+        `noise_idle_dba (${noiseIdle} dBA) cannot exceed noise_load_dba + 1 (${noiseLoad + 1} dBA)`
+      )
+    );
+  }
+
+  // 4. Weight, dimensions, consumables, and lifespan
+  if (typeof specs.weight_g !== "number" || !Number.isFinite(specs.weight_g) || specs.weight_g <= 0) {
+    errors.push(makeError("HOME_WEIGHT_POSITIVE", "specs.weight_g", "weight_g must be > 0"));
+  }
+  const dims = specs.dimensions_mm;
+  if (
+    !dims ||
+    typeof dims.l !== "number" ||
+    !Number.isFinite(dims.l) ||
+    dims.l <= 0 ||
+    typeof dims.w !== "number" ||
+    !Number.isFinite(dims.w) ||
+    dims.w <= 0 ||
+    typeof dims.h !== "number" ||
+    !Number.isFinite(dims.h) ||
+    dims.h <= 0
+  ) {
+    errors.push(
+      makeError("HOME_DIMENSIONS_POSITIVE", "specs.dimensions_mm", "dimensions_mm l, w, h must all be > 0")
+    );
+  }
+
+  if (
+    typeof specs.annual_consumables_usd !== "number" ||
+    !Number.isFinite(specs.annual_consumables_usd) ||
+    specs.annual_consumables_usd < 0
+  ) {
+    errors.push(
+      makeError(
+        "HOME_CONSUMABLES_USD_NEGATIVE",
+        "specs.annual_consumables_usd",
+        `annual_consumables_usd (${specs.annual_consumables_usd}) must be >= 0`
+      )
+    );
+  }
+  if (
+    typeof specs.annual_consumables_krw !== "number" ||
+    !Number.isFinite(specs.annual_consumables_krw) ||
+    specs.annual_consumables_krw < 0
+  ) {
+    errors.push(
+      makeError(
+        "HOME_CONSUMABLES_KRW_NEGATIVE",
+        "specs.annual_consumables_krw",
+        `annual_consumables_krw (${specs.annual_consumables_krw}) must be >= 0`
+      )
+    );
+  }
+
+  if (
+    typeof tco.expected_lifespan_years !== "number" ||
+    !Number.isFinite(tco.expected_lifespan_years) ||
+    tco.expected_lifespan_years < 3 - EPS ||
+    tco.expected_lifespan_years > 10 + EPS
+  ) {
+    errors.push(
+      makeError(
+        "HOME_LIFESPAN_RANGE",
+        "tco_profile.expected_lifespan_years",
+        `expected_lifespan_years (${tco.expected_lifespan_years}) must be within 3–10 years`
+      )
+    );
+  }
+
+  // 5. Category-specific invariants
+  if (category === "ups") {
+    const va = specs.ups_va_rating;
+    const watts = specs.ups_watt_rating;
+    const waveform = specs.ups_waveform;
+    const runtime = specs.ups_runtime_half_load_min;
+
+    if (typeof va !== "number" || !Number.isFinite(va) || va <= 0) {
+      errors.push(
+        makeError("HOME_UPS_VA_REQUIRED", "specs.ups_va_rating", "UPS requires ups_va_rating > 0")
+      );
+    }
+    if (typeof watts !== "number" || !Number.isFinite(watts) || watts <= 0) {
+      errors.push(
+        makeError("HOME_UPS_WATT_REQUIRED", "specs.ups_watt_rating", "UPS requires ups_watt_rating > 0")
+      );
+    }
+    if (typeof va === "number" && va > 0 && typeof watts === "number" && watts > 0) {
+      const pf = watts / va;
+      checks.ups_power_factor = Number(pf.toFixed(4));
+      if (watts > va + EPS) {
+        errors.push(
+          makeError(
+            "HOME_UPS_POWER_FACTOR_EXCEEDS_1",
+            "specs.ups_watt_rating",
+            `UPS ups_watt_rating (${watts} W) exceeds ups_va_rating (${va} VA); power factor (${pf.toFixed(2)}) cannot exceed 1.0`
+          )
+        );
+      }
+    }
+    if (waveform !== "pure-sine" && waveform !== "simulated-sine") {
+      errors.push(
+        makeError(
+          "HOME_UPS_WAVEFORM_REQUIRED",
+          "specs.ups_waveform",
+          `UPS requires ups_waveform to be "pure-sine" or "simulated-sine" (got ${JSON.stringify(waveform)})`
+        )
+      );
+    }
+    if (typeof runtime !== "number" || !Number.isFinite(runtime) || runtime <= 0) {
+      errors.push(
+        makeError(
+          "HOME_UPS_RUNTIME_REQUIRED",
+          "specs.ups_runtime_half_load_min",
+          "UPS requires positive ups_runtime_half_load_min"
+        )
+      );
+    }
+  } else if (
+    typeof specs.ups_va_rating === "number" &&
+    specs.ups_va_rating > 0 &&
+    typeof specs.ups_watt_rating === "number" &&
+    specs.ups_watt_rating > specs.ups_va_rating + EPS
+  ) {
+    errors.push(
+      makeError(
+        "HOME_UPS_POWER_FACTOR_EXCEEDS_1",
+        "specs.ups_watt_rating",
+        `ups_watt_rating (${specs.ups_watt_rating} W) exceeds ups_va_rating (${specs.ups_va_rating} VA)`
+      )
+    );
+  }
+
+  if (category === "nas") {
+    if (typeof specs.drive_bays !== "number" || !Number.isInteger(specs.drive_bays) || specs.drive_bays < 1) {
+      errors.push(
+        makeError(
+          "HOME_NAS_DRIVE_BAYS_REQUIRED",
+          "specs.drive_bays",
+          `NAS requires integer drive_bays >= 1 (got ${specs.drive_bays})`
+        )
+      );
+    }
+    if (typeof specs.lan_speed_gbps !== "number" || !Number.isFinite(specs.lan_speed_gbps) || specs.lan_speed_gbps < 1 - EPS) {
+      errors.push(
+        makeError(
+          "HOME_NAS_LAN_SPEED_REQUIRED",
+          "specs.lan_speed_gbps",
+          `NAS requires lan_speed_gbps >= 1 Gbps (got ${specs.lan_speed_gbps})`
+        )
+      );
+    }
+  }
+
+  if (category === "robot-vacuum") {
+    if (typeof specs.suction_pa !== "number" || !Number.isFinite(specs.suction_pa) || specs.suction_pa < 1000 - EPS) {
+      errors.push(
+        makeError(
+          "HOME_VACUUM_SUCTION_REQUIRED",
+          "specs.suction_pa",
+          `Robot vacuum requires suction_pa >= 1000 Pa (got ${specs.suction_pa})`
+        )
+      );
+    }
+    if (typeof specs.annual_consumables_usd !== "number" || specs.annual_consumables_usd <= 0) {
+      errors.push(
+        makeError(
+          "HOME_VACUUM_CONSUMABLES_USD_REQUIRED",
+          "specs.annual_consumables_usd",
+          `Robot vacuum requires annual_consumables_usd > 0 (got ${specs.annual_consumables_usd})`
+        )
+      );
+    }
+    if (typeof specs.annual_consumables_krw !== "number" || specs.annual_consumables_krw <= 0) {
+      errors.push(
+        makeError(
+          "HOME_VACUUM_CONSUMABLES_KRW_REQUIRED",
+          "specs.annual_consumables_krw",
+          `Robot vacuum requires annual_consumables_krw > 0 (got ${specs.annual_consumables_krw})`
+        )
+      );
+    }
+  }
+
+  return {
+    passed: errors.length === 0,
+    errors,
+    checks,
+  };
+}
+
 function normalizeLegacyBlocklist(legacyBlocklist) {
   if (!legacyBlocklist) return new Set();
   if (legacyBlocklist instanceof Set) return legacyBlocklist;
@@ -991,6 +1327,8 @@ export function verifyItemPhysics(item) {
       return verifyPureGramPhysics(item);
     case "cyclegear":
       return verifyCycleGearPhysics(item);
+    case "hometech":
+      return verifyHomeTechPhysics(item);
     default:
       return {
         passed: false,

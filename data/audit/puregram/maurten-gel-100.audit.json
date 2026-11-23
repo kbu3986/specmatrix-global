@@ -7,13 +7,13 @@
     {
       "field": "package_spec.serving_weight_g & carbs_g",
       "quote": "Each 40 g sachet contains 25 g of carbohydrates (100 kcal) in a 0.8:1 ratio of fructose to glucose; box of 12 servings (480 g net).",
-      "source_url": "https://maurten.com/products/gel-100",
+      "source_url": "https://www.maurten.com/products/gel-100-box",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.ingredients & sodium_mg",
       "quote": "Six natural ingredients: Water, Glucose, Fructose, Calcium Carbonate, Gluconic Acid, Sodium Alginate; 20 mg sodium (~50 mg salt equivalent), 0 g fat, 0 g protein.",
-      "source_url": "https://maurten.com/products/gel-100",
+      "source_url": "https://www.maurten.com/products/gel-100-box",
       "source_tier": 1
     },
     {

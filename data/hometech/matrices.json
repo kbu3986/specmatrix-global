@@ -1,0 +1,118 @@
+[
+  {
+    "slug": "minipc-nas-tco",
+    "vertical": "hometech",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": "minipc,nas",
+    "featured_item_slugs": [
+      "apple-mac-mini-m4",
+      "beelink-ser8-8745hs",
+      "minisforum-um890-pro",
+      "gmktec-nucbox-g3-plus-n150",
+      "synology-ds423-plus",
+      "ugreen-nasync-dxp4800-plus",
+      "synology-ds224-plus"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Mini PC & NAS 3-Year TCO Matrix: 24/7 Idle Watts, Electricity Cost & LAN Speed (2026)",
+        "subtitle": "Compare 7 flagship Mini PCs and 2-/4-bay NAS units on verified idle/load wattage, annual kWh across US/KR/DE tariffs, 3-year TCO, noise dBA, and 1GbE vs 10GbE bottlenecks.",
+        "intro": "Running an always-on home server, Plex box, or private cloud NAS for 8,760 hours a year exposes a hidden ownership cost most spec sheets bury: 24/7 idle power draw. At $0.17/kWh (US), ₩214/kWh (Korea KEPCO Tier 2), or €0.38/kWh (Germany), every 10 watts of continuous idle overhead adds 87.6 kWh per year. This matrix combines manufacturer-verified idle, typical, and peak wattages with RAM expandability, drive bays, acoustics, and LAN speed so you can calculate true 3-year Total Cost of Ownership before buying.",
+        "methodology_note": "Weighted power uses (typical_load_w × active_hours + idle_power_w × (24 - active_hours)) / 24 × 8.76 kWh/yr. Electricity baselines use US $0.17/kWh, Korea KEPCO Tier 2 ₩214/kWh, and Germany €0.38/kWh; hardware prices follow MSRP benchmark mode.",
+        "key_takeaways": [
+          "Apple Mac mini M4 (~4 W idle), Synology DS224+ (4.41 W HDD hibernation), and GMKtec NucBox G3 Plus N150 (~6 W idle) lead 24/7 electricity efficiency, keeping annual power costs around $10–$15 in the US or ₩12,000–₩18,000 in Korea.",
+          "For 4-bay NAS buyers, Synology DS423+ wins on whisper-quiet 19.8 dBA acoustics, lower idle power (8.45 W), and turnkey DSM 7.2 software, whereas UGREEN NASync DXP4800 Plus dominates raw throughput with native 10GbE + 2.5GbE and 8 GB–64 GB DDR5.",
+          "Among x86 Mini PCs, Beelink SER8 (Ryzen 7 8745HS) offers quieter vapor-chamber value while Minisforum UM890 Pro unlocks Dual 2.5GbE and 64 Gbps OCuLink eGPU expansion at a 70 W TDP ceiling."
+        ]
+      },
+      "ko": {
+        "title": "미니PC · NAS 3년 실유지비(TCO) 매트릭스: 24시간 대기전력·한전 전기요금·랜 속도 총정리 (2026)",
+        "subtitle": "인기 미니PC 4종과 2·4베이 NAS 3종의 아이들/구동 소비전력, 한전 2단계(214원/kWh) 기준 연간 전기요금, 소음(dBA), 1GbE~10GbE 확장성을 한눈에 비교합니다.",
+        "intro": "홈서버나 개인 클라우드 NAS는 1년 8,760시간 내내 전원이 켜져 있기 때문에 스펙표의 최대 출력보다 '24시간 아이들 대기전력'이 3년 총소유비용(TCO)과 누진제 구간 진입 여부를 좌우합니다. 한전 2단계(214원/kWh) 기준으로 상시 소비전력이 10 W 늘어날 때마다 연간 87.6 kWh(약 18,746원)가 고정 지출됩니다. 이 매트릭스는 제조사 공식 소비전력, 메모리·드라이브 확장성, 소음, 220V 프리볼트 대응 여부를 구조화해 진짜 3년 TCO를 즉시 계산해 줍니다.",
+        "methodology_note": "가중 평균 전력은 일일 활성 시간과 유휴 시간을 반영한 연간 kWh(= 가중평균W × 8.76) 공식으로 산출하며, 한국 전기요금은 한전 주택용 2단계(214원/kWh), 미국 $0.17/kWh, 독일 €0.38/kWh 기준을 적용했습니다. 제품가는 MSRP 벤치마크 스냅샷입니다.",
+        "key_takeaways": [
+          "애플 맥미니 M4(약 4 W 아이들), 시놀로지 DS224+(절전 4.41 W), GMKtec G3 Plus N150(약 6 W)은 연간 전기요금이 한전 2단계 기준 1만 원대 초중반에 불과해 24시간 상시 구동 홈서버로 최적입니다.",
+          "4베이 NAS에서는 19.8 dBA 초저소음·8.45 W 절전·검증된 DSM 7.2 생태계의 시놀로지 DS423+와, 10GbE+2.5GbE·DDR5 최대 64 GB·펜티엄 골드 8505를 앞세운 유그린 DXP4800 Plus가 명확히 대비됩니다.",
+          "고성능 x86 미니PC에서는 정숙한 베이퍼챔버 가성비의 비링크 SER8 8745HS와, 듀얼 2.5GbE·OCuLink 외장그래픽·70 W 고출력을 지원하는 미니스포럼 UM890 Pro로 용도가 갈립니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "robot-vacuums-ups",
+    "vertical": "hometech",
+    "archetype": "matrix",
+    "release_wave": 1,
+    "filter_category": "robot-vacuum,ups",
+    "featured_item_slugs": [
+      "roborock-s8-maxv-ultra",
+      "roborock-qrevo-master",
+      "dreame-x40-ultra",
+      "apc-back-ups-bx750mi",
+      "cyberpower-cp1500pfclcd"
+    ],
+    "i18n": {
+      "en": {
+        "title": "Flagship Robot Vacuums & Home UPS TCO Matrix: Consumables, Hot-Water Power & Voltage Traps",
+        "subtitle": "Audit hidden 3-year ownership costs across Roborock S8 MaxV Ultra, Qrevo Master, Dreame X40 Ultra, APC BX750MI, and CyberPower CP1500PFCLCD — including dust bags, SLA batteries, and regional voltage locks.",
+        "intro": "All-in-one hot-water robot vacuums and always-on line-interactive UPS units share one critical buyer blind spot: upfront sticker price ignores recurring consumables (dust bags, HEPA filters, mop pads, cleaning solutions, and 3–5 year sealed lead-acid battery replacements) as well as strict single-voltage regional hardware locks. Use this matrix to compare true 3-year TCO, peak 60–70°C heater wattage, suction and dustbag capacity, pure vs simulated sinewave output, and 120V vs 220–230V import traps.",
+        "methodology_note": "Robot vacuum TCO models 1.5 hrs/day active cleaning/charging/drying plus 22.5 hrs dock standby alongside annual OEM consumables ($75–$85 / ₩98,000–₩110,000). UPS TCO isolates the UPS unit's own 24/7 parasitic power overhead plus amortized 3.5-year SLA battery replacement.",
+        "key_takeaways": [
+          "For flagship robot vacuums, annual OEM consumables ($75–$85 / ₩98,000–₩110,000) cost 5x–6x more than annual electricity (~71–86 kWh/yr) — making Roborock Qrevo Master the lowest 3-year TCO pick and Dreame X40 Ultra the top large-home value in Korea.",
+          "EVERY single model in this matrix is single-voltage region-locked (dual_voltage_100_240v: false): 1,160–1,350 W robot vacuum hot-water docks and 120V vs 230V UPS units must match your country's wall voltage natively.",
+          "Do NOT import the US 120V CyberPower CP1500PFCLCD to Korea/EU 220–230V grids; choose the native 230V APC BX750MI-GR (Schuko) for budget NAS backup or the 230V CyberPower CP1500EPFCLCD (900 W) for Active-PFC pure sinewave protection."
+        ]
+      },
+      "ko": {
+        "title": "프리미엄 로봇청소기 · 홈 UPS 3년 실유지비(TCO) 매트릭스: 소모품·온수전력·220V 함정 총정리",
+        "subtitle": "로보락 S8 MaxV Ultra·큐레보 마스터·드리미 X40 울트라와 APC·사이버파워 UPS의 3년 소모품·배터리 교체비, 온수 피크 전력, 국가별 단전압 주의점을 한눈에 비교합니다.",
+        "intro": "온수 세척·열풍 건조 올인원 로봇청소기와 24시간 가동 UPS는 구매가만 보고 고르면 3년 유지비에서 큰 오차가 발생합니다. 로봇청소기는 전기요금보다 더스트백·필터·브러시·물걸레·세정제 소모품비가 연간 5~6배 더 크고, UPS는 24시간 자체 대기전력과 3~4년 주기 납축(SLA) 배터리 교체비를 함께 계산해야 합니다. 또한 두 제품군 모두 고전력 히터·변압기 특성상 프리볼트가 아닌 '국가별 단전압'이므로 직구 전 전압 규격 검증이 필수입니다.",
+        "methodology_note": "로봇청소기는 일 1.5시간 구동·건조 및 22.5시간 도크 대기 전력과 연간 정품 소모품비(9.8만~11만 원)를 합산했으며, UPS는 연결 장비 전력을 중복 합산하지 않고 UPS 자체 24시간 대기·충전 손실 전력과 3.5년 주기 배터리 상각비를 반영했습니다.",
+        "key_takeaways": [
+          "플래그십 로봇청소기 3종의 연간 전기요금은 한전 2단계 기준 1.5만~1.85만 원(71~86 kWh)으로 부담이 적은 반면 연간 정품 소모품비가 9.8만~11만 원에 달하며, 3년 총비용은 큐레보 마스터가 가장 낮고 국내 출고가 대비 스펙은 드리미 X40 울트라가 강세입니다.",
+          "이 매트릭스의 로봇청소기 3종과 UPS 2종은 모두 프리볼트 불가(단전압) 제품입니다. 1,160~1,350 W 온수 히터 도크와 UPS는 반드시 한국 220V 정식 규격(KC 인증/슈코) 제품을 선택해야 합니다.",
+          "미국 120V 전용 사이버파워 CP1500PFCLCD는 한국 220V 직결 시 즉시 파손되므로, 국내 NAS 입문자는 230V 슈코 지원 APC BX750MI-GR을, 순수 정현파가 필수라면 230V 형제 모델 CP1500EPFCLCD(900 W)를 선택해야 합니다."
+        ]
+      }
+    }
+  },
+  {
+    "slug": "nas-with-ups-runtime-match",
+    "vertical": "hometech",
+    "archetype": "compat",
+    "release_wave": 1,
+    "filter_category": "nas,ups",
+    "featured_item_slugs": [
+      "synology-ds423-plus",
+      "ugreen-nasync-dxp4800-plus",
+      "synology-ds224-plus",
+      "apc-back-ups-bx750mi",
+      "cyberpower-cp1500pfclcd"
+    ],
+    "i18n": {
+      "en": {
+        "title": "NAS × UPS Compatibility & Outage Runtime Matrix: USB HID Auto-Shutdown, Waveform & 220V Pairing",
+        "subtitle": "Verified pairing blueprint matching Synology DS224+, DS423+, and UGREEN DXP4800 Plus with APC BX750MI and CyberPower CP1500PFCLCD on real outage runtime, NUT/USB HID quirks, and voltage safety.",
+        "intro": "A sudden power cut during a Btrfs scrub or RAID rebuild can destroy an entire multi-terabyte volume in seconds — yet pairing the wrong UPS introduces hidden failure modes: 120V vs 230V grid mismatches, incompatible IEC C13 vs Schuko wall sockets, Active-PFC PSU dropout on simulated sinewaves, and the notorious APC BX-MI 95% low-battery NUT reporting bug in Synology DSM. Use this verified compatibility blueprint to pair your 2-bay or 4-bay NAS with an appropriately sized UPS and reliable auto-shutdown trigger.",
+        "methodology_note": "Cross-checked against Synology official hardware power datasheets (DS224+ 14.69 W, DS423+ 28.3 W), UGREEN DXP4800 Plus load profiles, APC BX750MI / CyberPower CP1500PFCLCD half-load runtime curves, and Synology DSM / NUT usbhid-ups compatibility records.",
+        "key_takeaways": [
+          "Runtime scaling math: A single Synology DS224+ (~15–22 W) or DS423+ (~28–40 W) plus a 12 W router draws under 15% of the APC BX750MI's 410 W ceiling — stretching its 8.5-minute half-load (~200 W) rating to ~40–60+ minutes of graceful Safe Mode window.",
+          "NUT / Synology DSM setup guard: CyberPower CP1500PFCLCD (and 230V CP1500EPFCLCD) works plug-and-play via Synology's official USB HID compatibility list; on APC BX750MI, bypass the firmware's 95% low-battery reporting quirk by choosing 'Time before DiskStation enters Standby Mode: 3–5 minutes' and testing with a live wall unplug.",
+          "Voltage & outlet match: In Korea/EU (220–230V), pair NAS units with APC BX750MI-GR (4× Schuko Type F) or CyberPower CP1500EPFCLCD (6× Schuko, Pure Sine Wave); in North America (120V), use CyberPower CP1500PFCLCD (NEMA 5-15R, Pure Sine Wave) and NEVER cross-import voltage-mismatched UPS hardware."
+        ]
+      },
+      "ko": {
+        "title": "NAS × UPS 호환성 · 정전 런타임 매칭 가이드: 시놀로지 USB HID 자동종료·파형·220V 조합 검증",
+        "subtitle": "시놀로지 DS224+·DS423+·유그린 DXP4800 Plus와 APC BX750MI·사이버파워 UPS의 실전 정전 버팀 시간, NUT 95% 버그 우회법, 220V 콘센트 호환을 1:1 검증합니다.",
+        "intro": "RAID 리빌딩이나 Btrfs 스크러빙 도중 순간 정전이 발생하면 수십 테라바이트의 사진·업무 데이터가 한순간에 손상될 수 있습니다. 하지만 아무 UPS나 연결하면 120V/220V 전압 불일치, IEC C13 vs 슈코 콘센트 규격 오류, Active PFC 파워의 유사 정현파 튕김, 시놀로지 DSM(NUT)에서의 APC BX-MI 95% 배터리 부족 오인식 등 실전 함정에 빠지기 쉽습니다. 이 호환성 매트릭스로 2베이·4베이 NAS에 딱 맞는 UPS 조합과 안전한 자동종료 세팅을 한 번에 점검하세요.",
+        "methodology_note": "시놀로지 공식 소비전력(DS224+ 14.69 W, DS423+ 28.3 W) 및 UPS 공식 호환성 리스트, 유그린 DXP4800 Plus 실부하, APC BX750MI·사이버파워 CP1500(E)PFCLCD 반부하 런타임 데이터와 NUT usbhid-ups 검증 사례를 교차 대조했습니다.",
+        "key_takeaways": [
+          "실전 런타임 여유: 시놀로지 DS224+(실측 15~22 W) 또는 DS423+(28~40 W) + 공유기(12 W) 조합은 APC BX750MI(410 W 정격)의 15% 미만 초저부하이므로, 반부하(약 200 W) 8.5분 기준이 실전에서는 약 40~60분 이상의 넉넉한 안전종료 시간으로 늘어납니다.",
+          "시놀로지 DSM USB HID 세팅 주의: 사이버파워 CP1500(E)PFCLCD는 시놀로지 공식 호환 리스트 등재 모델로 플러그앤플레이가 완벽하며, APC BX750MI(-GR)는 NUT 95% 저전력 보고 이슈를 피하기 위해 DSM에서 '배터리 부족 시' 대신 '정전 후 3~5분 경과 시 안전모드 진입'으로 설정하고 실전 플러그 탈거 테스트를 반드시 수행하세요.",
+          "한국 220V 콘센트·파형 선택: 외장 DC 어댑터를 쓰는 단일 NAS·공유기 조합은 한국 220V 슈코 4구 정발 APC BX750MI-GR이 가성비 최강이며, Active PFC PC·다중 NAS(유그린 DXP4800 Plus 포함)를 함께 물린다면 미국 120V CP1500PFCLCD 대신 반드시 230V 순수 정현파 모델 CP1500EPFCLCD(슈코 6구)를 선택해야 합니다."
+        ]
+      }
+    }
+  }
+]

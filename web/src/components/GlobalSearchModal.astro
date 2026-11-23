@@ -1,0 +1,506 @@
+---
+import type { ActiveLocale } from "../lib/types";
+import { BASE_PATH, safeJsonLd } from "../lib/i18n";
+
+interface Props {
+  locale: ActiveLocale;
+}
+
+const { locale } = Astro.props;
+const isKo = locale === "ko";
+
+const cfg = {
+  locale,
+  basePath: BASE_PATH,
+  indexUrl: `${BASE_PATH}/search-index.json`,
+  labels: {
+    title: isKo ? "SpecMatrix 통합 스펙 검색" : "SpecMatrix Global Command Search",
+    placeholder: isKo
+      ? "모델명, 브랜드, MPN, 항공사(KE/JL), 도구 검색… (예: Anker, Mac mini, Synology, KE)"
+      : "Search SKUs, brands, MPN, airlines (KE/UA), VS or tools… (e.g. Anker, Mac mini, Synology)",
+    emptyTitle: isKo ? "일치하는 검증 데이터가 없습니다" : "No verified matches found",
+    emptyHint: isKo
+      ? "브랜드명, 모델명, IATA 코드(KE, OZ, UA) 또는 카테고리로 검색해 보세요."
+      : "Try a brand, model name, IATA code (KE, UA, LH), or category keyword.",
+    loading: isKo ? "통합 검색 인덱스 로딩 중…" : "Loading verified search index…",
+    error: isKo ? "검색 인덱스를 불러오지 못했습니다." : "Unable to load search index.",
+    featuredHeader: isKo ? "빠른 실행 · 인기 검증 허브" : "Quick Jump · Featured Tools & Matrices",
+    resultsCount: isKo ? "건 검색됨" : "matches",
+    close: isKo ? "닫기" : "Close",
+    tabs: {
+      all: isKo ? "전체" : "All",
+      sku: isKo ? "제품 SKU" : "SKUs",
+      vs: isKo ? "1:1 VS" : "VS",
+      matrix: isKo ? "매트릭스" : "Matrices",
+      airline: isKo ? "항공사" : "Airlines",
+      tool: isKo ? "도구" : "Tools",
+    },
+    typeBadge: {
+      sku: isKo ? "제품" : "SKU",
+      vs: "VS",
+      matrix: isKo ? "매트릭스" : "MATRIX",
+      airline: isKo ? "항공사" : "AIRLINE",
+      tool: isKo ? "스튜디오" : "TOOL",
+    },
+  },
+};
+---
+
+<div
+  id="sm-search-modal"
+  class="fixed inset-0 z-50 hidden items-start justify-center bg-slate-900/60 p-4 pt-12 backdrop-blur-xs sm:pt-20"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="sm-search-title"
+  data-config={safeJsonLd(cfg)}
+>
+  <div
+    id="sm-search-panel"
+    class="w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+  >
+    <div class="flex items-center gap-3 border-b border-slate-200 px-4 py-3.5">
+      <svg
+        class="h-5 w-5 shrink-0 text-slate-400"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" stroke-linecap="round" />
+      </svg>
+      <label id="sm-search-title" for="sm-search-input" class="sr-only">
+        {cfg.labels.title}
+      </label>
+      <input
+        id="sm-search-input"
+        type="search"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder={cfg.labels.placeholder}
+        class="w-full bg-transparent text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none sm:text-base"
+        aria-controls="sm-search-results"
+        aria-autocomplete="list"
+      />
+      <button
+        id="sm-search-close"
+        type="button"
+        class="shrink-0 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+        aria-label={cfg.labels.close}
+      >
+        ESC
+      </button>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div
+      id="sm-search-tabs"
+      class="flex items-center gap-1.5 overflow-x-auto border-b border-slate-100 bg-slate-50/80 px-4 py-2"
+      role="tablist"
+    >
+      {(["all", "sku", "vs", "matrix", "airline", "tool"] as const).map((tabId) => (
+        <button
+          type="button"
+          role="tab"
+          data-search-tab={tabId}
+          aria-selected={tabId === "all" ? "true" : "false"}
+          class:list={[
+            "shrink-0 rounded-md px-2.5 py-1 font-mono text-[11px] font-semibold transition-colors",
+            tabId === "all"
+              ? "bg-slate-900 text-white"
+              : "text-slate-600 hover:bg-slate-200/70 hover:text-slate-900",
+          ]}
+        >
+          {cfg.labels.tabs[tabId]}
+        </button>
+      ))}
+      <span
+        id="sm-search-count"
+        class="ml-auto shrink-0 font-mono text-[11px] text-slate-500"
+      ></span>
+    </div>
+
+    <!-- Results List -->
+    <div
+      id="sm-search-results"
+      role="listbox"
+      class="max-h-[60vh] overflow-y-auto divide-y divide-slate-100 p-2"
+    >
+      <div class="p-6 text-center text-xs text-slate-500">{cfg.labels.loading}</div>
+    </div>
+
+    <!-- Keyboard Shortcut Hints -->
+    <div
+      class="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50 px-4 py-2.5 font-mono text-[11px] text-slate-500"
+    >
+      <div class="flex items-center gap-3">
+        <span><kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 text-[10px]">↑↓</kbd> {isKo ? "이동" : "Navigate"}</span>
+        <span><kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 text-[10px]">↵</kbd> {isKo ? "열기" : "Open"}</span>
+        <span><kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 text-[10px]">ESC</kbd> {isKo ? "닫기" : "Close"}</span>
+      </div>
+      <span>SpecMatrix Command Palette</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var modal = document.getElementById("sm-search-modal");
+    if (!modal || modal.dataset.bound === "1") return;
+    modal.dataset.bound = "1";
+
+    var cfg = {};
+    try {
+      cfg = JSON.parse(modal.getAttribute("data-config") || "{}");
+    } catch (_e) {
+      cfg = {};
+    }
+
+    var input = document.getElementById("sm-search-input");
+    var resultsEl = document.getElementById("sm-search-results");
+    var closeBtn = document.getElementById("sm-search-close");
+    var countEl = document.getElementById("sm-search-count");
+    var tabButtons = Array.prototype.slice.call(modal.querySelectorAll("[data-search-tab]"));
+
+    var indexData = null;
+    var indexPromise = null;
+    var activeTab = "all";
+    var currentResults = [];
+    var activeIdx = 0;
+    var lastFocused = null;
+    var trackTimer = null;
+
+    var BADGE_CLASSES = {
+      sku: "bg-blue-50 text-blue-700 border-blue-200",
+      vs: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      matrix: "bg-amber-50 text-amber-800 border-amber-200",
+      airline: "bg-sky-50 text-sky-700 border-sky-200",
+      tool: "bg-violet-50 text-violet-700 border-violet-200",
+    };
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function buildHref(entry) {
+      var base = cfg.basePath || "";
+      var loc = cfg.locale || "en";
+      var p = entry && entry.p ? String(entry.p) : "/";
+      if (p.indexOf("/en/") === 0 || p.indexOf("/ko/") === 0) {
+        return base + p;
+      }
+      return base + "/" + loc + (p.charAt(0) === "/" ? p : "/" + p);
+    }
+
+    function loadIndex() {
+      if (indexData) return Promise.resolve(indexData);
+      if (indexPromise) return indexPromise;
+      indexPromise = fetch(cfg.indexUrl || "/search-index.json", { credentials: "same-origin" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          var combined = [];
+          if (data && typeof data === "object") {
+            ["tools", "items", "vs", "matrices", "airlines"].forEach(function (key) {
+              if (Array.isArray(data[key])) {
+                combined = combined.concat(data[key]);
+              }
+            });
+          }
+          indexData = combined;
+          return indexData;
+        })
+        .catch(function () {
+          indexPromise = null;
+          return null;
+        });
+      return indexPromise;
+    }
+
+    function scoreEntry(entry, tokens, fullQuery) {
+      var titleEn = (entry.en || "").toLowerCase();
+      var titleKo = (entry.ko || "").toLowerCase();
+      var subEn = (entry.sub_en || "").toLowerCase();
+      var subKo = (entry.sub_ko || "").toLowerCase();
+      var kw = (entry.k || "").toLowerCase();
+      var hay = titleEn + " " + titleKo + " " + subEn + " " + subKo + " " + kw;
+
+      for (var i = 0; i < tokens.length; i++) {
+        if (hay.indexOf(tokens[i]) === -1) return -1;
+      }
+
+      var score = 10;
+      if (titleEn === fullQuery || titleKo === fullQuery || kw === fullQuery) score += 120;
+      else if (titleEn.indexOf(fullQuery) === 0 || titleKo.indexOf(fullQuery) === 0) score += 80;
+      else if (titleEn.indexOf(fullQuery) !== -1 || titleKo.indexOf(fullQuery) !== -1) score += 45;
+      else if (kw.indexOf(fullQuery) !== -1) score += 30;
+
+      if (entry.t === "tool") score += 12;
+      else if (entry.t === "sku") score += 8;
+      else if (entry.t === "matrix") score += 5;
+
+      return score;
+    }
+
+    function filterEntries(query) {
+      if (!indexData) return [];
+      var q = (query || "").trim().toLowerCase();
+      var list = activeTab === "all"
+        ? indexData
+        : indexData.filter(function (e) { return e.t === activeTab; });
+
+      if (!q) {
+        if (activeTab === "all") {
+          var tools = list.filter(function (e) { return e.t === "tool"; });
+          var matrices = list.filter(function (e) { return e.t === "matrix"; }).slice(0, 6);
+          var skus = list.filter(function (e) { return e.t === "sku"; }).slice(0, 8);
+          return tools.concat(matrices, skus).slice(0, 18);
+        }
+        return list.slice(0, 20);
+      }
+
+      var tokens = q.split(/\s+/).filter(Boolean);
+      var scored = [];
+      for (var i = 0; i < list.length; i++) {
+        var s = scoreEntry(list[i], tokens, q);
+        if (s > 0) scored.push({ item: list[i], score: s });
+      }
+      scored.sort(function (a, b) { return b.score - a.score; });
+      return scored.slice(0, 24).map(function (x) { return x.item; });
+    }
+
+    function renderResults() {
+      if (!resultsEl) return;
+      if (indexData === null) {
+        resultsEl.innerHTML = '<div class="p-6 text-center text-xs text-slate-500">' + escapeHtml(cfg.labels.loading) + "</div>";
+        return;
+      }
+
+      var q = (input && input.value ? input.value : "").trim();
+      currentResults = filterEntries(q);
+      if (activeIdx >= currentResults.length) activeIdx = 0;
+
+      if (countEl) {
+        countEl.textContent = currentResults.length + " " + (cfg.labels.resultsCount || "matches");
+      }
+
+      if (currentResults.length === 0) {
+        resultsEl.innerHTML =
+          '<div class="p-8 text-center">' +
+          '<div class="text-sm font-bold text-slate-800">' + escapeHtml(cfg.labels.emptyTitle) + "</div>" +
+          '<p class="mt-1 text-xs text-slate-500">' + escapeHtml(cfg.labels.emptyHint) + "</p>" +
+          "</div>";
+        return;
+      }
+
+      var loc = cfg.locale || "en";
+      var html = "";
+      if (!q && activeTab === "all") {
+        html +=
+          '<div class="px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">' +
+          escapeHtml(cfg.labels.featuredHeader) +
+          "</div>";
+      }
+
+      for (var i = 0; i < currentResults.length; i++) {
+        var item = currentResults[i];
+        var title = loc === "ko" ? item.ko || item.en : item.en || item.ko;
+        var sub = loc === "ko" ? item.sub_ko || item.sub_en : item.sub_en || item.sub_ko;
+        var badge = (cfg.labels.typeBadge && cfg.labels.typeBadge[item.t]) || item.t.toUpperCase();
+        var badgeCls = BADGE_CLASSES[item.t] || "bg-slate-100 text-slate-700 border-slate-200";
+        var isSel = i === activeIdx;
+        var href = buildHref(item);
+
+        html +=
+          '<a id="sm-sr-' + i + '" role="option" aria-selected="' + (isSel ? "true" : "false") + '" ' +
+          'data-result-idx="' + i + '" href="' + escapeHtml(href) + '" ' +
+          'class="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 transition-colors ' +
+          (isSel ? "bg-blue-50 text-blue-950" : "text-slate-800 hover:bg-slate-50") + '">' +
+          '<div class="min-w-0 flex-1">' +
+          '<div class="flex items-center gap-2">' +
+          '<span class="shrink-0 rounded border px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase ' + badgeCls + '">' + escapeHtml(badge) + "</span>" +
+          '<span class="truncate text-sm font-semibold">' + escapeHtml(title) + "</span>" +
+          "</div>" +
+          (sub ? '<div class="mt-0.5 truncate pl-0.5 font-mono text-[11px] text-slate-500">' + escapeHtml(sub) + "</div>" : "") +
+          "</div>" +
+          '<span class="shrink-0 font-mono text-xs font-semibold ' + (isSel ? "text-blue-700" : "text-slate-400") + '">→</span>' +
+          "</a>";
+      }
+
+      resultsEl.innerHTML = html;
+      if (input && currentResults.length > 0) {
+        input.setAttribute("aria-activedescendant", "sm-sr-" + activeIdx);
+      }
+
+      if (q.length >= 2) {
+        clearTimeout(trackTimer);
+        trackTimer = setTimeout(function () {
+          if (typeof window.smTrack === "function") {
+            window.smTrack("site_search", {
+              search_term: q,
+              results_count: currentResults.length,
+              tab: activeTab,
+              locale: loc,
+            });
+          }
+        }, 650);
+      }
+    }
+
+    function updateHighlight(nextIdx) {
+      if (!currentResults.length) return;
+      activeIdx = (nextIdx + currentResults.length) % currentResults.length;
+      var links = resultsEl ? resultsEl.querySelectorAll("[data-result-idx]") : [];
+      for (var i = 0; i < links.length; i++) {
+        var isSel = i === activeIdx;
+        links[i].setAttribute("aria-selected", isSel ? "true" : "false");
+        links[i].classList.toggle("bg-blue-50", isSel);
+        links[i].classList.toggle("text-blue-950", isSel);
+        links[i].classList.toggle("text-slate-800", !isSel);
+        if (isSel && links[i].scrollIntoView) {
+          links[i].scrollIntoView({ block: "nearest" });
+        }
+      }
+      if (input) {
+        input.setAttribute("aria-activedescendant", "sm-sr-" + activeIdx);
+      }
+    }
+
+    function openModal() {
+      lastFocused = document.activeElement;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+      if (input) {
+        input.focus();
+        input.select();
+      }
+      loadIndex().then(function (data) {
+        if (!data && resultsEl) {
+          resultsEl.innerHTML = '<div class="p-6 text-center text-xs text-rose-600">' + escapeHtml(cfg.labels.error) + "</div>";
+          return;
+        }
+        renderResults();
+      });
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+      if (lastFocused && typeof lastFocused.focus === "function") {
+        lastFocused.focus();
+      }
+    }
+
+    function isModalOpen() {
+      return !modal.classList.contains("hidden");
+    }
+
+    window.addEventListener("specmatrix:open-search", openModal);
+
+    document.addEventListener("click", function (ev) {
+      var trigger = ev.target && ev.target.closest ? ev.target.closest("[data-open-search]") : null;
+      if (trigger) {
+        ev.preventDefault();
+        openModal();
+      }
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function (ev) {
+      if (ev.target === modal) closeModal();
+    });
+
+    tabButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        activeTab = btn.getAttribute("data-search-tab") || "all";
+        activeIdx = 0;
+        tabButtons.forEach(function (b) {
+          var sel = b === btn;
+          b.setAttribute("aria-selected", sel ? "true" : "false");
+          b.classList.toggle("bg-slate-900", sel);
+          b.classList.toggle("text-white", sel);
+          b.classList.toggle("text-slate-600", !sel);
+        });
+        renderResults();
+        if (input) input.focus();
+      });
+    });
+
+    if (input) {
+      input.addEventListener("input", function () {
+        activeIdx = 0;
+        renderResults();
+      });
+    }
+
+    if (resultsEl) {
+      resultsEl.addEventListener("click", function (ev) {
+        var link = ev.target && ev.target.closest ? ev.target.closest("[data-result-idx]") : null;
+        if (!link) return;
+        var idx = Number(link.getAttribute("data-result-idx"));
+        var entry = currentResults[idx];
+        if (entry && typeof window.smTrack === "function") {
+          window.smTrack("site_search_select", {
+            type: entry.t,
+            vertical: entry.v,
+            path: entry.p,
+          });
+        }
+      });
+    }
+
+    document.addEventListener("keydown", function (ev) {
+      if ((ev.metaKey || ev.ctrlKey) && ev.key && ev.key.toLowerCase() === "k") {
+        ev.preventDefault();
+        if (isModalOpen()) closeModal();
+        else openModal();
+        return;
+      }
+
+      if (!isModalOpen() && ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey) {
+        var tag = document.activeElement && document.activeElement.tagName
+          ? document.activeElement.tagName.toUpperCase()
+          : "";
+        var editable = document.activeElement && document.activeElement.isContentEditable;
+        if (tag !== "INPUT" && tag !== "TEXTAREA" && tag !== "SELECT" && !editable) {
+          ev.preventDefault();
+          openModal();
+        }
+        return;
+      }
+
+      if (!isModalOpen()) return;
+
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        closeModal();
+      } else if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        updateHighlight(activeIdx + 1);
+      } else if (ev.key === "ArrowUp") {
+        ev.preventDefault();
+        updateHighlight(activeIdx - 1);
+      } else if (ev.key === "Enter" && currentResults[activeIdx]) {
+        ev.preventDefault();
+        var chosen = currentResults[activeIdx];
+        if (typeof window.smTrack === "function") {
+          window.smTrack("site_search_select", {
+            type: chosen.t,
+            vertical: chosen.v,
+            path: chosen.p,
+          });
+        }
+        window.location.href = buildHref(chosen);
+      }
+    });
+  })();
+</script>

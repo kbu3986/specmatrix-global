@@ -1,0 +1,236 @@
+[
+  {
+    "pair_slug": "apple-mac-mini-m4-vs-beelink-ser8-8745hs",
+    "vertical": "hometech",
+    "slug_a": "apple-mac-mini-m4",
+    "slug_b": "beelink-ser8-8745hs",
+    "release_wave": 1,
+    "info_gain_score": 96,
+    "serp_gaps_captured": [
+      "True 24/7 idle power & 3-year KEPCO/US electricity delta: Mac mini M4 (~4 W idle, internal 100-240V PSU) vs Beelink SER8 8745HS (~8-10 W idle, 54-65 W TDP) quantified across US $0.17/kWh, Korea ₩214/kWh, and Germany €0.38/kWh.",
+      "Upgradeability & total platform TCO trap: Mac mini M4's non-upgradeable 16 GB unified memory and 256 GB base SSD vs Beelink SER8's dual DDR5-5600 SO-DIMM slots (32 GB default, up to 256 GB) and dual M.2 2280 PCIe 4.0 NVMe slots.",
+      "Networking & acoustic trade-off: 1GbE base LAN (10GbE BTO extra) + whisper-quiet 127×127×50 mm aluminum unibody (670 g) vs native 2.5GbE LAN + vapor-chamber MSC2.0 cooling and Windows/Linux Proxmox bare-metal flexibility."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "4 W Always-On Efficiency & Apple Silicon Quietness (Mac mini M4) vs 32 GB/1 TB Upgradable x86 Value (Beelink SER8)",
+        "choose_a_if": [
+          "You want the lowest 24/7 idle electricity draw (~4 W), whisper-quiet acoustics, single-cable internal 100-240V power supply, and top-tier single-core / ProRes / macOS workflow performance.",
+          "You already live in the Apple ecosystem (iCloud, AirDrop, Xcode, Final Cut) and 16 GB unified memory plus external Thunderbolt 4 SSD storage meets your needs without paying Apple's steep BTO upgrade tiers."
+        ],
+        "choose_b_if": [
+          "You need 32 GB DDR5 RAM and 1 TB NVMe storage out of the box — plus user-replaceable dual SO-DIMM and dual M.2 slots — for Docker stacks, Proxmox VMs, Windows 11, or Linux homelab workloads.",
+          "You want native 2.5GbE wired networking without paying extra for a 10GbE BTO upgrade or USB-C dongle, alongside strong Radeon 780M iGPU light gaming and x86 software compatibility."
+        ],
+        "bottom_line": "The Apple Mac mini M4 wins hands-down on 24/7 watt-per-performance efficiency (~4 W idle), tiny 127 mm footprint, and Apple Silicon single-thread speed — making it unbeatable as an always-on desktop or lightweight macOS server when 16 GB/256 GB suffices. However, once your workload demands 32 GB+ RAM, internal dual-NVMe storage, native 2.5GbE, or Proxmox/Windows x86 virtualization, the Beelink SER8 (Ryzen 7 8745HS) destroys Apple's upgrade pricing on 3-year total cost of ownership."
+      },
+      "ko": {
+        "headline": "4 W 초저전력·무소음 정숙성(맥미니 M4) vs 32 GB/1 TB 확장성·2.5GbE x86 가성비(비링크 SER8)",
+        "choose_a_if": [
+          "24시간 켜둬도 전기요금 부담이 거의 없는 약 4 W 초저전력 아이들, 어댑터 벽돌 없는 내장 프리볼트 전원, 127×127 mm 초소형 바디와 최상급 싱글코어·영상 인코딩 성능을 원하는 경우.",
+          "macOS·Xcode·파이널컷·애플 생태계에 최적화되어 있으며 기본 16 GB 통합 메모리 + 외장 썬더볼트 SSD 조합으로 충분한 사용자."
+        ],
+        "choose_b_if": [
+          "개봉 즉시 32 GB DDR5 램과 1 TB NVMe SSD를 쓰면서 향후 듀얼 SO-DIMM 슬롯과 듀얼 M.2 슬롯을 직접 증설해 Proxmox·도커·윈도우/리눅스 홈랩을 구축하려는 경우.",
+          "애플의 고가 RAM/SSD CTO 옵션 비용을 피하면서 기본 2.5GbE 유선 랜과 라데온 780M 내장 그래픽의 범용 x86 호환성을 챙기고 싶은 실속파."
+        ],
+        "bottom_line": "기본 16 GB/256 GB 구성으로 충분하고 정숙성·초저전력(4 W 아이들)·macOS 생산성을 중시한다면 애플 맥미니 M4가 3년 전기요금과 완성도 모두에서 압도합니다. 반대로 32 GB 이상 메모리와 2~4 TB 내장 스토리지, 네이티브 2.5GbE, Proxmox 가상화가 필요하다면 애플 CTO 추가 비용 없이 합리적 총소유비용(TCO)으로 해결되는 비링크 SER8 8745HS가 훨씬 유리합니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "beelink-ser8-8745hs-vs-minisforum-um890-pro",
+    "vertical": "hometech",
+    "slug_a": "beelink-ser8-8745hs",
+    "slug_b": "minisforum-um890-pro",
+    "release_wave": 1,
+    "info_gain_score": 94,
+    "serp_gaps_captured": [
+      "I/O and homelab expansion audit: Minisforum UM890 Pro's Dual 2.5GbE LAN + native OCuLink (64 Gbps PCIe 4.0 x4 eGPU) + Wi-Fi 6E vs Beelink SER8's single 2.5GbE + cleaner CNC aluminum chassis.",
+      "Acoustic vs sustained TDP trade-off: Beelink SER8's MSC2.0 vapor chamber tuned for ultra-quiet 54-65 W desktop operation vs UM890 Pro's liquid-metal 70 W Performance Mode thermal headroom.",
+      "Zen 4 silicon reality check: Ryzen 7 8745HS (no NPU, 4.9 GHz boost) vs Ryzen 9 8945HS (XDNA NPU, 5.2 GHz boost) real-world delta vs upfront purchase price premium."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Quieter Value & Vapor-Chamber Acoustics (Beelink SER8) vs Dual 2.5GbE, OCuLink & 70 W Ceiling (Minisforum UM890 Pro)",
+        "choose_a_if": [
+          "You want a whisper-quiet CNC aluminum daily driver (MSC2.0 vapor chamber) that delivers ~95% of Zen 4 8-core / Radeon 780M performance at a noticeably lower purchase price.",
+          "You don't need an external OCuLink GPU dock, dual Ethernet router/firewall ports, or Ryzen AI NPU acceleration, and prioritize lower fan noise and simpler 3-year TCO."
+        ],
+        "choose_b_if": [
+          "You plan to attach a desktop eGPU over lossless 64 Gbps OCuLink (zero USB4 bottleneck) or run OPNsense/Proxmox clusters that directly leverage Dual 2.5GbE RJ-45 ports.",
+          "You push sustained 70 W all-core renders or compilation workloads where Ryzen 9 8945HS's higher 5.2 GHz boost, liquid-metal cooling, and Wi-Fi 6E earn the price premium."
+        ],
+        "bottom_line": "Both machines share 8-core/16-thread AMD Zen 4 silicon, Radeon 780M graphics, dual DDR5-5600 slots, and dual M.2 PCIe 4.0 NVMe bays — so connectivity and acoustics decide the winner. Pick the Beelink SER8 8745HS for quieter vapor-chamber acoustics and lower 3-year TCO as a compact desktop/homelab node; step up to the Minisforum UM890 Pro specifically when Dual 2.5GbE, native OCuLink eGPU bandwidth, or sustained 70 W performance justify the extra cost and fan curve."
+      },
+      "ko": {
+        "headline": "더 조용한 베이퍼챔버·실속 TCO(비링크 SER8) vs 듀얼 2.5GbE·OCuLink·70 W 끝판 확장성(미니스포럼 UM890 Pro)",
+        "choose_a_if": [
+          "동일한 8코어 16스레드 Zen 4 + 라데온 780M 성능을 더 낮은 구매가와 뛰어난 정숙성(MSC2.0 베이퍼챔버 쿨링), 깔끔한 메탈 바디로 누리고 싶은 경우.",
+          "외장 그래픽(eGPU)용 OCuLink 포트나 듀얼 유선 랜이 불필요하며 책상 위 저소음 데스크톱·단일 홈서버 노드가 목적인 사용자."
+        ],
+        "choose_b_if": [
+          "USB4 병목 없는 64 Gbps OCuLink 외장 그래픽카드 직결 또는 듀얼 2.5GbE 포트를 활용한 OPNsense 라우터·고대역폭 Proxmox 클러스터 구성을 계획 중인 경우.",
+          "리퀴드 메탈 서멀과 최대 70 W 성능 모드, 라이젠 9 8945HS(최대 5.2 GHz + NPU) 및 Wi-Fi 6E로 미니PC 한계 성능을 끝까지 끌어쓰려는 파워 유저."
+        ],
+        "bottom_line": "두 모델 모두 8코어 Zen 4 아키텍처와 듀얼 DDR5·듀얼 M.2 슬롯을 공유해 순수 일상 성능 차이는 크지 않습니다. 합리적인 가격과 정숙한 팬 소음을 원한다면 비링크 SER8 8745HS가 더 균형 잡힌 선택이며, 듀얼 2.5GbE 네트워크와 OCuLink eGPU 확장, 70 W 풀로드 여유가 꼭 필요할 때 미니스포럼 UM890 Pro를 선택하는 것이 합리적입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "gmktec-nucbox-g3-plus-n150-vs-synology-ds224-plus",
+    "vertical": "hometech",
+    "slug_a": "gmktec-nucbox-g3-plus-n150",
+    "slug_b": "synology-ds224-plus",
+    "release_wave": 1,
+    "info_gain_score": 97,
+    "serp_gaps_captured": [
+      "Classic DIY Mini-PC Server vs Turnkey 2-Bay NAS TCO audit: GMKtec NucBox G3 Plus (~6 W idle, 2.5GbE, modern Intel N150 AV1 decode) vs Synology DS224+ (4.41 W HDD hibernation, 14.69 W access, 2× hot-swap 3.5\" SATA bays, 1GbE).",
+      "Hidden storage & reliability cost math: Adding external USB DAS enclosures to an N150 mini PC sacrifices SMART monitoring and RAID stability compared to DS224+'s native SATA backplane and SHR/Btrfs scrubbing.",
+      "Transcoding & software ownership trade-off: Intel N150's newer Quick Sync (AV1 decode) + Proxmox/Docker freedom vs Synology DSM 7.2's turnkey Synology Photos, Drive, and Hyper Backup suite."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Ultra-Cheap N150 Compute & 2.5GbE Freedom (GMKtec G3 Plus) vs Turnkey 2-Bay RAID & DSM Reliability (Synology DS224+)",
+        "choose_a_if": [
+          "You want maximum 24/7 compute per dollar for Home Assistant, Docker/Portainer, AdGuard Home, or Plex/Jellyfin with modern Intel N150 Quick Sync (including AV1 hardware decode) and 2.5GbE LAN.",
+          "Your data fits comfortably on internal 1–4 TB M.2 NVMe SSDs and you are comfortable maintaining Linux, Proxmox, or CasaOS yourself."
+        ],
+        "choose_b_if": [
+          "You need multi-terabyte redundant storage (two hot-swappable 3.5\" SATA bays up to 36+ TB raw in SHR/RAID-1) with Btrfs bit-rot protection and zero USB-enclosure disconnect risks.",
+          "You want a zero-maintenance family photo cloud (Synology Photos), PC/Mac backup (Drive/Active Backup), and official DSM security updates running at just 4.41 W idle / 14.69 W access."
+        ],
+        "bottom_line": "Do not treat these as interchangeable — they are often best paired together! The GMKtec NucBox G3 Plus (N150) crushes the older Celeron J4125 in CPU/iGPU speed, 2.5GbE networking, and upfront price for pure Docker/Home Assistant compute at ~6 W idle, but lacks native 3.5\" SATA RAID bays. Choose the Synology DS224+ when bulk redundant HDD storage and turnkey DSM 7.2 family backup are priority one (and keep the G3 Plus in mind as a future compute sidecar)."
+      },
+      "ko": {
+        "headline": "압도적 가성비 N150 연산·2.5GbE(GMKtec G3 Plus) vs 3.5인치 RAID·무결점 DSM 백업(시놀로지 DS224+)",
+        "choose_a_if": [
+          "약 6 W 초저전력으로 Home Assistant·도커·AdGuard·젤리핀(AV1 하드웨어 디코딩 지원) 등 24시간 홈서버 연산 노드를 20만 원 안팎의 최저 TCO로 구축하려는 경우.",
+          "저장 용량이 내장 M.2 SSD(1~4 TB)로 충분하며 리눅스·Proxmox·도커를 직접 세팅하고 유지보수하는 데 부담이 없는 경우."
+        ],
+        "choose_b_if": [
+          "3.5인치 대용량 하드디스크 2개(SHR/RAID-1 이중화 + Btrfs 데이터 무결성 검사)를 USB 외장하드 끊김 위험 없이 안정적으로 굴려야 하는 경우.",
+          "가족 사진 자동 백업(시놀로지 포토), 문서 동기화(드라이브), 랜섬웨어 대비 스냅샷을 별도 서버 관리 없이 4.41 W 절전 / 14.69 W 저전력으로 바로 쓰고 싶은 경우."
+        ],
+        "bottom_line": "두 기기는 대체재라기보다 역할이 뚜렷이 갈립니다. GMKtec NucBox G3 Plus(N150)는 구형 셀러론 J4125 대비 더 빠른 연산 성능·AV1 디코딩·2.5GbE를 절반 이하 가격에 제공하지만 3.5인치 RAID 베이가 없습니다. 대용량 가족 사진·파일 백업과 안정적인 DSM 생태계가 최우선이면 시놀로지 DS224+를, 도커·스마트홈·트랜스코딩 전용 저전력 서버가 필요하면 G3 Plus를 선택하세요."
+      }
+    }
+  },
+  {
+    "pair_slug": "synology-ds423-plus-vs-ugreen-nasync-dxp4800-plus",
+    "vertical": "hometech",
+    "slug_a": "synology-ds423-plus",
+    "slug_b": "ugreen-nasync-dxp4800-plus",
+    "release_wave": 1,
+    "info_gain_score": 97,
+    "serp_gaps_captured": [
+      "4-Bay NAS generational hardware chasm vs 24/7 electricity TCO: Synology DS423+ (Celeron J4125, 2 GB DDR4, 2× 1GbE, 8.45 W hibernation / 28.3 W access) vs UGREEN DXP4800 Plus (Pentium Gold 8505, 8 GB DDR5 up to 64 GB, 10GbE + 2.5GbE, higher idle/load draw).",
+      "Software maturity vs hardware freedom: Synology DSM 7.2's battle-tested Hyper Backup, Active Backup for Business, and Synology Photos vs UGREEN UGOS Pro's rapidly evolving OS plus ability to install TrueNAS SCALE / Unraid natively.",
+      "Hidden RAM & networking upgrade costs: DS423+ requires third-party RAM upgrades and cannot achieve native 10GbE, whereas DXP4800 Plus ships ready for multi-gigabit 4K video editing out of the box."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "Mature DSM 7.2 Ecosystem & Lower Idle Power (Synology DS423+) vs 10GbE, DDR5 & Pentium 8505 Horsepower (UGREEN DXP4800 Plus)",
+        "choose_a_if": [
+          "You value decade-proven DSM 7.2 software stability (Synology Photos, Drive, Active Backup for Business, Hyper Backup, SHR flexible RAID expansion) over raw hardware specs.",
+          "You want lower 24/7 electricity draw (8.45 W HDD hibernation / 28.3 W access) and whisper-quiet 19.8 dBA acoustics for home media streaming over standard 1GbE home networks."
+        ],
+        "choose_b_if": [
+          "You edit 4K video directly off the NAS or move massive files over a multi-gigabit LAN where built-in 10GbE + 2.5GbE, dual PCIe 4.0 M.2 NVMe slots, and a 5-core Pentium Gold 8505 destroy 1GbE bottlenecks.",
+          "You run heavy Docker containers or VMs requiring 8 GB–64 GB DDR5 RAM — or want the freedom to boot TrueNAS SCALE / Unraid / Proxmox on turnkey 4-bay hardware."
+        ],
+        "bottom_line": "This matchup is the textbook 'Software & Efficiency vs Raw Hardware' duel. Synology DS423+ runs cooler, quieter (19.8 dBA), and cheaper on electricity with the gold-standard DSM 7.2 software suite, but its 2019 Celeron J4125, 2 GB base RAM, and 1GbE NICs show their age. Choose UGREEN NASync DXP4800 Plus if 10GbE speed, DDR5 capacity, and modern Intel 12th-gen compute matter more than DSM's polished turnkey apps."
+      },
+      "ko": {
+        "headline": "완성형 DSM 7.2·19.8 dBA 초저소음·저전력(시놀로지 DS423+) vs 10GbE·DDR5·압도적 하드웨어(유그린 DXP4800 Plus)",
+        "choose_a_if": [
+          "시놀로지 포토·드라이브·하이퍼 백업·액티브 백업·SHR 유연한 용량 증설 등 10년 이상 검증된 DSM 7.2 소프트웨어 안정성과 국내 정식 유통 A/S를 최우선으로 보는 경우.",
+          "1GbE 가정용 네트워크 환경에서 19.8 dBA 저소음과 8.45 W 절전 / 28.3 W 구동의 낮은 24시간 전기요금으로 조용한 미디어·백업 서버를 운영하려는 경우."
+        ],
+        "choose_b_if": [
+          "10GbE + 2.5GbE 멀티기가비트 유선망으로 4K 영상 직접 편집·초고속 대용량 전송을 하거나, 펜티엄 골드 8505(5코어 6스레드)와 기본 8 GB DDR5(최대 64 GB)로 무거운 도커·VM을 돌리려는 경우.",
+          "유그린 UGOS Pro뿐 아니라 필요 시 TrueNAS SCALE·Unraid·Proxmox를 직접 설치해 고성능 4베이 DIY 하드웨어 플랫폼으로 활용하고 싶은 고급 사용자."
+        ],
+        "bottom_line": "소프트웨어 완성도와 저전력 정숙성은 시놀로지 DS423+가, 순수 하드웨어 스펙과 10GbE 확장성은 유그린 DXP4800 Plus가 완전히 다른 차원을 보여줍니다. 별도 관리 없이 가족·소호용 완벽한 백업 생태계와 낮은 전기요금을 원하면 DS423+를, 10GbE 초고속 전송·DDR5 대용량 램·현대적 CPU 성능이 절실하다면 DXP4800 Plus가 정답입니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "apc-back-ups-bx750mi-vs-cyberpower-cp1500pfclcd",
+    "vertical": "hometech",
+    "slug_a": "apc-back-ups-bx750mi",
+    "slug_b": "cyberpower-cp1500pfclcd",
+    "release_wave": 1,
+    "info_gain_score": 96,
+    "serp_gaps_captured": [
+      "Critical regional voltage trap: APC BX750MI is strictly 230V (Korea/EU native, BX750MI-GR Schuko) whereas CyberPower CP1500PFCLCD is strictly 120V US-only (KR/EU buyers MUST purchase CP1500EPFCLCD 900W instead!).",
+      "Waveform & PSU compatibility physics: Stepped approximation simulated-sine (410 W / 750 VA, PF 0.55) vs true Pure Sine Wave (1,000 W / 1,500 VA, PF 0.67) required for Active-PFC desktop/workstation PSUs.",
+      "3-year TCO including 24/7 parasitic power & SLA battery amortization: APC BX750MI (~8 W overhead + single RBC17 ~$12/₩15,000/yr) vs CyberPower CP1500PFCLCD (~12 W overhead + dual RB1290X2 ~$18/₩24,000/yr) plus Synology NUT 95% low-battery quirk."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "230V Budget NAS Protection (APC BX750MI) vs 120V 1,000 W Pure Sinewave & Active-PFC Safety (CyberPower CP1500PFCLCD)",
+        "choose_a_if": [
+          "You live in a 220-230V region (Korea, EU, UK, APAC) protecting low-wattage DC-brick gear (a 2-bay/4-bay NAS + router totaling 30–80 W) on a ~$120 / ₩129,000 budget with lower 3-year battery & idle TCO.",
+          "You configure a fixed 3–5 minute Safe Mode shutdown timer in Synology DSM (bypassing the BX-MI 95% low-battery NUT reporting quirk) and do not run sensitive high-wattage Active-PFC PC PSUs on the battery bank."
+        ],
+        "choose_b_if": [
+          "You are on a 120V North American grid (or buy the 230V CP1500EPFCLCD sibling in KR/EU) and need true Pure Sine Wave output for Active-PFC workstations, Mac Studios, or multi-NAS homelab racks.",
+          "You want 2.4x higher wattage capacity (1,000 W vs 410 W), ~10 minutes at 500 W half load, tiltable color LCD wattage telemetry, and zero-quirk Synology official USB HID plug-and-play support."
+        ],
+        "bottom_line": "Grid voltage and PSU waveform sensitivity immediately separate these two UPS units. The APC BX750MI (and Schuko BX750MI-GR) is the value champion for 220–230V regions protecting a Synology NAS + router at half the upfront and battery-replacement cost — just remember simulated-sine limits and set a timed DSM shutdown. Choose the CyberPower CP1500PFCLCD (120V US) — or its 230V sibling CP1500EPFCLCD in Korea/EU — whenever Active-PFC PCs, multi-device loads, or true pure sinewave power quality are mandatory."
+      },
+      "ko": {
+        "headline": "한국 220V NAS 입문 가성비(APC BX750MI) vs 순수 정현파·Active PFC 워크스테이션 보호(사이버파워 CP1500PFCLCD)",
+        "choose_a_if": [
+          "한국 220V/60Hz 환경에서 별도 변압기나 해외 직구 부담 없이 약 12~13만 원대(슈코 4구 BX750MI-GR 기준)로 NAS 1~2대와 공유기(합산 30~80 W)를 정전 보호하려는 경우.",
+          "단일 12V 9Ah 배터리(연 약 1.5만 원 상각)와 약 8 W 낮은 자체 대기전력으로 3년 유지비를 최소화하고, 시놀로지 DSM에서 '정전 후 3~5분 경과 시 안전모드' 타이머로 깔끔하게 세팅할 수 있는 사용자."
+        ],
+        "choose_b_if": [
+          "Active PFC 고출력 데스크톱·워크스테이션·다중 NAS 랙을 유사 정현파 전환 충격 없이 완벽한 순수 정현파(Pure Sine Wave)와 900~1,000 W 대용량으로 보호해야 하는 경우.",
+          "미국 120V 거주자이거나, 한국 220V 환경에서 직구·수입 비용(약 64만 원대)을 감수하고서라도 230V 정식 형제 모델인 CP1500EPFCLCD(슈코 6구, 900 W)와 컬러 LCD·무결점 시놀로지 USB HID 연동을 원하는 경우."
+        ],
+        "bottom_line": "한국 220V 가정에서 시놀로지 NAS와 공유기만 안전하게 끄는 목적이라면 국내 유통가 약 12.9만 원의 APC BX750MI-GR이 가격·유지비·호환성 모두에서 압도적으로 현실적입니다. 반면 미국판 CP1500PFCLCD는 120V 전용이므로 한국 직구가 절대 불가하며, 순수 정현파와 Active PFC 보호가 필수인 국내 사용자는 반드시 230V 형제 모델(CP1500EPFCLCD) 기준으로 예산을 비교해야 합니다."
+      }
+    }
+  },
+  {
+    "pair_slug": "dreame-x40-ultra-vs-roborock-s8-maxv-ultra",
+    "vertical": "hometech",
+    "slug_a": "dreame-x40-ultra",
+    "slug_b": "roborock-s8-maxv-ultra",
+    "release_wave": 1,
+    "info_gain_score": 96,
+    "serp_gaps_captured": [
+      "Carpet & mopping engineering clash: Dreame X40 Ultra's automatic dock mop detachment + MopExtend RoboSwing + 70°C hot water vs Roborock S8 MaxV Ultra's 20 mm VibraRise 3.0 sonic lift + dedicated Extra Edge spinning mop + 60°C wash.",
+      "3-Year total ownership cost (electricity + consumables + regional MSRP inversion): Dreame's 3.2 L dust bag (~75 days) and ₩1,799,000 KR MSRP undercut S8 MaxV Ultra's ₩1,840,000 KR MSRP & ₩110,000/yr consumables despite Dreame costing $100 more in the US ($1,899.99 vs $1,799.99).",
+      "Physical furniture clearance & dock hygiene audit: Dreame's 590.5 mm tall base station vs Roborock's shorter 470 mm RockDock Ultra (which lacks a fully removable washboard tray)."
+    ],
+    "verdict": {
+      "en": {
+        "headline": "12,000 Pa, Auto-Detach Mops & 70°C Wash (Dreame X40 Ultra) vs 20 mm Sonic Lift, Matter & Squat Dock (Roborock S8 MaxV Ultra)",
+        "choose_a_if": [
+          "You have thick or high-pile carpets where automatically dropping mop pads inside the dock guarantees zero damp fibers, plus a 6,400 mAh battery (+23%) and 3.2 L 75-day dust bag for large homes.",
+          "You want 12,000 Pa suction, 70°C hot-water grease washing, a 4 cm RoboSwing mop that reaches deep under kitchen toe-kicks, and Korea's lower official launch MSRP (₩1,799,000 vs ₩1,840,000)."
+        ],
+        "choose_b_if": [
+          "You want a shorter 470 mm dock height (vs Dreame's towering 590.5 mm station) for under-cabinet installations, official UL Solutions Matter smart-home certification, and Roborock's mature app reliability.",
+          "You prefer zero-tangle DuoRoller Riser dual rubber brushes out of the box (no separate TriCut add-on), 20 mm instant sonic mop lift without returning to the dock, and slightly quieter 67 dBA vacuuming."
+        ],
+        "bottom_line": "Over 3 years, electricity is a rounding error (~$39–$44 total) while consumables ($240–$255) and dock architecture separate these flagships. Pick the Dreame X40 Ultra for higher 12,000 Pa suction, 6,400 mAh battery endurance, 70°C wash, and true zero-wet auto-detaching mops on thick rugs (especially in Korea where it undercuts Roborock's MSRP). Pick the Roborock S8 MaxV Ultra if you need the shorter 470 mm dock profile, official Matter integration, DuoRoller hair resilience out of the box, and Roborock's proven long-term firmware/service track record."
+      },
+      "ko": {
+        "headline": "12,000 Pa·물걸레 자동 탈착·70℃ 온수(드리미 X40 울트라) vs 470 mm 컴팩트 도크·듀오롤러·매터(로보락 S8 MaxV Ultra)",
+        "choose_a_if": [
+          "두꺼운 거실 러그·카펫에 물기가 절대 닿지 않도록 스테이션에 물걸레를 자동 탈부착하고 싶고, 40평대 이상 대형 평수를 한 번에 도는 6,400 mAh 대용량 배터리와 3.2 L(75일) 더스트백이 필요한 경우.",
+          "12,000 Pa 흡입력·70℃ 고온수 세척·가구 밑 4 cm 로보스윙을 로보락 대비 4.1만 원 더 낮은 국내 출고가(179.9만 vs 184만 원)와 소폭 낮은 연간 소모품비로 누리고 싶은 경우."
+        ],
+        "choose_b_if": [
+          "드리미(590.5 mm)보다 약 12 cm 낮은 470 mm 컴팩트 도크 높이로 빌트인 로봇청소기장 수납이 유리하고, 공식 매터(Matter) 스마트홈 연동과 검증된 로보락 앱·국내 A/S 신뢰도를 중시하는 경우.",
+          "별매 커팅 브러시 없이도 머리카락 엉킴이 적은 듀오롤러 듀얼 고무 브러시, 도크 복귀 없이 즉시 20 mm 들어 올리는 음파진동 물걸레, 67 dBA의 다소 낮은 주행 소음을 선호하는 경우."
+        ],
+        "bottom_line": "3년 총유지비(TCO)에서 전기요금 차이는 3년 합산 5~6천 원 수준에 불과하며, 승부는 물걸레 탈착 vs 음파 리프팅 구조와 도크 높이(590.5 mm vs 470 mm), 국내 A/S 선호도에서 갈립니다. 대형 평수·두꺼운 러그·70℃ 온수 세척과 국내 가격 메리트라면 드리미 X40 울트라를, 빌트인 수납 높이·듀오롤러·매터 연동·로보락 소프트웨어 완성도라면 로보락 S8 MaxV Ultra를 선택하세요."
+      }
+    }
+  }
+]

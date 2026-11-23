@@ -5,6 +5,7 @@
  *  - computeWattCheckDerived(item, fx)
  *  - computePureGramDerived(item, fx)
  *  - computeCycleGearDerived(item, fx)
+ *  - computeHomeTechDerived(item, fx)
  *  - computeItemDerived(item, fx)
  *  - computeVsDiffTable(itemA, itemB, fx)
  */
@@ -366,6 +367,106 @@ export function computeCycleGearDerived(item, fx = DEFAULT_FX_RATES) {
   };
 }
 
+export const HOMETECH_ELEC_RATES = {
+  usd_per_kwh: 0.17,
+  krw_per_kwh: 214, // KEPCO tier 2 baseline 214 KRW/kWh
+  eur_de_per_kwh: 0.38, // Germany €0.38/kWh
+};
+
+/**
+ * Deterministic derived TCO & energy metrics for HomeTech (MiniPC, NAS, UPS, Robot Vacuum).
+ */
+export function computeHomeTechDerived(item, fx = DEFAULT_FX_RATES) {
+  const specs = item.specs;
+  const tco = item.tco_profile || {};
+  const prices = extractBenchmarkPrices(item, fx);
+
+  const h = specs.default_daily_hours_active;
+  const rawWeightedAvgW = (specs.typical_load_w * h + specs.idle_power_w * (24 - h)) / 24;
+  const rawAnnualKwh = rawWeightedAvgW * 8.76;
+
+  const weightedAvgW = round(rawWeightedAvgW, 2);
+  const annualKwh = round(rawAnnualKwh, 2);
+  const annualElecUsd = round(rawAnnualKwh * HOMETECH_ELEC_RATES.usd_per_kwh, 2);
+  const annualElecKrw = Math.round(rawAnnualKwh * HOMETECH_ELEC_RATES.krw_per_kwh);
+  const annualElecEurDe = round(rawAnnualKwh * HOMETECH_ELEC_RATES.eur_de_per_kwh, 2);
+
+  const consumablesUsd = typeof specs.annual_consumables_usd === "number" ? specs.annual_consumables_usd : 0;
+  const consumablesKrw = typeof specs.annual_consumables_krw === "number" ? specs.annual_consumables_krw : 0;
+
+  const annualOperatingUsd = round(annualElecUsd + consumablesUsd, 2);
+  const annualOperatingKrw = Math.round(annualElecKrw + consumablesKrw);
+
+  const tco3yrUsd =
+    prices.msrp_usd !== null
+      ? round(prices.msrp_usd + 3 * (annualElecUsd + consumablesUsd), 2)
+      : null;
+  const tco3yrKrw =
+    prices.msrp_krw !== null
+      ? Math.round(prices.msrp_krw + 3 * (annualElecKrw + consumablesKrw))
+      : null;
+
+  const lifespanYears =
+    typeof tco.expected_lifespan_years === "number" && tco.expected_lifespan_years > 0
+      ? tco.expected_lifespan_years
+      : null;
+  const tcoLifespanUsd =
+    prices.msrp_usd !== null && lifespanYears !== null
+      ? round(prices.msrp_usd + lifespanYears * (annualElecUsd + consumablesUsd), 2)
+      : null;
+  const tcoLifespanKrw =
+    prices.msrp_krw !== null && lifespanYears !== null
+      ? Math.round(prices.msrp_krw + lifespanYears * (annualElecKrw + consumablesKrw))
+      : null;
+
+  const dims = specs.dimensions_mm;
+  const volumeCm3 =
+    dims && dims.l > 0 && dims.w > 0 && dims.h > 0
+      ? round((dims.l * dims.w * dims.h) / 1000, 1)
+      : null;
+
+  const upsPowerFactor =
+    typeof specs.ups_va_rating === "number" &&
+    specs.ups_va_rating > 0 &&
+    typeof specs.ups_watt_rating === "number" &&
+    specs.ups_watt_rating > 0
+      ? round(specs.ups_watt_rating / specs.ups_va_rating, 2)
+      : null;
+
+  const coreDerivedMetrics = [
+    weightedAvgW,
+    annualKwh,
+    annualElecUsd,
+    annualElecKrw,
+    annualElecEurDe,
+    tco3yrUsd,
+    tco3yrKrw,
+  ];
+
+  return {
+    vertical: "hometech",
+    category: item.category,
+    ...prices,
+    weighted_avg_w: weightedAvgW,
+    annual_kwh: annualKwh,
+    annual_elec_usd: annualElecUsd,
+    annual_elec_krw: annualElecKrw,
+    annual_elec_eur_de: annualElecEurDe,
+    annual_consumables_usd: round(consumablesUsd, 2),
+    annual_consumables_krw: Math.round(consumablesKrw),
+    annual_operating_usd: annualOperatingUsd,
+    annual_operating_krw: annualOperatingKrw,
+    tco_3yr_usd: tco3yrUsd,
+    tco_3yr_krw: tco3yrKrw,
+    tco_lifespan_usd: tcoLifespanUsd,
+    tco_lifespan_krw: tcoLifespanKrw,
+    expected_lifespan_years: lifespanYears,
+    volume_cm3: volumeCm3,
+    ups_power_factor: upsPowerFactor,
+    derived_metric_count: coreDerivedMetrics.filter((v) => v !== null && v !== undefined).length,
+  };
+}
+
 /**
  * Dispatch derived metric computation by vertical.
  */
@@ -377,6 +478,8 @@ export function computeItemDerived(item, fx = DEFAULT_FX_RATES) {
       return computePureGramDerived(item, fx);
     case "cyclegear":
       return computeCycleGearDerived(item, fx);
+    case "hometech":
+      return computeHomeTechDerived(item, fx);
     default:
       throw new Error(`Unsupported vertical for derived metrics: "${item?.vertical}"`);
   }
@@ -888,6 +991,305 @@ export function computeVsDiffTable(itemA, itemB, fx = DEFAULT_FX_RATES) {
           value_b: itemB.specs.hookless_max_psi,
           higher_is_better: null,
           decimals: 1,
+        })
+      );
+    }
+  } else if (itemA.vertical === "hometech") {
+    rows.push(
+      buildDiffRow({
+        key: "msrp_usd",
+        label_en: "US MSRP Benchmark",
+        label_ko: "미국 공식 출고가 (USD)",
+        unit: "USD",
+        value_a: derivedA.msrp_usd,
+        value_b: derivedB.msrp_usd,
+        higher_is_better: false,
+      }),
+      buildDiffRow({
+        key: "msrp_krw",
+        label_en: "KR MSRP Benchmark",
+        label_ko: "한국 공식 출고가 (KRW)",
+        unit: "KRW",
+        value_a: derivedA.msrp_krw,
+        value_b: derivedB.msrp_krw,
+        higher_is_better: false,
+        decimals: 0,
+      }),
+      buildDiffRow({
+        key: "tco_3yr_usd",
+        label_en: "3-Year Total Cost of Ownership (USD)",
+        label_ko: "3년 총소유비용 TCO (USD)",
+        unit: "USD",
+        value_a: derivedA.tco_3yr_usd,
+        value_b: derivedB.tco_3yr_usd,
+        higher_is_better: false,
+      }),
+      buildDiffRow({
+        key: "tco_3yr_krw",
+        label_en: "3-Year Total Cost of Ownership (KRW)",
+        label_ko: "3년 총소유비용 TCO (KRW)",
+        unit: "KRW",
+        value_a: derivedA.tco_3yr_krw,
+        value_b: derivedB.tco_3yr_krw,
+        higher_is_better: false,
+        decimals: 0,
+      }),
+      buildDiffRow({
+        key: "idle_power_w",
+        label_en: "Idle Power Draw",
+        label_ko: "유휴 소비전력",
+        unit: "W",
+        value_a: itemA.specs.idle_power_w,
+        value_b: itemB.specs.idle_power_w,
+        higher_is_better: false,
+        decimals: 1,
+      }),
+      buildDiffRow({
+        key: "typical_load_w",
+        label_en: "Typical Load Power",
+        label_ko: "실사용 소비전력",
+        unit: "W",
+        value_a: itemA.specs.typical_load_w,
+        value_b: itemB.specs.typical_load_w,
+        higher_is_better: false,
+        decimals: 1,
+      }),
+      buildDiffRow({
+        key: "weighted_avg_w",
+        label_en: "Daily Weighted Average Power",
+        label_ko: "일평균 가중 소비전력",
+        unit: "W",
+        value_a: derivedA.weighted_avg_w,
+        value_b: derivedB.weighted_avg_w,
+        higher_is_better: false,
+      }),
+      buildDiffRow({
+        key: "annual_kwh",
+        label_en: "Estimated Annual Energy",
+        label_ko: "연간 예상 전력량",
+        unit: "kWh/yr",
+        value_a: derivedA.annual_kwh,
+        value_b: derivedB.annual_kwh,
+        higher_is_better: false,
+        decimals: 1,
+      }),
+      buildDiffRow({
+        key: "annual_elec_usd",
+        label_en: "Annual Electricity Cost (US $0.17/kWh)",
+        label_ko: "연간 전기요금 (미국 기준)",
+        unit: "USD/yr",
+        value_a: derivedA.annual_elec_usd,
+        value_b: derivedB.annual_elec_usd,
+        higher_is_better: false,
+      }),
+      buildDiffRow({
+        key: "annual_elec_krw",
+        label_en: "Annual Electricity Cost (KR ₩214/kWh)",
+        label_ko: "연간 전기요금 (한전 누진 2단계)",
+        unit: "KRW/yr",
+        value_a: derivedA.annual_elec_krw,
+        value_b: derivedB.annual_elec_krw,
+        higher_is_better: false,
+        decimals: 0,
+      }),
+      buildDiffRow({
+        key: "weight_g",
+        label_en: "Weight",
+        label_ko: "무게",
+        unit: "g",
+        value_a: itemA.specs.weight_g,
+        value_b: itemB.specs.weight_g,
+        higher_is_better: false,
+        decimals: 0,
+      })
+    );
+
+    if (
+      (itemA.specs.annual_consumables_usd > 0 || itemB.specs.annual_consumables_usd > 0) &&
+      typeof itemA.specs.annual_consumables_usd === "number" &&
+      typeof itemB.specs.annual_consumables_usd === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "annual_consumables_usd",
+          label_en: "Annual Consumables (USD)",
+          label_ko: "연간 소모품 비용 (USD)",
+          unit: "USD/yr",
+          value_a: itemA.specs.annual_consumables_usd,
+          value_b: itemB.specs.annual_consumables_usd,
+          higher_is_better: false,
+        }),
+        buildDiffRow({
+          key: "annual_consumables_krw",
+          label_en: "Annual Consumables (KRW)",
+          label_ko: "연간 소모품 비용 (KRW)",
+          unit: "KRW/yr",
+          value_a: itemA.specs.annual_consumables_krw,
+          value_b: itemB.specs.annual_consumables_krw,
+          higher_is_better: false,
+          decimals: 0,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.noise_idle_dba === "number" &&
+      typeof itemB.specs.noise_idle_dba === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "noise_idle_dba",
+          label_en: "Idle Acoustic Noise",
+          label_ko: "유휴 소음",
+          unit: "dBA",
+          value_a: itemA.specs.noise_idle_dba,
+          value_b: itemB.specs.noise_idle_dba,
+          higher_is_better: false,
+          decimals: 1,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.noise_load_dba === "number" &&
+      typeof itemB.specs.noise_load_dba === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "noise_load_dba",
+          label_en: "Load Acoustic Noise",
+          label_ko: "부하 소음",
+          unit: "dBA",
+          value_a: itemA.specs.noise_load_dba,
+          value_b: itemB.specs.noise_load_dba,
+          higher_is_better: false,
+          decimals: 1,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.lan_speed_gbps === "number" &&
+      typeof itemB.specs.lan_speed_gbps === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "lan_speed_gbps",
+          label_en: "LAN Ethernet Speed",
+          label_ko: "유선 랜 속도",
+          unit: "Gbps",
+          value_a: itemA.specs.lan_speed_gbps,
+          value_b: itemB.specs.lan_speed_gbps,
+          higher_is_better: true,
+          decimals: 1,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.drive_bays === "number" &&
+      typeof itemB.specs.drive_bays === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "drive_bays",
+          label_en: "Drive Bays",
+          label_ko: "드라이브 베이 수",
+          unit: "bays",
+          value_a: itemA.specs.drive_bays,
+          value_b: itemB.specs.drive_bays,
+          higher_is_better: true,
+          decimals: 0,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.ups_watt_rating === "number" &&
+      typeof itemB.specs.ups_watt_rating === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "ups_watt_rating",
+          label_en: "UPS Active Power Rating",
+          label_ko: "UPS 실출력 용량",
+          unit: "W",
+          value_a: itemA.specs.ups_watt_rating,
+          value_b: itemB.specs.ups_watt_rating,
+          higher_is_better: true,
+          decimals: 0,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.ups_runtime_half_load_min === "number" &&
+      typeof itemB.specs.ups_runtime_half_load_min === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "ups_runtime_half_load_min",
+          label_en: "UPS Half-Load Runtime",
+          label_ko: "UPS 50% 부하 백업 시간",
+          unit: "min",
+          value_a: itemA.specs.ups_runtime_half_load_min,
+          value_b: itemB.specs.ups_runtime_half_load_min,
+          higher_is_better: true,
+          decimals: 1,
+        })
+      );
+    }
+
+    if (
+      typeof derivedA.ups_power_factor === "number" &&
+      typeof derivedB.ups_power_factor === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "ups_power_factor",
+          label_en: "UPS Power Factor (W / VA)",
+          label_ko: "UPS 역률 (W / VA)",
+          unit: "PF",
+          value_a: derivedA.ups_power_factor,
+          value_b: derivedB.ups_power_factor,
+          higher_is_better: true,
+          decimals: 2,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.suction_pa === "number" &&
+      typeof itemB.specs.suction_pa === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "suction_pa",
+          label_en: "Max Suction Power",
+          label_ko: "최대 흡입력",
+          unit: "Pa",
+          value_a: itemA.specs.suction_pa,
+          value_b: itemB.specs.suction_pa,
+          higher_is_better: true,
+          decimals: 0,
+        })
+      );
+    }
+
+    if (
+      typeof itemA.specs.dustbag_capacity_l === "number" &&
+      typeof itemB.specs.dustbag_capacity_l === "number"
+    ) {
+      rows.push(
+        buildDiffRow({
+          key: "dustbag_capacity_l",
+          label_en: "Dock Dustbag Capacity",
+          label_ko: "스테이션 더스트백 용량",
+          unit: "L",
+          value_a: itemA.specs.dustbag_capacity_l,
+          value_b: itemB.specs.dustbag_capacity_l,
+          higher_is_better: true,
+          decimals: 2,
         })
       );
     }

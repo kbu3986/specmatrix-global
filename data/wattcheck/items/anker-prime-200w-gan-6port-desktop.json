@@ -246,15 +246,15 @@
   "citations": [
     {
       "label": "Anker Official Product Page — Prime Charger 200W 6-Port A2683",
-      "url": "https://www.anker.com/products/a2683",
+      "url": "https://www.anker.com/products/a2683-anker-prime-charger-200w-6-ports-gan",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Anker Support — A2683 Port Allocation & Safety Datasheet",
-      "url": "https://support.anker.com/s/article/Anker-Prime-Charger-200W-6-Ports-GaN-A2683",
+      "url": "https://service.anker.com/product-description/a08J1000000Xkc2IAC",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     }
   ],
   "audit": {

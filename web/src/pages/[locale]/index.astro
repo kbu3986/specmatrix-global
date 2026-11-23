@@ -49,13 +49,28 @@ const totalVs = verticalBlocks.reduce((acc, b) => acc + b.vs.length, 0);
 const totalMatrices = verticalBlocks.reduce((acc, b) => acc + b.matrices.length, 0);
 
 const pageTitle = isKo
-  ? "SpecMatrix Global 한국어 허브 — 실데이터 검증 비교 매트릭스 & 계산기"
+  ? "SpecMatrix Global 한국어 허브 — 4대 버티컬 실데이터 검증 매트릭스 & 계산기"
   : "SpecMatrix Global — Verified Spec Matrices, VS Comparisons & Lab Calculators";
 const pageDesc = isKo
-  ? "보조배터리·GaN(WattCheck), 에너지젤·보충제(PureGram), 로드사이클 장비(CycleGear) 공식 스펙 교차검증 DB 및 인터랙티브 계산기."
-  : "Evidence-anchored comparison matrices and deterministic calculators across WattCheck power gear, PureGram endurance nutrition, and CycleGear road cycling.";
+  ? "보조배터리·GaN(WattCheck), 에너지젤·보충제(PureGram), 로드사이클 장비(CycleGear), 미니PC·NAS·UPS·로봇청소기(HomeTech) 공식 스펙 교차검증 DB 및 인터랙티브 계산기."
+  : "Evidence-anchored comparison matrices and deterministic calculators across WattCheck power gear, PureGram endurance nutrition, CycleGear road cycling, and HomeTech 3-year TCO.";
 
 const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "SpecMatrix Global",
+    url: `${SITE_URL}/${locale}`,
+    inLanguage: locale,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/${locale}/tools?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  },
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -105,8 +120,8 @@ const jsonLd = [
     </h1>
     <p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
       {isKo
-        ? "모든 수치는 제조사 공식 매뉴얼·영양성분표·항공사 규정 원문에 고정되어 있으며, 변환효율 실가용 Wh, 순수 유효성분 실단가, 후크리스 5 bar 안전 상한을 코드가 직접 검산합니다."
-        : "Every figure is anchored to manufacturer manuals, Nutrition Facts panels, and official carrier baggage rules — with zero-bloat calculators for real usable Wh, active gram cost, and hookless tire safety."}
+        ? "모든 수치는 제조사 공식 매뉴얼·영양성분표·항공사 규정 원문에 고정되어 있으며, 실가용 Wh, 순수 유효성분 실단가, 후크리스 5 bar 안전 상한, 한전 누진제 3년 전력 TCO를 코드가 직접 검산합니다."
+        : "Every figure is anchored to manufacturer manuals, Nutrition Facts panels, and official carrier baggage rules — with zero-bloat calculators for real usable Wh, active gram cost, hookless tire safety, and 3-year electricity TCO."}
     </p>
 
     <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -137,9 +152,121 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Prominent Interactive Lab Studios Banner -->
+  <section class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5 text-white shadow-sm sm:p-6">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <span class="inline-block rounded-full border border-blue-400/40 bg-blue-500/20 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-blue-200">
+          {isKo ? "INTERACTIVE LAB STUDIOS · 무료 즉시 실행" : "INTERACTIVE LAB STUDIOS"}
+        </span>
+        <h2 class="mt-2 text-lg font-bold tracking-tight text-white sm:text-xl">
+          {isKo
+            ? "단순 조회를 넘어 — 직접 조합·시뮬레이션하는 검증 스튜디오"
+            : "Go Beyond Static Specs — Interactive Engineering Studios"}
+        </h2>
+      </div>
+      <a
+        href={withBase(`/${locale}/tools`)}
+        class="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 font-mono text-xs font-bold text-white transition-colors hover:bg-blue-500"
+      >
+        <span>{isKo ? "모든 도구 보기 →" : "Explore All Tools →"}</span>
+      </a>
+    </div>
+
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <a
+        href={withBase(`/${locale}/compare`)}
+        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
+      >
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-blue-300">
+            {isKo ? "자유 1:1 대결" : "ANY-VS-ANY"}
+          </div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
+            {isKo ? "실시간 1:1 비교 워크벤치" : "Live 1:1 Compare Studio"}
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            {isKo
+              ? `${totalItems}개 모델 중 원하는 2종 자유 비교 · 가중치 승자 판정`
+              : `Compare any 2 of ${totalItems} SKUs with custom weights & diff bars.`}
+          </p>
+        </div>
+        <span class="mt-3 font-mono text-xs font-semibold text-blue-300">
+          {isKo ? "비교 시작 →" : "Launch →"}
+        </span>
+      </a>
+
+      <a
+        href={withBase(`/${locale}/tools/travel-power-kit`)}
+        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-sky-400"
+      >
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-sky-300">
+            {isKo ? "WATTCHECK × 30 항공사" : "WATTCHECK × 30 AIRLINES"}
+          </div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-sky-200">
+            {isKo ? "해외여행 충전 키트 조합기" : "Travel Power Kit Builder"}
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            {isKo
+              ? "노트북·폰 동시 출력 + 탑승 항공사 Wh/CCC 규정 자동 매칭"
+              : "Match multi-device PD watts with 30-airline carry-on & CCC rules."}
+          </p>
+        </div>
+        <span class="mt-3 font-mono text-xs font-semibold text-sky-300">
+          {isKo ? "키트 설계 →" : "Optimize →"}
+        </span>
+      </a>
+
+      <a
+        href={withBase(`/${locale}/tools/fueling-planner`)}
+        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
+      >
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-emerald-300">
+            {isKo ? "PUREGRAM 레이스 보급" : "PUREGRAM ENDURANCE"}
+          </div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-emerald-200">
+            {isKo ? "마라톤·사이클 보급 플래너" : "Race Fueling Mix Planner"}
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            {isKo
+              ? "시간당 탄수화물·나트륨·카페인 상한선·포켓 무게·비용 계산"
+              : "Assemble hourly carbs, sodium & caffeine limits with live cost."}
+          </p>
+        </div>
+        <span class="mt-3 font-mono text-xs font-semibold text-emerald-300">
+          {isKo ? "보급 계획 →" : "Plan Mix →"}
+        </span>
+      </a>
+
+      <a
+        href={withBase(`/${locale}/tools`)}
+        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-violet-400"
+      >
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-violet-300">
+            {isKo ? "ALL STUDIOS & MATRICES" : "FULL TOOLBOX"}
+          </div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-violet-200">
+            {isKo ? "전체 검증 도구 허브" : "Interactive Lab Tools Hub"}
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            {isKo
+              ? "30개 항공사 조회, HomeTech 3년 TCO, 후크리스 공기압 가드"
+              : "Airlines checker, HomeTech 3-Yr TCO & hookless pressure guard."}
+          </p>
+        </div>
+        <span class="mt-3 font-mono text-xs font-semibold text-violet-300">
+          {isKo ? "허브 열기 →" : "Open Hub →"}
+        </span>
+      </a>
+    </div>
+  </section>
+
   <AdSlotReserve slotId="hub-top" variant="banner" locale={locale} />
 
-  <!-- 3 Verticals Showcase -->
+  <!-- 4 Verticals Showcase -->
   <div class="space-y-10">
     {verticalBlocks.map((block) => (
       <section id={block.id} class="space-y-4">
@@ -254,8 +381,7 @@ const jsonLd = [
                     </div>
                     <div class="mt-3 flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
                       <span class="font-mono font-semibold text-slate-800">
-                        {isKo ? "MSRP " : "MSRP "}
-                        {formatCurrency(offer.msrp, offer.currency, locale)}
+                        MSRP {formatCurrency(offer.msrp, offer.currency, locale)}
                       </span>
                       <span class="font-mono font-semibold text-blue-700">
                         {isKo ? "스펙·계산기 →" : "Specs & Calc →"}
@@ -269,8 +395,8 @@ const jsonLd = [
         ) : (
           <div class="lab-card p-5 text-sm text-slate-500">
             {isKo
-              ? "해당 버티컬의 Phase 1 검증 JSON 데이터가 병합되면 자동으로 프로파일 카드가 표시됩니다."
-              : "Verified Phase 1 SKUs for this vertical will appear here automatically once data files are loaded."}
+              ? "해당 버티컬의 검증 JSON 데이터가 병합되면 자동으로 프로파일 카드가 표시됩니다."
+              : "Verified SKUs for this vertical will appear here automatically once data files are loaded."}
           </div>
         )}
       </section>

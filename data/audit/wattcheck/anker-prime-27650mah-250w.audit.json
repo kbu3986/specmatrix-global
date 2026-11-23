@@ -7,19 +7,19 @@
     {
       "field": "battery_energy_wh",
       "quote": "27,650mAh / 99.54Wh (3,950mAh x 7 cells at 3.6V) TSA-compliant carry-on capacity",
-      "source_url": "https://www.anker.com/products/a1340",
+      "source_url": "https://www.anker.com/au/products/a1340-250w-power-bank",
       "source_tier": 1
     },
     {
       "field": "port_allocation_matrix",
       "quote": "USB-C1/C2 140W Max (28V/5A, PPS 3.3-21V/5A), USB-A 65W Max, C1+C2 240W Max, C1+C2+A1 250W Max total",
-      "source_url": "https://support.anker.com/s/product/a085g000004x6qCAAQ",
+      "source_url": "https://service.anker.com/product-description/a085g00000Gj24LAAR",
       "source_tier": 1
     },
     {
       "field": "dimensions_mm_weight_g",
       "quote": "Dimensions 161.7 x 57 x 49.7 mm, Weight approx. 667 g, Dual USB-C input 170W Max",
-      "source_url": "https://www.anker.com/products/a1340",
+      "source_url": "https://www.anker.com/au/products/a1340-250w-power-bank",
       "source_tier": 1
     }
   ],

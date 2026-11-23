@@ -1,6 +1,6 @@
 ---
 import type { ActiveLocale, AnyItem } from "../lib/types";
-import { formatInt, formatNum, getCategoryLabel } from "../lib/i18n";
+import { formatCurrency, formatInt, formatNum, getCategoryLabel } from "../lib/i18n";
 
 interface Props {
   item: AnyItem;
@@ -146,7 +146,7 @@ if (item.vertical === "wattcheck") {
     { label: isKo ? "인공감미료 기재 및 내역" : "Artificial Sweeteners", value: `${yn(nl.artificial_sweeteners_listed)} (${nl.sweetener_details})` },
     { label: isKo ? "제3자 인증" : "Certifications", value: item.certifications.join(", ") }
   );
-} else {
+} else if (item.vertical === "cyclegear") {
   const s = item.specs;
   const cg = item.compatibility_graph;
   rows.push(
@@ -165,6 +165,141 @@ if (item.vertical === "wattcheck") {
     { label: isKo ? "호환 구동계" : "Compatible Drivetrains", value: cg.drivetrain_compatible.join(", ") },
     { label: isKo ? "검증된 헤드유닛 / 앱" : "Verified Head Units / Apps", value: cg.head_unit_or_app_verified.join(", ") }
   );
+  for (const kv of s.key_specs_kv) {
+    rows.push({
+      label: isKo ? kv.key_ko : kv.key_en,
+      value: kv.value,
+      mono: true,
+    });
+  }
+} else if (item.vertical === "hometech") {
+  const s = item.specs;
+  const tp = item.tco_profile;
+  const noiseVal =
+    s.noise_idle_dba !== null || s.noise_load_dba !== null
+      ? `${s.noise_idle_dba !== null ? `${formatNum(s.noise_idle_dba, 1)} dBA` : "—"} / ${s.noise_load_dba !== null ? `${formatNum(s.noise_load_dba, 1)} dBA` : "—"}`
+      : "—";
+
+  rows.push(
+    {
+      label: isKo ? "대기 / 일반 / 피크 소비전력" : "Idle / Typical / Peak Power",
+      value: `${formatNum(s.idle_power_w, 1)} W / ${formatNum(s.typical_load_w, 1)} W / ${formatNum(s.peak_power_w, 1)} W`,
+      mono: true,
+    },
+    {
+      label: isKo ? "기본 일일 활성 시간" : "Default Daily Active Hours",
+      value: `${formatNum(s.default_daily_hours_active, 1)} ${isKo ? "시간/일" : "hr/day"}`,
+      mono: true,
+    },
+    {
+      label: isKo ? "24/7 상시 가동 설계 / 기대 수명" : "24/7 Always-On / Expected Lifespan",
+      value: `${yn(tp.always_on_24_7)} · ${formatInt(tp.expected_lifespan_years)} ${isKo ? "년" : "years"}`,
+    },
+    {
+      label: isKo ? "연간 소모품·유지비 기준" : "Annual Consumables Benchmark",
+      value: isKo
+        ? `${formatCurrency(s.annual_consumables_krw, "KRW", "ko")} (${formatCurrency(s.annual_consumables_usd, "USD", "en")})`
+        : `${formatCurrency(s.annual_consumables_usd, "USD", "en")} (${formatCurrency(s.annual_consumables_krw, "KRW", "en")})`,
+      mono: true,
+    },
+    {
+      label: isKo ? "소음 (대기 / 부하)" : "Acoustic Noise (Idle / Load)",
+      value: noiseVal,
+      mono: true,
+    },
+    {
+      label: isKo ? "본체 무게 / 크기 (L×W×H)" : "Weight / Dimensions (L×W×H)",
+      value: `${formatInt(s.weight_g)} g · ${formatNum(s.dimensions_mm.l, 1)} × ${formatNum(s.dimensions_mm.w, 1)} × ${formatNum(s.dimensions_mm.h, 1)} mm`,
+      mono: true,
+    },
+    {
+      label: isKo ? "정격 입력 전압" : "Input Voltage Range",
+      value: s.input_voltage_range,
+      mono: true,
+    },
+    {
+      label: isKo ? "100–240V 프리볼트 지원" : "100–240V Dual Voltage",
+      value: yn(s.dual_voltage_100_240v),
+    }
+  );
+
+  if (tp.battery_or_filter_cycle_months !== null) {
+    rows.push({
+      label: isKo ? "배터리·필터 교체 권장 주기" : "Battery / Filter Service Cycle",
+      value: `${formatInt(tp.battery_or_filter_cycle_months)} ${isKo ? "개월" : "months"}`,
+      mono: true,
+    });
+  }
+  if (s.cpu_or_soc) {
+    rows.push({ label: isKo ? "프로세서 (CPU / SoC)" : "Processor (CPU / SoC)", value: s.cpu_or_soc, mono: true });
+  }
+  if (s.ram_gb_default !== null) {
+    rows.push({ label: isKo ? "기본 메모리 (RAM)" : "Default RAM", value: `${formatInt(s.ram_gb_default)} GB`, mono: true });
+  }
+  if (s.drive_bays !== null) {
+    rows.push({ label: isKo ? "드라이브 베이 수" : "Drive Bays", value: `${formatInt(s.drive_bays)} ${isKo ? "베이" : "bays"}`, mono: true });
+  }
+  if (s.lan_speed_gbps !== null) {
+    rows.push({ label: isKo ? "유선 네트워크 (LAN)" : "Ethernet LAN Speed", value: `${formatNum(s.lan_speed_gbps, 1)} GbE`, mono: true });
+  }
+  if (s.ups_va_rating !== null || s.ups_watt_rating !== null) {
+    const pf =
+      s.ups_va_rating && s.ups_watt_rating && s.ups_va_rating > 0
+        ? ` · PF ${formatNum(s.ups_watt_rating / s.ups_va_rating, 2)}`
+        : "";
+    rows.push({
+      label: isKo ? "UPS 정격 용량 (VA / W)" : "UPS Rated Capacity (VA / W)",
+      value: `${formatInt(s.ups_va_rating)} VA / ${formatInt(s.ups_watt_rating)} W${pf}`,
+      mono: true,
+    });
+  }
+  if (s.ups_waveform !== null) {
+    rows.push({
+      label: isKo ? "UPS 출력 파형" : "UPS Output Waveform",
+      value:
+        s.ups_waveform === "pure-sine"
+          ? isKo
+            ? "순수 정현파 (Pure Sine Wave)"
+            : "Pure Sine Wave"
+          : isKo
+            ? "유사 정현파 (Simulated / Stepped Sine)"
+            : "Simulated / Stepped Sine",
+    });
+  }
+  if (s.ups_runtime_half_load_min !== null) {
+    rows.push({
+      label: isKo ? "UPS 50% 부하 런타임" : "UPS Runtime @ 50% Load",
+      value: `${formatNum(s.ups_runtime_half_load_min, 1)} ${isKo ? "분" : "min"}`,
+      mono: true,
+    });
+  }
+  if (s.suction_pa !== null) {
+    rows.push({
+      label: isKo ? "최대 흡입력" : "Peak Suction Power",
+      value: `${formatInt(s.suction_pa)} Pa`,
+      mono: true,
+    });
+  }
+  if (s.dustbag_capacity_l !== null) {
+    rows.push({
+      label: isKo ? "도크 더스트백 용량" : "Dock Dustbag Capacity",
+      value: `${formatNum(s.dustbag_capacity_l, 1)} L`,
+      mono: true,
+    });
+  }
+
+  rows.push(
+    {
+      label: isKo ? "글로벌 안전인증" : "Safety Certifications",
+      value: s.certifications.join(", ") || "—",
+      mono: true,
+    },
+    {
+      label: isKo ? "한국 220V 전원 호환 노트" : "Korea 220V / Mains Note",
+      value: isKo ? tp.korea_220v_note_ko : tp.korea_220v_note_en,
+    }
+  );
+
   for (const kv of s.key_specs_kv) {
     rows.push({
       label: isKo ? kv.key_ko : kv.key_en,

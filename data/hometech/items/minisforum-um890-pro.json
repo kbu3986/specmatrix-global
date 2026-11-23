@@ -1,0 +1,132 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "minipc",
+  "slug": "minisforum-um890-pro",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Minisforum",
+  "model_number": "UM890 Pro",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "UM890-PRO-32G1T",
+      "msrp": 699,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Minisforum UM890 Pro AMD Ryzen 9 8945HS 32GB 1TB OCuLink",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "UM890-PRO-32G1T-KR",
+      "msrp": 969000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "미니스포럼 UM890 Pro 라이젠 9 8945HS 32GB 1TB 미니PC",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 8.5,
+    "typical_load_w": 42,
+    "peak_power_w": 90,
+    "default_daily_hours_active": 6,
+    "annual_consumables_usd": 0,
+    "annual_consumables_krw": 0,
+    "noise_idle_dba": 28,
+    "noise_load_dba": 43,
+    "weight_g": 709,
+    "dimensions_mm": {
+      "l": 130,
+      "w": 127,
+      "h": 60.6
+    },
+    "input_voltage_range": "100-240V AC, 50/60Hz (19V/6.32A 120W brick; USB4 PD 65-100W in)",
+    "dual_voltage_100_240v": true,
+    "cpu_or_soc": "AMD Ryzen 9 8945HS (8C/16T Zen 4, 4.0-5.2 GHz, Radeon 780M + 16 TOPS Ryzen AI NPU)",
+    "ram_gb_default": 32,
+    "drive_bays": null,
+    "lan_speed_gbps": 2.5,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["FCC", "CE", "RoHS", "UL (Power Adapter)"],
+    "key_specs_kv": [
+      { "key_en": "CPU & Integrated NPU", "key_ko": "CPU 및 내장 NPU", "value": "AMD Ryzen 9 8945HS (8C/16T up to 5.2 GHz, Radeon 780M 2800 MHz, 16 TOPS NPU)" },
+      { "key_en": "Thermal & TDP Envelope", "key_ko": "쿨링 및 TDP 출력", "value": "Up to 70 W Performance Mode via Cold Wave 2.2 (liquid metal + active RAM/SSD fan)" },
+      { "key_en": "Wall Power (Idle / Peak)", "key_ko": "실측 소비전력 (유휴 / 피크)", "value": "~8.5 W idle / ~42 W active load / ~80–90 W peak stress (120 W 19V/6.32A brick)" },
+      { "key_en": "Acoustics (Idle / Peak)", "key_ko": "소음 (유휴 / 풀로드)", "value": "~28 dBA idle / ~43 dBA under 70 W full Performance Mode load" },
+      { "key_en": "Networking (Dual 2.5GbE)", "key_ko": "듀얼 2.5GbE 네트워크", "value": "2× 2.5 GbE RJ-45 (Realtek RTL8125) + M.2 2230 Wi-Fi 6E / Bluetooth 5.3" },
+      { "key_en": "OCuLink eGPU Expansion", "key_ko": "OCuLink 외장 GPU 확장", "value": "1× OCuLink (PCIe 4.0 x4, 64 Gbps) via included M.2-to-OCuLink adapter card" },
+      { "key_en": "Memory & Storage Slots", "key_ko": "메모리·스토리지 슬롯", "value": "32 GB DDR5-5600 (2× SO-DIMM, max 96 GB) + 2× M.2 2280 PCIe 4.0 (1 used if OCuLink installed)" },
+      { "key_en": "Quad-Display & USB4", "key_ko": "쿼드 디스플레이·USB4", "value": "2× USB4 (40 Gbps, 65–100 W PD-in), 1× HDMI 2.1, 1× DP 1.4, 4× USB-A 3.2 Gen 2" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": null,
+    "korea_220v_note_en": "Uses a 100-240V AC 50/60Hz 120W (19V/6.32A) external brick plus USB-C PD 65-100W fallback; in South Korea simply replace the detachable AC line cord with a grounded KC-certified 220V cloverleaf/C13 cable (no voltage converter required).",
+    "korea_220v_note_ko": "100–240V 50/60Hz 프리볼트 120W(19V/6.32A) 외장 어댑터와 USB4 PD(65–100W) 입력을 모두 지원해 국내 220V 환경에서 그대로 동작합니다. 해외 직구 시에는 동봉된 AC 코드만 접지형 KC 인증 220V 케이블로 교체해 누설전류(정전기)를 방지하세요. 70W 풀로드 시에는 반드시 120W DC 어댑터를 연결해야 쓰로틀링이 발생하지 않습니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Minisforum UM890 Pro (Ryzen 9 8945HS, 32GB / 1TB)",
+      "title": "Minisforum UM890 Pro: 70W TDP, Dual 2.5GbE, OCuLink eGPU Trade-Off & 5-Year TCO Audit",
+      "summary": "A flagship Ryzen 9 8945HS mini PC with Cold Wave 2.2 cooling supporting up to 70 W TDP, dual 2.5 GbE RJ-45 ports, dual 40 Gbps USB4 ports, and a PCIe 4.0 x4 OCuLink interface for full-bandwidth external desktop GPUs.",
+      "best_for": "Power users, Proxmox/OPNsense homelab builders needing dual 2.5 GbE ports, and compact workstation owners planning an OCuLink desktop eGPU dock.",
+      "local_gotchas": [
+        "OCuLink is NOT soldered separately to the motherboard—it uses an included M.2-to-OCuLink adapter card that occupies the second M.2 2280 NVMe slot, leaving only one internal NVMe SSD slot when OCuLink is active.",
+        "Running in 70 W Performance Mode raises fan acoustics to ~43 dBA (noticeably louder than Beelink SER8's ~36 dBA), so 24/7 bedroom or desk servers are better served by dropping BIOS power to 54 W Balanced Mode.",
+        "Although both USB4 ports accept 65–100 W USB-PD input for minimalist desk cabling, sustained 70 W CPU+iGPU workloads require the stock 120 W DC barrel adapter to prevent power throttling."
+      ]
+    },
+    "ko": {
+      "name": "미니스포럼 UM890 Pro (라이젠 9 8945HS, 32GB / 1TB)",
+      "title": "미니스포럼 UM890 Pro: 70W TDP·듀얼 2.5GbE·OCuLink 슬롯 트레이드오프 및 TCO 분석",
+      "summary": "라이젠 9 8945HS(최대 5.2 GHz·내장 NPU)와 Cold Wave 2.2 쿨링으로 최대 70W TDP를 구현한 하이엔드 미니PC로, 듀얼 2.5GbE 유선 랜과 듀얼 USB4, 외장 그래픽카드용 OCuLink(64 Gbps) 확장 포트를 갖췄습니다.",
+      "best_for": "듀얼 2.5GbE 기반 가상화·라우터(Proxmox/OPNsense) 홈랩 구축자 및 OCuLink 외장 GPU 독을 연결해 초소형 게이밍·AI 워크스테이션을 꾸미려는 파워 유저.",
+      "local_gotchas": [
+        "OCuLink 포트는 메인보드 독립 내장이 아니라 동봉된 M.2-to-OCuLink 변환 보드를 2번 M.2 SSD 슬롯에 장착하는 구조입니다. OCuLink 사용 시 내부 NVMe 슬롯이 1개로 줄어들므로 초기 SSD 용량을 2TB 이상으로 여유 있게 잡아야 합니다.",
+        "70W 퍼포먼스 모드 풀로드 시 팬 소음이 약 43 dBA까지 상승해 비링크 SER8(약 36 dBA) 대비 체감 소음이 큽니다. 24시간 홈서버나 조용한 작업실에서는 BIOS 54W 밸런스 모드로 낮춰 전성비와 소음을 잡는 것이 유리합니다.",
+        "미니스포럼 글로벌 공홈·직구 구매 시 32GB/1TB 완제품은 $150 관세 한도를 초과해 부가세 10%가 부과되며, 국내 정식 유통 보증 유무에 따라 고장 시 해외 RMA 왕복 배송 기간을 감안해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Minisforum UM890 Pro Official Product & Specifications Page",
+      "url": "https://www.minisforum.com/products/minisforum-um890-pro",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "AMD Ryzen 9 8945HS Official Processor Specifications",
+      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Minisforum EU Official UM890 Pro Specification Sheet",
+      "url": "https://minisforumpc.eu/products/minisforum-um890-pro-mini-pc",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 94,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["beelink-ser8-8745hs", "apple-mac-mini-m4"]
+}

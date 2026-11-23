@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "robot-vacuum",
+  "slug": "dreame-x40-ultra",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Dreame",
+  "model_number": "RLX63CE (Base Station RCXE0307)",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "RLX63CE-US",
+      "msrp": 1899.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Dreame X40 Ultra robot vacuum mop 12000Pa MopExtend",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "RLX63CE-KR",
+      "msrp": 1799000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "드리미 X40 울트라 로봇청소기 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 5.5,
+    "typical_load_w": 75,
+    "peak_power_w": 1160,
+    "default_daily_hours_active": 1.5,
+    "annual_consumables_usd": 80,
+    "annual_consumables_krw": 105000,
+    "noise_idle_dba": 22,
+    "noise_load_dba": 70,
+    "weight_g": 4530,
+    "dimensions_mm": {
+      "l": 350,
+      "w": 350,
+      "h": 103.8
+    },
+    "input_voltage_range": "Regional fixed: 120V AC 60Hz (US) / 220-240V AC 50/60Hz (KR/EU)",
+    "dual_voltage_100_240v": false,
+    "cpu_or_soc": "AI Action RGB Camera + 3D Structured Light + OmniDirt Optical Sensor",
+    "ram_gb_default": null,
+    "drive_bays": null,
+    "lan_speed_gbps": null,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": 12000,
+    "dustbag_capacity_l": 3.2,
+    "certifications": ["FCC", "CE", "KC", "TUV SUD Cybersecurity"],
+    "key_specs_kv": [
+      { "key_en": "Suction Power", "key_ko": "최대 흡입력", "value": "12,000 Pa Vormax suction (liftable main brush 5 mm + liftable side brush 10 mm)" },
+      { "key_en": "Mopping & Carpet Protection", "key_ko": "물걸레 확장 및 탈부착", "value": "MopExtend RoboSwing (4 cm swing under toe-kicks) + 10.5 mm lift + auto mop detachment at dock" },
+      { "key_en": "Hot-Water Base Station", "key_ko": "올인원 베이스 스테이션", "value": "70°C hot-water mop & washboard self-cleaning, hot-air drying, auto detergent, 3.2 L dust bag (~75 days)" },
+      { "key_en": "Power Consumption", "key_ko": "소비전력 (대기 / 평균 / 온수피크)", "value": "~5.5 W standby / 75 W rated robot / 1,160 W rated 70°C hot-water cleaning peak" },
+      { "key_en": "Battery Capacity", "key_ko": "배터리 용량", "value": "6,400 mAh Li-ion (14.4 V) — 23% larger cell than 5,200 mAh Roborock rivals" },
+      { "key_en": "Annual Consumables TCO", "key_ko": "연간 소모품 유지비", "value": "~$80 / ₩105,000/yr (5× 3.2 L dust bags, HEPA filters, TriCut/rubber brush, mop pads, solution)" },
+      { "key_en": "Dirt Intelligence", "key_ko": "오염 감지 센서", "value": "OmniDirt optical turbidity + RGB camera triggers automatic re-wash & re-mop passes" },
+      { "key_en": "Acoustic Noise", "key_ko": "주행 소음", "value": "~70 dB(A) standard vacuuming" },
+      { "key_en": "Dimensions & Weight", "key_ko": "크기 및 무게", "value": "Robot 350 × 350 × 103.8 mm (4,530 g); Base Station 456.7 × 340 × 590.5 mm (9,090 g)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": false,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": 6,
+    "korea_220v_note_en": "Strictly single-voltage regional base station (1,160 W 70°C hot-water heater requires native 220-240V in Korea/EU vs 120V in US). Notably, Korea's official 1,799,000 KRW launch MSRP undercuts both the Roborock S8 MaxV Ultra (1,840,000 KRW) and its own US launch price ($1,899.99).",
+    "korea_220v_note_ko": "70℃ 고온수 세척 히터(정격 1,160 W) 탑재로 국가별 단전압(220V 전용) 규격이므로 미국·중국 직구 대신 KC 인증 한국 정발 220V 제품을 구매해야 합니다. 국내 출고가(179.9만 원)는 미국 출고가($1,899.99) 및 로보락 S8 MaxV Ultra(184만 원) 대비 오히려 유리하게 책정되었습니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Dreame X40 Ultra",
+      "title": "Dreame X40 Ultra: 12,000 Pa, 70°C Mop Wash, Auto-Detach Mops & 3-Year TCO Audit",
+      "summary": "Dreame's 12,000 Pa flagship featuring MopExtend RoboSwing under-cabinet reach, automatic dock mop detachment for zero-wet high-pile carpets, a 6,400 mAh battery, 3.2 L 75-day dust bag, and 70°C hot-water washboard self-cleaning.",
+      "best_for": "Large homes with high-pile rugs and greasy kitchen floors that benefit from true automatic mop pad detachment at the base station, 70°C hot-water grease removal, 6,400 mAh battery endurance, and optional TriCut hair-cutting roller.",
+      "local_gotchas": [
+        "Base station height is 590.5 mm (120 mm taller than Roborock S8 MaxV Ultra's 470 mm RockDock) — measure vertical cabinetry clearance before ordering if installing inside a built-in closet.",
+        "Slightly higher idle standby draw (~5.5 W vs ~4.0–4.5 W) and 70°C hot-water heating push annual electricity slightly higher (~86 kWh/yr), though its 3.2 L dust bag stretches bag replacements to ~75 days.",
+        "Hair-cutting TriCut anti-tangle roller brush is sold separately in many standard bundles (included in X40 Ultra Complete editions) — factor ~$40–$50 / ₩55,000 into year-1 cost for long-hair or pet households."
+      ]
+    },
+    "ko": {
+      "name": "드리미 X40 울트라 (Dreame X40 Ultra)",
+      "title": "드리미 X40 울트라: 12,000 Pa·70℃ 온수 세척·물걸레 자동 탈부착과 3년 유지비(TCO) 분석",
+      "summary": "12,000 Pa 흡입력, 가구 밑 4 cm까지 밀어 넣는 MopExtend 로보스윙, 카펫 청소 시 도크에 물걸레를 자동 탈착하는 기능, 70℃ 고온수 세척과 6,400 mAh 대용량 배터리·3.2 L 더스트백을 탑재한 드리미 플래그십 로봇청소기입니다.",
+      "best_for": "40평대 이상 대형 평수(6,400 mAh 배터리), 두꺼운 카펫·러그에 물기가 전혀 닿지 않길 원하는 가정(물걸레 자동 탈부착), 주방 기름때 제거를 위한 70℃ 온수 세척과 머리카락 커팅(TriCut) 옵션을 원하는 사용자.",
+      "local_gotchas": [
+        "베이스 스테이션 높이가 590.5 mm(로보락 S8 MaxV Ultra 대비 약 12 cm 더 높음)에 달하므로 아파트 싱크대 하부장이나 빌트인 로봇청소기장에 넣을 계획이라면 높이·깊이(456.7 mm) 여유를 반드시 실측하세요.",
+        "대기전력이 약 5.5 W로 경쟁 모델(4~4.5 W)보다 소폭 높고 70℃ 온수 가열이 더해져 연간 전력량은 약 86 kWh(한전 2단계 약 1.85만 원) 수준이지만, 3.2 L 대용량 더스트백 덕분에 봉투 교체 주기가 약 75일로 가장 깁니다.",
+        "머리카락 엉킴을 잘라주는 TriCut(3중 컷) 브러시는 구성 패키지에 따라 별매(약 5만 원대)인 경우가 있으므로 긴 머리카락이나 반려동물 가정은 구매 전 기본 포함 여부를 확인해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Dreame X40 Ultra Official Global Product Page & Specifications",
+      "url": "https://global.dreametech.com/products/x40-ultra",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Dreame Technology Official Website & Support Documentation",
+      "url": "https://www.dreametech.com/",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["roborock-s8-maxv-ultra", "roborock-qrevo-master"]
+}

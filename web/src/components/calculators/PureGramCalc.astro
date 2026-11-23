@@ -1,6 +1,6 @@
 ---
 import type { ActiveLocale, FxRates, PureGramItem } from "../../lib/types";
-import { safeJsonLd } from "../../lib/i18n";
+import { formatInt, safeJsonLd } from "../../lib/i18n";
 
 interface Props {
   item: PureGramItem;
@@ -12,15 +12,18 @@ const { item, fx, locale } = Astro.props;
 const isKo = locale === "ko";
 const isCarbProduct = item.nutrition_label.carbs_g >= 5;
 const isCreatine = item.category === "creatine";
+const krwPerUsd = Number.isFinite(fx.rates.KRW) && fx.rates.KRW > 0 ? fx.rates.KRW : 1400;
 
 const payload = {
   locale,
+  slug: item.slug,
   category: item.category,
   isCarbProduct,
   isCreatine,
   usMsrp: item.regional_offers.us.msrp,
   krMsrp: item.regional_offers.kr.msrp,
-  krwPerUsd: fx.rates.KRW || 1400,
+  krwPerUsd,
+  fxUpdatedAt: fx.updated_at,
   totalServings: item.package_spec.total_servings,
   servingWeightG: item.package_spec.serving_weight_g,
   activePerServingG: item.nutrition_label.active_per_serving_g,
@@ -173,7 +176,7 @@ const payload = {
     </div>
 
     <!-- Part B: Race / Intake Cost Planner -->
-    <div class="pt-6">
+    <div class="py-6">
       <h3 class="text-sm font-bold text-slate-900">
         {isCarbProduct
           ? isKo
@@ -297,6 +300,105 @@ const payload = {
 
       <p id="pg-plan-ratio-note" class="mt-3 text-xs text-slate-600"></p>
     </div>
+
+    <!-- Part C: Domestic (KR) vs Overseas Direct Import (US USD→KRW) Break-Even Checker -->
+    <div class="pt-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">
+            {isKo
+              ? "3. 국내 구매(KR) vs 해외 직구(US USD→KRW) 손익분기 계산기"
+              : "3. Domestic (KR) vs Overseas Direct Import (US USD→KRW) Break-Even Checker"}
+          </h3>
+          <p class="mt-0.5 text-xs text-slate-600">
+            {isKo
+              ? "실시간 환율로 미국 직구 판매가(+배송비)와 국내 구매가를 나란히 비교해 팩당·기준단위당 직구 이득률을 계산합니다."
+              : "Compare US retail (+ international shipping) converted via live FX against Korea domestic pricing to quantify exact import savings or premium."}
+          </p>
+        </div>
+        <span class="badge-info font-mono text-[11px]">
+          FX $1 = ₩{formatInt(krwPerUsd)} ({fx.updated_at})
+        </span>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <div>
+          <label for="pg-us-price" class="block text-xs font-semibold text-slate-600">
+            {isKo ? "미국 판매가 (USD $)" : "US Store / Sale Price (USD $)"}
+          </label>
+          <input
+            id="pg-us-price"
+            type="number"
+            min="0.01"
+            step="any"
+            value={item.regional_offers.us.msrp}
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="pg-us-ship" class="block text-xs font-semibold text-slate-600">
+            {isKo ? "해외 배송비·배대지 (USD $)" : "Intl. Shipping / Handling (USD $)"}
+          </label>
+          <input
+            id="pg-us-ship"
+            type="number"
+            min="0"
+            step="any"
+            value="0"
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="pg-kr-price" class="block text-xs font-semibold text-slate-600">
+            {isKo ? "한국 국내 구매가 (KRW ₩)" : "Korea Domestic Price (KRW ₩)"}
+          </label>
+          <input
+            id="pg-kr-price"
+            type="number"
+            min="100"
+            step="any"
+            value={item.regional_offers.kr.msrp}
+            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "미국 직구 원화 환산가" : "US Landed Cost (in KRW)"}
+          </div>
+          <div id="pg-imp-us-krw" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+            —
+          </div>
+          <div id="pg-imp-us-bench" class="mt-0.5 font-mono text-[11px] text-slate-500"></div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-slate-500">
+            {isKo ? "국내 구매가 (KRW)" : "Domestic KR Price"}
+          </div>
+          <div id="pg-imp-kr-krw" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+            —
+          </div>
+          <div id="pg-imp-kr-bench" class="mt-0.5 font-mono text-[11px] text-slate-500"></div>
+        </div>
+
+        <div id="pg-imp-verdict-card" class="rounded-lg border border-emerald-200 bg-emerald-50/70 p-3.5">
+          <div class="font-mono text-[11px] uppercase text-emerald-800">
+            {isKo ? "직구 프리미엄 / 절감률" : "Import Premium / Savings"}
+          </div>
+          <div id="pg-imp-pct" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-900">
+            —
+          </div>
+          <div id="pg-imp-bench-delta" class="mt-0.5 text-[11px] font-medium text-emerald-800"></div>
+        </div>
+      </div>
+
+      <p id="pg-imp-summary" class="mt-3 text-xs leading-relaxed text-slate-600"></p>
+    </div>
   </div>
 
   <script type="application/json" id="pg-calc-data" set:html={safeJsonLd(payload)} />
@@ -309,12 +411,14 @@ const payload = {
 
     interface PgCfg {
       locale: string;
+      slug: string;
       category: string;
       isCarbProduct: boolean;
       isCreatine: boolean;
       usMsrp: number;
       krMsrp: number;
       krwPerUsd: number;
+      fxUpdatedAt: string;
       totalServings: number;
       servingWeightG: number;
       activePerServingG: number;
@@ -338,6 +442,16 @@ const payload = {
     }
 
     const isKo = cfg.locale === "ko";
+    let tracked = false;
+    function trackInteract() {
+      if (tracked) return;
+      tracked = true;
+      const w = window as unknown as {
+        smTrack?: (name: string, params?: Record<string, unknown>) => void;
+      };
+      w.smTrack?.("calculator_interact", { vertical: "puregram", sku: cfg.slug });
+    }
+
     let currency = isKo ? "KRW" : "USD";
     let targetRate = cfg.isCarbProduct ? 90 : cfg.isCreatine ? 5 : 1;
 
@@ -360,6 +474,101 @@ const payload = {
     const planCafEl = document.getElementById("pg-plan-caf");
     const planCafNoteEl = document.getElementById("pg-plan-caf-note");
     const planRatioNoteEl = document.getElementById("pg-plan-ratio-note");
+
+    // Part C: KR vs US Direct Import Break-Even Checker
+    const usPriceInput = document.getElementById("pg-us-price") as HTMLInputElement | null;
+    const usShipInput = document.getElementById("pg-us-ship") as HTMLInputElement | null;
+    const krPriceInput = document.getElementById("pg-kr-price") as HTMLInputElement | null;
+    const impUsKrwEl = document.getElementById("pg-imp-us-krw");
+    const impUsBenchEl = document.getElementById("pg-imp-us-bench");
+    const impKrKrwEl = document.getElementById("pg-imp-kr-krw");
+    const impKrBenchEl = document.getElementById("pg-imp-kr-bench");
+    const impVerdictCard = document.getElementById("pg-imp-verdict-card");
+    const impPctEl = document.getElementById("pg-imp-pct");
+    const impBenchDeltaEl = document.getElementById("pg-imp-bench-delta");
+    const impSummaryEl = document.getElementById("pg-imp-summary");
+
+    function fmtKrw(val: number): string {
+      if (!Number.isFinite(val)) return "—";
+      const s = new Intl.NumberFormat("ko-KR").format(Math.round(val));
+      return isKo ? `${s}원` : `₩${s}`;
+    }
+
+    function recalcImportBreakEven() {
+      const rawUs = Number(usPriceInput ? usPriceInput.value : cfg.usMsrp);
+      const rawShip = Number(usShipInput ? usShipInput.value : 0);
+      const rawKr = Number(krPriceInput ? krPriceInput.value : cfg.krMsrp);
+
+      const usUsd = Number.isFinite(rawUs) && rawUs > 0 ? rawUs : 0;
+      const shipUsd = Number.isFinite(rawShip) && rawShip >= 0 ? rawShip : 0;
+      const krKrw = Number.isFinite(rawKr) && rawKr > 0 ? rawKr : 0;
+
+      const fxRate = Number.isFinite(cfg.krwPerUsd) && cfg.krwPerUsd > 0 ? cfg.krwPerUsd : 1400;
+      const totalUsUsd = usUsd + shipUsd;
+      const usLandedKrw = totalUsUsd * fxRate;
+
+      const totalActive = Number(cfg.totalPureActiveG || 0);
+      const benchUnit = Number(cfg.benchmarkUnitG || 1);
+      const benchUnits =
+        totalActive > 0 && benchUnit > 0 ? totalActive / benchUnit : Math.max(Number(cfg.totalServings || 1), 1);
+
+      const usBenchKrw = usLandedKrw / benchUnits;
+      const krBenchKrw = krKrw / benchUnits;
+      const diffKrw = krKrw - usLandedKrw; // > 0 means US direct import is cheaper
+      const diffPct = usLandedKrw > 0 ? (diffKrw / usLandedKrw) * 100 : 0;
+      const benchDeltaKrw = Math.abs(krBenchKrw - usBenchKrw);
+
+      if (impUsKrwEl) impUsKrwEl.textContent = fmtKrw(usLandedKrw);
+      if (impUsBenchEl) {
+        impUsBenchEl.textContent = `$${totalUsUsd.toFixed(2)} · ${fmtKrw(usBenchKrw)} / ${cfg.benchmarkLabel}`;
+      }
+      if (impKrKrwEl) impKrKrwEl.textContent = fmtKrw(krKrw);
+      if (impKrBenchEl) {
+        impKrBenchEl.textContent = `${fmtKrw(krBenchKrw)} / ${cfg.benchmarkLabel}`;
+      }
+
+      if (impPctEl && impBenchDeltaEl && impSummaryEl && impVerdictCard) {
+        if (diffKrw > 500) {
+          impVerdictCard.className = "rounded-lg border border-blue-200 bg-blue-50/80 p-3.5";
+          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-blue-900";
+          impPctEl.textContent = isKo
+            ? `직구 -${Math.abs(diffPct).toFixed(1)}% 저렴`
+            : `Import Saves ${Math.abs(diffPct).toFixed(1)}%`;
+          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-blue-800";
+          impBenchDeltaEl.textContent = isKo
+            ? `기준단위당 ${fmtKrw(benchDeltaKrw)} 절감`
+            : `Saves ${fmtKrw(benchDeltaKrw)} / ${cfg.benchmarkLabel}`;
+          impSummaryEl.textContent = isKo
+            ? `미국 직구 총액(${fmtKrw(usLandedKrw)})이 국내가 대비 ${fmtKrw(diffKrw)} (약 +${diffPct.toFixed(1)}% 국내 프리미엄) 저렴합니다. 단, 통관 $150(미국발 $200 목록통관) 한도 및 배송 기간을 함께 고려하세요.`
+            : `US direct import (${fmtKrw(usLandedKrw)}) undercuts KR domestic pricing by ${fmtKrw(diffKrw)} (+${diffPct.toFixed(1)}% domestic premium), saving ${fmtKrw(benchDeltaKrw)} per benchmark unit.`;
+        } else if (diffKrw < -500) {
+          const krSavePct = usLandedKrw > 0 ? (Math.abs(diffKrw) / usLandedKrw) * 100 : 0;
+          impVerdictCard.className = "rounded-lg border border-emerald-200 bg-emerald-50/80 p-3.5";
+          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-emerald-900";
+          impPctEl.textContent = isKo
+            ? `국내 구매 -${krSavePct.toFixed(1)}% 유리`
+            : `KR Domestic Saves ${krSavePct.toFixed(1)}%`;
+          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-emerald-800";
+          impBenchDeltaEl.textContent = isKo
+            ? `기준단위당 ${fmtKrw(benchDeltaKrw)} 절감`
+            : `Saves ${fmtKrw(benchDeltaKrw)} / ${cfg.benchmarkLabel}`;
+          impSummaryEl.textContent = isKo
+            ? `국내 구매(${fmtKrw(krKrw)})가 미국 직구 환산가(${fmtKrw(usLandedKrw)})보다 ${fmtKrw(Math.abs(diffKrw))} 저렴하며 즉시 배송까지 유리합니다.`
+            : `KR domestic purchase (${fmtKrw(krKrw)}) beats US landed import (${fmtKrw(usLandedKrw)}) by ${fmtKrw(Math.abs(diffKrw))}, saving ${fmtKrw(benchDeltaKrw)} per benchmark unit.`;
+        } else {
+          impVerdictCard.className = "rounded-lg border border-slate-200 bg-slate-50 p-3.5";
+          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-slate-900";
+          impPctEl.textContent = isKo ? "손익분기 (±0%)" : "Break-Even (±0%)";
+          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-slate-600";
+          impBenchDeltaEl.textContent = isKo
+            ? `차이 ${fmtKrw(Math.abs(diffKrw))} 이내`
+            : `Within ${fmtKrw(Math.abs(diffKrw))}`;
+          impSummaryEl.textContent = isKo
+            ? `국내 구매가와 해외 직구 원화 환산가가 거의 동일합니다. 배송 기간과 교환 편의를 고려하면 국내 구매가 유리합니다.`
+            : `Domestic KR and US landed cost are practically equal — domestic purchase wins on shipping speed.`;
+        }
+      }
+    }
 
     function fmtMoney(val: number) {
       if (!Number.isFinite(val)) return "—";
@@ -473,6 +682,7 @@ const payload = {
 
     if (btnUsd) {
       btnUsd.addEventListener("click", () => {
+        trackInteract();
         if (currency === "USD") return;
         currency = "USD";
         if (priceInput) priceInput.value = String(cfg.usMsrp);
@@ -483,6 +693,7 @@ const payload = {
 
     if (btnKrw) {
       btnKrw.addEventListener("click", () => {
+        trackInteract();
         if (currency === "KRW") return;
         currency = "KRW";
         if (priceInput) priceInput.value = String(cfg.krMsrp);
@@ -493,18 +704,46 @@ const payload = {
 
     if (resetBtn) {
       resetBtn.addEventListener("click", () => {
+        trackInteract();
         if (priceInput) {
           priceInput.value = String(currency === "KRW" ? cfg.krMsrp : cfg.usMsrp);
         }
+        if (usPriceInput) usPriceInput.value = String(cfg.usMsrp);
+        if (krPriceInput) krPriceInput.value = String(cfg.krMsrp);
+        if (usShipInput) usShipInput.value = "0";
+        recalc();
+        recalcImportBreakEven();
+      });
+    }
+
+    if (priceInput) {
+      priceInput.addEventListener("input", () => {
+        trackInteract();
+        if (currency === "KRW" && krPriceInput) krPriceInput.value = priceInput.value;
+        if (currency === "USD" && usPriceInput) usPriceInput.value = priceInput.value;
+        recalc();
+        recalcImportBreakEven();
+      });
+    }
+    if (durSlider) {
+      durSlider.addEventListener("input", () => {
+        trackInteract();
         recalc();
       });
     }
 
-    if (priceInput) priceInput.addEventListener("input", recalc);
-    if (durSlider) durSlider.addEventListener("input", recalc);
+    [usPriceInput, usShipInput, krPriceInput].forEach((el) => {
+      if (el) {
+        el.addEventListener("input", () => {
+          trackInteract();
+          recalcImportBreakEven();
+        });
+      }
+    });
 
     rateBtns.forEach((b) => {
       b.addEventListener("click", () => {
+        trackInteract();
         targetRate = Number(b.getAttribute("data-rate") || targetRate);
         rateBtns.forEach((other) => {
           const on = other === b;
@@ -518,5 +757,6 @@ const payload = {
 
     updateCurrencyButtons();
     recalc();
+    recalcImportBreakEven();
   })();
 </script>

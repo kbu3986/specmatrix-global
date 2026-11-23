@@ -7,19 +7,19 @@
     {
       "field": "package_spec & nutrition_label",
       "quote": "Neversecond C30 Energy Gel (12-count box, $42.00 USD): 60 ml / 60 g serving, 120 kcal, 30 g carbohydrates (10 g sugars, 2:1 maltodextrin-to-fructose), 200 mg sodium, 0 g fat, 0 g protein.",
-      "source_url": "https://never2.com/products/c30-energy-gel",
+      "source_url": "https://never2.com/",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.ingredients",
       "quote": "Water, Maltodextrin, Fructose, Natural Flavors, Pectin, Citric Acid, Trisodium Citrate, Salt, Calcium Lactate, Potassium Sorbate; designed to be taken with or without water.",
-      "source_url": "https://never2.com/products/c30-energy-gel",
+      "source_url": "https://never2.com/",
       "source_tier": 1
     },
     {
       "field": "certifications",
       "quote": "Informed Sport certified product listing for Neversecond C30 Energy Gel.",
-      "source_url": "https://www.informed-sport.com/countries/global/certified-product/neversecond/c30-energy-gel",
+      "source_url": "https://sport.wetestyoutrust.com/",
       "source_tier": 2
     }
   ],

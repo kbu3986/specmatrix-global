@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "ups",
+  "slug": "apc-back-ups-bx750mi",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "APC by Schneider Electric",
+  "model_number": "BX750MI",
+  "origin_country": "US",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "BX750MI",
+      "msrp": 119.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "APC Back-UPS 750VA 410W 230V AVR BX750MI",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "BX750MI-GR",
+      "msrp": 129000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "APC Back-UPS BX750MI-GR 750VA 410W UPS 무정전전원장치",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 4,
+    "typical_load_w": 8,
+    "peak_power_w": 35,
+    "default_daily_hours_active": 24,
+    "annual_consumables_usd": 12,
+    "annual_consumables_krw": 15000,
+    "noise_idle_dba": 20,
+    "noise_load_dba": 40,
+    "weight_g": 5400,
+    "dimensions_mm": {
+      "l": 355,
+      "w": 120,
+      "h": 160
+    },
+    "input_voltage_range": "230V AC nominal (140-300V AVR window), 50/60Hz auto-sensing",
+    "dual_voltage_100_240v": false,
+    "cpu_or_soc": null,
+    "ram_gb_default": null,
+    "drive_bays": null,
+    "lan_speed_gbps": null,
+    "ups_va_rating": 750,
+    "ups_watt_rating": 410,
+    "ups_waveform": "simulated-sine",
+    "ups_runtime_half_load_min": 8.5,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["CE", "CB", "EN/IEC 62040-1", "EN/IEC 62040-2", "EAC"],
+    "key_specs_kv": [
+      { "key_en": "Output Capacity", "key_ko": "출력 용량 (VA / W)", "value": "750 VA / 410 W (0.55 output power factor)" },
+      { "key_en": "Topology & Waveform", "key_ko": "토폴로지 및 출력 파형", "value": "Line-Interactive with AVR / Stepped approximation to a sinewave" },
+      { "key_en": "Half / Full Load Runtime", "key_ko": "반부하 / 최대부하 런타임", "value": "~8.5 min at ~200 W half load / ~1 min at 410 W full load (6 ms typical transfer)" },
+      { "key_en": "UPS Self-Power Overhead", "key_ko": "UPS 자체 소비전력 (TCO 기준)", "value": "~4 W standby / ~8 W 24/7 AVR trickle overhead / ~35 W battery recharge peak" },
+      { "key_en": "Input Voltage Window", "key_ko": "입력 전압 범위", "value": "230V AC nominal (140-300V AVR window), 50/60 Hz auto-sensing (non-120V)" },
+      { "key_en": "Outlets & Variants", "key_ko": "출력 콘센트 규격", "value": "4 × IEC C13 (BX750MI) or 4 × Schuko Type F (BX750MI-GR for Korea/EU)" },
+      { "key_en": "Battery & Amortized Cost", "key_ko": "내장 배터리 및 교체 주기", "value": "12V 9Ah Sealed Lead-Acid (RBC17 / APCRBC178), 3-5 yr life (~$12/₩15,000/yr)" },
+      { "key_en": "Data Port & NAS Sync", "key_ko": "USB 데이터 통신", "value": "USB Type-B (HID / NUT usbhid-ups compatible with Synology DSM)" },
+      { "key_en": "Dimensions, Weight & Noise", "key_ko": "크기 · 무게 · 소음", "value": "160 × 120 × 355 mm (H×W×D), 5,400 g, <= 40.0 dBA at 1 m (fanless)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": 42,
+    "korea_220v_note_en": "Native 230V (140-300V AVR, 50/60Hz auto-sensing) model that works cleanly on Korea's 220V/60Hz grid — choose the BX750MI-GR variant for direct 4x Schuko (Korean plug compatible) sockets instead of IEC C13 computer plugs; NOT compatible with US/Japan 100-120V grids.",
+    "korea_220v_note_ko": "230V 정격(AVR 140-300V, 50/60Hz 자동감지) 설계로 한국 220V/60Hz 전력망에 변압기 없이 완벽 대응합니다. 국내 가정용 멀티탭·어댑터를 바로 꽂으려면 IEC C13 기본형 대신 슈코 4구 버전인 BX750MI-GR 모델을 선택하세요."
+  },
+  "i18n": {
+    "en": {
+      "name": "APC Back-UPS 750VA (BX750MI)",
+      "title": "APC Back-UPS BX750MI (750VA/410W 230V): NAS Runtime, NUT 95% Quirk & 3-Year TCO",
+      "summary": "Budget-friendly 230V line-interactive AVR UPS rated at 750 VA / 410 W with ~8.5-minute half-load runtime, fanless <=40 dBA operation, USB HID shutdown support, and low ~8 W 24/7 parasitic power overhead.",
+      "best_for": "220-230V region homelabbers (Korea, EU, UK, APAC) protecting a 2-bay or 4-bay NAS plus fiber ONT/router (~30–60 W total) against RAID corruption during sudden power outages.",
+      "local_gotchas": [
+        "Stepped-approximation (simulated sine) output works smoothly with external DC power bricks (Synology NAS, mini PCs, routers), but can trigger random shutdowns on sensitive Active-PFC high-wattage desktop PSUs — use pure sinewave for workstations.",
+        "Known Synology DSM / NUT firmware quirk: APC BX-MI series units often report a hardcoded 95% low-battery threshold via usbhid-ups; set DSM to enter Safe Mode after a fixed time (e.g., 5 minutes) instead of 'Until battery is low' and run a live unplug test.",
+        "230V-only regional model (dual_voltage_100_240v: false): cannot be used on North American 120V or Japanese 100V outlets, and standard BX750MI uses IEC C13 sockets whereas BX750MI-GR provides German Schuko sockets."
+      ]
+    },
+    "ko": {
+      "name": "APC Back-UPS BX750MI (750VA / 410W)",
+      "title": "APC Back-UPS BX750MI 220V UPS: 시놀로지 NAS 런타임·NUT 95% 버그·3년 유지비 분석",
+      "summary": "한국 220V/60Hz 환경에 바로 쓸 수 있는 750VA / 410W 라인 인터랙티브 AVR UPS로, 무팬 저소음(최대 40 dBA)과 약 12~13만 원대 합리적 가격으로 홈 NAS·공유기 정전 보호 입문 표준으로 꼽힙니다.",
+      "best_for": "2베이·4베이 NAS와 인터넷 모뎀·공유기(합산 30~60 W급)를 10만 원 초반대 예산으로 정전 데이터 손상으로부터 안전하게 보호하려는 한국 220V 가정용 홈서버 사용자.",
+      "local_gotchas": [
+        "유사 정현파(계단파) 출력이므로 외장 직류 어댑터를 쓰는 시놀로지 NAS·미니PC·공유기에는 무리 없으나, Active PFC가 민감한 고출력 데스크톱 파워서플라이에서는 정전 전환 시 재부팅될 수 있어 순수 정현파 모델이 안전합니다.",
+        "시놀로지 DSM(NUT usbhid-ups) 연동 시 BX-MI 시리즈 특유의 '배터리 부족 기준 95% 고정 보고' 펌웨어 이슈가 발생할 수 있으므로, DSM 제어판에서 '배터리 부족 시' 대신 '정전 후 3~5분 경과 시 안전모드 진입'으로 설정하고 반드시 플러그 뽑기 실전 테스트를 거치세요.",
+        "기본형 BX750MI는 PC 파워용 IEC C13 단자 4구이므로 일반 한국 220V 어댑터를 바로 꽂으려면 슈코(Type F) 4구 모델인 BX750MI-GR을 구매하거나 C14-멀티탭 변환 케이블을 별도 준비해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Schneider Electric Official Product Datasheet — APC Back-UPS BX750MI (IEC C13)",
+      "url": "https://www.se.com/ww/en/product/BX750MI/apc-back-ups-750va-tower-230v-4-iec-c13-avr/",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Schneider Electric Official Product Datasheet — APC Back-UPS BX750MI-GR (Schuko 230V)",
+      "url": "https://www.se.com/ww/en/product/BX750MI-GR/apc-back-ups-750va-230v-avr-4-schuko-outlets/",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 95,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["cyberpower-cp1500pfclcd", "synology-ds224-plus"]
+}

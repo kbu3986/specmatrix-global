@@ -1,11 +1,11 @@
 {
-  "pilot_version": "phase1-week1-200p",
+  "pilot_version": "phase1-week2-254p",
   "active_locales": ["en", "ko"],
-  "target_core_pages": 200,
+  "target_core_pages": 254,
   "breakdown": {
-    "items_per_locale": 60,
-    "vs_per_locale": 25,
-    "matrix_compat_per_locale": 10,
+    "items_per_locale": 72,
+    "vs_per_locale": 31,
+    "matrix_compat_per_locale": 13,
     "legal_trust_per_locale": 5
   },
   "items": {
@@ -74,6 +74,20 @@
       "pirelli-p-zero-race-rs-tlr-28",
       "shimano-dura-ace-r9270-di2-12s",
       "sram-red-axs-e1-12s"
+    ],
+    "hometech": [
+      "apple-mac-mini-m4",
+      "beelink-ser8-8745hs",
+      "minisforum-um890-pro",
+      "gmktec-nucbox-g3-plus-n150",
+      "synology-ds423-plus",
+      "ugreen-nasync-dxp4800-plus",
+      "synology-ds224-plus",
+      "apc-back-ups-bx750mi",
+      "cyberpower-cp1500pfclcd",
+      "roborock-s8-maxv-ultra",
+      "roborock-qrevo-master",
+      "dreame-x40-ultra"
     ]
   },
   "vs_pairs": {
@@ -107,6 +121,14 @@
       ["garmin-edge-1050", "wahoo-elemnt-roam-v2"],
       ["continental-gp5000-s-tr-28", "vittoria-corsa-pro-tlr-28"],
       ["shimano-dura-ace-r9270-di2-12s", "sram-red-axs-e1-12s"]
+    ],
+    "hometech": [
+      ["apple-mac-mini-m4", "beelink-ser8-8745hs"],
+      ["beelink-ser8-8745hs", "minisforum-um890-pro"],
+      ["gmktec-nucbox-g3-plus-n150", "synology-ds224-plus"],
+      ["synology-ds423-plus", "ugreen-nasync-dxp4800-plus"],
+      ["apc-back-ups-bx750mi", "cyberpower-cp1500pfclcd"],
+      ["dreame-x40-ultra", "roborock-s8-maxv-ultra"]
     ]
   },
   "matrix_compat": {
@@ -125,6 +147,11 @@
       { "archetype": "matrix", "slug": "power-meters" },
       { "archetype": "matrix", "slug": "gps-tires-trainers" },
       { "archetype": "compat", "slug": "shimano-12s-di2-with-powermeters-headunits" }
+    ],
+    "hometech": [
+      { "archetype": "matrix", "slug": "minipc-nas-tco" },
+      { "archetype": "matrix", "slug": "robot-vacuums-ups" },
+      { "archetype": "compat", "slug": "nas-with-ups-runtime-match" }
     ]
   },
   "legal_trust": ["about", "methodology", "disclaimer", "privacy", "contact"]

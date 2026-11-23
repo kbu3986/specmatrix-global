@@ -51,34 +51,38 @@ const payload = {
               : "Live Priority Weighting Winner Simulator"}
           </h2>
         </div>
-        <div class="flex flex-wrap gap-1.5">
+        <div class="flex flex-wrap gap-1.5" role="group" aria-label={isKo ? "가중치 프리셋" : "Weighting presets"}>
           <button
             type="button"
             data-preset="balanced"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+            aria-pressed="true"
+            class="vs-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors"
           >
             {isKo ? "균형" : "Balanced"}
           </button>
           <button
             type="button"
             data-preset="value"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+            aria-pressed="false"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
           >
             {isKo ? "가성비 최우선" : "Value First"}
           </button>
           <button
             type="button"
             data-preset="performance"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+            aria-pressed="false"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
           >
             {isKo ? "성능 최우선" : "Max Performance"}
           </button>
           <button
             type="button"
             data-preset="portability"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white hover:bg-white/20"
+            aria-pressed="false"
+            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
           >
-            {isKo ? "경량·순도 우선" : "Light / Pure"}
+            {isKo ? "경량·순도·정숙 우선" : "Light / Quiet"}
           </button>
         </div>
       </div>
@@ -190,11 +194,20 @@ const payload = {
           </div>
         </div>
 
-        <p class="mt-5 border-t border-slate-200 pt-3 text-[11px] leading-relaxed text-slate-500">
-          {isKo
-            ? "* 모든 점수는 결정론적 정량 스펙과 파생 단가에서 산출되며 LLM 추정치를 사용하지 않습니다."
-            : "* All sub-scores are deterministically derived from verified specifications and benchmark math."}
-        </p>
+        <div class="mt-5 space-y-3 border-t border-slate-200 pt-3.5">
+          <button
+            type="button"
+            id="vs-copy-verdict"
+            class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 shadow-xs transition-colors hover:border-blue-500 hover:text-blue-700"
+          >
+            <span>{isKo ? "가중 판정 요약 복사" : "Copy Weighted Verdict"}</span>
+          </button>
+          <p class="text-[11px] leading-relaxed text-slate-500">
+            {isKo
+              ? "* 모든 점수는 결정론적 정량 스펙과 파생 단가에서 산출되며 LLM 추정치를 사용하지 않습니다."
+              : "* All sub-scores are deterministically derived from verified specifications and benchmark math."}
+          </p>
+        </div>
       </div>
     </div>
 
@@ -301,6 +314,7 @@ const payload = {
       nameB: string;
       scoresA: Record<string, number>;
       scoresB: Record<string, number>;
+      dimensions?: Array<{ id: string; label: string; defaultWeight: number }>;
     }
     let cfg: VsSimCfg;
     try {
@@ -321,6 +335,66 @@ const payload = {
     const tagEl = document.getElementById("vs-winner-tag");
     const nameEl = document.getElementById("vs-winner-name");
     const marginEl = document.getElementById("vs-winner-margin");
+    const copyBtn = document.getElementById("vs-copy-verdict") as HTMLButtonElement | null;
+
+    const ACTIVE_PRESET_CLS =
+      "vs-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors";
+    const INACTIVE_PRESET_CLS =
+      "vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20";
+
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    const defaultBalanced: Record<string, number> = {
+      value: 25,
+      portability: 25,
+      performance: 25,
+      practicality: 25,
+    };
+    if (Array.isArray(cfg.dimensions)) {
+      cfg.dimensions.forEach((d) => {
+        if (d && d.id && Number.isFinite(d.defaultWeight)) {
+          defaultBalanced[d.id] = d.defaultWeight;
+        }
+      });
+    }
+
+    const presets: Record<string, Record<string, number>> = {
+      balanced: defaultBalanced,
+      value: { value: 60, portability: 15, performance: 15, practicality: 10 },
+      performance: { value: 10, portability: 15, performance: 60, practicality: 15 },
+      portability: { value: 15, portability: 60, performance: 15, practicality: 10 },
+    };
+
+    let lastFinalA = 50;
+    let lastFinalB = 50;
+    let lastWinnerSummary = "";
+    let lastWeightsSummary = "";
+    let activePresetKey = "balanced";
+
+    function syncPresetHighlight(key: string) {
+      activePresetKey = key;
+      presetBtns.forEach((btn) => {
+        const isMatch = (btn.getAttribute("data-preset") || "") === key;
+        btn.className = isMatch ? ACTIVE_PRESET_CLS : INACTIVE_PRESET_CLS;
+        btn.setAttribute("aria-pressed", isMatch ? "true" : "false");
+      });
+    }
+
+    function detectMatchingPreset(weights: Record<string, number>): string {
+      for (const [k, p] of Object.entries(presets)) {
+        const allMatch = sliders.every((s) => {
+          const dim = s.getAttribute("data-dim") || "";
+          return (weights[dim] ?? 0) === (p[dim] ?? 0);
+        });
+        if (allMatch) return k;
+      }
+      return "";
+    }
 
     function update() {
       let sumW = 0;
@@ -328,13 +402,14 @@ const payload = {
       sliders.forEach((s) => {
         const dim = s.getAttribute("data-dim") || "";
         const val = Number(s.value || 0);
-        weights[dim] = val;
-        sumW += val;
+        weights[dim] = Number.isFinite(val) ? val : 0;
+        sumW += weights[dim];
       });
 
       const normDiv = sumW > 0 ? sumW : 1;
       let accA = 0;
       let accB = 0;
+      const weightParts: string[] = [];
 
       sliders.forEach((s) => {
         const dim = s.getAttribute("data-dim") || "";
@@ -342,12 +417,18 @@ const payload = {
         const pct = sumW > 0 ? Math.round((val / sumW) * 100) : 25;
         const lbl = document.getElementById(`vs-wval-${dim}`);
         if (lbl) lbl.textContent = `${pct}%`;
-        accA += (cfg.scoresA[dim] || 50) * (sumW > 0 ? val : 1);
-        accB += (cfg.scoresB[dim] || 50) * (sumW > 0 ? val : 1);
+        accA += (cfg.scoresA[dim] ?? 50) * (sumW > 0 ? val : 1);
+        accB += (cfg.scoresB[dim] ?? 50) * (sumW > 0 ? val : 1);
+        const dimMeta = cfg.dimensions?.find((d) => d.id === dim);
+        const shortLbl = dimMeta ? dimMeta.label.split("(")[0].trim() : dim;
+        weightParts.push(`${shortLbl} ${pct}%`);
       });
 
       const finalA = Math.round(accA / (sumW > 0 ? normDiv : sliders.length || 1));
       const finalB = Math.round(accB / (sumW > 0 ? normDiv : sliders.length || 1));
+      lastFinalA = finalA;
+      lastFinalB = finalB;
+      lastWeightsSummary = weightParts.join(" · ");
 
       if (scoreAEl) scoreAEl.textContent = String(finalA);
       if (scoreBEl) scoreBEl.textContent = String(finalB);
@@ -362,28 +443,54 @@ const payload = {
           tagEl.textContent = isKo ? "초접전 동점" : "DEAD HEAT / TIE";
           nameEl.textContent = isKo ? "두 모델 점수 사실상 동일" : "Virtual Tie — Choose by Ecosystem";
           marginEl.textContent = `A ${finalA} vs B ${finalB}`;
+          lastWinnerSummary = isKo
+            ? `초접전 동점 (A ${finalA}점 vs B ${finalB}점)`
+            : `Virtual Tie (A ${finalA} vs B ${finalB})`;
         } else if (finalA > finalB) {
           bannerEl.className = "mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5";
           tagEl.className = "badge-info";
           tagEl.textContent = isKo ? "가중 승자: 모델 A" : "WEIGHTED WINNER: MODEL A";
           nameEl.textContent = cfg.nameA;
           marginEl.textContent = isKo ? `B 대비 +${diff}점 우세` : `+${diff} pts ahead of Model B`;
+          lastWinnerSummary = isKo
+            ? `${cfg.nameA} (+${diff}점 우세)`
+            : `${cfg.nameA} (+${diff} pts ahead)`;
         } else {
           bannerEl.className = "mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5";
           tagEl.className = "badge-pass";
           tagEl.textContent = isKo ? "가중 승자: 모델 B" : "WEIGHTED WINNER: MODEL B";
           nameEl.textContent = cfg.nameB;
           marginEl.textContent = isKo ? `A 대비 +${diff}점 우세` : `+${diff} pts ahead of Model A`;
+          lastWinnerSummary = isKo
+            ? `${cfg.nameB} (+${diff}점 우세)`
+            : `${cfg.nameB} (+${diff} pts ahead)`;
         }
       }
+
+      syncPresetHighlight(detectMatchingPreset(weights));
     }
 
-    const presets: Record<string, Record<string, number>> = {
-      balanced: { value: 25, portability: 25, performance: 25, practicality: 25 },
-      value: { value: 60, portability: 15, performance: 15, practicality: 10 },
-      performance: { value: 10, portability: 15, performance: 60, practicality: 15 },
-      portability: { value: 15, portability: 60, performance: 15, practicality: 10 },
-    };
+    function copyText(text: string): Promise<boolean> {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        return navigator.clipboard
+          .writeText(text)
+          .then(() => true)
+          .catch(() => false);
+      }
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return Promise.resolve(ok);
+      } catch {
+        return Promise.resolve(false);
+      }
+    }
 
     presetBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -394,10 +501,56 @@ const payload = {
           if (dim in p) s.value = String(p[dim]);
         });
         update();
+        syncPresetHighlight(key);
+        track("vs_simulator_use", {
+          action: "preset",
+          preset: key,
+          score_a: lastFinalA,
+          score_b: lastFinalB,
+        });
       });
     });
 
-    sliders.forEach((s) => s.addEventListener("input", update));
+    sliders.forEach((s) => {
+      s.addEventListener("input", update);
+      s.addEventListener("change", () => {
+        track("vs_simulator_use", {
+          action: "slider",
+          dim: s.getAttribute("data-dim") || "",
+          preset: activePresetKey || "custom",
+          score_a: lastFinalA,
+          score_b: lastFinalB,
+        });
+      });
+    });
+
+    if (copyBtn) {
+      const defaultLabel = isKo ? "가중 판정 요약 복사" : "Copy Weighted Verdict";
+      const copiedLabel = isKo ? "복사됨 ✓" : "Copied ✓";
+      copyBtn.addEventListener("click", () => {
+        const lines = isKo
+          ? [
+              `[SpecMatrix VS 가중 판정] ${cfg.nameA} (${lastFinalA}점) vs ${cfg.nameB} (${lastFinalB}점)`,
+              `승자: ${lastWinnerSummary} | 기준 비중: ${lastWeightsSummary}`,
+              window.location.href,
+            ]
+          : [
+              `[SpecMatrix VS Verdict] ${cfg.nameA} (${lastFinalA}/100) vs ${cfg.nameB} (${lastFinalB}/100)`,
+              `Winner: ${lastWinnerSummary} | Weights: ${lastWeightsSummary}`,
+              window.location.href,
+            ];
+        copyText(lines.join("\n")).then(() => {
+          copyBtn.textContent = copiedLabel;
+          copyBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          track("vs_simulator_use", { action: "copy_verdict", preset: activePresetKey || "custom" });
+          window.setTimeout(() => {
+            copyBtn.textContent = defaultLabel;
+            copyBtn.classList.remove("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          }, 1800);
+        });
+      });
+    }
+
     update();
   })();
 </script>

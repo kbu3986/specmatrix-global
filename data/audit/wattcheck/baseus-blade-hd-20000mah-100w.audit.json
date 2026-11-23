@@ -7,13 +7,13 @@
     {
       "field": "battery_energy_wh",
       "quote": "Model PPBLD100HD, 20,000mAh / 74Wh (5000mAh x 4 / 3.7V), Rated 12,000mAh (5V/3A), Weight 445g, Dimensions 134 x 134 x 19.8 mm",
-      "source_url": "https://www.baseus.com/products/baseus-blade-laptop-power-bank-100w-20000mah",
+      "source_url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
       "source_tier": 1
     },
     {
       "field": "port_allocation_matrix",
       "quote": "C1/C2 100W Max (65W input), USB1/2 30W Max; C1+C2 65W+30W (95W); 4-port simultaneous capped at 5V/6A (30W total)",
-      "source_url": "https://www.baseus.com/products/baseus-blade-laptop-power-bank-100w-20000mah",
+      "source_url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
       "source_tier": 1
     }
   ],

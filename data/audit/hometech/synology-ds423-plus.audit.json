@@ -1,0 +1,33 @@
+{
+  "sku_slug": "synology-ds423-plus",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "specs.idle_power_w",
+      "quote": "Synology DS423+ official datasheet: Power consumption 28.30 W (Access) and 8.45 W (HDD Hibernation); 90 W AC power adapter (100V to 240V AC, 50/60 Hz); Noise level 19.8 dB(A) idle at 1 m.",
+      "source_url": "https://www.synology.com/en-global/products/DS423+",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.weight_g",
+      "quote": "Dimensions (H x W x D): 166 x 199 x 223 mm; Weight: 2.18 kg (2,180 g); Intel Celeron J4125 4-core (2.0-2.7 GHz); 2 GB DDR4 non-ECC (expandable up to 6 GB); 4x SATA bays + 2x M.2 2280 NVMe slots; 2x 1GbE RJ-45.",
+      "source_url": "https://www.synology.com/en-global/support/download/DS423+",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.certifications",
+      "quote": "Official DS423+ compliance & compatibility matrix: FCC, CE, BSMI, VCCI, RCM, UKCA, EAC, CCC, KC, BIS, RoHS; verified USB-HID UPS auto-shutdown and Synology NVMe pool drive requirements.",
+      "source_url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS423%2B",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "NAS hardware & physics check: Verified 4 drive bays, 1 Gbps LAN (2x 1GbE), power hierarchy 8.45 W <= 28.3 W <= 90 W PSU peak, and acoustic order 19.8 dBA idle <= 26.5 dBA load.",
+    "DS423+ vs DS923+ engineering trap verified: Confirmed DS423+ retains Intel Celeron J4125 Quick Sync transcoding advantage over DS923+ (Ryzen R1600), but sacrifices 10GbE upgradeability and ships with only 2 GB RAM.",
+    "SM-02 & Korea official distributor check: Recorded US MSRP $499.99 vs KR official domestic KC retail 819,000 KRW (3-year Ablestor/PC Direct warranty) under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

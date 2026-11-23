@@ -1,0 +1,67 @@
+name: SpecMatrix CI Quality Gate
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-quality-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality-gate:
+    name: Validate, Audit, Test, Build & Stage 6 QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+
+      - name: Install root pipeline dependencies
+        run: npm ci
+
+      - name: Install Astro web dependencies
+        run: npm --prefix web ci
+
+      - name: Stage 2 Master Data Validation
+        run: npm run validate
+
+      - name: Stage 3 SERP Information Gain Audit
+        run: npm run audit:ig
+
+      - name: Pipeline Unit Tests
+        run: npm run test:pipeline
+
+      - name: Build Astro 5 Static Site & Split Sitemaps
+        run: npm run web:build
+
+      - name: Stage 6 Built HTML QA Gate
+        run: npm run qa:stage6
+
+      - name: Upload Quality Gate Audit Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: specmatrix-ci-audit-reports
+          path: |
+            data/audit/validation-report.json
+            data/audit/ig-audit-report.json
+            data/audit/stage6-qa-report.json
+          if-no-files-found: ignore
+          retention-days: 14

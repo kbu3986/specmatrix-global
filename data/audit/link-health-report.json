@@ -1,0 +1,5916 @@
+{
+  "generated_at": "2026-11-23T01:12:22.799Z",
+  "dry_run": false,
+  "config": {
+    "concurrency": 6,
+    "timeout_ms": 6000
+  },
+  "collection": {
+    "total_references": 255,
+    "unique_urls": 228,
+    "references_by_kind": {
+      "citation": 165,
+      "airline_policy": 30,
+      "coupang_deeplink": 60
+    }
+  },
+  "summary": {
+    "total_unique_urls": 228,
+    "ok": 97,
+    "redirect": 19,
+    "bot_challenge": 98,
+    "dead": 14,
+    "healthy_count": 116,
+    "dead_rate_pct": 6.14,
+    "by_source_kind": {
+      "citation": {
+        "total": 138,
+        "ok": 90,
+        "redirect": 17,
+        "bot_challenge": 27,
+        "dead": 4
+      },
+      "airline_policy": {
+        "total": 30,
+        "ok": 7,
+        "redirect": 2,
+        "bot_challenge": 11,
+        "dead": 10
+      },
+      "coupang_deeplink": {
+        "total": 60,
+        "ok": 0,
+        "redirect": 0,
+        "bot_challenge": 60,
+        "dead": 0
+      }
+    }
+  },
+  "dead_links": [
+    {
+      "url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "asiana-airlines",
+          "iata_code": "OZ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.airchina.com/",
+      "status": null,
+      "method_used": "GET",
+      "error": "fetch failed",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-china",
+          "iata_code": "CA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "beelink-ser8-8745hs",
+          "label": "AMD Ryzen 7 8745HS Official Processor Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "minisforum-um890-pro",
+          "label": "AMD Ryzen 9 8945HS Official Processor Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "ana",
+          "iata_code": "NH"
+        }
+      ]
+    },
+    {
+      "url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "british-airways",
+          "iata_code": "BA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.cathaypacific.com/cx/en_US/baggage.html",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "cathay-pacific",
+          "iata_code": "CX"
+        }
+      ]
+    },
+    {
+      "url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "emirates",
+          "iata_code": "EK"
+        }
+      ]
+    },
+    {
+      "url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "peach-aviation",
+          "iata_code": "MM"
+        }
+      ]
+    },
+    {
+      "url": "https://www.koreanair.com/legal/restricted-items",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "korean-air",
+          "iata_code": "KE"
+        }
+      ]
+    },
+    {
+      "url": "https://www.pirelli.com/cycling/en-ww/road",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "pirelli-p-zero-race-rs-tlr-28",
+          "label": "Pirelli Official — Bollate Italy Factory & FSC Certified SmartEVO² Technical Release",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "pirelli-p-zero-race-rs-tlr-28",
+          "label": "Pirelli Cycling Official — P ZERO Race TLR RS Product Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.united.com/en/us/fly/baggage/dangerous-items.html",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "united-airlines",
+          "iata_code": "UA"
+        }
+      ]
+    },
+    {
+      "url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
+      "status": null,
+      "method_used": "GET",
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-france",
+          "iata_code": "AF"
+        }
+      ]
+    }
+  ],
+  "bot_challenge_links": [
+    {
+      "url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "shimano-dura-ace-r9270-di2-12s",
+          "label": "Shimano Official — DURA-ACE R9200 12-Speed Series Component Lineup",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://device.report/cuktech/p23",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cuktech-20-powerbank-25000mah-210w",
+          "label": "CUKTECH P23 Regulatory & Output Specification Filing",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://dsld.od.nih.gov/",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "jarrow-formulas-creatine-monohydrate",
+          "label": "NIH Dietary Supplement Label Database (DSLD) — Jarrow Formulas Creatine Monohydrate",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcD2fTdcq",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-solix-c300-dc-288wh"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcD5lBkdM",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-zolo-powerbank-20000mah-30w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcD8sLMSi",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "apple-140w-usb-c-power-adapter"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDFKz1Y4",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-140w-gan-4port-charger"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDIIeu8O",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-737-powercore-24k-140w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDLVmxwG",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-nano-powerbank-10000mah-30w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDOUsu2m",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-100w-gan-3port"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDShngLQ",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-20000mah-200w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDVGFHLE",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-200w-gan-6port-desktop"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDZbGtlA",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-250w-gan-6port-desktop"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEAauVR6",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "shargeek-170-powerbank-24000mah"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEbz4Cse",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "baseus-blade-hd-20000mah-100w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEeJn8Ee",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cio-novaport-trio-ii-67w-gan"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEhSpqhM",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cuktech-15-powerbank-20000mah-150w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEk4MGd2",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cuktech-20-powerbank-25000mah-210w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEnVla8a",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ecoflow-river-3-245wh"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEqXOPu0",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "samsung-45w-battery-pack-20000mah"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEt6oqwC",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "satechi-165w-usb-c-4port-gan"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEw4dCAC",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "shargeek-140-powerbank-20000mah"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcF1F6tVs",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-pro-100w-gan-3port"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcF7i84Ye",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-pro-160w-gan-4port"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcFRsIwvI",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-300w-gan-5port-desktop"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcFUJoYE0",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-powerbank-20000mah-130w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcFXUVrc4",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-powerbank-25000mah-200w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGADM3lA",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "momentous-creatine-creapure"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGaE1s72",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "amino-vital-perfect-energy"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGDsTcCy",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "neversecond-c30-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGeeidEW",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "esn-ultrapure-creatine-monohydrate"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGGuEqwC",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "pocari-sweat-ion-powder-74g"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGhMjHrM",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "gu-original-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGJAxgse",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-pf-30-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGkXz3zo",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "gu-roctane-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGMGzkAu",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-pf-90-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGn2Scxg",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "jarrow-formulas-creatine-monohydrate"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGQzQm9k",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-ph-1000-electrolyte"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGrresCG",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "maurten-gel-100-caf-100"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGTNHtqm",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-ph-1500-electrolyte"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGumkxBQ",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "maurten-gel-100"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGxsttXU",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "maurten-gel-160"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcI1NaXqm",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sram-red-axs-e1-12s"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcI4GRT2q",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "tacx-neo-2t-smart"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcI7M2k56",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "vittoria-corsa-pro-tlr-28"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIBo23Gu",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "favero-assioma-duo"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIEBsFBA",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "favero-assioma-pro-rs-2"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIeKxP5g",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sis-beta-fuel-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIh33qfY",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sis-go-isotonic-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIInEBb2",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "garmin-edge-1050"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIk1ZuxM",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sis-hydro-electrolyte-tablets"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIMu5ehg",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "garmin-edge-840-solar"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIoFEAW4",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "skratch-labs-sport-hydration-mix"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIPu2Qsm",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "garmin-rally-rs200"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIr0jqVg",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "tailwind-endurance-fuel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcISsHjB6",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "magene-pes-p505-base"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIvju3Y4",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "continental-gp5000-s-tr-28"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIVsqZCS",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "pirelli-p-zero-race-rs-tlr-28"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIycsIQ8",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "coros-dura-solar-gps"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIYFpNN6",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "shimano-dura-ace-r9270-di2-12s"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcJaRBcjY",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "wahoo-elemnt-roam-v2"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcJdVGqwC",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "wahoo-kickr-core"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcuJmqDpk",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-27650mah-250w"
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-solix-c300-dc-288wh",
+          "label": "Anker SOLIX C300 DC Official Manual & 7-Port Spec Sheet",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-250w-gan-6port-desktop",
+          "label": "Anker A2345 Official User Manual & Allocation Profiles",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-100w-gan-3port",
+          "label": "Anker A2688 Official Manual & Port Allocation Matrix",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a2697-140w-4-port-pd-3-1-charger-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-140w-gan-4port-charger",
+          "label": "Anker A2697 Official User Manual & Allocation Table",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cuktech-15-powerbank-20000mah-150w",
+          "label": "CUKTECH PB200P Official User Manual & Output Tables",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/satechi/st-uc165gm-165w-usb-c-4-port-pd-gan-charger-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "satechi-165w-usb-c-4port-gan",
+          "label": "Satechi ST-W165GM Official Manual & Port Power Distribution",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-170-powerbank-24000mah",
+          "label": "Shargeek 170 Official User Manual & Output Allocation Matrix",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/sharge/x1i-shargeek-140-power-bank-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-140-powerbank-20000mah",
+          "label": "Shargeek 140 (X1i) Official User Manual & Technical Specs",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-20000mah-130w",
+          "label": "UGREEN PB721 Official User Manual & Allocation Table",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-25000mah-200w",
+          "label": "UGREEN PB722 Official User Manual & Technical Datasheet",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-pro-100w-gan-3port",
+          "label": "UGREEN X757 Official User Manual & Output Allocation Table",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-pro-160w-gan-4port",
+          "label": "UGREEN X763 Official Manual & Multi-Port Allocation Matrix",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "ugreen-nasync-dxp4800-plus",
+          "label": "UGREEN NASync DXP4800 Plus Official Product & Specifications Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://sharge.com/products/shargeek-170",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-170-powerbank-24000mah",
+          "label": "SHARGE Official Product Page — Shargeek 170 SP170",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "shimano-dura-ace-r9270-di2-12s",
+          "label": "Shimano Technical Documents (SI) — DURA-ACE R9200 Dealer Manuals & Torque Specs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "skratch-labs-sport-hydration-mix",
+          "label": "Skratch Labs Official Product Page — Sport Hydration Drink Mix",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-100-caf-100",
+          "label": "Informed Sport Certified Supplement Registry — Maurten",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-100",
+          "label": "Informed Sport Certified Supplement Registry — Maurten",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-160",
+          "label": "Informed Sport Certified Supplement Registry — Maurten",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-pf-30-gel",
+          "label": "Informed Sport Certified Supplement Registry — Precision Fuel & Hydration",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-pf-90-gel",
+          "label": "Informed Sport Certified Supplement Registry — Precision Fuel & Hydration",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-beta-fuel-gel",
+          "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-go-isotonic-energy-gel",
+          "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-hydro-electrolyte-tablets",
+          "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://support.apple.com/en-us/103253",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apple-mac-mini-m4",
+          "label": "Apple Support HT103253 — Mac mini Power Consumption and Thermal Output Information",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.apple.com/en-us/121555",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apple-mac-mini-m4",
+          "label": "Apple Support HT121555 — Mac mini (2024) Tech Specs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://tools.myfooddata.com/",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "skratch-labs-sport-hydration-mix",
+          "label": "USDA / MyFoodData Nutrition Facts Reference — Skratch Labs Sport Hydration",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://us.ecoflow.com/products/river-3-portable-power-station",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ecoflow-river-3-245wh",
+          "label": "EcoFlow Official Product Page — RIVER 3 (245Wh)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.aa.com/i18n/travel-info/baggage/restricted-items.jsp",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "american-airlines",
+          "iata_code": "AA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.aerok.com/en/service/baggage",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "aero-k",
+          "iata_code": "RF"
+        }
+      ]
+    },
+    {
+      "url": "https://www.airbusan.com/content/common/service/baggage/restricted",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-busan",
+          "iata_code": "BX"
+        }
+      ]
+    },
+    {
+      "url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "easyjet",
+          "iata_code": "U2"
+        }
+      ]
+    },
+    {
+      "url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "eva-air",
+          "iata_code": "BR"
+        }
+      ]
+    },
+    {
+      "url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ecoflow-river-3-245wh",
+          "label": "FAA PackSafe — Lithium Batteries Over 160 Wh Prohibited",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.flyairseoul.com/CW/en/carryingIn_baggage.do",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-seoul",
+          "iata_code": "RS"
+        }
+      ]
+    },
+    {
+      "url": "https://www.jal.co.jp/jp/en/inter/baggage/restricted/",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "jal",
+          "iata_code": "JL"
+        }
+      ]
+    },
+    {
+      "url": "https://www.jinair.com/ready/baggage",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "jin-air",
+          "iata_code": "LJ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lufthansa.com/de/en/information-and-services/baggage/dangerous-goods-information/electronic-devices-and-batteries",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "lufthansa",
+          "iata_code": "LH"
+        }
+      ]
+    },
+    {
+      "url": "https://www.qatarairways.com/en/baggage/restrictions.html",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "qatar-airways",
+          "iata_code": "QR"
+        }
+      ]
+    },
+    {
+      "url": "https://www.twayair.com/app/serviceInfo/contents/1148",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "tway-air",
+          "iata_code": "TW"
+        }
+      ]
+    },
+    {
+      "url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-20000mah-130w",
+          "label": "UGREEN Official Product Page — Nexode 20000mAh 130W PB721",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.vittoria.com/products/corsa-pro-tlr",
+      "status": 429,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "vittoria-corsa-pro-tlr-28",
+          "label": "Vittoria Official — Corsa PRO TLR Technical Specifications",
+          "source_tier": 1
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 24,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "shimano-dura-ace-r9270-di2-12s",
+          "label": "Shimano Official — DURA-ACE R9200 12-Speed Series Component Lineup",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://choice.wetestyoutrust.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://choice.wetestyoutrust.com/",
+      "classification": "OK",
+      "latency_ms": 488,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "amino-vital-perfect-energy",
+          "label": "Informed Choice Anti-Doping Program Registry — Ajinomoto aminoVITAL",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "gu-original-energy-gel",
+          "label": "Informed Choice Certified Product Registry — GU Energy",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "gu-roctane-energy-gel",
+          "label": "Informed Choice Certified Product Registry — GU Energy",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://connectinternationalone-global.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://connectinternationalone-global.com/",
+      "classification": "OK",
+      "latency_ms": 156,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cio-novaport-trio-ii-67w-gan",
+          "label": "CIO Global Official Specifications — NovaPort TRIO II 67W",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
+      "classification": "OK",
+      "latency_ms": 474,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cio-novaport-trio-ii-67w-gan",
+          "label": "CIO Japan Official Product Page — NovaPort TRIO II 67W 2C1A",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://coros.com/dura",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://coros.com/dura",
+      "classification": "OK",
+      "latency_ms": 776,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "coros-dura-solar-gps",
+          "label": "COROS DURA Official Specifications & Product Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://cuktech.com/products/cuktech-15-power-bank-20000mah-150w",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://cuktech.com/products/cuktech-15-power-bank-20000mah-150w",
+      "classification": "OK",
+      "latency_ms": 135,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cuktech-15-powerbank-20000mah-150w",
+          "label": "CUKTECH Official Collection — CUKTECH 15 Power Bank PB200P",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://cuktech.com/products/p23-cuktech-p-series-25000mah-210w-power-bank",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://cuktech.com/products/p23-cuktech-p-series-25000mah-210w-power-bank",
+      "classification": "OK",
+      "latency_ms": 131,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cuktech-20-powerbank-25000mah-210w",
+          "label": "CUKTECH Official Product Page — CUKTECH 20 25000mAh 210W P23",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://cycling.favero.com/en/support",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://cycling.favero.com/support/",
+      "classification": "REDIRECT",
+      "latency_ms": 2156,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "favero-assioma-duo",
+          "label": "Favero Assioma Official User Manual & Technical Support",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "favero-assioma-pro-rs-2",
+          "label": "Favero Electronics Official Assioma Power Meter Documentation",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://cycling.favero.com/shop/assioma-duo/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://cycling.favero.com/shop/assioma-duo/",
+      "classification": "OK",
+      "latency_ms": 1195,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "favero-assioma-duo",
+          "label": "Favero Assioma DUO Official Specifications Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://cycling.favero.com/shop/assioma-pro-rs2/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://cycling.favero.com/shop/assioma-pro-rs2/",
+      "classification": "OK",
+      "latency_ms": 1160,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "favero-assioma-pro-rs-2",
+          "label": "Favero Assioma PRO RS-2 Official Product & Technical Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://device.report/cuktech/p23",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://device.report/cuktech/p23",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 260,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cuktech-20-powerbank-25000mah-210w",
+          "label": "CUKTECH P23 Regulatory & Output Specification Filing",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://dsld.od.nih.gov/",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://dsld.od.nih.gov/",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 461,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "jarrow-formulas-creatine-monohydrate",
+          "label": "NIH Dietary Supplement Label Database (DSLD) — Jarrow Formulas Creatine Monohydrate",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
+      "classification": "OK",
+      "latency_ms": 156,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "baseus-blade-hd-20000mah-100w",
+          "label": "Baseus Official Product Page — Blade HD 100W 20,000mAh",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
+      "classification": "DEAD",
+      "latency_ms": 6014,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "asiana-airlines",
+          "iata_code": "OZ"
+        }
+      ]
+    },
+    {
+      "url": "https://global.dreametech.com/products/x40-ultra",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://global.dreametech.com/products/x40-ultra",
+      "classification": "OK",
+      "latency_ms": 256,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "dreame-x40-ultra",
+          "label": "Dreame X40 Ultra Official Global Product Page & Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://global.roborock.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://global.roborock.com/",
+      "classification": "OK",
+      "latency_ms": 151,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "roborock-qrevo-master",
+          "label": "Roborock Global Official Product & Support Portal",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "roborock-s8-maxv-ultra",
+          "label": "Roborock Global Official Product & Support Portal",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://guenergy.com/products/energy-gel",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://guenergy.com/products/energy-gel",
+      "classification": "OK",
+      "latency_ms": 317,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "gu-original-energy-gel",
+          "label": "GU Energy Labs Official Product Page — Original Energy Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://guenergy.com/products/roctane-energy-gel",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://guenergy.com/products/roctane-energy-gel",
+      "classification": "OK",
+      "latency_ms": 294,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "gu-roctane-energy-gel",
+          "label": "GU Energy Labs Official Product Page — Roctane Energy Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://help.ryanair.com/hc/en-gb/categories/12502999419409-Permitted-Items-On-Board",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://help.ryanair.com/hc/en-gb/categories/12502999419409-Permitted-Items-On-Board",
+      "classification": "OK",
+      "latency_ms": 221,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "ryanair",
+          "iata_code": "FR"
+        }
+      ]
+    },
+    {
+      "url": "https://int.vittoria.com/pages/tire-pressure",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://int.vittoria.com/pages/tire-pressure",
+      "classification": "OK",
+      "latency_ms": 816,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "vittoria-corsa-pro-tlr-28",
+          "label": "Vittoria Official — Hookless Compatibility & Tire Pressure Guidelines",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://intervals.icu/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.intervals.icu/",
+      "classification": "REDIRECT",
+      "latency_ms": 614,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "coros-dura-solar-gps",
+          "label": "Intervals.icu Official COROS Two-Way Integration Documentation",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcD2fTdcq",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcD2fTdcq",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 73,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-solix-c300-dc-288wh"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcD5lBkdM",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcD5lBkdM",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 34,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-zolo-powerbank-20000mah-30w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcD8sLMSi",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcD8sLMSi",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 63,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "apple-140w-usb-c-power-adapter"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDFKz1Y4",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDFKz1Y4",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 88,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-140w-gan-4port-charger"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDIIeu8O",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDIIeu8O",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 60,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-737-powercore-24k-140w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDLVmxwG",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDLVmxwG",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 43,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-nano-powerbank-10000mah-30w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDOUsu2m",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDOUsu2m",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 30,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-100w-gan-3port"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDShngLQ",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDShngLQ",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 42,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-20000mah-200w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDVGFHLE",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDVGFHLE",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 74,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-200w-gan-6port-desktop"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcDZbGtlA",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcDZbGtlA",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 33,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-250w-gan-6port-desktop"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEAauVR6",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEAauVR6",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 78,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "shargeek-170-powerbank-24000mah"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEbz4Cse",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEbz4Cse",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 42,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "baseus-blade-hd-20000mah-100w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEeJn8Ee",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEeJn8Ee",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 69,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cio-novaport-trio-ii-67w-gan"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEhSpqhM",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEhSpqhM",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 51,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cuktech-15-powerbank-20000mah-150w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEk4MGd2",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEk4MGd2",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 66,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cuktech-20-powerbank-25000mah-210w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEnVla8a",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEnVla8a",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 44,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ecoflow-river-3-245wh"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEqXOPu0",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEqXOPu0",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 41,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "samsung-45w-battery-pack-20000mah"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEt6oqwC",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEt6oqwC",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 65,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "satechi-165w-usb-c-4port-gan"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcEw4dCAC",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcEw4dCAC",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 49,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "shargeek-140-powerbank-20000mah"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcF1F6tVs",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcF1F6tVs",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 98,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-pro-100w-gan-3port"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcF7i84Ye",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcF7i84Ye",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 36,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-pro-160w-gan-4port"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcFRsIwvI",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcFRsIwvI",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 86,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-300w-gan-5port-desktop"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcFUJoYE0",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcFUJoYE0",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 140,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-powerbank-20000mah-130w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcFXUVrc4",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcFXUVrc4",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 74,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nexode-powerbank-25000mah-200w"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGADM3lA",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGADM3lA",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 67,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "momentous-creatine-creapure"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGaE1s72",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGaE1s72",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 31,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "amino-vital-perfect-energy"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGDsTcCy",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGDsTcCy",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 43,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "neversecond-c30-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGeeidEW",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGeeidEW",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 80,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "esn-ultrapure-creatine-monohydrate"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGGuEqwC",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGGuEqwC",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 31,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "pocari-sweat-ion-powder-74g"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGhMjHrM",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGhMjHrM",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 50,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "gu-original-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGJAxgse",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGJAxgse",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 32,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-pf-30-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGkXz3zo",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGkXz3zo",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 39,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "gu-roctane-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGMGzkAu",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGMGzkAu",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 56,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-pf-90-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGn2Scxg",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGn2Scxg",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 32,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "jarrow-formulas-creatine-monohydrate"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGQzQm9k",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGQzQm9k",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 46,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-ph-1000-electrolyte"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGrresCG",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGrresCG",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 29,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "maurten-gel-100-caf-100"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGTNHtqm",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGTNHtqm",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 37,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "precision-ph-1500-electrolyte"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGumkxBQ",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGumkxBQ",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 29,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "maurten-gel-100"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcGxsttXU",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcGxsttXU",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 62,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "maurten-gel-160"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcI1NaXqm",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcI1NaXqm",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 36,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sram-red-axs-e1-12s"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcI4GRT2q",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcI4GRT2q",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 74,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "tacx-neo-2t-smart"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcI7M2k56",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcI7M2k56",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 34,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "vittoria-corsa-pro-tlr-28"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIBo23Gu",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIBo23Gu",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 47,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "favero-assioma-duo"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIEBsFBA",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIEBsFBA",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 34,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "favero-assioma-pro-rs-2"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIeKxP5g",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIeKxP5g",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 43,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sis-beta-fuel-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIh33qfY",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIh33qfY",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 37,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sis-go-isotonic-energy-gel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIInEBb2",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIInEBb2",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 86,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "garmin-edge-1050"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIk1ZuxM",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIk1ZuxM",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 83,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "sis-hydro-electrolyte-tablets"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIMu5ehg",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIMu5ehg",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 71,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "garmin-edge-840-solar"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIoFEAW4",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIoFEAW4",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 26,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "skratch-labs-sport-hydration-mix"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIPu2Qsm",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIPu2Qsm",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 60,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "garmin-rally-rs200"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIr0jqVg",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIr0jqVg",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 122,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "tailwind-endurance-fuel"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcISsHjB6",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcISsHjB6",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 52,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "magene-pes-p505-base"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIvju3Y4",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIvju3Y4",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 101,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "continental-gp5000-s-tr-28"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIVsqZCS",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIVsqZCS",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 31,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "pirelli-p-zero-race-rs-tlr-28"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIycsIQ8",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIycsIQ8",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 54,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "coros-dura-solar-gps"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcIYFpNN6",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcIYFpNN6",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 57,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "shimano-dura-ace-r9270-di2-12s"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcJaRBcjY",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcJaRBcjY",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 39,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "wahoo-elemnt-roam-v2"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcJdVGqwC",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcJdVGqwC",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 34,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "wahoo-kickr-core"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTcuJmqDpk",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://link.coupang.com/a/iTcuJmqDpk",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 101,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "anker-prime-27650mah-250w"
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.ecoflow.com/product/river-3",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://manuals.ecoflow.com/redirect?to=%2Fproduct%2Friver-3",
+      "classification": "REDIRECT",
+      "latency_ms": 1381,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ecoflow-river-3-245wh",
+          "label": "EcoFlow RIVER 3 Official User Manual (EF-RV-H01-1)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 28,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-solix-c300-dc-288wh",
+          "label": "Anker SOLIX C300 DC Official Manual & 7-Port Spec Sheet",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 31,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-250w-gan-6port-desktop",
+          "label": "Anker A2345 Official User Manual & Allocation Profiles",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 28,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-100w-gan-3port",
+          "label": "Anker A2688 Official Manual & Port Allocation Matrix",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/anker/a2697-140w-4-port-pd-3-1-charger-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/anker/a2697-140w-4-port-pd-3-1-charger-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 29,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-140w-gan-4port-charger",
+          "label": "Anker A2697 Official User Manual & Allocation Table",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 17,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "cuktech-15-powerbank-20000mah-150w",
+          "label": "CUKTECH PB200P Official User Manual & Output Tables",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/satechi/st-uc165gm-165w-usb-c-4-port-pd-gan-charger-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/satechi/st-uc165gm-165w-usb-c-4-port-pd-gan-charger-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 40,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "satechi-165w-usb-c-4port-gan",
+          "label": "Satechi ST-W165GM Official Manual & Port Power Distribution",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 30,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-170-powerbank-24000mah",
+          "label": "Shargeek 170 Official User Manual & Output Allocation Matrix",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/sharge/x1i-shargeek-140-power-bank-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/sharge/x1i-shargeek-140-power-bank-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 33,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-140-powerbank-20000mah",
+          "label": "Shargeek 140 (X1i) Official User Manual & Technical Specs",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 30,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-20000mah-130w",
+          "label": "UGREEN PB721 Official User Manual & Allocation Table",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 35,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-25000mah-200w",
+          "label": "UGREEN PB722 Official User Manual & Technical Datasheet",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 28,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-pro-100w-gan-3port",
+          "label": "UGREEN X757 Official User Manual & Output Allocation Table",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 33,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-pro-160w-gan-4port",
+          "label": "UGREEN X763 Official Manual & Multi-Port Allocation Matrix",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://minisforumpc.eu/products/minisforum-um890-pro-mini-pc",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://minisforumpc.eu/products/minisforum-um890-pro-mini-pc",
+      "classification": "OK",
+      "latency_ms": 457,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "minisforum-um890-pro",
+          "label": "Minisforum EU Official UM890 Pro Specification Sheet",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": true,
+      "final_url": "https://ai.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 240,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "ugreen-nasync-dxp4800-plus",
+          "label": "UGREEN NASync DXP4800 Plus Official Product & Specifications Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://never2.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://never2.com/",
+      "classification": "OK",
+      "latency_ms": 138,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "neversecond-c30-energy-gel",
+          "label": "Neversecond Official Product Sheet — C30 Energy Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://pocarisweat.jp/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://pocarisweat.jp/",
+      "classification": "OK",
+      "latency_ms": 70,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "pocari-sweat-ion-powder-74g",
+          "label": "Otsuka Pocari Sweat Official Brand & Powder Lineup Portal (JP)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://productinfo.shimano.com/en/compatibility",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://productinfo.shimano.com/en/compatibility",
+      "classification": "OK",
+      "latency_ms": 359,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "shimano-dura-ace-r9270-di2-12s",
+          "label": "Shimano E-TUBE Compatibility Chart (EW-SD300 / BT-DN300 / HG-L2)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
+      "classification": "OK",
+      "latency_ms": 279,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "satechi-165w-usb-c-4port-gan",
+          "label": "Satechi Official Product Page — 165W USB-C 4-Port PD GaN Charger",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://service.anker.com/product-description/a085g000004xGWmAAM",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://service.anker.com/product-description/a085g000004xGWmAAM",
+      "classification": "OK",
+      "latency_ms": 256,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-737-powercore-24k-140w",
+          "label": "Anker Support — 737 PowerCore 24K Manual & Port Specs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://service.anker.com/product-description/a085g00000BdlzHAAR",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://service.anker.com/product-description/a085g00000BdlzHAAR",
+      "classification": "OK",
+      "latency_ms": 232,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-20000mah-200w",
+          "label": "Anker Official Support — A1336 Specifications & Manual",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://service.anker.com/product-description/a085g00000GiZgpAAF",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://service.anker.com/product-description/a085g00000GiZgpAAF",
+      "classification": "OK",
+      "latency_ms": 19,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-nano-powerbank-10000mah-30w",
+          "label": "Anker Support — A1259 User Manual & Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://service.anker.com/product-description/a085g00000Gj24LAAR",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://service.anker.com/product-description/a085g00000Gj24LAAR",
+      "classification": "OK",
+      "latency_ms": 21,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-27650mah-250w",
+          "label": "Anker Support — A1340 User Manual & Specs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://service.anker.com/product-description/a085g00000GjJCwAAN",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://service.anker.com/product-description/a085g00000GjJCwAAN",
+      "classification": "OK",
+      "latency_ms": 330,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-zolo-powerbank-20000mah-30w",
+          "label": "Anker Official Product Page — Zolo 20,000mAh 30W A1681",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://service.anker.com/product-description/a08J1000000Xkc2IAC",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://service.anker.com/product-description/a08J1000000Xkc2IAC",
+      "classification": "OK",
+      "latency_ms": 217,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-200w-gan-6port-desktop",
+          "label": "Anker Support — A2683 Port Allocation & Safety Datasheet",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://sharge.com/products/shargeek-140",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://sharge.com/products/shargeek-140",
+      "classification": "OK",
+      "latency_ms": 158,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-140-powerbank-20000mah",
+          "label": "SHARGE Official Product Page — Shargeek 140",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://sharge.com/products/shargeek-170",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": false,
+      "final_url": "https://sharge.com/products/shargeek-170",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 114,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "shargeek-170-powerbank-24000mah",
+          "label": "SHARGE Official Product Page — Shargeek 170 SP170",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 26,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "shimano-dura-ace-r9270-di2-12s",
+          "label": "Shimano Technical Documents (SI) — DURA-ACE R9200 Dealer Manuals & Torque Specs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": true,
+      "final_url": "https://www.skratchlabs.com/products/hydration-sport-drink-mix",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 237,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "skratch-labs-sport-hydration-mix",
+          "label": "Skratch Labs Official Product Page — Sport Hydration Drink Mix",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://sport.wetestyoutrust.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://sport.wetestyoutrust.com/",
+      "classification": "OK",
+      "latency_ms": 526,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "neversecond-c30-energy-gel",
+          "label": "Informed Sport Certified Product Page — Neversecond C30 Energy Gel",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://sport.wetestyoutrust.com/supplement-search",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://sport.wetestyoutrust.com/supplement-search",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 218,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-100-caf-100",
+          "label": "Informed Sport Certified Supplement Registry — Maurten",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-100",
+          "label": "Informed Sport Certified Supplement Registry — Maurten",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-160",
+          "label": "Informed Sport Certified Supplement Registry — Maurten",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-pf-30-gel",
+          "label": "Informed Sport Certified Supplement Registry — Precision Fuel & Hydration",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-pf-90-gel",
+          "label": "Informed Sport Certified Supplement Registry — Precision Fuel & Hydration",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-beta-fuel-gel",
+          "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-go-isotonic-energy-gel",
+          "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-hydro-electrolyte-tablets",
+          "label": "Informed Sport Certified Supplement Registry — Science in Sport",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://support.apple.com/en-us/103253",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": false,
+      "final_url": "https://support.apple.com/en-us/103253",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 279,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apple-mac-mini-m4",
+          "label": "Apple Support HT103253 — Mac mini Power Consumption and Thermal Output Information",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.apple.com/en-us/109509",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.apple.com/en-us/109509",
+      "classification": "OK",
+      "latency_ms": 98,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "apple-140w-usb-c-power-adapter",
+          "label": "Apple Support — Identify Your Mac Power Adapter (A2452)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.apple.com/en-us/121555",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": false,
+      "final_url": "https://support.apple.com/en-us/121555",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 279,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apple-mac-mini-m4",
+          "label": "Apple Support HT121555 — Mac mini (2024) Tech Specs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.baseus.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.baseus.com/",
+      "classification": "OK",
+      "latency_ms": 719,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "baseus-blade-hd-20000mah-100w",
+          "label": "Baseus Blade HD PPBLD100HD Official Specification Sheet",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.coros.com/hc/en-us",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.coros.com/hc/en-us",
+      "classification": "OK",
+      "latency_ms": 530,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "coros-dura-solar-gps",
+          "label": "COROS Support — Shimano Di2, ANT+ Radar & Intervals.icu Integration",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.garmin.com/en-US/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.garmin.com/en-US/",
+      "classification": "OK",
+      "latency_ms": 302,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-1050",
+          "label": "Garmin Edge 1050 Official Owner's Manual & Support Hub",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-840-solar",
+          "label": "Garmin Edge 840 Series Official Owner's Manual (Di2 & Sensor Pairing)",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-rally-rs200",
+          "label": "Garmin Rally Series Official Owner's Manual (Installation Torque & Battery Spec)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.garmin.com/en-US/?productID=690890",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.garmin.com/en-US/?productID=690890",
+      "classification": "OK",
+      "latency_ms": 203,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "tacx-neo-2t-smart",
+          "label": "Garmin Support — Tacx NEO 2T Freehub, Disc Caliper Spacer & Firmware Guide",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.southwest.com/helpcenter/article/Traveling-with-lithium-batteries-e-cigarettes-and-lighters",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.southwest.com/helpcenter/article/Traveling-with-lithium-batteries-e-cigarettes-and-lighters",
+      "classification": "OK",
+      "latency_ms": 492,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "southwest-airlines",
+          "iata_code": "WN"
+        }
+      ]
+    },
+    {
+      "url": "https://support.wahoofitness.com/hc/en-us",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.wahoofitness.com/hc/en-us",
+      "classification": "OK",
+      "latency_ms": 437,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-elemnt-roam-v2",
+          "label": "Wahoo Support — ELEMNT ROAM v2 (WFCC6) Technical Specs & Di2/AXS Guide",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-kickr-core",
+          "label": "Wahoo Support — KICKR CORE Thru-Axle, Freehub & Zwift Cog Compatibility",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.zwift.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://support.zwift.com/",
+      "classification": "OK",
+      "latency_ms": 1055,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "tacx-neo-2t-smart",
+          "label": "Zwift Official — Tacx NEO 2T Virtual Shifting & Race Mode Support",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-kickr-core",
+          "label": "Zwift Official — Zwift Cog & Virtual Shifting Compatibility Guide",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://tailwindnutrition.com/pages/science",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://tailwindnutrition.com/pages/science",
+      "classification": "OK",
+      "latency_ms": 146,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "tailwind-endurance-fuel",
+          "label": "Tailwind Nutrition Official Carb & Electrolyte Composition Guide",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://tailwindnutrition.com/products/endurance-fuel",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://tailwindnutrition.com/products/endurance-fuel",
+      "classification": "OK",
+      "latency_ms": 293,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "tailwind-endurance-fuel",
+          "label": "Tailwind Nutrition Official Product Page — Endurance Fuel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://tools.myfooddata.com/",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://tools.myfooddata.com/",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 19,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "skratch-labs-sport-hydration-mix",
+          "label": "USDA / MyFoodData Nutrition Facts Reference — Skratch Labs Sport Hydration",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://us.ecoflow.com/products/river-3-portable-power-station",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": true,
+      "final_url": "https://us.ecoflow.com/products/river-3-max-river-3-plus-extra-battery-300?variant=54335026528329",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 277,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ecoflow-river-3-245wh",
+          "label": "EcoFlow Official Product Page — RIVER 3 (245Wh)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://us.roborock.com/pages/roborock-s8-maxv-ultra",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://us.roborock.com/",
+      "classification": "REDIRECT",
+      "latency_ms": 312,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "roborock-s8-maxv-ultra",
+          "label": "Roborock S8 MaxV Ultra Official Product Page & Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://us.roborock.com/products/roborock-qrevo-master",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://us.roborock.com/products/roborock-qrevo-s5v",
+      "classification": "REDIRECT",
+      "latency_ms": 482,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "roborock-qrevo-master",
+          "label": "Roborock Qrevo Master Official Product Page & Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://us.ugreen.com/blogs/news/ugreen-launches-nexode-pro-series",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://us.ugreen.com/blogs/news/ugreen-launches-nexode-pro-series",
+      "classification": "OK",
+      "latency_ms": 324,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-pro-100w-gan-3port",
+          "label": "UGREEN Official Product Page — Nexode Pro 100W X757",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-pro-160w-gan-4port",
+          "label": "UGREEN Official Product Page — Nexode Pro 160W X763",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://us.ugreen.com/products/ugreen-25000mah-200w-power-bank",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://us.ugreen.com/products/ugreen-25000mah-200w-power-bank",
+      "classification": "OK",
+      "latency_ms": 421,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-25000mah-200w",
+          "label": "UGREEN Official Product Page — Nexode 25000mAh 200W PB722",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://us.ugreen.com/products/ugreen-nexode-300w-charger",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://us.ugreen.com/products/ugreen-nexode-300w-charger",
+      "classification": "OK",
+      "latency_ms": 482,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-300w-gan-5port-desktop",
+          "label": "UGREEN Official Product Page — Nexode 300W 5-Port GaN CD333",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.aa.com/i18n/travel-info/baggage/restricted-items.jsp",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.aa.com/i18n/travel-info/baggage/restricted-items.jsp",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 41,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "american-airlines",
+          "iata_code": "AA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.aerok.com/en/service/baggage",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.aerok.com/en/service/baggage",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 28,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "aero-k",
+          "iata_code": "RF"
+        }
+      ]
+    },
+    {
+      "url": "https://www.airbusan.com/content/common/service/baggage/restricted",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.airbusan.com/content/common/service/baggage/restricted",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 23,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-busan",
+          "iata_code": "BX"
+        }
+      ]
+    },
+    {
+      "url": "https://www.aircanada.com/ca/en/aco/home/plan/baggage/restricted-and-prohibited-items.html",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.aircanada.com/ca/en/aco/home/plan/baggage/restricted-and-prohibited-items.html",
+      "classification": "OK",
+      "latency_ms": 400,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-canada",
+          "iata_code": "AC"
+        }
+      ]
+    },
+    {
+      "url": "https://www.airchina.com/",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.airchina.com/",
+      "classification": "DEAD",
+      "latency_ms": 2685,
+      "error": "fetch failed",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-china",
+          "iata_code": "CA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.airpremia.com/a/en/customer/notice/686",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.airpremia.com/a/en/customer/notice/686",
+      "classification": "OK",
+      "latency_ms": 152,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-premia",
+          "iata_code": "YP"
+        }
+      ]
+    },
+    {
+      "url": "https://www.ajinomoto.co.jp/aminovital/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.ajinomoto.co.jp/aminovital/",
+      "classification": "OK",
+      "latency_ms": 157,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "amino-vital-perfect-energy",
+          "label": "Ajinomoto Official Product Page — aminoVITAL Perfect Energy",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
+      "classification": "DEAD",
+      "latency_ms": 6016,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "beelink-ser8-8745hs",
+          "label": "AMD Ryzen 7 8745HS Official Processor Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
+      "classification": "DEAD",
+      "latency_ms": 6010,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "minisforum-um890-pro",
+          "label": "AMD Ryzen 9 8945HS Official Processor Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
+      "classification": "DEAD",
+      "latency_ms": 6001,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "ana",
+          "iata_code": "NH"
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
+      "classification": "OK",
+      "latency_ms": 452,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-20000mah-200w",
+          "label": "Anker Official Product Page — Prime 20,000mAh A1336",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/au/products/a1340-250w-power-bank",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/au/products/a1340-250w-power-bank",
+      "classification": "OK",
+      "latency_ms": 741,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-27650mah-250w",
+          "label": "Anker Official Product Page — Prime 27,650mAh A1340",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/product-recalls",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/product-recalls",
+      "classification": "OK",
+      "latency_ms": 656,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-zolo-powerbank-20000mah-30w",
+          "label": "Anker Official Product Safety Recall Portal",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/products/a1259-built-in-cable-power-bank-10000mah",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/products/a1259-built-in-cable-power-bank-10000mah",
+      "classification": "OK",
+      "latency_ms": 304,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-nano-powerbank-10000mah-30w",
+          "label": "Anker Official Product Page — Nano Power Bank 30W A1259",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/products/a1289",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/products/a1289",
+      "classification": "OK",
+      "latency_ms": 331,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-737-powercore-24k-140w",
+          "label": "Anker Official Product Page — 737 Power Bank A1289",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/products/a2345-anker-prime-charger-250w-6-ports-ganprime",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/products/a2345-anker-prime-charger-250w-6-ports-ganprime",
+      "classification": "OK",
+      "latency_ms": 30,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-250w-gan-6port-desktop",
+          "label": "Anker Official Product Page — Prime Charger 250W 6-Port A2345",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/products/a2683-anker-prime-charger-200w-6-ports-gan",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/products/a2683-anker-prime-charger-200w-6-ports-gan",
+      "classification": "OK",
+      "latency_ms": 651,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-200w-gan-6port-desktop",
+          "label": "Anker Official Product Page — Prime Charger 200W 6-Port A2683",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/products/a2688-anker-prime-charger-100w-3-ports-gan",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/products/a2688-anker-prime-charger-100w-3-ports-gan",
+      "classification": "OK",
+      "latency_ms": 25,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-100w-gan-3port",
+          "label": "Anker Official Product Page — Prime 100W 3-Port GaN A2688",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.anker.com/products/a2697-anker-charger-140w-4-port",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.anker.com/products/a2697-anker-charger-140w-4-port",
+      "classification": "OK",
+      "latency_ms": 340,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-140w-gan-4port-charger",
+          "label": "Anker Official Product Page — 140W 4-Port PD 3.1 Charger A2697",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.ankersolix.com/products/c300-dc",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.ankersolix.com/products/c300-dc",
+      "classification": "OK",
+      "latency_ms": 174,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-solix-c300-dc-288wh",
+          "label": "Anker SOLIX Official Product Page — C300 DC A1726",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.apple.com/mac-mini/specs/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.apple.com/mac-mini/specs/",
+      "classification": "OK",
+      "latency_ms": 83,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apple-mac-mini-m4",
+          "label": "Apple Mac mini (M4) Official Technical Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.apple.com/shop/product/mkfq4am/a/140w-power-adapter",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.apple.com/shop/product/mkfq4am/a/140w-power-adapter",
+      "classification": "OK",
+      "latency_ms": 199,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "apple-140w-usb-c-power-adapter",
+          "label": "Apple Official Store — 140W USB-C Power Adapter",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
+      "classification": "OK",
+      "latency_ms": 245,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "beelink-ser8-8745hs",
+          "label": "Beelink SER8 AMD Ryzen 7 8745HS Official Product & Specifications Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
+      "classification": "DEAD",
+      "latency_ms": 6015,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "british-airways",
+          "iata_code": "BA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.caas.gov.sg/resources/media-and-publication/newsroom/new-power-bank-safety-restrictions-to-be-implemented-on-flights-departing-singapore/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.caas.gov.sg/resources/media-and-publication/newsroom/new-power-bank-safety-restrictions-to-be-implemented-on-flights-departing-singapore/",
+      "classification": "OK",
+      "latency_ms": 139,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "singapore-airlines",
+          "iata_code": "SQ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.cathaypacific.com/cx/en_US/baggage.html",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.cathaypacific.com/cx/en_US/baggage.html",
+      "classification": "DEAD",
+      "latency_ms": 6013,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "cathay-pacific",
+          "iata_code": "CX"
+        }
+      ]
+    },
+    {
+      "url": "https://www.ceair.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.ceair.com/ko/krw/home",
+      "classification": "REDIRECT",
+      "latency_ms": 169,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "china-eastern",
+          "iata_code": "MU"
+        }
+      ]
+    },
+    {
+      "url": "https://www.continental-tires.com/products/bicycle/tires/grand-prix-5000-s-tr/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.continental-tires.com/products/bicycle/tires/grand-prix-5000-s-tr/",
+      "classification": "OK",
+      "latency_ms": 1857,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "continental-gp5000-s-tr-28",
+          "label": "Continental Tires Official — Grand Prix 5000 S TR Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.continental-tires.com/tire-knowledge/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.continental-tires.com/tire-knowledge/",
+      "classification": "OK",
+      "latency_ms": 23,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "continental-gp5000-s-tr-28",
+          "label": "Continental Tires Official — Hookless (TSS) Rim Compatibility & Pressure Guide",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.creapure.com/en/creapure/what-is-creapure/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.creapure.com/en/creapure/what-is-creapure/",
+      "classification": "OK",
+      "latency_ms": 941,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "jarrow-formulas-creatine-monohydrate",
+          "label": "AlzChem Creapure® Official Quality & Verification Standard",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
+      "classification": "OK",
+      "latency_ms": 418,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "cyberpower-cp1500pfclcd",
+          "label": "CyberPower Official PFC Sinewave Product Documentation (CP1500EPFCLCD / Series)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.delta.com/us/en/baggage/prohibited-items/battery-fuel-powered-items",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "http://ssp.delta.com/content/dam/delta-www/sorry-server/delta_sorry.html",
+      "classification": "REDIRECT",
+      "latency_ms": 271,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "delta-air-lines",
+          "iata_code": "DL"
+        }
+      ]
+    },
+    {
+      "url": "https://www.dreametech.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.dreametech.com/",
+      "classification": "OK",
+      "latency_ms": 386,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "dreame-x40-ultra",
+          "label": "Dreame Technology Official Website & Support Documentation",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.eastarjet.com/newstar/PGWIB00001",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.eastarjet.com/newstar/PGWIB00001",
+      "classification": "OK",
+      "latency_ms": 981,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "eastar-jet",
+          "iata_code": "ZE"
+        }
+      ]
+    },
+    {
+      "url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 38,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "easyjet",
+          "iata_code": "U2"
+        }
+      ]
+    },
+    {
+      "url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
+      "classification": "DEAD",
+      "latency_ms": 6007,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "emirates",
+          "iata_code": "EK"
+        }
+      ]
+    },
+    {
+      "url": "https://www.esn.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.esn.com/",
+      "classification": "OK",
+      "latency_ms": 697,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "esn-ultrapure-creatine-monohydrate",
+          "label": "ESN Official Product Page — Ultrapure Creatine Monohydrate 500 g",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.etrto.org/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.etrto.org/",
+      "classification": "OK",
+      "latency_ms": 1073,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "continental-gp5000-s-tr-28",
+          "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "pirelli-p-zero-race-rs-tlr-28",
+          "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "vittoria-corsa-pro-tlr-28",
+          "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 35,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "eva-air",
+          "iata_code": "BR"
+        }
+      ]
+    },
+    {
+      "url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 24,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ecoflow-river-3-245wh",
+          "label": "FAA PackSafe — Lithium Batteries Over 160 Wh Prohibited",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.flyairseoul.com/CW/en/carryingIn_baggage.do",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://flyairseoul.com/",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 42,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-seoul",
+          "iata_code": "RS"
+        }
+      ]
+    },
+    {
+      "url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
+      "classification": "DEAD",
+      "latency_ms": 6001,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "peach-aviation",
+          "iata_code": "MM"
+        }
+      ]
+    },
+    {
+      "url": "https://www.garmin.com/en-US/p/1196129/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.garmin.com/en-US/p/1196129/",
+      "classification": "OK",
+      "latency_ms": 38,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-1050",
+          "label": "Garmin Edge 1050 Official Specifications & Product Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.garmin.com/en-US/p/658593/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.garmin.com/en-US/p/658593/",
+      "classification": "OK",
+      "latency_ms": 44,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-rally-rs200",
+          "label": "Garmin Rally RS200 Official Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.garmin.com/en-US/p/701670/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.garmin.com/en-US/p/701670/",
+      "classification": "OK",
+      "latency_ms": 46,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "tacx-neo-2t-smart",
+          "label": "Garmin Tacx NEO 2T Smart Official Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.garmin.com/en-US/p/798925/pn/010-02695-20/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.garmin.com/en-US/p/798925/pn/010-02695-20/",
+      "classification": "OK",
+      "latency_ms": 36,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-840-solar",
+          "label": "Garmin Edge 840 Solar Official Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.gmktec.com/pages/drivers-and-software",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.gmktec.com/pages/drivers-and-software",
+      "classification": "OK",
+      "latency_ms": 135,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "gmktec-nucbox-g3-plus-n150",
+          "label": "GMKtec Official Drivers, BIOS & Technical Support Portal",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.gmktec.com/products/nucbox-g3-plus-enhanced-performance-mini-pc-with-intel-n150-processor",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.gmktec.com/products/nucbox-g3-plus-enhanced-performance-mini-pc-with-intel-n150-processor",
+      "classification": "OK",
+      "latency_ms": 289,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "gmktec-nucbox-g3-plus-n150",
+          "label": "GMKtec NucBox G3 Plus (Intel N150) Official Product & Specifications Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.iata.org/en/programs/cargo/dgr/lithium-batteries/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.iata.org/en/programs/cargo/dangerous-goods/lithium-batteries/",
+      "classification": "REDIRECT",
+      "latency_ms": 800,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-prime-27650mah-250w",
+          "label": "IATA Passenger Lithium Battery Guidance",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "anker-solix-c300-dc-288wh",
+          "label": "IATA Dangerous Goods — Spare Lithium Batteries Over 160 Wh",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.jal.co.jp/jp/en/inter/baggage/restricted/",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.jal.co.jp/jp/en/inter/baggage/restricted/",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 28,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "jal",
+          "iata_code": "JL"
+        }
+      ]
+    },
+    {
+      "url": "https://www.jejuair.net/en/linkService/boardingProcessGuide/restrictedItems.do",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.jejuair.net/en/linkService/boardingProcessGuide/restrictedItems.do",
+      "classification": "OK",
+      "latency_ms": 61,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "jeju-air",
+          "iata_code": "7C"
+        }
+      ]
+    },
+    {
+      "url": "https://www.jinair.com/ready/baggage",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.jinair.com/ready/baggage",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 22,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "jin-air",
+          "iata_code": "LJ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.koelnerliste.com/en/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.koelnerliste.com/en/",
+      "classification": "OK",
+      "latency_ms": 905,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "esn-ultrapure-creatine-monohydrate",
+          "label": "Cologne List (Kölner Liste) Independent Anti-Doping Registry",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.koreanair.com/legal/restricted-items",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.koreanair.com/legal/restricted-items",
+      "classification": "DEAD",
+      "latency_ms": 6004,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "korean-air",
+          "iata_code": "KE"
+        }
+      ]
+    },
+    {
+      "url": "https://www.livemomentous.com/products/creatine",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.livemomentous.com/",
+      "classification": "REDIRECT",
+      "latency_ms": 522,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "momentous-creatine-creapure",
+          "label": "Momentous Official Product Page — Creatine Monohydrate (NSF)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.lufthansa.com/de/en/information-and-services/baggage/dangerous-goods-information/electronic-devices-and-batteries",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.lufthansa.com/de/en/information-and-services/baggage/dangerous-goods-information/electronic-devices-and-batteries",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 23,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "lufthansa",
+          "iata_code": "LH"
+        }
+      ]
+    },
+    {
+      "url": "https://www.magene.com/en/content/6-support",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.magene.com/en/index.php?controller=404",
+      "classification": "REDIRECT",
+      "latency_ms": 1019,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "magene-pes-p505-base",
+          "label": "Magene Official Support & PES P505 User Manual Documentation",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
+      "classification": "OK",
+      "latency_ms": 3008,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "magene-pes-p505-base",
+          "label": "Magene PES P505 Base Power Meter Official Product Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.maurten.com/products/gel-100-box",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.maurten.com/products/gel-100-box",
+      "classification": "OK",
+      "latency_ms": 1832,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-100",
+          "label": "Maurten Official Product Sheet — Gel 100",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.maurten.com/products/gel-100-caf-100-box",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.maurten.com/products/gel-100-caf-100-box",
+      "classification": "OK",
+      "latency_ms": 1709,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-100-caf-100",
+          "label": "Maurten Official Product Page — Gel 100 Caf 100",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.maurten.com/products/gel-160-box",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.maurten.com/products/gel-160-box",
+      "classification": "OK",
+      "latency_ms": 1704,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "maurten-gel-160",
+          "label": "Maurten Official Product Sheet — Gel 160",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.minisforum.com/products/minisforum-um890-pro",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.minisforum.com/products/minisforum-um890-pro",
+      "classification": "OK",
+      "latency_ms": 240,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "minisforum-um890-pro",
+          "label": "Minisforum UM890 Pro Official Product & Specifications Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.nsfsport.com/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.nsfsport.com/",
+      "classification": "OK",
+      "latency_ms": 819,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "momentous-creatine-creapure",
+          "label": "NSF Certified for Sport Official Product Registry — Momentous",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-ph-1000-electrolyte",
+          "label": "NSF Certified for Sport Registry — Precision Fuel & Hydration",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-ph-1500-electrolyte",
+          "label": "NSF Certified for Sport Registry — Precision Fuel & Hydration",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
+      "classification": "OK",
+      "latency_ms": 168,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "pocari-sweat-ion-powder-74g",
+          "label": "Otsuka Pharmaceutical Official Product Page — Pocari Sweat",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.pirelli.com/cycling/en-ww/road",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.pirelli.com/cycling/en-ww/road",
+      "classification": "DEAD",
+      "latency_ms": 6016,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "pirelli-p-zero-race-rs-tlr-28",
+          "label": "Pirelli Official — Bollate Italy Factory & FSC Certified SmartEVO² Technical Release",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
+      "classification": "DEAD",
+      "latency_ms": 6015,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "pirelli-p-zero-race-rs-tlr-28",
+          "label": "Pirelli Cycling Official — P ZERO Race TLR RS Product Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.precisionhydration.com/products/pf-30-gel",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.precisionhydration.com/products/pf-30-gel/",
+      "classification": "REDIRECT",
+      "latency_ms": 764,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-pf-30-gel",
+          "label": "Precision Fuel & Hydration Official Product Page — PF 30 Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.precisionhydration.com/products/pf-90-gel",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.precisionhydration.com/products/pf-90-gel/",
+      "classification": "REDIRECT",
+      "latency_ms": 669,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-pf-90-gel",
+          "label": "Precision Fuel & Hydration Official Product Page — PF 90 Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.precisionhydration.com/us/en/products/ph-1000-electrolyte-drink-mix/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.precisionhydration.com/us/en/products/ph-1000-electrolyte-drink-mix/",
+      "classification": "OK",
+      "latency_ms": 408,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-ph-1000-electrolyte",
+          "label": "Precision Fuel & Hydration Official Product Page — PH 1000",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.precisionhydration.com/us/en/products/ph-1500-electrolyte-drink-mix/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.precisionhydration.com/us/en/products/ph-1500-electrolyte-drink-mix/",
+      "classification": "OK",
+      "latency_ms": 400,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "precision-ph-1500-electrolyte",
+          "label": "Precision Fuel & Hydration Official Product Page — PH 1500",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.qatarairways.com/en/baggage/restrictions.html",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.qatarairways.com/en/baggage/restrictions.html",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 38,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "qatar-airways",
+          "iata_code": "QR"
+        }
+      ]
+    },
+    {
+      "url": "https://www.samsung.com/sec/mobile-accessories/pd-battery-pack-20000mah-45w-beige-eb-p4520xuegkr/EB-P4520XUEGKR/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.samsung.com/sec/mobile-accessories/pd-battery-pack-20000mah-45w-beige-eb-p4520xuegkr/EB-P4520XUEGKR/",
+      "classification": "OK",
+      "latency_ms": 373,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "samsung-45w-battery-pack-20000mah",
+          "label": "Samsung Korea Official Product Page — EB-P4520",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.samsung.com/us/mobile/mobile-accessories/phones/20a-battery-pack-beige-eb-p4520xuegus/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.samsung.com/us/mobile-accessories/all-mobile-accessories/",
+      "classification": "REDIRECT",
+      "latency_ms": 385,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "samsung-45w-battery-pack-20000mah",
+          "label": "Samsung Global Mobile Accessories — 45W Battery Pack 20,000mAh",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.scienceinsport.com/beta-fuel",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.scienceinsport.com/beta-fuel",
+      "classification": "OK",
+      "latency_ms": 221,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-beta-fuel-gel",
+          "label": "Science in Sport Official Product Page — Beta Fuel Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.scienceinsport.com/go-hydro-tablets",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.scienceinsport.com/go-hydro-tablets",
+      "classification": "OK",
+      "latency_ms": 1067,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-hydro-electrolyte-tablets",
+          "label": "Science in Sport Official Product Page — GO Hydro Tablets",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.scienceinsport.com/us/go-isotonic-energy-gels",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.scienceinsport.com/us/go-isotonic-energy-gels",
+      "classification": "OK",
+      "latency_ms": 263,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "puregram",
+          "slug": "sis-go-isotonic-energy-gel",
+          "label": "Science in Sport Official Product Page — GO Isotonic Energy Gel",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.se.com/ww/en/product/BX750MI-GR/apc-back-ups-750va-230v-avr-4-schuko-outlets/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.se.com/ww/en/product-country-selector/?pageType=product&sourceId=BX750MI-GR",
+      "classification": "REDIRECT",
+      "latency_ms": 947,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apc-back-ups-bx750mi",
+          "label": "Schneider Electric Official Product Datasheet — APC Back-UPS BX750MI-GR (Schuko 230V)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.se.com/ww/en/product/BX750MI/apc-back-ups-750va-tower-230v-4-iec-c13-avr/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.se.com/ww/en/product-country-selector/?pageType=product&sourceId=BX750MI",
+      "classification": "REDIRECT",
+      "latency_ms": 949,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "apc-back-ups-bx750mi",
+          "label": "Schneider Electric Official Product Datasheet — APC Back-UPS BX750MI (IEC C13)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.sram.com/en/service/articles/sram-road-compatibility-map",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.sram.com/en/service/articles/sram-road-compatibility-map",
+      "classification": "OK",
+      "latency_ms": 980,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "sram-red-axs-e1-12s",
+          "label": "SRAM Official — AXS Road 12-Speed Compatibility Map",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.sram.com/en/service/models/gs-red-e-e1",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.sram.com/en/service/models/gs-red-e-e1",
+      "classification": "OK",
+      "latency_ms": 1237,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "sram-red-axs-e1-12s",
+          "label": "SRAM Service & Manuals — RED AXS E1 DUB Torque & XDR Compatibility",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.sram.com/en/sram/road/series/red-axs",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.sram.com/en/sram/road/series/red-axs",
+      "classification": "OK",
+      "latency_ms": 996,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "sram-red-axs-e1-12s",
+          "label": "SRAM Official — RED AXS E1 Groupset Specifications & Technical Docs",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS423%2B",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS423%2B",
+      "classification": "OK",
+      "latency_ms": 24,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "synology-ds423-plus",
+          "label": "Synology DS423+ Official Hardware, Drive & UPS Compatibility Matrix",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.synology.com/en-global/products/DS423+",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.synology.com/en-global/support/download/DS423+",
+      "classification": "REDIRECT",
+      "latency_ms": 34,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "synology-ds423-plus",
+          "label": "Synology DiskStation DS423+ Official Product Page & Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.synology.com/en-global/support/download/DS224+",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.synology.com/en-global/support/download/DS224+",
+      "classification": "OK",
+      "latency_ms": 19,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "synology-ds224-plus",
+          "label": "Synology DS224+ Official Download Center & Datasheet Documentation",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.synology.com/en-global/support/download/DS423+",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.synology.com/en-global/support/download/DS423+",
+      "classification": "OK",
+      "latency_ms": 17,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "synology-ds423-plus",
+          "label": "Synology DS423+ Official Download Center, Datasheet & Hardware Installation Guide",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.synology.com/en-us/compatibility?search_by=category&category=upses",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.synology.com/en-us/compatibility?search_by=category&category=upses",
+      "classification": "OK",
+      "latency_ms": 19,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "cyberpower-cp1500pfclcd",
+          "label": "Synology Official Third-Party UPS Compatibility List (CyberPower CP1500PFCLCD USB HID)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.synology.com/products/DS224+",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.synology.com/en-global/support/download/DS224+",
+      "classification": "REDIRECT",
+      "latency_ms": 71,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "synology-ds224-plus",
+          "label": "Synology DiskStation DS224+ Official Product & Technical Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.techpowerup.com/review/quick-look-ugreen-nexode-300w-gan-desktop-charger/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.techpowerup.com/review/quick-look-ugreen-nexode-300w-gan-desktop-charger/",
+      "classification": "OK",
+      "latency_ms": 571,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-300w-gan-5port-desktop",
+          "label": "TechPowerUp Hardware Review — UGREEN Nexode 300W Weight & Thermal Audit",
+          "source_tier": 3
+        }
+      ]
+    },
+    {
+      "url": "https://www.techpowerup.com/review/ugreen-nasync-dxp4800-plus/",
+      "method_used": "GET",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.techpowerup.com/review/ugreen-nasync-dxp4800-plus/",
+      "classification": "OK",
+      "latency_ms": 580,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "hometech",
+          "slug": "ugreen-nasync-dxp4800-plus",
+          "label": "TechPowerUp Lab Review — UGREEN NASync DXP4800 Plus Power, Thermal & 10GbE Testing",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.thisisant.com/directory/",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://developer.garmin.com/ant-program",
+      "classification": "REDIRECT",
+      "latency_ms": 342,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "favero-assioma-duo",
+          "label": "ANT+ Certified Power Meter Device Directory",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "favero-assioma-pro-rs-2",
+          "label": "ANT+ Certified Power Meter Device Directory",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-1050",
+          "label": "ANT+ Certified Cycling Computer Directory",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-840-solar",
+          "label": "ANT+ Certified Cycling Computer Directory",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-rally-rs200",
+          "label": "ANT+ Device Directory — Garmin Rally RS200",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "magene-pes-p505-base",
+          "label": "ANT+ Certified Power Meter Directory",
+          "source_tier": 2
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-elemnt-roam-v2",
+          "label": "ANT+ Device Directory — Wahoo ELEMNT ROAM",
+          "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.twayair.com/app/serviceInfo/contents/1148",
+      "method_used": "GET",
+      "status": 403,
+      "redirected": false,
+      "final_url": "https://www.twayair.com/app/serviceInfo/contents/1148",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 24,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "tway-air",
+          "iata_code": "TW"
+        }
+      ]
+    },
+    {
+      "url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": true,
+      "final_url": "https://us.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 282,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "wattcheck",
+          "slug": "ugreen-nexode-powerbank-20000mah-130w",
+          "label": "UGREEN Official Product Page — Nexode 20000mAh 130W PB721",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.united.com/en/us/fly/baggage/dangerous-items.html",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://www.united.com/en/us/fly/baggage/dangerous-items.html",
+      "classification": "DEAD",
+      "latency_ms": 6004,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "united-airlines",
+          "iata_code": "UA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.vittoria.com/products/corsa-pro-tlr",
+      "method_used": "GET",
+      "status": 429,
+      "redirected": true,
+      "final_url": "https://vittoria.com/products/corsa-pro-tlr",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 229,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "vittoria-corsa-pro-tlr-28",
+          "label": "Vittoria Official — Corsa PRO TLR Technical Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-buy",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-buy",
+      "classification": "OK",
+      "latency_ms": 26,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-elemnt-roam-v2",
+          "label": "Wahoo ELEMNT ROAM V2 Official Product Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://www.wahoofitness.com/devices/indoor-cycling/kickr-core-buy",
+      "method_used": "HEAD",
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.wahoofitness.com/devices/indoor-cycling/bike-trainers/kickr-core-2-buy",
+      "classification": "REDIRECT",
+      "latency_ms": 32,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-kickr-core",
+          "label": "Wahoo KICKR CORE Official Specifications & Product Page",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
+      "method_used": "GET",
+      "status": null,
+      "redirected": false,
+      "final_url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
+      "classification": "DEAD",
+      "latency_ms": 6004,
+      "error": "timeout (6000ms)",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-france",
+          "iata_code": "AF"
+        }
+      ]
+    }
+  ]
+}

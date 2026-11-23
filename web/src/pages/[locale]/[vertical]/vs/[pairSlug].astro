@@ -11,6 +11,7 @@ import {
   getFxRates,
   getItemBySlug,
   getPrimaryVerticalHref,
+  getVerticalVsInsights,
 } from "../../../../lib/data";
 import { computeVsDiff } from "../../../../lib/derived";
 import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META, withBase } from "../../../../lib/i18n";
@@ -53,6 +54,10 @@ const nameB = itemB.i18n[locale]?.name ?? itemB.i18n.en.name;
 const verdict = vs.verdict[locale];
 const verticalHref = getPrimaryVerticalHref(locale, vertical);
 const currentPath = `/${locale}/${vertical}/vs/${vs.pair_slug}`;
+const workbenchHref = withBase(`/${locale}/compare#${vertical}:${itemA.slug}:${itemB.slug}`);
+const relatedVs = getVerticalVsInsights(vertical)
+  .filter((entry) => entry.pair_slug !== vs.pair_slug)
+  .slice(0, 4);
 
 const pageTitle = `${nameA} vs ${nameB} — ${verdict.headline} | SpecMatrix Global`;
 const pageDesc = verdict.bottom_line;
@@ -132,7 +137,7 @@ const jsonLd = [
       {verdict.bottom_line}
     </p>
 
-    <div class="mt-4 flex flex-wrap gap-3 text-xs">
+    <div class="mt-4 flex flex-wrap items-center gap-3 text-xs">
       <a
         href={withBase(`/${locale}/${vertical}/item/${itemA.slug}`)}
         class="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 font-semibold text-blue-800 hover:bg-blue-100"
@@ -147,6 +152,12 @@ const jsonLd = [
         <span>B · {nameB}</span>
         <span>→</span>
       </a>
+      <a
+        href={workbenchHref}
+        class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-slate-900 px-3 py-1.5 font-mono font-semibold text-white transition-colors hover:bg-blue-700"
+      >
+        <span>{isKo ? "실시간 비교 스튜디오에서 모델 변경 →" : "Switch Models in Live Compare Workbench →"}</span>
+      </a>
     </div>
   </section>
 
@@ -159,7 +170,7 @@ const jsonLd = [
   <section class="mt-8 grid gap-5 md:grid-cols-2" aria-label={isKo ? "상황별 선택 가이드" : "Scenario Decision Cards"}>
     <div class="lab-card border-t-4 border-t-blue-600 p-5">
       <div class="font-mono text-xs font-bold uppercase tracking-wider text-blue-700">
-        {isKo ? `MODEL A 선택 조건` : `CHOOSE MODEL A IF...`}
+        {isKo ? "MODEL A 선택 조건" : "CHOOSE MODEL A IF..."}
       </div>
       <h2 class="mt-1 text-lg font-bold text-slate-900">{nameA}</h2>
       <ul class="mt-3 space-y-2 text-sm text-slate-700">
@@ -174,7 +185,7 @@ const jsonLd = [
 
     <div class="lab-card border-t-4 border-t-emerald-600 p-5">
       <div class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-700">
-        {isKo ? `MODEL B 선택 조건` : `CHOOSE MODEL B IF...`}
+        {isKo ? "MODEL B 선택 조건" : "CHOOSE MODEL B IF..."}
       </div>
       <h2 class="mt-1 text-lg font-bold text-slate-900">{nameB}</h2>
       <ul class="mt-3 space-y-2 text-sm text-slate-700">
@@ -235,7 +246,114 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Combined Official Citations Summary -->
+  <section class="mt-8 lab-card p-5" aria-labelledby="vs-citations-heading">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h2 id="vs-citations-heading" class="text-base font-bold text-slate-900">
+        {isKo
+          ? "양 모델 공식 원천 출처 통합 요약"
+          : "Combined Official Citations Summary (Model A & Model B)"}
+      </h2>
+      <a
+        href={withBase(`/${locale}/contact?sku=${encodeURIComponent(vs.pair_slug)}&vertical=${encodeURIComponent(vertical)}`)}
+        class="font-mono text-xs font-medium text-blue-700 hover:underline"
+      >
+        {isKo ? "비교 수치 오류 제보 →" : "Report Spec Discrepancy →"}
+      </a>
+    </div>
+    <div class="mt-4 grid gap-5 md:grid-cols-2">
+      <div class="rounded-lg border border-blue-100 bg-blue-50/30 p-3.5">
+        <div class="font-mono text-[11px] font-bold uppercase text-blue-800">
+          A · {nameA} ({itemA.citations.length})
+        </div>
+        <ul class="mt-2 divide-y divide-slate-100">
+          {itemA.citations.map((cit) => (
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2 text-xs">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="shrink-0 rounded bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold text-slate-700 border border-slate-200">
+                  T{cit.source_tier}
+                </span>
+                <a
+                  href={cit.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="truncate font-medium text-blue-700 hover:underline"
+                >
+                  {cit.label} ↗
+                </a>
+              </div>
+              <span class="shrink-0 font-mono text-[11px] text-slate-500">{cit.verified_at}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rounded-lg border border-emerald-100 bg-emerald-50/30 p-3.5">
+        <div class="font-mono text-[11px] font-bold uppercase text-emerald-800">
+          B · {nameB} ({itemB.citations.length})
+        </div>
+        <ul class="mt-2 divide-y divide-slate-100">
+          {itemB.citations.map((cit) => (
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2 text-xs">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <span class="shrink-0 rounded bg-white px-1.5 py-0.5 font-mono text-[10px] font-bold text-slate-700 border border-slate-200">
+                  T{cit.source_tier}
+                </span>
+                <a
+                  href={cit.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="truncate font-medium text-emerald-700 hover:underline"
+                >
+                  {cit.label} ↗
+                </a>
+              </div>
+              <span class="shrink-0 font-mono text-[11px] text-slate-500">{cit.verified_at}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <div class="mt-8">
     <SafetyBanner vertical={vertical} locale={locale} />
   </div>
+
+  <!-- Related VS Comparisons Mesh -->
+  {relatedVs.length > 0 && (
+    <section class="mt-8 space-y-3" aria-labelledby="related-vs-mesh-heading">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="related-vs-mesh-heading" class="text-lg font-bold tracking-tight text-slate-900">
+          {isKo
+            ? `관련 ${VERTICAL_META[vertical].shortName[locale]} 1:1 정밀 VS 비교`
+            : `Related ${VERTICAL_META[vertical].shortName[locale]} VS Comparisons`}
+        </h2>
+        <a
+          href={workbenchHref}
+          class="font-mono text-xs font-semibold text-blue-700 hover:underline"
+        >
+          {isKo ? "실시간 비교 스튜디오 열기 →" : "Open Live Compare Workbench →"}
+        </a>
+      </div>
+      <div class="grid gap-3 md:grid-cols-2">
+        {relatedVs.map((rel) => (
+          <a
+            href={withBase(`/${locale}/${vertical}/vs/${rel.pair_slug}`)}
+            class="lab-card group flex items-center justify-between gap-3 p-4 transition-colors hover:border-blue-500"
+          >
+            <div class="min-w-0">
+              <div class="truncate text-sm font-bold text-slate-900 group-hover:text-blue-700">
+                {rel.verdict[locale].headline}
+              </div>
+              <div class="mt-1 font-mono text-[11px] text-slate-500">
+                {rel.pair_slug} · IG {rel.info_gain_score}/100
+              </div>
+            </div>
+            <span class="shrink-0 font-mono text-xs font-bold text-blue-700">VS →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 </BaseLayout>

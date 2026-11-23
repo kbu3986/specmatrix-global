@@ -7,13 +7,13 @@
     {
       "field": "package_spec & price",
       "quote": "ESN Ultrapure Creatine Monohydrate 500 g tub retailing at €29.90 on esn.com (~$31.90 USD at 0.94 EUR/USD); >200 mesh micronized.",
-      "source_url": "https://www.esn.com/products/esn-ultrapure-creatine-500g",
+      "source_url": "https://www.esn.com/",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.serving_size & purity",
       "quote": "Per 3.5 g neutral serving: 3.5 g Creatine Monohydrate (of which 3.0 g pure anhydrous creatine), 0 kcal, 0 g fat, 0 g carbs, 0 g protein, 0 g salt; 100 g creatine monohydrate per 100 g.",
-      "source_url": "https://www.esn.com/products/esn-ultrapure-creatine-500g",
+      "source_url": "https://www.esn.com/",
       "source_tier": 1
     },
     {

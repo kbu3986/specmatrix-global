@@ -7,6 +7,7 @@ import type {
   AnyItem,
   CycleGearItem,
   FxRates,
+  HomeTechItem,
   MatrixPage,
   MonetizationConfig,
   PilotVertical,
@@ -182,6 +183,10 @@ export function getPureGramItems(): PureGramItem[] {
 
 export function getCycleGearItems(): CycleGearItem[] {
   return loadItemsDir<CycleGearItem>("cyclegear");
+}
+
+export function getHomeTechItems(): HomeTechItem[] {
+  return loadItemsDir<HomeTechItem>("hometech");
 }
 
 export function getVerticalItems(vertical: PilotVertical): AnyItem[] {

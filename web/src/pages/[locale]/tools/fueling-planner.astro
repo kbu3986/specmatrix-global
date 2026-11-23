@@ -1,0 +1,1226 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SafetyBanner from "../../../components/SafetyBanner.astro";
+import AdSlotReserve from "../../../components/AdSlotReserve.astro";
+import type { ActiveLocale, PureGramItem } from "../../../lib/types";
+import { getFxRates, getMonetizationConfig, getPureGramItems } from "../../../lib/data";
+import { computePureGramDerived } from "../../../lib/derived";
+import { buildMonetizationModel } from "../../../lib/monetization";
+import {
+  ACTIVE_LOCALES,
+  SITE_URL,
+  formatCurrency,
+  formatInt,
+  formatNum,
+  getCategoryLabel,
+  safeJsonLd,
+  withBase,
+} from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return ACTIVE_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const isKo = locale === "ko";
+const fx = getFxRates();
+const cfg = getMonetizationConfig();
+
+const rawItems: PureGramItem[] = getPureGramItems().filter((item) =>
+  item.available_locales.includes(locale)
+);
+
+// Sort race-relevant categories first (energy-gel -> carb-mix -> electrolyte -> creatine)
+const catOrder: Record<string, number> = {
+  "energy-gel": 1,
+  "carb-mix": 2,
+  electrolyte: 3,
+  creatine: 4,
+};
+
+const sortedItems = [...rawItems].sort((a, b) => {
+  const oa = catOrder[a.category] ?? 9;
+  const ob = catOrder[b.category] ?? 9;
+  if (oa !== ob) return oa - ob;
+  return b.nutrition_label.carbs_g - a.nutrition_label.carbs_g;
+});
+
+interface FuelItemPayload {
+  slug: string;
+  name: string;
+  brand: string;
+  category: string;
+  categoryLabel: string;
+  href: string;
+  carbsG: number;
+  sodiumMg: number;
+  potassiumMg: number;
+  caffeineMg: number;
+  caloriesKcal: number;
+  servingWeightG: number;
+  unitType: string;
+  totalServings: number;
+  carbRatio: string | null;
+  dualSourceTier: "optimal_108" | "dual_21" | "single" | "none";
+  hydrogelType: string;
+  purityPct: number;
+  krwPerServing: number;
+  usdPerServing: number;
+  krwPackMsrp: number;
+  usdPackMsrp: number;
+  certs: string[];
+  ctaButtons: Array<{
+    label: string;
+    storeName: string;
+    url: string;
+    linkMode: string;
+    isPrimary: boolean;
+  }>;
+}
+
+const fuelItems: FuelItemPayload[] = sortedItems.map((item) => {
+  const copy = item.i18n[locale] ?? item.i18n.en;
+  const d = computePureGramDerived(item, fx);
+  const m = buildMonetizationModel(item, locale);
+  const nl = item.nutrition_label;
+  const ratio = nl.carb_ratio_glucose_to_fructose;
+
+  let dualSourceTier: "optimal_108" | "dual_21" | "single" | "none" = "none";
+  if (nl.carbs_g >= 10) {
+    if (ratio && /1:0\.8/i.test(ratio)) {
+      dualSourceTier = "optimal_108";
+    } else if (ratio && /2:1|3:1/i.test(ratio)) {
+      dualSourceTier = "dual_21";
+    } else {
+      dualSourceTier = "single";
+    }
+  }
+
+  return {
+    slug: item.slug,
+    name: copy.name,
+    brand: item.brand,
+    category: item.category,
+    categoryLabel: getCategoryLabel(item.category, locale),
+    href: withBase(`/${locale}/puregram/item/${item.slug}`),
+    carbsG: nl.carbs_g,
+    sodiumMg: nl.sodium_mg,
+    potassiumMg: nl.potassium_mg,
+    caffeineMg: nl.caffeine_mg,
+    caloriesKcal: nl.calories_kcal,
+    servingWeightG: item.package_spec.serving_weight_g,
+    unitType: item.package_spec.unit_type,
+    totalServings: item.package_spec.total_servings,
+    carbRatio: ratio,
+    dualSourceTier,
+    hydrogelType: nl.hydrogel_or_isotonic,
+    purityPct: item.derived_math.purity_pct,
+    krwPerServing: d.krwPerServing,
+    usdPerServing: d.usdPerServing,
+    krwPackMsrp: item.regional_offers.kr.msrp,
+    usdPackMsrp: item.regional_offers.us.msrp,
+    certs: item.certifications,
+    ctaButtons: m.buttons.slice(0, 2).map((b) => ({
+      label: b.label,
+      storeName: b.storeName,
+      url: b.url,
+      linkMode: b.linkMode,
+      isPrimary: b.isPrimary,
+    })),
+  };
+});
+
+const clientPayload = {
+  locale,
+  fxKrwPerUsd: fx.rates.KRW || 1400,
+  disclosure: cfg.compliance.disclosures[locale],
+  items: fuelItems,
+};
+
+const currentPath = `/${locale}/tools/fueling-planner`;
+const pageTitle = isKo
+  ? "마라톤·사이클링 레이스 보급 믹스 플래너 (PureGram) | SpecMatrix Global"
+  : "Endurance Race Fueling Mix Planner (Marathon & Cycling) | SpecMatrix Global";
+const pageDesc = isKo
+  ? `공식 영양성분표가 검증된 ${fuelItems.length}종 에너지젤·카보믹스·전해질로 시간당 탄수화물(g/hr), 나트륨(mg/hr), 1:0.8 비율, 카페인 경고, 휴대 중량과 레이스 비용을 실시간 설계하세요.`
+  : `Build your marathon or Gran Fondo fueling mix across ${fuelItems.length} verified PureGram gels, carb mixes & electrolytes — calculating g/hr carbs, 1:0.8 gut tolerance, sodium, caffeine alerts, carry weight, and cost.`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: isKo
+      ? "SpecMatrix 레이스 보급 믹스 플래너"
+      : "SpecMatrix Endurance Race Fueling Mix Planner",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    description: pageDesc,
+    url: `${SITE_URL}${currentPath}`,
+    inLanguage: locale,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
+        item: `${SITE_URL}/${locale}/tools`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: isKo ? "레이스 보급 믹스 플래너" : "Race Fueling Mix Planner",
+        item: `${SITE_URL}${currentPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={currentPath}
+  activeVertical="puregram"
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-800">
+      {isKo ? "레이스 보급 믹스 플래너" : "Race Fueling Mix Planner"}
+    </span>
+  </nav>
+
+  <!-- Hero + Race Target Control Deck -->
+  <section class="lab-card overflow-hidden border-emerald-200/80 bg-white">
+    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full border border-emerald-400/40 bg-emerald-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
+            PUREGRAM MULTI-PRODUCT RACE PLANNER
+          </span>
+          <span class="font-mono text-xs text-slate-300">
+            {fuelItems.length} {isKo ? "종 검증 영양성분표 DB" : "Verified Nutrition Panels"}
+          </span>
+        </div>
+        <div class="flex items-center gap-1.5" role="group" aria-label={isKo ? "통화 선택" : "Currency toggle"}>
+          <button
+            type="button"
+            data-curr="KRW"
+            class:list={[
+              "fp-curr-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
+              isKo
+                ? "border-blue-500 bg-blue-600 text-white"
+                : "border-white/20 bg-white/10 text-white hover:bg-white/20",
+            ]}
+          >
+            KRW (₩)
+          </button>
+          <button
+            type="button"
+            data-curr="USD"
+            class:list={[
+              "fp-curr-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
+              !isKo
+                ? "border-blue-500 bg-blue-600 text-white"
+                : "border-white/20 bg-white/10 text-white hover:bg-white/20",
+            ]}
+          >
+            USD ($)
+          </button>
+        </div>
+      </div>
+
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+        {isKo
+          ? "마라톤·사이클링 레이스 보급 믹스 플래너"
+          : "Marathon & Road Cycling Fueling Mix Planner"}
+      </h1>
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+        {isKo
+          ? "대회 소요시간과 시간당 탄수화물·나트륨 목표를 설정하고 에너지젤·카보믹스·전해질을 조합해 포켓 중량, 1:0.8 위장 내성, 카페인 한도, 실보급 비용을 실시간 검산합니다."
+          : "Configure race duration, hourly carb target, and sweat sodium target — then assemble verified gels, carb mixes, and electrolytes with real-time 1:0.8 gut checks, caffeine alerts, weight, and cost."}
+      </p>
+    </div>
+
+    <div class="space-y-5 p-6">
+      <!-- Race Presets & Action Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap gap-2" role="group" aria-label={isKo ? "레이스 프리셋" : "Race presets"}>
+          <button
+            type="button"
+            data-preset="half"
+            data-dur="1.5"
+            data-carb="60"
+            data-na="600"
+            class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
+          >
+            {isKo ? "하프 마라톤 (1.5h · 60g/hr)" : "Half Marathon (1.5h / 60g/hr)"}
+          </button>
+          <button
+            type="button"
+            data-preset="full"
+            data-dur="3.5"
+            data-carb="80"
+            data-na="750"
+            class="fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
+          >
+            {isKo ? "풀 마라톤 (3.5h · 80g/hr)" : "Full Marathon (3.5h / 80g/hr)"}
+          </button>
+          <button
+            type="button"
+            data-preset="granfondo"
+            data-dur="4"
+            data-carb="90"
+            data-na="850"
+            class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
+          >
+            {isKo ? "그란폰도 100km (4h · 90g/hr)" : "Gran Fondo 100km (4h / 90g/hr)"}
+          </button>
+          <button
+            type="button"
+            data-preset="ultra"
+            data-dur="5"
+            data-carb="110"
+            data-na="950"
+            class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
+          >
+            {isKo ? "프로 / 울트라 (5h · 110g/hr)" : "Pro / Ultra (5h / 110g/hr)"}
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            id="fp-autobuild"
+            class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3.5 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-emerald-800"
+          >
+            <span>{isKo ? "최적 보급 믹스 자동 추천" : "Auto-Build Optimal Mix"}</span>
+          </button>
+          <button
+            type="button"
+            id="fp-clear"
+            class="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+          >
+            {isKo ? "팩 비우기" : "Clear Pack"}
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Target Sliders -->
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="flex items-center justify-between text-xs">
+            <label for="fp-dur" class="font-bold text-slate-800">
+              {isKo ? "레이스 소요시간" : "Race Duration"}
+            </label>
+            <span id="fp-dur-val" class="font-mono font-bold text-blue-700">3.5 hr</span>
+          </div>
+          <input id="fp-dur" type="range" min="1" max="8" step="0.5" value="3.5" class="lab-slider mt-2.5" />
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+            <span>1h</span>
+            <span>4h</span>
+            <span>8h</span>
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="flex items-center justify-between text-xs">
+            <label for="fp-carb" class="font-bold text-slate-800">
+              {isKo ? "시간당 탄수화물 목표" : "Hourly Carb Target"}
+            </label>
+            <span id="fp-carb-val" class="font-mono font-bold text-blue-700">80 g/hr</span>
+          </div>
+          <input id="fp-carb" type="range" min="30" max="120" step="5" value="80" class="lab-slider mt-2.5" />
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+            <span>30g/hr</span>
+            <span>75g/hr</span>
+            <span>120g/hr</span>
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="flex items-center justify-between text-xs">
+            <label for="fp-na" class="font-bold text-slate-800">
+              {isKo ? "발한·나트륨 목표" : "Sweat Sodium Target"}
+            </label>
+            <span id="fp-na-val" class="font-mono font-bold text-blue-700">750 mg/hr</span>
+          </div>
+          <input id="fp-na" type="range" min="400" max="1200" step="50" value="750" class="lab-slider mt-2.5" />
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+            <span>400mg</span>
+            <span>800mg</span>
+            <span>1,200mg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId="fueling-planner-top" variant="banner" locale={locale} />
+
+  <!-- Main Two-Column Workbench -->
+  <div class="mt-6 grid items-start gap-6 lg:grid-cols-12">
+    <!-- Left 7 cols: PureGram Product Picker -->
+    <section class="space-y-4 lg:col-span-7" aria-labelledby="fp-catalog-heading">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="fp-catalog-heading" class="text-lg font-bold tracking-tight text-slate-900">
+          {isKo ? "검증된 PureGram 보급식 선택 (+ / -)" : "Add Verified PureGram Fuel (+ / -)"}
+        </h2>
+        <span id="fp-catalog-count" class="font-mono text-xs text-slate-500">
+          {fuelItems.length} SKUs
+        </span>
+      </div>
+
+      <!-- Search & Category Tabs -->
+      <div class="lab-card space-y-3 p-4">
+        <input
+          id="fp-search"
+          type="search"
+          placeholder={isKo ? "제품명·브랜드 검색 (예: 모튼, SiS, 아미노바이탈, 프리시전)..." : "Search gel, mix, or electrolyte (e.g. Maurten, SiS, Precision, Tailwind)..."}
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:outline-none"
+        />
+        <div class="flex flex-wrap gap-1.5" role="group" aria-label={isKo ? "카테고리 필터" : "Category filter"}>
+          {[
+            { id: "ALL", label: isKo ? "전체" : "All" },
+            { id: "energy-gel", label: isKo ? "에너지젤" : "Energy Gels" },
+            { id: "carb-mix", label: isKo ? "카보 믹스" : "Carb Mix" },
+            { id: "electrolyte", label: isKo ? "전해질" : "Electrolytes" },
+            { id: "creatine", label: isKo ? "크레아틴" : "Creatine" },
+          ].map((tab, idx) => (
+            <button
+              type="button"
+              data-cat={tab.id}
+              class:list={[
+                "fp-cat-btn rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors",
+                idx === 0
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+              ]}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Product List -->
+      <div id="fp-catalog-list" class="space-y-2.5">
+        {fuelItems.map((it) => (
+          <div
+            class="fp-item-row lab-card flex flex-wrap items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-300"
+            data-slug={it.slug}
+            data-cat={it.category}
+            data-search={`${it.name} ${it.brand} ${it.categoryLabel}`.toLowerCase()}
+          >
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-slate-700">
+                  {it.categoryLabel}
+                </span>
+                {it.dualSourceTier === "optimal_108" && (
+                  <span class="rounded bg-emerald-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-800">
+                    1:0.8 Dual
+                  </span>
+                )}
+                {it.dualSourceTier === "dual_21" && (
+                  <span class="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-blue-800">
+                    2:1 Dual
+                  </span>
+                )}
+                {it.caffeineMg > 0 && (
+                  <span class="rounded bg-amber-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-amber-800">
+                    Caf {it.caffeineMg}mg
+                  </span>
+                )}
+              </div>
+              <a
+                href={it.href}
+                class="mt-1 block truncate text-sm font-bold text-slate-900 hover:text-blue-700 hover:underline"
+              >
+                {it.name}
+              </a>
+              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-slate-600">
+                <span class="font-semibold text-slate-900">{formatNum(it.carbsG, 1)}g Carbs</span>
+                <span>{formatInt(it.sodiumMg)}mg Na</span>
+                <span>{formatNum(it.servingWeightG, 0)}g wt</span>
+                <span class="fp-item-unit-cost text-blue-700" data-slug={it.slug}>
+                  {isKo
+                    ? `${formatCurrency(it.krwPerServing, "KRW", "ko")}/회`
+                    : `${formatCurrency(it.usdPerServing, "USD", "en")}/srv`}
+                </span>
+              </div>
+            </div>
+
+            <div class="flex shrink-0 items-center gap-1.5">
+              <button
+                type="button"
+                data-slug={it.slug}
+                data-delta="-1"
+                aria-label={`Remove 1 ${it.name}`}
+                class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-700"
+              >
+                −
+              </button>
+              <span
+                id={`fp-qty-${it.slug}`}
+                class="w-7 text-center font-mono text-sm font-bold text-slate-900"
+              >
+                0
+              </span>
+              <button
+                type="button"
+                data-slug={it.slug}
+                data-delta="1"
+                aria-label={`Add 1 ${it.name}`}
+                class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-blue-600 bg-blue-600 font-mono text-base font-bold text-white hover:bg-blue-700"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Right 5 cols: Sticky Live Dashboard & Shopping Checklist -->
+    <aside class="space-y-4 lg:sticky lg:top-20 lg:col-span-5" aria-labelledby="fp-dash-heading">
+      <div class="lab-card border-slate-300 bg-white p-5">
+        <div class="flex items-center justify-between gap-2">
+          <h2 id="fp-dash-heading" class="text-base font-extrabold text-slate-900">
+            {isKo ? "실시간 레이스 보급 대시보드" : "Live Race Fueling Dashboard"}
+          </h2>
+          <span id="fp-total-items-pill" class="badge-info font-mono">0 pcs</span>
+        </div>
+
+        <!-- Carbs Progress -->
+        <div class="mt-4 space-y-1.5">
+          <div class="flex items-baseline justify-between text-xs">
+            <span class="font-bold text-slate-800">{isKo ? "총 탄수화물 달성" : "Total Carbs"}</span>
+            <span id="fp-carbs-summary" class="font-mono font-bold text-slate-900">0 g / 280 g</span>
+          </div>
+          <div class="h-3 w-full overflow-hidden rounded-full bg-slate-200">
+            <div id="fp-carbs-bar" class="h-full rounded-full bg-blue-600 transition-all duration-200" style="width:0%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-600">
+            <span id="fp-carbs-rate" class="font-mono">0.0 g/hr</span>
+            <span id="fp-gut-badge" class="badge-info">1:0.8 Gut Check</span>
+          </div>
+        </div>
+
+        <!-- Sodium Progress -->
+        <div class="mt-4 space-y-1.5">
+          <div class="flex items-baseline justify-between text-xs">
+            <span class="font-bold text-slate-800">{isKo ? "총 나트륨 달성" : "Total Sodium"}</span>
+            <span id="fp-na-summary" class="font-mono font-bold text-slate-900">0 mg / 2,625 mg</span>
+          </div>
+          <div class="h-3 w-full overflow-hidden rounded-full bg-slate-200">
+            <div id="fp-na-bar" class="h-full rounded-full bg-emerald-600 transition-all duration-200" style="width:0%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-600">
+            <span id="fp-na-rate" class="font-mono">0 mg/hr</span>
+            <span id="fp-na-status" class="font-mono">0%</span>
+          </div>
+        </div>
+
+        <!-- Caffeine Meter & Alert -->
+        <div class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-800">{isKo ? "총 카페인 누적" : "Total Caffeine"}</span>
+            <span id="fp-caf-val" class="font-mono font-bold text-slate-900">0 mg</span>
+          </div>
+          <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+            <div id="fp-caf-bar" class="h-full rounded-full bg-slate-500 transition-all duration-200" style="width:0%"></div>
+          </div>
+          <p id="fp-caf-alert" class="mt-1.5 text-[11px] leading-snug text-slate-600">
+            {isKo
+              ? "300 mg 미만 안전 구간 (FDA 성인 일일 상한 400 mg)."
+              : "Under 300 mg safety zone (FDA adult daily ceiling: 400 mg)."}
+          </p>
+        </div>
+
+        <!-- Carry Weight / Calories / Race Cost Grid -->
+        <div class="mt-4 grid grid-cols-3 gap-2.5 text-center">
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
+            <div class="font-mono text-[10px] uppercase text-slate-500">
+              {isKo ? "포켓 중량" : "Carry Weight"}
+            </div>
+            <div id="fp-weight-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-slate-900">0 g</div>
+          </div>
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
+            <div class="font-mono text-[10px] uppercase text-slate-500">
+              {isKo ? "총 열량" : "Calories"}
+            </div>
+            <div id="fp-kcal-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-slate-900">0 kcal</div>
+          </div>
+          <div class="rounded-lg border border-blue-200 bg-blue-50/70 p-2.5">
+            <div class="font-mono text-[10px] uppercase text-blue-700">
+              {isKo ? "예상 보급비" : "Race Cost"}
+            </div>
+            <div id="fp-cost-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-blue-800">
+              {isKo ? "0원" : "$0.00"}
+            </div>
+          </div>
+        </div>
+
+        <!-- Gut Tolerance Detail Note -->
+        <div id="fp-gut-note" class="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[11px] leading-relaxed text-slate-700">
+          {isKo
+            ? "보급식을 추가하면 1:0.8 듀얼소스 탄수화물 비율과 위장 흡수 안정성을 자동 점검합니다."
+            : "Add fuel items to evaluate dual-source 1:0.8 glucose:fructose gut absorption tolerance."}
+        </div>
+
+        <!-- Copy Race Plan Button -->
+        <div class="mt-4">
+          <button
+            type="button"
+            id="fp-copy-plan"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-blue-700"
+          >
+            <span>{isKo ? "레이스 보급 계획 복사하기" : "Copy Race Plan"}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Selected Pack Shopping Checklist -->
+      <div class="lab-card border-slate-200 bg-white p-5">
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-sm font-bold text-slate-900">
+            {isKo ? "내 보급 팩 체크리스트 & 공식 스토어" : "Pack Checklist & Verified Stores"}
+          </h3>
+          <span class="font-mono text-[10px] uppercase text-slate-500">MSRP Benchmark</span>
+        </div>
+        <p class="mt-1 text-[11px] text-slate-500">
+          {isKo
+            ? "단가 입력칸을 수정해 본인 실구매가 기준으로 레이스 총비용을 계산할 수 있습니다."
+            : "Edit any per-serving price below to calculate your exact real-world race cost."}
+        </p>
+
+        <div id="fp-checklist" class="mt-3 space-y-2.5">
+          <p class="py-4 text-center text-xs text-slate-500">
+            {isKo ? "선택된 보급식이 없습니다." : "No items added to your race pack yet."}
+          </p>
+        </div>
+
+        <p class="mt-4 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+          {cfg.compliance.disclosures[locale]}
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Safety Banner -->
+  <div class="mt-8">
+    <SafetyBanner vertical="puregram" locale={locale} />
+  </div>
+
+  <script type="application/json" id="fp-data" set:html={safeJsonLd(clientPayload)} />
+</BaseLayout>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("fp-data");
+    if (!dataEl) return;
+
+    interface FuelCta {
+      label: string;
+      storeName: string;
+      url: string;
+      linkMode: string;
+      isPrimary: boolean;
+    }
+
+    interface FuelItem {
+      slug: string;
+      name: string;
+      brand: string;
+      category: string;
+      categoryLabel: string;
+      href: string;
+      carbsG: number;
+      sodiumMg: number;
+      potassiumMg: number;
+      caffeineMg: number;
+      caloriesKcal: number;
+      servingWeightG: number;
+      unitType: string;
+      totalServings: number;
+      carbRatio: string | null;
+      dualSourceTier: "optimal_108" | "dual_21" | "single" | "none";
+      hydrogelType: string;
+      purityPct: number;
+      krwPerServing: number;
+      usdPerServing: number;
+      krwPackMsrp: number;
+      usdPackMsrp: number;
+      certs: string[];
+      ctaButtons: FuelCta[];
+    }
+
+    interface FpPayload {
+      locale: string;
+      fxKrwPerUsd: number;
+      disclosure: string;
+      items: FuelItem[];
+    }
+
+    let payload: FpPayload;
+    try {
+      payload = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = payload.locale === "ko";
+    const itemsMap = new Map<string, FuelItem>();
+    payload.items.forEach((it) => itemsMap.set(it.slug, it));
+
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    const esc = (s: unknown): string =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    // State
+    let activeCurrency: "KRW" | "USD" = isKo ? "KRW" : "USD";
+    let activeCat = "ALL";
+    const qtyMap = new Map<string, number>();
+    const customUnitPrice = new Map<string, number>();
+
+    // DOM elements
+    const durSlider = document.getElementById("fp-dur") as HTMLInputElement | null;
+    const carbSlider = document.getElementById("fp-carb") as HTMLInputElement | null;
+    const naSlider = document.getElementById("fp-na") as HTMLInputElement | null;
+    const durVal = document.getElementById("fp-dur-val");
+    const carbVal = document.getElementById("fp-carb-val");
+    const naVal = document.getElementById("fp-na-val");
+
+    const presetBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".fp-preset-btn"));
+    const currBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".fp-curr-btn"));
+    const catBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".fp-cat-btn"));
+    const searchInput = document.getElementById("fp-search") as HTMLInputElement | null;
+    const itemRows = Array.from(document.querySelectorAll<HTMLElement>(".fp-item-row"));
+    const catalogCount = document.getElementById("fp-catalog-count");
+    const qtyBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".fp-qty-btn"));
+    const autoBuildBtn = document.getElementById("fp-autobuild");
+    const clearBtn = document.getElementById("fp-clear");
+    const copyPlanBtn = document.getElementById("fp-copy-plan") as HTMLButtonElement | null;
+
+    const totalItemsPill = document.getElementById("fp-total-items-pill");
+    const carbsSummary = document.getElementById("fp-carbs-summary");
+    const carbsBar = document.getElementById("fp-carbs-bar");
+    const carbsRateEl = document.getElementById("fp-carbs-rate");
+    const gutBadge = document.getElementById("fp-gut-badge");
+    const gutNote = document.getElementById("fp-gut-note");
+
+    const naSummary = document.getElementById("fp-na-summary");
+    const naBar = document.getElementById("fp-na-bar");
+    const naRateEl = document.getElementById("fp-na-rate");
+    const naStatusEl = document.getElementById("fp-na-status");
+
+    const cafVal = document.getElementById("fp-caf-val");
+    const cafBar = document.getElementById("fp-caf-bar");
+    const cafAlert = document.getElementById("fp-caf-alert");
+
+    const weightVal = document.getElementById("fp-weight-val");
+    const kcalVal = document.getElementById("fp-kcal-val");
+    const costVal = document.getElementById("fp-cost-val");
+    const checklistEl = document.getElementById("fp-checklist");
+
+    function fmtCost(amount: number): string {
+      if (!Number.isFinite(amount)) return activeCurrency === "KRW" ? "0원" : "$0.00";
+      if (activeCurrency === "KRW") {
+        const n = new Intl.NumberFormat("ko-KR").format(Math.round(amount));
+        return isKo ? `${n}원` : `₩${n}`;
+      }
+      return `$${new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount)}`;
+    }
+
+    function getUnitPrice(it: FuelItem): number {
+      const key = `${activeCurrency}:${it.slug}`;
+      if (customUnitPrice.has(key)) {
+        return customUnitPrice.get(key) ?? 0;
+      }
+      return activeCurrency === "KRW" ? it.krwPerServing : it.usdPerServing;
+    }
+
+    function refreshCatalogPrices() {
+      document.querySelectorAll<HTMLElement>(".fp-item-unit-cost").forEach((el) => {
+        const slug = el.getAttribute("data-slug") || "";
+        const it = itemsMap.get(slug);
+        if (!it) return;
+        const p = getUnitPrice(it);
+        el.textContent = `${fmtCost(p)}/${isKo ? "회" : "srv"}`;
+      });
+    }
+
+    function applyCatalogFilter() {
+      const q = (searchInput ? searchInput.value : "").trim().toLowerCase();
+      let visible = 0;
+      itemRows.forEach((row) => {
+        const cat = row.getAttribute("data-cat") || "";
+        const hay = row.getAttribute("data-search") || "";
+        const ok = (activeCat === "ALL" || cat === activeCat) && (!q || hay.includes(q));
+        row.style.display = ok ? "" : "none";
+        if (ok) visible += 1;
+      });
+      if (catalogCount) {
+        catalogCount.textContent = `${visible} / ${itemRows.length} SKUs`;
+      }
+    }
+
+    function syncQtyDisplays() {
+      payload.items.forEach((it) => {
+        const el = document.getElementById(`fp-qty-${it.slug}`);
+        if (el) el.textContent = String(qtyMap.get(it.slug) || 0);
+      });
+    }
+
+    function autoBuildOptimalMix() {
+      const dur = Number(durSlider ? durSlider.value : 3.5) || 3.5;
+      const carbRate = Number(carbSlider ? carbSlider.value : 80) || 80;
+      const naRate = Number(naSlider ? naSlider.value : 750) || 750;
+
+      const targetCarbs = Math.round(dur * carbRate);
+      const targetNa = Math.round(dur * naRate);
+
+      qtyMap.clear();
+
+      // Prefer verified 1:0.8 gels, bottle carb mix for >= 4h cycling/ultra, and high-sodium electrolytes
+      const pick = (slugs: string[], fallbackCat: string): FuelItem | null => {
+        for (const s of slugs) {
+          if (itemsMap.has(s)) return itemsMap.get(s) || null;
+        }
+        return payload.items.find((i) => i.category === fallbackCat) || null;
+      };
+
+      const highCarbGel = pick(["maurten-gel-160", "sis-beta-fuel-gel", "precision-pf-30-gel"], "energy-gel");
+      const medGel = pick(["maurten-gel-100", "neversecond-c30-energy-gel", "sis-go-isotonic-energy-gel"], "energy-gel");
+      const cafGel = pick(["maurten-gel-100-caf-100", "gu-roctane-energy-gel"], "energy-gel");
+      const bottleMix = pick(["tailwind-endurance-fuel", "skratch-labs-sport-hydration-mix"], "carb-mix");
+      const highNa = pick(["precision-ph-1500-electrolyte", "precision-ph-1000-electrolyte", "sis-hydro-electrolyte-tablets"], "electrolyte");
+
+      let curCarbs = 0;
+      let curNa = 0;
+
+      // For long rides / ultras >= 4h, anchor base hydration with bottle carb mix
+      if (dur >= 4 && bottleMix && bottleMix.carbsG > 0) {
+        const scoops = Math.min(6, Math.max(2, Math.round(dur)));
+        qtyMap.set(bottleMix.slug, scoops);
+        curCarbs += bottleMix.carbsG * scoops;
+        curNa += bottleMix.sodiumMg * scoops;
+      }
+
+      // Add 1 caffeinated kick gel for races >= 2.5h (stays well under 300mg caffeine)
+      if (dur >= 2.5 && cafGel && cafGel.caffeineMg <= 150) {
+        const q = dur >= 4.5 ? 2 : 1;
+        qtyMap.set(cafGel.slug, (qtyMap.get(cafGel.slug) || 0) + q);
+        curCarbs += cafGel.carbsG * q;
+        curNa += cafGel.sodiumMg * q;
+      }
+
+      // Fill remaining carbs with 1:0.8 dual-source gels
+      const primaryGel = carbRate >= 75 ? highCarbGel || medGel : medGel || highCarbGel;
+      if (primaryGel && primaryGel.carbsG > 0 && curCarbs < targetCarbs) {
+        const needed = Math.max(1, Math.round((targetCarbs - curCarbs) / primaryGel.carbsG));
+        qtyMap.set(primaryGel.slug, (qtyMap.get(primaryGel.slug) || 0) + needed);
+        curCarbs += primaryGel.carbsG * needed;
+        curNa += primaryGel.sodiumMg * needed;
+      }
+
+      // Fill remaining sodium gap with clean electrolyte
+      if (highNa && highNa.sodiumMg > 0 && curNa < targetNa * 0.85) {
+        const gapNa = targetNa - curNa;
+        const packets = Math.max(1, Math.min(8, Math.round(gapNa / highNa.sodiumMg)));
+        qtyMap.set(highNa.slug, (qtyMap.get(highNa.slug) || 0) + packets);
+      }
+
+      syncQtyDisplays();
+      recalcDashboard();
+    }
+
+    function recalcDashboard() {
+      const dur = Math.max(0.5, Number(durSlider ? durSlider.value : 3.5) || 3.5);
+      const carbTargetHr = Number(carbSlider ? carbSlider.value : 80) || 80;
+      const naTargetHr = Number(naSlider ? naSlider.value : 750) || 750;
+
+      const targetCarbs = Math.round(dur * carbTargetHr);
+      const targetNa = Math.round(dur * naTargetHr);
+
+      if (durVal) durVal.textContent = `${dur.toFixed(1)} hr`;
+      if (carbVal) carbVal.textContent = `${carbTargetHr} g/hr`;
+      if (naVal) naVal.textContent = `${naTargetHr} mg/hr`;
+
+      let totalQty = 0;
+      let totalCarbs = 0;
+      let dualSourceCarbs = 0;
+      let optimal108Carbs = 0;
+      let totalNa = 0;
+      let totalCaf = 0;
+      let totalWt = 0;
+      let totalKcal = 0;
+      let totalCost = 0;
+
+      const selectedEntries: Array<{ item: FuelItem; qty: number; unitPrice: number }> = [];
+
+      qtyMap.forEach((qty, slug) => {
+        if (qty <= 0) return;
+        const it = itemsMap.get(slug);
+        if (!it) return;
+        const unitPrice = getUnitPrice(it);
+        totalQty += qty;
+        const c = it.carbsG * qty;
+        totalCarbs += c;
+        if (it.dualSourceTier === "optimal_108") {
+          optimal108Carbs += c;
+          dualSourceCarbs += c;
+        } else if (it.dualSourceTier === "dual_21") {
+          dualSourceCarbs += c;
+        }
+        totalNa += it.sodiumMg * qty;
+        totalCaf += it.caffeineMg * qty;
+        totalWt += it.servingWeightG * qty;
+        totalKcal += it.caloriesKcal * qty;
+        totalCost += unitPrice * qty;
+        selectedEntries.push({ item: it, qty, unitPrice });
+      });
+
+      const carbsHr = totalCarbs / dur;
+      const naHr = totalNa / dur;
+      const carbsPct = targetCarbs > 0 ? Math.round((totalCarbs / targetCarbs) * 100) : 0;
+      const naPct = targetNa > 0 ? Math.round((totalNa / targetNa) * 100) : 0;
+
+      if (totalItemsPill) {
+        totalItemsPill.textContent = isKo ? `총 ${totalQty}개` : `${totalQty} pcs`;
+      }
+      if (carbsSummary) {
+        carbsSummary.textContent = `${Math.round(totalCarbs)} g / ${targetCarbs} g (${carbsPct}%)`;
+      }
+      if (carbsBar) {
+        carbsBar.style.width = `${Math.min(100, carbsPct)}%`;
+        carbsBar.className =
+          carbsPct >= 90 && carbsPct <= 115
+            ? "h-full rounded-full bg-emerald-600 transition-all duration-200"
+            : carbsPct > 115
+              ? "h-full rounded-full bg-amber-500 transition-all duration-200"
+              : "h-full rounded-full bg-blue-600 transition-all duration-200";
+      }
+      if (carbsRateEl) {
+        carbsRateEl.textContent = `${carbsHr.toFixed(1)} g/hr (${isKo ? "목표" : "target"} ${carbTargetHr} g/hr)`;
+      }
+
+      // Dual-source 1:0.8 gut tolerance check
+      const dualShare = totalCarbs > 0 ? Math.round((dualSourceCarbs / totalCarbs) * 100) : 0;
+      const opt108Share = totalCarbs > 0 ? Math.round((optimal108Carbs / totalCarbs) * 100) : 0;
+      if (gutBadge && gutNote) {
+        if (totalCarbs === 0) {
+          gutBadge.className = "badge-info";
+          gutBadge.textContent = isKo ? "보급식 대기" : "Empty Pack";
+          gutNote.textContent = isKo
+            ? "보급식을 추가하거나 [최적 보급 믹스 자동 추천]을 클릭해 1:0.8 위장 흡수 안정성을 점검하세요."
+            : "Add items or click Auto-Build Optimal Mix to inspect dual-source 1:0.8 gut tolerance.";
+        } else if (carbsHr > 65 && dualShare < 60) {
+          gutBadge.className = "badge-caution";
+          gutBadge.textContent = isKo ? "위장 부담 주의 (단일당 비중↑)" : "Gut Caution (Low Dual-Source)";
+          gutNote.textContent = isKo
+            ? `시간당 ${carbsHr.toFixed(0)}g은 단일 포도당 흡수 한계(~60g/hr)를 초과하지만 듀얼소스(1:0.8·2:1) 비중이 ${dualShare}%에 불과합니다. Maurten 160 / SiS Beta Fuel 같은 1:0.8 제품 비중을 높이세요.`
+            : `At ${carbsHr.toFixed(0)} g/hr (above ~60 g/hr single-source SGLT1 cap), only ${dualShare}% of your carbs come from dual-source (1:0.8 / 2:1) formulas. Swap in 1:0.8 gels to reduce GI distress.`;
+        } else if (carbsHr >= 80 && opt108Share >= 50) {
+          gutBadge.className = "badge-pass";
+          gutBadge.textContent = isKo ? `1:0.8 고탄수 최적 (${opt108Share}%)` : `1:0.8 High-Carb Ready (${opt108Share}%)`;
+          gutNote.textContent = isKo
+            ? `시간당 ${carbsHr.toFixed(0)}g 고탄수 전략에 1:0.8 포도당:과당 비율이 ${opt108Share}% 확보되어 위장 트러블 위험을 낮춘 설계입니다.`
+            : `Strong ${opt108Share}% 1:0.8 glucose:fructose ratio supports ${carbsHr.toFixed(0)} g/hr high-carb absorption across SGLT1 + GLUT5 pathways.`;
+        } else {
+          gutBadge.className = "badge-pass";
+          gutBadge.textContent = isKo ? `위장 내성 안정 (듀얼 ${dualShare}%)` : `Gut Tolerance OK (${dualShare}% Dual)`;
+          gutNote.textContent = isKo
+            ? `시간당 ${carbsHr.toFixed(0)}g 보급 페이스에 적합한 배합입니다. 실제 대회 전 롱런/장거리 훈련에서 동일 믹스를 사전 테스트하세요.`
+            : `Balanced fueling density for ${carbsHr.toFixed(0)} g/hr. Always rehearse this exact mix in training before race day.`;
+        }
+      }
+
+      // Sodium
+      if (naSummary) {
+        naSummary.textContent = `${new Intl.NumberFormat("en-US").format(Math.round(totalNa))} mg / ${new Intl.NumberFormat("en-US").format(targetNa)} mg`;
+      }
+      if (naBar) {
+        naBar.style.width = `${Math.min(100, naPct)}%`;
+        naBar.className =
+          naPct >= 85 && naPct <= 125
+            ? "h-full rounded-full bg-emerald-600 transition-all duration-200"
+            : naPct > 125
+              ? "h-full rounded-full bg-amber-500 transition-all duration-200"
+              : "h-full rounded-full bg-sky-600 transition-all duration-200";
+      }
+      if (naRateEl) {
+        naRateEl.textContent = `${Math.round(naHr)} mg/hr (${isKo ? "목표" : "target"} ${naTargetHr} mg/hr)`;
+      }
+      if (naStatusEl) naStatusEl.textContent = `${naPct}%`;
+
+      // Caffeine (>300mg caution, >400mg danger)
+      if (cafVal) cafVal.textContent = `${Math.round(totalCaf)} mg`;
+      if (cafBar) {
+        const cafPct = Math.min(100, Math.round((totalCaf / 400) * 100));
+        cafBar.style.width = `${cafPct}%`;
+        cafBar.className =
+          totalCaf > 400
+            ? "h-full rounded-full bg-rose-600 transition-all duration-200"
+            : totalCaf > 300
+              ? "h-full rounded-full bg-amber-500 transition-all duration-200"
+              : "h-full rounded-full bg-emerald-600 transition-all duration-200";
+      }
+      if (cafAlert) {
+        if (totalCaf > 400) {
+          cafAlert.className = "mt-1.5 rounded border border-rose-300 bg-rose-50 px-2.5 py-1.5 text-[11px] font-bold text-rose-900";
+          cafAlert.textContent = isKo
+            ? `경고 (>400 mg): 총 카페인 ${Math.round(totalCaf)} mg은 FDA 성인 1일 권장 상한(400 mg)을 초과합니다! 무카페인 젤로 일부 교체하세요.`
+            : `ALERT (>400 mg): ${Math.round(totalCaf)} mg exceeds the 400 mg FDA daily adult caffeine limit! Replace caffeinated gels with caffeine-free options.`;
+        } else if (totalCaf > 300) {
+          cafAlert.className = "mt-1.5 rounded border border-amber-300 bg-amber-50 px-2.5 py-1.5 text-[11px] font-semibold text-amber-900";
+          cafAlert.textContent = isKo
+            ? `주의 (>300 mg): 고카페인 구간(${Math.round(totalCaf)} mg)입니다. 심박 상승·위장 자극에 민감하다면 300 mg 이하로 조절하세요.`
+            : `CAUTION (>300 mg): High caffeine load (${Math.round(totalCaf)} mg). Sensitive athletes should trim below 300 mg to prevent GI distress or jitteriness.`;
+        } else {
+          cafAlert.className = "mt-1.5 text-[11px] leading-snug text-slate-600";
+          cafAlert.textContent = isKo
+            ? `총 ${Math.round(totalCaf)} mg — 안전 구간 (300 mg 주의 / 400 mg 초과 경보 기준).`
+            : `${Math.round(totalCaf)} mg — Within standard endurance range (caution >300 mg, alert >400 mg).`;
+        }
+      }
+
+      if (weightVal) weightVal.textContent = `${Math.round(totalWt)} g`;
+      if (kcalVal) kcalVal.textContent = `${new Intl.NumberFormat("en-US").format(Math.round(totalKcal))} kcal`;
+      if (costVal) costVal.textContent = fmtCost(totalCost);
+
+      // Render Checklist with verified affiliate CTAs & editable unit cost
+      if (checklistEl) {
+        if (selectedEntries.length === 0) {
+          checklistEl.innerHTML = `<p class="py-4 text-center text-xs text-slate-500">${
+            isKo ? "선택된 보급식이 없습니다. 왼쪽 목록에서 + 버튼을 누르거나 자동 추천을 실행하세요." : "No items added yet. Click + on the left or press Auto-Build Optimal Mix."
+          }</p>`;
+        } else {
+          checklistEl.innerHTML = selectedEntries
+            .map(({ item, qty, unitPrice }) => {
+              const subtotal = unitPrice * qty;
+              const primaryBtn = item.ctaButtons[0];
+              const ctaHtml = primaryBtn
+                ? `<a href="${esc(primaryBtn.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(primaryBtn.storeName)}" data-affiliate-vertical="puregram" data-affiliate-sku="${esc(item.slug)}" data-affiliate-mode="${esc(primaryBtn.linkMode)}" class="inline-flex items-center gap-1 rounded bg-blue-700 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-blue-800">${esc(primaryBtn.storeName)} ↗</a>`
+                : "";
+              const stepVal = activeCurrency === "KRW" ? "100" : "0.10";
+              const inputVal =
+                activeCurrency === "KRW" ? String(Math.round(unitPrice)) : unitPrice.toFixed(2);
+              return `
+                <div class="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs">
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="min-w-0">
+                      <a href="${esc(item.href)}" class="font-bold text-slate-900 hover:text-blue-700 hover:underline">${esc(item.name)}</a>
+                      <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+                        ×${qty} · ${Math.round(item.carbsG * qty)}g Carbs · ${Math.round(item.sodiumMg * qty)}mg Na${item.caffeineMg > 0 ? ` · ${Math.round(item.caffeineMg * qty)}mg Caf` : ""}
+                      </div>
+                    </div>
+                    <span class="shrink-0 font-mono font-bold text-slate-900">${esc(fmtCost(subtotal))}</span>
+                  </div>
+                  <div class="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/80 pt-2">
+                    <label class="inline-flex items-center gap-1 font-mono text-[10px] text-slate-500">
+                      <span>${isKo ? "1회 단가" : "Unit"} (${activeCurrency}):</span>
+                      <input type="number" min="0" step="${stepVal}" value="${esc(inputVal)}" data-price-slug="${esc(item.slug)}" class="fp-unit-price-input w-20 rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[11px] text-slate-800" />
+                    </label>
+                    ${ctaHtml}
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+
+          checklistEl.querySelectorAll<HTMLInputElement>(".fp-unit-price-input").forEach((inp) => {
+            inp.addEventListener("change", () => {
+              const slug = inp.getAttribute("data-price-slug") || "";
+              const val = Number(inp.value);
+              if (slug && Number.isFinite(val) && val >= 0) {
+                customUnitPrice.set(`${activeCurrency}:${slug}`, val);
+                refreshCatalogPrices();
+                recalcDashboard();
+              }
+            });
+          });
+        }
+      }
+    }
+
+    function copyText(text: string): Promise<boolean> {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        return navigator.clipboard
+          .writeText(text)
+          .then(() => true)
+          .catch(() => false);
+      }
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return Promise.resolve(ok);
+      } catch {
+        return Promise.resolve(false);
+      }
+    }
+
+    // Event wiring
+    presetBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const dur = btn.getAttribute("data-dur") || "3.5";
+        const carb = btn.getAttribute("data-carb") || "80";
+        const na = btn.getAttribute("data-na") || "750";
+        if (durSlider) durSlider.value = dur;
+        if (carbSlider) carbSlider.value = carb;
+        if (naSlider) naSlider.value = na;
+        presetBtns.forEach((o) => {
+          const on = o === btn;
+          o.className = on
+            ? "fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
+            : "fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500";
+        });
+        autoBuildOptimalMix();
+        track("fueling_planner_use", { action: "preset", preset: btn.getAttribute("data-preset") || "" });
+      });
+    });
+
+    [durSlider, carbSlider, naSlider].forEach((s) => {
+      if (s) s.addEventListener("input", recalcDashboard);
+    });
+
+    currBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const c = btn.getAttribute("data-curr") === "USD" ? "USD" : "KRW";
+        activeCurrency = c;
+        currBtns.forEach((o) => {
+          const on = o === btn;
+          o.className = on
+            ? "fp-curr-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
+            : "fp-curr-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-xs font-semibold text-white hover:bg-white/20 transition-colors";
+        });
+        refreshCatalogPrices();
+        recalcDashboard();
+      });
+    });
+
+    catBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeCat = btn.getAttribute("data-cat") || "ALL";
+        catBtns.forEach((o) => {
+          const on = o === btn;
+          o.className = on
+            ? "fp-cat-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-white transition-colors"
+            : "fp-cat-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+        });
+        applyCatalogFilter();
+      });
+    });
+
+    if (searchInput) searchInput.addEventListener("input", applyCatalogFilter);
+
+    qtyBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const slug = btn.getAttribute("data-slug") || "";
+        const delta = Number(btn.getAttribute("data-delta") || 0);
+        if (!slug || !itemsMap.has(slug)) return;
+        const next = Math.max(0, Math.min(20, (qtyMap.get(slug) || 0) + delta));
+        if (next === 0) qtyMap.delete(slug);
+        else qtyMap.set(slug, next);
+        syncQtyDisplays();
+        recalcDashboard();
+      });
+    });
+
+    if (autoBuildBtn) {
+      autoBuildBtn.addEventListener("click", () => {
+        autoBuildOptimalMix();
+        track("fueling_planner_use", { action: "autobuild" });
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        qtyMap.clear();
+        syncQtyDisplays();
+        recalcDashboard();
+      });
+    }
+
+    if (copyPlanBtn) {
+      const defLabel = isKo ? "레이스 보급 계획 복사하기" : "Copy Race Plan";
+      const okLabel = isKo ? "보급 계획 복사됨 ✓" : "Race Plan Copied ✓";
+      copyPlanBtn.addEventListener("click", () => {
+        const dur = Number(durSlider ? durSlider.value : 3.5) || 3.5;
+        const lines: string[] = [];
+        lines.push(
+          isKo
+            ? `[SpecMatrix 레이스 보급 믹스] ${dur.toFixed(1)}시간 기준`
+            : `[SpecMatrix Race Fueling Plan] ${dur.toFixed(1)} hr race`
+        );
+        qtyMap.forEach((qty, slug) => {
+          const it = itemsMap.get(slug);
+          if (it && qty > 0) {
+            lines.push(
+              `- ${it.name} × ${qty} (${Math.round(it.carbsG * qty)}g Carbs / ${Math.round(it.sodiumMg * qty)}mg Na${it.caffeineMg > 0 ? ` / ${Math.round(it.caffeineMg * qty)}mg Caf` : ""})`
+            );
+          }
+        });
+        lines.push(
+          `${isKo ? "합계" : "Totals"}: ${carbsSummary?.textContent || ""} | ${naSummary?.textContent || ""} | ${isKo ? "카페인" : "Caffeine"} ${cafVal?.textContent || ""} | ${isKo ? "중량" : "Weight"} ${weightVal?.textContent || ""} | ${isKo ? "비용" : "Cost"} ${costVal?.textContent || ""}`
+        );
+        lines.push(window.location.href);
+        copyText(lines.join("\n")).then(() => {
+          copyPlanBtn.textContent = okLabel;
+          copyPlanBtn.classList.add("bg-emerald-700");
+          track("fueling_planner_use", { action: "copy_plan" });
+          window.setTimeout(() => {
+            copyPlanBtn.textContent = defLabel;
+            copyPlanBtn.classList.remove("bg-emerald-700");
+          }, 1800);
+        });
+      });
+    }
+
+    // Initialize with optimal Full Marathon mix
+    autoBuildOptimalMix();
+    applyCatalogFilter();
+  })();
+</script>

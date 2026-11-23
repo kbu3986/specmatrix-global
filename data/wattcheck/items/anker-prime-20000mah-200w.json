@@ -199,15 +199,15 @@
   "citations": [
     {
       "label": "Anker Official Product Page — Prime 20,000mAh A1336",
-      "url": "https://www.anker.com/products/a1336",
+      "url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Anker Official Support — A1336 Specifications & Manual",
-      "url": "https://support.anker.com/s/article/Anker-Prime-20-000mAh-Power-Bank-200W-A1336-User-Guide",
+      "url": "https://service.anker.com/product-description/a085g00000BdlzHAAR",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     }
   ],
   "audit": {

@@ -4,6 +4,7 @@ import type {
   CycleGearItem,
   DerivedKpiCard,
   FxRates,
+  HomeTechItem,
   PureGramItem,
   VsDiffResult,
   VsDimensionDef,
@@ -211,6 +212,50 @@ export function computeCycleGearDerived(item: CycleGearItem, _fx: FxRates): Cycl
   };
 }
 
+export interface HomeTechDerived {
+  weightedAvgW: number;
+  annualKwh: number;
+  annualElecUsd: number;
+  annualElecKrw: number;
+  annualElecEurDe: number;
+  tco3yrUsd: number;
+  tco3yrKrw: number;
+  upsPowerFactor: number | null;
+}
+
+export function computeHomeTechDerived(item: HomeTechItem, _fx: FxRates): HomeTechDerived {
+  const s = item.specs;
+  const h = Math.max(0, Math.min(24, s.default_daily_hours_active));
+  const weightedAvgW = +((s.typical_load_w * h + s.idle_power_w * (24 - h)) / 24).toFixed(2);
+  const annualKwh = +(weightedAvgW * 8.76).toFixed(2);
+  const annualElecUsd = +(annualKwh * 0.17).toFixed(2);
+  const annualElecKrw = Math.round(annualKwh * 214);
+  const annualElecEurDe = +(annualKwh * 0.38).toFixed(2);
+
+  const usMsrp = item.regional_offers.us.msrp;
+  const krMsrp = item.regional_offers.kr.msrp;
+  const tco3yrUsd = +(usMsrp + 3 * (annualElecUsd + s.annual_consumables_usd)).toFixed(2);
+  const tco3yrKrw = Math.round(krMsrp + 3 * (annualElecKrw + s.annual_consumables_krw));
+  const upsPowerFactor =
+    s.ups_va_rating !== null &&
+    s.ups_va_rating > 0 &&
+    s.ups_watt_rating !== null &&
+    s.ups_watt_rating > 0
+      ? +(s.ups_watt_rating / s.ups_va_rating).toFixed(2)
+      : null;
+
+  return {
+    weightedAvgW,
+    annualKwh,
+    annualElecUsd,
+    annualElecKrw,
+    annualElecEurDe,
+    tco3yrUsd,
+    tco3yrKrw,
+    upsPowerFactor,
+  };
+}
+
 export function getItemDerivedKpis(
   item: AnyItem,
   fx: FxRates,
@@ -379,6 +424,101 @@ export function getItemDerivedKpis(
       },
     ];
     return cards;
+  }
+
+  if (item.vertical === "hometech") {
+    const d = computeHomeTechDerived(item, fx);
+    const s = item.specs;
+    const isKo = locale === "ko";
+    const annualMaint = isKo ? s.annual_consumables_krw : s.annual_consumables_usd;
+    const annualElec = isKo ? d.annualElecKrw : d.annualElecUsd;
+    const cur = isKo ? "KRW" : "USD";
+
+    let card3: DerivedKpiCard;
+    if (item.category === "ups") {
+      const waveLabel =
+        s.ups_waveform === "pure-sine"
+          ? isKo
+            ? "순수 정현파 (Pure Sine)"
+            : "Pure Sine Wave"
+          : isKo
+            ? "유사 정현파 (Simulated)"
+            : "Simulated Sine";
+      card3 = {
+        label: isKo ? "UPS 용량 · 역률 (PF)" : "UPS Rating & Power Factor",
+        value: `${formatInt(s.ups_va_rating)} VA / ${formatInt(s.ups_watt_rating)} W`,
+        sublabel: `PF ${formatNum(d.upsPowerFactor, 2)} · ${waveLabel}${s.ups_runtime_half_load_min !== null ? ` · ${formatInt(s.ups_runtime_half_load_min)} min` : ""}`,
+        tone: s.ups_waveform === "pure-sine" ? "pass" : "caution",
+      };
+    } else if (item.category === "robot-vacuum") {
+      card3 = {
+        label: isKo ? "흡입력 · 연간 소모품" : "Suction & Consumables",
+        value: `${formatInt(s.suction_pa)} Pa`,
+        sublabel: isKo
+          ? `연 소모품 ${formatCurrency(s.annual_consumables_krw, "KRW", "ko")}${s.dustbag_capacity_l !== null ? ` · 더스트백 ${formatNum(s.dustbag_capacity_l, 1)}L` : ""}`
+          : `Maint. ${formatCurrency(s.annual_consumables_usd, "USD", "en")}/yr${s.dustbag_capacity_l !== null ? ` · ${formatNum(s.dustbag_capacity_l, 1)}L bag` : ""}`,
+        tone: "default",
+      };
+    } else if (item.category === "nas") {
+      const lanStr =
+        s.lan_speed_gbps !== null
+          ? `${formatNum(s.lan_speed_gbps, s.lan_speed_gbps % 1 !== 0 ? 1 : 0)} GbE`
+          : "LAN";
+      card3 = {
+        label: isKo ? "드라이브 베이 · 유선 LAN" : "Drive Bays & Network",
+        value: `${formatInt(s.drive_bays)}-Bay · ${lanStr}`,
+        sublabel: `${s.cpu_or_soc ?? "NAS SoC"}${s.ram_gb_default !== null ? ` · ${formatInt(s.ram_gb_default)}GB RAM` : ""}`,
+        tone: (s.lan_speed_gbps ?? 0) >= 2.5 ? "pass" : "default",
+      };
+    } else {
+      const lanStr =
+        s.lan_speed_gbps !== null
+          ? `${formatNum(s.lan_speed_gbps, s.lan_speed_gbps % 1 !== 0 ? 1 : 0)} GbE`
+          : "LAN";
+      card3 = {
+        label: isKo ? "기본 메모리 · 네트워크" : "Memory & Network",
+        value: `${s.ram_gb_default !== null ? `${formatInt(s.ram_gb_default)} GB` : "—"} · ${lanStr}`,
+        sublabel: `${s.cpu_or_soc ?? "Mini PC"} · Peak ${formatInt(s.peak_power_w)} W`,
+        tone: "default",
+      };
+    }
+
+    const hasNoise = s.noise_idle_dba !== null || s.noise_load_dba !== null;
+    const noiseDisplay = hasNoise
+      ? `${s.noise_idle_dba !== null ? formatNum(s.noise_idle_dba, 1) : "—"} / ${s.noise_load_dba !== null ? formatNum(s.noise_load_dba, 1) : "—"} dBA`
+      : s.dual_voltage_100_240v
+        ? "100–240V Free"
+        : s.input_voltage_range;
+
+    return [
+      {
+        label: isKo ? "3년 총소유비용 (3-Yr TCO)" : "3-Year Total Cost (TCO)",
+        value: isKo
+          ? formatCurrency(d.tco3yrKrw, "KRW", "ko")
+          : formatCurrency(d.tco3yrUsd, "USD", "en"),
+        sublabel: isKo
+          ? `연 전기요금 ${formatCurrency(annualElec, cur, "ko")} + 소모품 ${formatCurrency(annualMaint, cur, "ko")}`
+          : `Power ${formatCurrency(annualElec, cur, "en")}/yr + Maint. ${formatCurrency(annualMaint, cur, "en")}/yr`,
+        tone: "info",
+      },
+      {
+        label: isKo ? "가중 평균 소비전력 · 연 kWh" : "Weighted Draw & Annual kWh",
+        value: `${formatNum(d.weightedAvgW, 1)} W`,
+        sublabel: isKo
+          ? `연 ${formatNum(d.annualKwh, 1)} kWh (대기 ${formatNum(s.idle_power_w, 1)}W / 부하 ${formatNum(s.typical_load_w, 1)}W)`
+          : `${formatNum(d.annualKwh, 1)} kWh/yr (Idle ${formatNum(s.idle_power_w, 1)}W / Load ${formatNum(s.typical_load_w, 1)}W)`,
+        tone: d.weightedAvgW <= 15 ? "pass" : "default",
+      },
+      card3,
+      {
+        label: isKo ? "소음 (대기/부하) · 220V 호환" : "Acoustics & 100–240V Voltage",
+        value: noiseDisplay,
+        sublabel: isKo
+          ? `${s.dual_voltage_100_240v ? "프리볼트 100–240V 지원" : `전압 주의 (${s.input_voltage_range})`} · ${formatInt(s.weight_g)}g`
+          : `${s.dual_voltage_100_240v ? "100–240V Dual Voltage" : `Voltage check (${s.input_voltage_range})`} · ${formatInt(s.weight_g)}g`,
+        tone: s.dual_voltage_100_240v ? "pass" : "caution",
+      },
+    ];
   }
 
   // CycleGear
@@ -901,6 +1041,273 @@ export function computeVsDiff(
         id: "practicality",
         label: isKo ? "안티도핑 인증·클린 라벨" : "Certifications & Clean Label",
         hint: isKo ? "Informed Sport·무인공감미료·보관 편의" : "Third-party testing & clean excipients",
+        defaultWeight: 20,
+      },
+    ];
+
+    return {
+      rows,
+      scoresA: { value: valA, portability: portA, performance: perfA, practicality: pracA },
+      scoresB: { value: valB, portability: portB, performance: perfB, practicality: pracB },
+      dimensions,
+    };
+  }
+
+  if (itemA.vertical === "hometech" && itemB.vertical === "hometech") {
+    const dA = computeHomeTechDerived(itemA, fx);
+    const dB = computeHomeTechDerived(itemB, fx);
+    const sA = itemA.specs;
+    const sB = itemB.specs;
+
+    rows.push(
+      makeMetricRow({
+        key: "tco_3yr",
+        label: isKo ? "3년 총소유비용 (3-Yr TCO)" : "3-Year TCO (HW + Power + Maint.)",
+        unit: currency,
+        rawA: isKo ? dA.tco3yrKrw : dA.tco3yrUsd,
+        rawB: isKo ? dB.tco3yrKrw : dB.tco3yrUsd,
+        displayA: formatCurrency(isKo ? dA.tco3yrKrw : dA.tco3yrUsd, currency, locale),
+        displayB: formatCurrency(isKo ? dB.tco3yrKrw : dB.tco3yrUsd, currency, locale),
+        higherIsBetter: false,
+        locale,
+        formatDelta: (d) => formatCurrency(d, currency, locale),
+      }),
+      makeMetricRow({
+        key: "weighted_avg_w",
+        label: isKo ? "가중 평균 소비전력 (낮을수록 우세)" : "Weighted Avg Power (Lower Wins)",
+        unit: "W",
+        rawA: dA.weightedAvgW,
+        rawB: dB.weightedAvgW,
+        displayA: `${formatNum(dA.weightedAvgW, 1)} W`,
+        displayB: `${formatNum(dB.weightedAvgW, 1)} W`,
+        higherIsBetter: false,
+        locale,
+      }),
+      makeMetricRow({
+        key: "annual_kwh",
+        label: isKo ? "연간 전력 소비량 (kWh/yr)" : "Annual Energy Consumption",
+        unit: "kWh",
+        rawA: dA.annualKwh,
+        rawB: dB.annualKwh,
+        displayA: `${formatNum(dA.annualKwh, 1)} kWh`,
+        displayB: `${formatNum(dB.annualKwh, 1)} kWh`,
+        higherIsBetter: false,
+        locale,
+      }),
+      makeMetricRow({
+        key: "annual_elec_cost",
+        label: isKo ? "연간 예상 전기요금 (한전 2구간)" : "Annual Electricity Cost ($0.17/kWh)",
+        unit: currency,
+        rawA: isKo ? dA.annualElecKrw : dA.annualElecUsd,
+        rawB: isKo ? dB.annualElecKrw : dB.annualElecUsd,
+        displayA: formatCurrency(isKo ? dA.annualElecKrw : dA.annualElecUsd, currency, locale),
+        displayB: formatCurrency(isKo ? dB.annualElecKrw : dB.annualElecUsd, currency, locale),
+        higherIsBetter: false,
+        locale,
+        formatDelta: (d) => formatCurrency(d, currency, locale),
+      }),
+      makeMetricRow({
+        key: "idle_power_w",
+        label: isKo ? "24/7 대기전력 (Idle W)" : "Idle Power Draw (W)",
+        unit: "W",
+        rawA: sA.idle_power_w,
+        rawB: sB.idle_power_w,
+        displayA: `${formatNum(sA.idle_power_w, 1)} W`,
+        displayB: `${formatNum(sB.idle_power_w, 1)} W`,
+        higherIsBetter: false,
+        locale,
+      }),
+      makeMetricRow({
+        key: "typical_load_w",
+        label: isKo ? "실사용 평균 부하 전력" : "Typical Active Load",
+        unit: "W",
+        rawA: sA.typical_load_w,
+        rawB: sB.typical_load_w,
+        displayA: `${formatNum(sA.typical_load_w, 1)} W`,
+        displayB: `${formatNum(sB.typical_load_w, 1)} W`,
+        higherIsBetter: false,
+        locale,
+      }),
+      makeMetricRow({
+        key: "weight_g",
+        label: isKo ? "본체 무게 (g)" : "Unit Weight (g)",
+        unit: "g",
+        rawA: sA.weight_g,
+        rawB: sB.weight_g,
+        displayA: `${formatInt(sA.weight_g)} g`,
+        displayB: `${formatInt(sB.weight_g)} g`,
+        higherIsBetter: false,
+        locale,
+        formatDelta: (d) => `${formatInt(d)} g`,
+      })
+    );
+
+    if (sA.annual_consumables_usd > 0 || sB.annual_consumables_usd > 0) {
+      rows.push(
+        makeMetricRow({
+          key: "annual_consumables",
+          label: isKo ? "연간 소모품 유지비" : "Annual Consumables Cost",
+          unit: currency,
+          rawA: isKo ? sA.annual_consumables_krw : sA.annual_consumables_usd,
+          rawB: isKo ? sB.annual_consumables_krw : sB.annual_consumables_usd,
+          displayA: formatCurrency(isKo ? sA.annual_consumables_krw : sA.annual_consumables_usd, currency, locale),
+          displayB: formatCurrency(isKo ? sB.annual_consumables_krw : sB.annual_consumables_usd, currency, locale),
+          higherIsBetter: false,
+          locale,
+          formatDelta: (d) => formatCurrency(d, currency, locale),
+        })
+      );
+    }
+
+    if (sA.noise_load_dba !== null && sB.noise_load_dba !== null) {
+      rows.push(
+        makeMetricRow({
+          key: "noise_load_dba",
+          label: isKo ? "부하 소음 (dBA, 낮을수록 정숙)" : "Load Noise (dBA, Quieter Wins)",
+          unit: "dBA",
+          rawA: sA.noise_load_dba,
+          rawB: sB.noise_load_dba,
+          displayA: `${formatNum(sA.noise_load_dba, 1)} dBA`,
+          displayB: `${formatNum(sB.noise_load_dba, 1)} dBA`,
+          higherIsBetter: false,
+          locale,
+        })
+      );
+    }
+
+    if (sA.lan_speed_gbps !== null && sB.lan_speed_gbps !== null) {
+      rows.push(
+        makeMetricRow({
+          key: "lan_speed_gbps",
+          label: isKo ? "유선 네트워크 대역폭" : "Wired LAN Bandwidth",
+          unit: "GbE",
+          rawA: sA.lan_speed_gbps,
+          rawB: sB.lan_speed_gbps,
+          displayA: `${formatNum(sA.lan_speed_gbps, sA.lan_speed_gbps % 1 !== 0 ? 1 : 0)} GbE`,
+          displayB: `${formatNum(sB.lan_speed_gbps, sB.lan_speed_gbps % 1 !== 0 ? 1 : 0)} GbE`,
+          higherIsBetter: true,
+          locale,
+        })
+      );
+    }
+
+    if (sA.drive_bays !== null && sB.drive_bays !== null) {
+      rows.push(
+        makeMetricRow({
+          key: "drive_bays",
+          label: isKo ? "스토리지 드라이브 베이" : "Storage Drive Bays",
+          unit: isKo ? "베이" : "bays",
+          rawA: sA.drive_bays,
+          rawB: sB.drive_bays,
+          displayA: `${formatInt(sA.drive_bays)}-Bay`,
+          displayB: `${formatInt(sB.drive_bays)}-Bay`,
+          higherIsBetter: true,
+          locale,
+          formatDelta: (d) => `${formatInt(d)}`,
+        })
+      );
+    }
+
+    if (sA.ups_watt_rating !== null && sB.ups_watt_rating !== null) {
+      rows.push(
+        makeMetricRow({
+          key: "ups_watt_rating",
+          label: isKo ? "UPS 유효 출력 용량 (W)" : "UPS Real Power Capacity (W)",
+          unit: "W",
+          rawA: sA.ups_watt_rating,
+          rawB: sB.ups_watt_rating,
+          displayA: `${formatInt(sA.ups_watt_rating)} W (${formatInt(sA.ups_va_rating)} VA)`,
+          displayB: `${formatInt(sB.ups_watt_rating)} W (${formatInt(sB.ups_va_rating)} VA)`,
+          higherIsBetter: true,
+          locale,
+          formatDelta: (d) => `${formatInt(d)} W`,
+        })
+      );
+    }
+
+    if (sA.suction_pa !== null && sB.suction_pa !== null) {
+      rows.push(
+        makeMetricRow({
+          key: "suction_pa",
+          label: isKo ? "최대 흡입력 (Pa)" : "Peak Suction Power (Pa)",
+          unit: "Pa",
+          rawA: sA.suction_pa,
+          rawB: sB.suction_pa,
+          displayA: `${formatInt(sA.suction_pa)} Pa`,
+          displayB: `${formatInt(sB.suction_pa)} Pa`,
+          higherIsBetter: true,
+          locale,
+          formatDelta: (d) => `${formatInt(d)} Pa`,
+        })
+      );
+    }
+
+    const [valA, valB] = pairRelativeScores(dA.tco3yrUsd, dB.tco3yrUsd, false);
+
+    const footprintScoreRaw = (it: HomeTechItem) => {
+      const volL =
+        (it.specs.dimensions_mm.l * it.specs.dimensions_mm.w * it.specs.dimensions_mm.h) /
+        1_000_000;
+      const noise = it.specs.noise_load_dba ?? it.specs.noise_idle_dba ?? 38;
+      return noise * 2 + Math.min(40, volL * 2.5) + Math.min(30, it.specs.weight_g / 400);
+    };
+    const [portA, portB] = pairRelativeScores(
+      footprintScoreRaw(itemA),
+      footprintScoreRaw(itemB),
+      false
+    );
+
+    const perfScoreRaw = (it: HomeTechItem) => {
+      const sp = it.specs;
+      return (
+        (sp.ram_gb_default ? Math.min(32, sp.ram_gb_default) * 1.4 : 0) +
+        (sp.lan_speed_gbps ? sp.lan_speed_gbps * 8 : 0) +
+        (sp.drive_bays ? sp.drive_bays * 12 : 0) +
+        (sp.ups_watt_rating ? sp.ups_watt_rating / 18 : 0) +
+        (sp.ups_waveform === "pure-sine" ? 22 : 0) +
+        (sp.ups_runtime_half_load_min ? sp.ups_runtime_half_load_min * 2 : 0) +
+        (sp.suction_pa ? sp.suction_pa / 220 : 0) +
+        (sp.dustbag_capacity_l ? sp.dustbag_capacity_l * 6 : 0) +
+        Math.min(25, sp.peak_power_w / 10)
+      );
+    };
+    const [perfA, perfB] = pairRelativeScores(perfScoreRaw(itemA), perfScoreRaw(itemB), true);
+
+    const pracScoreRaw = (it: HomeTechItem, d: HomeTechDerived) =>
+      Math.max(5, 45 - d.weightedAvgW * 0.6) +
+      (it.specs.dual_voltage_100_240v ? 22 : 0) +
+      (it.tco_profile.always_on_24_7 ? 10 : 5) +
+      it.tco_profile.expected_lifespan_years * 3 +
+      it.specs.certifications.length * 5;
+    const [pracA, pracB] = pairRelativeScores(
+      pracScoreRaw(itemA, dA),
+      pracScoreRaw(itemB, dB),
+      true
+    );
+
+    const dimensions: VsDimensionDef[] = [
+      {
+        id: "value",
+        label: isKo ? "3년 총소유비용 (3-Yr TCO)" : "3-Year TCO Value",
+        hint: isKo ? "기기값+3년 전기요금+소모품 최소화" : "Lowest hardware + 3yr electricity + consumables",
+        defaultWeight: 35,
+      },
+      {
+        id: "portability",
+        label: isKo ? "정숙성·설치 공간 (소음·부피)" : "Noise & Footprint",
+        hint: isKo ? "낮은 소음(dBA) 및 컴팩트한 데스크·거치 면적" : "Quieter acoustics & smaller footprint",
+        defaultWeight: 20,
+      },
+      {
+        id: "performance",
+        label: isKo ? "연산·확장·UPS·흡입 성능" : "Compute, Capacity & Output",
+        hint: isKo ? "RAM/LAN/드라이브 베이/UPS 정현파/흡입력" : "Specs headroom, LAN, bays, UPS or suction",
+        defaultWeight: 25,
+      },
+      {
+        id: "practicality",
+        label: isKo ? "24/7 전력효율·220V·인증" : "24/7 Efficiency & 220V/Certs",
+        hint: isKo ? "낮은 대기전력·100–240V 프리볼트·수명·인증" : "Low idle draw, dual voltage & safety certs",
         defaultWeight: 20,
       },
     ];

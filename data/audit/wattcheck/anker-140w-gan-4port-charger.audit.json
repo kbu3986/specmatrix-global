@@ -7,13 +7,13 @@
     {
       "field": "dimensions_mm_weight_g",
       "quote": "Model A2697 / B2697, 69 x 69 x 36 mm (2.72 x 2.72 x 1.42 in), Charger weight 295 g (10.41 oz), Input 100-240V~ 2.6A",
-      "source_url": "https://www.anker.com/products/a2697",
+      "source_url": "https://www.anker.com/products/a2697-anker-charger-140w-4-port",
       "source_tier": 1
     },
     {
       "field": "port_allocation_matrix",
       "quote": "C1/C2 140W Max (28V/5A), C3 40W, A1 33W; C1+C2 70W+70W; C1+C3 100W+40W; C1+C2+C3 65+45+30W; 4-port 65+45+12+12W",
-      "source_url": "https://www.anker.com/products/a2697",
+      "source_url": "https://www.anker.com/products/a2697-anker-charger-140w-4-port",
       "source_tier": 1
     }
   ],

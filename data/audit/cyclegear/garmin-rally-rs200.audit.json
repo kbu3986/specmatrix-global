@@ -7,19 +7,19 @@
     {
       "field": "weight_g",
       "quote": "Weight: 320 g; Cleat type: SHIMANO SPD-SL; Q-factor: 53 mm (55 mm with provided 2 mm washer); Stack height: 12.2 mm",
-      "source_url": "https://www.garmin.com/p/658420",
+      "source_url": "https://www.garmin.com/en-US/p/658593/",
       "source_tier": 1
     },
     {
       "field": "claimed_accuracy_pct",
       "quote": "Accuracy: +/- 1%; Battery life: up to 120 hours; Battery type: LR44/SR44 (x4) or CR1/3N (x2); Water rating: IPX7",
-      "source_url": "https://www.garmin.com/p/658420",
+      "source_url": "https://www.garmin.com/en-US/p/658593/",
       "source_tier": 1
     },
     {
       "field": "torque_or_install_note_en",
       "quote": "Recommended installation torque: 34 N-m (25 lbf-ft) using a 15 mm pedal wrench; Max rider weight 105 kg",
-      "source_url": "https://www8.garmin.com/manuals/webhelp/GUID-F384D11E-79B0-4D97-BB69-DD8922C20299/EN-US/GUID-1D0B4F3B-45F9-4130-B5C3-5E1B8E0728E7.html",
+      "source_url": "https://support.garmin.com/en-US/",
       "source_tier": 1
     }
   ],

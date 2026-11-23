@@ -1,0 +1,126 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "minipc",
+  "slug": "gmktec-nucbox-g3-plus-n150",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "GMKtec",
+  "model_number": "NucBox G3 Plus (G3P-N150)",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "G3-PLUS-N150-16G512G",
+      "msrp": 199.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "GMKtec NucBox G3 Plus Intel N150 16GB 512GB Mini PC",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "G3-PLUS-N150-16G512G-KR",
+      "msrp": 289000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "GMKtec NucBox G3 Plus 인텔 N150 16GB 512GB 미니PC",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 6.5,
+    "typical_load_w": 15,
+    "peak_power_w": 25,
+    "default_daily_hours_active": 6,
+    "annual_consumables_usd": 0,
+    "annual_consumables_krw": 0,
+    "noise_idle_dba": 26,
+    "noise_load_dba": 34,
+    "weight_g": 361,
+    "dimensions_mm": {
+      "l": 114,
+      "w": 106,
+      "h": 42.5
+    },
+    "input_voltage_range": "100-240V AC, 50/60Hz (12V/3A 36W DC adapter)",
+    "dual_voltage_100_240v": true,
+    "cpu_or_soc": "Intel Processor N150 (Twin Lake, 4C/4T E-cores, up to 3.6 GHz, 6W TDP, 24 EU Intel Graphics)",
+    "ram_gb_default": 16,
+    "drive_bays": null,
+    "lan_speed_gbps": 2.5,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["FCC", "CE", "RoHS", "KC (Domestic Approved SKUs)"],
+    "key_specs_kv": [
+      { "key_en": "CPU & Media Engine", "key_ko": "CPU 및 미디어 엔진", "value": "Intel Twin Lake N150 (4C/4T up to 3.6 GHz, 6 W TDP, 24 EU @ 1000 MHz, AV1 decode)" },
+      { "key_en": "Wall Power (Idle / Typical / Peak)", "key_ko": "실측 소비전력 (유휴 / 일반 / 피크)", "value": "~6.5 W idle / ~15 W typical server load / ~25 W peak stress (36 W 12V/3A brick)" },
+      { "key_en": "Acoustics (Idle / Load)", "key_ko": "소음 (유휴 / 부하)", "value": "~26 dBA near-silent idle / ~34 dBA under sustained multi-core stress" },
+      { "key_en": "Memory Expansion", "key_ko": "메모리 확장 규격", "value": "16 GB DDR4-3200 (1× single-channel SO-DIMM slot, upgradable up to 32 GB)" },
+      { "key_en": "Dual M.2 Storage Slots", "key_ko": "듀얼 M.2 스토리지 슬롯", "value": "1× M.2 2280 PCIe 3.0 NVMe (up to 4 TB) + 1× M.2 2242 SATA SSD" },
+      { "key_en": "Networking", "key_ko": "네트워크 규격", "value": "1× 2.5 GbE RJ-45 LAN + Wi-Fi 6 / Bluetooth 5.2" },
+      { "key_en": "I/O & Dual Display", "key_ko": "입출력 및 듀얼 디스플레이", "value": "2× HDMI 2.0 (dual 4K@60Hz), 4× USB-A 3.2 Gen 2, 3.5 mm audio, VESA mount" },
+      { "key_en": "Compact Footprint & Weight", "key_ko": "초소형 크기·무게", "value": "114 × 106 × 42.5 mm (0.51 L), 361 g net chassis weight" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": null,
+    "korea_220v_note_en": "The included 12V/3A (36W) DC adapter accepts 100-240V AC 50/60Hz worldwide; US-prong direct-import units require either a tight-fitting Korean 220V plug adapter or an inexpensive KC-certified 12V/3A (5.5×2.5 mm) replacement adapter.",
+    "korea_220v_note_ko": "기본 동봉된 12V/3A(36W) 어댑터는 100–240V 프리볼트를 지원해 국내 220V 콘센트에서 변압기 없이 구동됩니다. 해외 직구로 110V(미국형) 일체형 플러그를 받은 경우 헐거운 돼지코 대신 국내 KC 인증 12V 3A(5.5×2.5mm) 어댑터로 교체하면 24시간 무정전 가동 시 발열과 접촉 불량 위험을 크게 줄일 수 있습니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "GMKtec NucBox G3 Plus (Intel N150, 16GB / 512GB)",
+      "title": "GMKtec NucBox G3 Plus (N150): 6.5W Idle 24/7 Homelab Node, 2.5GbE & Sub-$200 TCO",
+      "summary": "An ultra-budget 361 g palm-sized mini PC powered by Intel's 6 W TDP Twin Lake N150 processor with Quick Sync AV1/HEVC hardware transcoding, 2.5 GbE LAN, dual M.2 slots, and ~6.5 W idle draw.",
+      "best_for": "Budget-first 24/7 Home Assistant, Plex/Jellyfin Quick Sync transcoding, Pi-hole, and lightweight Docker servers where low acquisition price plus sub-10 W idle power minimizes 5-year TCO.",
+      "local_gotchas": [
+        "Intel N150 only supports single-channel memory via one DDR4-3200 SO-DIMM slot (no dual-channel mode) and offers zero USB-C / DisplayPort ports—only two HDMI 2.0 outputs and four USB-A ports.",
+        "The secondary internal storage bay is M.2 2242 SATA ONLY (not NVMe); verify the B+M key SATA protocol before buying a second SSD.",
+        "While barebones kits often sell around $125–$140, the 16 GB / 512 GB Windows 11 Pro SKU sits near $199 MSRP and should be compared against building barebones with spare DDR4/NVMe parts."
+      ]
+    },
+    "ko": {
+      "name": "GMKtec NucBox G3 Plus (인텔 N150, 16GB / 512GB)",
+      "title": "GMKtec NucBox G3 Plus N150: 유휴 6.5W 초저전력 24시간 홈서버·2.5GbE·초가성비 TCO",
+      "summary": "인텔 트윈레이크 N150(6W TDP·최대 3.6 GHz)과 2.5GbE 유선 랜, 듀얼 M.2 슬롯을 361 g 초소형 바디에 담은 보급형 미니PC로, 유휴 6.5W·피크 25W의 초저전력과 퀵싱크(Quick Sync) 하드웨어 트랜스코딩을 지원합니다.",
+      "best_for": "Home Assistant·Docker·Jellyfin/Plex 트랜스코딩·개인용 경량 리눅스 서버를 20~30만 원대 초기 비용과 최소 전기요금으로 24시간 운영하려는 입문·실속파 홈랩 사용자.",
+      "local_gotchas": [
+        "인텔 N150은 싱글 채널 DDR4 SO-DIMM 슬롯 1개만 지원하며 USB-C 포트가 아예 없습니다(HDMI 2개 + USB-A 4개 구성). USB-C 모니터 직결이나 외장 고속 썬더볼트 스토리지가 필요하면 상위 모델을 선택해야 합니다.",
+        "보조 저장장치 슬롯은 M.2 2242 규격이며 SATA 프로토콜 전용입니다(NVMe 미지원). 추가 증설 시 반드시 M.2 2242 SATA SSD를 구매해야 인식됩니다.",
+        "알리익스프레스 등 해외 직구 시 베어본 모델($125~$140)은 $150 면세 한도 이내로 관부가세가 면제되지만, 16GB/512GB 완제품($199 내외)은 $150 초과로 부가세 10%가 부과되므로 국내 정식 KC 인증 제품과 총액을 비교하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "GMKtec NucBox G3 Plus (Intel N150) Official Product & Specifications Page",
+      "url": "https://www.gmktec.com/products/nucbox-g3-plus-enhanced-performance-mini-pc-with-intel-n150-processor",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "GMKtec Official Drivers, BIOS & Technical Support Portal",
+      "url": "https://www.gmktec.com/pages/drivers-and-software",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 97,
+    "info_gain_score": 92,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["synology-ds224-plus", "apple-mac-mini-m4"]
+}

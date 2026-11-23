@@ -1,0 +1,2214 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AdSlotReserve from "../../components/AdSlotReserve.astro";
+import type {
+  ActiveLocale,
+  AnyItem,
+  HomeTechItem,
+  PilotVertical,
+  VsInsight,
+} from "../../lib/types";
+import {
+  getAllItems,
+  getAllVsInsights,
+  getFxRates,
+  getMonetizationConfig,
+} from "../../lib/data";
+import {
+  computeCycleGearDerived,
+  computeHomeTechDerived,
+  computePureGramDerived,
+  computeWattCheckDerived,
+} from "../../lib/derived";
+import { buildMonetizationModel } from "../../lib/monetization";
+import {
+  ACTIVE_LOCALES,
+  BASE_PATH,
+  PILOT_VERTICALS,
+  SITE_URL,
+  VERTICAL_META,
+  formatCurrency,
+  formatInt,
+  getCategoryLabel,
+  safeJsonLd,
+  withBase,
+} from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return ACTIVE_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const isKo = locale === "ko";
+const currency = isKo ? "KRW" : "USD";
+const fx = getFxRates();
+const cfg = getMonetizationConfig();
+
+const allItems = getAllItems().filter((item) => item.available_locales.includes(locale));
+const allVs = getAllVsInsights();
+
+interface CompareSkuPayload {
+  slug: string;
+  vertical: PilotVertical;
+  category: string;
+  categoryLabel: string;
+  brand: string;
+  name: string;
+  summary: string;
+  bestFor: string;
+  trustScore: number;
+  href: string;
+  msrp: number;
+  msrpUsd: number;
+  msrpDisplay: string;
+  monetization: {
+    statusLabel: string;
+    statusTone: "pass" | "caution" | "fail";
+    benchmarkPriceFormatted: string;
+    benchmarkDate: string;
+    benchmarkCaption: string;
+    disclosureText: string;
+    isDiscontinued: boolean;
+    isPriceStale: boolean;
+    buttons: Array<{
+      label: string;
+      storeName: string;
+      url: string;
+      rel: "sponsored nofollow noopener";
+      target: "_blank";
+      isPrimary: boolean;
+      linkMode: "direct_asin" | "official_coupang" | "search_deeplink";
+    }>;
+  };
+  metrics: Record<string, number | string | boolean | null>;
+}
+
+interface CompareVsPayload {
+  vertical: PilotVertical;
+  pairSlug: string;
+  slugA: string;
+  slugB: string;
+  headline: string;
+  href: string;
+  infoGainScore: number;
+}
+
+function serializeItem(item: AnyItem): CompareSkuPayload {
+  const copy = item.i18n[locale] ?? item.i18n.en;
+  const msrp = isKo ? item.regional_offers.kr.msrp : item.regional_offers.us.msrp;
+  const msrpUsd = item.regional_offers.us.msrp;
+  const msrpDisplay = formatCurrency(msrp, currency, locale);
+  const href = withBase(`/${locale}/${item.vertical}/item/${item.slug}`);
+  const m = buildMonetizationModel(item, locale);
+
+  let metrics: Record<string, number | string | boolean | null> = {};
+
+  if (item.vertical === "wattcheck") {
+    const d = computeWattCheckDerived(item, fx);
+    const s = item.specs;
+    const ac = item.airline_compliance_profile;
+    metrics = {
+      hasBattery: s.has_battery,
+      maxTotalW: s.max_total_output_w,
+      maxSingleW: s.max_single_port_output_w,
+      batteryWh: s.battery_energy_wh,
+      usableWh: d.usableWh,
+      costPer10Wh: isKo ? d.krwPer10Wh : d.usdPer10Wh,
+      costPer10WhUsd: d.usdPer10Wh,
+      costPer10W: isKo ? d.krwPer10W : d.usdPer10W,
+      costPer10WUsd: d.usdPer10W,
+      weightG: s.weight_g,
+      wPer100g: d.wPer100g,
+      portsCount: s.ports.length,
+      certCount: d.certCount,
+      supportsEpr: s.supports_pd_3_1_epr,
+      supportsPps: s.supports_samsung_pps_45w,
+      renegotiationDrop: s.power_renegotiation_drop,
+      carryonNoApproval: ac.carryon_no_approval,
+      cccOk: ac.china_domestic_ccc_ok,
+    };
+  } else if (item.vertical === "puregram") {
+    const d = computePureGramDerived(item, fx);
+    const nl = item.nutrition_label;
+    metrics = {
+      benchLabel: isKo
+        ? item.derived_math.benchmark_label_ko
+        : item.derived_math.benchmark_label_en,
+      costPerBench: isKo ? d.krwPerBenchmarkUnit : d.usdPerBenchmarkUnit,
+      costPerBenchUsd: d.usdPerBenchmarkUnit,
+      purityPct: item.derived_math.purity_pct,
+      activePerServingG: nl.active_per_serving_g,
+      costPerServing: isKo ? d.krwPerServing : d.usdPerServing,
+      sodiumMg: nl.sodium_mg,
+      caffeineMg: nl.caffeine_mg,
+      totalServings: item.package_spec.total_servings,
+      race90gCost: isKo ? d.raceCost90gPerHourKrw : d.raceCost90gPerHourUsd,
+      carbRatio: nl.carb_ratio_glucose_to_fructose ?? "",
+      hydrogelType: nl.hydrogel_or_isotonic,
+      creapure: nl.creapure_certified,
+      certCount: item.certifications.length,
+      noArtifSweet: !nl.artificial_sweeteners_listed,
+      noFreeAmino: !nl.free_form_amino_listed,
+    };
+  } else if (item.vertical === "hometech") {
+    const ht = item as HomeTechItem;
+    const d = computeHomeTechDerived(ht, fx);
+    const s = ht.specs;
+    const tp = ht.tco_profile;
+    metrics = {
+      tco3yr: isKo ? d.tco3yrKrw : d.tco3yrUsd,
+      tco3yrUsd: d.tco3yrUsd,
+      weightedAvgW: d.weightedAvgW,
+      annualKwh: d.annualKwh,
+      annualElec: isKo ? d.annualElecKrw : d.annualElecUsd,
+      idlePowerW: s.idle_power_w,
+      typicalLoadW: s.typical_load_w,
+      peakPowerW: s.peak_power_w,
+      noiseLoadDba: s.noise_load_dba,
+      noiseIdleDba: s.noise_idle_dba,
+      weightG: s.weight_g,
+      dualVoltage: s.dual_voltage_100_240v,
+      alwaysOn247: tp.always_on_24_7,
+      certCount: s.certifications.length,
+      lanSpeedGbps: s.lan_speed_gbps,
+      driveBays: s.drive_bays,
+      upsVaRating: s.ups_va_rating,
+      upsWattRating: s.ups_watt_rating,
+      upsWaveform: s.ups_waveform ?? "",
+      suctionPa: s.suction_pa,
+      lifespanYears: tp.expected_lifespan_years,
+    };
+  } else {
+    const d = computeCycleGearDerived(item, fx);
+    const s = item.specs;
+    metrics = {
+      weightG: s.weight_g,
+      costPer100g: isKo ? d.krwPer100g : d.usdPer100g,
+      costPer100gUsd: d.usdPer100g,
+      accuracyPct: s.claimed_accuracy_pct,
+      leftRightBalance: Boolean(s.left_right_balance),
+      batteryHours: s.battery_life_hours,
+      maxTrainerWatts: s.max_trainer_watts,
+      hooklessCompatible: Boolean(s.hookless_compatible),
+      compatBreadthScore: d.compatBreadthScore,
+      tireWidthMm: s.tire_width_mm,
+    };
+  }
+
+  return {
+    slug: item.slug,
+    vertical: item.vertical as PilotVertical,
+    category: item.category,
+    categoryLabel: getCategoryLabel(item.category, locale),
+    brand: item.brand,
+    name: copy.name,
+    summary: copy.summary,
+    bestFor: copy.best_for,
+    trustScore: item.audit.trust_score,
+    href,
+    msrp,
+    msrpUsd,
+    msrpDisplay,
+    monetization: {
+      statusLabel: m.statusLabel,
+      statusTone: m.statusTone,
+      benchmarkPriceFormatted: m.benchmarkPriceFormatted,
+      benchmarkDate: m.benchmarkDate,
+      benchmarkCaption: m.benchmarkCaption,
+      disclosureText: m.disclosureText,
+      isDiscontinued: m.isDiscontinued,
+      isPriceStale: m.isPriceStale,
+      buttons: m.buttons,
+    },
+    metrics,
+  };
+}
+
+const byVertical: Record<PilotVertical, CompareSkuPayload[]> = {
+  wattcheck: [],
+  puregram: [],
+  cyclegear: [],
+  hometech: [],
+};
+
+for (const item of allItems) {
+  const v = item.vertical as PilotVertical;
+  if (byVertical[v]) {
+    byVertical[v].push(serializeItem(item));
+  }
+}
+
+const curatedVsList: CompareVsPayload[] = allVs.map((v: VsInsight) => ({
+  vertical: v.vertical as PilotVertical,
+  pairSlug: v.pair_slug,
+  slugA: v.slug_a,
+  slugB: v.slug_b,
+  headline: v.verdict[locale]?.headline ?? v.verdict.en.headline,
+  href: withBase(`/${locale}/${v.vertical}/vs/${v.pair_slug}`),
+  infoGainScore: v.info_gain_score,
+}));
+
+const totalSkus = allItems.length;
+const totalPairwise = PILOT_VERTICALS.reduce((acc, v) => {
+  const n = byVertical[v].length;
+  return acc + (n > 1 ? Math.floor((n * (n - 1)) / 2) : 0);
+}, 0);
+
+const defaultVertical: PilotVertical =
+  PILOT_VERTICALS.find((v) => byVertical[v].length >= 2) ?? "wattcheck";
+const defaultItems = byVertical[defaultVertical];
+const defaultVsFirst = curatedVsList.find((v) => v.vertical === defaultVertical);
+const defaultItemA =
+  (defaultVsFirst && defaultItems.find((i) => i.slug === defaultVsFirst.slugA)) ||
+  defaultItems[0] ||
+  null;
+const defaultItemB =
+  (defaultVsFirst && defaultItems.find((i) => i.slug === defaultVsFirst.slugB)) ||
+  defaultItems.find((i) => i.slug !== defaultItemA?.slug) ||
+  defaultItems[1] ||
+  null;
+
+const clientPayload = {
+  locale,
+  currency,
+  basePath: BASE_PATH,
+  disclosure: cfg.compliance.disclosures[locale],
+  verticals: PILOT_VERTICALS.map((v) => ({
+    id: v,
+    label: VERTICAL_META[v].shortName[locale],
+    fullName: VERTICAL_META[v].name[locale],
+    count: byVertical[v].length,
+  })),
+  itemsByVertical: byVertical,
+  curatedVs: curatedVsList,
+};
+
+const currentPath = `/${locale}/compare`;
+const pageTitle = isKo
+  ? "실시간 1:1 자유 비교 워크벤치 (Any-vs-Any) | SpecMatrix Global"
+  : "Any-vs-Any 1:1 Live Comparison Workbench | SpecMatrix Global";
+const pageDesc = isKo
+  ? `검증된 ${totalSkus}종 공식 스펙 DB에서 원하는 두 모델을 자유롭게 조합해 가중치 승자 시뮬레이션, 정량 SVG 격차표, 마크다운 요약을 0초 만에 비교하세요.`
+  : `Compare any two of ${totalSkus} verified SKUs head-to-head across WattCheck, PureGram, CycleGear, and HomeTech with live priority weighting, SVG spec diffs, and shareable URLs.`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: isKo
+      ? "SpecMatrix 실시간 1:1 자유 비교 워크벤치"
+      : "SpecMatrix Any-vs-Any 1:1 Live Comparison Workbench",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    description: pageDesc,
+    url: `${SITE_URL}${currentPath}`,
+    inLanguage: locale,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: isKo ? "실시간 1:1 비교" : "Live 1:1 Compare",
+        item: `${SITE_URL}${currentPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={currentPath}
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-800">
+      {isKo ? "실시간 1:1 비교 워크벤치" : "Live 1:1 Compare Workbench"}
+    </span>
+  </nav>
+
+  <!-- Hero Header -->
+  <section class="lab-card bg-white p-6">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="badge-info font-mono">ANY-VS-ANY LIVE WORKBENCH</span>
+        <span class="badge-pass font-mono">
+          {totalSkus} SKUs · {formatInt(totalPairwise)}+ {isKo ? "조합 가능" : "Matchups"}
+        </span>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          id="cmp-copy-link"
+          class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs font-semibold text-slate-800 transition-colors hover:border-blue-500 hover:text-blue-700"
+        >
+          <span>{isKo ? "공유 링크 복사" : "Copy Share Link"}</span>
+        </button>
+        <button
+          type="button"
+          id="cmp-copy-md"
+          class="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-slate-800"
+        >
+          <span>{isKo ? "마크다운 표 복사" : "Copy Markdown Summary Table"}</span>
+        </button>
+      </div>
+    </div>
+
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+      {isKo
+        ? "실시간 1:1 자유 비교 워크벤치"
+        : "Any-vs-Any 1:1 Live Comparison Workbench"}
+    </h1>
+    <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+      {isKo
+        ? "버티컬 내 어떤 두 모델이든 선택 즉시 정량 스펙 격차, SVG 비교 막대, 4축 가중치 승자 시뮬레이션, 공식 출고가(MSRP) 기준 제휴 링크를 브라우저에서 0초 만에 계산합니다. URL 해시(#)로 비교 조합을 그대로 공유할 수 있습니다."
+        : "Pick any two verified models in the same vertical for instant deterministic spec diffs, inline SVG delta bars, 4-dimension priority weighting, and verified affiliate links — zero latency, 100% shareable via URL hash."}
+    </p>
+
+    <!-- Vertical Selector Pills -->
+    <div class="mt-5 flex flex-wrap gap-2" id="cmp-vertical-pills" role="tablist" aria-label={isKo ? "버티컬 선택" : "Select vertical"}>
+      {PILOT_VERTICALS.map((v) => {
+        const count = byVertical[v].length;
+        const isActive = v === defaultVertical;
+        return (
+          <button
+            type="button"
+            role="tab"
+            data-vertical={v}
+            aria-selected={isActive ? "true" : "false"}
+            disabled={count < 2}
+            class:list={[
+              "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border px-3.5 py-2 text-xs font-bold transition-colors",
+              isActive
+                ? "border-slate-900 bg-slate-900 text-white"
+                : count < 2
+                  ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-blue-500 hover:text-blue-700",
+            ]}
+          >
+            <span>{VERTICAL_META[v].shortName[locale]}</span>
+            <span class="rounded bg-black/10 px-1.5 py-0.5 font-mono text-[10px]">
+              {count}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- Dual Model Selector + Swap -->
+    <div class="mt-5 grid items-end gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-11">
+      <div class="md:col-span-5">
+        <label for="cmp-select-a" class="flex items-center justify-between text-xs font-bold text-blue-800">
+          <span>{isKo ? "모델 A (파랑)" : "Model A (Cobalt)"}</span>
+          <a
+            id="cmp-link-a"
+            href={defaultItemA ? defaultItemA.href : withBase(`/${locale}`)}
+            class="font-mono text-[11px] font-semibold hover:underline"
+          >
+            {isKo ? "상세 스펙 →" : "Full Spec →"}
+          </a>
+        </label>
+        <select
+          id="cmp-select-a"
+          class="mt-1.5 w-full rounded-lg border border-blue-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
+        >
+          {defaultItems.map((it) => (
+            <option value={it.slug} selected={it.slug === defaultItemA?.slug}>
+              {it.name} ({it.msrpDisplay})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div class="flex justify-center md:col-span-1">
+        <button
+          type="button"
+          id="cmp-swap"
+          aria-label={isKo ? "모델 A와 B 맞바꾸기" : "Swap Model A and Model B"}
+          title={isKo ? "모델 A ↔ B 맞바꾸기" : "Swap Model A ↔ B"}
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 shadow-xs transition-colors hover:border-blue-500 hover:bg-blue-50 hover:text-blue-700"
+        >
+          ⇄
+        </button>
+      </div>
+
+      <div class="md:col-span-5">
+        <label for="cmp-select-b" class="flex items-center justify-between text-xs font-bold text-emerald-800">
+          <span>{isKo ? "모델 B (에메랄드)" : "Model B (Emerald)"}</span>
+          <a
+            id="cmp-link-b"
+            href={defaultItemB ? defaultItemB.href : withBase(`/${locale}`)}
+            class="font-mono text-[11px] font-semibold hover:underline"
+          >
+            {isKo ? "상세 스펙 →" : "Full Spec →"}
+          </a>
+        </label>
+        <select
+          id="cmp-select-b"
+          class="mt-1.5 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-emerald-600 focus:outline-none"
+        >
+          {defaultItems.map((it) => (
+            <option value={it.slug} selected={it.slug === defaultItemB?.slug}>
+              {it.name} ({it.msrpDisplay})
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <!-- Quick Popular Matchup Chips -->
+    <div class="mt-4">
+      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        {isKo ? "인기 1:1 추천 조합 (원클릭 로드)" : "Quick Popular Matchups"}
+      </div>
+      <div id="cmp-popular-chips" class="mt-2 flex flex-wrap gap-2">
+        {curatedVsList
+          .filter((v) => v.vertical === defaultVertical)
+          .slice(0, 4)
+          .map((v) => {
+            const itA = defaultItems.find((i) => i.slug === v.slugA);
+            const itB = defaultItems.find((i) => i.slug === v.slugB);
+            return (
+              <button
+                type="button"
+                data-pair-a={v.slugA}
+                data-pair-b={v.slugB}
+                class="cmp-pop-chip rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-blue-400 hover:bg-blue-50 hover:text-blue-800"
+              >
+                {itA ? itA.name.split("(")[0].trim() : v.slugA} vs{" "}
+                {itB ? itB.name.split("(")[0].trim() : v.slugB}
+              </button>
+            );
+          })}
+      </div>
+    </div>
+
+    <!-- Curated Editorial VS Banner (dynamic) -->
+    <div
+      id="cmp-curated-banner"
+      class:list={[
+        "mt-4 flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-300 bg-blue-50/90 px-4 py-3",
+        defaultVsFirst ? "flex" : "hidden",
+      ]}
+    >
+      <div class="min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="badge-info font-mono">
+            {isKo ? "에디토리얼 정밀 VS 페이지 보유" : "CURATED EDITORIAL VS AVAILABLE"}
+          </span>
+          <span id="cmp-curated-ig" class="font-mono text-[11px] font-semibold text-blue-800">
+            {defaultVsFirst ? `SERP IG ${defaultVsFirst.infoGainScore}/100` : ""}
+          </span>
+        </div>
+        <p id="cmp-curated-headline" class="mt-1 truncate text-sm font-bold text-slate-900">
+          {defaultVsFirst ? defaultVsFirst.headline : ""}
+        </p>
+      </div>
+      <a
+        id="cmp-curated-href"
+        href={defaultVsFirst ? defaultVsFirst.href : withBase(`/${locale}`)}
+        class="shrink-0 rounded-lg bg-blue-700 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-800"
+      >
+        {isKo ? "에디토리얼 심층 VS 분석 열기 →" : "Curated Editorial VS Available →"}
+      </a>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId="compare-top" variant="banner" locale={locale} />
+
+  <!-- Live 4-Dimension Priority Weighting Simulator -->
+  <section class="mt-6 lab-card overflow-hidden border-blue-200/80" aria-labelledby="cmp-sim-heading">
+    <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+            LIVE 4-DIMENSION PRIORITY WEIGHTING SIMULATOR
+          </span>
+          <h2 id="cmp-sim-heading" class="mt-0.5 text-lg font-bold">
+            {isKo
+              ? "실시간 우선순위 가중치 승자 시뮬레이터"
+              : "Live Priority Weighting Winner Simulator"}
+          </h2>
+        </div>
+        <div class="flex flex-wrap gap-1.5" role="group" aria-label={isKo ? "가중치 프리셋" : "Weighting presets"}>
+          <button
+            type="button"
+            data-preset="balanced"
+            aria-pressed="true"
+            class="cmp-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors"
+          >
+            {isKo ? "균형" : "Balanced"}
+          </button>
+          <button
+            type="button"
+            data-preset="value"
+            aria-pressed="false"
+            class="cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+          >
+            {isKo ? "가성비" : "Value"}
+          </button>
+          <button
+            type="button"
+            data-preset="performance"
+            aria-pressed="false"
+            class="cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+          >
+            {isKo ? "성능 최우선" : "Performance"}
+          </button>
+          <button
+            type="button"
+            data-preset="portability"
+            aria-pressed="false"
+            class="cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+          >
+            {isKo ? "경량·정숙·순도" : "Light · Quiet"}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-6 p-5 lg:grid-cols-12">
+      <!-- 4 Sliders -->
+      <div class="space-y-3.5 lg:col-span-7" id="cmp-sliders-wrap">
+        {["value", "portability", "performance", "practicality"].map((dimId) => (
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <label for={`cmp-w-${dimId}`} id={`cmp-lbl-${dimId}`} class="text-xs font-bold text-slate-900">
+                  {dimId === "value"
+                    ? isKo ? "가성비" : "Value"
+                    : dimId === "portability"
+                      ? isKo ? "경량·휴대·정숙성" : "Weight / Quietness"
+                      : dimId === "performance"
+                        ? isKo ? "핵심 성능" : "Performance"
+                        : isKo ? "실용성·호환·인증" : "Practicality & Certs"}
+                </label>
+                <span id={`cmp-hint-${dimId}`} class="ml-2 hidden text-[11px] text-slate-500 sm:inline"></span>
+              </div>
+              <span id={`cmp-wval-${dimId}`} class="font-mono text-xs font-bold text-blue-700">25%</span>
+            </div>
+            <input
+              id={`cmp-w-${dimId}`}
+              data-dim={dimId}
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              value="25"
+              class="cmp-weight-slider lab-slider mt-2"
+            />
+            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-slate-500">
+              <span id={`cmp-sub-a-${dimId}`}>A: —</span>
+              <span id={`cmp-sub-b-${dimId}`}>B: —</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Scoreboard -->
+      <div class="flex flex-col justify-between rounded-xl border border-slate-200 bg-slate-50 p-5 lg:col-span-5">
+        <div>
+          <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            {isKo ? "실시간 가중 종합 판정" : "LIVE WEIGHTED RECOMMENDATION"}
+          </div>
+          <div id="cmp-winner-banner" class="mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5">
+            <div id="cmp-winner-tag" class="badge-info">
+              {isKo ? "계산 준비 완료" : "READY"}
+            </div>
+            <div id="cmp-winner-name" class="mt-1.5 text-base font-bold text-slate-900">
+              {defaultItemA ? defaultItemA.name : "Model A"}
+            </div>
+            <div id="cmp-winner-margin" class="mt-0.5 font-mono text-xs text-slate-700">
+              {isKo ? "정량 스펙 기반 실시간 산출" : "Deterministic score computed locally"}
+            </div>
+          </div>
+
+          <div class="mt-5 space-y-4">
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span id="cmp-bar-name-a" class="truncate pr-2 text-slate-800">
+                  A · {defaultItemA ? defaultItemA.name : "Model A"}
+                </span>
+                <span id="cmp-score-a" class="font-mono text-base font-bold text-blue-700">—</span>
+              </div>
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                <div
+                  id="cmp-bar-a"
+                  class="h-full rounded-full bg-blue-600 transition-all duration-200"
+                  style="width:50%"
+                ></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span id="cmp-bar-name-b" class="truncate pr-2 text-slate-800">
+                  B · {defaultItemB ? defaultItemB.name : "Model B"}
+                </span>
+                <span id="cmp-score-b" class="font-mono text-base font-bold text-emerald-700">—</span>
+              </div>
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                <div
+                  id="cmp-bar-b"
+                  class="h-full rounded-full bg-emerald-600 transition-all duration-200"
+                  style="width:50%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-5 border-t border-slate-200 pt-3 text-[11px] leading-relaxed text-slate-500">
+          {isKo
+            ? "* 모든 점수는 검증된 공식 스펙시트·영양성분표·TCO 수식에서 결정론적으로 계산됩니다."
+            : "* Scores are deterministically computed in-browser from verified specs and benchmark math."}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Quantitative Diff Table with Inline SVG Dual Bars -->
+  <section class="mt-8 space-y-3" aria-labelledby="cmp-diff-heading">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h2 id="cmp-diff-heading" class="text-lg font-bold tracking-tight text-slate-900">
+        {isKo ? "실시간 정량 스펙 격차(Delta) 비교표" : "Live Quantitative Head-to-Head Diff Table"}
+      </h2>
+      <span class="font-mono text-xs text-slate-500">
+        {isKo ? "파랑 = A · 에메랄드 = B" : "Cobalt = A · Emerald = B"}
+      </span>
+    </div>
+
+    <div class="lab-table-wrap">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th class="min-w-[170px]">{isKo ? "비교 지표" : "Metric"}</th>
+            <th id="cmp-th-a" class="min-w-[130px]">A · {defaultItemA ? defaultItemA.name : "Model A"}</th>
+            <th id="cmp-th-b" class="min-w-[130px]">B · {defaultItemB ? defaultItemB.name : "Model B"}</th>
+            <th class="min-w-[180px]">{isKo ? "시각 격차 (SVG)" : "Visual Delta"}</th>
+            <th class="min-w-[150px]">{isKo ? "승패 판정" : "Winner / Delta"}</th>
+          </tr>
+        </thead>
+        <tbody id="cmp-diff-tbody">
+          <tr>
+            <td colspan="5" class="py-6 text-center text-xs text-slate-500">
+              {isKo ? "정량 비교표 초기화 중..." : "Initializing deterministic diff table..."}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Dual Affiliate CTA Cards -->
+  <section class="mt-8 space-y-3" aria-labelledby="cmp-cta-heading">
+    <h2 id="cmp-cta-heading" class="text-lg font-bold tracking-tight text-slate-900">
+      {isKo
+        ? "공식 출고가(MSRP) 기준 비교 & 실시간 스토어 확인"
+        : "MSRP Benchmark Comparison & Live Store Check"}
+    </h2>
+    <div class="grid gap-5 md:grid-cols-2">
+      <div id="cmp-cta-a" class="lab-card border-t-4 border-t-blue-600 p-5">
+        {defaultItemA && (
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="font-mono text-[11px] font-bold uppercase text-blue-700">MODEL A</div>
+                <h3 class="mt-0.5 text-base font-bold text-slate-900">{defaultItemA.name}</h3>
+              </div>
+              <span class="badge-pass">{defaultItemA.monetization.statusLabel}</span>
+            </div>
+            <div class="mt-2 font-mono text-2xl font-bold text-slate-900">
+              {defaultItemA.monetization.benchmarkPriceFormatted}
+            </div>
+            <p class="mt-1 text-xs text-slate-600">{defaultItemA.monetization.benchmarkCaption}</p>
+            <div class="mt-3 flex flex-col gap-2">
+              {defaultItemA.monetization.buttons.map((btn) => (
+                <a
+                  href={btn.url}
+                  rel={btn.rel}
+                  target={btn.target}
+                  data-affiliate-store={btn.storeName}
+                  data-affiliate-vertical={defaultItemA.vertical}
+                  data-affiliate-sku={defaultItemA.slug}
+                  data-affiliate-mode={btn.linkMode}
+                  class:list={[
+                    "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
+                    btn.isPrimary
+                      ? "bg-blue-700 text-white hover:bg-blue-800"
+                      : "border border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100",
+                  ]}
+                >
+                  <span>{btn.label}</span>
+                  <span class="font-mono text-xs opacity-85">↗</span>
+                </a>
+              ))}
+            </div>
+            <p class="mt-3 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+              {defaultItemA.monetization.disclosureText}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div id="cmp-cta-b" class="lab-card border-t-4 border-t-emerald-600 p-5">
+        {defaultItemB && (
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="font-mono text-[11px] font-bold uppercase text-emerald-700">MODEL B</div>
+                <h3 class="mt-0.5 text-base font-bold text-slate-900">{defaultItemB.name}</h3>
+              </div>
+              <span class="badge-pass">{defaultItemB.monetization.statusLabel}</span>
+            </div>
+            <div class="mt-2 font-mono text-2xl font-bold text-slate-900">
+              {defaultItemB.monetization.benchmarkPriceFormatted}
+            </div>
+            <p class="mt-1 text-xs text-slate-600">{defaultItemB.monetization.benchmarkCaption}</p>
+            <div class="mt-3 flex flex-col gap-2">
+              {defaultItemB.monetization.buttons.map((btn) => (
+                <a
+                  href={btn.url}
+                  rel={btn.rel}
+                  target={btn.target}
+                  data-affiliate-store={btn.storeName}
+                  data-affiliate-vertical={defaultItemB.vertical}
+                  data-affiliate-sku={defaultItemB.slug}
+                  data-affiliate-mode={btn.linkMode}
+                  class:list={[
+                    "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
+                    btn.isPrimary
+                      ? "bg-emerald-700 text-white hover:bg-emerald-800"
+                      : "border border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100",
+                  ]}
+                >
+                  <span>{btn.label}</span>
+                  <span class="font-mono text-xs opacity-85">↗</span>
+                </a>
+              ))}
+            </div>
+            <p class="mt-3 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+              {defaultItemB.monetization.disclosureText}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <script type="application/json" id="cmp-workbench-data" set:html={safeJsonLd(clientPayload)} />
+</BaseLayout>
+
+<script>
+  (() => {
+    const dataEl = document.getElementById("cmp-workbench-data");
+    if (!dataEl) return;
+
+    interface OutboundBtn {
+      label: string;
+      storeName: string;
+      url: string;
+      rel: string;
+      target: string;
+      isPrimary: boolean;
+      linkMode: string;
+    }
+
+    interface SkuData {
+      slug: string;
+      vertical: string;
+      category: string;
+      categoryLabel: string;
+      brand: string;
+      name: string;
+      summary: string;
+      bestFor: string;
+      trustScore: number;
+      href: string;
+      msrp: number;
+      msrpUsd: number;
+      msrpDisplay: string;
+      monetization: {
+        statusLabel: string;
+        statusTone: "pass" | "caution" | "fail";
+        benchmarkPriceFormatted: string;
+        benchmarkDate: string;
+        benchmarkCaption: string;
+        disclosureText: string;
+        isDiscontinued: boolean;
+        isPriceStale: boolean;
+        buttons: OutboundBtn[];
+      };
+      metrics: Record<string, number | string | boolean | null>;
+    }
+
+    interface CuratedVs {
+      vertical: string;
+      pairSlug: string;
+      slugA: string;
+      slugB: string;
+      headline: string;
+      href: string;
+      infoGainScore: number;
+    }
+
+    interface WorkbenchPayload {
+      locale: string;
+      currency: "KRW" | "USD";
+      basePath: string;
+      disclosure: string;
+      verticals: Array<{ id: string; label: string; fullName: string; count: number }>;
+      itemsByVertical: Record<string, SkuData[]>;
+      curatedVs: CuratedVs[];
+    }
+
+    interface DiffRow {
+      label: string;
+      displayA: string;
+      displayB: string;
+      barPctA: number;
+      barPctB: number;
+      winner: "a" | "b" | "tie" | "neutral";
+      deltaText: string;
+    }
+
+    interface DimMeta {
+      id: "value" | "portability" | "performance" | "practicality";
+      label: string;
+      hint: string;
+      defaultWeight: number;
+    }
+
+    let payload: WorkbenchPayload;
+    try {
+      payload = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = payload.locale === "ko";
+    const currency = payload.currency || (isKo ? "KRW" : "USD");
+
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    const esc = (s: unknown): string =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    const numVal = (v: unknown): number | null =>
+      typeof v === "number" && Number.isFinite(v) ? v : null;
+
+    const fmtInt = (v: number | null): string =>
+      v === null || !Number.isFinite(v)
+        ? "—"
+        : new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Math.round(v));
+
+    const fmtNum = (v: number | null, d = 1): string =>
+      v === null || !Number.isFinite(v)
+        ? "—"
+        : new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: d,
+            maximumFractionDigits: d,
+          }).format(v);
+
+    const fmtCurr = (v: number | null): string => {
+      if (v === null || !Number.isFinite(v)) return "—";
+      if (currency === "KRW") {
+        const n = new Intl.NumberFormat("ko-KR").format(Math.round(v));
+        return isKo ? `${n}원` : `₩${n}`;
+      }
+      return `$${new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(v)}`;
+    };
+
+    const clampScore = (v: number): number =>
+      !Number.isFinite(v) ? 50 : Math.max(15, Math.min(100, Math.round(v)));
+
+    function pairScores(a: number, b: number, higherBetter: boolean): [number, number] {
+      if (!Number.isFinite(a) || !Number.isFinite(b)) return [50, 50];
+      if (Math.abs(a - b) < 0.0001) return [80, 80];
+      const maxV = Math.max(a, b, 0.0001);
+      const minV = Math.min(a, b);
+      if (higherBetter) {
+        return [clampScore((a / maxV) * 95), clampScore((b / maxV) * 95)];
+      }
+      return [
+        clampScore((minV / Math.max(a, 0.0001)) * 95),
+        clampScore((minV / Math.max(b, 0.0001)) * 95),
+      ];
+    }
+
+    function makeRow(
+      label: string,
+      rawA: number | null,
+      rawB: number | null,
+      displayA: string,
+      displayB: string,
+      higherBetter: boolean,
+      formatDelta: (diff: number) => string
+    ): DiffRow {
+      let winner: "a" | "b" | "tie" | "neutral" = "neutral";
+      let deltaText = "—";
+      let barPctA = 50;
+      let barPctB = 50;
+      if (rawA !== null && rawB !== null) {
+        const maxVal = Math.max(Math.abs(rawA), Math.abs(rawB), 0.0001);
+        barPctA = Math.max(8, Math.min(100, Math.round((Math.abs(rawA) / maxVal) * 100)));
+        barPctB = Math.max(8, Math.min(100, Math.round((Math.abs(rawB) / maxVal) * 100)));
+        const diff = rawA - rawB;
+        if (Math.abs(diff) < 0.005) {
+          winner = "tie";
+          deltaText = isKo ? "동일" : "Tie";
+        } else {
+          const aWins = higherBetter ? diff > 0 : diff < 0;
+          winner = aWins ? "a" : "b";
+          const formatted = formatDelta(Math.abs(diff));
+          deltaText = isKo
+            ? aWins
+              ? `A 우세 (${formatted})`
+              : `B 우세 (${formatted})`
+            : aWins
+              ? `A leads by ${formatted}`
+              : `B leads by ${formatted}`;
+        }
+      }
+      return { label, displayA, displayB, barPctA, barPctB, winner, deltaText };
+    }
+
+    function getDimensionsForVertical(vertical: string): DimMeta[] {
+      if (vertical === "wattcheck") {
+        return [
+          {
+            id: "value",
+            label: isKo ? "가성비 (Wh·W당 단가)" : "Value (Cost / Wh or W)",
+            hint: isKo ? "동일 출력·용량 대비 지출 최소화" : "Lower MSRP per Wh or W",
+            defaultWeight: 30,
+          },
+          {
+            id: "portability",
+            label: isKo ? "휴대성·경량" : "Weight & Portability",
+            hint: isKo ? "출장·여행 가방 무게 절감" : "Lighter carry weight",
+            defaultWeight: 25,
+          },
+          {
+            id: "performance",
+            label: isKo ? "출력·용량 성능" : "Output & Energy Performance",
+            hint: isKo ? "최대 W·PD 3.1 EPR·실가용 Wh" : "Peak W, EPR & usable Wh",
+            defaultWeight: 25,
+          },
+          {
+            id: "practicality",
+            label: isKo ? "기내·인증·멀티포트 실용성" : "Flight, Certs & Practicality",
+            hint: isKo ? "기내 무승인·인증·무단절·포트" : "Cabin OK, certs, seamless PD",
+            defaultWeight: 20,
+          },
+        ];
+      }
+      if (vertical === "puregram") {
+        return [
+          {
+            id: "value",
+            label: isKo ? "순수 유효성분 가성비" : "Value (Cost / Pure Active)",
+            hint: isKo ? "기준 단위당 실질 비용 절감" : "Lowest true cost per benchmark unit",
+            defaultWeight: 35,
+          },
+          {
+            id: "portability",
+            label: isKo ? "순도·저필러 밀도" : "Purity & Concentration",
+            hint: isKo ? "불필요한 부형제·중량 최소화" : "Higher active-to-serving ratio",
+            defaultWeight: 20,
+          },
+          {
+            id: "performance",
+            label: isKo ? "보급 효율·배합 설계" : "Fueling & Formulation",
+            hint: isKo ? "1:0.8 비율·하이드로젤·나트륨" : "Carb ratio, hydrogel, sodium",
+            defaultWeight: 25,
+          },
+          {
+            id: "practicality",
+            label: isKo ? "안티도핑 인증·클린 라벨" : "Certs & Clean Label",
+            hint: isKo ? "제3자 인증·무인공감미료" : "Third-party testing & clean excipients",
+            defaultWeight: 20,
+          },
+        ];
+      }
+      if (vertical === "hometech") {
+        return [
+          {
+            id: "value",
+            label: isKo ? "3년 총소유비용(TCO)" : "3-Year Total Cost (TCO)",
+            hint: isKo ? "출고가 + 3년 전기요금·소모품 합산" : "MSRP + 3-year power & consumables",
+            defaultWeight: 35,
+          },
+          {
+            id: "portability",
+            label: isKo ? "정숙성·설치 콤팩트함" : "Noise & Footprint",
+            hint: isKo ? "낮은 dBA 소음과 가벼운 설치 중량" : "Quieter dBA & compact footprint",
+            defaultWeight: 20,
+          },
+          {
+            id: "performance",
+            label: isKo ? "연산·네트워크·보호 성능" : "Compute / Capacity / UPS",
+            hint: isKo ? "LAN·베이·UPS 정격·흡입력" : "LAN speed, bays, UPS VA, suction",
+            defaultWeight: 25,
+          },
+          {
+            id: "practicality",
+            label: isKo ? "24/7 효율·220V 호환·인증" : "24/7 Efficiency & 220V/Certs",
+            hint: isKo ? "저전력 대기·프리볼트·수명" : "Low idle W, 100–240V, lifespan",
+            defaultWeight: 20,
+          },
+        ];
+      }
+      return [
+        {
+          id: "value",
+          label: isKo ? "가성비 (MSRP 기준)" : "Value (MSRP Benchmark)",
+          hint: isKo ? "초기 장비 도입 비용 절감" : "Lower upfront MSRP",
+          defaultWeight: 30,
+        },
+        {
+          id: "portability",
+          label: isKo ? "경량성 (g)" : "Weight Savings (g)",
+          hint: isKo ? "업힐·레이스 경량화 우선" : "Lighter component mass",
+          defaultWeight: 25,
+        },
+        {
+          id: "performance",
+          label: isKo ? "정밀도·배터리·성능" : "Precision & Performance",
+          hint: isKo ? "오차율·좌우밸런스·배터리·부하" : "Accuracy, L/R balance, battery, watts",
+          defaultWeight: 25,
+        },
+        {
+          id: "practicality",
+          label: isKo ? "호환성·생태계 확장성" : "Ecosystem Compatibility",
+          hint: isKo ? "구동계·BB·헤드유닛 호환 범위" : "Drivetrain, BB, head-unit support",
+          defaultWeight: 20,
+        },
+      ];
+    }
+
+    function computeLiveDiff(a: SkuData, b: SkuData): {
+      rows: DiffRow[];
+      scoresA: Record<string, number>;
+      scoresB: Record<string, number>;
+    } {
+      const rows: DiffRow[] = [
+        makeRow(
+          isKo ? "MSRP 참고가" : "MSRP Reference",
+          a.msrp,
+          b.msrp,
+          a.msrpDisplay,
+          b.msrpDisplay,
+          false,
+          (d) => fmtCurr(d)
+        ),
+      ];
+
+      const mA = a.metrics;
+      const mB = b.metrics;
+
+      if (a.vertical === "wattcheck") {
+        const maxWA = numVal(mA.maxTotalW);
+        const maxWB = numVal(mB.maxTotalW);
+        const singleWA = numVal(mA.maxSingleW);
+        const singleWB = numVal(mB.maxSingleW);
+        const wtA = numVal(mA.weightG);
+        const wtB = numVal(mB.weightG);
+        const densA = numVal(mA.wPer100g);
+        const densB = numVal(mB.wPer100g);
+        const portsA = numVal(mA.portsCount);
+        const portsB = numVal(mB.portsCount);
+
+        rows.push(
+          makeRow(
+            isKo ? "최대 합산 출력" : "Max Total Output",
+            maxWA,
+            maxWB,
+            `${fmtInt(maxWA)} W`,
+            `${fmtInt(maxWB)} W`,
+            true,
+            (d) => `${fmtInt(d)} W`
+          ),
+          makeRow(
+            isKo ? "단일 포트 최대 출력" : "Max Single-Port Output",
+            singleWA,
+            singleWB,
+            `${fmtInt(singleWA)} W`,
+            `${fmtInt(singleWB)} W`,
+            true,
+            (d) => `${fmtInt(d)} W`
+          )
+        );
+
+        if (mA.hasBattery && mB.hasBattery) {
+          const whA = numVal(mA.batteryWh);
+          const whB = numVal(mB.batteryWh);
+          const uWhA = numVal(mA.usableWh);
+          const uWhB = numVal(mB.usableWh);
+          const cWhA = numVal(mA.costPer10Wh);
+          const cWhB = numVal(mB.costPer10Wh);
+          rows.push(
+            makeRow(
+              isKo ? "정격 에너지 (Wh)" : "Rated Energy (Wh)",
+              whA,
+              whB,
+              `${fmtNum(whA, 1)} Wh`,
+              `${fmtNum(whB, 1)} Wh`,
+              true,
+              (d) => `${fmtNum(d, 1)} Wh`
+            ),
+            makeRow(
+              isKo ? "실가용 에너지 (효율 반영)" : "Real Usable Energy",
+              uWhA,
+              uWhB,
+              `${fmtNum(uWhA, 1)} Wh`,
+              `${fmtNum(uWhB, 1)} Wh`,
+              true,
+              (d) => `${fmtNum(d, 1)} Wh`
+            ),
+            makeRow(
+              isKo ? "10 Wh당 기준 단가" : "Cost per 10 Wh",
+              cWhA,
+              cWhB,
+              fmtCurr(cWhA),
+              fmtCurr(cWhB),
+              false,
+              (d) => fmtCurr(d)
+            )
+          );
+        } else {
+          const cWA = numVal(mA.costPer10W);
+          const cWB = numVal(mB.costPer10W);
+          rows.push(
+            makeRow(
+              isKo ? "10 W당 기준 단가" : "Cost per 10 W",
+              cWA,
+              cWB,
+              fmtCurr(cWA),
+              fmtCurr(cWB),
+              false,
+              (d) => fmtCurr(d)
+            )
+          );
+        }
+
+        rows.push(
+          makeRow(
+            isKo ? "본체 무게 (경량 우세)" : "Weight (Lighter Wins)",
+            wtA,
+            wtB,
+            `${fmtInt(wtA)} g`,
+            `${fmtInt(wtB)} g`,
+            false,
+            (d) => `${fmtInt(d)} g`
+          ),
+          makeRow(
+            isKo ? "출력 밀도 (W/100g)" : "Power Density (W/100g)",
+            densA,
+            densB,
+            `${fmtNum(densA, 1)} W/100g`,
+            `${fmtNum(densB, 1)} W/100g`,
+            true,
+            (d) => `${fmtNum(d, 1)} W/100g`
+          ),
+          makeRow(
+            isKo ? "출력 포트 수" : "Output Ports",
+            portsA,
+            portsB,
+            `${fmtInt(portsA)}`,
+            `${fmtInt(portsB)}`,
+            true,
+            (d) => `${fmtInt(d)}`
+          )
+        );
+
+        const cWhUsdA = numVal(mA.costPer10WhUsd);
+        const cWhUsdB = numVal(mB.costPer10WhUsd);
+        const useWhVal = Boolean(mA.hasBattery && mB.hasBattery && cWhUsdA && cWhUsdB);
+        const [valA, valB] = pairScores(
+          useWhVal ? (cWhUsdA ?? 1) : (numVal(mA.costPer10WUsd) ?? 1),
+          useWhVal ? (cWhUsdB ?? 1) : (numVal(mB.costPer10WUsd) ?? 1),
+          false
+        );
+        const [portA, portB] = pairScores(wtA ?? 100, wtB ?? 100, false);
+        const [perfA, perfB] = pairScores(
+          (maxWA ?? 0) + (singleWA ?? 0) + (numVal(mA.usableWh) ?? 0),
+          (maxWB ?? 0) + (singleWB ?? 0) + (numVal(mB.usableWh) ?? 0),
+          true
+        );
+        const prac = (m: Record<string, number | string | boolean | null>) =>
+          (numVal(m.certCount) ?? 0) * 12 +
+          (numVal(m.portsCount) ?? 0) * 8 +
+          (m.supportsEpr ? 12 : 0) +
+          (m.supportsPps ? 10 : 0) +
+          (!m.renegotiationDrop ? 12 : 0) +
+          (m.carryonNoApproval ? 15 : 0);
+        const [pracA, pracB] = pairScores(prac(mA), prac(mB), true);
+
+        return {
+          rows,
+          scoresA: { value: valA, portability: portA, performance: perfA, practicality: pracA },
+          scoresB: { value: valB, portability: portB, performance: perfB, practicality: pracB },
+        };
+      }
+
+      if (a.vertical === "puregram") {
+        const cbA = numVal(mA.costPerBench);
+        const cbB = numVal(mB.costPerBench);
+        const purA = numVal(mA.purityPct);
+        const purB = numVal(mB.purityPct);
+        const actA = numVal(mA.activePerServingG);
+        const actB = numVal(mB.activePerServingG);
+        const srvCostA = numVal(mA.costPerServing);
+        const srvCostB = numVal(mB.costPerServing);
+        const naA = numVal(mA.sodiumMg);
+        const naB = numVal(mB.sodiumMg);
+        const srvA = numVal(mA.totalServings);
+        const srvB = numVal(mB.totalServings);
+        const r90A = numVal(mA.race90gCost);
+        const r90B = numVal(mB.race90gCost);
+
+        rows.push(
+          makeRow(
+            isKo
+              ? `기준 단위 실단가 (${String(mA.benchLabel || "기준")})`
+              : `Cost / Benchmark (${String(mA.benchLabel || "Unit")})`,
+            cbA,
+            cbB,
+            fmtCurr(cbA),
+            fmtCurr(cbB),
+            false,
+            (d) => fmtCurr(d)
+          ),
+          makeRow(
+            isKo ? "유효성분 순도 (%)" : "Active Purity (%)",
+            purA,
+            purB,
+            `${fmtNum(purA, 1)}%`,
+            `${fmtNum(purB, 1)}%`,
+            true,
+            (d) => `${fmtNum(d, 1)}%`
+          ),
+          makeRow(
+            isKo ? "1회 제공량당 유효성분" : "Active per Serving",
+            actA,
+            actB,
+            `${fmtNum(actA, 1)} g`,
+            `${fmtNum(actB, 1)} g`,
+            true,
+            (d) => `${fmtNum(d, 1)} g`
+          ),
+          makeRow(
+            isKo ? "1회분 기준 단가" : "Cost per Serving",
+            srvCostA,
+            srvCostB,
+            fmtCurr(srvCostA),
+            fmtCurr(srvCostB),
+            false,
+            (d) => fmtCurr(d)
+          ),
+          makeRow(
+            isKo ? "나트륨 함량 / 회" : "Sodium / Serving",
+            naA,
+            naB,
+            `${fmtInt(naA)} mg`,
+            `${fmtInt(naB)} mg`,
+            true,
+            (d) => `${fmtInt(d)} mg`
+          ),
+          makeRow(
+            isKo ? "패키지 총 서빙 수" : "Total Servings / Pack",
+            srvA,
+            srvB,
+            `${fmtInt(srvA)}`,
+            `${fmtInt(srvB)}`,
+            true,
+            (d) => `${fmtInt(d)}`
+          )
+        );
+        if (r90A !== null && r90B !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "시간당 90g 레이스 보급비" : "90g/hr Race Fueling Cost",
+              r90A,
+              r90B,
+              fmtCurr(r90A),
+              fmtCurr(r90B),
+              false,
+              (d) => fmtCurr(d)
+            )
+          );
+        }
+
+        const [valA, valB] = pairScores(
+          numVal(mA.costPerBenchUsd) ?? 1,
+          numVal(mB.costPerBenchUsd) ?? 1,
+          false
+        );
+        const [portA, portB] = pairScores(purA ?? 50, purB ?? 50, true);
+        const perf = (m: Record<string, number | string | boolean | null>) =>
+          (numVal(m.activePerServingG) ?? 0) * 2 +
+          (m.carbRatio === "1:0.8" ? 18 : 6) +
+          (m.hydrogelType === "hydrogel" ? 16 : m.hydrogelType === "isotonic" ? 12 : 4) +
+          (m.creapure ? 20 : 0) +
+          Math.min(20, (numVal(m.sodiumMg) ?? 0) / 50);
+        const [perfA, perfB] = pairScores(perf(mA), perf(mB), true);
+        const prac = (m: Record<string, number | string | boolean | null>) =>
+          (numVal(m.certCount) ?? 0) * 14 +
+          (m.noArtifSweet ? 16 : 0) +
+          (m.noFreeAmino ? 12 : 0) +
+          Math.min(20, numVal(m.totalServings) ?? 0);
+        const [pracA, pracB] = pairScores(prac(mA), prac(mB), true);
+
+        return {
+          rows,
+          scoresA: { value: valA, portability: portA, performance: perfA, practicality: pracA },
+          scoresB: { value: valB, portability: portB, performance: perfB, practicality: pracB },
+        };
+      }
+
+      if (a.vertical === "hometech") {
+        const tcoA = numVal(mA.tco3yr);
+        const tcoB = numVal(mB.tco3yr);
+        const avgWA = numVal(mA.weightedAvgW);
+        const avgWB = numVal(mB.weightedAvgW);
+        const kwhA = numVal(mA.annualKwh);
+        const kwhB = numVal(mB.annualKwh);
+        const elecA = numVal(mA.annualElec);
+        const elecB = numVal(mB.annualElec);
+        const idleA = numVal(mA.idlePowerW);
+        const idleB = numVal(mB.idlePowerW);
+        const noiseA = numVal(mA.noiseLoadDba) ?? numVal(mA.noiseIdleDba);
+        const noiseB = numVal(mB.noiseLoadDba) ?? numVal(mB.noiseIdleDba);
+        const wtA = numVal(mA.weightG);
+        const wtB = numVal(mB.weightG);
+
+        rows.push(
+          makeRow(
+            isKo ? "3년 총소유비용(TCO)" : "3-Year TCO (Incl. Power)",
+            tcoA,
+            tcoB,
+            fmtCurr(tcoA),
+            fmtCurr(tcoB),
+            false,
+            (d) => fmtCurr(d)
+          ),
+          makeRow(
+            isKo ? "가중 평균 소비전력" : "Weighted Average Power",
+            avgWA,
+            avgWB,
+            `${fmtNum(avgWA, 1)} W`,
+            `${fmtNum(avgWB, 1)} W`,
+            false,
+            (d) => `${fmtNum(d, 1)} W`
+          ),
+          makeRow(
+            isKo ? "연간 예상 전력량 (kWh)" : "Annual Energy Use (kWh)",
+            kwhA,
+            kwhB,
+            `${fmtInt(kwhA)} kWh`,
+            `${fmtInt(kwhB)} kWh`,
+            false,
+            (d) => `${fmtInt(d)} kWh`
+          ),
+          makeRow(
+            isKo ? "연간 예상 전기요금" : "Est. Annual Electricity Cost",
+            elecA,
+            elecB,
+            fmtCurr(elecA),
+            fmtCurr(elecB),
+            false,
+            (d) => fmtCurr(d)
+          ),
+          makeRow(
+            isKo ? "대기 전력 (Idle W)" : "Idle Power Draw",
+            idleA,
+            idleB,
+            `${fmtNum(idleA, 1)} W`,
+            `${fmtNum(idleB, 1)} W`,
+            false,
+            (d) => `${fmtNum(d, 1)} W`
+          )
+        );
+        if (noiseA !== null && noiseB !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "소음 수준 (낮을수록 정숙)" : "Acoustic Noise (Quieter Wins)",
+              noiseA,
+              noiseB,
+              `${fmtNum(noiseA, 1)} dBA`,
+              `${fmtNum(noiseB, 1)} dBA`,
+              false,
+              (d) => `${fmtNum(d, 1)} dBA`
+            )
+          );
+        }
+        rows.push(
+          makeRow(
+            isKo ? "본체 무게" : "Unit Weight",
+            wtA,
+            wtB,
+            wtA !== null && wtA >= 1000 ? `${fmtNum(wtA / 1000, 2)} kg` : `${fmtInt(wtA)} g`,
+            wtB !== null && wtB >= 1000 ? `${fmtNum(wtB / 1000, 2)} kg` : `${fmtInt(wtB)} g`,
+            false,
+            (d) => (d >= 1000 ? `${fmtNum(d / 1000, 2)} kg` : `${fmtInt(d)} g`)
+          )
+        );
+
+        const [valA, valB] = pairScores(
+          numVal(mA.tco3yrUsd) ?? a.msrpUsd,
+          numVal(mB.tco3yrUsd) ?? b.msrpUsd,
+          false
+        );
+        const [portA, portB] = pairScores(
+          (noiseA ?? 35) * 2 + Math.min(60, (wtA ?? 1000) / 100),
+          (noiseB ?? 35) * 2 + Math.min(60, (wtB ?? 1000) / 100),
+          false
+        );
+        const perf = (m: Record<string, number | string | boolean | null>) =>
+          (numVal(m.lanSpeedGbps) ?? 0) * 10 +
+          (numVal(m.driveBays) ?? 0) * 12 +
+          (numVal(m.upsWattRating) ?? 0) / 20 +
+          (m.upsWaveform === "pure-sine" ? 25 : 0) +
+          (numVal(m.suctionPa) ?? 0) / 250 +
+          Math.min(40, (numVal(m.peakPowerW) ?? 0) / 5);
+        const [perfA, perfB] = pairScores(perf(mA), perf(mB), true);
+        const prac = (m: Record<string, number | string | boolean | null>) =>
+          (m.dualVoltage ? 25 : 0) +
+          (m.alwaysOn247 ? 15 : 5) +
+          Math.max(0, 30 - (numVal(m.idlePowerW) ?? 15)) +
+          (numVal(m.certCount) ?? 0) * 8 +
+          (numVal(m.lifespanYears) ?? 5) * 4;
+        const [pracA, pracB] = pairScores(prac(mA), prac(mB), true);
+
+        return {
+          rows,
+          scoresA: { value: valA, portability: portA, performance: perfA, practicality: pracA },
+          scoresB: { value: valB, portability: portB, performance: perfB, practicality: pracB },
+        };
+      }
+
+      // CycleGear
+      const wtA = numVal(mA.weightG);
+      const wtB = numVal(mB.weightG);
+      const c100A = numVal(mA.costPer100g);
+      const c100B = numVal(mB.costPer100g);
+      const accA = numVal(mA.accuracyPct);
+      const accB = numVal(mB.accuracyPct);
+      const batA = numVal(mA.batteryHours);
+      const batB = numVal(mB.batteryHours);
+      const trA = numVal(mA.maxTrainerWatts);
+      const trB = numVal(mB.maxTrainerWatts);
+      const cmpA = numVal(mA.compatBreadthScore);
+      const cmpB = numVal(mB.compatBreadthScore);
+
+      rows.push(
+        makeRow(
+          isKo ? "공식 중량 (경량 우세)" : "Official Weight (Lighter Wins)",
+          wtA,
+          wtB,
+          `${fmtInt(wtA)} g`,
+          `${fmtInt(wtB)} g`,
+          false,
+          (d) => `${fmtInt(d)} g`
+        ),
+        makeRow(
+          isKo ? "100g당 기준 단가" : "Cost per 100g",
+          c100A,
+          c100B,
+          fmtCurr(c100A),
+          fmtCurr(c100B),
+          false,
+          (d) => fmtCurr(d)
+        )
+      );
+      if (accA !== null && accB !== null) {
+        rows.push(
+          makeRow(
+            isKo ? "공칭 정확도 오차" : "Accuracy Error (Lower Wins)",
+            accA,
+            accB,
+            `±${fmtNum(accA, 1)}%`,
+            `±${fmtNum(accB, 1)}%`,
+            false,
+            (d) => `${fmtNum(d, 1)}%`
+          )
+        );
+      }
+      if (batA !== null && batB !== null) {
+        rows.push(
+          makeRow(
+            isKo ? "배터리 구동 시간" : "Battery Life",
+            batA,
+            batB,
+            `${fmtInt(batA)} hr`,
+            `${fmtInt(batB)} hr`,
+            true,
+            (d) => `${fmtInt(d)} hr`
+          )
+        );
+      }
+      if (trA !== null && trB !== null) {
+        rows.push(
+          makeRow(
+            isKo ? "최대 부하 출력" : "Max Resistance Output",
+            trA,
+            trB,
+            `${fmtInt(trA)} W`,
+            `${fmtInt(trB)} W`,
+            true,
+            (d) => `${fmtInt(d)} W`
+          )
+        );
+      }
+      rows.push(
+        makeRow(
+          isKo ? "생태계 호환 지수" : "Ecosystem Compatibility",
+          cmpA,
+          cmpB,
+          `${fmtInt(cmpA)} pts`,
+          `${fmtInt(cmpB)} pts`,
+          true,
+          (d) => `${fmtInt(d)} pts`
+        )
+      );
+
+      const [valA, valB] = pairScores(a.msrpUsd, b.msrpUsd, false);
+      const [portA, portB] = pairScores(wtA ?? 200, wtB ?? 200, false);
+      const perf = (m: Record<string, number | string | boolean | null>) =>
+        (numVal(m.accuracyPct) !== null ? (3.5 - (numVal(m.accuracyPct) ?? 1.5)) * 25 : 40) +
+        (m.leftRightBalance ? 18 : 0) +
+        (numVal(m.batteryHours) ? Math.min(35, (numVal(m.batteryHours) ?? 0) / 3) : 0) +
+        (numVal(m.maxTrainerWatts) ? (numVal(m.maxTrainerWatts) ?? 0) / 60 : 0) +
+        (m.hooklessCompatible ? 15 : 0);
+      const [perfA, perfB] = pairScores(perf(mA), perf(mB), true);
+      const [pracA, pracB] = pairScores(cmpA ?? 5, cmpB ?? 5, true);
+
+      return {
+        rows,
+        scoresA: { value: valA, portability: portA, performance: perfA, practicality: pracA },
+        scoresB: { value: valB, portability: portB, performance: perfB, practicality: pracB },
+      };
+    }
+
+    // DOM elements
+    const vertPills = Array.from(document.querySelectorAll<HTMLButtonElement>(".cmp-vert-pill"));
+    const selectA = document.getElementById("cmp-select-a") as HTMLSelectElement | null;
+    const selectB = document.getElementById("cmp-select-b") as HTMLSelectElement | null;
+    const swapBtn = document.getElementById("cmp-swap");
+    const linkA = document.getElementById("cmp-link-a") as HTMLAnchorElement | null;
+    const linkB = document.getElementById("cmp-link-b") as HTMLAnchorElement | null;
+    const popularWrap = document.getElementById("cmp-popular-chips");
+    const curatedBanner = document.getElementById("cmp-curated-banner");
+    const curatedIg = document.getElementById("cmp-curated-ig");
+    const curatedHeadline = document.getElementById("cmp-curated-headline");
+    const curatedHref = document.getElementById("cmp-curated-href") as HTMLAnchorElement | null;
+
+    const sliders = Array.from(document.querySelectorAll<HTMLInputElement>(".cmp-weight-slider"));
+    const presetBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".cmp-preset-btn"));
+    const scoreAEl = document.getElementById("cmp-score-a");
+    const scoreBEl = document.getElementById("cmp-score-b");
+    const barAEl = document.getElementById("cmp-bar-a");
+    const barBEl = document.getElementById("cmp-bar-b");
+    const barNameAEl = document.getElementById("cmp-bar-name-a");
+    const barNameBEl = document.getElementById("cmp-bar-name-b");
+    const winnerBanner = document.getElementById("cmp-winner-banner");
+    const winnerTag = document.getElementById("cmp-winner-tag");
+    const winnerName = document.getElementById("cmp-winner-name");
+    const winnerMargin = document.getElementById("cmp-winner-margin");
+
+    const thA = document.getElementById("cmp-th-a");
+    const thB = document.getElementById("cmp-th-b");
+    const diffTbody = document.getElementById("cmp-diff-tbody");
+    const ctaAWrap = document.getElementById("cmp-cta-a");
+    const ctaBWrap = document.getElementById("cmp-cta-b");
+    const copyLinkBtn = document.getElementById("cmp-copy-link") as HTMLButtonElement | null;
+    const copyMdBtn = document.getElementById("cmp-copy-md") as HTMLButtonElement | null;
+
+    const ACTIVE_PRESET_CLS =
+      "cmp-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors";
+    const INACTIVE_PRESET_CLS =
+      "cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20";
+
+    let activeVertical = "wattcheck";
+    let slugA = "";
+    let slugB = "";
+    let currentDiffRows: DiffRow[] = [];
+    let currentScoresA: Record<string, number> = { value: 50, portability: 50, performance: 50, practicality: 50 };
+    let currentScoresB: Record<string, number> = { value: 50, portability: 50, performance: 50, practicality: 50 };
+    let lastScoreA = 50;
+    let lastScoreB = 50;
+    let lastWinnerText = "";
+
+    function getPresets(vertical: string): Record<string, Record<string, number>> {
+      const dims = getDimensionsForVertical(vertical);
+      const balanced: Record<string, number> = {};
+      dims.forEach((d) => {
+        balanced[d.id] = d.defaultWeight;
+      });
+      return {
+        balanced,
+        value: { value: 60, portability: 15, performance: 15, practicality: 10 },
+        performance: { value: 10, portability: 15, performance: 60, practicality: 15 },
+        portability: { value: 15, portability: 60, performance: 15, practicality: 10 },
+      };
+    }
+
+    function syncPresetHighlight(key: string) {
+      presetBtns.forEach((btn) => {
+        const on = (btn.getAttribute("data-preset") || "") === key;
+        btn.className = on ? ACTIVE_PRESET_CLS : INACTIVE_PRESET_CLS;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    function pickBestPartner(vertical: string, targetSlug: string): string {
+      const list = payload.itemsByVertical[vertical] || [];
+      const curVs = payload.curatedVs.find(
+        (v) => v.vertical === vertical && (v.slugA === targetSlug || v.slugB === targetSlug)
+      );
+      if (curVs) {
+        return curVs.slugA === targetSlug ? curVs.slugB : curVs.slugA;
+      }
+      const target = list.find((i) => i.slug === targetSlug);
+      const sameCat = target
+        ? list.find((i) => i.slug !== targetSlug && i.category === target.category)
+        : null;
+      if (sameCat) return sameCat.slug;
+      const other = list.find((i) => i.slug !== targetSlug);
+      return other ? other.slug : targetSlug;
+    }
+
+    function applyVerticalUI(vertical: string) {
+      const list = payload.itemsByVertical[vertical] || [];
+      vertPills.forEach((pill) => {
+        const v = pill.getAttribute("data-vertical") || "";
+        const cnt = (payload.itemsByVertical[v] || []).length;
+        const on = v === vertical;
+        pill.setAttribute("aria-selected", on ? "true" : "false");
+        pill.className = on
+          ? "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border border-slate-900 bg-slate-900 px-3.5 py-2 text-xs font-bold text-white transition-colors"
+          : cnt < 2
+            ? "cmp-vert-pill inline-flex cursor-not-allowed items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-bold text-slate-400"
+            : "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition-colors hover:border-blue-500 hover:text-blue-700";
+      });
+
+      const optsHtml = list
+        .map((it) => `<option value="${esc(it.slug)}">${esc(it.name)} (${esc(it.msrpDisplay)})</option>`)
+        .join("");
+      if (selectA) selectA.innerHTML = optsHtml;
+      if (selectB) selectB.innerHTML = optsHtml;
+
+      // Update dimension labels & reset sliders to vertical balanced defaults
+      const dims = getDimensionsForVertical(vertical);
+      dims.forEach((dim) => {
+        const lbl = document.getElementById(`cmp-lbl-${dim.id}`);
+        const hint = document.getElementById(`cmp-hint-${dim.id}`);
+        const slider = document.getElementById(`cmp-w-${dim.id}`) as HTMLInputElement | null;
+        if (lbl) lbl.textContent = dim.label;
+        if (hint) hint.textContent = dim.hint;
+        if (slider) slider.value = String(dim.defaultWeight);
+      });
+      syncPresetHighlight("balanced");
+
+      // Render popular matchup chips
+      if (popularWrap) {
+        const vsForV = payload.curatedVs.filter((v) => v.vertical === vertical).slice(0, 4);
+        const chips: Array<{ a: string; b: string; label: string }> = [];
+        vsForV.forEach((v) => {
+          const itA = list.find((i) => i.slug === v.slugA);
+          const itB = list.find((i) => i.slug === v.slugB);
+          if (itA && itB) {
+            chips.push({
+              a: itA.slug,
+              b: itB.slug,
+              label: `${itA.name.split("(")[0].trim()} vs ${itB.name.split("(")[0].trim()}`,
+            });
+          }
+        });
+        if (chips.length === 0 && list.length >= 2) {
+          chips.push({
+            a: list[0].slug,
+            b: list[1].slug,
+            label: `${list[0].name.split("(")[0].trim()} vs ${list[1].name.split("(")[0].trim()}`,
+          });
+        }
+        popularWrap.innerHTML = chips
+          .map(
+            (c) =>
+              `<button type="button" data-pair-a="${esc(c.a)}" data-pair-b="${esc(c.b)}" class="cmp-pop-chip rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-blue-400 hover:bg-blue-50 hover:text-blue-800">${esc(c.label)}</button>`
+          )
+          .join("");
+        popularWrap.querySelectorAll<HTMLButtonElement>(".cmp-pop-chip").forEach((chip) => {
+          chip.addEventListener("click", () => {
+            const pa = chip.getAttribute("data-pair-a") || "";
+            const pb = chip.getAttribute("data-pair-b") || "";
+            if (pa && pb) {
+              slugA = pa;
+              slugB = pb;
+              renderComparison(true, true);
+            }
+          });
+        });
+      }
+    }
+
+    function renderCtaCard(container: HTMLElement | null, item: SkuData, side: "A" | "B") {
+      if (!container) return;
+      const m = item.monetization;
+      const toneCls =
+        m.statusTone === "pass"
+          ? "badge-pass"
+          : m.statusTone === "fail"
+            ? "badge-fail"
+            : "badge-caution";
+      const sideLabel = side === "A" ? "MODEL A" : "MODEL B";
+      const sideTextCls = side === "A" ? "text-blue-700" : "text-emerald-700";
+      const primaryBtnCls =
+        side === "A"
+          ? "bg-blue-700 text-white hover:bg-blue-800"
+          : "bg-emerald-700 text-white hover:bg-emerald-800";
+
+      const btnsHtml = m.buttons
+        .map(
+          (btn) =>
+            `<a href="${esc(btn.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(btn.storeName)}" data-affiliate-vertical="${esc(item.vertical)}" data-affiliate-sku="${esc(item.slug)}" data-affiliate-mode="${esc(btn.linkMode)}" class="inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${btn.isPrimary ? primaryBtnCls : "border border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100"}"><span>${esc(btn.label)}</span><span class="font-mono text-xs opacity-85">↗</span></a>`
+        )
+        .join("");
+
+      container.innerHTML = `
+        <div class="flex items-start justify-between gap-2">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-[11px] font-bold uppercase ${sideTextCls}">${sideLabel}</span>
+              <span class="text-[11px] text-slate-500">${esc(item.brand)} · ${esc(item.categoryLabel)}</span>
+            </div>
+            <h3 class="mt-0.5 text-base font-bold text-slate-900">
+              <a href="${esc(item.href)}" class="hover:text-blue-700 hover:underline">${esc(item.name)}</a>
+            </h3>
+          </div>
+          <span class="${toneCls}">${esc(m.statusLabel)}</span>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="kpi-value font-mono text-2xl font-bold text-slate-900">${esc(m.benchmarkPriceFormatted)}</span>
+          <span class="font-mono text-xs text-slate-500">(${esc(m.benchmarkDate)})</span>
+        </div>
+        <p class="mt-1 text-xs text-slate-600">${esc(m.benchmarkCaption)}</p>
+        <p class="mt-2 rounded-md border border-slate-100 bg-slate-50 px-3 py-2 text-xs text-slate-700">
+          <strong class="text-slate-900">${isKo ? "최적 용도:" : "Best for:"}</strong> ${esc(item.bestFor)}
+        </p>
+        <div class="mt-3 flex flex-col gap-2">${btnsHtml}</div>
+        <div class="mt-3 flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
+          <a href="${esc(item.href)}" class="font-semibold text-blue-700 hover:underline">
+            ${isKo ? "상세 스펙 & 전용 계산기 열기 →" : "Open Full Spec & Calculator →"}
+          </a>
+          <span class="font-mono text-[11px] text-emerald-700">Trust ${esc(item.trustScore)}</span>
+        </div>
+        <p class="mt-2 text-[11px] leading-relaxed text-slate-500">${esc(m.disclosureText || payload.disclosure)}</p>
+      `;
+    }
+
+    function updateScoresOnly() {
+      const list = payload.itemsByVertical[activeVertical] || [];
+      const itemA = list.find((i) => i.slug === slugA);
+      const itemB = list.find((i) => i.slug === slugB);
+      if (!itemA || !itemB) return;
+
+      let sumW = 0;
+      const weights: Record<string, number> = {};
+      sliders.forEach((s) => {
+        const dim = s.getAttribute("data-dim") || "";
+        const val = Number(s.value || 0);
+        weights[dim] = Number.isFinite(val) ? val : 0;
+        sumW += weights[dim];
+      });
+
+      const normDiv = sumW > 0 ? sumW : 1;
+      let accA = 0;
+      let accB = 0;
+      sliders.forEach((s) => {
+        const dim = s.getAttribute("data-dim") || "";
+        const val = weights[dim] || 0;
+        const pct = sumW > 0 ? Math.round((val / sumW) * 100) : 25;
+        const wLbl = document.getElementById(`cmp-wval-${dim}`);
+        const subA = document.getElementById(`cmp-sub-a-${dim}`);
+        const subB = document.getElementById(`cmp-sub-b-${dim}`);
+        if (wLbl) wLbl.textContent = `${pct}%`;
+        const sA = currentScoresA[dim] ?? 50;
+        const sB = currentScoresB[dim] ?? 50;
+        if (subA) subA.textContent = `A: ${sA}/100`;
+        if (subB) subB.textContent = `B: ${sB}/100`;
+        accA += sA * (sumW > 0 ? val : 1);
+        accB += sB * (sumW > 0 ? val : 1);
+      });
+
+      const finalA = Math.round(accA / (sumW > 0 ? normDiv : sliders.length || 1));
+      const finalB = Math.round(accB / (sumW > 0 ? normDiv : sliders.length || 1));
+      lastScoreA = finalA;
+      lastScoreB = finalB;
+
+      if (scoreAEl) scoreAEl.textContent = String(finalA);
+      if (scoreBEl) scoreBEl.textContent = String(finalB);
+      if (barAEl) barAEl.style.width = `${finalA}%`;
+      if (barBEl) barBEl.style.width = `${finalB}%`;
+
+      const diff = Math.abs(finalA - finalB);
+      if (winnerBanner && winnerTag && winnerName && winnerMargin) {
+        if (diff <= 1) {
+          winnerBanner.className = "mt-2 rounded-lg border border-slate-300 bg-white p-3.5";
+          winnerTag.className = "badge-caution";
+          winnerTag.textContent = isKo ? "초접전 동점" : "DEAD HEAT / TIE";
+          winnerName.textContent = isKo ? "두 모델 점수 사실상 동일" : "Virtual Tie — Pick by Ecosystem";
+          winnerMargin.textContent = `A ${finalA} vs B ${finalB}`;
+          lastWinnerText = isKo ? `초접전 동점 (A ${finalA} vs B ${finalB})` : `Virtual Tie (A ${finalA} vs B ${finalB})`;
+        } else if (finalA > finalB) {
+          winnerBanner.className = "mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5";
+          winnerTag.className = "badge-info";
+          winnerTag.textContent = isKo ? "가중 승자: 모델 A" : "WEIGHTED WINNER: MODEL A";
+          winnerName.textContent = itemA.name;
+          winnerMargin.textContent = isKo ? `B 대비 +${diff}점 우세` : `+${diff} pts ahead of Model B`;
+          lastWinnerText = `${itemA.name} (+${diff} pts)`;
+        } else {
+          winnerBanner.className = "mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5";
+          winnerTag.className = "badge-pass";
+          winnerTag.textContent = isKo ? "가중 승자: 모델 B" : "WEIGHTED WINNER: MODEL B";
+          winnerName.textContent = itemB.name;
+          winnerMargin.textContent = isKo ? `A 대비 +${diff}점 우세` : `+${diff} pts ahead of Model A`;
+          lastWinnerText = `${itemB.name} (+${diff} pts)`;
+        }
+      }
+
+      // Check matching preset
+      const presets = getPresets(activeVertical);
+      let matched = "";
+      for (const [k, p] of Object.entries(presets)) {
+        if (sliders.every((s) => (weights[s.getAttribute("data-dim") || ""] ?? 0) === (p[s.getAttribute("data-dim") || ""] ?? 0))) {
+          matched = k;
+          break;
+        }
+      }
+      syncPresetHighlight(matched);
+    }
+
+    function renderComparison(syncHash: boolean, emitEvent: boolean) {
+      const list = payload.itemsByVertical[activeVertical] || [];
+      if (list.length < 2) return;
+
+      let itemA = list.find((i) => i.slug === slugA) || list[0];
+      let itemB = list.find((i) => i.slug === slugB);
+      if (!itemB || itemB.slug === itemA.slug) {
+        const partner = pickBestPartner(activeVertical, itemA.slug);
+        itemB = list.find((i) => i.slug === partner) || list.find((i) => i.slug !== itemA.slug) || list[0];
+      }
+      slugA = itemA.slug;
+      slugB = itemB.slug;
+
+      if (selectA) selectA.value = slugA;
+      if (selectB) selectB.value = slugB;
+      if (linkA) linkA.setAttribute("href", itemA.href);
+      if (linkB) linkB.setAttribute("href", itemB.href);
+      if (barNameAEl) barNameAEl.textContent = `A · ${itemA.name}`;
+      if (barNameBEl) barNameBEl.textContent = `B · ${itemB.name}`;
+      if (thA) thA.textContent = `A · ${itemA.name}`;
+      if (thB) thB.textContent = `B · ${itemB.name}`;
+
+      // Check Curated Editorial VS banner
+      const [s1, s2] = [slugA, slugB].sort();
+      const pairSlug = `${s1}-vs-${s2}`;
+      const curated = payload.curatedVs.find(
+        (v) => v.vertical === activeVertical && v.pairSlug === pairSlug
+      );
+      if (curatedBanner && curatedHeadline && curatedHref && curatedIg) {
+        if (curated) {
+          curatedBanner.classList.remove("hidden");
+          curatedBanner.classList.add("flex");
+          curatedHeadline.textContent = curated.headline;
+          curatedIg.textContent = `SERP IG ${curated.infoGainScore}/100`;
+          curatedHref.setAttribute("href", curated.href);
+        } else {
+          curatedBanner.classList.add("hidden");
+          curatedBanner.classList.remove("flex");
+        }
+      }
+
+      const diff = computeLiveDiff(itemA, itemB);
+      currentDiffRows = diff.rows;
+      currentScoresA = diff.scoresA;
+      currentScoresB = diff.scoresB;
+
+      // Render Diff Table with inline SVG dual bars
+      if (diffTbody) {
+        diffTbody.innerHTML = diff.rows
+          .map((row) => {
+            const wA = Math.round((row.barPctA / 100) * 180);
+            const wB = Math.round((row.barPctB / 100) * 180);
+            const cellACls =
+              row.winner === "a" ? "font-bold text-blue-700 bg-blue-50/40" : "text-slate-800";
+            const cellBCls =
+              row.winner === "b" ? "font-bold text-emerald-700 bg-emerald-50/40" : "text-slate-800";
+            const badgeCls =
+              row.winner === "a"
+                ? "badge-info"
+                : row.winner === "b"
+                  ? "badge-pass"
+                  : "inline-flex rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600";
+            return `
+              <tr>
+                <th scope="row" class="font-semibold text-slate-700">${esc(row.label)}</th>
+                <td class="font-mono text-[13px] ${cellACls}">${esc(row.displayA)}</td>
+                <td class="font-mono text-[13px] ${cellBCls}">${esc(row.displayB)}</td>
+                <td>
+                  <svg viewBox="0 0 180 26" class="h-6 w-44" role="img" aria-label="${esc(row.label)}">
+                    <rect x="0" y="2" width="180" height="8" rx="3" fill="#E2E8F0" />
+                    <rect x="0" y="2" width="${wA}" height="8" rx="3" fill="${row.winner === "a" ? "#2563EB" : "#64748B"}" />
+                    <rect x="0" y="15" width="180" height="8" rx="3" fill="#E2E8F0" />
+                    <rect x="0" y="15" width="${wB}" height="8" rx="3" fill="${row.winner === "b" ? "#059669" : "#94A3B8"}" />
+                  </svg>
+                </td>
+                <td><span class="${badgeCls}">${esc(row.deltaText)}</span></td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      renderCtaCard(ctaAWrap, itemA, "A");
+      renderCtaCard(ctaBWrap, itemB, "B");
+      updateScoresOnly();
+
+      if (syncHash) {
+        const nextHash = `#${activeVertical}:${slugA}:${slugB}`;
+        try {
+          window.history.replaceState(null, "", nextHash);
+        } catch {
+          // ignore
+        }
+      }
+      if (emitEvent) {
+        track("compare_launch", { vertical: activeVertical, pair: `${s1}-vs-${s2}` });
+      }
+    }
+
+    function loadFromHash(emitEvent: boolean) {
+      const raw = window.location.hash.replace(/^#/, "").trim();
+      let targetV =
+        payload.verticals.find((v) => v.count >= 2)?.id || "wattcheck";
+      let targetA = "";
+      let targetB = "";
+
+      if (raw && raw.includes(":")) {
+        const parts = raw.split(":");
+        const candV = parts[0] || "";
+        if (payload.itemsByVertical[candV] && payload.itemsByVertical[candV].length >= 2) {
+          targetV = candV;
+          targetA = parts[1] || "";
+          targetB = parts[2] || "";
+        }
+      }
+
+      activeVertical = targetV;
+      applyVerticalUI(activeVertical);
+
+      const list = payload.itemsByVertical[activeVertical] || [];
+      const firstVs = payload.curatedVs.find((v) => v.vertical === activeVertical);
+      if (targetA && list.some((i) => i.slug === targetA)) {
+        slugA = targetA;
+        slugB =
+          targetB && targetB !== targetA && list.some((i) => i.slug === targetB)
+            ? targetB
+            : pickBestPartner(activeVertical, targetA);
+      } else if (firstVs) {
+        slugA = firstVs.slugA;
+        slugB = firstVs.slugB;
+      } else if (list.length >= 2) {
+        slugA = list[0].slug;
+        slugB = list[1].slug;
+      }
+
+      renderComparison(Boolean(raw), emitEvent);
+    }
+
+    function copyText(text: string): Promise<boolean> {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        return navigator.clipboard
+          .writeText(text)
+          .then(() => true)
+          .catch(() => false);
+      }
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return Promise.resolve(ok);
+      } catch {
+        return Promise.resolve(false);
+      }
+    }
+
+    vertPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const v = pill.getAttribute("data-vertical") || "";
+        if (!v || (payload.itemsByVertical[v] || []).length < 2) return;
+        activeVertical = v;
+        applyVerticalUI(activeVertical);
+        const firstVs = payload.curatedVs.find((x) => x.vertical === activeVertical);
+        const list = payload.itemsByVertical[activeVertical] || [];
+        if (firstVs) {
+          slugA = firstVs.slugA;
+          slugB = firstVs.slugB;
+        } else if (list.length >= 2) {
+          slugA = list[0].slug;
+          slugB = list[1].slug;
+        }
+        renderComparison(true, true);
+      });
+    });
+
+    if (selectA) {
+      selectA.addEventListener("change", () => {
+        slugA = selectA.value;
+        if (slugA === slugB) slugB = pickBestPartner(activeVertical, slugA);
+        renderComparison(true, true);
+      });
+    }
+
+    if (selectB) {
+      selectB.addEventListener("change", () => {
+        slugB = selectB.value;
+        if (slugB === slugA) slugA = pickBestPartner(activeVertical, slugB);
+        renderComparison(true, true);
+      });
+    }
+
+    if (swapBtn) {
+      swapBtn.addEventListener("click", () => {
+        const tmp = slugA;
+        slugA = slugB;
+        slugB = tmp;
+        renderComparison(true, true);
+      });
+    }
+
+    presetBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-preset") || "balanced";
+        const presets = getPresets(activeVertical);
+        const p = presets[key] || presets.balanced;
+        sliders.forEach((s) => {
+          const dim = s.getAttribute("data-dim") || "";
+          if (dim in p) s.value = String(p[dim]);
+        });
+        updateScoresOnly();
+        syncPresetHighlight(key);
+      });
+    });
+
+    sliders.forEach((s) => s.addEventListener("input", updateScoresOnly));
+
+    if (copyLinkBtn) {
+      const def = isKo ? "공유 링크 복사" : "Copy Share Link";
+      const done = isKo ? "링크 복사됨 ✓" : "Link Copied ✓";
+      copyLinkBtn.addEventListener("click", () => {
+        const nextHash = `#${activeVertical}:${slugA}:${slugB}`;
+        try {
+          window.history.replaceState(null, "", nextHash);
+        } catch {
+          // ignore
+        }
+        copyText(window.location.href).then(() => {
+          copyLinkBtn.textContent = done;
+          copyLinkBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          window.setTimeout(() => {
+            copyLinkBtn.textContent = def;
+            copyLinkBtn.classList.remove("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          }, 1800);
+        });
+      });
+    }
+
+    if (copyMdBtn) {
+      const def = isKo ? "마크다운 표 복사" : "Copy Markdown Summary Table";
+      const done = isKo ? "마크다운 복사됨 ✓" : "Markdown Copied ✓";
+      copyMdBtn.addEventListener("click", () => {
+        const list = payload.itemsByVertical[activeVertical] || [];
+        const itemA = list.find((i) => i.slug === slugA);
+        const itemB = list.find((i) => i.slug === slugB);
+        if (!itemA || !itemB) return;
+
+        const nextHash = `#${activeVertical}:${slugA}:${slugB}`;
+        try {
+          window.history.replaceState(null, "", nextHash);
+        } catch {
+          // ignore
+        }
+
+        const header = `### ${itemA.name} vs ${itemB.name} (SpecMatrix Global)`;
+        const verdictLine = isKo
+          ? `> **가중치 시뮬레이터 판정**: ${lastWinnerText} (A ${lastScoreA}점 vs B ${lastScoreB}점)`
+          : `> **Weighted Verdict**: ${lastWinnerText} (A ${lastScoreA}/100 vs B ${lastScoreB}/100)`;
+        const tableLines = [
+          `| ${isKo ? "지표" : "Metric"} | A · ${itemA.name} | B · ${itemB.name} | ${isKo ? "판정" : "Lead"} |`,
+          `| :--- | ---: | ---: | :--- |`,
+          ...currentDiffRows.map(
+            (r) => `| ${r.label} | ${r.displayA} | ${r.displayB} | ${r.deltaText} |`
+          ),
+        ];
+        const footer = isKo
+          ? `출처: [SpecMatrix 실시간 1:1 비교](${window.location.href})`
+          : `Source: [SpecMatrix Live 1:1 Compare](${window.location.href})`;
+
+        copyText([header, "", verdictLine, "", ...tableLines, "", footer].join("\n")).then(() => {
+          copyMdBtn.textContent = done;
+          copyMdBtn.classList.add("bg-emerald-700");
+          window.setTimeout(() => {
+            copyMdBtn.textContent = def;
+            copyMdBtn.classList.remove("bg-emerald-700");
+          }, 1800);
+        });
+      });
+    }
+
+    loadFromHash(Boolean(window.location.hash));
+    window.addEventListener("hashchange", () => loadFromHash(true));
+  })();
+</script>

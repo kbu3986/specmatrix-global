@@ -4,7 +4,10 @@
   "category": "road-tire",
   "slug": "continental-gp5000-s-tr-28",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Continental",
   "model_number": "0101867",
   "origin_country": "DE",
@@ -46,16 +49,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "ETRTO Size", "key_ko": "ETRTO 규격", "value": "28-622 (700×28c)" },
-      { "key_en": "Official Claimed Weight", "key_ko": "공식 무게", "value": "280 g (Black sidewall; ~275 g Transparent sidewall)" },
-      { "key_en": "Casing Construction", "key_ko": "케이싱 구조 (TPI)", "value": "2-ply / 220 TPI nylon carcass (3-ply under tread)" },
-      { "key_en": "Rubber Compound", "key_ko": "컴파운드", "value": "BlackChili Compound (Handmade in Korbach, Germany)" },
-      { "key_en": "Puncture Protection", "key_ko": "펑크 방지 벨트", "value": "Vectran Breaker (liquid-crystalline polymer)" },
-      { "key_en": "Tread & Ride Tech", "key_ko": "트레드·승차감 기술", "value": "Lazer Grip shoulder micro-profile + Active Comfort Technology" },
-      { "key_en": "Hookless (TSS) Compatibility", "key_ko": "후크리스(TSS) 림 호환", "value": "Approved for 28 mm+ TSS hookless rims (verify rim brand list)" },
-      { "key_en": "Max Pressure (Hookless / Hooked)", "key_ko": "최대 공기압 (후크리스 / 후크드)", "value": "5.0 bar / 72.5 psi (Hookless ETRTO max) · 6.5 bar / 94 psi (Hooked)" },
-      { "key_en": "Recommended Internal Rim Width", "key_ko": "권장 내부 림폭", "value": "19–25 mm internal width (optimized around 21–23 mm modern aero rims)" },
-      { "key_en": "Tubed / TPU Fallback", "key_ko": "클린처/TPU 튜브 사용", "value": "Can be run with inner tube (butyl/TPU) on hooked rims; tubeless sealant required on hookless" }
+      {
+        "key_en": "ETRTO Size",
+        "key_ko": "ETRTO 규격",
+        "value": "28-622 (700×28c)"
+      },
+      {
+        "key_en": "Official Claimed Weight",
+        "key_ko": "공식 무게",
+        "value": "280 g (Black sidewall; ~275 g Transparent sidewall)"
+      },
+      {
+        "key_en": "Casing Construction",
+        "key_ko": "케이싱 구조 (TPI)",
+        "value": "2-ply / 220 TPI nylon carcass (3-ply under tread)"
+      },
+      {
+        "key_en": "Rubber Compound",
+        "key_ko": "컴파운드",
+        "value": "BlackChili Compound (Handmade in Korbach, Germany)"
+      },
+      {
+        "key_en": "Puncture Protection",
+        "key_ko": "펑크 방지 벨트",
+        "value": "Vectran Breaker (liquid-crystalline polymer)"
+      },
+      {
+        "key_en": "Tread & Ride Tech",
+        "key_ko": "트레드·승차감 기술",
+        "value": "Lazer Grip shoulder micro-profile + Active Comfort Technology"
+      },
+      {
+        "key_en": "Hookless (TSS) Compatibility",
+        "key_ko": "후크리스(TSS) 림 호환",
+        "value": "Approved for 28 mm+ TSS hookless rims (verify rim brand list)"
+      },
+      {
+        "key_en": "Max Pressure (Hookless / Hooked)",
+        "key_ko": "최대 공기압 (후크리스 / 후크드)",
+        "value": "5.0 bar / 72.5 psi (Hookless ETRTO max) · 6.5 bar / 94 psi (Hooked)"
+      },
+      {
+        "key_en": "Recommended Internal Rim Width",
+        "key_ko": "권장 내부 림폭",
+        "value": "19–25 mm internal width (optimized around 21–23 mm modern aero rims)"
+      },
+      {
+        "key_en": "Tubed / TPU Fallback",
+        "key_ko": "클린처/TPU 튜브 사용",
+        "value": "Can be run with inner tube (butyl/TPU) on hooked rims; tubeless sealant required on hookless"
+      }
     ]
   },
   "compatibility_graph": {
@@ -115,9 +158,9 @@
     },
     {
       "label": "Continental Tires Official — Hookless (TSS) Rim Compatibility & Pressure Guide",
-      "url": "https://www.continental-tires.com/products/bicycle/tire-knowledge/hookless-rims/",
+      "url": "https://www.continental-tires.com/tire-knowledge/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "ETRTO Standards — Tubeless Straight Side (TSS) 5.0 Bar Limit Reference",
@@ -134,5 +177,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["vittoria-corsa-pro-tlr-28", "pirelli-p-zero-race-rs-tlr-28"]
+  "auto_fallback_slugs": [
+    "vittoria-corsa-pro-tlr-28",
+    "pirelli-p-zero-race-rs-tlr-28"
+  ]
 }

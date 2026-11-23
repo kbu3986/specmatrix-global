@@ -1,0 +1,132 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "nas",
+  "slug": "synology-ds423-plus",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Synology",
+  "model_number": "DS423+",
+  "origin_country": "TW",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "DS423+",
+      "msrp": 499.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Synology DiskStation DS423+ 4-Bay NAS Diskless",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "DS423+-KR",
+      "msrp": 819000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "시놀로지 DS423+ 4베이 나스 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 8.45,
+    "typical_load_w": 28.3,
+    "peak_power_w": 90,
+    "default_daily_hours_active": 8,
+    "annual_consumables_usd": 0,
+    "annual_consumables_krw": 0,
+    "noise_idle_dba": 19.8,
+    "noise_load_dba": 26.5,
+    "weight_g": 2180,
+    "dimensions_mm": {
+      "l": 223,
+      "w": 199,
+      "h": 166
+    },
+    "input_voltage_range": "100-240V AC, 50/60Hz (90W external PSU)",
+    "dual_voltage_100_240v": true,
+    "cpu_or_soc": "Intel Celeron J4125 (4C/4T, 2.0-2.7 GHz, Intel UHD Graphics 600 Quick Sync)",
+    "ram_gb_default": 2,
+    "drive_bays": 4,
+    "lan_speed_gbps": 1,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["FCC", "CE", "BSMI", "VCCI", "RCM", "UKCA", "KC", "CCC", "RoHS"],
+    "key_specs_kv": [
+      { "key_en": "CPU & Hardware Transcoding", "key_ko": "CPU 및 하드웨어 트랜스코딩", "value": "Intel Celeron J4125 (4-core, 2.0–2.7 GHz) with Intel UHD 600 Quick Sync" },
+      { "key_en": "Drive Bays & M.2 Slots", "key_ko": "드라이브 베이·M.2 슬롯", "value": "4× 3.5\"/2.5\" SATA hot-swap bays + 2× M.2 2280 NVMe slots (cache / Synology NVMe pool)" },
+      { "key_en": "Official Power (Hibernation / Access)", "key_ko": "공식 소비전력 (절전 / 액세스)", "value": "8.45 W HDD hibernation / 28.30 W active 4-HDD access / 90 W external PSU ceiling" },
+      { "key_en": "Official Acoustic Rating", "key_ko": "공식 소음 수치", "value": "19.8 dB(A) idle (4 HDDs at 1 m, dual 92×92 mm system fans)" },
+      { "key_en": "System Memory", "key_ko": "시스템 메모리", "value": "2 GB DDR4 non-ECC soldered + 1 free SO-DIMM slot (official max 6 GB)" },
+      { "key_en": "Networking (Dual 1GbE)", "key_ko": "네트워크 (듀얼 1GbE)", "value": "2× 1 GbE RJ-45 with Link Aggregation & Failover (no 2.5GbE / 10GbE expansion slot)" },
+      { "key_en": "Dimensions & Bare Weight", "key_ko": "외형 크기·본체 무게", "value": "223 (D) × 199 (W) × 166 (H) mm, 2,180 g (2.18 kg diskless)" },
+      { "key_en": "Operating System & Ecosystem", "key_ko": "운영체제 및 생태계", "value": "Synology DiskStation Manager (DSM) with SHR RAID, Hyper Backup, Photos & USB-HID UPS auto-shutdown" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 7,
+    "battery_or_filter_cycle_months": null,
+    "korea_220v_note_en": "Universal 100-240V AC 50/60Hz 90W external power brick works natively on South Korea's 220V/60Hz grid; domestic KC-certified units sold via official distributors (Ablestor / PC Direct) include a grounded 220V cord and 3-year local hardware warranty.",
+    "korea_220v_note_ko": "100–240V 50/60Hz 프리볼트 90W 외장 어댑터를 채택해 국내 220V 전원에 완벽 호환되며, 에이블스토어·피씨디렉트 등 국내 공식 총판 KC 정품 구매 시 한국형 접지 전원 코드와 3년 공식 무상 보증을 지원받습니다. 4베이 RAID 데이터 보호를 위해 USB-HID 통신이 검증된 UPS(APC BX750MI 등)와 함께 구성하는 것을 강력히 권장합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Synology DiskStation DS423+ (4-Bay NAS)",
+      "title": "Synology DS423+: 8.45W Hibernation, 19.8 dBA Quiet 4-Bay NAS & Quick Sync vs 1GbE TCO",
+      "summary": "Synology's quiet 19.8 dBA 4-bay NAS combining an Intel Celeron J4125 with Quick Sync hardware transcoding, dual M.2 NVMe cache slots, official 8.45 W HDD hibernation / 28.3 W access power, and DSM's mature backup ecosystem.",
+      "best_for": "Home media streamers (Plex/Synology Photos) and family/SOHO users who prioritize rock-solid DSM software, whisper-quiet 19.8 dBA acoustics, and low 24/7 power draw over multi-gigabit LAN speeds.",
+      "local_gotchas": [
+        "Stock RAM is only 2 GB DDR4 soldered (with 1 expansion slot officially capped at 6 GB total); running Docker containers or Synology Photos indexing smoothly practically requires adding a 4 GB DDR4 SO-DIMM immediately.",
+        "Network ports are strictly limited to dual 1 GbE RJ-45 (~112 MB/s per link) with NO PCIe expansion slot for a 10 GbE card—unlike DS923+ or UGREEN DXP4800 Plus.",
+        "Creating a storage pool (rather than just SSD cache) on the two M.2 NVMe slots officially requires Synology-branded SNV3410 NVMe SSDs under stock DSM policy."
+      ]
+    },
+    "ko": {
+      "name": "시놀로지 디스크스테이션 DS423+ (4베이 NAS)",
+      "title": "시놀로지 DS423+: 절전 8.45W·19.8 dBA 저소음 4베이 NAS 전력 TCO 및 1GbE 한계 분석",
+      "summary": "인텔 셀러론 J4125(퀵싱크 하드웨어 트랜스코딩 지원), 4베이 SATA + 듀얼 M.2 NVMe 슬롯, 공식 절전 8.45W·액세스 28.3W 저전력, 19.8 dBA 저소음을 갖춘 시놀로지 대표 홈·SOHO 4베이 NAS입니다.",
+      "best_for": "복잡한 리눅스 관리 없이 완성도 높은 DSM(Synology Photos·Drive·Hyper Backup), Plex 하드웨어 트랜스코딩, 정숙한 24시간 저전력 운영을 중시하는 가정·소규모 사무실.",
+      "local_gotchas": [
+        "기본 탑재 메모리가 2GB DDR4로 매우 부족해 Docker·Synology Photos 얼굴 인식·가상 머신을 돌리려면 빈 슬롯 1개에 추가 램 증설(공식 최대 6GB)이 사실상 필수입니다.",
+        "유선 랜이 1GbE 2포트에 고정되어 있고 DS923+와 달리 10GbE 확장 카드 슬롯이 없습니다. 4K 영상 원본 편집이나 2.5Gbps/10Gbps 고속 전송이 목적이라면 유그린 DXP4800 Plus가 훨씬 유리합니다.",
+        "국내 공식 유통사(에이블스토어·피씨디렉트 등) 정품은 약 81만 원대이며 3년 국내 A/S가 보장되지만, 해외 직구 제품은 국내 무상 수리가 거절되므로 초기 가격 차이와 보증 리스크를 반드시 비교하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Synology DiskStation DS423+ Official Product Page & Specifications",
+      "url": "https://www.synology.com/en-global/products/DS423+",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Synology DS423+ Official Download Center, Datasheet & Hardware Installation Guide",
+      "url": "https://www.synology.com/en-global/support/download/DS423+",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Synology DS423+ Official Hardware, Drive & UPS Compatibility Matrix",
+      "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS423%2B",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 96,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["ugreen-nasync-dxp4800-plus", "synology-ds224-plus"]
+}

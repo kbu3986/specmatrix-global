@@ -7,13 +7,13 @@
     {
       "field": "package_spec & nutrition_label.sodium_mg",
       "quote": "PH 1500 effervescent tube contains 10 tablets (60 g net weight, 6 g per tablet): 1,500 mg sodium, 250 mg potassium, 48 mg calcium, 24 mg magnesium per liter (750 mg Na / 125 mg K / 12 mg Mg per 500 ml tablet).",
-      "source_url": "https://www.precisionhydration.com/products/ph-1500-electrolyte-drink",
+      "source_url": "https://www.precisionhydration.com/us/en/products/ph-1500-electrolyte-drink-mix/",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.macros & sweetener",
       "quote": "Per tablet (500 ml serving): 16 kcal (67 kJ), 1.8 g carbohydrates (1.0 g sugars), <0.1 g protein, <0.1 g fat; sweetened with sucralose.",
-      "source_url": "https://www.precisionhydration.com/products/ph-1500-electrolyte-drink",
+      "source_url": "https://www.precisionhydration.com/us/en/products/ph-1500-electrolyte-drink-mix/",
       "source_tier": 1
     },
     {

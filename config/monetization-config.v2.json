@@ -10,12 +10,16 @@
     "item-top-wattcheck": "",
     "item-top-puregram": "",
     "item-top-cyclegear": "",
+    "item-top-hometech": "",
     "vs-top-wattcheck": "",
     "vs-top-puregram": "",
     "vs-top-cyclegear": "",
+    "vs-top-hometech": "",
     "matrix-top-wattcheck": "",
     "matrix-top-puregram": "",
-    "matrix-top-cyclegear": ""
+    "matrix-top-cyclegear": "",
+    "matrix-top-hometech": "",
+    "compat-top-hometech": ""
   },
   "coupang": {
     "partnersId": "AF2200875",
@@ -56,7 +60,7 @@
   "releaseGate": {
     "activeLocales": ["en", "ko"],
     "releaseWaveMax": 1,
-    "maxPublishedPages": 200,
+    "maxPublishedPages": 300,
     "quarantineCircuitBreakerPct": 15,
     "minTrustScore": 95,
     "minInfoGainScore": 75,
@@ -69,5 +73,5 @@
       "ko": "고지: 이 페이지는 쿠팡 파트너스 및 아마존 어소시에이트 등 글로벌 제휴 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 표기 가격은 제조사 공식 출고가(MSRP) 기준 참고가이며, 실제 결제가는 공식 판매처에서 확인해 주세요."
     }
   },
-  "updatedAt": "2026-11-22"
+  "updatedAt": "2026-11-23"
 }

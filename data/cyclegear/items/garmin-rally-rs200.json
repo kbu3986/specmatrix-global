@@ -4,7 +4,10 @@
   "category": "power-meter",
   "slug": "garmin-rally-rs200",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Garmin",
   "model_number": "010-02388-02",
   "origin_country": "US",
@@ -32,10 +35,14 @@
   },
   "specs": {
     "weight_g": 320,
-    "claimed_accuracy_pct": 1.0,
+    "claimed_accuracy_pct": 1,
     "left_right_balance": true,
     "mount_or_form_factor": "Dual-sensing pod-free Shimano SPD-SL power meter pedals (transferable spindle)",
-    "connectivity": ["ANT+", "Bluetooth Low Energy (BLE)", "Garmin Cycling Dynamics"],
+    "connectivity": [
+      "ANT+",
+      "Bluetooth Low Energy (BLE)",
+      "Garmin Cycling Dynamics"
+    ],
     "battery_life_hours": 120,
     "waterproof_rating": "IPX7",
     "tire_width_mm": null,
@@ -46,16 +53,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Pair Weight", "key_ko": "페달 페어 무게", "value": "320 g" },
-      { "key_en": "Cleat System", "key_ko": "클릿 규격", "value": "Shimano SPD-SL (included cleats + SM-SH10/11/12)" },
-      { "key_en": "Claimed Accuracy", "key_ko": "공식 정확도 오차", "value": "±1.0%" },
-      { "key_en": "Stack Height", "key_ko": "스택 높이", "value": "12.2 mm" },
-      { "key_en": "Q-Factor", "key_ko": "Q-팩터", "value": "53 mm (55 mm with included 2 mm washers)" },
-      { "key_en": "Battery Type & Life", "key_ko": "배터리 규격 및 수명", "value": "User-replaceable LR44/SR44 (×4) or CR1/3N (×2), up to 120 hrs" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 (1 m / 30 min)" },
-      { "key_en": "Max Rider Weight", "key_ko": "최대 허용 라이더 체중", "value": "105 kg (231 lbs)" },
-      { "key_en": "Cycling Dynamics", "key_ko": "사이클링 다이내믹스", "value": "L/R Balance, Seated/Standing Time, Power Phase, PCO" },
-      { "key_en": "Transferable Spindle Kits", "key_ko": "바디 전환 키트", "value": "Swappable to Rally RK (Look Keo) or Rally XC (Shimano SPD)" }
+      {
+        "key_en": "Pair Weight",
+        "key_ko": "페달 페어 무게",
+        "value": "320 g"
+      },
+      {
+        "key_en": "Cleat System",
+        "key_ko": "클릿 규격",
+        "value": "Shimano SPD-SL (included cleats + SM-SH10/11/12)"
+      },
+      {
+        "key_en": "Claimed Accuracy",
+        "key_ko": "공식 정확도 오차",
+        "value": "±1.0%"
+      },
+      {
+        "key_en": "Stack Height",
+        "key_ko": "스택 높이",
+        "value": "12.2 mm"
+      },
+      {
+        "key_en": "Q-Factor",
+        "key_ko": "Q-팩터",
+        "value": "53 mm (55 mm with included 2 mm washers)"
+      },
+      {
+        "key_en": "Battery Type & Life",
+        "key_ko": "배터리 규격 및 수명",
+        "value": "User-replaceable LR44/SR44 (×4) or CR1/3N (×2), up to 120 hrs"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IPX7 (1 m / 30 min)"
+      },
+      {
+        "key_en": "Max Rider Weight",
+        "key_ko": "최대 허용 라이더 체중",
+        "value": "105 kg (231 lbs)"
+      },
+      {
+        "key_en": "Cycling Dynamics",
+        "key_ko": "사이클링 다이내믹스",
+        "value": "L/R Balance, Seated/Standing Time, Power Phase, PCO"
+      },
+      {
+        "key_en": "Transferable Spindle Kits",
+        "key_ko": "바디 전환 키트",
+        "value": "Swappable to Rally RK (Look Keo) or Rally XC (Shimano SPD)"
+      }
     ]
   },
   "compatibility_graph": {
@@ -116,15 +163,15 @@
   "citations": [
     {
       "label": "Garmin Rally RS200 Official Specifications",
-      "url": "https://www.garmin.com/p/658420",
+      "url": "https://www.garmin.com/en-US/p/658593/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Garmin Rally Series Official Owner's Manual (Installation Torque & Battery Spec)",
-      "url": "https://www8.garmin.com/manuals/webhelp/GUID-F384D11E-79B0-4D97-BB69-DD8922C20299/EN-US/GUID-1D0B4F3B-45F9-4130-B5C3-5E1B8E0728E7.html",
+      "url": "https://support.garmin.com/en-US/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "ANT+ Device Directory — Garmin Rally RS200",
@@ -141,5 +188,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["favero-assioma-pro-rs-2", "favero-assioma-duo"]
+  "auto_fallback_slugs": [
+    "favero-assioma-pro-rs-2",
+    "favero-assioma-duo"
+  ]
 }

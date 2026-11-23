@@ -1,7 +1,7 @@
 /**
  * SpecMatrix Global — Stage 3 SERP Information Gain Audit CLI (`npm run audit:ig`)
  *
- * Audits Minimum Viable Value Contract & Information Gain compliance across all 60 items & 25 VS pairs:
+ * Audits Minimum Viable Value Contract & Information Gain compliance across all 72 items & 31 VS pairs:
  *  - >= 15 quantitative/structured specification fields per item
  *  - >= 3 deterministic derived metrics per item
  *  - >= 2 localized real-world gotchas per active locale (en, ko)
@@ -21,7 +21,7 @@ import {
   computeVsDiffTable,
 } from "./derived-metrics.mjs";
 
-const VERTICALS = ["wattcheck", "puregram", "cyclegear"];
+const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
 
 export const IG_THRESHOLDS = {
   minStructuredFields: 15,
@@ -90,6 +90,12 @@ export function countStructuredFields(item) {
     if (item.safety_warning) {
       const { torque_or_install_note_ko: _omitKoTorque, ...safetyCore } = item.safety_warning;
       total += countNonNullFields(safetyCore);
+    }
+  } else if (item.vertical === "hometech") {
+    total += countNonNullFields(item.specs);
+    if (item.tco_profile) {
+      const { korea_220v_note_ko: _omitKo220v, ...tcoCore } = item.tco_profile;
+      total += countNonNullFields(tcoCore);
     }
   } else {
     total += countNonNullFields(item.specs);
@@ -290,6 +296,7 @@ export function runIgAudit({ rootDir, writeReport = true } = {}) {
     wattcheck: new Map(),
     puregram: new Map(),
     cyclegear: new Map(),
+    hometech: new Map(),
   };
 
   for (const vertical of VERTICALS) {

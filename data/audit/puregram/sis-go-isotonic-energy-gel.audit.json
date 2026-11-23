@@ -7,13 +7,13 @@
     {
       "field": "nutrition_label.carbs_g & sugar_g",
       "quote": "Per 60 ml (60 g) isotonic gel: 368 kJ / 87 kcal, Carbohydrate 22 g (of which sugars 0.6 g), Fat 0 g, Protein 0 g, Salt 0.01 g (~10 mg sodium).",
-      "source_url": "https://www.scienceinsport.com/go-isotonic-gels",
+      "source_url": "https://www.scienceinsport.com/us/go-isotonic-energy-gels",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.sweetener_details",
       "quote": "Ingredients: Water, Maltodextrin (from Maize) (33%), Gelling Agents (Gellan Gum, Xanthan Gum), Natural Flavouring, Citric Acid, Sodium Citrate, Preservatives, Sweetener (Acesulfame K).",
-      "source_url": "https://www.scienceinsport.com/go-isotonic-gels",
+      "source_url": "https://www.scienceinsport.com/us/go-isotonic-energy-gels",
       "source_tier": 1
     },
     {

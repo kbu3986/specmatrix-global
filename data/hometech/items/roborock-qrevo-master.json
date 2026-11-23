@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "robot-vacuum",
+  "slug": "roborock-qrevo-master",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Roborock",
+  "model_number": "Qrevo Master (Dock EWFD11LRR/12LRR)",
+  "origin_country": "CN",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "QrevoMaster-US",
+      "msrp": 1599.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Roborock Qrevo Master robot vacuum mop FlexiArm",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "QrevoMaster-KR",
+      "msrp": 1690000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "로보락 큐레보 마스터 로봇청소기 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 4,
+    "typical_load_w": 70,
+    "peak_power_w": 1340,
+    "default_daily_hours_active": 1.5,
+    "annual_consumables_usd": 75,
+    "annual_consumables_krw": 98000,
+    "noise_idle_dba": 22,
+    "noise_load_dba": 67,
+    "weight_g": 4600,
+    "dimensions_mm": {
+      "l": 353,
+      "w": 350,
+      "h": 102.9
+    },
+    "input_voltage_range": "Regional fixed: 120V AC 60Hz (US) / 220-240V AC 50/60Hz (KR/EU)",
+    "dual_voltage_100_240v": false,
+    "cpu_or_soc": "Reactive AI RGB Camera + PreciSense LiDAR Navigation",
+    "ram_gb_default": null,
+    "drive_bays": null,
+    "lan_speed_gbps": null,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": 10000,
+    "dustbag_capacity_l": 2.7,
+    "certifications": ["FCC", "CE", "KC", "TUV Rheinland Privacy"],
+    "key_specs_kv": [
+      { "key_en": "Suction Power", "key_ko": "최대 흡입력", "value": "10,000 Pa HyperForce with DuoRoller Riser dual rubber brushes" },
+      { "key_en": "Mopping System", "key_ko": "물걸레 청소 방식", "value": "Dual 200 RPM spinning mops (10 mm auto-lift) + FlexiArm extending right mop" },
+      { "key_en": "Edge & Corner Cleaning", "key_ko": "모서리 확장 시스템", "value": "Dual FlexiArm Design (both side brush and right spinning mop extend to walls)" },
+      { "key_en": "Multifunctional Dock 3.0", "key_ko": "멀티기능 도크 3.0", "value": "60°C hot-water mop wash, 45°C warm-air dry, removable washboard tray, 2.7 L dust bag" },
+      { "key_en": "Power Consumption", "key_ko": "소비전력 (대기 / 평균 / 온수피크)", "value": "~4 W standby / ~70 W active cycle avg / ~1,340 W (5.6A @ 220V) 60°C hot-water peak" },
+      { "key_en": "Annual Consumables TCO", "key_ko": "연간 소모품 유지비", "value": "~$75 / ₩98,000/yr (2.7 L dust bags, HEPA filters, DuoRollers, spinning mop pads)" },
+      { "key_en": "Battery & Dustbin", "key_ko": "배터리 및 본체 먼지통", "value": "5,200 mAh Li-ion (20V 1.5A charge), 220 ml onboard dustbin" },
+      { "key_en": "Acoustic Noise", "key_ko": "주행 소음", "value": "67 dB(A) balanced vacuuming" },
+      { "key_en": "Dimensions & Weight", "key_ko": "크기 및 무게", "value": "Robot 350 × 353 × 102.9 mm (~4.6 kg); Dock 340 × 487.9 × 522 mm (~8.5 kg)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": false,
+    "expected_lifespan_years": 5,
+    "battery_or_filter_cycle_months": 6,
+    "korea_220v_note_en": "Regional single-voltage dock (120V 12A US vs 220-240V 5.6A KR/EU for 60°C hot-water mop washing). Always purchase the native 220V KC-certified Korean retail version for safe indoor operation and domestic warranty support.",
+    "korea_220v_note_ko": "60℃ 온수 세척 히터 사양이 미국 120V(12A)와 한국·유럽 220-240V(5.6A)로 엄격히 분리된 단전압 도크입니다. 반드시 KC 인증을 받은 한국 정발 220V 모델을 사용해야 안전하며, 분리형 세척판 덕분에 위생 관리가 편리합니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Roborock Qrevo Master",
+      "title": "Roborock Qrevo Master: 10,000 Pa, Dual FlexiArm Spinning Mops & Lower 3-Year TCO Audit",
+      "summary": "Roborock's high-value dual-spinning-mop flagship combining 10,000 Pa suction, DuoRoller Riser brushes, dual FlexiArm brush/mop extension, a 2.7 L dust bag, and an easy-clean removable washboard Dock 3.0 for $200 less than the S8 MaxV Ultra.",
+      "best_for": "Hard-floor and tile households wanting Roborock's 10,000 Pa DuoRoller + dual FlexiArm edge performance with easier removable dock tray cleaning and lower upfront and annual consumables cost than the S8 MaxV Ultra.",
+      "local_gotchas": [
+        "No automatic detergent dispenser: unlike the S8 MaxV Ultra and Dreame X40 Ultra, you manually add diluted floor cleaner into the 4 L clean-water tank.",
+        "10 mm spinning mop lift (vs 20 mm on S8 MaxV Ultra or detachable mops on Dreame X40 Ultra) can graze plush medium-to-high-pile carpets unless you configure 'Vacuum Carpets First' in the Roborock app.",
+        "The Multifunctional Dock 3.0 is taller (522 mm) and deeper (488 mm) than S8 MaxV Ultra's squat RockDock — verify under-cabinet or hallway closet clearance before buying."
+      ]
+    },
+    "ko": {
+      "name": "로보락 큐레보 마스터 (Qrevo Master)",
+      "title": "로보락 큐레보 마스터: 10,000 Pa·듀얼 플렉시암·분리형 세척판과 3년 가성비 TCO 분석",
+      "summary": "S8 MaxV Ultra와 동일한 10,000 Pa 흡입력·듀오롤러·60℃ 온수 세척·헬로 로키 음성인식을 갖추면서 회전형 듀얼 플렉시암 물걸레와 분리형 도크 세척판, 2.7 L 더스트백을 15만 원 더 낮춘 출고가(169만 원)에 담은 실속 플래그십입니다.",
+      "best_for": "강마루·포세린 타일 중심의 한국 아파트에서 S8 MaxV Ultra 대비 구매가(-15만 원)와 연간 소모품비를 절감하면서 통째로 빼서 씻는 간편한 도크 관리와 회전형 물걸레 세정력을 원하는 가정.",
+      "local_gotchas": [
+        "자동 세제 투입함이 빠져 있어 물걸레 세정제를 쓰려면 깨끗한 물통을 채울 때마다 정량 희석해서 직접 넣어야 합니다.",
+        "회전 물걸레 리프팅 높이가 10 mm(S8 MaxV Ultra는 20 mm, 드리미 X40은 자동 탈부착)이므로 두꺼운 거실 러그를 깔아둔 집은 앱에서 '카펫 먼저 진공 청소' 순서를 지정해야 러그 젖음을 방지할 수 있습니다.",
+        "도크 높이가 522 mm, 깊이가 488 mm로 S8 MaxV Ultra보다 세로로 더 높고 앞뒤로 기므로 빌트인 로봇청소기장(청소기 수납장) 내부 치수와 콘센트 간섭을 사전에 확인하세요."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Roborock Qrevo Master Official Product Page & Specifications",
+      "url": "https://us.roborock.com/products/roborock-qrevo-master",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Roborock Global Official Product & Support Portal",
+      "url": "https://global.roborock.com/",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 98,
+    "info_gain_score": 93,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["roborock-s8-maxv-ultra", "dreame-x40-ultra"]
+}

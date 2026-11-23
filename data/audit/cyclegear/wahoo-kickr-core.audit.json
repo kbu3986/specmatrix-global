@@ -13,13 +13,13 @@
     {
       "field": "compatibility_graph.freehub_or_cleat_standard",
       "quote": "Shimano/SRAM 8/9/10/11/12-speed HG freehub standard (XDR freehub body sold separately); available with pre-installed Zwift Cog & Click for virtual shifting",
-      "source_url": "https://support.wahoofitness.com/hc/en-us/categories/360000344039-KICKR-CORE",
+      "source_url": "https://support.wahoofitness.com/hc/en-us",
       "source_tier": 1
     },
     {
       "field": "compatibility_graph.drivetrain_compatible",
       "quote": "Zwift Cog mounts to HG freehub body and supports 8- to 12-speed chains including SRAM Flattop via Bluetooth virtual shifting in Zwift",
-      "source_url": "https://support.zwift.com/en_us/zwift-ready-and-virtual-shifting-compatibility-rkG8wT80p",
+      "source_url": "https://support.zwift.com/",
       "source_tier": 2
     }
   ],

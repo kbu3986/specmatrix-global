@@ -4,7 +4,10 @@
   "category": "gps-computer",
   "slug": "garmin-edge-840-solar",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Garmin",
   "model_number": "010-02695-20",
   "origin_country": "US",
@@ -35,7 +38,12 @@
     "claimed_accuracy_pct": null,
     "left_right_balance": null,
     "mount_or_form_factor": "2.6\" Power Glass Solar Touchscreen + Full 7-Button Dual Control (compact aero profile)",
-    "connectivity": ["ANT+", "Bluetooth Low Energy (BLE)", "Wi-Fi", "Multi-Band GNSS"],
+    "connectivity": [
+      "ANT+",
+      "Bluetooth Low Energy (BLE)",
+      "Wi-Fi",
+      "Multi-Band GNSS"
+    ],
     "battery_life_hours": 32,
     "waterproof_rating": "IPX7",
     "tire_width_mm": null,
@@ -46,16 +54,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Device Weight", "key_ko": "본체 무게", "value": "84.8 g (85 g compact aero chassis)" },
-      { "key_en": "Battery (Demanding / Saver)", "key_ko": "배터리 (일반+솔라 / 절전)", "value": "Up to 32 hrs with solar (26 hrs non-solar) / 60 hrs battery saver" },
-      { "key_en": "Display Specs", "key_ko": "디스플레이", "value": "2.6\" (66 mm) transflective color MIP touchscreen (246 × 322 px)" },
-      { "key_en": "Dual Input Interface", "key_ko": "이중 조작 인터페이스", "value": "Full capacitive touchscreen + complete 7 physical side/bottom buttons" },
-      { "key_en": "Dimensions", "key_ko": "외형 크기", "value": "57.8 × 85.1 × 19.6 mm" },
-      { "key_en": "Internal Storage", "key_ko": "내장 저장공간", "value": "32 GB (preloaded routable Garmin Cycle Map)" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IPX7 (USB-C charging)" },
-      { "key_en": "Navigation & ClimbPro", "key_ko": "내비게이션 및 클라임프로", "value": "Standalone on-device routing + Free-Ride ClimbPro (no course needed)" },
-      { "key_en": "Performance Metrics", "key_ko": "트레이닝 분석 기능", "value": "Real-Time Stamina, Power Guide, Cycling Ability, Daily Workouts" },
-      { "key_en": "Di2 / AXS & Radar Support", "key_ko": "구동계·레이더·연동", "value": "Full Shimano Di2/SRAM AXS hood control, Varia Radar, Connect/Intervals.icu/Strava" }
+      {
+        "key_en": "Device Weight",
+        "key_ko": "본체 무게",
+        "value": "84.8 g (85 g compact aero chassis)"
+      },
+      {
+        "key_en": "Battery (Demanding / Saver)",
+        "key_ko": "배터리 (일반+솔라 / 절전)",
+        "value": "Up to 32 hrs with solar (26 hrs non-solar) / 60 hrs battery saver"
+      },
+      {
+        "key_en": "Display Specs",
+        "key_ko": "디스플레이",
+        "value": "2.6\" (66 mm) transflective color MIP touchscreen (246 × 322 px)"
+      },
+      {
+        "key_en": "Dual Input Interface",
+        "key_ko": "이중 조작 인터페이스",
+        "value": "Full capacitive touchscreen + complete 7 physical side/bottom buttons"
+      },
+      {
+        "key_en": "Dimensions",
+        "key_ko": "외형 크기",
+        "value": "57.8 × 85.1 × 19.6 mm"
+      },
+      {
+        "key_en": "Internal Storage",
+        "key_ko": "내장 저장공간",
+        "value": "32 GB (preloaded routable Garmin Cycle Map)"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IPX7 (USB-C charging)"
+      },
+      {
+        "key_en": "Navigation & ClimbPro",
+        "key_ko": "내비게이션 및 클라임프로",
+        "value": "Standalone on-device routing + Free-Ride ClimbPro (no course needed)"
+      },
+      {
+        "key_en": "Performance Metrics",
+        "key_ko": "트레이닝 분석 기능",
+        "value": "Real-Time Stamina, Power Guide, Cycling Ability, Daily Workouts"
+      },
+      {
+        "key_en": "Di2 / AXS & Radar Support",
+        "key_ko": "구동계·레이더·연동",
+        "value": "Full Shimano Di2/SRAM AXS hood control, Varia Radar, Connect/Intervals.icu/Strava"
+      }
     ]
   },
   "compatibility_graph": {
@@ -116,15 +164,15 @@
   "citations": [
     {
       "label": "Garmin Edge 840 Solar Official Specifications",
-      "url": "https://www.garmin.com/p/797864",
+      "url": "https://www.garmin.com/en-US/p/798925/pn/010-02695-20/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Garmin Edge 840 Series Official Owner's Manual (Di2 & Sensor Pairing)",
-      "url": "https://www8.garmin.com/manuals/webhelp/GUID-16B12CFE-F96E-4DE9-9F5F-8C4A5936D3B9/EN-US/GUID-4D2584D4-AD77-402F-9254-A7F6E51D9880.html",
+      "url": "https://support.garmin.com/en-US/",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "ANT+ Certified Cycling Computer Directory",
@@ -141,5 +189,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["coros-dura-solar-gps", "garmin-edge-1050"]
+  "auto_fallback_slugs": [
+    "coros-dura-solar-gps",
+    "garmin-edge-1050"
+  ]
 }

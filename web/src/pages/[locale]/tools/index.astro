@@ -1,0 +1,432 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import AdSlotReserve from "../../../components/AdSlotReserve.astro";
+import type { ActiveLocale } from "../../../lib/types";
+import {
+  getAirlines,
+  getAllItems,
+  getAllVsInsights,
+  getCycleGearItems,
+  getHomeTechItems,
+  getPureGramItems,
+  getWattCheckItems,
+} from "../../../lib/data";
+import {
+  ACTIVE_LOCALES,
+  PILOT_VERTICALS,
+  SITE_URL,
+  formatInt,
+  withBase,
+} from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return ACTIVE_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const isKo = locale === "ko";
+
+const allItems = getAllItems().filter((i) => i.available_locales.includes(locale));
+const wattItems = getWattCheckItems().filter((i) => i.available_locales.includes(locale));
+const pureItems = getPureGramItems().filter((i) => i.available_locales.includes(locale));
+const cycleItems = getCycleGearItems().filter((i) => i.available_locales.includes(locale));
+const homeItems = getHomeTechItems().filter((i) => i.available_locales.includes(locale));
+const airlines = getAirlines();
+const allVs = getAllVsInsights();
+
+const totalPairwise = [wattItems, pureItems, cycleItems, homeItems].reduce((acc, list) => {
+  const n = list.length;
+  return acc + (n > 1 ? Math.floor((n * (n - 1)) / 2) : 0);
+}, 0);
+
+interface ToolCard {
+  id: string;
+  tag: string;
+  toneClass: string;
+  title: string;
+  description: string;
+  dbMetric: string;
+  highlights: string[];
+  href: string;
+  ctaLabel: string;
+}
+
+const tools: ToolCard[] = [
+  {
+    id: "compare-workbench",
+    tag: "ANY-VS-ANY STUDIO",
+    toneClass: "bg-blue-50 text-blue-800 border-blue-200",
+    title: isKo
+      ? "실시간 1:1 자유 비교 워크벤치"
+      : "Any-vs-Any 1:1 Live Compare Workbench",
+    description: isKo
+      ? "4개 버티컬의 검증된 모든 SKU 중 원하는 두 모델을 조합해 4축 가중치 시뮬레이션, 인라인 SVG 격차 비교표, 마크다운 요약 복사를 즉시 실행합니다."
+      : "Pit any two verified SKUs head-to-head with live 4-dimension priority sliders, inline SVG delta bars, curated VS detection, and 1-click Markdown table export.",
+    dbMetric: isKo
+      ? `${allItems.length}종 SKU · ${formatInt(totalPairwise)}+ 조합`
+      : `${allItems.length} verified SKUs · ${formatInt(totalPairwise)}+ matchups`,
+    highlights: isKo
+      ? [
+          "URL 해시(#)로 비교 조합 무제한 공유 (크롤링 오염 0)",
+          "에디토리얼 VS 페이지 자동 연동 및 마크다운 요약 복사",
+          "공식 MSRP 참고가 및 검증된 쿠팡·아마존 제휴 링크 탑재",
+        ]
+      : [
+          "Shareable URL hash state (#vertical:slugA:slugB) with zero crawl bloat",
+          "Auto-detects curated editorial VS guides & exports Markdown tables",
+          "Live 4-dimension weighting simulator + verified store links",
+        ],
+    href: withBase(`/${locale}/compare`),
+    ctaLabel: isKo ? "1:1 비교 워크벤치 열기 →" : "Launch Live Compare →",
+  },
+  {
+    id: "travel-power-kit",
+    tag: "WATTCHECK × AIRLINES",
+    toneClass: "bg-sky-50 text-sky-800 border-sky-200",
+    title: isKo
+      ? "출장·여행 멀티기기 전력 & 항공사 키트 최적화기"
+      : "Travel Power Kit & 30-Airline Optimizer",
+    description: isKo
+      ? "탑승 항공사와 휴대할 노트북·스마트폰·핸드헬드를 선택하면 동시 요구 출력(W), PD 3.1/PPS 규격, 국토부·CCC 기내 규정에 완벽히 맞는 보조배터리·GaN 충전기를 순위별로 추천합니다."
+      : "Select your airline and travel electronics to calculate simultaneous wattage demand, PD 3.1 EPR / 45W PPS flags, cabin rules, and rank top verified power banks & GaN chargers.",
+    dbMetric: isKo
+      ? `${wattItems.length}종 전력 기기 × ${airlines.length}개 항공사`
+      : `${wattItems.length} WattCheck SKUs × ${airlines.length} Airlines`,
+    highlights: isKo
+      ? [
+          "30개 항공사 기내 선반·기내 충전·지퍼백·중국 CCC 원클릭 체크",
+          "실제 포트 출력 분배표 기반 다중 기기 동시 충전 속도 계산",
+          "최경량 / 최저 MSRP / 최대 여유출력 / 최고 출력밀도 맞춤 랭킹",
+        ]
+      : [
+          "30-carrier boarding checklist (MOLIT pouch, overhead bin, China CCC)",
+          "Simulates true multi-port simultaneous output from official matrices",
+          "Rank by lightest weight, lowest MSRP, headroom, or W/100g density",
+        ],
+    href: withBase(`/${locale}/tools/travel-power-kit`),
+    ctaLabel: isKo ? "여행 전력 키트 구성하기 →" : "Build Travel Power Kit →",
+  },
+  {
+    id: "fueling-planner",
+    tag: "PUREGRAM RACE LAB",
+    toneClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
+    title: isKo
+      ? "마라톤·그란폰도 레이스 보급 믹스 플래너"
+      : "Endurance Race Fueling Mix Planner",
+    description: isKo
+      ? "대회 소요시간과 시간당 탄수화물·나트륨 목표에 맞춰 검증된 에너지젤·카보믹스·전해질 조합을 설계하고, 1:0.8 위장 내성·카페인 경고·포켓 휴대 중량·총 보급비를 실시간 검산합니다."
+      : "Assemble your exact race pocket & bottle strategy across verified PureGram gels, carb mixes, and electrolytes — tracking g/hr carbs, 1:0.8 gut ratio, sodium, caffeine alerts, weight, and cost.",
+    dbMetric: isKo
+      ? `${pureItems.length}종 공식 영양성분표 DB`
+      : `${pureItems.length} verified PureGram SKUs`,
+    highlights: isKo
+      ? [
+          "하프·풀마라톤·그란폰도·울트라 원클릭 프리셋 & 자동 최적 믹스",
+          "1:0.8 듀얼소스 탄수화물 비율 검증 및 카페인 300/400mg 주의 경보",
+          "포켓 휴대 중량(g)·원화/달러 레이스 비용 산출 및 보급 계획 복사",
+        ]
+      : [
+          "Half, Full Marathon, Gran Fondo & Ultra presets + Auto-Build Optimal Mix",
+          "Dual-source 1:0.8 gut tolerance check & >300/>400 mg caffeine alerts",
+          "Pocket carry weight, KRW/USD cost calculator & copyable race plan",
+        ],
+    href: withBase(`/${locale}/tools/fueling-planner`),
+    ctaLabel: isKo ? "레이스 보급 믹스 설계 →" : "Plan Race Fueling Mix →",
+  },
+  {
+    id: "airlines-30",
+    tag: "AVIATION COMPLIANCE",
+    toneClass: "bg-amber-50 text-amber-800 border-amber-200",
+    title: isKo
+      ? "30개 글로벌 항공사 리튬배터리 Wh 규정 판독기"
+      : "30-Airline Lithium Wh Rule Checker",
+    description: isKo
+      ? "보조배터리의 정격 Wh를 입력하면 대한항공·아시아나·제주항공 등 국토부 2025–2026 지침부터 미주·유럽·아시아·중동 30개 항공사의 반입 가능 개수와 승인 여부를 일괄 판정합니다."
+      : "Enter any battery Wh rating to evaluate carry-on piece caps, airline approval rules, overhead-bin bans, and China CCC mandates across 30 global carriers.",
+    dbMetric: isKo
+      ? `${airlines.length}개 글로벌 항공사 공식 원문`
+      : `${airlines.length} verified carrier policies`,
+    highlights: isKo
+      ? [
+          "100Wh 이하 / 100–160Wh 승인 / 160Wh 초과 즉시 일괄 판정",
+          "KR · NA · EU · APAC · ME 권역 필터 및 IATA 코드 즉시 검색",
+          "항공사별 공식 규정 원문 URL 및 검증 일자 제공",
+        ]
+      : [
+          "Instant <=100 Wh, 100–160 Wh approval, and >160 Wh ban evaluation",
+          "Region filter (KR/NA/EU/APAC/ME) + instant carrier/IATA search",
+          "Direct official airline policy source URLs with verification dates",
+        ],
+    href: withBase(`/${locale}/wattcheck/matrix/airlines-30`),
+    ctaLabel: isKo ? "30개 항공사 규정 확인 →" : "Open 30-Airline Checker →",
+  },
+  {
+    id: "hometech-tco",
+    tag: "HOMETECH TCO LAB",
+    toneClass: "bg-violet-50 text-violet-800 border-violet-200",
+    title: isKo
+      ? "HomeTech 3년 전기요금 & 총소유비용(TCO) 매트릭스"
+      : "HomeTech 3-Year Electricity & TCO Matrix",
+    description: isKo
+      ? "24/7 상시 구동하는 미니PC·NAS·UPS·로봇청소기의 대기/부하 소비전력(W), 연간 kWh, 한전 누진구간·미국·독일 전기요금 및 소모품을 합산한 3년 실질 총소유비용을 비교합니다."
+      : "Compare 24/7 MiniPCs, NAS enclosures, UPS backups, and robot vacuums by weighted idle/load wattage, annual kWh, KEPCO/US/EU electricity cost, noise dBA, and 3-year TCO.",
+    dbMetric: isKo
+      ? `${homeItems.length}종 홈테크 SKU · 3년 TCO 산출`
+      : `${homeItems.length} HomeTech SKUs · 3-Yr TCO`,
+    highlights: isKo
+      ? [
+          "대기전력·평균 소비전력(W)·연간 kWh 기반 3년 총소유비용(TCO) 정렬",
+          "24/7 저전력(<12W), 100–240V 프리볼트, 정현파 UPS·2.5GbE+ 필터",
+          "각 모델 상세 페이지에서 전기요금 단가별 실시간 TCO 시뮬레이션",
+        ]
+      : [
+          "Sort by 3-year TCO, weighted average watts, annual kWh & noise dBA",
+          "Filter by 24/7 low-idle (<12W), 100–240V dual voltage & pure sine UPS",
+          "Interactive per-kWh tariff TCO calculator on every product profile",
+        ],
+    href: withBase(`/${locale}/hometech/matrix/minipc-nas-tco`),
+    ctaLabel: isKo ? "HomeTech TCO 매트릭스 →" : "Open HomeTech TCO Matrix →",
+  },
+  {
+    id: "cyclegear-hookless",
+    tag: "CYCLEGEAR SAFETY GUARD",
+    toneClass: "bg-rose-50 text-rose-800 border-rose-200",
+    title: isKo
+      ? "CycleGear 후크리스 5.0 bar 안전 가드 & 호환 매트릭스"
+      : "CycleGear Hookless 5.0 bar & Tire Pressure Guard",
+    description: isKo
+      ? "로드 튜블리스 타이어, GPS 컴퓨터, 스마트 트레이너의 무게·정확도·구동계 호환 지수를 비교하고, 후크리스(TSS) 림 5.0 bar / 72.5 psi 안전 상한과 적정 공기압을 검증합니다."
+      : "Compare road tubeless tires, GPS computers, and smart trainers with compatibility scoring, ETRTO 5.0 bar (72.5 psi) hookless rim safety guardrails, and interactive tire pressure math.",
+    dbMetric: isKo
+      ? `${cycleItems.length}종 로드사이클 검증 SKU`
+      : `${cycleItems.length} verified CycleGear SKUs`,
+    highlights: isKo
+      ? [
+          "ISO/ETRTO 후크리스 5.0 bar(72.5 psi) 강제 클램프 안전 가드",
+          "Shimano 12단·ANT+·좌우 밸런스·후크리스 호환 원클릭 다중 필터",
+          "URL 해시 필터 공유 및 임의 2종 1:1 비교 워크벤치 즉시 연동",
+        ]
+      : [
+          "Mandatory ISO/ETRTO 5.0 bar / 72.5 psi hookless safety ceiling guard",
+          "Multi-facet filtering for Shimano 12s, ANT+, L/R balance & hookless fit",
+          "Shareable hash filters + instant jump into Live 1:1 Compare Workbench",
+        ],
+    href: withBase(`/${locale}/cyclegear/matrix/gps-tires-trainers`),
+    ctaLabel: isKo ? "CycleGear 매트릭스 열기 →" : "Open CycleGear Guard →",
+  },
+];
+
+const currentPath = `/${locale}/tools`;
+const pageTitle = isKo
+  ? "SpecMatrix 인터랙티브 랩 도구 허브 — 계산기 & 실시간 비교 스튜디오 | SpecMatrix Global"
+  : "SpecMatrix Interactive Lab Tools Hub — Calculators & Live Comparison Studios";
+const pageDesc = isKo
+  ? `검증된 ${allItems.length}종 공식 스펙 DB와 ${airlines.length}개 항공사 규정으로 구동되는 6종 무지연 인터랙티브 비교·보급·전력·TCO·안전 검증 도구 허브.`
+  : `Launch 6 deterministic, zero-latency interactive engineering tools powered by ${allItems.length} verified SKUs and ${airlines.length} airline policies across 4 verticals.`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: pageTitle,
+    description: pageDesc,
+    url: `${SITE_URL}${currentPath}`,
+    inLanguage: locale,
+    hasPart: tools.map((t) => ({
+      "@type": "WebApplication",
+      name: t.title,
+      description: t.description,
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "Any",
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
+        item: `${SITE_URL}${currentPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={currentPath}
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-800">
+      {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
+    </span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="lab-card bg-white p-6 sm:p-8">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="badge-info font-mono">SPECMATRIX INTERACTIVE LAB</span>
+      <span class="badge-pass font-mono">
+        {isKo ? "100% 결정론적 로컬 계산 · 서버 지연 0ms" : "100% Deterministic Client Math · 0ms Latency"}
+      </span>
+    </div>
+
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+      {isKo
+        ? "SpecMatrix 인터랙티브 랩 도구 허브"
+        : "SpecMatrix Interactive Lab Tools Hub"}
+    </h1>
+    <p class="mt-2.5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
+      {isKo
+        ? "단순 스펙 나열을 넘어 내 실제 사용 환경(탑승 항공사·기기 조합·대회 시간·전기요금·림 규격)을 입력해 즉시 공학적 의사결정을 내릴 수 있는 6종 전용 워크벤치입니다."
+        : "Six purpose-built interactive studios powered by verified manufacturer specs, nutrition panels, electricity tariff models, and 30-airline safety rules — running entirely in your browser."}
+    </p>
+
+    <!-- Live DB Telemetry Strip -->
+    <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "검증 완료 DB" : "Verified SKUs"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+          {allItems.length}
+        </div>
+        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+          {PILOT_VERTICALS.length} {isKo ? "개 버티컬" : "Verticals"}
+        </div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "자유 1:1 조합" : "Live 1:1 Combos"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-blue-700">
+          {formatInt(totalPairwise)}+
+        </div>
+        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+          {allVs.length} {isKo ? "에디토리얼 VS 포함" : "Editorial VS"}
+        </div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "글로벌 항공사" : "Airlines Indexed"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+          {airlines.length}
+        </div>
+        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+          MOLIT · IATA · CCC
+        </div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="font-mono text-[11px] uppercase text-slate-500">
+          {isKo ? "독립 인터랙티브 도구" : "Interactive Studios"}
+        </div>
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-700">
+          {tools.length}
+        </div>
+        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+          {isKo ? "무료 · 로그인 불필요" : "Free · No Login"}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId="tools-hub-top" variant="banner" locale={locale} />
+
+  <!-- 6 Interactive Tool Launch Cards -->
+  <section class="mt-6 grid gap-5 md:grid-cols-2" aria-label={isKo ? "인터랙티브 도구 목록" : "Interactive Tools Directory"}>
+    {tools.map((tool, index) => (
+      <article class="lab-card flex flex-col justify-between bg-white p-6 transition-colors hover:border-blue-400">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class={`inline-flex rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${tool.toneClass}`}>
+              0{index + 1} · {tool.tag}
+            </span>
+            <span class="font-mono text-[11px] font-semibold text-slate-500">
+              {tool.dbMetric}
+            </span>
+          </div>
+
+          <h2 class="mt-3 text-lg font-extrabold tracking-tight text-slate-900">
+            <a href={tool.href} class="hover:text-blue-700 hover:underline">
+              {tool.title}
+            </a>
+          </h2>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            {tool.description}
+          </p>
+
+          <ul class="mt-4 space-y-1.5 border-t border-slate-100 pt-3.5 text-xs text-slate-700">
+            {tool.highlights.map((bullet) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-0.5 font-mono text-[11px] font-bold text-blue-700">✓</span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="mt-5 pt-2">
+          <a
+            href={tool.href}
+            class="inline-flex w-full items-center justify-between rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+          >
+            <span>{tool.ctaLabel}</span>
+            <span class="font-mono text-xs opacity-85">→</span>
+          </a>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <!-- Engineering Transparency Footer Card -->
+  <section class="mt-8 lab-card border-slate-200 bg-slate-50 p-5">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="max-w-2xl">
+        <h2 class="text-sm font-bold text-slate-900">
+          {isKo
+            ? "모든 계산 수식과 검증 기준이 투명하게 공개됩니다"
+            : "Deterministic Engineering — Zero Black-Box Guessing"}
+        </h2>
+        <p class="mt-1 text-xs leading-relaxed text-slate-600">
+          {isKo
+            ? "SpecMatrix의 모든 도구는 LLM 추정값이 아닌 제조사 공식 스펙시트, 영양성분표, 항공사 공식 원문 정책 데이터를 사칙연산·물리 수식으로 계산합니다."
+            : "Every SpecMatrix tool runs strictly on audited manufacturer datasheets, Nutrition Facts panels, and official carrier policy documents — with zero arbitrary review scores."}
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a
+          href={withBase(`/${locale}/methodology`)}
+          class="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+        >
+          {isKo ? "검증 방법론 보기 →" : "Read Methodology →"}
+        </a>
+        <a
+          href={withBase(`/${locale}`)}
+          class="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+        >
+          {isKo ? "전체 버티컬 허브 →" : "All Verticals Hub →"}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

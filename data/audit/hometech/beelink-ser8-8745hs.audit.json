@@ -1,0 +1,33 @@
+{
+  "sku_slug": "beelink-ser8-8745hs",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 97,
+  "evidence_quotes": [
+    {
+      "field": "specs.cpu_or_soc",
+      "quote": "AMD Ryzen 7 8745HS (Zen 4, 8 Cores / 16 Threads, 3.8 GHz base / up to 4.9 GHz max boost, AMD Radeon 780M 12 CU iGPU, Ryzen AI NPU disabled).",
+      "source_url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.dimensions_mm",
+      "quote": "Beelink SER8 unibody aluminum chassis 135 x 135 x 44.7 mm (~0.814 L), ~0.75 kg, MSC 2.0 vapor chamber cooling supporting 54W Balanced and 65W Performance TDP, dual M.2 PCIe 4.0 x4 slots, 2.5GbE LAN.",
+      "source_url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.input_voltage_range",
+      "quote": "External universal power adapter rated 100-240V AC 50/60Hz input, DC 19V / 5.26A (~100W-120W class) output with USB4, HDMI 2.1, and DP 1.4 triple display support.",
+      "source_url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "8745HS vs 8845HS differentiation check: Verified that AMD Ryzen 7 8745HS retains full 8C/16T Zen 4 CPU and Radeon 780M GPU performance while disabling the Ryzen AI NPU—explicitly documented in specs and both EN/KO gotchas.",
+    "Power & acoustics hierarchy verified: Wall power 9.5 W idle <= 38 W typical <= 82 W combined peak stress under 65 W TDP profile; acoustic range 29 dBA idle <= 36 dBA load verified within 15-85 dBA bounds.",
+    "SM-02 & Korea import check: Verified 32GB/1TB MSRP benchmarks ($649 USD / 899,000 KRW) under msrp_benchmark_mode with asin: null, flagging 10% KR customs VAT over $150 and grounded 220V cord swap."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

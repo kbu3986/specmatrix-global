@@ -4,7 +4,10 @@
   "category": "gps-computer",
   "slug": "coros-dura-solar-gps",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "COROS",
   "model_number": "DURA-SOLAR",
   "origin_country": "US",
@@ -12,7 +15,7 @@
     "us": {
       "asin": null,
       "sku": "COROS-DURA",
-      "msrp": 249.0,
+      "msrp": 249,
       "currency": "USD",
       "price_mode": "msrp_benchmark_mode",
       "price_checked_at": "2026-11-22",
@@ -35,7 +38,12 @@
     "claimed_accuracy_pct": null,
     "left_right_balance": null,
     "mount_or_form_factor": "2.7\" MIP Solar Touchscreen + Tactile Digital Dial (Garmin quarter-turn mount)",
-    "connectivity": ["ANT+", "Bluetooth 5.0", "Wi-Fi", "Dual-Frequency GNSS (L1+L5)"],
+    "connectivity": [
+      "ANT+",
+      "Bluetooth 5.0",
+      "Wi-Fi",
+      "Dual-Frequency GNSS (L1+L5)"
+    ],
     "battery_life_hours": 120,
     "waterproof_rating": "IP67",
     "tire_width_mm": null,
@@ -46,16 +54,56 @@
     "trainer_noise_dba": null,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Device Weight", "key_ko": "본체 무게", "value": "102 g (included out-front mount: 53 g)" },
-      { "key_en": "Battery (All Systems / Dual-Freq)", "key_ko": "배터리 (올시스템 / 듀얼밴드)", "value": "120 hrs (All Systems) / 70 hrs (Dual-Frequency L1+L5) without solar" },
-      { "key_en": "Solar Gain Efficiency", "key_ko": "태양광 충전 효율", "value": "Up to +2 hrs extra ride time per 1 hr of direct sunlight" },
-      { "key_en": "Display Specs", "key_ko": "디스플레이", "value": "2.7\" 64-color Always-On MIP touchscreen (400 × 240 px)" },
-      { "key_en": "Physical Controls", "key_ko": "물리 조작부", "value": "Side Tactile Digital Dial + Back/Lap button + Touchscreen" },
-      { "key_en": "Dimensions", "key_ko": "외형 크기", "value": "99.5 × 60.8 × 15.7 mm" },
-      { "key_en": "Internal Storage", "key_ko": "내장 저장공간", "value": "32 GB (global offline landscape & topo maps)" },
-      { "key_en": "Waterproof Rating", "key_ko": "방수 등급", "value": "IP67 (USB-C charging port)" },
-      { "key_en": "Di2 & AXS Hood Controls", "key_ko": "전동 변속기·후드 버튼 연동", "value": "Shimano Di2 (BLE/ANT+ D-Fly) & SRAM AXS hood button page/lap control" },
-      { "key_en": "Analytics Sync", "key_ko": "트레이닝 플랫폼 자동 연동", "value": "Native 2-way Intervals.icu, Strava, Komoot, RideWithGPS, TrainingPeaks" }
+      {
+        "key_en": "Device Weight",
+        "key_ko": "본체 무게",
+        "value": "102 g (included out-front mount: 53 g)"
+      },
+      {
+        "key_en": "Battery (All Systems / Dual-Freq)",
+        "key_ko": "배터리 (올시스템 / 듀얼밴드)",
+        "value": "120 hrs (All Systems) / 70 hrs (Dual-Frequency L1+L5) without solar"
+      },
+      {
+        "key_en": "Solar Gain Efficiency",
+        "key_ko": "태양광 충전 효율",
+        "value": "Up to +2 hrs extra ride time per 1 hr of direct sunlight"
+      },
+      {
+        "key_en": "Display Specs",
+        "key_ko": "디스플레이",
+        "value": "2.7\" 64-color Always-On MIP touchscreen (400 × 240 px)"
+      },
+      {
+        "key_en": "Physical Controls",
+        "key_ko": "물리 조작부",
+        "value": "Side Tactile Digital Dial + Back/Lap button + Touchscreen"
+      },
+      {
+        "key_en": "Dimensions",
+        "key_ko": "외형 크기",
+        "value": "99.5 × 60.8 × 15.7 mm"
+      },
+      {
+        "key_en": "Internal Storage",
+        "key_ko": "내장 저장공간",
+        "value": "32 GB (global offline landscape & topo maps)"
+      },
+      {
+        "key_en": "Waterproof Rating",
+        "key_ko": "방수 등급",
+        "value": "IP67 (USB-C charging port)"
+      },
+      {
+        "key_en": "Di2 & AXS Hood Controls",
+        "key_ko": "전동 변속기·후드 버튼 연동",
+        "value": "Shimano Di2 (BLE/ANT+ D-Fly) & SRAM AXS hood button page/lap control"
+      },
+      {
+        "key_en": "Analytics Sync",
+        "key_ko": "트레이닝 플랫폼 자동 연동",
+        "value": "Native 2-way Intervals.icu, Strava, Komoot, RideWithGPS, TrainingPeaks"
+      }
     ]
   },
   "compatibility_graph": {
@@ -121,9 +169,9 @@
     },
     {
       "label": "COROS Support — Shimano Di2, ANT+ Radar & Intervals.icu Integration",
-      "url": "https://support.coros.com/hc/en-us/sections/25563580115732-DURA",
+      "url": "https://support.coros.com/hc/en-us",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Intervals.icu Official COROS Two-Way Integration Documentation",
@@ -140,5 +188,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["garmin-edge-840-solar", "wahoo-elemnt-roam-v2"]
+  "auto_fallback_slugs": [
+    "garmin-edge-840-solar",
+    "wahoo-elemnt-roam-v2"
+  ]
 }

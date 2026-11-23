@@ -24,7 +24,12 @@ export function withBase(pathname: string): string {
   return norm === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${norm}`;
 }
 export const ACTIVE_LOCALES: ActiveLocale[] = ["en", "ko"];
-export const PILOT_VERTICALS: PilotVertical[] = ["wattcheck", "puregram", "cyclegear"];
+export const PILOT_VERTICALS: PilotVertical[] = [
+  "wattcheck",
+  "puregram",
+  "cyclegear",
+  "hometech",
+];
 export const LEGAL_SLUGS: LegalSlug[] = [
   "about",
   "methodology",
@@ -94,6 +99,23 @@ export const VERTICAL_META: Record<PilotVertical, VerticalMeta> = {
     accentClass: "text-amber-700",
     badgeBgClass: "bg-amber-50 text-amber-800 border-amber-200",
   },
+  hometech: {
+    id: "hometech",
+    name: {
+      en: "HomeTech TCO Matrix",
+      ko: "HomeTech 전력·유지비 TCO 매트릭스",
+    },
+    shortName: {
+      en: "HomeTech",
+      ko: "HomeTech",
+    },
+    tagline: {
+      en: "Mini PCs, NAS, pure-sine UPS & robot vacuums audited for 24/7 power draw & 3-year TCO",
+      ko: "미니PC·NAS·UPS·로봇청소기 24시간 대기전력·한전 누진제 전기요금·3년 총소유비용(TCO) 검증",
+    },
+    accentClass: "text-violet-700",
+    badgeBgClass: "bg-violet-50 text-violet-800 border-violet-200",
+  },
 };
 
 export const CATEGORY_LABELS: Record<string, Record<ActiveLocale, string>> = {
@@ -109,6 +131,10 @@ export const CATEGORY_LABELS: Record<string, Record<ActiveLocale, string>> = {
   "smart-trainer": { en: "Smart Trainer", ko: "스마트 트레이너" },
   "road-tire": { en: "Road Tubeless Tire", ko: "로드 튜블리스 타이어" },
   drivetrain: { en: "Electronic Drivetrain", ko: "전동 구동계" },
+  minipc: { en: "Mini PC", ko: "미니 PC" },
+  nas: { en: "NAS Server", ko: "NAS 서버" },
+  ups: { en: "UPS Battery Backup", ko: "UPS 무정전 전원장치" },
+  "robot-vacuum": { en: "Robot Vacuum", ko: "로봇청소기" },
 };
 
 export const LEGAL_LABELS: Record<LegalSlug, Record<ActiveLocale, string>> = {

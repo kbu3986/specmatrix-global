@@ -2,11 +2,11 @@
  * SpecMatrix Global — Master Data Validation CLI (`npm run validate`)
  *
  * Validates:
- *  - All 60 Pilot SKUs (25 WattCheck, 20 PureGram, 15 CycleGear) against Zod SSOT schemas + physics-math.mjs + cross-audit guards
- *  - All 60 Stage 2 Audit Logs (`data/audit/{vertical}/{slug}.audit.json`)
+ *  - All 72 Pilot SKUs (25 WattCheck, 20 PureGram, 15 CycleGear, 12 HomeTech) against Zod SSOT schemas + physics-math.mjs + cross-audit guards
+ *  - All 72 Stage 2 Audit Logs (`data/audit/{vertical}/{slug}.audit.json`)
  *  - All 30 Core Global Airlines (`data/wattcheck/airlines.json`)
- *  - All 25 Canonical VS Insights (`data/{vertical}/vs-insights.json`) + cross-reference integrity
- *  - All 10 Matrix & Compat Pages (`data/{vertical}/matrices.json`) + cross-reference integrity
+ *  - All 31 Canonical VS Insights (`data/{vertical}/vs-insights.json`) + cross-reference integrity
+ *  - All 13 Matrix & Compat Pages (`data/{vertical}/matrices.json`) + cross-reference integrity
  *  - Quarantine ratio & 15% circuit breaker (`quarantineCircuitBreakerPct`)
  *
  * Writes `data/audit/validation-report.json` when `data/audit/` exists.
@@ -20,6 +20,7 @@ import {
   AirlineSchema,
   AuditLogSchema,
   CycleGearItemSchema,
+  HomeTechItemSchema,
   MatrixPageSchema,
   PureGramItemSchema,
   VsInsightSchema,
@@ -27,11 +28,12 @@ import {
 } from "../schemas/ssot-schema.mjs";
 import { verifyItemComplete } from "./physics-math.mjs";
 
-const VERTICALS = ["wattcheck", "puregram", "cyclegear"];
+const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
 const ITEM_SCHEMAS = {
   wattcheck: WattCheckItemSchema,
   puregram: PureGramItemSchema,
   cyclegear: CycleGearItemSchema,
+  hometech: HomeTechItemSchema,
 };
 
 const REQUIRED_AIRLINE_REGIONS = ["KR", "NA", "EU", "APAC", "ME"];
@@ -144,6 +146,7 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
     wattcheck: new Map(),
     puregram: new Map(),
     cyclegear: new Map(),
+    hometech: new Map(),
   };
 
   const quarantinedSet = new Set();
@@ -482,6 +485,9 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
     const vsRes = readJsonFile(vsFile);
 
     if (!vsRes.ok) {
+      if (vsRes.missing && manifestPairs.length === 0) {
+        continue;
+      }
       counts.vs_pairs.failed += manifestPairs.length;
       byVertical[vertical].vs_pairs.failed += manifestPairs.length;
       failures.push({
@@ -646,6 +652,9 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
     const matrixRes = readJsonFile(matrixFile);
 
     if (!matrixRes.ok) {
+      if (matrixRes.missing && manifestMatrices.length === 0) {
+        continue;
+      }
       counts.matrices.failed += manifestMatrices.length;
       byVertical[vertical].matrices.failed += manifestMatrices.length;
       failures.push({

@@ -7,13 +7,13 @@
     {
       "field": "package_spec & price",
       "quote": "Maurten Gel 100 Caf 100 box of 12 servings (40 g sachet, 480 g net) listed at $52.00 USD on maurten.com.",
-      "source_url": "https://maurten.com/products/gel-100-caf-100",
+      "source_url": "https://www.maurten.com/products/gel-100-caf-100-box",
       "source_tier": 1
     },
     {
       "field": "nutrition_label.caffeine_mg & carbs_g",
       "quote": "Per 40 g serving: 100 kcal (425 kJ), 25 g carbohydrates (25 g sugars, 0.8:1 fructose-to-glucose), 100 mg caffeine, ~22 mg sodium (0.06 g salt), 0 g fat, 0 g protein.",
-      "source_url": "https://maurten.com/products/gel-100-caf-100",
+      "source_url": "https://www.maurten.com/products/gel-100-caf-100-box",
       "source_tier": 1
     },
     {

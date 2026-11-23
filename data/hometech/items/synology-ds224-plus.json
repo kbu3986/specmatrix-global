@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0.0",
+  "vertical": "hometech",
+  "category": "nas",
+  "slug": "synology-ds224-plus",
+  "release_wave": 1,
+  "available_locales": ["en", "ko"],
+  "brand": "Synology",
+  "model_number": "DS224+",
+  "origin_country": "TW",
+  "regional_offers": {
+    "us": {
+      "asin": null,
+      "sku": "DS224+",
+      "msrp": 299.99,
+      "currency": "USD",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "Synology DiskStation DS224+ 2-Bay NAS diskless",
+      "status": "IN_STOCK"
+    },
+    "kr": {
+      "asin": null,
+      "sku": "DS224+-KR",
+      "msrp": 519000,
+      "currency": "KRW",
+      "price_mode": "msrp_benchmark_mode",
+      "price_checked_at": "2026-11-23",
+      "search_query": "시놀로지 DS224+ 2베이 나스 NAS 정품",
+      "status": "IN_STOCK"
+    }
+  },
+  "specs": {
+    "idle_power_w": 4.41,
+    "typical_load_w": 14.69,
+    "peak_power_w": 60,
+    "default_daily_hours_active": 8,
+    "annual_consumables_usd": 0,
+    "annual_consumables_krw": 0,
+    "noise_idle_dba": 22,
+    "noise_load_dba": 25,
+    "weight_g": 1300,
+    "dimensions_mm": {
+      "l": 232.2,
+      "w": 108,
+      "h": 165
+    },
+    "input_voltage_range": "100-240V AC, 50/60Hz (60W external AC adapter)",
+    "dual_voltage_100_240v": true,
+    "cpu_or_soc": "Intel Celeron J4125 (4-core 2.0-2.7 GHz, Intel UHD Graphics 600)",
+    "ram_gb_default": 2,
+    "drive_bays": 2,
+    "lan_speed_gbps": 1,
+    "ups_va_rating": null,
+    "ups_watt_rating": null,
+    "ups_waveform": null,
+    "ups_runtime_half_load_min": null,
+    "suction_pa": null,
+    "dustbag_capacity_l": null,
+    "certifications": ["FCC Class B", "CE Class B", "KC", "BSMI", "VCCI", "RCM", "UKCA", "CCC"],
+    "key_specs_kv": [
+      { "key_en": "CPU & iGPU", "key_ko": "CPU 및 내장 그래픽", "value": "Intel Celeron J4125 (4C/4T, up to 2.7 GHz) with Quick Sync Video" },
+      { "key_en": "System Memory", "key_ko": "기본 / 최대 메모리", "value": "2 GB DDR4 non-ECC soldered + 1 open slot (6 GB official max)" },
+      { "key_en": "Drive Bays", "key_ko": "드라이브 베이", "value": "2 × 3.5\"/2.5\" SATA HDD/SSD hot-swappable (no internal M.2 NVMe)" },
+      { "key_en": "Network Ports", "key_ko": "네트워크 포트", "value": "2 × RJ-45 1GbE LAN (Link Aggregation & Failover supported)" },
+      { "key_en": "Official Power Draw", "key_ko": "공식 소비전력 (절전/액세스)", "value": "4.41 W HDD hibernation / 14.69 W active access / 60 W PSU" },
+      { "key_en": "Acoustic Noise", "key_ko": "소음 수준", "value": "22.0 dB(A) idle at 1 m (single 92 × 92 mm cooling fan)" },
+      { "key_en": "Dimensions & Weight", "key_ko": "크기 및 무게", "value": "165 × 108 × 232.2 mm (H×W×D), 1,300 g (diskless)" },
+      { "key_en": "USB & UPS Support", "key_ko": "USB 확장 및 UPS 연동", "value": "2 × USB 3.2 Gen 1 (native NUT/USB HID auto-shutdown for APC/CyberPower UPS)" },
+      { "key_en": "Operating System", "key_ko": "운영체제 생태계", "value": "Synology DSM 7.2+ (Synology Photos, Drive, Hyper Backup, Container Manager)" }
+    ]
+  },
+  "tco_profile": {
+    "always_on_24_7": true,
+    "expected_lifespan_years": 6,
+    "battery_or_filter_cycle_months": null,
+    "korea_220v_note_en": "Ships with a 100-240V 50/60Hz 60W universal AC power brick; fully compatible with Korea's 220V/60Hz grid without a step-down transformer (KR official units include KC certification and local distributor warranty).",
+    "korea_220v_note_ko": "100-240V 50/60Hz 프리볼트 60W 외장 어댑터를 기본 제공해 한국 220V 환경에 변압기 없이 직결 가능합니다. 정식 수입품(KC 인증) 구매 시 국내 유통사 2년 무상 A/S를 받을 수 있습니다."
+  },
+  "i18n": {
+    "en": {
+      "name": "Synology DiskStation DS224+",
+      "title": "Synology DS224+ 2-Bay NAS: 4.41W Idle TCO, Plex Quick Sync & 1GbE Limit Audit",
+      "summary": "Synology's ultra-efficient 2-bay Intel Celeron J4125 NAS delivering 4.41 W HDD hibernation, 14.69 W active power draw, hardware-accelerated Plex/Jellyfin transcoding, and turnkey DSM 7.2 software at $299.99.",
+      "best_for": "Home users and small offices wanting whisper-quiet 24/7 private cloud backup (Synology Photos/Drive), low KEPCO/utility electricity cost, and zero-tinker RAID-1/SHR reliability.",
+      "local_gotchas": [
+        "No internal M.2 NVMe cache slots and dual 1GbE NICs cap sequential single-client transfers at ~112 MB/s (no built-in 2.5GbE without unofficial USB adapters).",
+        "Default 2 GB soldered DDR4 RAM fills quickly once Container Manager (Docker) or Synology Photos AI indexing runs — budget an extra $15–$25 for a compatible 4 GB (or community-tested 8 GB/16 GB) DDR4 SODIMM.",
+        "Official 14.69 W access wattage was measured with two low-power 1 TB drives; high-capacity 7200 RPM helium NAS HDDs (12–18 TB) add roughly 6–10 W under active load."
+      ]
+    },
+    "ko": {
+      "name": "시놀로지 디스크스테이션 DS224+",
+      "title": "시놀로지 DS224+ 2베이 NAS: 4.41W 초저전력 3년 전기요금·트랜스코딩·1GbE 한계 분석",
+      "summary": "인텔 셀러론 J4125 쿼드코어(Quick Sync 지원)와 절전 4.41 W / 구동 14.69 W 초저전력 설계를 결합해 24시간 상시 구동 전기요금 부담을 최소화한 시놀로지 대표 2베이 홈 NAS입니다.",
+      "best_for": "구글 포토·아이클라우드 월 구독료를 대체할 시놀로지 포토/드라이브 개인 클라우드, 저소음(22 dBA) 24시간 상시 백업, 별도 리눅스 세팅 없이 안정적인 DSM 생태계를 원하는 가정·소호 사용자.",
+      "local_gotchas": [
+        "M.2 NVMe 슬롯이 없고 유선 랜이 1GbE(듀얼)로 제한되어 단일 PC 순차 전송 속도가 약 112 MB/s에서 막히므로 4K 대용량 영상 직접 편집용보다는 백업·미디어 스트리밍에 적합합니다.",
+        "기본 메모리 2 GB로는 도커(Container Manager)와 시놀로지 포토 얼굴 인식을 동시에 돌릴 때 스왑 병목이 발생하므로 호환 DDR4 노트북 램(공식 4 GB 추가, 실사용 8~16 GB 확장) 증설을 강력 권장합니다.",
+        "공식 소비전력(14.69 W)은 1 TB 저전력 HDD 2개 기준이며, 12~18 TB급 7200 RPM 고용량 NAS 하드 2개를 장착하면 실측 구동 전력이 약 20~24 W까지 올라가므로 누진제 구간 계산 시 반영해야 합니다."
+      ]
+    }
+  },
+  "citations": [
+    {
+      "label": "Synology DiskStation DS224+ Official Product & Technical Specifications",
+      "url": "https://www.synology.com/products/DS224+",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    },
+    {
+      "label": "Synology DS224+ Official Download Center & Datasheet Documentation",
+      "url": "https://www.synology.com/en-global/support/download/DS224+",
+      "source_tier": 1,
+      "verified_at": "2026-11-23"
+    }
+  ],
+  "audit": {
+    "fact_checked_at": "2026-11-23",
+    "adversarial_pass": true,
+    "trust_score": 99,
+    "info_gain_score": 94,
+    "human_spot_checked": true
+  },
+  "successor_slug": null,
+  "auto_fallback_slugs": ["synology-ds423-plus", "gmktec-nucbox-g3-plus-n150"]
+}

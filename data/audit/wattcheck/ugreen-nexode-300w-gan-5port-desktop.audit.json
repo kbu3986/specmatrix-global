@@ -7,13 +7,13 @@
     {
       "field": "weight_g",
       "quote": "Measured unit weight ~868 g (rejected erroneous ~291 g reseller listing during adversarial check), Dimensions 111.6 x 95.5 x 53 mm",
-      "source_url": "https://www.techpowerup.com/review/ugreen-nexode-300w-gan-fast-charger/",
+      "source_url": "https://www.techpowerup.com/review/quick-look-ugreen-nexode-300w-gan-desktop-charger/",
       "source_tier": 3
     },
     {
       "field": "port_allocation_matrix",
       "quote": "C1 140W PD 3.1, C2 100W, C3 100W, C4 45W, A1 22.5W; C1+C2+C3 = 140W+100W+60W (300W Max); C1 holds 140W in 5-port load",
-      "source_url": "https://www.ugreen.com/products/ugreen-nexode-300w-usb-c-gan-charger",
+      "source_url": "https://us.ugreen.com/products/ugreen-nexode-300w-charger",
       "source_tier": 1
     }
   ],

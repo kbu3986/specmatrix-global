@@ -1,0 +1,27 @@
+{
+  "sku_slug": "roborock-qrevo-master",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 98,
+  "evidence_quotes": [
+    {
+      "field": "specs.suction_pa",
+      "quote": "10,000 Pa HyperForce Suction, DuoRoller Riser Brush, Dual Spinning Mops (200 RPM) with FlexiArm Design Mop & Side Brush, 5,200 mAh battery, 2.7 L dust bag",
+      "source_url": "https://us.roborock.com/products/roborock-qrevo-master",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.peak_power_w",
+      "quote": "Multifunctional Dock 3.0 (EWFD): 120V version Hot Water 12A / Dust Collection 6A / Charging & Drying 1A; 220-240V version Hot Water 5.6A (~1,340 W) / Dust Collection 3A / Charging & Drying 0.6A; Robot 350 x 353 x 102.87 mm",
+      "source_url": "https://global.roborock.com/",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Robot-vacuum physics & TCO check: Verified suction_pa = 10000 (>=1000), dustbag_capacity_l = 2.7 (>0), 4 W idle <= 70 W typical <= 1340 W hot-water peak, and lower annual consumables ($75 / 98,000 KRW) vs S8 MaxV Ultra.",
+    "Feature delta check: Explicitly noted missing auto detergent dispenser, 10 mm spinning mop lift ceiling on thick rugs, and taller 522 mm Multifunctional Dock 3.0 clearance requirement.",
+    "KR localization & SM-02 check: Verified single-voltage regional dock (dual_voltage_100_240v: false) and 1,690,000 KRW KR launch benchmark vs US $1,599.99 under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

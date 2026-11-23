@@ -7,6 +7,7 @@
   "scripts": {
     "validate": "node pipeline/validate-all.mjs",
     "audit:ig": "node pipeline/serp-ig-audit.mjs",
+    "health:links": "node pipeline/check-links-health.mjs",
     "fx:update": "node pipeline/update-fx.mjs",
     "coupang:sync": "node pipeline/sync-coupang-deeplinks.mjs",
     "coupang:export": "node pipeline/sync-coupang-deeplinks.mjs --export-urls",

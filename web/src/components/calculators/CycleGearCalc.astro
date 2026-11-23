@@ -10,14 +10,22 @@ interface Props {
 const { item, locale } = Astro.props;
 const isKo = locale === "ko";
 
+const validWidths = [25, 28, 30, 32, 35] as const;
+const rawTireW = item.specs.tire_width_mm ?? 28;
+const defaultTireWidth = validWidths.reduce((best, w) =>
+  Math.abs(w - rawTireW) < Math.abs(best - rawTireW) ? w : best
+);
+
 const payload = {
   locale,
+  slug: item.slug,
   category: item.category,
   mountForm: item.specs.mount_or_form_factor,
   connectivity: item.specs.connectivity,
   hooklessCompat: item.specs.hookless_compatible,
   hooklessMaxPsi: item.specs.hookless_max_psi,
   tireWidthMm: item.specs.tire_width_mm,
+  defaultTireWidth,
   drivetrainSpeeds: item.specs.drivetrain_speeds,
   bbMount: item.compatibility_graph.bb_or_mount_standard,
   freehubCleat: item.compatibility_graph.freehub_or_cleat_standard,
@@ -196,6 +204,196 @@ const payload = {
         </ul>
       </div>
     )}
+
+    <!-- Part B: Road Tire Optimal Pressure Calculator (ETRTO / Silca-inspired Physics Model + Hookless 5.0 bar Guard) -->
+    <div class="border-t border-slate-200 pt-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-700">
+            PART B · DETERMINISTIC TIRE PHYSICS
+          </span>
+          <h3 class="mt-0.5 text-sm font-bold text-slate-900">
+            {isKo
+              ? "로드 타이어 최적 공기압 계산기 (ETRTO · 48/52 하중 배분 · 후크리스 5.0 bar 하드 가드)"
+              : "Road Tire Optimal Pressure Calculator (48/52 Load Physics + Hookless 5.0 bar Guard)"}
+          </h3>
+        </div>
+        <span id="cg-tp-rim-badge" class="badge-info font-mono">
+          {isKo ? "동기화 림: 훅드 (Hooked)" : "Synced Rim: Hooked"}
+        </span>
+      </div>
+
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        <div class="space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div>
+            <div class="flex items-center justify-between text-xs">
+              <label for="cg-rider-kg" class="font-semibold text-slate-700">
+                {isKo ? "라이더 체중 (kg)" : "Rider Weight (kg)"}
+              </label>
+              <span id="cg-rider-kg-val" class="font-mono font-bold text-slate-900">70 kg</span>
+            </div>
+            <input
+              id="cg-rider-kg"
+              type="range"
+              min="45"
+              max="120"
+              step="1"
+              value="70"
+              class="lab-slider mt-2"
+            />
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+              <span>45 kg</span>
+              <span>75 kg</span>
+              <span>120 kg</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between text-xs">
+              <label for="cg-bike-kg" class="font-semibold text-slate-700">
+                {isKo ? "자전거 + 장비 총중량 (kg)" : "Bike + Gear Weight (kg)"}
+              </label>
+              <span id="cg-bike-kg-val" class="font-mono font-bold text-slate-900">8.5 kg</span>
+            </div>
+            <input
+              id="cg-bike-kg"
+              type="range"
+              min="6"
+              max="15"
+              step="0.5"
+              value="8.5"
+              class="lab-slider mt-2"
+            />
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+              <span>6.0 kg</span>
+              <span>8.5 kg</span>
+              <span>15.0 kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div>
+            <span class="block text-xs font-semibold text-slate-700">
+              {isKo ? "타이어 실측 폭 (mm)" : "Measured Tire Width (mm)"}
+            </span>
+            <div id="cg-width-btns" class="mt-2 grid grid-cols-5 gap-1.5">
+              {validWidths.map((w) => (
+                <button
+                  type="button"
+                  data-tire-w={w}
+                  aria-pressed={w === defaultTireWidth ? "true" : "false"}
+                  class:list={[
+                    "cg-width-btn rounded-lg border py-1.5 font-mono text-xs font-semibold transition-colors",
+                    w === defaultTireWidth
+                      ? "border-slate-900 bg-slate-900 text-white"
+                      : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                  ]}
+                >
+                  {w}mm
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <span class="block text-xs font-semibold text-slate-700">
+              {isKo ? "주행 노면 컨디션" : "Road Surface Condition"}
+            </span>
+            <div id="cg-surface-btns" class="mt-2 grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+              {[
+                { id: "smooth", label: isKo ? "매끈한 아스팔트" : "Smooth" },
+                { id: "worn", label: isKo ? "일반·거친 포장" : "Worn" },
+                { id: "wet", label: isKo ? "우천·젖은 노면" : "Wet" },
+                { id: "cobble", label: isKo ? "요철·자갈" : "Cobble" },
+              ].map((sf, idx) => (
+                <button
+                  type="button"
+                  data-surface={sf.id}
+                  aria-pressed={idx === 0 ? "true" : "false"}
+                  class:list={[
+                    "cg-surface-btn rounded-lg border px-2 py-1.5 text-xs font-semibold transition-colors",
+                    idx === 0
+                      ? "border-slate-900 bg-slate-900 text-white"
+                      : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                  ]}
+                >
+                  {sf.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optimal Front / Rear Pressure Output Cards -->
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px] font-semibold uppercase text-slate-500">
+              {isKo ? "권장 앞 타이어 공기압 (48% 하중)" : "Recommended Front Pressure (48% Load)"}
+            </span>
+            <span id="cg-front-clamp-tag" class="hidden badge-fail font-mono text-[10px]">
+              CLAMPED 5.0 bar
+            </span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-2.5">
+            <span id="cg-front-bar" class="kpi-value font-mono text-2xl font-bold text-blue-700">
+              4.95 bar
+            </span>
+            <span id="cg-front-psi" class="kpi-value font-mono text-base font-semibold text-slate-700">
+              71.8 psi
+            </span>
+          </div>
+          <div id="cg-front-sub" class="mt-1 text-[11px] text-slate-500">
+            {isKo ? "앞바퀴 분담 하중 기준" : "Front wheel load allocation"}
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[11px] font-semibold uppercase text-slate-500">
+              {isKo ? "권장 뒤 타이어 공기압 (52% 하중)" : "Recommended Rear Pressure (52% Load)"}
+            </span>
+            <span id="cg-rear-clamp-tag" class="hidden badge-fail font-mono text-[10px]">
+              CLAMPED 5.0 bar
+            </span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-2.5">
+            <span id="cg-rear-bar" class="kpi-value font-mono text-2xl font-bold text-emerald-700">
+              5.25 bar
+            </span>
+            <span id="cg-rear-psi" class="kpi-value font-mono text-base font-semibold text-slate-700">
+              76.1 psi
+            </span>
+          </div>
+          <div id="cg-rear-sub" class="mt-1 text-[11px] text-slate-500">
+            {isKo ? "뒷바퀴 분담 하중 기준" : "Rear wheel load allocation"}
+          </div>
+        </div>
+      </div>
+
+      <!-- Hookless 5.0 bar Hard Safety Clamp Alert -->
+      <div
+        id="cg-hookless-clamp-alert"
+        class="mt-3 hidden rounded-xl border-2 border-rose-500 bg-rose-50 p-4 text-xs text-rose-950"
+        role="alert"
+      >
+        <div class="flex items-start gap-2.5">
+          <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-600 font-mono text-[11px] font-bold text-white">
+            !
+          </span>
+          <div class="space-y-1">
+            <div class="font-bold text-rose-950">
+              {isKo
+                ? "후크리스 5.0 bar (72.5 psi) 안전 상한 초과 — 강제 제한(Hard Clamp) 적용됨!"
+                : "HOOKLESS 5.0 bar (72.5 psi) HARD SAFETY CLAMP TRIGGERED"}
+            </div>
+            <p id="cg-hookless-clamp-msg" class="leading-relaxed text-rose-900"></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script type="application/json" id="cg-calc-data" set:html={safeJsonLd(payload)} />
@@ -208,12 +406,14 @@ const payload = {
 
     interface CgCfg {
       locale: string;
+      slug: string;
       category: string;
       mountForm: string;
       connectivity: string[];
       hooklessCompat: boolean | null;
       hooklessMaxPsi: number | null;
       tireWidthMm: number | null;
+      defaultTireWidth: number;
       drivetrainSpeeds: number | null;
       bbMount: string;
       freehubCleat: string;
@@ -232,8 +432,20 @@ const payload = {
     }
 
     const isKo = cfg.locale === "ko";
+    let tracked = false;
+    function trackInteract() {
+      if (tracked) return;
+      tracked = true;
+      const w = window as unknown as {
+        smTrack?: (name: string, params?: Record<string, unknown>) => void;
+      };
+      w.smTrack?.("calculator_interact", { vertical: "cyclegear", sku: cfg.slug });
+    }
+
     let rimType = "hooked";
     let pressureUnit = "bar";
+    let tireWidthMm = Number(cfg.defaultTireWidth || 28);
+    let surface = "smooth";
 
     const rimBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".cg-rim-btn"));
     const unitBarBtn = document.getElementById("cg-unit-bar");
@@ -249,6 +461,105 @@ const payload = {
     const verdictTitle = document.getElementById("cg-verdict-title");
     const verdictDesc = document.getElementById("cg-verdict-desc");
     const checksGrid = document.getElementById("cg-checks-grid");
+
+    // Part B elements
+    const tpRimBadge = document.getElementById("cg-tp-rim-badge");
+    const riderSlider = document.getElementById("cg-rider-kg") as HTMLInputElement | null;
+    const riderValEl = document.getElementById("cg-rider-kg-val");
+    const bikeSlider = document.getElementById("cg-bike-kg") as HTMLInputElement | null;
+    const bikeValEl = document.getElementById("cg-bike-kg-val");
+    const widthBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".cg-width-btn"));
+    const surfaceBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".cg-surface-btn"));
+    const frontBarEl = document.getElementById("cg-front-bar");
+    const frontPsiEl = document.getElementById("cg-front-psi");
+    const frontSubEl = document.getElementById("cg-front-sub");
+    const frontClampTag = document.getElementById("cg-front-clamp-tag");
+    const rearBarEl = document.getElementById("cg-rear-bar");
+    const rearPsiEl = document.getElementById("cg-rear-psi");
+    const rearSubEl = document.getElementById("cg-rear-sub");
+    const rearClampTag = document.getElementById("cg-rear-clamp-tag");
+    const hooklessAlertEl = document.getElementById("cg-hookless-clamp-alert");
+    const hooklessMsgEl = document.getElementById("cg-hookless-clamp-msg");
+
+    function computeOptimalPressure() {
+      const riderKg = Math.max(45, Math.min(120, Number(riderSlider ? riderSlider.value : 70)));
+      const bikeKg = Math.max(6, Math.min(15, Number(bikeSlider ? bikeSlider.value : 8.5)));
+      const totalKg = riderKg + bikeKg;
+      const frontLoadKg = totalKg * 0.48;
+      const rearLoadKg = totalKg * 0.52;
+
+      if (riderValEl) riderValEl.textContent = `${riderKg} kg`;
+      if (bikeValEl) bikeValEl.textContent = `${bikeKg.toFixed(1)} kg`;
+
+      if (tpRimBadge) {
+        if (rimType === "hookless") {
+          tpRimBadge.className = "badge-caution font-mono";
+          tpRimBadge.textContent = isKo
+            ? "동기화 림: 후크리스 (5.0 bar 하드 제한)"
+            : "Synced Rim: Hookless (5.0 bar Cap)";
+        } else {
+          tpRimBadge.className = "badge-info font-mono";
+          tpRimBadge.textContent = isKo ? "동기화 림: 훅드 (Hooked)" : "Synced Rim: Hooked";
+        }
+      }
+
+      const surfMult: Record<string, number> = {
+        smooth: 1.0,
+        worn: 0.93,
+        wet: 0.88,
+        cobble: 0.82,
+      };
+      const sm = surfMult[surface] ?? 1.0;
+      const widthScale = Math.pow(28 / Math.max(tireWidthMm, 23), 1.72);
+
+      // Deterministic ETRTO / Silca-inspired load-volume physics model (bar)
+      const calcWheelBar = (wheelKg: number) => {
+        const loadFactor = 0.25 + 0.75 * (wheelKg / 40.82);
+        return Math.max(2.4, Math.min(8.2, 5.25 * loadFactor * widthScale * sm));
+      };
+
+      const rawFrontBar = calcWheelBar(frontLoadKg);
+      const rawRearBar = calcWheelBar(rearLoadKg);
+
+      const isHookless = rimType === "hookless";
+      const frontClamped = isHookless && rawFrontBar > 5.0;
+      const rearClamped = isHookless && rawRearBar > 5.0;
+
+      const finalFrontBar = frontClamped ? 5.0 : rawFrontBar;
+      const finalRearBar = rearClamped ? 5.0 : rawRearBar;
+      const finalFrontPsi = frontClamped ? 72.5 : finalFrontBar * 14.5038;
+      const finalRearPsi = rearClamped ? 72.5 : finalRearBar * 14.5038;
+
+      if (frontBarEl) frontBarEl.textContent = `${finalFrontBar.toFixed(2)} bar`;
+      if (frontPsiEl) frontPsiEl.textContent = `${finalFrontPsi.toFixed(1)} psi`;
+      if (frontSubEl) {
+        frontSubEl.textContent = isKo
+          ? `앞바퀴 분담 ${frontLoadKg.toFixed(1)} kg · ${tireWidthMm}mm 타이어`
+          : `Front load ${frontLoadKg.toFixed(1)} kg · ${tireWidthMm}mm casing`;
+      }
+      if (frontClampTag) frontClampTag.classList.toggle("hidden", !frontClamped);
+
+      if (rearBarEl) rearBarEl.textContent = `${finalRearBar.toFixed(2)} bar`;
+      if (rearPsiEl) rearPsiEl.textContent = `${finalRearPsi.toFixed(1)} psi`;
+      if (rearSubEl) {
+        rearSubEl.textContent = isKo
+          ? `뒷바퀴 분담 ${rearLoadKg.toFixed(1)} kg · ${tireWidthMm}mm 타이어`
+          : `Rear load ${rearLoadKg.toFixed(1)} kg · ${tireWidthMm}mm casing`;
+      }
+      if (rearClampTag) rearClampTag.classList.toggle("hidden", !rearClamped);
+
+      if (hooklessAlertEl && hooklessMsgEl) {
+        if (frontClamped || rearClamped) {
+          hooklessAlertEl.classList.remove("hidden");
+          const recWidth = tireWidthMm < 30 ? "30–32 mm" : tireWidthMm < 32 ? "32 mm" : "35 mm";
+          hooklessMsgEl.textContent = isKo
+            ? `시스템 총중량 ${totalKg.toFixed(1)} kg + ${tireWidthMm}mm 타이어 기준 물리 최적 공기압은 앞 ${rawFrontBar.toFixed(2)} bar / 뒤 ${rawRearBar.toFixed(2)} bar이나, 후크리스(TSS) ISO/ETRTO 절대 안전 상한 5.0 bar (72.5 psi)에 따라 강제 제한되었습니다. 안전한 주행과 구름저항 최적화를 위해 ${recWidth} 광폭 타이어로 업사이즈하거나 훅드(Hooked) 림 사용을 강력히 권장합니다.`
+            : `At ${totalKg.toFixed(1)} kg system weight on ${tireWidthMm}mm tires, uncapped optimal physics calls for ${rawFrontBar.toFixed(2)} bar F / ${rawRearBar.toFixed(2)} bar R, which exceeds the ISO/ETRTO 5.0 bar (72.5 psi) hookless blow-off limit. Pressure has been hard-clamped to 5.0 bar — move up to ${recWidth} tires or switch to a hooked rim.`;
+        } else {
+          hooklessAlertEl.classList.add("hidden");
+        }
+      }
+    }
 
     const norm = (s: string | null | undefined) => String(s || "").toLowerCase();
     const joinedDt = (cfg.drivetrains || []).join(" ").toLowerCase();
@@ -513,6 +824,7 @@ const payload = {
 
     rimBtns.forEach((b) => {
       b.addEventListener("click", () => {
+        trackInteract();
         rimType = b.getAttribute("data-rim") || "hooked";
         rimBtns.forEach((o) => {
           const on = o === b;
@@ -521,17 +833,20 @@ const payload = {
             : "cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700";
         });
         evaluate();
+        computeOptimalPressure();
       });
     });
 
     if (unitBarBtn && unitPsiBtn) {
       unitBarBtn.addEventListener("click", () => {
+        trackInteract();
         pressureUnit = "bar";
         unitBarBtn.className = "px-2 py-1 bg-slate-900 text-white";
         unitPsiBtn.className = "px-2 py-1 text-slate-600";
         evaluate();
       });
       unitPsiBtn.addEventListener("click", () => {
+        trackInteract();
         pressureUnit = "psi";
         unitPsiBtn.className = "px-2 py-1 bg-slate-900 text-white";
         unitBarBtn.className = "px-2 py-1 text-slate-600";
@@ -541,11 +856,57 @@ const payload = {
 
     [pressureSlider, bbSelect, freehubSelect, headUnitSelect].forEach((el) => {
       if (el) {
-        el.addEventListener("input", evaluate);
-        el.addEventListener("change", evaluate);
+        el.addEventListener("input", () => {
+          trackInteract();
+          evaluate();
+        });
+        el.addEventListener("change", () => {
+          trackInteract();
+          evaluate();
+        });
       }
     });
 
+    [riderSlider, bikeSlider].forEach((el) => {
+      if (el) {
+        el.addEventListener("input", () => {
+          trackInteract();
+          computeOptimalPressure();
+        });
+      }
+    });
+
+    widthBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        trackInteract();
+        tireWidthMm = Number(b.getAttribute("data-tire-w") || 28);
+        widthBtns.forEach((o) => {
+          const on = o === b;
+          o.setAttribute("aria-pressed", on ? "true" : "false");
+          o.className = on
+            ? "cg-width-btn rounded-lg border border-slate-900 bg-slate-900 py-1.5 font-mono text-xs font-semibold text-white transition-colors"
+            : "cg-width-btn rounded-lg border border-slate-300 bg-white py-1.5 font-mono text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+        });
+        computeOptimalPressure();
+      });
+    });
+
+    surfaceBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        trackInteract();
+        surface = b.getAttribute("data-surface") || "smooth";
+        surfaceBtns.forEach((o) => {
+          const on = o === b;
+          o.setAttribute("aria-pressed", on ? "true" : "false");
+          o.className = on
+            ? "cg-surface-btn rounded-lg border border-slate-900 bg-slate-900 px-2 py-1.5 text-xs font-semibold text-white transition-colors"
+            : "cg-surface-btn rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+        });
+        computeOptimalPressure();
+      });
+    });
+
     evaluate();
+    computeOptimalPressure();
   })();
 </script>

@@ -1,0 +1,33 @@
+{
+  "sku_slug": "synology-ds224-plus",
+  "vertical": "hometech",
+  "audited_at": "2026-11-23",
+  "trust_score": 99,
+  "evidence_quotes": [
+    {
+      "field": "specs.idle_power_w",
+      "quote": "Power Consumption: 14.69 W (Access), 4.41 W (HDD Hibernation); Power Supply Unit / Adapter: 60 W; AC Input Power Voltage: 100V to 240V AC",
+      "source_url": "https://www.synology.com/products/DS224+",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.dimensions_mm",
+      "quote": "Size (Height x Width x Depth): 165 mm x 108 mm x 232.2 mm; Weight: 1.30 kg; Noise Level: 22 dB(A)",
+      "source_url": "https://www.synology.com/products/DS224+",
+      "source_tier": 1
+    },
+    {
+      "field": "specs.certifications",
+      "quote": "Intel Celeron J4125 4-core, 2 GB DDR4 non-ECC (expandable up to 6 GB), 2 x RJ-45 1GbE LAN; Certifications: FCC, CE, BSMI, VCCI, RCM, UKCA, EAC, CCC, KC",
+      "source_url": "https://www.synology.com/en-global/support/download/DS224+",
+      "source_tier": 1
+    }
+  ],
+  "adversarial_checks": [
+    "Power & TCO invariant check: Confirmed 4.41 W hibernation <= 14.69 W access <= 60 W PSU ceiling, and explicitly caveated that high-capacity 7200 RPM drives draw ~6-10 W more than Synology's 1 TB test drives.",
+    "Hardware bottleneck check: Explicitly flagged absence of internal M.2 NVMe slots, 1GbE NIC ceiling (~112 MB/s), and 2 GB default RAM limitation under Docker/Synology Photos.",
+    "KR localization & SM-02 check: Verified 100-240V dual voltage + KC certification, KR official benchmark 519,000 KRW vs US $299.99 under msrp_benchmark_mode with asin: null."
+  ],
+  "contradictions": [],
+  "verdict": "PASS"
+}

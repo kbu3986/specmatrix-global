@@ -1,0 +1,505 @@
+---
+import type {
+  ActiveLocale,
+  AnyItem,
+  CycleGearItem,
+  FxRates,
+  HomeTechItem,
+  PureGramItem,
+  WattCheckItem,
+} from "../lib/types";
+import {
+  formatCurrency,
+  formatInt,
+  formatNum,
+  getCategoryLabel,
+} from "../lib/i18n";
+
+interface Props {
+  item: AnyItem;
+  peers: AnyItem[];
+  fx: FxRates;
+  locale: ActiveLocale;
+}
+
+const { item, peers, fx, locale } = Astro.props;
+const isKo = locale === "ko";
+const currency: "KRW" | "USD" = isKo ? "KRW" : "USD";
+
+// Deduplicate peers within the same vertical & category and guarantee current SKU is included
+const peerMap = new Map<string, AnyItem>();
+for (const p of peers || []) {
+  if (p && p.vertical === item.vertical && p.category === item.category) {
+    peerMap.set(p.slug, p);
+  }
+}
+peerMap.set(item.slug, item);
+const categoryPeers = Array.from(peerMap.values());
+const peerCount = categoryPeers.length;
+
+interface AxisDef {
+  id: string;
+  label: string;
+  higherIsBetter: boolean;
+  getValue: (it: AnyItem) => number | null;
+  formatValue: (v: number) => string;
+}
+
+interface ComputedAxis {
+  id: string;
+  label: string;
+  higherIsBetter: boolean;
+  itemVal: number;
+  itemDisplay: string;
+  minDisplay: string;
+  maxDisplay: string;
+  medianDisplay: string;
+  itemPosPct: number;
+  medianPosPct: number;
+  rank: number;
+  total: number;
+  topPct: number;
+  isTopTier: boolean;
+}
+
+function getHomeTechWeightedW(it: HomeTechItem): number {
+  const h = Math.max(0, Math.min(24, it.specs.default_daily_hours_active));
+  return (it.specs.typical_load_w * h + it.specs.idle_power_w * (24 - h)) / 24;
+}
+
+function getHomeTechTco3Yr(it: HomeTechItem): number {
+  const annualKwh = getHomeTechWeightedW(it) * 8.76;
+  if (isKo) {
+    return Math.round(
+      it.regional_offers.kr.msrp + 3 * (Math.round(annualKwh * 214) + it.specs.annual_consumables_krw)
+    );
+  }
+  return +(
+    it.regional_offers.us.msrp + 3 * (annualKwh * 0.17 + it.specs.annual_consumables_usd)
+  ).toFixed(2);
+}
+
+function getPureGramBenchCost(it: PureGramItem): number | null {
+  const totalActive =
+    it.derived_math.total_pure_active_g > 0
+      ? it.derived_math.total_pure_active_g
+      : it.nutrition_label.active_per_serving_g * it.package_spec.total_servings;
+  const units =
+    it.derived_math.benchmark_unit_g > 0
+      ? totalActive / it.derived_math.benchmark_unit_g
+      : it.package_spec.total_servings;
+  if (!Number.isFinite(units) || units <= 0) return null;
+  const price = isKo ? it.regional_offers.kr.msrp : it.regional_offers.us.msrp;
+  return price / units;
+}
+
+function getWattCheckCostMetric(it: WattCheckItem, useWh: boolean): number | null {
+  const price = isKo ? it.regional_offers.kr.msrp : it.regional_offers.us.msrp;
+  if (useWh) {
+    const wh = it.specs.battery_energy_wh;
+    if (!wh || wh <= 0) return null;
+    return price / (wh / 10);
+  }
+  if (!it.specs.max_total_output_w || it.specs.max_total_output_w <= 0) return null;
+  return price / (it.specs.max_total_output_w / 10);
+}
+
+function buildAxes(): AxisDef[] {
+  if (item.vertical === "wattcheck") {
+    const hasBat = item.specs.has_battery && item.specs.battery_energy_wh !== null;
+    return [
+      {
+        id: "power-density",
+        label: isKo ? "출력 밀도 (W/100g)" : "Power Density (W/100g)",
+        higherIsBetter: true,
+        getValue: (it) => {
+          const w = it as WattCheckItem;
+          return w.specs.weight_g > 0 ? (w.specs.max_total_output_w / w.specs.weight_g) * 100 : null;
+        },
+        formatValue: (v) => `${formatNum(v, 1)} W/100g`,
+      },
+      {
+        id: "max-output",
+        label: isKo ? "최대 합산 출력" : "Max Total Output",
+        higherIsBetter: true,
+        getValue: (it) => (it as WattCheckItem).specs.max_total_output_w,
+        formatValue: (v) => `${formatInt(v)} W`,
+      },
+      {
+        id: "weight",
+        label: isKo ? "본체 무게 (경량 우세)" : "Weight (Lighter Better)",
+        higherIsBetter: false,
+        getValue: (it) => (it as WattCheckItem).specs.weight_g,
+        formatValue: (v) => `${formatInt(v)} g`,
+      },
+      {
+        id: "cost-eff",
+        label: hasBat
+          ? isKo
+            ? "10 Wh당 단가 (낮을수록 유리)"
+            : "Cost / 10 Wh (Lower Better)"
+          : isKo
+            ? "10 W당 단가 (낮을수록 유리)"
+            : "Cost / 10 W (Lower Better)",
+        higherIsBetter: false,
+        getValue: (it) => getWattCheckCostMetric(it as WattCheckItem, hasBat),
+        formatValue: (v) => formatCurrency(v, currency, locale),
+      },
+    ];
+  }
+
+  if (item.vertical === "puregram") {
+    return [
+      {
+        id: "true-cost",
+        label: isKo ? "기준 단위당 실단가" : "True Cost / Benchmark Unit",
+        higherIsBetter: false,
+        getValue: (it) => getPureGramBenchCost(it as PureGramItem),
+        formatValue: (v) => formatCurrency(v, currency, locale),
+      },
+      {
+        id: "purity",
+        label: isKo ? "유효성분 순도 (%)" : "Active Purity (%)",
+        higherIsBetter: true,
+        getValue: (it) => (it as PureGramItem).derived_math.purity_pct,
+        formatValue: (v) => `${formatNum(v, 1)}%`,
+      },
+      {
+        id: "active-serving",
+        label: isKo ? "1회당 유효성분 (g)" : "Active / Serving (g)",
+        higherIsBetter: true,
+        getValue: (it) => (it as PureGramItem).nutrition_label.active_per_serving_g,
+        formatValue: (v) => `${formatNum(v, 1)} g`,
+      },
+      {
+        id: "cost-serving",
+        label: isKo ? "1회분(서빙) 단가" : "Cost / Serving",
+        higherIsBetter: false,
+        getValue: (it) => {
+          const pg = it as PureGramItem;
+          const p = isKo ? pg.regional_offers.kr.msrp : pg.regional_offers.us.msrp;
+          return pg.package_spec.total_servings > 0 ? p / pg.package_spec.total_servings : null;
+        },
+        formatValue: (v) => formatCurrency(v, currency, locale),
+      },
+    ];
+  }
+
+  if (item.vertical === "cyclegear") {
+    const cg = item as CycleGearItem;
+    const fourthAxis: AxisDef =
+      cg.specs.battery_life_hours !== null
+        ? {
+            id: "battery-life",
+            label: isKo ? "배터리 구동 시간" : "Battery Life",
+            higherIsBetter: true,
+            getValue: (it) => (it as CycleGearItem).specs.battery_life_hours,
+            formatValue: (v) => `${formatInt(v)} hr`,
+          }
+        : cg.specs.max_trainer_watts !== null
+          ? {
+              id: "trainer-watts",
+              label: isKo ? "최대 저항 출력 (W)" : "Max Trainer Resistance",
+              higherIsBetter: true,
+              getValue: (it) => (it as CycleGearItem).specs.max_trainer_watts,
+              formatValue: (v) => `${formatInt(v)} W`,
+            }
+          : {
+              id: "cost-100g",
+              label: isKo ? "100g당 기준 단가" : "Benchmark Cost / 100g",
+              higherIsBetter: false,
+              getValue: (it) => {
+                const c = it as CycleGearItem;
+                const p = isKo ? c.regional_offers.kr.msrp : c.regional_offers.us.msrp;
+                return c.specs.weight_g > 0 ? (p / c.specs.weight_g) * 100 : null;
+              },
+              formatValue: (v) => formatCurrency(v, currency, locale),
+            };
+
+    return [
+      {
+        id: "weight",
+        label: isKo ? "공식 중량 (경량 우세)" : "Official Weight (Lighter Better)",
+        higherIsBetter: false,
+        getValue: (it) => (it as CycleGearItem).specs.weight_g,
+        formatValue: (v) => `${formatInt(v)} g`,
+      },
+      {
+        id: "msrp",
+        label: isKo ? "MSRP 참고가 (낮을수록 유리)" : "MSRP Reference (Lower Better)",
+        higherIsBetter: false,
+        getValue: (it) => (isKo ? it.regional_offers.kr.msrp : it.regional_offers.us.msrp),
+        formatValue: (v) => formatCurrency(v, currency, locale),
+      },
+      {
+        id: "compat",
+        label: isKo ? "생태계 호환 지수" : "Ecosystem Breadth",
+        higherIsBetter: true,
+        getValue: (it) => {
+          const c = it as CycleGearItem;
+          return (
+            (c.compatibility_graph.drivetrain_compatible?.length ?? 0) +
+            (c.compatibility_graph.head_unit_or_app_verified?.length ?? 0) +
+            (c.specs.connectivity?.length ?? 0)
+          );
+        },
+        formatValue: (v) => `${formatInt(v)} pts`,
+      },
+      fourthAxis,
+    ];
+  }
+
+  // hometech
+  const ht = item as HomeTechItem;
+  const hasLoadNoise =
+    categoryPeers.filter((p) => (p as HomeTechItem).specs.noise_load_dba !== null).length >= 2 &&
+    ht.specs.noise_load_dba !== null;
+
+  const fourthAxis: AxisDef =
+    ht.category === "ups"
+      ? {
+          id: "ups-watts",
+          label: isKo ? "UPS 유효 출력 (W)" : "UPS Real Power (W)",
+          higherIsBetter: true,
+          getValue: (it) => (it as HomeTechItem).specs.ups_watt_rating,
+          formatValue: (v) => `${formatInt(v)} W`,
+        }
+      : ht.category === "robot-vacuum"
+        ? {
+            id: "suction",
+            label: isKo ? "최대 흡입력 (Pa)" : "Peak Suction (Pa)",
+            higherIsBetter: true,
+            getValue: (it) => (it as HomeTechItem).specs.suction_pa,
+            formatValue: (v) => `${formatInt(v)} Pa`,
+          }
+        : ht.category === "nas"
+          ? {
+              id: "lan-speed",
+              label: isKo ? "네트워크 대역폭 (GbE)" : "LAN Bandwidth (GbE)",
+              higherIsBetter: true,
+              getValue: (it) => (it as HomeTechItem).specs.lan_speed_gbps,
+              formatValue: (v) => `${formatNum(v, 1)} GbE`,
+            }
+          : {
+              id: "idle-power",
+              label: isKo ? "대기 전력 (Idle W)" : "Idle Power Draw (W)",
+              higherIsBetter: false,
+              getValue: (it) => (it as HomeTechItem).specs.idle_power_w,
+              formatValue: (v) => `${formatNum(v, 1)} W`,
+            };
+
+  return [
+    {
+      id: "tco-3yr",
+      label: isKo ? "3년 총소유비용 (TCO)" : "3-Year Total TCO",
+      higherIsBetter: false,
+      getValue: (it) => getHomeTechTco3Yr(it as HomeTechItem),
+      formatValue: (v) => formatCurrency(v, currency, locale),
+    },
+    {
+      id: "avg-w",
+      label: isKo ? "가중 평균 소비전력 (W)" : "Weighted Avg Draw (W)",
+      higherIsBetter: false,
+      getValue: (it) => getHomeTechWeightedW(it as HomeTechItem),
+      formatValue: (v) => `${formatNum(v, 1)} W`,
+    },
+    hasLoadNoise
+      ? {
+          id: "noise-load",
+          label: isKo ? "부하 소음 (dBA)" : "Load Acoustic Noise (dBA)",
+          higherIsBetter: false,
+          getValue: (it) => (it as HomeTechItem).specs.noise_load_dba,
+          formatValue: (v) => `${formatNum(v, 1)} dBA`,
+        }
+      : {
+          id: "msrp",
+          label: isKo ? "MSRP 참고가" : "MSRP Reference",
+          higherIsBetter: false,
+          getValue: (it) => (isKo ? it.regional_offers.kr.msrp : it.regional_offers.us.msrp),
+          formatValue: (v) => formatCurrency(v, currency, locale),
+        },
+    fourthAxis,
+  ];
+}
+
+const computedAxes: ComputedAxis[] = [];
+
+if (peerCount >= 2) {
+  for (const ax of buildAxes()) {
+    const itemVal = ax.getValue(item);
+    if (itemVal === null || !Number.isFinite(itemVal)) continue;
+
+    const validVals: number[] = [];
+    for (const p of categoryPeers) {
+      const v = ax.getValue(p);
+      if (v !== null && Number.isFinite(v)) validVals.push(v);
+    }
+    if (validVals.length < 2) continue;
+
+    const minVal = Math.min(...validVals);
+    const maxVal = Math.max(...validVals);
+    const span = maxVal - minVal;
+
+    const sorted = [...validVals].sort((a, b) => a - b);
+    const mid = Math.floor(sorted.length / 2);
+    const medianVal =
+      sorted.length % 2 === 1 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+
+    const toTrackPos = (val: number): number => {
+      if (span < 1e-6) return 50;
+      const raw = ax.higherIsBetter ? (val - minVal) / span : (maxVal - val) / span;
+      return Math.max(5, Math.min(95, raw * 100));
+    };
+
+    const betterCount = validVals.filter((v) =>
+      ax.higherIsBetter ? v > itemVal + 1e-6 : v < itemVal - 1e-6
+    ).length;
+    const rank = betterCount + 1;
+    const topPct = Math.max(1, Math.min(100, Math.round((rank / validVals.length) * 100)));
+
+    computedAxes.push({
+      id: ax.id,
+      label: ax.label,
+      higherIsBetter: ax.higherIsBetter,
+      itemVal,
+      itemDisplay: ax.formatValue(itemVal),
+      minDisplay: ax.formatValue(ax.higherIsBetter ? minVal : maxVal),
+      maxDisplay: ax.formatValue(ax.higherIsBetter ? maxVal : minVal),
+      medianDisplay: ax.formatValue(medianVal),
+      itemPosPct: +toTrackPos(itemVal).toFixed(1),
+      medianPosPct: +toTrackPos(medianVal).toFixed(1),
+      rank,
+      total: validVals.length,
+      topPct,
+      isTopTier: topPct <= 35 || rank === 1,
+    });
+  }
+}
+
+const bestAxis =
+  computedAxes.length > 0
+    ? [...computedAxes].sort((a, b) => a.rank - b.rank || a.topPct - b.topPct)[0]
+    : null;
+
+const catLabel = getCategoryLabel(item.category, locale);
+
+function buildHeadline(best: ComputedAxis | null): string {
+  if (!best) return "";
+  if (isKo) {
+    if (best.rank === 1) {
+      return `${catLabel} ${best.total}종 중 ${best.label} 1위`;
+    }
+    return `${catLabel} ${best.total}종 중 ${best.label} 상위 ${best.topPct}% (#${best.rank})`;
+  }
+  if (best.rank === 1) {
+    return `#1 Best ${best.label} among ${best.total} ${catLabel}s`;
+  }
+  return `Top ${best.topPct}% in ${best.label} (#${best.rank} of ${best.total} ${catLabel}s)`;
+}
+
+const headline = buildHeadline(bestAxis);
+// Keep unused fx reference clean if TS checks noUnusedLocals
+void fx;
+---
+
+{computedAxes.length > 0 && (
+  <section
+    class="mt-6 lab-card p-5"
+    aria-labelledby="cat-bench-heading"
+  >
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          {isKo ? "동일 카테고리 백분위 벤치마크" : "CATEGORY PERCENTILE BENCHMARK"}
+        </div>
+        <h2 id="cat-bench-heading" class="mt-0.5 text-base font-bold text-slate-900">
+          {headline}
+        </h2>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 font-mono text-[11px] text-slate-500">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="inline-block h-2.5 w-2.5 rounded-full bg-blue-600"></span>
+          {isKo ? "현재 모델" : "This SKU"}
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <span class="inline-block h-3 w-0.5 bg-slate-500"></span>
+          {isKo ? `카테고리 중앙값 (${peerCount}종)` : `Category Median (${peerCount} peers)`}
+        </span>
+      </div>
+    </div>
+
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      {computedAxes.map((ax) => {
+        const pinX = +(16 + (ax.itemPosPct / 100) * 368).toFixed(1);
+        const medX = +(16 + (ax.medianPosPct / 100) * 368).toFixed(1);
+        const fillW = Math.max(4, +(pinX - 16).toFixed(1));
+        const pinColor = ax.isTopTier ? "#059669" : "#2563eb";
+        const barColor = ax.isTopTier ? "#a7f3d0" : "#bfdbfe";
+        return (
+          <div class="rounded-lg border border-slate-200 bg-slate-50/80 p-3.5">
+            <div class="flex items-baseline justify-between gap-2">
+              <span class="text-xs font-bold text-slate-800">{ax.label}</span>
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-sm font-bold text-slate-900">{ax.itemDisplay}</span>
+                <span class:list={[ax.isTopTier ? "badge-pass" : "badge-info", "font-mono text-[10px]"]}>
+                  {ax.rank === 1
+                    ? `#1 / ${ax.total}`
+                    : isKo
+                      ? `상위 ${ax.topPct}%`
+                      : `Top ${ax.topPct}%`}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <svg
+                viewBox="0 0 400 28"
+                class="h-7 w-full overflow-visible"
+                role="img"
+                aria-label={`${ax.label}: ${ax.itemDisplay}, rank ${ax.rank} of ${ax.total}`}
+              >
+                <!-- Base track -->
+                <rect x="16" y="11" width="368" height="6" rx="3" fill="#e2e8f0" />
+                <!-- Filled progress to SKU -->
+                <rect x="16" y="11" width={fillW} height="6" rx="3" fill={barColor} />
+                <!-- End ticks -->
+                <line x1="16" y1="8" x2="16" y2="20" stroke="#cbd5e1" stroke-width="1.5" />
+                <line x1="384" y1="8" x2="384" y2="20" stroke="#cbd5e1" stroke-width="1.5" />
+                <!-- Category Median marker -->
+                <line
+                  x1={medX}
+                  y1="4"
+                  x2={medX}
+                  y2="24"
+                  stroke="#64748b"
+                  stroke-width="1.75"
+                  stroke-dasharray="3 2"
+                />
+                <!-- Highlighted SKU pin -->
+                <circle
+                  cx={pinX}
+                  cy="14"
+                  r="6.5"
+                  fill={pinColor}
+                  stroke="#ffffff"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+
+            <div class="mt-0.5 flex items-center justify-between font-mono text-[10px] text-slate-500">
+              <span>{ax.minDisplay}</span>
+              <span>
+                {isKo ? "중앙값 " : "Med: "}
+                {ax.medianDisplay}
+              </span>
+              <span class="font-semibold text-slate-700">
+                {ax.maxDisplay} {isKo ? "(최우수)" : "(Best)"}
+              </span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}

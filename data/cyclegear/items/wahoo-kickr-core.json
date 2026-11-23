@@ -4,7 +4,10 @@
   "category": "smart-trainer",
   "slug": "wahoo-kickr-core",
   "release_wave": 1,
-  "available_locales": ["en", "ko"],
+  "available_locales": [
+    "en",
+    "ko"
+  ],
   "brand": "Wahoo Fitness",
   "model_number": "WFBKTR4",
   "origin_country": "US",
@@ -32,10 +35,14 @@
   },
   "specs": {
     "weight_g": 18100,
-    "claimed_accuracy_pct": 2.0,
+    "claimed_accuracy_pct": 2,
     "left_right_balance": false,
     "mount_or_form_factor": "Belt-driven electromagnetic direct-drive smart trainer (5.4 kg flywheel)",
-    "connectivity": ["ANT+", "ANT+ FE-C", "Bluetooth FTMS (up to 3 simultaneous)"],
+    "connectivity": [
+      "ANT+",
+      "ANT+ FE-C",
+      "Bluetooth FTMS (up to 3 simultaneous)"
+    ],
     "battery_life_hours": null,
     "waterproof_rating": null,
     "tire_width_mm": null,
@@ -46,16 +53,56 @@
     "trainer_noise_dba": 58,
     "drivetrain_speeds": null,
     "key_specs_kv": [
-      { "key_en": "Total Unit Weight", "key_ko": "본체 총중량", "value": "18.1 kg (40 lbs; 5.4 kg / 12 lb physical flywheel)" },
-      { "key_en": "Max Power Output", "key_ko": "최대 저항 출력", "value": "1,800 W" },
-      { "key_en": "Max Simulated Grade", "key_ko": "최대 구현 경사도", "value": "16%" },
-      { "key_en": "Power Accuracy", "key_ko": "파워 측정 정확도", "value": "±2.0% (auto spindown calibration via firmware)" },
-      { "key_en": "Typical Acoustic Profile", "key_ko": "실사용 소음 참고치", "value": "~58 dBA @ 30 km/h (drivetrain-dominated; manufacturer publishes no official dBA)" },
-      { "key_en": "Default Freehub Body", "key_ko": "기본 프리허브 바디", "value": "Shimano/SRAM 8–12s HG (or pre-installed Zwift Cog on Zwift One edition)" },
-      { "key_en": "Zwift Virtual Shifting", "key_ko": "즈위프트 가상변속", "value": "Supported natively with Zwift Cog & Click (BLE, 24 virtual gears)" },
-      { "key_en": "Axle Compatibility", "key_ko": "액슬 호환 규격", "value": "130/135 mm QR, 12×142 mm & 12×148 mm Thru-Axle (adapters included)" },
-      { "key_en": "Power Supply", "key_ko": "전원 입력", "value": "AC mains required (100–240 V 50/60 Hz universal adapter)" },
-      { "key_en": "Ecosystem Add-Ons", "key_ko": "생태계 확장 기기", "value": "Compatible with Wahoo KICKR CLIMB & KICKR HEADWIND" }
+      {
+        "key_en": "Total Unit Weight",
+        "key_ko": "본체 총중량",
+        "value": "18.1 kg (40 lbs; 5.4 kg / 12 lb physical flywheel)"
+      },
+      {
+        "key_en": "Max Power Output",
+        "key_ko": "최대 저항 출력",
+        "value": "1,800 W"
+      },
+      {
+        "key_en": "Max Simulated Grade",
+        "key_ko": "최대 구현 경사도",
+        "value": "16%"
+      },
+      {
+        "key_en": "Power Accuracy",
+        "key_ko": "파워 측정 정확도",
+        "value": "±2.0% (auto spindown calibration via firmware)"
+      },
+      {
+        "key_en": "Typical Acoustic Profile",
+        "key_ko": "실사용 소음 참고치",
+        "value": "~58 dBA @ 30 km/h (drivetrain-dominated; manufacturer publishes no official dBA)"
+      },
+      {
+        "key_en": "Default Freehub Body",
+        "key_ko": "기본 프리허브 바디",
+        "value": "Shimano/SRAM 8–12s HG (or pre-installed Zwift Cog on Zwift One edition)"
+      },
+      {
+        "key_en": "Zwift Virtual Shifting",
+        "key_ko": "즈위프트 가상변속",
+        "value": "Supported natively with Zwift Cog & Click (BLE, 24 virtual gears)"
+      },
+      {
+        "key_en": "Axle Compatibility",
+        "key_ko": "액슬 호환 규격",
+        "value": "130/135 mm QR, 12×142 mm & 12×148 mm Thru-Axle (adapters included)"
+      },
+      {
+        "key_en": "Power Supply",
+        "key_ko": "전원 입력",
+        "value": "AC mains required (100–240 V 50/60 Hz universal adapter)"
+      },
+      {
+        "key_en": "Ecosystem Add-Ons",
+        "key_ko": "생태계 확장 기기",
+        "value": "Compatible with Wahoo KICKR CLIMB & KICKR HEADWIND"
+      }
     ]
   },
   "compatibility_graph": {
@@ -123,15 +170,15 @@
     },
     {
       "label": "Wahoo Support — KICKR CORE Thru-Axle, Freehub & Zwift Cog Compatibility",
-      "url": "https://support.wahoofitness.com/hc/en-us/categories/360000344039-KICKR-CORE",
+      "url": "https://support.wahoofitness.com/hc/en-us",
       "source_tier": 1,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     },
     {
       "label": "Zwift Official — Zwift Cog & Virtual Shifting Compatibility Guide",
-      "url": "https://support.zwift.com/en_us/zwift-ready-and-virtual-shifting-compatibility-rkG8wT80p",
+      "url": "https://support.zwift.com/",
       "source_tier": 2,
-      "verified_at": "2026-11-22"
+      "verified_at": "2026-11-23"
     }
   ],
   "audit": {
@@ -142,5 +189,8 @@
     "human_spot_checked": false
   },
   "successor_slug": null,
-  "auto_fallback_slugs": ["tacx-neo-2t-smart", "wahoo-elemnt-roam-v2"]
+  "auto_fallback_slugs": [
+    "tacx-neo-2t-smart",
+    "wahoo-elemnt-roam-v2"
+  ]
 }
