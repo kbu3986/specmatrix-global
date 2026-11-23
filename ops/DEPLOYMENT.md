@@ -7,7 +7,7 @@
 - **Core Pages Deployed**: 254 pure-HTML Astro 5 pages (`en` + `ko` across 4 verticals, 72 verified SKUs, 31 VS matchups, 13 matrices/compat, 4 interactive studios/tools, 5 legal/trust docs, plus root portal & 404; < 300 total files)
 - **Monetization Active**:
   - Google AdSense: `ca-pub-8587506565277191` (`ads.txt` + `<meta name="google-adsense-account">`)
-  - Coupang Partners (KO): `AF2200875` (`sm-watt-kr`, `sm-pure-kr`, `sm-cycle-kr`, `sm-home-kr`, Dynamic Banner `id=1054684`, Goldbox shortlink, 60+ official SKU shortlinks)
+  - Coupang Partners (KO): `AF2200875` (`sm-watt-kr`, `sm-pure-kr`, `sm-cycle-kr`, `sm-home-kr`, Dynamic Banner `id=1054684`, Goldbox shortlink, 72/72 official SKU shortlinks)
   - Amazon Associates (US/EN): `kbu3986-20` (`msrp_benchmark_mode`, zero unverified ASINs)
 - **Search Verification, OG & Sitemaps**:
   - Sitemap Index: `https://kbu3986.github.io/specmatrix-global/sitemap-index.xml`

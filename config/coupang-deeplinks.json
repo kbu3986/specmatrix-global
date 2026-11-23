@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "description": "Official Coupang Partners short-link registry (https://link.coupang.com/a/...) generated directly via Coupang Partners Center for all 60 Phase 1 Pilot SKUs.",
-  "updated_at": "2026-11-22",
+  "description": "Official Coupang Partners short-link registry (https://link.coupang.com/a/...) generated directly via Coupang Partners Center for all 72 verified SKUs across all 4 verticals.",
+  "updated_at": "2026-11-23",
   "links": {
     "anker-140w-gan-4port-charger": "https://link.coupang.com/a/iTcDFKz1Y4",
     "anker-737-powercore-24k-140w": "https://link.coupang.com/a/iTcDIIeu8O",
@@ -62,6 +62,18 @@
     "tacx-neo-2t-smart": "https://link.coupang.com/a/iTcI4GRT2q",
     "vittoria-corsa-pro-tlr-28": "https://link.coupang.com/a/iTcI7M2k56",
     "wahoo-elemnt-roam-v2": "https://link.coupang.com/a/iTcJaRBcjY",
-    "wahoo-kickr-core": "https://link.coupang.com/a/iTcJdVGqwC"
+    "wahoo-kickr-core": "https://link.coupang.com/a/iTcJdVGqwC",
+    "apc-back-ups-bx750mi": "https://link.coupang.com/a/iTYuaU3m0q",
+    "apple-mac-mini-m4": "https://link.coupang.com/a/iTYwcosqHY",
+    "beelink-ser8-8745hs": "https://link.coupang.com/a/iTYwhz3W44",
+    "cyberpower-cp1500pfclcd": "https://link.coupang.com/a/iTYwm8nnRk",
+    "dreame-x40-ultra": "https://link.coupang.com/a/iTYwrHy2I8",
+    "gmktec-nucbox-g3-plus-n150": "https://link.coupang.com/a/iTYwwURiBo",
+    "minisforum-um890-pro": "https://link.coupang.com/a/iTYwB60ww0",
+    "roborock-qrevo-master": "https://link.coupang.com/a/iTYwHfL3Bs",
+    "roborock-s8-maxv-ultra": "https://link.coupang.com/a/iTYwNH0s0q",
+    "synology-ds224-plus": "https://link.coupang.com/a/iTYwSSkmEC",
+    "synology-ds423-plus": "https://link.coupang.com/a/iTYwXWY8YK",
+    "ugreen-nasync-dxp4800-plus": "https://link.coupang.com/a/iTYw3yJf1o"
   }
 }
