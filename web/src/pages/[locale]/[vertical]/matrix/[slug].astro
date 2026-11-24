@@ -15,7 +15,13 @@ import {
   getVerticalMatrices,
   getVerticalVsInsights,
 } from "../../../../lib/data";
-import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META, withBase } from "../../../../lib/i18n";
+import {
+  ACTIVE_LOCALES,
+  VERTICAL_META,
+  normalizePath,
+  toAbsoluteUrl,
+  withBase,
+} from "../../../../lib/i18n";
 
 export function getStaticPaths() {
   const all = getAllMatrices().filter((m) => m.archetype === "matrix");
@@ -53,20 +59,57 @@ const isAirlinesPage = vertical === "wattcheck" && matrix.slug === "airlines-30"
 const airlines = isAirlinesPage ? getAirlines() : [];
 const verticalHref = getPrimaryVerticalHref(locale, vertical);
 const currentPath = `/${locale}/${vertical}/matrix/${matrix.slug}`;
+const isPrimaryVerticalPage = normalizePath(verticalHref) === normalizePath(currentPath);
 
 const itemListElements = isAirlinesPage
   ? airlines.slice(0, 30).map((a, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
       name: isKo ? a.name_ko : a.name_en,
-      url: a.official_policy_url,
+      url: toAbsoluteUrl(`${currentPath}#${a.iata_code}`),
     }))
   : items.slice(0, 30).map((item, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
       name: item.i18n[locale]?.name ?? item.i18n.en.name,
-      url: `${SITE_URL}/${locale}/${vertical}/item/${item.slug}`,
+      url: toAbsoluteUrl(`/${locale}/${vertical}/item/${item.slug}`),
     }));
+
+const breadcrumbElements = isPrimaryVerticalPage
+  ? [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: toAbsoluteUrl(`/${locale}`),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: copy.title,
+        item: toAbsoluteUrl(currentPath),
+      },
+    ]
+  : [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: toAbsoluteUrl(`/${locale}`),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: VERTICAL_META[vertical].shortName[locale],
+        item: toAbsoluteUrl(verticalHref),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: copy.title,
+        item: toAbsoluteUrl(currentPath),
+      },
+    ];
 
 const jsonLd = [
   {
@@ -74,33 +117,14 @@ const jsonLd = [
     "@type": "ItemList",
     name: copy.title,
     description: copy.subtitle,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     numberOfItems: itemListElements.length,
     itemListElement: itemListElements,
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: VERTICAL_META[vertical].shortName[locale],
-        item: `${SITE_URL}${verticalHref}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: copy.title,
-        item: `${SITE_URL}${currentPath}`,
-      },
-    ],
+    itemListElement: breadcrumbElements,
   },
 ];
 ---
@@ -118,10 +142,14 @@ const jsonLd = [
     <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
-    <span>/</span>
-    <a href={withBase(verticalHref)} class="hover:text-blue-700 hover:underline">
-      {VERTICAL_META[vertical].shortName[locale]}
-    </a>
+    {!isPrimaryVerticalPage && (
+      <>
+        <span>/</span>
+        <a href={withBase(verticalHref)} class="hover:text-blue-700 hover:underline">
+          {VERTICAL_META[vertical].shortName[locale]}
+        </a>
+      </>
+    )}
     <span>/</span>
     <span class="font-medium text-slate-800">{copy.title}</span>
   </nav>
@@ -238,9 +266,9 @@ const jsonLd = [
             {vsInsights.slice(0, 5).map((v) => (
               <a
                 href={withBase(`/${locale}/${vertical}/vs/${v.pair_slug}`)}
-                class="lab-card group flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+                class="lab-card group flex min-w-0 items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
               >
-                <span class="truncate">{v.verdict[locale].headline}</span>
+                <span class="min-w-0 flex-1 truncate">{v.verdict[locale].headline}</span>
                 <span class="shrink-0 font-mono text-xs text-blue-700">VS →</span>
               </a>
             ))}

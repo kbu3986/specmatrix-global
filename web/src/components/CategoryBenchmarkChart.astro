@@ -9,6 +9,12 @@ import type {
   WattCheckItem,
 } from "../lib/types";
 import {
+  computeCycleGearDerived,
+  computeHomeTechDerived,
+  computePureGramDerived,
+  computeWattCheckDerived,
+} from "../lib/derived";
+import {
   formatCurrency,
   formatInt,
   formatNum,
@@ -62,48 +68,6 @@ interface ComputedAxis {
   isTopTier: boolean;
 }
 
-function getHomeTechWeightedW(it: HomeTechItem): number {
-  const h = Math.max(0, Math.min(24, it.specs.default_daily_hours_active));
-  return (it.specs.typical_load_w * h + it.specs.idle_power_w * (24 - h)) / 24;
-}
-
-function getHomeTechTco3Yr(it: HomeTechItem): number {
-  const annualKwh = getHomeTechWeightedW(it) * 8.76;
-  if (isKo) {
-    return Math.round(
-      it.regional_offers.kr.msrp + 3 * (Math.round(annualKwh * 214) + it.specs.annual_consumables_krw)
-    );
-  }
-  return +(
-    it.regional_offers.us.msrp + 3 * (annualKwh * 0.17 + it.specs.annual_consumables_usd)
-  ).toFixed(2);
-}
-
-function getPureGramBenchCost(it: PureGramItem): number | null {
-  const totalActive =
-    it.derived_math.total_pure_active_g > 0
-      ? it.derived_math.total_pure_active_g
-      : it.nutrition_label.active_per_serving_g * it.package_spec.total_servings;
-  const units =
-    it.derived_math.benchmark_unit_g > 0
-      ? totalActive / it.derived_math.benchmark_unit_g
-      : it.package_spec.total_servings;
-  if (!Number.isFinite(units) || units <= 0) return null;
-  const price = isKo ? it.regional_offers.kr.msrp : it.regional_offers.us.msrp;
-  return price / units;
-}
-
-function getWattCheckCostMetric(it: WattCheckItem, useWh: boolean): number | null {
-  const price = isKo ? it.regional_offers.kr.msrp : it.regional_offers.us.msrp;
-  if (useWh) {
-    const wh = it.specs.battery_energy_wh;
-    if (!wh || wh <= 0) return null;
-    return price / (wh / 10);
-  }
-  if (!it.specs.max_total_output_w || it.specs.max_total_output_w <= 0) return null;
-  return price / (it.specs.max_total_output_w / 10);
-}
-
 function buildAxes(): AxisDef[] {
   if (item.vertical === "wattcheck") {
     const hasBat = item.specs.has_battery && item.specs.battery_energy_wh !== null;
@@ -113,8 +77,8 @@ function buildAxes(): AxisDef[] {
         label: isKo ? "출력 밀도 (W/100g)" : "Power Density (W/100g)",
         higherIsBetter: true,
         getValue: (it) => {
-          const w = it as WattCheckItem;
-          return w.specs.weight_g > 0 ? (w.specs.max_total_output_w / w.specs.weight_g) * 100 : null;
+          const d = computeWattCheckDerived(it as WattCheckItem, fx);
+          return d.wPer100g > 0 ? d.wPer100g : null;
         },
         formatValue: (v) => `${formatNum(v, 1)} W/100g`,
       },
@@ -142,7 +106,14 @@ function buildAxes(): AxisDef[] {
             ? "10 W당 단가 (낮을수록 유리)"
             : "Cost / 10 W (Lower Better)",
         higherIsBetter: false,
-        getValue: (it) => getWattCheckCostMetric(it as WattCheckItem, hasBat),
+        getValue: (it) => {
+          const d = computeWattCheckDerived(it as WattCheckItem, fx);
+          if (hasBat) {
+            return isKo ? d.krwPer10Wh : d.usdPer10Wh;
+          }
+          const v = isKo ? d.krwPer10W : d.usdPer10W;
+          return v > 0 ? v : null;
+        },
         formatValue: (v) => formatCurrency(v, currency, locale),
       },
     ];
@@ -154,7 +125,11 @@ function buildAxes(): AxisDef[] {
         id: "true-cost",
         label: isKo ? "기준 단위당 실단가" : "True Cost / Benchmark Unit",
         higherIsBetter: false,
-        getValue: (it) => getPureGramBenchCost(it as PureGramItem),
+        getValue: (it) => {
+          const d = computePureGramDerived(it as PureGramItem, fx);
+          const v = isKo ? d.krwPerBenchmarkUnit : d.usdPerBenchmarkUnit;
+          return v > 0 ? v : null;
+        },
         formatValue: (v) => formatCurrency(v, currency, locale),
       },
       {
@@ -176,9 +151,9 @@ function buildAxes(): AxisDef[] {
         label: isKo ? "1회분(서빙) 단가" : "Cost / Serving",
         higherIsBetter: false,
         getValue: (it) => {
-          const pg = it as PureGramItem;
-          const p = isKo ? pg.regional_offers.kr.msrp : pg.regional_offers.us.msrp;
-          return pg.package_spec.total_servings > 0 ? p / pg.package_spec.total_servings : null;
+          const d = computePureGramDerived(it as PureGramItem, fx);
+          const v = isKo ? d.krwPerServing : d.usdPerServing;
+          return v > 0 ? v : null;
         },
         formatValue: (v) => formatCurrency(v, currency, locale),
       },
@@ -209,9 +184,9 @@ function buildAxes(): AxisDef[] {
               label: isKo ? "100g당 기준 단가" : "Benchmark Cost / 100g",
               higherIsBetter: false,
               getValue: (it) => {
-                const c = it as CycleGearItem;
-                const p = isKo ? c.regional_offers.kr.msrp : c.regional_offers.us.msrp;
-                return c.specs.weight_g > 0 ? (p / c.specs.weight_g) * 100 : null;
+                const d = computeCycleGearDerived(it as CycleGearItem, fx);
+                const v = isKo ? d.krwPer100g : d.usdPer100g;
+                return v > 0 ? v : null;
               },
               formatValue: (v) => formatCurrency(v, currency, locale),
             };
@@ -235,14 +210,7 @@ function buildAxes(): AxisDef[] {
         id: "compat",
         label: isKo ? "생태계 호환 지수" : "Ecosystem Breadth",
         higherIsBetter: true,
-        getValue: (it) => {
-          const c = it as CycleGearItem;
-          return (
-            (c.compatibility_graph.drivetrain_compatible?.length ?? 0) +
-            (c.compatibility_graph.head_unit_or_app_verified?.length ?? 0) +
-            (c.specs.connectivity?.length ?? 0)
-          );
-        },
+        getValue: (it) => computeCycleGearDerived(it as CycleGearItem, fx).compatBreadthScore,
         formatValue: (v) => `${formatInt(v)} pts`,
       },
       fourthAxis,
@@ -293,14 +261,17 @@ function buildAxes(): AxisDef[] {
       id: "tco-3yr",
       label: isKo ? "3년 총소유비용 (TCO)" : "3-Year Total TCO",
       higherIsBetter: false,
-      getValue: (it) => getHomeTechTco3Yr(it as HomeTechItem),
+      getValue: (it) => {
+        const d = computeHomeTechDerived(it as HomeTechItem, fx);
+        return isKo ? d.tco3yrKrw : d.tco3yrUsd;
+      },
       formatValue: (v) => formatCurrency(v, currency, locale),
     },
     {
       id: "avg-w",
       label: isKo ? "가중 평균 소비전력 (W)" : "Weighted Avg Draw (W)",
       higherIsBetter: false,
-      getValue: (it) => getHomeTechWeightedW(it as HomeTechItem),
+      getValue: (it) => computeHomeTechDerived(it as HomeTechItem, fx).weightedAvgW,
       formatValue: (v) => `${formatNum(v, 1)} W`,
     },
     hasLoadNoise
@@ -383,23 +354,43 @@ const bestAxis =
 
 const catLabel = getCategoryLabel(item.category, locale);
 
+function pluralizeEnCategory(label: string): string {
+  if (label === "Creatine Monohydrate") return "Creatine Monohydrate Products";
+  if (/(?:s|x|z|ch|sh)$/i.test(label)) return `${label}es`;
+  return `${label}s`;
+}
+
+const catLabelEnPlural = pluralizeEnCategory(catLabel);
+
+function formatRankBadge(ax: ComputedAxis): string {
+  if (ax.rank === 1) return `#1 / ${ax.total}`;
+  if (ax.topPct <= 50 && ax.rank < ax.total) {
+    return isKo ? `상위 ${ax.topPct}%` : `Top ${ax.topPct}%`;
+  }
+  return `#${ax.rank} / ${ax.total}`;
+}
+
 function buildHeadline(best: ComputedAxis | null): string {
   if (!best) return "";
   if (isKo) {
     if (best.rank === 1) {
       return `${catLabel} ${best.total}종 중 ${best.label} 1위`;
     }
-    return `${catLabel} ${best.total}종 중 ${best.label} 상위 ${best.topPct}% (#${best.rank})`;
+    if (best.topPct <= 50 && best.rank < best.total) {
+      return `${catLabel} ${best.total}종 중 ${best.label} 상위 ${best.topPct}% (#${best.rank})`;
+    }
+    return `${catLabel} ${best.total}종 중 ${best.label} ${best.rank}위`;
   }
   if (best.rank === 1) {
-    return `#1 Best ${best.label} among ${best.total} ${catLabel}s`;
+    return `#1 Best ${best.label} among ${best.total} ${catLabelEnPlural}`;
   }
-  return `Top ${best.topPct}% in ${best.label} (#${best.rank} of ${best.total} ${catLabel}s)`;
+  if (best.topPct <= 50 && best.rank < best.total) {
+    return `Top ${best.topPct}% in ${best.label} (#${best.rank} of ${best.total} ${catLabelEnPlural})`;
+  }
+  return `#${best.rank} of ${best.total} ${catLabelEnPlural} in ${best.label}`;
 }
 
 const headline = buildHeadline(bestAxis);
-// Keep unused fx reference clean if TS checks noUnusedLocals
-void fx;
 ---
 
 {computedAxes.length > 0 && (
@@ -442,11 +433,7 @@ void fx;
               <div class="flex items-center gap-2">
                 <span class="font-mono text-sm font-bold text-slate-900">{ax.itemDisplay}</span>
                 <span class:list={[ax.isTopTier ? "badge-pass" : "badge-info", "font-mono text-[10px]"]}>
-                  {ax.rank === 1
-                    ? `#1 / ${ax.total}`
-                    : isKo
-                      ? `상위 ${ax.topPct}%`
-                      : `Top ${ax.topPct}%`}
+                  {formatRankBadge(ax)}
                 </span>
               </div>
             </div>
@@ -456,7 +443,9 @@ void fx;
                 viewBox="0 0 400 28"
                 class="h-7 w-full overflow-visible"
                 role="img"
-                aria-label={`${ax.label}: ${ax.itemDisplay}, rank ${ax.rank} of ${ax.total}`}
+                aria-label={isKo
+                  ? `${ax.label}: ${ax.itemDisplay}, ${ax.rank}위 / 전체 ${ax.total}종`
+                  : `${ax.label}: ${ax.itemDisplay}, rank ${ax.rank} of ${ax.total}`}
               >
                 <!-- Base track -->
                 <rect x="16" y="11" width="368" height="6" rx="3" fill="#e2e8f0" />

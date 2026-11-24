@@ -7,7 +7,7 @@ import { withBase } from "../lib/i18n";
   title="404 Not Found — SpecMatrix Global"
   description="The requested specification sheet or comparison page could not be found. Browse verified EN/KO hubs, interactive lab tools, or open Global Search."
   locale="en"
-  currentPath="/404"
+  currentPath="/404/"
   isRootPortal={true}
   noindex={true}
 >
@@ -42,7 +42,7 @@ import { withBase } from "../lib/i18n";
 
       <div class="mt-8 grid gap-3 text-left sm:grid-cols-2">
         <a
-          href={withBase("/en")}
+          href={withBase("/en/")}
           class="lab-card group block p-4 transition-colors hover:border-blue-500"
         >
           <div class="font-mono text-[11px] font-bold uppercase text-blue-700">EN · GLOBAL HUB</div>
@@ -55,7 +55,7 @@ import { withBase } from "../lib/i18n";
         </a>
 
         <a
-          href={withBase("/ko")}
+          href={withBase("/ko/")}
           class="lab-card group block p-4 transition-colors hover:border-blue-500"
         >
           <div class="font-mono text-[11px] font-bold uppercase text-blue-700">KO · 한국어 허브</div>
@@ -68,7 +68,7 @@ import { withBase } from "../lib/i18n";
         </a>
 
         <a
-          href={withBase("/en/compare")}
+          href={withBase("/en/compare/")}
           class="lab-card group block p-4 transition-colors hover:border-blue-500"
         >
           <div class="font-mono text-[11px] font-bold uppercase text-emerald-700">LIVE WORKBENCH</div>
@@ -81,7 +81,7 @@ import { withBase } from "../lib/i18n";
         </a>
 
         <a
-          href={withBase("/ko/tools")}
+          href={withBase("/ko/tools/")}
           class="lab-card group block p-4 transition-colors hover:border-blue-500"
         >
           <div class="font-mono text-[11px] font-bold uppercase text-violet-700">INTERACTIVE STUDIOS</div>
@@ -95,25 +95,14 @@ import { withBase } from "../lib/i18n";
       </div>
 
       <div class="mt-6 flex flex-wrap items-center justify-center gap-4 border-t border-slate-100 pt-5 font-mono text-xs text-slate-500">
-        <a href={withBase("/en/tools")} class="hover:text-blue-700 hover:underline">EN Tools</a>
+        <a href={withBase("/en/tools/")} class="hover:text-blue-700 hover:underline">EN Tools</a>
         <span>·</span>
-        <a href={withBase("/ko/compare")} class="hover:text-blue-700 hover:underline">KO 1:1 Compare</a>
+        <a href={withBase("/ko/compare/")} class="hover:text-blue-700 hover:underline">KO 1:1 Compare</a>
         <span>·</span>
-        <a href={withBase("/en/contact")} class="hover:text-blue-700 hover:underline">Report Broken Link</a>
+        <a href={withBase("/en/contact/")} class="hover:text-blue-700 hover:underline">Report Broken Link</a>
         <span>·</span>
-        <a href={withBase("/ko/contact")} class="hover:text-blue-700 hover:underline">오류 제보</a>
+        <a href={withBase("/ko/contact/")} class="hover:text-blue-700 hover:underline">오류 제보</a>
       </div>
     </div>
   </section>
 </BaseLayout>
-
-<script is:inline>
-  (function () {
-    var btn = document.getElementById("open-search-404");
-    if (btn) {
-      btn.addEventListener("click", function () {
-        window.dispatchEvent(new CustomEvent("specmatrix:open-search"));
-      });
-    }
-  })();
-</script>

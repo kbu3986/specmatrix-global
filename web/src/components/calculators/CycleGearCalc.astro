@@ -1,6 +1,6 @@
 ---
 import type { ActiveLocale, CycleGearItem } from "../../lib/types";
-import { safeJsonLd } from "../../lib/i18n";
+import { safeJsonLd, withBase } from "../../lib/i18n";
 
 interface Props {
   item: CycleGearItem;
@@ -9,6 +9,8 @@ interface Props {
 
 const { item, locale } = Astro.props;
 const isKo = locale === "ko";
+const isRoadTire = item.category === "road-tire";
+const tireGuardHref = withBase(`/${locale}/tools/tire-pressure-guard/`);
 
 const validWidths = [25, 28, 30, 32, 35] as const;
 const rawTireW = item.specs.tire_width_mm ?? 28;
@@ -20,6 +22,7 @@ const payload = {
   locale,
   slug: item.slug,
   category: item.category,
+  isRoadTire,
   mountForm: item.specs.mount_or_form_factor,
   connectivity: item.specs.connectivity,
   hooklessCompat: item.specs.hookless_compatible,
@@ -53,9 +56,13 @@ const payload = {
           INTERACTIVE BIKE COMPATIBILITY GUARD
         </span>
         <h2 id="cg-calc-heading" class="mt-0.5 text-lg font-bold">
-          {isKo
-            ? "내 자전거 호환성 · 후크리스 5.0 bar 안전 검증 체커"
-            : "Interactive Bike Compatibility & Hookless 5.0 bar / 72.5 psi Guard"}
+          {isRoadTire
+            ? isKo
+              ? "로드 타이어 후크리스 5.0 bar 안전 가드 · 최적 공기압 계산기"
+              : "Road Tire Hookless 5.0 bar / 72.5 psi Guard & Optimal Pressure Calculator"
+            : isKo
+              ? "내 자전거 BB · 프리허브 · 마운트 · 생태계 호환성 체커"
+              : "Interactive Bike BB, Freehub, Mount & Ecosystem Compatibility Checker"}
         </h2>
       </div>
       <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
@@ -80,67 +87,82 @@ const payload = {
     </div>
 
     <!-- Controls Grid -->
-    <div class="grid gap-4 md:grid-cols-2">
-      <!-- 1. Rim Type & Pressure -->
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
-        <div class="flex items-center justify-between gap-2">
-          <span class="text-xs font-bold text-slate-900">
-            {isKo ? "1. 림 규격 & 목표 공기압 (5.0 bar 가드)" : "1. Rim Profile & Target Tire Pressure"}
-          </span>
-          <div class="inline-flex overflow-hidden rounded border border-slate-300 bg-white font-mono text-[11px] font-semibold">
-            <button type="button" id="cg-unit-bar" class="px-2 py-1 bg-slate-900 text-white">bar</button>
-            <button type="button" id="cg-unit-psi" class="px-2 py-1 text-slate-600">psi</button>
-          </div>
-        </div>
-
-        <div class="mt-2.5 grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            data-rim="hooked"
-            class="cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
-          >
-            {isKo ? "훅드 림 (Hooked)" : "Hooked Rim"}
-          </button>
-          <button
-            type="button"
-            data-rim="hookless"
-            class="cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700"
-          >
-            {isKo ? "후크리스 (Hookless TSS)" : "Hookless (TSS)"}
-          </button>
-        </div>
-
-        <div class="mt-3">
-          <div class="flex items-center justify-between text-xs">
-            <label for="cg-pressure-slider" class="font-medium text-slate-600">
-              {isKo ? "주행 공기압 설정:" : "Target Inflation Pressure:"}
-            </label>
-            <span id="cg-pressure-display" class="font-mono font-bold text-slate-900">
-              4.8 bar (69.6 psi)
+    <div class:list={["grid gap-4", isRoadTire ? "md:grid-cols-2" : ""]}>
+      {isRoadTire && (
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <!-- 1. Rim Type & Pressure (Road Tires ONLY) -->
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-bold text-slate-900">
+              {isKo ? "1. 림 규격 & 목표 공기압 (5.0 bar 가드)" : "1. Rim Profile & Target Tire Pressure"}
             </span>
+            <div class="inline-flex overflow-hidden rounded border border-slate-300 bg-white font-mono text-[11px] font-semibold">
+              <button type="button" id="cg-unit-bar" aria-pressed="true" class="px-2 py-1 bg-slate-900 text-white">bar</button>
+              <button type="button" id="cg-unit-psi" aria-pressed="false" class="px-2 py-1 text-slate-600">psi</button>
+            </div>
           </div>
-          <input
-            id="cg-pressure-slider"
-            type="range"
-            min="3.0"
-            max="7.5"
-            step="0.1"
-            value="4.8"
-            class="lab-slider mt-2"
-          />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
-            <span>3.0 bar (43.5 psi)</span>
-            <span class="font-semibold text-rose-700">5.0 bar / 72.5 psi Hookless Cap</span>
-            <span>7.5 bar</span>
+
+          <div class="mt-2.5 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              data-rim="hooked"
+              aria-pressed="true"
+              class="cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
+            >
+              {isKo ? "훅드 림 (Hooked)" : "Hooked Rim"}
+            </button>
+            <button
+              type="button"
+              data-rim="hookless"
+              aria-pressed="false"
+              class="cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700"
+            >
+              {isKo ? "후크리스 (Hookless TSS)" : "Hookless (TSS)"}
+            </button>
+          </div>
+
+          <div class="mt-3">
+            <div class="flex items-center justify-between text-xs">
+              <label for="cg-pressure-slider" class="font-medium text-slate-600">
+                {isKo ? "주행 공기압 설정:" : "Target Inflation Pressure:"}
+              </label>
+              <span id="cg-pressure-display" class="font-mono font-bold text-slate-900">
+                4.8 bar (69.6 psi)
+              </span>
+            </div>
+            <input
+              id="cg-pressure-slider"
+              type="range"
+              min="3.0"
+              max="7.5"
+              step="0.1"
+              value="4.8"
+              class="lab-slider mt-2"
+            />
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+              <span>3.0 bar (43.5 psi)</span>
+              <span class="font-semibold text-rose-700">5.0 bar / 72.5 psi Hookless Cap</span>
+              <span>7.5 bar</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <!-- 2-4. Bike Standards -->
-      <div class="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
+      <!-- Bike Standards -->
+      <div
+        class:list={[
+          "rounded-lg border border-slate-200 bg-slate-50 p-4",
+          isRoadTire ? "space-y-3" : "grid gap-4 md:grid-cols-3",
+        ]}
+      >
         <div>
           <label for="cg-bb-select" class="block text-xs font-bold text-slate-900">
-            {isKo ? "2. 프레임 BB / 마운트 규격" : "2. Frame Bottom Bracket / Mount Standard"}
+            {isRoadTire
+              ? isKo
+                ? "2. 프레임 BB / 마운트 규격"
+                : "2. Frame Bottom Bracket / Mount Standard"
+              : isKo
+                ? "1. 프레임 BB / 마운트 규격"
+                : "1. Frame Bottom Bracket / Mount Standard"}
           </label>
           <select
             id="cg-bb-select"
@@ -156,7 +178,13 @@ const payload = {
 
         <div>
           <label for="cg-freehub-select" class="block text-xs font-bold text-slate-900">
-            {isKo ? "3. 프리허브 / 구동계 규격" : "3. Freehub Body / Drivetrain Standard"}
+            {isRoadTire
+              ? isKo
+                ? "3. 프리허브 / 구동계 규격"
+                : "3. Freehub Body / Drivetrain Standard"
+              : isKo
+                ? "2. 프리허브 / 구동계 규격"
+                : "2. Freehub Body / Drivetrain Standard"}
           </label>
           <select
             id="cg-freehub-select"
@@ -170,7 +198,13 @@ const payload = {
 
         <div>
           <label for="cg-headunit-select" class="block text-xs font-bold text-slate-900">
-            {isKo ? "4. 헤드유닛 / 트레이닝 앱" : "4. Head Unit / Training Ecosystem"}
+            {isRoadTire
+              ? isKo
+                ? "4. 헤드유닛 / 트레이닝 앱"
+                : "4. Head Unit / Training Ecosystem"
+              : isKo
+                ? "3. 헤드유닛 / 트레이닝 앱"
+                : "3. Head Unit / Training Ecosystem"}
           </label>
           <select
             id="cg-headunit-select"
@@ -205,8 +239,32 @@ const payload = {
       </div>
     )}
 
-    <!-- Part B: Road Tire Optimal Pressure Calculator (ETRTO / Silca-inspired Physics Model + Hookless 5.0 bar Guard) -->
-    <div class="border-t border-slate-200 pt-6">
+    {!isRoadTire && (
+      <div class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-200 bg-amber-50/70 p-4 text-xs">
+        <div>
+          <div class="font-bold text-amber-950">
+            {isKo
+              ? "후크리스(Hookless) 5.0 bar 공기압 계산이 필요하신가요?"
+              : "Need Road Tire Pressure & Hookless 5.0 bar Calculation?"}
+          </div>
+          <p class="mt-0.5 text-amber-900">
+            {isKo
+              ? "체중·타이어 폭·노면별 앞/뒤 권장 공기압과 ISO/ETRTO 5.0 bar 안전 제한은 전용 타이어 공기압 가드 스튜디오에서 계산하세요."
+              : "Use the dedicated Road Tire Pressure & Hookless 5.0 bar Guard Studio for 48/52 load-split inflation math."}
+          </p>
+        </div>
+        <a
+          href={tireGuardHref}
+          class="shrink-0 rounded-lg bg-slate-900 px-3.5 py-2 font-mono text-xs font-semibold text-white transition-colors hover:bg-amber-700"
+        >
+          {isKo ? "공기압 가드 스튜디오 열기 →" : "Open Tire Pressure Guard →"}
+        </a>
+      </div>
+    )}
+
+    {isRoadTire && (
+      <div class="border-t border-slate-200 pt-6">
+        <!-- Part B: Road Tire Optimal Pressure Calculator (ETRTO / Silca-inspired Physics Model + Hookless 5.0 bar Guard) -->
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-700">
@@ -394,6 +452,7 @@ const payload = {
         </div>
       </div>
     </div>
+    )}
   </div>
 
   <script type="application/json" id="cg-calc-data" set:html={safeJsonLd(payload)} />
@@ -408,6 +467,7 @@ const payload = {
       locale: string;
       slug: string;
       category: string;
+      isRoadTire?: boolean;
       mountForm: string;
       connectivity: string[];
       hooklessCompat: boolean | null;
@@ -562,72 +622,83 @@ const payload = {
     }
 
     const norm = (s: string | null | undefined) => String(s || "").toLowerCase();
+    const esc = (s: unknown) =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
     const joinedDt = (cfg.drivetrains || []).join(" ").toLowerCase();
     const joinedHu = (cfg.headUnits || []).join(" ").toLowerCase();
     const joinedConn = (cfg.connectivity || []).join(" ").toLowerCase();
     const bbStr = norm(cfg.bbMount);
+    const fhStr = norm(cfg.freehubCleat);
+    const isRoadTire = cfg.category === "road-tire";
 
     function evaluate() {
-      const barVal = Number(pressureSlider ? pressureSlider.value : 4.8);
-      const psiVal = barVal * 14.5038;
-      if (pressureDisplay) {
-        pressureDisplay.textContent =
-          pressureUnit === "bar"
-            ? `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)`
-            : `${psiVal.toFixed(1)} psi (${barVal.toFixed(1)} bar)`;
-      }
-
       const checks: Array<{ status: "pass" | "caution" | "fail"; title: string; detail: string }> = [];
 
-      // Check 1: Rim & Pressure Guard
-      if (rimType === "hookless") {
-        if (cfg.hooklessCompat === false) {
-          checks.push({
-            status: "fail",
-            title: isKo ? "후크리스 림 호환성" : "Hookless Rim Compatibility",
-            detail: isKo
-              ? "이 모델은 후크리스(TSS) 림 호환이 승인되지 않았습니다. 훅드 림 전용입니다."
-              : "NOT approved for Hookless (TSS) rims. Use on hooked rims only.",
-          });
-        } else if (barVal > 5.0 || psiVal > 72.5) {
-          checks.push({
-            status: "fail",
-            title: isKo ? "후크리스 5.0 bar (72.5 psi) 초과 위험" : "OVER 5.0 bar / 72.5 psi Hookless Limit",
-            detail: isKo
-              ? `설정 공기압 ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)가 ISO/ETRTO 후크리스 절대 상한(5.0 bar / 72.5 psi)을 초과했습니다. 주행 중 타이어 이탈 위험이 있습니다!`
-              : `Target ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) EXCEEDS the mandatory ISO/ETRTO 5.0 bar / 72.5 psi hookless ceiling. Blow-off risk!`,
-          });
-        } else if (cfg.category === "road-tire") {
-          checks.push({
-            status: "caution",
-            title: isKo ? "후크리스 공기압 준수 · 휠 승인표 확인" : "Hookless Pressure OK · Verify Wheel List",
-            detail: isKo
-              ? `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)는 상한 이내입니다. 장착 전 휠 제조사 공식 호환 타이어 리스트를 최종 확인하세요.`
-              : `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) is within the 5.0 bar ceiling. Confirm this exact tire width on your wheelmaker's approved list.`,
-          });
+      // Check 1: Rim & Pressure Guard (Road Tires ONLY)
+      if (isRoadTire) {
+        const barVal = Number(pressureSlider ? pressureSlider.value : 4.8);
+        const psiVal = barVal * 14.5038;
+        if (pressureDisplay) {
+          pressureDisplay.textContent =
+            pressureUnit === "bar"
+              ? `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)`
+              : `${psiVal.toFixed(1)} psi (${barVal.toFixed(1)} bar)`;
+        }
+
+        if (rimType === "hookless") {
+          if (cfg.hooklessCompat === false) {
+            checks.push({
+              status: "fail",
+              title: isKo ? "후크리스 림 호환성" : "Hookless Rim Compatibility",
+              detail: isKo
+                ? "이 모델은 후크리스(TSS) 림 호환이 승인되지 않았습니다. 훅드 림 전용입니다."
+                : "NOT approved for Hookless (TSS) rims. Use on hooked rims only.",
+            });
+          } else if (barVal > 5.0 || psiVal > 72.5) {
+            checks.push({
+              status: "fail",
+              title: isKo ? "후크리스 5.0 bar (72.5 psi) 초과 위험" : "OVER 5.0 bar / 72.5 psi Hookless Limit",
+              detail: isKo
+                ? `설정 공기압 ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)가 ISO/ETRTO 후크리스 절대 상한(5.0 bar / 72.5 psi)을 초과했습니다. 주행 중 타이어 이탈 위험이 있습니다!`
+                : `Target ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) EXCEEDS the mandatory ISO/ETRTO 5.0 bar / 72.5 psi hookless ceiling. Blow-off risk!`,
+            });
+          } else {
+            checks.push({
+              status: "caution",
+              title: isKo ? "후크리스 공기압 준수 · 휠 승인표 확인" : "Hookless Pressure OK · Verify Wheel List",
+              detail: isKo
+                ? `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi)는 상한 이내입니다. 장착 전 휠 제조사 공식 호환 타이어 리스트를 최종 확인하세요.`
+                : `${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) is within the 5.0 bar ceiling. Confirm this exact tire width on your wheelmaker's approved list.`,
+            });
+          }
         } else {
           checks.push({
             status: "pass",
-            title: isKo ? "공기압 안전 기준 준수" : "Hookless Pressure Ceiling OK",
+            title: isKo ? "훅드 림(Hooked) 세팅" : "Hooked Rim Setup",
             detail: isKo
-              ? "후크리스 5.0 bar(72.5 psi) 안전 범위 내입니다 (타이어 이외 컴포넌트)."
-              : "Within 5.0 bar / 72.5 psi ceiling (non-tire component).",
+              ? `훅드 림 ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) — 타이어 사이드월 표기 최대 공기압 이내로 세팅하세요.`
+              : `Hooked rim at ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) — stay within sidewall max rating.`,
           });
         }
-      } else {
-        checks.push({
-          status: "pass",
-          title: isKo ? "훅드 림(Hooked) 세팅" : "Hooked Rim Setup",
-          detail: isKo
-            ? `훅드 림 ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) — 타이어 사이드월 표기 최대 공기압 이내로 세팅하세요.`
-            : `Hooked rim at ${barVal.toFixed(1)} bar (${psiVal.toFixed(1)} psi) — stay within sidewall max rating.`,
-        });
       }
 
       // Check 2: BB / Mount Standard
       const bbVal = bbSelect ? bbSelect.value : "bsa";
       if (cfg.category === "power-meter" || cfg.category === "drivetrain") {
         const isPedalMount = bbStr.includes("pedal") || bbStr.includes("9/16") || norm(cfg.mountForm).includes("pedal");
+        const isSramDub = bbStr.includes("dub") || bbStr.includes("28.99");
+        const isShimano24 =
+          bbStr.includes("24mm") ||
+          bbStr.includes("24 mm") ||
+          bbStr.includes("hollowtech") ||
+          bbStr.includes("shimano");
+
         if (isPedalMount) {
           checks.push({
             status: "pass",
@@ -636,13 +707,47 @@ const payload = {
               ? `페달 스레드(9/16") 장착 방식으로 ${bbVal.toUpperCase()} 프레임 BB 규격과 무관하게 장착 가능합니다.`
               : `Pedal-spindle mount installs independently of ${bbVal.toUpperCase()} bottom bracket shell.`,
           });
-        } else if (bbVal === "bb30" && (bbStr.includes("24mm") || bbStr.includes("hollowtech") || bbStr.includes("shimano"))) {
+        } else if (isSramDub) {
+          if (bbVal === "pf86") {
+            checks.push({
+              status: "caution",
+              title: isKo ? "PF86/BB86 프레임 SRAM DUB 전용 BB 필수" : "PF86/BB86 Requires SRAM DUB PressFit BB",
+              detail: isKo
+                ? `SRAM DUB 28.99 mm 스핀들은 BB86(41 mm 내경) 셸에 전용 DUB PressFit 86.5 BB가 필수이며 기존 Shimano 24 mm BB와 호환되지 않습니다.`
+                : `SRAM DUB 28.99 mm spindle requires a dedicated DUB PressFit 86.5 BB on 41 mm BB86 shells (not compatible with 24 mm Shimano BBs).`,
+            });
+          } else if (bbVal === "universal") {
+            checks.push({
+              status: "caution",
+              title: isKo ? "프레임 BB 규격 선택 필요 (SRAM DUB 28.99 mm)" : "Select Frame BB Shell (SRAM DUB 28.99 mm)",
+              detail: isKo
+                ? `본 구동계는 SRAM DUB 28.99 mm 크랭크 스핀들 규격입니다. 프레임 셸(BSA/PF86/T47/BB30)에 맞는 전용 DUB BB를 장착하세요.`
+                : `Uses SRAM DUB 28.99 mm crank spindle — match a dedicated DUB bottom bracket to your frame shell (BSA, PF86, T47, or BB30).`,
+            });
+          } else {
+            checks.push({
+              status: "pass",
+              title: isKo ? "SRAM DUB 28.99 mm 스핀들 호환" : "SRAM DUB 28.99 mm Spindle Compatible",
+              detail: isKo
+                ? `${bbVal.toUpperCase()} 프레임용 SRAM DUB 28.99 mm 전용 BB 조합으로 정상 장착됩니다 (기존 Shimano 24 mm BB는 DUB BB로 교체 필요).`
+                : `Fits ${bbVal.toUpperCase()} frames with a matching SRAM DUB 28.99 mm bottom bracket (swap out any existing 24 mm Shimano BB).`,
+            });
+          }
+        } else if (isShimano24 && bbVal === "bb30") {
           checks.push({
             status: "caution",
             title: isKo ? "BB30 프레임 어댑터 필요" : "BB30 Adapter Required",
             detail: isKo
               ? `본 제품은 ${cfg.bbMount} 기반입니다. BB30/PF30 프레임에는 24mm 변환 BB 또는 스페이서 어댑터가 필요합니다.`
               : `Requires 24mm conversion bottom bracket or adapter for BB30/PF30 frames (${cfg.bbMount}).`,
+          });
+        } else if (isShimano24 && bbVal === "universal") {
+          checks.push({
+            status: "caution",
+            title: isKo ? "프레임 BB 규격 선택 필요 (24 mm Hollowtech II)" : "Select Frame BB Shell (24 mm Hollowtech II)",
+            detail: isKo
+              ? `24 mm 스핀들 크랭크 방식입니다. 프레임 BB 셸(BSA/PF86/T47/BB30)에 맞는 24 mm BB 호환 여부를 확인하세요.`
+              : `24 mm spindle crank architecture — select your frame BB shell (BSA, PF86, T47, or BB30) to confirm adapter needs.`,
           });
         } else {
           checks.push({
@@ -664,9 +769,18 @@ const payload = {
       // Check 3: Freehub / Drivetrain
       const fhVal = freehubSelect ? freehubSelect.value : "hg-l2";
       if (cfg.category === "smart-trainer" || cfg.category === "drivetrain") {
+        const isNativeXdr = fhStr.includes("xdr") && !fhStr.includes("hg");
         if (fhVal === "xdr") {
           const isShimanoOnly = joinedDt.includes("shimano") && !joinedDt.includes("sram");
-          if (isShimanoOnly) {
+          if (isNativeXdr) {
+            checks.push({
+              status: "pass",
+              title: isKo ? "SRAM XDR 12단 네이티브 호환" : "Native SRAM XDR 12s Match",
+              detail: isKo
+                ? `SRAM XDR 프리허브 바디 및 12단 Flattop 카세트 규격과 100% 직접 호환됩니다.`
+                : `100% native fit for SRAM XDR freehub body and 12-speed Flattop cassettes.`,
+            });
+          } else if (isShimanoOnly) {
             checks.push({
               status: "fail",
               title: isKo ? "SRAM XDR 비호환" : "SRAM XDR Incompatible",
@@ -692,7 +806,7 @@ const payload = {
               : `Differs from default (${cfg.freehubCleat}). Confirm N3W freehub kit availability before purchase.`,
           });
         } else {
-          const isSramOnly = joinedDt.includes("sram") && !joinedDt.includes("shimano") && cfg.category === "drivetrain";
+          const isSramOnly = (isNativeXdr || (joinedDt.includes("sram") && !joinedDt.includes("shimano"))) && cfg.category === "drivetrain";
           checks.push({
             status: isSramOnly ? "fail" : "pass",
             title: isSramOnly
@@ -811,10 +925,10 @@ const payload = {
             return `
               <div class="rounded-lg border border-slate-200 bg-white p-3.5">
                 <div class="flex items-center justify-between gap-2">
-                  <span class="text-xs font-bold text-slate-900">${c.title}</span>
-                  <span class="${cls}">${label}</span>
+                  <span class="text-xs font-bold text-slate-900">${esc(c.title)}</span>
+                  <span class="${esc(cls)}">${esc(label)}</span>
                 </div>
-                <p class="mt-1.5 text-xs leading-relaxed text-slate-600">${c.detail}</p>
+                <p class="mt-1.5 text-xs leading-relaxed text-slate-600">${esc(c.detail)}</p>
               </div>
             `;
           })
@@ -828,12 +942,13 @@ const payload = {
         rimType = b.getAttribute("data-rim") || "hooked";
         rimBtns.forEach((o) => {
           const on = o === b;
+          o.setAttribute("aria-pressed", on ? "true" : "false");
           o.className = on
             ? "cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
             : "cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700";
         });
         evaluate();
-        computeOptimalPressure();
+        if (isRoadTire) computeOptimalPressure();
       });
     });
 
@@ -841,6 +956,8 @@ const payload = {
       unitBarBtn.addEventListener("click", () => {
         trackInteract();
         pressureUnit = "bar";
+        unitBarBtn.setAttribute("aria-pressed", "true");
+        unitPsiBtn.setAttribute("aria-pressed", "false");
         unitBarBtn.className = "px-2 py-1 bg-slate-900 text-white";
         unitPsiBtn.className = "px-2 py-1 text-slate-600";
         evaluate();
@@ -848,6 +965,8 @@ const payload = {
       unitPsiBtn.addEventListener("click", () => {
         trackInteract();
         pressureUnit = "psi";
+        unitPsiBtn.setAttribute("aria-pressed", "true");
+        unitBarBtn.setAttribute("aria-pressed", "false");
         unitPsiBtn.className = "px-2 py-1 bg-slate-900 text-white";
         unitBarBtn.className = "px-2 py-1 text-slate-600";
         evaluate();
@@ -907,6 +1026,6 @@ const payload = {
     });
 
     evaluate();
-    computeOptimalPressure();
+    if (isRoadTire) computeOptimalPressure();
   })();
 </script>

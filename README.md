@@ -1,67 +1,68 @@
 # SpecMatrix Global — 글로벌 실제품 스펙 검증 & 하이엔텐트 비교 매트릭스 공장
 
-> **프로젝트 코드**: `specmatrix-global` (Project B — `ssalmeok-empire` 차세대 초확장 진화형)  
-> **목표**: 20배 Ultra 요금제의 대규모 추론 토큰을 단순 블로그 글쓰기가 아닌 **실제품 스펙 전수 리서치 → 적대적 교차 팩트체크(Adversarial Fact-Checker) → 경쟁 SERP 대비 정보이득(Information Gain) 감사 → 5개국어(EN/KO/JA/DE/ES) 국가별 단위·전압·통화·제휴 리전 초현지화(Transcreation)**에 집중 투입하여, 기존 계산기 중심 SSG(`ssalmeok-empire`)를 **구매 직전(Bottom-of-Funnel) 실데이터 비교 매트릭스 공장**으로 도약시킨다.
+> **프로젝트 코드**: `specmatrix-global`  
+> **현재 프로덕션 현황 (v2)**: Astro 5 순수 HTML SSG · **4대 버티컬 · 72종 검증 SKU · 31쌍 에디토리얼 1:1 VS · 13종 매트릭스/호환표 · 5종 인터랙티브 스튜디오 · 30개 글로벌 항공사 DB** (EN/KO)  
+> **목표**: 대규모 추론 파이프라인을 단순 블로그 글쓰기가 아닌 **실제품 스펙 전수 리서치 → 적대적 교차 팩트체크(Adversarial Fact-Checker) → 경쟁 SERP 대비 정보이득(Information Gain) 감사 → 다국어 국가별 단위·전압·통화·제휴 리전 초현지화(Transcreation)**에 집중 투입하여, **구매 직전(Bottom-of-Funnel) 실데이터 비교 매트릭스 공장**으로 확장한다.
 
 ---
 
-## 1. 기존 운영 자산(`ssalmeok-empire`) 계승 및 진화 요약
+## 1. 현재 구현 스택 및 수익화·운영 현황
 
-`specmatrix-global`은 맨땅에서 시작하는 신규 사이트가 아니라, 이미 GitHub Pages(`https://kbu3986.github.io`)에서 가동 중인 **`ssalmeok-empire` (총 889 SSG 페이지, EN/KO)**와 **사전 연동 완료된 수익화 파이프라인**을 즉시 계승하여 고밀도 실데이터 공장으로 스케일업하는 프로젝트다.
+`specmatrix-global`은 Node.js ESM 데이터 검증 파이프라인(`pipeline/`, Zod v3)과 **Astro 5 순수 HTML SSG(`web/`, Tailwind CSS v4, TypeScript)** 기반의 독립 정적 웹 애플리케이션이다.
 
-### 기존 보유 자산 및 즉시 연동 수익화 코드
+### 핵심 구성 및 수익화 정책
 
-| 자산 구분 | 현재 운영 현황 (`ssalmeok-empire`) | `specmatrix-global` 계승 및 확장 방향 |
+| 구분 | 현재 운영 현황 (`specmatrix-global` v2) | 확장 로드맵 |
 | :--- | :--- | :--- |
-| **호스팅 및 허브** | `site0-hub` (`https://kbu3986.github.io`, 통합 사이트맵 인덱스) | 1단계 파일럿 트래픽 브리지로 활용 후, 독립 커스텀 도메인 클러스터로 단계적 분리 |
-| **1호기 WattCheck** | 201 SSG 페이지 (항공사 기내 배터리 규정 + 범용 mAh·디바이스) | **버티컬 1 초확장**: 글로벌 보조배터리·GaN 충전기·파워뱅크 실제품 500종 × 100개 항공사 규정 + USB-PD 포트 분배 매트릭스 |
-| **2호기 WorthMove** | 336 SSG 페이지 (이직 연봉·통근 손익 계산기, EN/KO) | 독립 고단가 금융·커리어 애드센스 자산으로 유지하며 허브 교차 유입 연계 |
-| **3호기 PureGram** | 352 SSG 페이지 (48종 제품 × 6카테고리, 114쌍 1:1 비교, 가격 스냅샷 스크립트 보유) | **버티컬 2 초확장**: 글로벌 프로틴·크레아틴·전해질·에너지젤 실제품 600종 영양성분표 파싱 + 순수 유효성분 1 g당 실단가 랭킹 |
-| **신규 고단가 버티컬** | 미보유 | **버티컬 3 (CycleGear Matrix)** 450종 + **버티컬 4 (HomeTech TCO Matrix)** 400종 신규 구축 |
-| **수익화 코드 (연동 완료)** | 구글 애드센스 `ca-pub-8587506565277191`, 쿠팡 파트너스 `AF2200875` (Sub ID `ssalmeok-kr`), 아마존 어소시에이트 US `kbu3986-20`, GSC·네이버 인증 및 `deploy-ops` 원클릭 배포 제어탑 | Day 1 즉시 상속 + Amazon OneLink(JP/DE/ES/UK), AliExpress Portals, Rakuten, iHerb 글로벌 제휴 확장 |
+| **웹 엔진 & 호스팅** | **Astro 5 순수 HTML SSG** (GitHub Pages 프로덕션 배포 · Cloudflare Pages 무코드 전환 지원) | 단일 페이지당 1 HTML 파일 구조로 20,000파일 정적 상한 내 안정 확장 |
+| **버티컬 1 (WattCheck)** | 검증된 보조배터리·GaN 충전기·파워스테이션 SKU + 30개 글로벌 항공사 기내 규정 + 여행 전력 키트 최적화기 | 1차 500종 × 100개 항공사 규정 확장 |
+| **버티컬 2 (PureGram)** | 검증된 에너지젤·카보믹스·전해질·크레아틴 SKU + 레이스 보급 믹스 플래너 (영양성분표 기반 객관적 팩트 연산) | 1차 600종 영양성분표 교차 파싱 확장 |
+| **버티컬 3 (CycleGear)** | 검증된 파워미터·GPS 컴퓨터·스마트 트레이너·로드 타이어·구동계 + 타이어 공기압 & 후크리스 5.0 bar 안전 가드 | 1차 450종 호환성 그래프 확장 |
+| **버티컬 4 (HomeTech)** | 검증된 미니PC·NAS·UPS·로봇청소기 + 3년 TCO 손익분기 & 멀티기기 UPS 런타임 스튜디오 | 1차 400종 국가별 전기요금 TCO 확장 |
+| **인터랙티브 스튜디오 (5종)** | ① 1:1 자유 비교 워크벤치 ② 여행 전력 키트 최적화기 ③ 레이스 보급 믹스 플래너 ④ HomeTech 3년 TCO & UPS 스튜디오 ⑤ 로드 타이어 공기압 & 후크리스 5.0 bar 안전 가드 | 전 버티컬 결정론적 0ms 클라이언트 시뮬레이션 |
+| **수익화 코드 및 절대 정책** | Google AdSense `ca-pub-8587506565277191`, Coupang Partners `AF2200875` (`sm-*-kr`), Amazon Associates US `kbu3986-20` (`msrp_benchmark_mode`) · **iHerb 제휴·구매 링크 영구 금지** | 트래픽 연동 단계적 리전 확장(Amazon OneLink JP/DE/ES/UK, AliExpress Portals, Awin, Impact) |
 
 ---
 
 ## 2. 왜 SpecMatrix Global인가: 4대 핵심 해자
 
-1. **초고토큰 실데이터 진입장벽** – 제품 1종당 평균 20만 토큰(리서치 + 적대적 교차검증)을 투입해 공식 매뉴얼·영양성분표·인증 DB·항공사 PDF 원문에서 출처가 고정된(Evidence-Anchored) 스펙 DB(1차 1,950종)를 구축한다. 1회성 프롬프트로 찍어낸 저품질 리뷰 사이트는 데이터 정확도와 파생 계산 지표에서 경쟁 자체가 불가능하다.
-2. **구매 직전 하이엔텐트 쿼리 장악** – `"보조배터리 기내 반입"` 같은 범용 정보 키워드를 넘어, `"Anker Prime 27650 vs Shargeek 170 airline carry-on"`, `"Favero Assioma Duo vs Garmin Rally RS200"`, `"Synology DS923+ vs UGREEN DXP4800 3-year electricity cost"`처럼 결제 버튼을 누르기 직전의 고전환 비교·호환성 검색을 정조준한다.
-3. **5개국어 국가별 초현지화(Transcreation)** – EN/KO/JA/DE/ES 단순 번역이 아니라, 전압(100 V / 120 V / 220 V / 230 V), 플러그 규격(Type A/B/C/F), 가정용 전기요금 단가(독일 €0.38/kWh 등), 단위계(oz·lb ↔ g·kg, psi ↔ bar), 현지 항공·안전 인증(FAA·MOLIT·MLIT·EASA / UL·KC·PSE·CE) 및 리전별 제휴 링크를 코드와 에이전트가 정밀 치환한다.
-4. **구글 정보이득(Information Gain) & Drip-Feed 방어 내재화** – 모든 페이지는 경쟁 상위 5개 SERP를 사전 감사해 고유 파생 지표 3개 이상과 인터랙티브 계산기·필터를 의무 탑재하며, 1주차 200페이지 → 2주차 1,000페이지 → 4주차 5,000페이지 단계 배포로 Scaled Content Abuse 및 색인 블로트를 원천 방어한다.
+1. **증빙 고정(Evidence-Anchored) 실데이터 진입장벽** – 공식 매뉴얼·영양성분표·인증 DB·항공사 PDF 원문에서 출처가 고정된 스펙 DB를 적대적 팩트체크(신뢰도 95점 이상 게이트)로 검증한다.
+2. **구매 직전 하이엔텐트 쿼리 장악** – `"Anker Prime 27650 vs Shargeek 170 airline carry-on"`, `"Favero Assioma PRO RS-2 vs Garmin Rally RS200"`, `"Apple Mac mini M4 vs Beelink SER8 3-year electricity cost"`처럼 결제 직전의 고전환 비교·호환성 검색을 정조준한다.
+3. **국가별 물리 환경 초현지화(Transcreation)** – 단순 번역이 아니라 전압(100 V / 120 V / 220 V / 230 V), 플러그 규격(Type A/B/C/F), 가정용 전기요금 단가(한전 누진 1–3구간·미국 $0.17·독일 €0.38·일본 ¥31/kWh), 단위계(psi ↔ bar, g/kg), 현지 안전 인증(UL·KC·PSE·CE) 및 리전별 제휴 링크를 정밀 적용한다.
+4. **구글 정보이득(Information Gain) & Drip-Feed 방어 내재화** – 모든 페이지는 고유 파생 지표와 인터랙티브 계산기·필터를 탑재하며, 단계별 Drip-Feed 배포와 분할 사이트맵으로 Scaled Content Abuse 및 색인 블로트를 원천 방어한다.
 
 ---
 
 ## 3. 4대 고수익 버티컬 포트폴리오 개요
 
-| 버티컬 | 코드명 | 1차 목표 실제품 수 | 핵심 비교·계산 축 (고유 정보이득) | 주요 수익 구조 |
+| 버티컬 | 코드명 | 현재 v2 / 장기 목표 SKU | 핵심 비교·계산 축 (고유 정보이득) | 주요 수익 구조 (iHerb 영구 미사용) |
 | :--- | :--- | :--- | :--- | :--- |
-| **버티컬 1** | **WattCheck Matrix** | 500종 (보조배터리·GaN·파워뱅크) | 100개 항공사 기내 반입 판정 + 멀티포트 동시 충전 시 실제 W 분배 + 변환효율 반영 실가용 Wh | 아마존·쿠팡 고빈도 제휴 + 여행·테크 애드센스 |
-| **버티컬 2** | **PureGram Matrix** | 600종 (프로틴·크레아틴·전해질·에너지젤) | 영양성분표 교차 파싱 + 순수 유효성분 1 g당 실시간 단가 + 감미료·알레르겐·아미노 프로필 비교 | 쿠팡·아마존·iHerb 반복 재구매 제휴 + 헬스 애드센스 |
-| **버티컬 3** | **CycleGear Matrix** | 450종 (파워미터·사이클링 컴퓨터·트레이너·타이어·Di2/AXS) | 객단가 20만–200만 원 고단가 부품 호환성(BB·프리허브·ANT+/BLE) + 구름저항(W)·정확도 비교 | 고객단가 제휴 커미션 + 고 CPC 아웃도어·스포츠 광고 |
-| **버티컬 4** | **HomeTech TCO Matrix** | 400종 (MiniPC·NAS·UPS·로봇청소기) | 아이들·부하 소비전력(W) + 국가별 전기요금 기준 3년 TCO + 소음(dBA) + 소모품 유지비 비교 | 아마존(US/DE/JP/ES)·쿠팡·알리익스프레스 고단가 제휴 |
-| **합계** | **4대 통합 매트릭스** | **1,950종 (1차 시드)** | **1차 코어 15,050p (풀 확장 상한 29,550p · 5개국어)** | **애드센스 + 다중 리전 제휴 복합 수익화** |
+| **버티컬 1** | **WattCheck Matrix** | 25종 / 500종 (+30→100항공사) | 항공사 기내 반입 판정 + 멀티포트 동시 출력 분배 + 변환효율 반영 실가용 Wh | 아마존·쿠팡 제휴 + 여행·테크 애드센스 |
+| **버티컬 2** | **PureGram Matrix** | 20종 / 600종 | 영양성분표 교차 파싱 + 순수 유효성분 기준 단가 + 1:0.8 비율·카페인·나트륨 레이스 설계 | 쿠팡·아마존 반복 재구매 제휴 + 애드센스 (**iHerb 금지**) |
+| **버티컬 3** | **CycleGear Matrix** | 15종 / 450종 | 객단가 20만–200만 원 부품 호환성(BB·프리허브·ANT+/BLE) + ETRTO 후크리스 5.0 bar 안전 가드 | 고객단가 제휴 커미션(Amazon·Awin·Impact·쿠팡) + 고 CPC 광고 |
+| **버티컬 4** | **HomeTech TCO Matrix** | 12종 / 400종 | 대기·부하 소비전력(W) + 국가별 전기요금 3년 TCO 손익분기 + 120V/220V UPS 런타임 | 아마존·쿠팡·직영몰 고단가 제휴 + IT 애드센스 |
+| **합계** | **4대 통합 매트릭스** | **72종 검증 완료 (31 VS · 13 매트릭스 · 5 스튜디오)** | **단계별 코어 확장 (EN/KO → JA/DE/ES)** | **애드센스 + 다중 리전 제휴 복합 수익화** |
 
 ---
 
-## 4. 디렉토리 구조 (기획 5대 문서 및 실행 아키텍처)
+## 4. 디렉토리 구조
 
 ```text
 specmatrix-global/
-├── README.md                              # 프로젝트 개요, 기존 자산 계승 요약, 4단계 실행 로드맵
-├── docs/
-│   ├── 01-MASTER-PLAN.md                  # 마스터 기획서 (전환 전략, 5개국어 초현지화, IA·UX, 정보이득 원칙)
-│   ├── 02-TOKEN-BURN-PIPELINE.md          # 6단계 고토큰 멀티에이전트 리서치·교차검증·현지화 파이프라인
-│   ├── 03-VERTICAL-ROADMAP.md             # 4대 버티컬 상세 로드맵, JSON 스키마 샘플, 페이지 확장 공식
-│   ├── 04-MONETIZATION-AND-OPS.md         # 수익화 코드 연동, 글로벌 제휴, 스냅샷 가격 갱신, Drip-Feed SEO 운영
-│   └── 05-RISK-AND-KPI-AUDIT.md           # 기획 교차 감사, 월별 수익 시뮬레이션, Kill/Pivot KPI 및 실행 체크리스트
-├── data/                                  # (Phase 1 생성) 버티컬별 Golden JSON DB, SERP 감사 로그, 가격 스냅샷
+├── README.md                              # 프로젝트 개요, 아키텍처, 실행 명령어 및 로드맵
+├── AGENTS.md                              # 단일 정본(SSOT) 엔지니어링·컴플라이언스 지시서
+├── config/                                # 수익화 설정(v2) 및 공식 쿠팡 단축링크 레지스트리
+├── schemas/                               # Zod v3 엄격 스키마 및 TypeScript SSOT 타입
+├── data/                                  # 4대 버티컬 검증 완료 Golden JSON DB (72 SKUs, 31 VS, 13 Matrices)
 │   ├── wattcheck/
 │   ├── puregram/
 │   ├── cyclegear/
-│   └── hometech/
-├── pipeline/                              # (Phase 1 생성) 6단계 토큰 소모 오케스트레이터, 물리검증기, 현지화 QA
-├── web/                                   # (Phase 2 생성) Next.js 16 SSG 통합 매트릭스 앱 + 인터랙티브 계산기
-└── ops/                                   # (Phase 2 생성) Drip-Feed 배포, 죽은 링크 대체, GSC 색인율 모니터링
+│   ├── hometech/
+│   └── snapshots/                         # 일일 환율(FX) 스냅샷
+├── pipeline/                              # 데이터 검증, SERP IG 감사, 환율, 링크 헬스, Stage 6 HTML QA, 단위 테스트
+├── web/                                   # Astro 5 순수 HTML SSG + Tailwind CSS v4 + 5종 인터랙티브 스튜디오
+├── ops/                                   # GitHub Pages 배포 스크립트, CI 워크플로우, 로컬 전용 런치패드
+└── docs/                                  # 마스터 기획·파이프라인·버티컬·수익화·리스크 감사 문서 (01–05)
 ```
 
 ---
@@ -70,38 +71,27 @@ specmatrix-global/
 
 ```mermaid
 flowchart TD
-    A["기존 자산 계승 (ssalmeok-empire 889p + 수익 코드 3종)"] --> B["Stage 0: 4대 버티컬 SKU 시드 및 원천 증빙 수집"]
-    B --> C["Stage 1–2: 병렬 스펙 리서치 + 적대적 팩트체크 (신뢰도 95퍼센트 게이트)"]
-    C --> D["Stage 3: 경쟁 SERP 상위 5개 정보이득 감사 (IG 75점 이상 통과)"]
-    D --> E["Stage 4–5: 파생 지표 계산 + 5개국어 초현지화 (EN/KO/JA/DE/ES)"]
-    E --> F["Golden JSON DB (1,950종 스펙 + 선별 비교·호환성 매트릭스)"]
-    F --> G["Next.js 16 SSG 빌드 게이트 + 인터랙티브 위젯 주입"]
-    G --> H["Drip-Feed 단계 배포 (200p → 1,000p → 5,000p → 15,050p 코어)"]
-    H --> I["GSC 색인율·가격 스냅샷·제휴 전환 피드백 루프"]
-    I -- "신제품 편입 및 저성과 페이지 재감사" --> B
+    A["Stage 0: 4대 버티컬 SKU 시드 및 1차 공식 증빙 수집"] --> B["Stage 1–2: 병렬 스펙 리서치 + 결정론적 물리 검산 + 적대적 팩트체크 (신뢰도 95+)"]
+    B --> C["Stage 3: 경쟁 SERP 정보이득 감사 (IG 75+)"]
+    C --> D["Stage 4–5: 파생 지표 연산 + 국가별 초현지화 (EN/KO 우선 → JA/DE/ES)"]
+    D --> E["Golden JSON DB (72종 검증 완료 → 단계적 확장)"]
+    E --> F["Astro 5 순수 HTML SSG 빌드 + 5종 인터랙티브 스튜디오 + 분할 사이트맵"]
+    F --> G["Stage 6 built HTML QA 게이트 + GitHub Pages / Cloudflare Pages 배포"]
+    G --> H["GSC 색인율·일일 환율·주간 Tier 3 링크 헬스 피드백 루프"]
+    H -- "신제품 편입 및 저성과 페이지 보강" --> A
 ```
 
 ---
 
-## 6. 4단계 실행 로드맵 및 토큰 투입 규모
+## 6. 필수 개발 및 검증 명령어
 
-| 단계 | 기간 (목표) | 핵심 마일스톤 및 산출물 | 누적 실제품 / 배포 페이지 | 예상 토큰 투입량 |
-| :--- | :--- | :--- | :--- | :--- |
-| **Phase 0 (완료)** | Day 1 | 프로젝트 구조 수립 및 핵심 기획·감사 문서 5종(`01`–`05`) 완성 | 기획 완료 | 기획 설계 |
-| **Phase 1 (파일럿 공장 가동)** | 1–2주차 | 6단계 파이프라인 구축 + WattCheck·PureGram 앵커 100종(+30항공사) 검증 + 200p → 1,000p Drip-Feed 배포 | 100종 / 200–1,000페이지 | 약 4,000만 토큰 |
-| **Phase 2 (1–2차 확장 + CycleGear 진입)** | 3–4주차 | WattCheck 250종·PureGram 300종·CycleGear 앵커 80종 확보 + 커스텀 도메인 연동 및 5,000p 게이트 검증 | 630종 / 5,000페이지 | 약 1억 9,000만 토큰 |
-| **Phase 3 (4대 버티컬 1차 코어 완공)** | 5–12주차 | CycleGear 450종 + HomeTech 400종 포함 4대 버티컬 1,950종 완성 + 5개국어 1차 코어 15,050p 안착 | 1,950종 / 15,050페이지 | 약 4억 4,000만 토큰 |
-| **Phase 4 (풀 확장 및 자동 운영 루프)** | 4개월차 이후 | 고전환 VS 확장(상한 29,550p · 추가 약 2억 7,500만 토큰), 주간 가격 스냅샷 갱신, 월 80–120종 신제품 편입 | 최대 29,550페이지 + 지속 확장 | 월 6,000만–9,000만 토큰 |
-| **1차 코어 완공 누계 (Phase 1–3)** | **12주 기준** | **4대 버티컬 1,950종 Golden DB + 5개국어 1차 코어 15,050 SSG 페이지** | **1,950종 / 15,050페이지** | **약 6억 7,000만 토큰** |
-
----
-
-## 7. 포트폴리오 역할 분담: Project A vs Project B
-
-| 비교 항목 | Project A (`pin2pin-global`) | Project B (`specmatrix-global`) |
-| :--- | :--- | :--- |
-| **타깃 시장** | B2B 하드웨어 엔지니어·전자부품 BOM 구매자 | B2C 구매 직전 하이엔텐트 글로벌 소비자 (테크·피트니스·로드사이클·홈테크) |
-| **핵심 원천 데이터** | 반도체 제조사 공식 PDF 데이터시트·핀아웃 도면 | 소비재 공식 스펙시트·매뉴얼·영양성분표·항공사 규정 PDF·전기요금·인증 DB |
-| **수익화 속도** | 중장기 고단가 B2B 애드센스 CPC + BOM Micro-SaaS | **초고속 수익화** (기존 `ssalmeok-empire` 애드센스·쿠팡·아마존 코드 즉시 연동) |
-| **핵심 수익 엔진** | 초고단가 B2B 광고 클릭 + 유료 SaaS 구독 | 고전환 제휴 커미션(객단가 3만–200만 원) + 글로벌 5개국어 애드센스 RPM |
-| **도메인·트래픽 간섭** | 완전 독립 (중복 키워드 0퍼센트) | 완전 독립 (기존 `ssalmeok-empire` 자산을 흡수·고도화) |
+```bash
+npm run validate         # Golden JSON 스키마 + 물리 불변식 + 서킷브레이커 검증
+npm run test:pipeline    # 파이프라인 단위 테스트 실행
+npm run audit:ig         # SERP 정보이득(Information Gain) 감사
+npm run web:build        # OG 이미지 생성 → Astro 5 SSG 빌드 → 검색 인덱스 → 분할 사이트맵
+npm run qa:stage6        # Stage 6 정적 HTML·링크·SEO·AdSense 안전 QA 게이트
+npm run build:all        # validate + test:pipeline + web:build + qa:stage6 통합 실행
+npm run health:links     # 외부 인용·항공사·제휴 링크 헬스 체크
+npm run deploy:gh-pages  # GitHub Pages 프로덕션 배포 및 직통 HTTP 200 / 404 검증
+```

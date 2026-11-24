@@ -1,0 +1,1560 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SafetyBanner from "../../../components/SafetyBanner.astro";
+import AdSlotReserve from "../../../components/AdSlotReserve.astro";
+import type { ActiveLocale, HomeTechItem } from "../../../lib/types";
+import { getFxRates, getHomeTechItems, getMonetizationConfig } from "../../../lib/data";
+import { buildMonetizationModel } from "../../../lib/monetization";
+import {
+  ACTIVE_LOCALES,
+  BASE_PATH,
+  formatCurrency,
+  formatInt,
+  formatNum,
+  getCategoryLabel,
+  safeJsonLd,
+  toAbsoluteUrl,
+  withBase,
+} from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return ACTIVE_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const locale = Astro.params.locale as ActiveLocale;
+const isKo = locale === "ko";
+const fx = getFxRates();
+const cfg = getMonetizationConfig();
+
+const krwPerUsd = Number.isFinite(fx.rates.KRW) && fx.rates.KRW > 0 ? fx.rates.KRW : 1400;
+const eurPerUsd = Number.isFinite(fx.rates.EUR) && fx.rates.EUR > 0 ? fx.rates.EUR : 0.94;
+const jpyPerUsd = Number.isFinite(fx.rates.JPY) && fx.rates.JPY > 0 ? fx.rates.JPY : 154;
+
+const homeItems: HomeTechItem[] = getHomeTechItems().filter((i) =>
+  i.available_locales.includes(locale)
+);
+
+const CAT_ORDER: Record<HomeTechItem["category"], number> = {
+  minipc: 1,
+  nas: 2,
+  ups: 3,
+  "robot-vacuum": 4,
+};
+
+const sortedItems = [...homeItems].sort((a, b) => {
+  const oa = CAT_ORDER[a.category] ?? 9;
+  const ob = CAT_ORDER[b.category] ?? 9;
+  if (oa !== ob) return oa - ob;
+  return a.slug.localeCompare(b.slug);
+});
+
+interface StudioHomeSku {
+  slug: string;
+  name: string;
+  brand: string;
+  category: HomeTechItem["category"];
+  categoryLabel: string;
+  href: string;
+  usMsrp: number;
+  krMsrp: number;
+  idleW: number;
+  typicalW: number;
+  peakW: number;
+  defaultHours: number;
+  annualConsUsd: number;
+  annualConsKrw: number;
+  noiseLoadDba: number | null;
+  weightG: number;
+  dualVoltage: boolean;
+  inputVoltageRange: string;
+  korea220vNote: string;
+  upsVa: number | null;
+  upsWatt: number | null;
+  upsWaveform: "pure-sine" | "simulated-sine" | null;
+  upsRuntimeHalfMin: number | null;
+  ctaButtons: Array<{
+    label: string;
+    storeName: string;
+    url: string;
+    linkMode: string;
+    isPrimary: boolean;
+  }>;
+}
+
+const serializedSkus: StudioHomeSku[] = sortedItems.map((item) => {
+  const copy = item.i18n[locale] ?? item.i18n.en;
+  const m = buildMonetizationModel(item, locale);
+  const s = item.specs;
+  return {
+    slug: item.slug,
+    name: copy.name,
+    brand: item.brand,
+    category: item.category,
+    categoryLabel: getCategoryLabel(item.category, locale),
+    href: withBase(`/${locale}/hometech/item/${item.slug}`),
+    usMsrp: item.regional_offers.us.msrp,
+    krMsrp: item.regional_offers.kr.msrp,
+    idleW: s.idle_power_w,
+    typicalW: s.typical_load_w,
+    peakW: s.peak_power_w,
+    defaultHours: s.default_daily_hours_active,
+    annualConsUsd: s.annual_consumables_usd,
+    annualConsKrw: s.annual_consumables_krw,
+    noiseLoadDba: s.noise_load_dba,
+    weightG: s.weight_g,
+    dualVoltage: s.dual_voltage_100_240v,
+    inputVoltageRange: s.input_voltage_range,
+    korea220vNote: isKo ? item.tco_profile.korea_220v_note_ko : item.tco_profile.korea_220v_note_en,
+    upsVa: s.ups_va_rating,
+    upsWatt: s.ups_watt_rating,
+    upsWaveform: s.ups_waveform,
+    upsRuntimeHalfMin: s.ups_runtime_half_load_min,
+    ctaButtons: m.buttons.slice(0, 2).map((b) => ({
+      label: b.label,
+      storeName: b.storeName,
+      url: b.url,
+      linkMode: b.linkMode,
+      isPrimary: b.isPrimary,
+    })),
+  };
+});
+
+const groupedSkus: Array<{ category: string; label: string; items: StudioHomeSku[] }> = [];
+for (const sku of serializedSkus) {
+  let grp = groupedSkus.find((g) => g.category === sku.category);
+  if (!grp) {
+    grp = { category: sku.category, label: sku.categoryLabel, items: [] };
+    groupedSkus.push(grp);
+  }
+  grp.items.push(sku);
+}
+
+const defaultA =
+  serializedSkus.find((s) => s.slug === "apple-mac-mini-m4") ??
+  serializedSkus.find((s) => s.category === "minipc") ??
+  serializedSkus[0];
+const defaultB =
+  serializedSkus.find((s) => s.slug === "beelink-ser8-8745hs") ??
+  serializedSkus.find((s) => s.category === defaultA?.category && s.slug !== defaultA?.slug) ??
+  serializedSkus[1];
+
+const quickPairs = [
+  {
+    a: "apple-mac-mini-m4",
+    b: "beelink-ser8-8745hs",
+    label: isKo ? "Mac mini M4 vs Beelink SER8" : "Mac mini M4 vs Beelink SER8",
+  },
+  {
+    a: "synology-ds423-plus",
+    b: "ugreen-nasync-dxp4800-plus",
+    label: isKo ? "시놀로지 DS423+ vs UGREEN DXP4800+" : "Synology DS423+ vs UGREEN DXP4800+",
+  },
+  {
+    a: "roborock-s8-maxv-ultra",
+    b: "dreame-x40-ultra",
+    label: isKo ? "로보락 S8 MaxV vs 드리미 X40" : "Roborock S8 MaxV vs Dreame X40",
+  },
+  {
+    a: "apc-back-ups-bx750mi",
+    b: "cyberpower-cp1500pfclcd",
+    label: isKo ? "APC BX750MI vs CyberPower CP1500" : "APC BX750MI vs CyberPower CP1500",
+  },
+].filter(
+  (p) =>
+    serializedSkus.some((s) => s.slug === p.a) && serializedSkus.some((s) => s.slug === p.b)
+);
+
+const computeLoadDevices = serializedSkus.filter(
+  (s) => s.category === "minipc" || s.category === "nas"
+);
+const upsSkus = serializedSkus.filter((s) => s.category === "ups");
+
+const defaultSelectedLoadSlugs = new Set<string>(
+  [
+    computeLoadDevices.find((d) => d.slug === "synology-ds423-plus")?.slug ??
+      computeLoadDevices.find((d) => d.category === "nas")?.slug,
+    computeLoadDevices.find((d) => d.slug === "apple-mac-mini-m4")?.slug ??
+      computeLoadDevices.find((d) => d.category === "minipc")?.slug,
+  ].filter((x): x is string => Boolean(x))
+);
+
+const tariffs = [
+  {
+    id: "us",
+    label: isKo ? "US 미국 ($0.17)" : "US Avg ($0.17)",
+    rate: 0.17,
+    currency: "USD" as const,
+    unit: "$/kWh",
+    min: 0.05,
+    max: 0.6,
+    step: 0.01,
+  },
+  {
+    id: "kr1",
+    label: isKo ? "KR 한전 1구간 (120원)" : "KR KEPCO T1 (₩120)",
+    rate: 120,
+    currency: "KRW" as const,
+    unit: isKo ? "원/kWh" : "₩/kWh",
+    min: 50,
+    max: 500,
+    step: 5,
+  },
+  {
+    id: "kr2",
+    label: isKo ? "KR 한전 2구간 (214원)" : "KR KEPCO T2 (₩214)",
+    rate: 214,
+    currency: "KRW" as const,
+    unit: isKo ? "원/kWh" : "₩/kWh",
+    min: 50,
+    max: 500,
+    step: 5,
+  },
+  {
+    id: "kr3",
+    label: isKo ? "KR 한전 3구간 (307원)" : "KR KEPCO T3 (₩307)",
+    rate: 307,
+    currency: "KRW" as const,
+    unit: isKo ? "원/kWh" : "₩/kWh",
+    min: 50,
+    max: 500,
+    step: 5,
+  },
+  {
+    id: "de",
+    label: isKo ? "DE 독일 (€0.38)" : "DE Germany (€0.38)",
+    rate: 0.38,
+    currency: "EUR" as const,
+    unit: "€/kWh",
+    min: 0.1,
+    max: 0.7,
+    step: 0.01,
+  },
+  {
+    id: "jp",
+    label: isKo ? "JP 일본 (¥31)" : "JP Japan (¥31)",
+    rate: 31,
+    currency: "JPY" as const,
+    unit: "¥/kWh",
+    min: 15,
+    max: 60,
+    step: 1,
+  },
+];
+
+const initTariffId = isKo ? "kr2" : "us";
+const initGrid: "230" | "120" = isKo ? "230" : "120";
+
+const clientPayload = {
+  locale,
+  basePath: BASE_PATH,
+  disclosure: cfg.compliance.disclosures[locale],
+  fx: { KRW: krwPerUsd, EUR: eurPerUsd, JPY: jpyPerUsd },
+  tariffs,
+  initTariffId,
+  initGrid,
+  defaultSlugA: defaultA?.slug ?? "",
+  defaultSlugB: defaultB?.slug ?? "",
+  defaultLoadSlugs: Array.from(defaultSelectedLoadSlugs),
+  items: serializedSkus,
+};
+
+const currentPath = `/${locale}/tools/hometech-tco-studio`;
+const pageTitle = isKo
+  ? "HomeTech 3년 TCO 손익분기 & 멀티기기 UPS 정전 런타임 스튜디오 | SpecMatrix Global"
+  : "HomeTech 3-Year TCO Payback & Multi-Device UPS Runtime Studio | SpecMatrix Global";
+const pageDesc = isKo
+  ? `검증된 ${serializedSkus.length}종 미니PC·NAS·로봇청소기·UPS의 한전 누진제·미국·독일·일본 전기요금별 3년 총소유비용(TCO) 손익분기점과 120V/220V UPS 정전 런타임을 실시간 계산하세요.`
+  : `Compare 3-year hardware + electricity + consumables TCO payback across ${serializedSkus.length} verified HomeTech SKUs and size multi-device NAS/MiniPC UPS outage runtime with 120V/220V safety checks.`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: isKo
+      ? "SpecMatrix HomeTech 3년 TCO & UPS 런타임 스튜디오"
+      : "SpecMatrix HomeTech 3-Year TCO & UPS Runtime Studio",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    description: pageDesc,
+    url: toAbsoluteUrl(currentPath),
+    inLanguage: locale,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: isKo ? "홈" : "Home",
+        item: toAbsoluteUrl(`/${locale}`),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
+        item: toAbsoluteUrl(`/${locale}/tools`),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: isKo ? "HomeTech TCO & UPS 스튜디오" : "HomeTech TCO & UPS Studio",
+        item: toAbsoluteUrl(currentPath),
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  locale={locale}
+  currentPath={currentPath}
+  activeVertical="hometech"
+  jsonLd={jsonLd}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-600">
+    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "홈" : "Home"}
+    </a>
+    <span>/</span>
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+      {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
+    </a>
+    <span>/</span>
+    <span class="font-medium text-slate-900">
+      {isKo ? "HomeTech 3년 TCO & UPS 스튜디오" : "HomeTech 3-Year TCO & UPS Studio"}
+    </span>
+  </nav>
+
+  <!-- Studio Hero -->
+  <section class="lab-card overflow-hidden border-violet-200/90 bg-white">
+    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full border border-violet-400/40 bg-violet-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-violet-200">
+            HOMETECH TCO &amp; UPS LAB
+          </span>
+          <span class="font-mono text-xs text-slate-300">
+            {serializedSkus.length} {isKo ? "종 검증 홈테크 SKU" : "Verified HomeTech SKUs"} · {upsSkus.length} UPS
+          </span>
+        </div>
+        <button
+          type="button"
+          id="hts-copy-link"
+          class="rounded-lg border border-white/25 bg-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-white/20"
+        >
+          {isKo ? "시뮬레이션 공유 링크 복사" : "Copy Shareable Studio Link"}
+        </button>
+      </div>
+
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+        {isKo
+          ? "HomeTech 3년 TCO 손익분기 & 멀티기기 UPS 정전 런타임 스튜디오"
+          : "HomeTech 3-Year TCO Payback & Multi-Device UPS Outage Sizing Studio"}
+      </h1>
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+        {isKo
+          ? "미니PC·NAS·로봇청소기·UPS 두 모델의 국가별 전기요금(한전 누진제·미국·독일·일본) 기준 3년 총소유비용과 손익분기 개월 수를 실시간 산출하고, 여러 대의 홈랩 장비를 묶은 120V/220V UPS 정전 런타임과 Active-PFC 파형 안전성을 검증합니다."
+          : "Model side-by-side 3-year hardware, electricity, and consumables TCO with break-even payback months across global tariffs, then size multi-device NAS + Mini PC UPS runtime with 120V/220V grid-lock and Active-PFC waveform safety guards."}
+      </p>
+
+      <!-- Studio Mode Tabs -->
+      <div class="mt-4 flex flex-wrap gap-2" role="tablist" aria-label={isKo ? "스튜디오 모드" : "Studio mode"}>
+        <button
+          type="button"
+          role="tab"
+          id="hts-tab-tco"
+          data-studio-tab="tco"
+          aria-selected="true"
+          aria-controls="hts-panel-tco"
+          class="hts-tab-btn rounded-lg border border-violet-400 bg-violet-600 px-4 py-2 text-xs font-bold text-white transition-colors"
+        >
+          {isKo ? "1. 1:1 3년 TCO & 손익분기 계산기" : "1. Side-by-Side 3-Year TCO Payback"}
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="hts-tab-ups"
+          data-studio-tab="ups"
+          aria-selected="false"
+          aria-controls="hts-panel-ups"
+          class="hts-tab-btn rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-slate-200 transition-colors hover:bg-white/20"
+        >
+          {isKo ? "2. 멀티기기 UPS 런타임 & 120V/220V 안전 설계" : "2. Multi-Device UPS Runtime & 120V/220V Guard"}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <AdSlotReserve slotId="hometech-tco-top" variant="banner" locale={locale} />
+
+  <!-- SECTION 1: Side-by-Side 3-Year TCO Payback Calculator -->
+  <section id="hts-panel-tco" role="tabpanel" aria-labelledby="hts-tab-tco" class="mt-6 space-y-6">
+    <div class="lab-card bg-white p-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="text-lg font-extrabold text-slate-900">
+            {isKo ? "1:1 3년 TCO 손익분기(Payback) 비교기" : "Side-by-Side 3-Year TCO Payback Calculator"}
+          </h2>
+          <p class="mt-0.5 text-xs text-slate-600">
+            {isKo
+              ? "저전력 모델이 초기 출고가가 더 비쌀 때 몇 개월 만에 전기요금·소모품 절감액으로 차액을 회수하는지 자동 계산합니다."
+              : "See exactly how many months it takes for a lower-idle or lower-maintenance device to pay back a higher upfront purchase price."}
+          </p>
+        </div>
+        <span class="font-mono text-[11px] text-slate-600">
+          FX: $1 = ₩{formatInt(krwPerUsd)} · €{formatNum(eurPerUsd, 2)} · ¥{formatInt(jpyPerUsd)}
+        </span>
+      </div>
+
+      <!-- Dual SKU Picker -->
+      <div class="mt-4 grid items-end gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-11">
+        <div class="md:col-span-5">
+          <label for="hts-sel-a" class="flex items-center justify-between text-xs font-bold text-blue-800">
+            <span>{isKo ? "모델 A (비교 기준)" : "Model A (Baseline)"}</span>
+            <a id="hts-link-a" href={defaultA?.href ?? withBase(`/${locale}`)} class="font-mono text-[11px] hover:underline">
+              {isKo ? "상세 스펙 →" : "Full Spec →"}
+            </a>
+          </label>
+          <select
+            id="hts-sel-a"
+            class="mt-1.5 w-full rounded-lg border border-blue-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
+          >
+            {groupedSkus.map((grp) => (
+              <optgroup label={grp.label}>
+                {grp.items.map((it) => (
+                  <option value={it.slug} selected={it.slug === defaultA?.slug}>
+                    {it.name} ({isKo ? formatCurrency(it.krMsrp, "KRW", "ko") : formatCurrency(it.usMsrp, "USD", "en")})
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+
+        <div class="flex justify-center md:col-span-1">
+          <button
+            type="button"
+            id="hts-swap"
+            aria-label={isKo ? "모델 A와 B 맞바꾸기" : "Swap Model A and Model B"}
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 hover:border-violet-500 hover:bg-violet-50 hover:text-violet-700"
+          >
+            ⇄
+          </button>
+        </div>
+
+        <div class="md:col-span-5">
+          <label for="hts-sel-b" class="flex items-center justify-between text-xs font-bold text-emerald-800">
+            <span>{isKo ? "모델 B (대안 모델)" : "Model B (Alternative)"}</span>
+            <a id="hts-link-b" href={defaultB?.href ?? withBase(`/${locale}`)} class="font-mono text-[11px] hover:underline">
+              {isKo ? "상세 스펙 →" : "Full Spec →"}
+            </a>
+          </label>
+          <select
+            id="hts-sel-b"
+            class="mt-1.5 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-emerald-600 focus:outline-none"
+          >
+            {groupedSkus.map((grp) => (
+              <optgroup label={grp.label}>
+                {grp.items.map((it) => (
+                  <option value={it.slug} selected={it.slug === defaultB?.slug}>
+                    {it.name} ({isKo ? formatCurrency(it.krMsrp, "KRW", "ko") : formatCurrency(it.usMsrp, "USD", "en")})
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Matchups -->
+      {quickPairs.length > 0 && (
+        <div class="mt-3 flex flex-wrap items-center gap-2">
+          <span class="font-mono text-[11px] font-semibold uppercase text-slate-600">
+            {isKo ? "인기 조합:" : "Quick Pairs:"}
+          </span>
+          {quickPairs.map((pair) => (
+            <button
+              type="button"
+              data-q-a={pair.a}
+              data-q-b={pair.b}
+              class="hts-quick-pair rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-violet-400 hover:bg-violet-50 hover:text-violet-800"
+            >
+              {pair.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <!-- Cross-Category Alert -->
+      <div
+        id="hts-cross-cat"
+        role="status"
+        class="mt-3 hidden items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3.5 py-2.5 text-xs text-amber-950"
+      >
+        <span class="badge-caution font-mono">!</span>
+        <span id="hts-cross-cat-text"></span>
+      </div>
+
+      <!-- Tariff Preset Buttons -->
+      <div class="mt-5 border-t border-slate-100 pt-5">
+        <span class="block text-xs font-bold text-slate-800">
+          {isKo ? "국가별 전기요금 프리셋 선택" : "Electricity Tariff Preset"}
+        </span>
+        <div class="mt-2 flex flex-wrap gap-2" role="group" aria-label={isKo ? "전기요금 프리셋" : "Electricity Tariff Presets"}>
+          {tariffs.map((t) => (
+            <button
+              type="button"
+              data-tariff={t.id}
+              aria-pressed={t.id === initTariffId ? "true" : "false"}
+              class:list={[
+                "hts-tariff-btn rounded-lg border px-3 py-1.5 font-mono text-xs font-semibold transition-colors",
+                t.id === initTariffId
+                  ? "border-violet-700 bg-violet-700 text-white"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-400",
+              ]}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <!-- Sliders: Custom kWh Rate, Daily Active Hours, Horizon -->
+        <div class="mt-4 grid gap-4 md:grid-cols-3">
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+            <div class="flex items-center justify-between text-xs">
+              <label for="hts-rate-slider" class="font-bold text-slate-800">
+                {isKo ? "커스텀 전기단가" : "Custom kWh Rate"}
+              </label>
+              <span id="hts-rate-val" class="font-mono font-bold text-violet-700">
+                {isKo ? "214 원/kWh" : "$0.17/kWh"}
+              </span>
+            </div>
+            <input
+              id="hts-rate-slider"
+              type="range"
+              min={isKo ? "50" : "0.05"}
+              max={isKo ? "500" : "0.60"}
+              step={isKo ? "5" : "0.01"}
+              value={isKo ? "214" : "0.17"}
+              class="lab-slider mt-2.5"
+            />
+            <div id="hts-rate-bounds" class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+              <span>{isKo ? "50원" : "$0.05"}</span>
+              <span>{isKo ? "275원" : "$0.32"}</span>
+              <span>{isKo ? "500원" : "$0.60"}</span>
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+            <div class="flex items-center justify-between text-xs">
+              <label for="hts-hours-slider" class="font-bold text-slate-800">
+                {isKo ? "일일 활성 부하 시간" : "Daily Active Hours"}
+              </label>
+              <span id="hts-hours-val" class="font-mono font-bold text-violet-700">
+                8.0 {isKo ? "시간/일" : "hr/day"}
+              </span>
+            </div>
+            <input
+              id="hts-hours-slider"
+              type="range"
+              min="0"
+              max="24"
+              step="0.5"
+              value="8"
+              class="lab-slider mt-2.5"
+            />
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+              <span>0h (24/7 Idle)</span>
+              <span>12h</span>
+              <span>24h (Full Load)</span>
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+            <div class="flex items-center justify-between text-xs">
+              <label for="hts-years-slider" class="font-bold text-slate-800">
+                {isKo ? "총소유비용 비교 기간" : "TCO Horizon"}
+              </label>
+              <span id="hts-years-val" class="font-mono font-bold text-violet-700">
+                3 {isKo ? "년" : "years"}
+              </span>
+            </div>
+            <input
+              id="hts-years-slider"
+              type="range"
+              min="1"
+              max="5"
+              step="1"
+              value="3"
+              class="lab-slider mt-2.5"
+            />
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+              <span>1 yr</span>
+              <span>3 yr</span>
+              <span>5 yr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payback Summary Strip -->
+      <div id="hts-payback-banner" class="mt-5 grid gap-3 rounded-xl border border-violet-300 bg-violet-50/70 p-4 md:grid-cols-3">
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-violet-800">
+            {isKo ? "총소유비용(TCO) 승자" : "TCO WINNER"}
+          </div>
+          <div id="hts-winner-name" class="mt-1 text-base font-extrabold text-slate-900">—</div>
+          <div id="hts-savings-delta" class="mt-0.5 font-mono text-xs font-semibold text-violet-900">—</div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-violet-800">
+            {isKo ? "손익분기점 (Break-Even Payback)" : "BREAK-EVEN PAYBACK"}
+          </div>
+          <div id="hts-payback-months" class="kpi-value mt-1 font-mono text-2xl font-extrabold text-violet-950">—</div>
+          <div id="hts-payback-note" class="mt-0.5 text-xs text-slate-700">—</div>
+        </div>
+        <div class="flex flex-col justify-between gap-2">
+          <div>
+            <div class="font-mono text-[10px] font-bold uppercase text-violet-800">
+              {isKo ? "연간 전력량 격차" : "ANNUAL ENERGY DELTA"}
+            </div>
+            <div id="hts-kwh-delta" class="kpi-value mt-1 font-mono text-lg font-bold text-slate-900">—</div>
+          </div>
+          <a
+            id="hts-jump-compare"
+            href={withBase(`/${locale}/compare`)}
+            class="inline-flex items-center justify-center rounded-lg bg-slate-900 px-3 py-2 font-mono text-xs font-bold text-white transition-colors hover:bg-violet-700"
+          >
+            {isKo ? "이 두 모델 1:1 전체 스펙 비교 →" : "Open Full 1:1 Spec Compare →"}
+          </a>
+        </div>
+      </div>
+
+      <!-- Side-by-Side TCO Breakdown Cards -->
+      <div id="hts-tco-cards" class="mt-5 grid gap-4 md:grid-cols-2"></div>
+
+      <p class="mt-4 border-t border-slate-100 pt-3 text-[11px] leading-relaxed text-slate-600">
+        {cfg.compliance.disclosures[locale]}
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Multi-Device UPS Runtime & 120V/220V Safety Sizing Builder -->
+  <section id="hts-panel-ups" role="tabpanel" aria-labelledby="hts-tab-ups" class="mt-6 hidden space-y-6">
+    <div class="lab-card bg-white p-6">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="text-lg font-extrabold text-slate-900">
+            {isKo
+              ? "멀티기기 UPS 정전 런타임 & 120V/220V 전압 안전 설계기"
+              : "Multi-Device UPS Outage Runtime & 120V/220V Safety Sizing Builder"}
+          </h2>
+          <p class="mt-0.5 text-xs text-slate-600">
+            {isKo
+              ? "동시에 UPS에 연결할 미니PC·NAS와 공유기/스위치 부하를 선택해 합산 W, 120V/220V 전압 잠금 경고, Active-PFC 순수 정현파 필수 여부, 정전 시 안전모드 유지시간(분)을 확인하세요."
+              : "Combine verified Mini PCs, NAS enclosures, and networking load to compute total wattage, catch single-voltage 120V/220V grid traps, enforce Active-PFC Pure Sine requirements, and estimate outage Safe Mode runtime."}
+          </p>
+        </div>
+      </div>
+
+      <!-- Grid Voltage + Active-PFC Controls -->
+      <div class="mt-4 grid gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-12">
+        <div class="md:col-span-5">
+          <span class="block text-xs font-bold text-slate-800">
+            {isKo ? "1. 사용 국가 벽면 전압 (Grid Voltage)" : "1. Wall Mains Voltage Grid"}
+          </span>
+          <div class="mt-2 grid grid-cols-2 gap-2" role="group" aria-label={isKo ? "벽면 전압 선택" : "Wall Mains Voltage"}>
+            <button
+              type="button"
+              data-grid="230"
+              aria-pressed={initGrid === "230" ? "true" : "false"}
+              class:list={[
+                "hts-grid-btn rounded-lg border px-3 py-2 text-xs font-bold transition-colors",
+                initGrid === "230"
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-500",
+              ]}
+            >
+              {isKo ? "220–230V (한국 · EU)" : "220–230V (KR / EU)"}
+            </button>
+            <button
+              type="button"
+              data-grid="120"
+              aria-pressed={initGrid === "120" ? "true" : "false"}
+              class:list={[
+                "hts-grid-btn rounded-lg border px-3 py-2 text-xs font-bold transition-colors",
+                initGrid === "120"
+                  ? "border-slate-900 bg-slate-900 text-white"
+                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-500",
+              ]}
+            >
+              {isKo ? "120V (미국 · 캐나다)" : "120V (US / CA)"}
+            </button>
+          </div>
+        </div>
+
+        <div class="md:col-span-4">
+          <div class="flex items-center justify-between text-xs">
+            <label for="hts-extra-w" class="font-bold text-slate-800">
+              {isKo ? "2. 공유기·스위치·기타 부하 (W)" : "2. Custom Router / Switch Load"}
+            </label>
+            <span id="hts-extra-w-val" class="font-mono font-bold text-violet-700">15 W</span>
+          </div>
+          <input
+            id="hts-extra-w"
+            type="range"
+            min="0"
+            max="200"
+            step="5"
+            value="15"
+            class="lab-slider mt-3"
+          />
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+            <span>0 W</span>
+            <span>15 W (ONT+Router)</span>
+            <span>200 W</span>
+          </div>
+        </div>
+
+        <div class="flex items-center md:col-span-3">
+          <label class="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-300 bg-white p-3 text-xs font-semibold text-slate-800 hover:border-violet-500">
+            <input
+              id="hts-require-pfc"
+              type="checkbox"
+              class="mt-0.5 h-4 w-4 rounded border-slate-300 text-violet-600"
+            />
+            <span>
+              {isKo
+                ? "Active-PFC PSU 보호 (순수 정현파 필수)"
+                : "Active-PFC PSU requires Pure Sine Wave"}
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Verified Device Load Toggles -->
+      <div class="mt-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="text-sm font-bold text-slate-900">
+            {isKo ? "3. UPS에 연결할 검증된 Mini PC · NAS 선택" : "3. Toggle Verified Mini PCs & NAS Devices on UPS"}
+          </h3>
+          <span class="font-mono text-xs text-slate-600">
+            {computeLoadDevices.length} {isKo ? "종 선택 가능" : "verified devices"}
+          </span>
+        </div>
+        <div class="mt-2.5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          {computeLoadDevices.map((dev) => (
+            <label class="hts-dev-card flex cursor-pointer items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-violet-400">
+              <input
+                type="checkbox"
+                value={dev.slug}
+                checked={defaultSelectedLoadSlugs.has(dev.slug)}
+                class="hts-dev-chk mt-0.5 h-4 w-4 rounded border-slate-300 text-violet-600"
+              />
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-slate-900">{dev.name}</div>
+                <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+                  {dev.categoryLabel} · {isKo ? "평균" : "Typ"} {formatNum(dev.typicalW, 1)}W · {isKo ? "피크" : "Peak"} {formatInt(dev.peakW)}W
+                </div>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Combined Load KPI Strip -->
+      <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div class="rounded-lg border border-violet-200 bg-violet-50/70 p-3.5">
+          <div class="font-mono text-[10px] uppercase text-violet-800">
+            {isKo ? "합산 실사용 부하" : "Combined Typical Load"}
+          </div>
+          <div id="hts-ups-typ-total" class="kpi-value mt-1 font-mono text-2xl font-bold text-violet-950">0 W</div>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[10px] uppercase text-slate-600">
+            {isKo ? "합산 피크 부하" : "Combined Peak Load"}
+          </div>
+          <div id="hts-ups-peak-total" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">0 W</div>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[10px] uppercase text-slate-600">
+            {isKo ? "권장 최소 UPS (1.4×)" : "Min Recommended UPS (1.4×)"}
+          </div>
+          <div id="hts-ups-min-w" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">0 W</div>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="font-mono text-[10px] uppercase text-slate-600">
+            {isKo ? "권장 VA 등급 (PF 0.6)" : "Suggested VA Class (0.6 PF)"}
+          </div>
+          <div id="hts-ups-min-va" class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-700">600 VA+</div>
+        </div>
+      </div>
+
+      <!-- Verified UPS Sizing Evaluation Cards -->
+      <div class="mt-5">
+        <h3 class="text-sm font-bold text-slate-900">
+          {isKo
+            ? "검증된 UPS별 정전 Safe Mode 예상 런타임 & 120V/220V 안전 판정"
+            : "Verified UPS Outage Safe Mode Runtime & 120V/220V Safety Audit"}
+        </h3>
+        <div id="hts-ups-results" class="mt-3 grid gap-4 md:grid-cols-2"></div>
+      </div>
+
+      <p class="mt-4 border-t border-slate-100 pt-3 text-[11px] leading-relaxed text-slate-600">
+        {cfg.compliance.disclosures[locale]}
+      </p>
+    </div>
+  </section>
+
+  <!-- Safety Banner -->
+  <div class="mt-8">
+    <SafetyBanner vertical="hometech" locale={locale} />
+  </div>
+
+  <script type="application/json" id="hts-data" set:html={safeJsonLd(clientPayload)} />
+</BaseLayout>
+
+<script>
+  import { copyToClipboard } from "../../../lib/clipboard";
+
+  (() => {
+    const dataEl = document.getElementById("hts-data");
+    if (!dataEl) return;
+
+    interface TariffPreset {
+      id: string;
+      label: string;
+      rate: number;
+      currency: "USD" | "KRW" | "EUR" | "JPY";
+      unit: string;
+      min: number;
+      max: number;
+      step: number;
+    }
+
+    interface StudioSku {
+      slug: string;
+      name: string;
+      brand: string;
+      category: "minipc" | "nas" | "ups" | "robot-vacuum";
+      categoryLabel: string;
+      href: string;
+      usMsrp: number;
+      krMsrp: number;
+      idleW: number;
+      typicalW: number;
+      peakW: number;
+      defaultHours: number;
+      annualConsUsd: number;
+      annualConsKrw: number;
+      noiseLoadDba: number | null;
+      weightG: number;
+      dualVoltage: boolean;
+      inputVoltageRange: string;
+      korea220vNote: string;
+      upsVa: number | null;
+      upsWatt: number | null;
+      upsWaveform: "pure-sine" | "simulated-sine" | null;
+      upsRuntimeHalfMin: number | null;
+      ctaButtons: Array<{
+        label: string;
+        storeName: string;
+        url: string;
+        linkMode: string;
+        isPrimary: boolean;
+      }>;
+    }
+
+    interface HtsPayload {
+      locale: string;
+      basePath: string;
+      disclosure: string;
+      fx: { KRW: number; EUR: number; JPY: number };
+      tariffs: TariffPreset[];
+      initTariffId: string;
+      initGrid: "230" | "120";
+      defaultSlugA: string;
+      defaultSlugB: string;
+      defaultLoadSlugs: string[];
+      items: StudioSku[];
+    }
+
+    let payload: HtsPayload;
+    try {
+      payload = JSON.parse(dataEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = payload.locale === "ko";
+    const skuMap = new Map<string, StudioSku>();
+    payload.items.forEach((it) => skuMap.set(it.slug, it));
+    const tariffMap = new Map<string, TariffPreset>();
+    payload.tariffs.forEach((t) => tariffMap.set(t.id, t));
+    const upsItems = payload.items.filter((it) => it.category === "ups");
+
+    const esc = (s: unknown): string =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    // DOM elements
+    const tabBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".hts-tab-btn"));
+    const panelTco = document.getElementById("hts-panel-tco");
+    const panelUps = document.getElementById("hts-panel-ups");
+    const copyLinkBtn = document.getElementById("hts-copy-link") as HTMLButtonElement | null;
+
+    const selA = document.getElementById("hts-sel-a") as HTMLSelectElement | null;
+    const selB = document.getElementById("hts-sel-b") as HTMLSelectElement | null;
+    const swapBtn = document.getElementById("hts-swap");
+    const linkA = document.getElementById("hts-link-a") as HTMLAnchorElement | null;
+    const linkB = document.getElementById("hts-link-b") as HTMLAnchorElement | null;
+    const quickPairBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".hts-quick-pair"));
+    const crossCatBox = document.getElementById("hts-cross-cat");
+    const crossCatText = document.getElementById("hts-cross-cat-text");
+
+    const tariffBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".hts-tariff-btn"));
+    const rateSlider = document.getElementById("hts-rate-slider") as HTMLInputElement | null;
+    const rateValEl = document.getElementById("hts-rate-val");
+    const rateBoundsEl = document.getElementById("hts-rate-bounds");
+    const hoursSlider = document.getElementById("hts-hours-slider") as HTMLInputElement | null;
+    const hoursValEl = document.getElementById("hts-hours-val");
+    const yearsSlider = document.getElementById("hts-years-slider") as HTMLInputElement | null;
+    const yearsValEl = document.getElementById("hts-years-val");
+
+    const winnerNameEl = document.getElementById("hts-winner-name");
+    const savingsDeltaEl = document.getElementById("hts-savings-delta");
+    const paybackMonthsEl = document.getElementById("hts-payback-months");
+    const paybackNoteEl = document.getElementById("hts-payback-note");
+    const kwhDeltaEl = document.getElementById("hts-kwh-delta");
+    const jumpCompareEl = document.getElementById("hts-jump-compare") as HTMLAnchorElement | null;
+    const tcoCardsEl = document.getElementById("hts-tco-cards");
+
+    const gridBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".hts-grid-btn"));
+    const extraWSlider = document.getElementById("hts-extra-w") as HTMLInputElement | null;
+    const extraWValEl = document.getElementById("hts-extra-w-val");
+    const pfcChk = document.getElementById("hts-require-pfc") as HTMLInputElement | null;
+    const devChks = Array.from(document.querySelectorAll<HTMLInputElement>(".hts-dev-chk"));
+    const typTotalEl = document.getElementById("hts-ups-typ-total");
+    const peakTotalEl = document.getElementById("hts-ups-peak-total");
+    const minWEl = document.getElementById("hts-ups-min-w");
+    const minVaEl = document.getElementById("hts-ups-min-va");
+    const upsResultsEl = document.getElementById("hts-ups-results");
+
+    let activeTab: "tco" | "ups" = "tco";
+    let activeTariffId = payload.initTariffId || (isKo ? "kr2" : "us");
+    let activeGrid: "230" | "120" = payload.initGrid || (isKo ? "230" : "120");
+
+    function getActiveTariff(): TariffPreset {
+      return tariffMap.get(activeTariffId) || payload.tariffs[0];
+    }
+
+    function fmtMoney(amount: number, curr: "USD" | "KRW" | "EUR" | "JPY"): string {
+      if (!Number.isFinite(amount)) return "—";
+      if (curr === "KRW") {
+        const n = new Intl.NumberFormat("ko-KR").format(Math.round(amount));
+        return isKo ? `${n}원` : `₩${n}`;
+      }
+      if (curr === "JPY") {
+        return `¥${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Math.round(amount))}`;
+      }
+      const sym = curr === "EUR" ? "€" : "$";
+      return `${sym}${new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount)}`;
+    }
+
+    function convertHardware(sku: StudioSku, curr: "USD" | "KRW" | "EUR" | "JPY"): number {
+      if (curr === "KRW") return sku.krMsrp;
+      if (curr === "USD") return sku.usMsrp;
+      if (curr === "EUR") return +(sku.usMsrp * payload.fx.EUR).toFixed(2);
+      return Math.round(sku.usMsrp * payload.fx.JPY);
+    }
+
+    function convertAnnualCons(sku: StudioSku, curr: "USD" | "KRW" | "EUR" | "JPY"): number {
+      if (curr === "KRW") return sku.annualConsKrw;
+      if (curr === "USD") return sku.annualConsUsd;
+      if (curr === "EUR") return +(sku.annualConsUsd * payload.fx.EUR).toFixed(2);
+      return Math.round(sku.annualConsUsd * payload.fx.JPY);
+    }
+
+    function setTab(tab: "tco" | "ups", shouldSync = false) {
+      activeTab = tab;
+      tabBtns.forEach((btn) => {
+        const on = (btn.getAttribute("data-studio-tab") || "tco") === tab;
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+        btn.className = on
+          ? "hts-tab-btn rounded-lg border border-violet-400 bg-violet-600 px-4 py-2 text-xs font-bold text-white transition-colors"
+          : "hts-tab-btn rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-slate-200 transition-colors hover:bg-white/20";
+      });
+      if (panelTco) panelTco.classList.toggle("hidden", tab !== "tco");
+      if (panelUps) panelUps.classList.toggle("hidden", tab !== "ups");
+      if (shouldSync) syncHash();
+    }
+
+    function applyTariffPreset(id: string, overrideRate?: number) {
+      const preset = tariffMap.get(id) || payload.tariffs[0];
+      activeTariffId = preset.id;
+      tariffBtns.forEach((btn) => {
+        const on = (btn.getAttribute("data-tariff") || "") === activeTariffId;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        btn.className = on
+          ? "hts-tariff-btn rounded-lg border border-violet-700 bg-violet-700 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors"
+          : "hts-tariff-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs font-semibold text-slate-700 hover:border-violet-400 transition-colors";
+      });
+      if (rateSlider) {
+        rateSlider.min = String(preset.min);
+        rateSlider.max = String(preset.max);
+        rateSlider.step = String(preset.step);
+        const val =
+          overrideRate !== undefined && Number.isFinite(overrideRate)
+            ? Math.max(preset.min, Math.min(preset.max, overrideRate))
+            : preset.rate;
+        rateSlider.value = String(val);
+      }
+      if (rateBoundsEl) {
+        const mid = +((preset.min + preset.max) / 2).toFixed(preset.step < 1 ? 2 : 0);
+        const f = (v: number) =>
+          preset.currency === "KRW"
+            ? `${v}${isKo ? "원" : "₩"}`
+            : preset.currency === "JPY"
+              ? `¥${v}`
+              : `${preset.currency === "EUR" ? "€" : "$"}${v.toFixed(2)}`;
+        rateBoundsEl.innerHTML = `<span>${esc(f(preset.min))}</span><span>${esc(f(mid))}</span><span>${esc(f(preset.max))}</span>`;
+      }
+    }
+
+    function syncGridUi() {
+      gridBtns.forEach((btn) => {
+        const on = (btn.getAttribute("data-grid") || "230") === activeGrid;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        btn.className = on
+          ? "hts-grid-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-bold text-white transition-colors"
+          : "hts-grid-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:border-violet-500 transition-colors";
+      });
+    }
+
+    function computeTcoModel(sku: StudioSku, rate: number, hours: number, years: number, curr: "USD" | "KRW" | "EUR" | "JPY") {
+      const avgW = (sku.typicalW * hours + sku.idleW * (24 - hours)) / 24;
+      const annualKwh = avgW * 8.76;
+      const annualElec = curr === "KRW" || curr === "JPY" ? Math.round(annualKwh * rate) : +(annualKwh * rate).toFixed(2);
+      const annualCons = convertAnnualCons(sku, curr);
+      const hw = convertHardware(sku, curr);
+      const totalElec = annualElec * years;
+      const totalCons = annualCons * years;
+      const totalTco = hw + totalElec + totalCons;
+      return {
+        avgW,
+        annualKwh,
+        annualElec,
+        annualCons,
+        annualOp: annualElec + annualCons,
+        hw,
+        totalElec,
+        totalCons,
+        totalTco,
+      };
+    }
+
+    function renderTco(shouldSync = false) {
+      const skuA = skuMap.get(selA?.value || payload.defaultSlugA) || payload.items[0];
+      const skuB = skuMap.get(selB?.value || payload.defaultSlugB) || payload.items[1] || payload.items[0];
+      if (!skuA || !skuB) return;
+
+      const tariff = getActiveTariff();
+      const rate = Number(rateSlider?.value ?? tariff.rate) || tariff.rate;
+      const hours = Math.max(0, Math.min(24, Number(hoursSlider?.value ?? 8)));
+      const years = Math.max(1, Math.min(5, Math.round(Number(yearsSlider?.value ?? 3))));
+
+      if (rateValEl) {
+        rateValEl.textContent =
+          tariff.currency === "KRW"
+            ? `${Math.round(rate)} ${tariff.unit}`
+            : tariff.currency === "JPY"
+              ? `¥${Math.round(rate)}/kWh`
+              : `${tariff.currency === "EUR" ? "€" : "$"}${rate.toFixed(2)}/kWh`;
+      }
+      if (hoursValEl) hoursValEl.textContent = `${hours.toFixed(1)} ${isKo ? "시간/일" : "hr/day"}`;
+      if (yearsValEl) yearsValEl.textContent = `${years} ${isKo ? "년" : "years"}`;
+      if (linkA) linkA.href = skuA.href;
+      if (linkB) linkB.href = skuB.href;
+
+      const bp = payload.basePath || "";
+      if (jumpCompareEl) {
+        jumpCompareEl.href = `${bp}/${payload.locale}/compare/#hometech:${skuA.slug}:${skuB.slug}`;
+      }
+
+      if (crossCatBox && crossCatText) {
+        if (skuA.category !== skuB.category) {
+          crossCatBox.classList.remove("hidden");
+          crossCatBox.classList.add("flex");
+          crossCatText.textContent = isKo
+            ? `참고: 모델 A(${skuA.categoryLabel})와 모델 B(${skuB.categoryLabel})는 서로 다른 카테고리입니다. 전기요금·TCO 합산 비교는 유효하지만 용도 차이를 함께 고려하세요.`
+            : `Note: Model A (${skuA.categoryLabel}) and Model B (${skuB.categoryLabel}) are from different categories. Power & TCO totals remain exact, though hardware roles differ.`;
+        } else {
+          crossCatBox.classList.add("hidden");
+          crossCatBox.classList.remove("flex");
+        }
+      }
+
+      const mA = computeTcoModel(skuA, rate, hours, years, tariff.currency);
+      const mB = computeTcoModel(skuB, rate, hours, years, tariff.currency);
+
+      const tcoDiff = Math.abs(mA.totalTco - mB.totalTco);
+      const aWinsTco = mA.totalTco < mB.totalTco;
+      const isTie = tcoDiff < (tariff.currency === "KRW" ? 100 : 0.5);
+
+      if (winnerNameEl && savingsDeltaEl) {
+        if (isTie) {
+          winnerNameEl.textContent = isKo ? "총소유비용 사실상 동일" : "Virtual TCO Tie";
+          savingsDeltaEl.textContent = `${years}${isKo ? "년 기준 격차 미미" : "-yr difference negligible"}`;
+        } else {
+          const wSku = aWinsTco ? skuA : skuB;
+          winnerNameEl.textContent = `${aWinsTco ? "A" : "B"} · ${wSku.name}`;
+          savingsDeltaEl.textContent = isKo
+            ? `${years}년간 ${fmtMoney(tcoDiff, tariff.currency)} 절감`
+            : `Saves ${fmtMoney(tcoDiff, tariff.currency)} over ${years} yr`;
+        }
+      }
+
+      // Break-even Payback Months
+      if (paybackMonthsEl && paybackNoteEl) {
+        const hwDiff = mA.hw - mB.hw; // >0 means A costs more upfront
+        const opSavingsPerYearForMoreExpensive =
+          hwDiff > 0 ? mB.annualOp - mA.annualOp : mA.annualOp - mB.annualOp;
+        const moreExpLabel = hwDiff > 0 ? `A (${skuA.name})` : `B (${skuB.name})`;
+        const cheaperLabel = hwDiff > 0 ? `B (${skuB.name})` : `A (${skuA.name})`;
+
+        if (Math.abs(hwDiff) < (tariff.currency === "KRW" ? 100 : 0.5)) {
+          paybackMonthsEl.textContent = isKo ? "즉시 (0개월)" : "Month 0";
+          paybackNoteEl.textContent = isKo
+            ? "초기 출고가가 동일하므로 연간 전기·소모품 유지비가 낮은 모델이 첫날부터 유리합니다."
+            : "Identical upfront MSRP — the lower operating-cost model wins immediately from Day 1.";
+        } else if (opSavingsPerYearForMoreExpensive <= 0) {
+          paybackMonthsEl.textContent = isKo ? "회수 불가" : "Never";
+          paybackNoteEl.textContent = isKo
+            ? `${cheaperLabel}가 초기 구매가와 연간 유지비 모두 유리해 첫날부터 우세합니다.`
+            : `${cheaperLabel} costs less upfront AND costs the same or less to run — immediate Day-1 win.`;
+        } else {
+          const months = (Math.abs(hwDiff) / opSavingsPerYearForMoreExpensive) * 12;
+          paybackMonthsEl.textContent = isKo ? `${months.toFixed(1)}개월` : `${months.toFixed(1)} mo`;
+          const withinHorizon = months <= years * 12;
+          paybackNoteEl.textContent = withinHorizon
+            ? isKo
+              ? `${moreExpLabel}의 초기 차액(${fmtMoney(Math.abs(hwDiff), tariff.currency)})을 ${years}년(${years * 12}개월) 이내 회수합니다.`
+              : `${moreExpLabel} recovers its ${fmtMoney(Math.abs(hwDiff), tariff.currency)} premium inside your ${years}-yr horizon.`
+            : isKo
+              ? `${moreExpLabel}가 유지비는 절감하지만 ${years}년(${years * 12}개월) 내 초기 차액 회수는 어렵습니다.`
+              : `${moreExpLabel} saves annually, but payback exceeds your ${years}-yr (${years * 12} mo) horizon.`;
+        }
+      }
+
+      if (kwhDeltaEl) {
+        const kwhDiff = Math.abs(mA.annualKwh - mB.annualKwh);
+        const lowerKwhSide = mA.annualKwh <= mB.annualKwh ? "A" : "B";
+        kwhDeltaEl.textContent =
+          kwhDiff < 0.5
+            ? isKo
+              ? "전력 소비량 동일"
+              : "Same energy use"
+            : isKo
+              ? `${lowerKwhSide}가 연 ${kwhDiff.toFixed(1)} kWh 절감`
+              : `${lowerKwhSide} uses ${kwhDiff.toFixed(1)} kWh/yr less`;
+      }
+
+      if (tcoCardsEl) {
+        const entries = [
+          { side: "A", sku: skuA, m: mA, accent: "border-t-blue-600", badge: "text-blue-700", btnCls: "bg-blue-700 hover:bg-blue-800" },
+          { side: "B", sku: skuB, m: mB, accent: "border-t-emerald-600", badge: "text-emerald-700", btnCls: "bg-emerald-700 hover:bg-emerald-800" },
+        ];
+        tcoCardsEl.innerHTML = entries
+          .map(({ side, sku, m, accent, badge, btnCls }) => {
+            const hwPct = m.totalTco > 0 ? (m.hw / m.totalTco) * 100 : 100;
+            const elecPct = m.totalTco > 0 ? (m.totalElec / m.totalTco) * 100 : 0;
+            const consPct = Math.max(0, 100 - hwPct - elecPct);
+            const cta = sku.ctaButtons[0];
+            const ctaHtml = cta
+              ? `<a href="${esc(cta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(cta.storeName)}" data-affiliate-vertical="hometech" data-affiliate-sku="${esc(sku.slug)}" data-affiliate-mode="${esc(cta.linkMode)}" class="inline-flex w-full items-center justify-between rounded-lg ${btnCls} px-3.5 py-2 text-xs font-bold text-white transition-colors"><span>${esc(cta.label)}</span><span>↗</span></a>`
+              : "";
+            return `
+              <article class="lab-card border-t-4 ${accent} bg-white p-5">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <div class="font-mono text-[11px] font-bold uppercase ${badge}">MODEL ${side} · ${esc(sku.categoryLabel)}</div>
+                    <h3 class="mt-0.5 text-base font-extrabold text-slate-900">
+                      <a href="${esc(sku.href)}" class="hover:text-violet-700 hover:underline">${esc(sku.name)}</a>
+                    </h3>
+                  </div>
+                  <div class="text-right">
+                    <div class="font-mono text-[10px] uppercase text-slate-600">${years}${isKo ? "년 TCO" : "-Yr TCO"}</div>
+                    <div class="kpi-value font-mono text-xl font-extrabold text-slate-900">${esc(fmtMoney(m.totalTco, tariff.currency))}</div>
+                  </div>
+                </div>
+
+                <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "평균 W / 연 kWh" : "Avg W / kWh"}</div>
+                    <div class="font-mono text-xs font-bold text-slate-900">${m.avgW.toFixed(1)}W · ${m.annualKwh.toFixed(0)}</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-600">${years}${isKo ? "년 전기료" : "yr Power"}</div>
+                    <div class="font-mono text-xs font-bold text-violet-700">${esc(fmtMoney(m.totalElec, tariff.currency))}</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-600">${years}${isKo ? "년 소모품" : "yr Maint."}</div>
+                    <div class="font-mono text-xs font-bold text-amber-700">${esc(fmtMoney(m.totalCons, tariff.currency))}</div>
+                  </div>
+                </div>
+
+                <div class="mt-3">
+                  <div class="flex h-2.5 w-full overflow-hidden rounded-full bg-slate-200">
+                    <div class="h-full bg-slate-800" style="width:${hwPct.toFixed(1)}%"></div>
+                    <div class="h-full bg-violet-600" style="width:${elecPct.toFixed(1)}%"></div>
+                    <div class="h-full bg-amber-500" style="width:${consPct.toFixed(1)}%"></div>
+                  </div>
+                  <div class="mt-1.5 flex flex-wrap justify-between font-mono text-[10px] text-slate-600">
+                    <span>${isKo ? "기기" : "HW"} ${esc(fmtMoney(m.hw, tariff.currency))} (${hwPct.toFixed(0)}%)</span>
+                    <span>${isKo ? "전기" : "Elec"} ${elecPct.toFixed(0)}%</span>
+                    <span>${isKo ? "소모품" : "Maint"} ${consPct.toFixed(0)}%</span>
+                  </div>
+                </div>
+
+                <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                  ${ctaHtml}
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      if (shouldSync) syncHash();
+    }
+
+    function renderUps(shouldSync = false) {
+      const extraW = Math.max(0, Math.min(200, Number(extraWSlider?.value ?? 15)));
+      const needPfc = Boolean(pfcChk?.checked);
+      if (extraWValEl) extraWValEl.textContent = `${extraW} W`;
+
+      let combinedTypW = extraW;
+      let combinedPeakW = extraW;
+      devChks.forEach((chk) => {
+        const card = chk.closest(".hts-dev-card");
+        const sku = skuMap.get(chk.value);
+        if (chk.checked && sku) {
+          combinedTypW += sku.typicalW;
+          combinedPeakW += sku.peakW;
+          if (card) {
+            card.classList.add("border-violet-500", "bg-violet-50/70");
+            card.classList.remove("border-slate-200", "bg-slate-50");
+          }
+        } else if (card) {
+          card.classList.remove("border-violet-500", "bg-violet-50/70");
+          card.classList.add("border-slate-200", "bg-slate-50");
+        }
+      });
+
+      const minUpsW = Math.ceil(combinedPeakW * 1.4);
+      const vaSteps = [600, 750, 900, 1000, 1200, 1500, 2000, 3000];
+      const rawVa = Math.max(minUpsW / 0.6, combinedTypW * 2.4);
+      const recVa = vaSteps.find((v) => v >= rawVa) ?? 3000;
+
+      if (typTotalEl) typTotalEl.textContent = `${combinedTypW.toFixed(1)} W`;
+      if (peakTotalEl) peakTotalEl.textContent = `${Math.round(combinedPeakW)} W`;
+      if (minWEl) minWEl.textContent = `${minUpsW} W`;
+      if (minVaEl) minVaEl.textContent = `${recVa} VA+`;
+
+      if (!upsResultsEl) return;
+      const bp = payload.basePath || "";
+      const upsCompareHref =
+        upsItems.length >= 2
+          ? `${bp}/${payload.locale}/compare/#hometech:${upsItems[0].slug}:${upsItems[1].slug}`
+          : `${bp}/${payload.locale}/compare/#hometech`;
+
+      upsResultsEl.innerHTML = upsItems
+        .map((u) => {
+          const upsW = u.upsWatt || 400;
+          const upsVa = u.upsVa || 750;
+          const halfMin = u.upsRuntimeHalfMin || 8;
+          const voltageStr = u.inputVoltageRange.toLowerCase();
+          const is120Only = !u.dualVoltage && voltageStr.includes("120v") && !voltageStr.includes("230v");
+          const is230Only = !u.dualVoltage && voltageStr.includes("230v") && !voltageStr.includes("120v");
+          const gridMismatch =
+            (activeGrid === "230" && is120Only) || (activeGrid === "120" && is230Only);
+          const pfcViolation = needPfc && u.upsWaveform !== "pure-sine";
+          const loadPct = combinedTypW > 0 ? Math.round((combinedTypW / upsW) * 100) : 0;
+          const overload = combinedTypW > upsW * 0.9 || combinedPeakW > upsW;
+
+          const runtimeMin =
+            combinedTypW > 0
+              ? Math.max(
+                  1,
+                  Math.min(240, halfMin * Math.pow((0.5 * upsW) / Math.max(combinedTypW, 10), 1.15))
+                )
+              : 240;
+          const safeShutdownOk = runtimeMin >= 5 && !overload && !gridMismatch;
+
+          let verdictCls = "badge-pass";
+          let verdictText = isKo ? "안전 호환 (PASS)" : "COMPATIBLE (PASS)";
+          if (gridMismatch) {
+            verdictCls = "badge-fail";
+            verdictText = isKo ? "전압 불일치 직결 금지" : "VOLTAGE GRID LOCK";
+          } else if (overload) {
+            verdictCls = "badge-fail";
+            verdictText = isKo ? "출력 용량 초과" : "CAPACITY OVERLOAD";
+          } else if (pfcViolation) {
+            verdictCls = "badge-caution";
+            verdictText = isKo ? "Active-PFC 파형 주의" : "ACTIVE-PFC CAUTION";
+          }
+
+          const warnings: string[] = [];
+          if (gridMismatch) {
+            warnings.push(
+              is120Only
+                ? isKo
+                  ? `단일 120V 전용 북미 모델(${u.inputVoltageRange})입니다. 한국·EU 220–230V 콘센트 직결 시 즉시 파손·화재 위험이 있으므로 반드시 230V 형제 모델(CP1500EPFCLCD 등)을 선택하세요.`
+                  : `Strictly 120V-only North American SKU (${u.inputVoltageRange}). NEVER plug into 220–230V mains; choose a native 230V SKU (e.g. CP1500EPFCLCD).`
+                : isKo
+                  ? `단일 230V 전용 모델(${u.inputVoltageRange})입니다. 북미 120V 전력망에서는 동작하지 않습니다.`
+                  : `Strictly 230V-only regional SKU (${u.inputVoltageRange}) — incompatible with US/Canada 120V mains.`
+            );
+          }
+          if (pfcViolation) {
+            warnings.push(
+              isKo
+                ? "유사 정현파(Simulated Sine) 출력입니다. 민감한 Active-PFC 파워서플라이는 정전 전환 순간 꺼질 수 있으므로 순수 정현파 UPS를 권장합니다."
+                : "Simulated/stepped sine output — sensitive Active-PFC PSUs may drop out on battery transfer. Choose Pure Sine Wave."
+            );
+          }
+          if (overload) {
+            warnings.push(
+              isKo
+                ? `합산 피크 부하(${Math.round(combinedPeakW)}W)가 본 UPS 정격(${upsW}W)에 근접하거나 초과합니다.`
+                : `Combined peak load (${Math.round(combinedPeakW)}W) approaches or exceeds this UPS rating (${upsW}W).`
+            );
+          }
+
+          const cta = u.ctaButtons[0];
+          const ctaHtml = cta
+            ? `<a href="${esc(cta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(cta.storeName)}" data-affiliate-vertical="hometech" data-affiliate-sku="${esc(u.slug)}" data-affiliate-mode="${esc(cta.linkMode)}" class="inline-flex flex-1 items-center justify-center gap-1 rounded-lg bg-violet-700 px-3 py-2 text-xs font-bold text-white hover:bg-violet-800"><span>${esc(cta.label)}</span><span>↗</span></a>`
+            : "";
+
+          return `
+            <article class="lab-card flex flex-col justify-between bg-white p-5 ${gridMismatch || overload ? "border-rose-300 ring-1 ring-rose-200" : pfcViolation ? "border-amber-300" : "border-emerald-300"}">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <div class="font-mono text-[11px] font-semibold text-slate-600">${esc(u.brand)} · ${upsVa} VA / ${upsW} W</div>
+                    <h4 class="mt-0.5 text-base font-extrabold text-slate-900">
+                      <a href="${esc(u.href)}" class="hover:text-violet-700 hover:underline">${esc(u.name)}</a>
+                    </h4>
+                  </div>
+                  <span class="${verdictCls}">${esc(verdictText)}</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "예상 정전 런타임" : "Est. Runtime"}</div>
+                    <div class="kpi-value font-mono text-base font-extrabold ${safeShutdownOk ? "text-emerald-700" : "text-rose-700"}">
+                      ${gridMismatch ? "N/A" : `~${runtimeMin.toFixed(0)} ${isKo ? "분" : "min"}`}
+                    </div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "실부하율" : "Load %"}</div>
+                    <div class="font-mono text-sm font-bold text-slate-900">${loadPct}%</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "출력 파형" : "Waveform"}</div>
+                    <div class="font-mono text-xs font-bold ${u.upsWaveform === "pure-sine" ? "text-emerald-700" : "text-amber-700"}">
+                      ${u.upsWaveform === "pure-sine" ? (isKo ? "순수 정현파" : "Pure Sine") : (isKo ? "유사 정현파" : "Simulated")}
+                    </div>
+                  </div>
+                </div>
+
+                ${
+                  warnings.length > 0
+                    ? `<div class="mt-3 space-y-1.5 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-950">${warnings
+                        .map((w) => `<p class="leading-relaxed">• ${esc(w)}</p>`)
+                        .join("")}</div>`
+                    : `<p class="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-950">${
+                        isKo
+                          ? `예상 ~${runtimeMin.toFixed(0)}분 유지 — NAS USB HID / NUT 자동 안전모드 종료(통상 3–5분 소요)에 충분한 여유를 확보했습니다.`
+                          : `Estimated ~${runtimeMin.toFixed(0)} min runtime — ample headroom for USB HID / NUT graceful NAS Safe Mode shutdown (typically 3–5 min).`
+                      }</p>`
+                }
+                <p class="mt-2 font-mono text-[11px] text-slate-600">${esc(u.korea220vNote)}</p>
+              </div>
+
+              <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                <div class="flex gap-2">${ctaHtml}</div>
+                <div class="flex items-center justify-between text-xs">
+                  <a href="${esc(u.href)}" class="font-semibold text-slate-700 hover:text-violet-700 hover:underline">
+                    ${isKo ? "UPS 상세 스펙 →" : "UPS Datasheet →"}
+                  </a>
+                  <a href="${esc(upsCompareHref)}" class="font-mono font-semibold text-violet-700 hover:underline">
+                    ${isKo ? "UPS 1:1 비교 →" : "Compare UPS →"}
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      if (shouldSync) syncHash();
+    }
+
+    function syncHash() {
+      const params = new URLSearchParams();
+      params.set("tab", activeTab);
+      if (selA) params.set("a", selA.value);
+      if (selB) params.set("b", selB.value);
+      params.set("tariff", activeTariffId);
+      if (rateSlider) params.set("rate", rateSlider.value);
+      if (hoursSlider) params.set("hrs", hoursSlider.value);
+      if (yearsSlider) params.set("yrs", yearsSlider.value);
+      params.set("grid", activeGrid);
+      params.set("pfc", pfcChk && pfcChk.checked ? "1" : "0");
+      if (extraWSlider) params.set("extra", extraWSlider.value);
+      const checkedDevs = devChks.filter((c) => c.checked).map((c) => c.value);
+      params.set("devs", checkedDevs.join(","));
+      try {
+        window.history.replaceState(null, "", `#${params.toString()}`);
+      } catch {
+        // ignore
+      }
+    }
+
+    function loadFromHash() {
+      const raw = window.location.hash.replace(/^#/, "").trim();
+      if (!raw || !raw.includes("=")) return;
+      const p = new URLSearchParams(raw);
+      const tab = p.get("tab");
+      if (tab === "tco" || tab === "ups") setTab(tab, false);
+      const a = p.get("a");
+      if (a && skuMap.has(a) && selA) selA.value = a;
+      const b = p.get("b");
+      if (b && skuMap.has(b) && selB) selB.value = b;
+      const tariff = p.get("tariff");
+      const rate = p.has("rate") ? Number(p.get("rate")) : undefined;
+      if (tariff && tariffMap.has(tariff)) applyTariffPreset(tariff, rate);
+      const hrs = Number(p.get("hrs"));
+      if (hoursSlider && Number.isFinite(hrs) && hrs >= 0 && hrs <= 24) hoursSlider.value = String(hrs);
+      const yrs = Number(p.get("yrs"));
+      if (yearsSlider && Number.isFinite(yrs) && yrs >= 1 && yrs <= 5) yearsSlider.value = String(yrs);
+      const grid = p.get("grid");
+      if (grid === "120" || grid === "230") {
+        activeGrid = grid;
+        syncGridUi();
+      }
+      if (p.has("pfc") && pfcChk) pfcChk.checked = p.get("pfc") === "1";
+      const extra = Number(p.get("extra"));
+      if (extraWSlider && Number.isFinite(extra) && extra >= 0 && extra <= 200) {
+        extraWSlider.value = String(extra);
+      }
+      if (p.has("devs")) {
+        const set = new Set((p.get("devs") || "").split(",").filter(Boolean));
+        devChks.forEach((c) => {
+          c.checked = set.has(c.value);
+        });
+      }
+    }
+
+    // Event bindings
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const t = btn.getAttribute("data-studio-tab") === "ups" ? "ups" : "tco";
+        setTab(t, true);
+        track("hometech_studio_tab", { tab: t });
+      });
+    });
+
+    if (selA) selA.addEventListener("change", () => renderTco(true));
+    if (selB) selB.addEventListener("change", () => renderTco(true));
+    if (swapBtn && selA && selB) {
+      swapBtn.addEventListener("click", () => {
+        const tmp = selA.value;
+        selA.value = selB.value;
+        selB.value = tmp;
+        renderTco(true);
+      });
+    }
+
+    quickPairBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const qa = btn.getAttribute("data-q-a") || "";
+        const qb = btn.getAttribute("data-q-b") || "";
+        if (selA && skuMap.has(qa)) selA.value = qa;
+        if (selB && skuMap.has(qb)) selB.value = qb;
+        renderTco(true);
+      });
+    });
+
+    tariffBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        applyTariffPreset(btn.getAttribute("data-tariff") || activeTariffId);
+        renderTco(true);
+      });
+    });
+
+    [rateSlider, hoursSlider, yearsSlider].forEach((s) => {
+      if (s) s.addEventListener("input", () => renderTco(true));
+    });
+
+    gridBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeGrid = btn.getAttribute("data-grid") === "120" ? "120" : "230";
+        syncGridUi();
+        renderUps(true);
+      });
+    });
+
+    if (extraWSlider) extraWSlider.addEventListener("input", () => renderUps(true));
+    if (pfcChk) pfcChk.addEventListener("change", () => renderUps(true));
+    devChks.forEach((c) => c.addEventListener("change", () => renderUps(true)));
+
+    if (copyLinkBtn) {
+      const def = isKo ? "시뮬레이션 공유 링크 복사" : "Copy Shareable Studio Link";
+      const okLabel = isKo ? "링크 복사됨 ✓" : "Link Copied ✓";
+      copyLinkBtn.addEventListener("click", () => {
+        syncHash();
+        copyToClipboard(window.location.href).then((ok) => {
+          if (!ok) return;
+          copyLinkBtn.textContent = okLabel;
+          window.setTimeout(() => {
+            copyLinkBtn.textContent = def;
+          }, 1800);
+        });
+      });
+    }
+
+    applyTariffPreset(activeTariffId);
+    loadFromHash();
+    renderTco(false);
+    renderUps(false);
+
+    window.addEventListener("hashchange", () => {
+      loadFromHash();
+      renderTco(false);
+      renderUps(false);
+    });
+  })();
+</script>

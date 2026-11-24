@@ -18,15 +18,15 @@
 | **데이터 구축 방식** | 소수 모델 수동 TypeScript 작성 | **6단계 고토큰 멀티에이전트 리서치 + 적대적 교차 팩트체크 자동화** |
 | **언어 및 리전** | 2개국어 (EN / KO) | **5개국어 초현지화 (EN / KO / JA / DE / ES)** |
 | **타깃 제품 및 페이지** | 48종 실제품 중심 / 총 889 SSG 페이지 | **1차 1,950종 실제품 / 1차 코어 15,050p (상한 29,550p · Drip-Feed 배포)** |
-| **수익화 파이프라인** | 애드센스 + 쿠팡 + 아마존 US | 기존 3종 즉시 상속 + **Amazon OneLink(JP/DE/ES/UK) + Rakuten + AliExpress + iHerb** |
-| **인프라 및 도메인** | GitHub Pages 서브패스(`kbu3986.github.io/...`) | 파일럿 브리지 유지 + **독립 커스텀 도메인 및 Cloudflare Pages/Vercel 확장** |
-| **20배 Ultra 토큰 활용** | 단순 초안·코드 보조 수준 | **제품당 20만 토큰 이상을 팩트체크·SERP 감사·초현지화에 전략적 소모** |
+| **수익화 파이프라인** | 애드센스 + 쿠팡 + 아마존 US | 기존 3종 즉시 상속 + **Amazon OneLink(JP/DE/ES/UK) + Awin + Impact + AliExpress** (**iHerb 영구 미사용**) |
+| **인프라 및 도메인** | GitHub Pages 서브패스(`kbu3986.github.io/...`) | 파일럿 브리지 유지 + **독립 커스텀 도메인 및 Cloudflare Pages 확장** |
+| **대규모 추론 토큰 활용** | 단순 초안·코드 보조 수준 | **제품당 고밀도 토큰을 팩트체크·SERP 감사·초현지화에 전략적 소모** |
 
 ---
 
 ## 2. 초고토큰 진입장벽: 왜 단순 AI 블로그는 망하고 SpecMatrix는 살아남는가
 
-구글의 Helpful Content 및 Scaled Content Abuse 정책은 "AI가 썼는가"가 아니라 **"기존 검색 결과에 없던 새로운 정보이득(Information Gain)과 검증된 사실 데이터를 제공하는가"**를 판별한다. `specmatrix-global`은 20배 Ultra 요금제의 대규모 토큰 예산 중 **85퍼센트 이상을 본문 문장 생성이 아닌 데이터 검증·파생 연산·경쟁 감사·초현지화 공정**에 배분한다.
+구글의 Helpful Content 및 Scaled Content Abuse 정책은 "AI가 썼는가"가 아니라 **"기존 검색 결과에 없던 새로운 정보이득(Information Gain)과 검증된 사실 데이터를 제공하는가"**를 판별한다. `specmatrix-global`은 대규모 추론 토큰 예산 중 **85퍼센트 이상을 본문 문장 생성이 아닌 데이터 검증·파생 연산·경쟁 감사·초현지화 공정**에 배분한다.
 
 ### 공정별 토큰 배분 철학
 
@@ -63,7 +63,7 @@
 | **기본 단위계** | oz · lb · inch · psi (Metric 병기) | g · kg · mm · psi/bar | g · kg · mm · bar/psi | g · kg · mm · bar (SI 엄격 준수) | g · kg · mm · bar/psi |
 | **핵심 항공·안전 규정** | FAA / TSA · UL · FCC | 국토교통부(2025 투명파우치·절연테이프 규정) · KC 인증 | 국토교통성(MLIT) · **PSE 마크 필수** | EASA · **CE / GS 마크** | EASA / AESA · CE 마크 |
 | **상단 노출 항공사** | Delta, United, American, Southwest | 대한항공, 아시아나, 제주항공, 티웨이 | ANA, JAL, Peach, Zipair | Lufthansa, Eurowings, Swiss | Iberia, Vueling, Ryanair, LATAM |
-| **주력 제휴 마켓** | Amazon US (`kbu3986-20`), iHerb | 쿠팡 파트너스 (`AF2200875`/`ssalmeok-kr`), iHerb | Amazon JP (OneLink), Rakuten | Amazon DE (OneLink), AliExpress | Amazon ES/US (OneLink), AliExpress |
+| **주력 제휴 마켓** | Amazon US (`kbu3986-20`), Impact | 쿠팡 파트너스 (`AF2200875`/`sm-*-kr`) | Amazon JP (OneLink), AliExpress JP | Amazon DE (OneLink), Awin, AliExpress | Amazon ES/US (OneLink), Awin, AliExpress |
 | **법적 제휴 고지** | FTC Affiliate Disclosure | 공정위 파트너스 수수료 문구 | 경품표시법 `[PR]`·아마존 어소시에이트 표기 | `Werbung / Affiliate-Link` (UWG 준수) | Aviso de Afiliados (LSSI-CE 준수) |
 
 ### 로케일별 킬러 정보이득(Localized Killer Insights) 예시
@@ -77,7 +77,7 @@
 
 ## 4. 통합 정보구조(IA) 및 4대 표준 페이지 템플릿
 
-4개 버티컬이 각각 제각각의 프론트엔드 코드를 만들면 유지보수가 붕괴한다. `specmatrix-global`은 **단일 통합 Next.js 16 SSG 엔진** 위에서 4가지 표준 페이지 아키타입을 공유하며, 버티컬별 전용 인터랙티브 계산기 위젯만 플러그인 형태로 주입한다.
+4개 버티컬이 각각 제각각의 프론트엔드 코드를 만들면 유지보수가 붕괴한다. `specmatrix-global`은 **단일 통합 Astro 5 순수 HTML SSG 엔진** 위에서 4가지 표준 페이지 아키타입을 공유하며, 버티컬별 전용 인터랙티브 계산기 위젯만 플러그인 형태로 주입한다.
 
 ### 4대 표준 페이지 아키타입
 
@@ -128,9 +128,9 @@ flowchart TD
 | :--- | :--- | :--- |
 | **데이터 파이프라인** | Python 3.12 + AsyncIO + SQLite/DuckDB + Antigravity 멀티에이전트 워크플로우 | 대량 배치 작업 재개성(Idempotency), 물리 수식 검산, 원천 증빙 캐싱 최적화 |
 | **데이터 저장소** | Git 관리 Golden JSON (`data/[vertical]/golden/*.json`) + Zod 엄격 스키마 | 변경 이력 추적, PR 기반 데이터 Diff 감사, 제로 DB 운영비 |
-| **웹 프론트엔드** | Next.js 16 (App Router, Static Export) + React 19 + TypeScript 5.8 + Tailwind CSS 4 | 기존 `site3-puregram` 스택과 100퍼센트 호환, 초고속 Core Web Vitals(LCP 1.2초 미만) |
-| **호스팅 및 CDN** | 1단계 GitHub Pages 브리지 → 2단계 **Cloudflare Pages** (무제한 대역폭·커스텀 도메인·엣지 캐싱) | 15,050–29,550페이지 대량 정적 파일 빌드 및 글로벌 5개국어 TTFB 최적화 |
-| **수익화·운영 제어** | `ssalmeok-empire/deploy-ops` 확장판 (`monetization-config.v2.json`) | 기존 애드센스·쿠팡·아마존 US 코드 무중단 상속 + OneLink/Rakuten/AliExpress 추가 |
+| **웹 프론트엔드** | **Astro 5 순수 HTML SSG** + TypeScript 5.8 + Tailwind CSS 4 | 페이지당 1 HTML 파일 구조로 Cloudflare Pages 20,000파일 상한 준수, 초고속 Core Web Vitals(LCP 1.2초 미만) |
+| **호스팅 및 CDN** | 1단계 GitHub Pages 브리지 → 2단계 **Cloudflare Pages** (무제한 대역폭·커스텀 도메인·엣지 캐싱) | 15,050페이지 코어 정적 배포 및 글로벌 5개국어 TTFB 최적화 |
+| **수익화·운영 제어** | `config/monetization-config.v2.json` 단일 정본 | 애드센스·쿠팡·아마존 US 코드 무중단 운영 + OneLink/Awin/Impact/AliExpress 확장 (**iHerb 영구 금지**) |
 
 ### 무중단 마이그레이션 3단계 계획
 

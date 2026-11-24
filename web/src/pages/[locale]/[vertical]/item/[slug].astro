@@ -29,12 +29,12 @@ import {
 } from "../../../../lib/derived";
 import {
   ACTIVE_LOCALES,
-  SITE_URL,
   VERTICAL_META,
   formatCurrency,
   formatInt,
   formatNum,
   getCategoryLabel,
+  toAbsoluteUrl,
   withBase,
 } from "../../../../lib/i18n";
 
@@ -86,6 +86,54 @@ interface QuickQa {
   a: string;
 }
 
+const KO_PG_UNIT: Record<string, string> = {
+  packet: "포(패킷)",
+  scoop: "스쿱",
+  tablet: "정(태블릿)",
+  pouch: "파우치",
+  bottle: "병",
+  bar: "바",
+};
+
+const KO_PG_ACTIVE: Record<string, string> = {
+  carbohydrates: "탄수화물",
+  electrolytes_sodium_potassium: "전해질 (나트륨+칼륨)",
+  creatine_monohydrate: "크레아틴 모노하이드레이트",
+  "creatine monohydrate": "크레아틴 모노하이드레이트",
+};
+
+const KO_PG_FORM: Record<string, string> = {
+  hydrogel: "하이드로겔",
+  isotonic: "아이소토닉",
+  standard: "스탠다드",
+  none: "해당 없음",
+};
+
+function formatKoSweetenerNote(listed: boolean, details: string): string {
+  const low = (details || "").toLowerCase();
+  if (listed) {
+    const found: string[] = [];
+    if (low.includes("acesulfame") || low.includes("ace-k")) found.push("아세설팜칼륨(Ace-K)");
+    if (low.includes("sucralose")) found.push("수크랄로스");
+    if (low.includes("sorbitol")) found.push("소르비톨");
+    if (low.includes("aspartame")) found.push("아스파탐");
+    if (low.includes("stevia")) found.push("스테비아");
+    return found.length > 0 ? `포함 (${found.join(" · ")})` : "포함";
+  }
+  if (low.includes("flavored") && low.includes("sucralose")) {
+    return "무향 기준 인공감미료 무첨가 (가향 제품은 수크랄로스 포함)";
+  }
+  if (low.includes("creapure")) return "인공감미료 무첨가 (무향 100% Creapure 단일 원료)";
+  if (low.includes("creatine")) return "인공감미료 무첨가 (무향 단일 성분 크레아틴)";
+  if (low.includes("alginate") || low.includes("hydrogel")) return "인공감미료 무첨가 (포도당·과당 하이드로겔)";
+  if (low.includes("cane sugar")) return "인공감미료 무첨가 (사탕수수당·포도당·천연 과일 파우더)";
+  if (low.includes("maltodextrin") && low.includes("fructose")) return "인공감미료 무첨가 (말토덱스트린·과당 기반)";
+  if (low.includes("dextrose") && low.includes("sucrose")) return "인공감미료 무첨가 (포도당·자당 기반)";
+  if (low.includes("dextrin")) return "인공감미료 무첨가 (설탕·포도당·덱스트린 기반)";
+  if (low.includes("glucose") && low.includes("fructose")) return "인공감미료 무첨가 (포도당·과당 기반)";
+  return "인공감미료 무첨가";
+}
+
 function buildQuickQas(): QuickQa[] {
   if (item.vertical === "wattcheck") {
     const s = item.specs;
@@ -99,6 +147,10 @@ function buildQuickQas(): QuickQa[] {
       s.ccc_certified ? "CCC" : null,
     ].filter(Boolean);
 
+    const koMolitNote = acp.carryon_allowed
+      ? "국내 출발 항공편은 개별 지퍼백·단자 절연 보관, 기내 선반 보관 금지(직접 소지 또는 앞좌석 포켓 보관), 기내 충전 금지가 적용됩니다."
+      : "IATA·국토부 규정상 전 세계 여객기 기내 반입 및 위탁수하물이 모두 전면 금지됩니다.";
+
     return [
       {
         q: isKo
@@ -106,7 +158,7 @@ function buildQuickQas(): QuickQa[] {
           : `Is the ${copy.name} allowed in airline carry-on or checked baggage?`,
         a: s.has_battery
           ? isKo
-            ? `정격 ${formatNum(s.battery_energy_wh, 2)} Wh 기준 ${acp.carryon_no_approval ? "IATA 100Wh 미만 무승인 기내 반입 가능" : acp.carryon_allowed ? "100–160Wh 구간으로 항공사 사전 승인 필요" : "160Wh 초과로 항공 반입 불가"} 등급입니다. 위탁수하물은 ${acp.checked_baggage === "allowed" ? "허용" : "엄격 금지"}이며, 중국 국내선 CCC 요건 충족 여부는 ${acp.china_domestic_ccc_ok ? "충족" : "미충족(주의)"}입니다. ${acp.korea_molit_2026_notes}`
+            ? `정격 ${formatNum(s.battery_energy_wh, 2)} Wh 기준 ${acp.carryon_no_approval ? "IATA 100Wh 미만 무승인 기내 반입 가능" : acp.carryon_allowed ? "100–160Wh 구간으로 항공사 사전 승인 필요" : "160Wh 초과로 항공 반입 불가"} 등급입니다. 위탁수하물은 ${acp.checked_baggage === "allowed" ? "허용" : "엄격 금지"}이며, 중국 국내선 CCC 요건 충족 여부는 ${acp.china_domestic_ccc_ok ? "충족" : "미충족(주의)"}입니다. ${koMolitNote}`
             : `Rated at ${formatNum(s.battery_energy_wh, 2)} Wh: ${acp.carryon_no_approval ? "carry-on allowed without airline pre-approval (<100 Wh IATA tier)" : acp.carryon_allowed ? "100–160 Wh tier requiring airline pre-approval" : "over 160 Wh and prohibited on passenger flights"}. Checked baggage is ${acp.checked_baggage}. China domestic CCC flight compliance: ${acp.china_domestic_ccc_ok ? "Yes" : "No"}.`
           : isKo
             ? `내장 배터리가 없는 충전기(${formatInt(s.weight_g)}g)이므로 기내 수하물과 위탁수하물 모두 리튬배터리 제한 없이 반입 가능합니다.`
@@ -138,6 +190,13 @@ function buildQuickQas(): QuickQa[] {
     const benchLabel = isKo
       ? item.derived_math.benchmark_label_ko
       : item.derived_math.benchmark_label_en;
+    const koUnit = KO_PG_UNIT[pkg.unit_type] ?? pkg.unit_type;
+    const koActive =
+      KO_PG_ACTIVE[nl.active_ingredient_type] ??
+      KO_PG_ACTIVE[nl.active_ingredient_type.replace(/_/g, " ")] ??
+      nl.active_ingredient_type.replace(/_/g, " ");
+    const koForm = KO_PG_FORM[nl.hydrogel_or_isotonic] ?? nl.hydrogel_or_isotonic;
+    const koSweetener = formatKoSweetenerNote(nl.artificial_sweeteners_listed, nl.sweetener_details);
 
     return [
       {
@@ -145,7 +204,7 @@ function buildQuickQas(): QuickQa[] {
           ? `${copy.name}의 순수 유효성분 기준 실단가와 순도 비율은 얼마인가요?`
           : `What is the true cost per benchmark active unit and purity ratio?`,
         a: isKo
-          ? `공식 MSRP 기준 ${benchLabel}당 ${formatCurrency(d.krwPerBenchmarkUnit, "KRW", "ko")}(1회분 ${formatCurrency(d.krwPerServing, "KRW", "ko")}, 총 ${formatInt(pkg.total_servings)}회분)입니다. 1회 제공량(${formatNum(pkg.serving_weight_g, 1)}g) 중 순수 유효성분은 ${formatNum(nl.active_per_serving_g, 1)}g으로 중량비 순도 ${formatNum(item.derived_math.purity_pct, 1)}%(등급 ${item.derived_math.purity_grade})입니다.`
+          ? `공식 MSRP 기준 ${benchLabel}당 ${formatCurrency(d.krwPerBenchmarkUnit, "KRW", "ko")}(1회분 ${formatCurrency(d.krwPerServing, "KRW", "ko")}, 총 ${formatInt(pkg.total_servings)}회분·${koUnit} 단위)입니다. 1회 제공량(${formatNum(pkg.serving_weight_g, 1)}g) 중 핵심 유효성분(${koActive})은 ${formatNum(nl.active_per_serving_g, 1)}g으로 중량비 순도 ${formatNum(item.derived_math.purity_pct, 1)}%(등급 ${item.derived_math.purity_grade})입니다.`
           : `At official MSRP benchmark, true cost is ${formatCurrency(d.usdPerBenchmarkUnit, "USD", "en")} per ${benchLabel} (${formatCurrency(d.usdPerServing, "USD", "en")}/serving across ${formatInt(pkg.total_servings)} servings). Each ${formatNum(pkg.serving_weight_g, 1)} g serving delivers ${formatNum(nl.active_per_serving_g, 1)} g pure active (${formatNum(item.derived_math.purity_pct, 1)}% purity, Grade ${item.derived_math.purity_grade}).`,
       },
       {
@@ -153,7 +212,7 @@ function buildQuickQas(): QuickQa[] {
           ? `레이스 시간당 90g 보급 시 필요 개수와 나트륨·카페인 함량은?`
           : `How many servings are needed for 90g/hr fueling, and what are sodium/caffeine levels?`,
         a: isKo
-          ? `${d.servingsFor90gPerHour !== null ? `1회당 탄수화물 ${formatNum(nl.carbs_g, 1)}g 기준으로 시간당 90g 보급에 약 ${formatNum(d.servingsFor90gPerHour, 1)}개(${formatCurrency(d.raceCost90gPerHourKrw, "KRW", "ko")}/시간)가 필요합니다. ` : ""}당 비율은 ${nl.carb_ratio_glucose_to_fructose ?? "단일/해당없음"}, 제형은 ${nl.hydrogel_or_isotonic}이며 1회당 나트륨 ${formatInt(nl.sodium_mg)}mg, 카페인 ${formatInt(nl.caffeine_mg)}mg을 함유합니다.`
+          ? `${d.servingsFor90gPerHour !== null ? `1회당 탄수화물 ${formatNum(nl.carbs_g, 1)}g 기준으로 시간당 90g 보급에 약 ${formatNum(d.servingsFor90gPerHour, 1)}개(${formatCurrency(d.raceCost90gPerHourKrw, "KRW", "ko")}/시간)가 필요합니다. ` : ""}당 비율은 ${nl.carb_ratio_glucose_to_fructose ?? "단일/해당없음"}, 제형은 ${koForm}이며 1회당 나트륨 ${formatInt(nl.sodium_mg)}mg, 카페인 ${formatInt(nl.caffeine_mg)}mg을 함유합니다.`
           : `${d.servingsFor90gPerHour !== null ? `With ${formatNum(nl.carbs_g, 1)} g carbs per serving, hitting 90 g/hr requires ~${formatNum(d.servingsFor90gPerHour, 1)} servings/hr (${formatCurrency(d.raceCost90gPerHourUsd, "USD", "en")}/hr). ` : ""}Carb ratio: ${nl.carb_ratio_glucose_to_fructose ?? "single/N/A"}, format: ${nl.hydrogel_or_isotonic}, with ${formatInt(nl.sodium_mg)} mg sodium and ${formatInt(nl.caffeine_mg)} mg caffeine per serving.`,
       },
       {
@@ -161,7 +220,7 @@ function buildQuickQas(): QuickQa[] {
           ? `안티도핑·품질 인증 및 인공감미료 포함 여부는 어떻게 되나요?`
           : `What third-party certifications and sweetener disclosures apply?`,
         a: isKo
-          ? `확인된 인증은 ${item.certifications.join(", ")}이며, 영양성분표 기준 인공감미료 표기 여부: ${nl.artificial_sweeteners_listed ? "포함" : "미표기"}(${nl.sweetener_details}), Creapure 인증: ${nl.creapure_certified ? "예" : "해당없음"}입니다.`
+          ? `확인된 인증은 ${item.certifications.join(", ")}이며, 영양성분표 기준 인공감미료 내역은 ${koSweetener}, Creapure 인증: ${nl.creapure_certified ? "예" : "해당없음"}입니다.`
           : `Verified certifications include ${item.certifications.join(", ")}. Printed label notes artificial sweeteners: ${nl.artificial_sweeteners_listed ? "Yes" : "None listed"} (${nl.sweetener_details}); Creapure certified: ${nl.creapure_certified ? "Yes" : "No"}.`,
       },
     ];
@@ -247,23 +306,48 @@ const additionalProperty: Array<{ "@type": "PropertyValue"; name: string; value:
 
 const webAppName =
   vertical === "wattcheck"
-    ? `${copy.name} Airline & USB-PD Simulator`
+    ? isKo
+      ? `${copy.name} 기내반입·USB-PD 시뮬레이터`
+      : `${copy.name} Airline & USB-PD Simulator`
     : vertical === "puregram"
-      ? `${copy.name} Active Cost & Fueling Calculator`
+      ? isKo
+        ? `${copy.name} 유효성분 실단가·보급 계산기`
+        : `${copy.name} Active Cost & Fueling Calculator`
       : vertical === "hometech"
-        ? `${copy.name} 3-Year TCO & Power Calculator`
-        : `${copy.name} Bike Compatibility & Hookless Guard`;
+        ? isKo
+          ? `${copy.name} 3년 TCO·전기요금 계산기`
+          : `${copy.name} 3-Year TCO & Power Calculator`
+        : item.category === "road-tire"
+          ? isKo
+            ? `${copy.name} 후크리스·공기압 안전 가드`
+            : `${copy.name} Hookless & Tire Pressure Guard`
+          : isKo
+            ? `${copy.name} 자전거 호환성 검증기`
+            : `${copy.name} Bike Compatibility Checker`;
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Product",
     name: copy.name,
+    image: toAbsoluteUrl(`/og/og-${vertical}.png`),
     brand: { "@type": "Brand", name: item.brand },
     mpn: item.model_number,
     category: getCategoryLabel(item.category, locale),
     description: copy.summary,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
+    review: {
+      "@type": "Review",
+      author: { "@type": "Organization", name: "SpecMatrix Global" },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: item.audit.trust_score,
+        bestRating: 100,
+        worstRating: 1,
+      },
+      reviewBody: copy.summary,
+      datePublished: item.audit.fact_checked_at,
+    },
     additionalProperty,
   },
   {
@@ -272,7 +356,7 @@ const jsonLd = [
     name: webAppName,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
   {
@@ -283,19 +367,19 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: toAbsoluteUrl(`/${locale}`),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: VERTICAL_META[vertical].shortName[locale],
-        item: `${SITE_URL}${verticalHref}`,
+        item: toAbsoluteUrl(verticalHref),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: copy.name,
-        item: `${SITE_URL}${currentPath}`,
+        item: toAbsoluteUrl(currentPath),
       },
     ],
   },
@@ -309,6 +393,7 @@ const jsonLd = [
   currentPath={currentPath}
   activeVertical={vertical}
   availableLocales={availLocales}
+  hasStickyCta={true}
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
@@ -527,13 +612,13 @@ const jsonLd = [
         {relatedVs.map((vs) => (
           <a
             href={withBase(`/${locale}/${vertical}/vs/${vs.pair_slug}`)}
-            class="lab-card group flex items-center justify-between gap-3 p-4 transition-colors hover:border-blue-500"
+            class="lab-card group flex min-w-0 items-center justify-between gap-3 p-4 transition-colors hover:border-blue-500"
           >
-            <div>
-              <div class="text-sm font-bold text-slate-900 group-hover:text-blue-700">
+            <div class="min-w-0 flex-1">
+              <div class="truncate text-sm font-bold text-slate-900 group-hover:text-blue-700">
                 {vs.verdict[locale].headline}
               </div>
-              <div class="mt-1 font-mono text-xs text-slate-500">
+              <div class="mt-1 truncate font-mono text-xs text-slate-500">
                 {vs.pair_slug} · IG {vs.info_gain_score}/100
               </div>
             </div>

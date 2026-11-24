@@ -2,7 +2,7 @@
 
 ## 1. 파이프라인 핵심 철학
 
-20배 Ultra 요금제의 거대한 추론 용량을 "SEO 블로그 글 대량 양산"에 사용하면 구글 스팸 정책에 즉각 적발된다. `specmatrix-global`은 토큰을 **글쓰기가 아니라 검증, 비교 감사, 초현지화**에 집중 소모하는 **6단계 적대적 실데이터 공장(6-Stage Adversarial Spec Factory)**을 가동한다.
+대규모 추론 토큰 예산을 "SEO 블로그 글 대량 양산"에 사용하면 구글 스팸 정책에 즉각 적발된다. `specmatrix-global`은 토큰을 **글쓰기가 아니라 검증, 비교 감사, 초현지화**에 집중 소모하는 **6단계 적대적 실데이터 공장(6-Stage Adversarial Spec Factory)**을 가동한다.
 
 - **핵심 원칙 1 — 출처 없는 숫자는 존재하지 않는 숫자다 (Evidence-Anchored Extraction)**: 모든 정량 스펙은 제조사 공식 스펙시트, PDF 매뉴얼, 영양성분표, 항공사 공식 규정, 규제 인증 DB의 원문 인용구와 URL에 고정된다.
 - **핵심 원칙 2 — LLM에게 사칙연산을 맡기지 않는다 (Deterministic Math Separation)**: Wh 역산, 순수 단백질 1 g당 단가, 3년 전기요금 TCO, 멀티포트 출력 합산 검증은 100퍼센트 Python/TypeScript 결정론적 코드가 계산하며, LLM은 검산 완료된 숫자 테이블을 바탕으로 의사결정 해석만 작성한다.
@@ -24,7 +24,7 @@ flowchart TD
     S3 -- "IG 75점 이상 통과" --> S4["Stage 4: 결정론적 파생 지표 엔진 & 비교·호환성 매트릭스 합성"]
     S4 --> S5["Stage 5: 5개국어 초현지화 (EN/KO/JA/DE/ES) + 독립 Locale QA"]
     S5 -- "단위·통화·고지문 오류 발견" --> S5
-    S5 -- "Locale QA PASS" --> S6["Stage 6: Next.js 16 빌드 게이트 & Drip-Feed 배포 큐"]
+    S5 -- "Locale QA PASS" --> S6["Stage 6: Astro 5 SSG 빌드 게이트 & Drip-Feed 배포 큐"]
 ```
 
 ---
@@ -232,7 +232,7 @@ EN / KO / JA / DE / ES 5개국어를 단순 번역하지 않고 **2-Pass 초현�
 
 ---
 
-## 5. 토큰 소모량 정밀 시뮬레이션 (20배 Ultra 요금제 가동 예산)
+## 5. 토큰 소모량 정밀 시뮬레이션 (고용량 추론 파이프라인 가동 예산)
 
 ### 표 A: 파일럿 마일스톤 (Phase 1, 1–2주차 — 앵커 100종 + 30항공사 검증 / 200p → 1,000p 배포)
 

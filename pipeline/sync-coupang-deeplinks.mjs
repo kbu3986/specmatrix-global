@@ -96,7 +96,7 @@ async function main() {
       "[coupang:sync] COUPANG_ACCESS_KEY / COUPANG_SECRET_KEY not set (Open API requires >= 150,000 KRW sales in Coupang Partners)."
     );
     console.log(
-      "[coupang:sync] Run `node pipeline/sync-coupang-deeplinks.mjs --export-urls` to export all 60 search URLs for Coupang Partners Center manual link generation, or set COUPANG_ACCESS_KEY & COUPANG_SECRET_KEY to auto-convert."
+      `[coupang:sync] Run \`node pipeline/sync-coupang-deeplinks.mjs --export-urls\` to export all ${items.length} search URLs for Coupang Partners Center manual link generation, or set COUPANG_ACCESS_KEY & COUPANG_SECRET_KEY to auto-convert.`
     );
     return;
   }
@@ -106,7 +106,7 @@ async function main() {
 
   for (const v of VERTICALS) {
     const vItems = items.filter((i) => i.vertical === v);
-    const subId = cfg.coupang.verticalSubIds[v] || cfg.coupang.defaultSubId || "ssalmeok-kr";
+    const subId = cfg.coupang.verticalSubIds[v] || cfg.coupang.defaultSubId || "specmatrix-kr";
     for (let i = 0; i < vItems.length; i += 10) {
       const slice = vItems.slice(i, i + 10);
       const rawUrls = slice.map((item) =>

@@ -32,7 +32,7 @@ const jsonLd = [
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/en/tools?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/en/tools/?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -78,9 +78,9 @@ const jsonLd = [
       <span id="root-locale-hint-text"></span>
       <a
         id="root-locale-hint-link"
-        href={withBase("/ko")}
-        data-ko-href={withBase("/ko")}
-        data-en-href={withBase("/en")}
+        href={withBase("/ko/")}
+        data-ko-href={withBase("/ko/")}
+        data-en-href={withBase("/en/")}
         class="shrink-0 rounded-md bg-blue-700 px-3 py-1.5 font-semibold text-white hover:bg-blue-800"
       >
         바로 이동 →
@@ -90,7 +90,7 @@ const jsonLd = [
     <!-- EN / KO Launch Cards -->
     <div class="mt-8 grid gap-5 md:grid-cols-2">
       <a
-        href={withBase("/en")}
+        href={withBase("/en/")}
         class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
       >
         <div class="flex items-center justify-between">
@@ -118,7 +118,7 @@ const jsonLd = [
       </a>
 
       <a
-        href={withBase("/ko")}
+        href={withBase("/ko/")}
         class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
       >
         <div class="flex items-center justify-between">
@@ -159,13 +159,13 @@ const jsonLd = [
         </div>
         <div class="flex items-center gap-2">
           <a
-            href={withBase("/en/tools")}
+            href={withBase("/en/tools/")}
             class="rounded-md border border-slate-600 bg-slate-800 px-3 py-1.5 font-mono text-xs font-semibold text-slate-100 hover:border-blue-400 hover:text-white"
           >
             All Tools (EN) →
           </a>
           <a
-            href={withBase("/ko/tools")}
+            href={withBase("/ko/tools/")}
             class="rounded-md bg-blue-600 px-3 py-1.5 font-mono text-xs font-semibold text-white hover:bg-blue-500"
           >
             전체 도구 (KO) →
@@ -173,9 +173,9 @@ const jsonLd = [
         </div>
       </div>
 
-      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <a
-          href={withBase("/en/compare")}
+          href={withBase("/en/compare/")}
           class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
         >
           <div class="font-mono text-[11px] font-bold text-blue-300">ANY-VS-ANY WORKBENCH</div>
@@ -188,11 +188,11 @@ const jsonLd = [
         </a>
 
         <a
-          href={withBase("/en/tools/travel-power-kit")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
+          href={withBase("/en/tools/travel-power-kit/")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-sky-400"
         >
-          <div class="font-mono text-[11px] font-bold text-emerald-300">WATTCHECK × 30 AIRLINES</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-emerald-200">
+          <div class="font-mono text-[11px] font-bold text-sky-300">WATTCHECK × {totalAirlines} AIRLINES</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-sky-200">
             Travel Power Kit Optimizer →
           </div>
           <p class="mt-1 text-xs text-slate-300">
@@ -201,15 +201,54 @@ const jsonLd = [
         </a>
 
         <a
-          href={withBase("/en/tools/fueling-planner")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-amber-400"
+          href={withBase("/en/tools/fueling-planner/")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
         >
-          <div class="font-mono text-[11px] font-bold text-amber-300">PUREGRAM RACE PACK</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-amber-200">
+          <div class="font-mono text-[11px] font-bold text-emerald-300">PUREGRAM RACE PACK</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-emerald-200">
             Race Fueling Mix Planner →
           </div>
           <p class="mt-1 text-xs text-slate-300">
             Build marathon & cycling hourly carb, sodium, and caffeine packs with live cost math.
+          </p>
+        </a>
+
+        <a
+          href={withBase("/en/tools/hometech-tco-studio/")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-violet-400"
+        >
+          <div class="font-mono text-[11px] font-bold text-violet-300">HOMETECH TCO × UPS</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-violet-200">
+            3-Year TCO & UPS Runtime Studio →
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            Compare 24/7 idle electricity payback & multi-device NAS/MiniPC outage backup time.
+          </p>
+        </a>
+
+        <a
+          href={withBase("/en/tools/tire-pressure-guard/")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-amber-400"
+        >
+          <div class="font-mono text-[11px] font-bold text-amber-300">CYCLEGEAR ETRTO TSS</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-amber-200">
+            Tire Pressure & Hookless Guard →
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            Compute front/rear bar & psi with strict ETRTO 5.0 bar (72.5 psi) hookless checks.
+          </p>
+        </a>
+
+        <a
+          href={withBase("/en/wattcheck/matrix/airlines-30/")}
+          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
+        >
+          <div class="font-mono text-[11px] font-bold text-blue-300">AVIATION COMPLIANCE</div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
+            {totalAirlines}-Airline Battery Matrix →
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            Search MOLIT 2026, FAA, MLIT, EASA & CAAC CCC power bank carry-on rules by airline.
           </p>
         </a>
       </div>
@@ -246,13 +285,13 @@ const jsonLd = [
     if (!box || !txt || !lnk) return;
     if (lang.startsWith("ko")) {
       txt.textContent = "한국어 브라우저 환경이 감지되었습니다. KRW · 국토부 규정 · 한전 누진제 TCO 기준으로 구성된 한국어 허브를 이용하세요.";
-      lnk.setAttribute("href", lnk.getAttribute("data-ko-href") || "/ko");
+      lnk.setAttribute("href", lnk.getAttribute("data-ko-href") || "/ko/");
       lnk.textContent = "한국어 허브로 이동 →";
       box.classList.remove("hidden");
       box.classList.add("flex");
     } else {
       txt.textContent = "Detected English locale. Launch the EN hub for USD benchmarks, FAA/IATA rules, and US store links.";
-      lnk.setAttribute("href", lnk.getAttribute("data-en-href") || "/en");
+      lnk.setAttribute("href", lnk.getAttribute("data-en-href") || "/en/");
       lnk.textContent = "Go to English Hub →";
       box.classList.remove("hidden");
       box.classList.add("flex");

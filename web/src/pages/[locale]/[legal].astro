@@ -25,7 +25,7 @@ const locale = Astro.params.locale as ActiveLocale;
 const legal = Astro.params.legal as LegalSlug;
 const isKo = locale === "ko";
 const cfg = getMonetizationConfig();
-const currentPath = `/${locale}/${legal}`;
+const currentPath = `/${locale}/${legal}/`;
 
 interface LegalSection {
   heading: string;
@@ -257,9 +257,9 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
   },
   privacy: {
     en: {
-      title: "Privacy Policy & Cookie / EU CMP Readiness",
+      title: "Privacy Policy, Cookies & Consent Mode v2",
       subtitle:
-        "How SpecMatrix Global protects visitor privacy, processes client-side calculator inputs, and manages advertising consent.",
+        "How SpecMatrix Global protects visitor privacy, processes client-side calculator inputs, and enforces EEA/UK/Swiss Google Consent Mode v2 defaults.",
       sections: [
         {
           heading: "1. Zero-Upload Client-Side Calculators",
@@ -270,13 +270,14 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
         {
           heading: "2. Advertising & Google AdSense",
           body: [
-            `SpecMatrix Global uses Google AdSense (Publisher ID: ${cfg.adsenseId}) and authorized ad partners to fund independent specification verification. Third-party vendors, including Google, may use cookies to serve ads based on prior visits to this or other websites. You may opt out of personalized advertising via Google Ad Settings.`,
+            `SpecMatrix Global uses Google AdSense (Publisher ID: ${cfg.adsenseId}) and authorized ad partners to fund independent specification verification. Third-party vendors, including Google, may use cookies to serve ads based on prior visits to this or other websites where permitted by regional consent rules. You may opt out of personalized advertising via Google Ad Settings.`,
           ],
         },
         {
-          heading: "3. EU / EEA / UK GDPR & Google CMP Readiness",
+          heading: "3. EU / EEA / UK / Swiss Privacy & Google Consent Mode v2",
           body: [
-            "In preparation for European locale expansion (DE/ES), SpecMatrix Global implements Google-certified Consent Management Platform (CMP / Funding Choices) compatibility so EEA, UK, and Swiss visitors receive clear opt-in/opt-out controls before non-essential advertising cookies are set.",
+            "SpecMatrix Global currently serves English (EN) and Korean (KO) hubs and ships Google Consent Mode v2 regional defaults on every page so that ad_storage, ad_user_data, ad_personalization, and analytics_storage default to 'denied' for visitors from the EEA, UK, and Switzerland.",
+            "Deploying a Google-certified Consent Management Platform (CMP) opt-in banner is enforced as a mandatory release gate prior to activating dedicated European locales (DE/ES) or enabling personalized EEA advertising.",
           ],
         },
         {
@@ -288,9 +289,9 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
       ],
     },
     ko: {
-      title: "개인정보처리방침 및 쿠키·EU CMP 안내",
+      title: "개인정보처리방침 및 쿠키·Consent Mode v2 안내",
       subtitle:
-        "SpecMatrix Global의 개인정보 최소 수집 원칙, 클라이언트 로컬 계산기 처리 방식, 광고 쿠키 및 GDPR CMP 대응 방침을 안내합니다.",
+        "SpecMatrix Global의 개인정보 최소 수집 원칙, 클라이언트 로컬 계산기 처리 방식, 광고 쿠키 및 EEA·영국·스위스 Google Consent Mode v2 기본값 적용 방침을 안내합니다.",
       sections: [
         {
           heading: "1. 회원가입 없음 · 브라우저 로컬 계산기 처리",
@@ -301,13 +302,14 @@ const CONTENT: Record<LegalSlug, Record<ActiveLocale, LegalContent>> = {
         {
           heading: "2. 구글 애드센스(AdSense) 및 제3자 쿠키 안내",
           body: [
-            `본 사이트는 무료 데이터 검증 서비스 운영을 위해 Google AdSense (게시자 ID: ${cfg.adsenseId})를 연동합니다. Google 등 제3자 광고 사업자는 쿠키를 사용해 사용자의 이전 방문 기록에 기반한 맞춤형 광고를 게재할 수 있으며, 사용자는 Google 광고 설정에서 맞춤형 광고를 언제든 해제할 수 있습니다.`,
+            `본 사이트는 무료 데이터 검증 서비스 운영을 위해 Google AdSense (게시자 ID: ${cfg.adsenseId})를 연동합니다. Google 등 제3자 광고 사업자는 지역별 동의 규정이 허용하는 범위에서 쿠키를 사용해 사용자의 이전 방문 기록에 기반한 맞춤형 광고를 게재할 수 있으며, 사용자는 Google 광고 설정에서 맞춤형 광고를 언제든 해제할 수 있습니다.`,
           ],
         },
         {
-          heading: "3. 유럽 EEA/UK GDPR 및 Google CMP 대응",
+          heading: "3. 유럽 EEA·영국·스위스 프라이버시 및 Google Consent Mode v2",
           body: [
-            "향후 유럽권(DE/ES) 로케일 확장에 대비해 Google 인증 동의 관리 플랫폼(Google CMP / Funding Choices) 연동 규격을 사전 반영하고 있으며, 유럽 경제 지역(EEA)·영국 방문자에게 적법한 쿠키 동의 선택권을 제공합니다.",
+            "SpecMatrix Global은 현재 영어(EN)·한국어(KO) 허브를 운영 중이며, 모든 페이지에 Google Consent Mode v2 지역 기본값을 적용해 유럽경제지역(EEA)·영국·스위스 방문자에 대해 ad_storage, ad_user_data, ad_personalization, analytics_storage를 기본 차단(denied) 상태로 유지합니다.",
+            "유럽 전용 로케일(DE/ES) 정식 오픈 및 맞춤형 EEA 광고 활성화 전에는 Google 인증 동의 관리 플랫폼(CMP) 배너 탑재를 필수 배포 게이트로 적용합니다.",
           ],
         },
         {
@@ -357,6 +359,7 @@ const reporterCfg = {
   locale,
   repoIssuesUrl: "https://github.com/kbu3986/specmatrix-global/issues/new",
   copiedText: isKo ? "마크다운 리포트 복사됨 ✓" : "Copied Report Markdown ✓",
+  copyFailedText: isKo ? "복사 실패 — 미리보기에서 직접 복사하세요" : "Copy failed — select preview text manually",
   copyBtnText: isKo ? "리포트 마크다운 복사" : "Copy Report Markdown",
 };
 
@@ -377,7 +380,7 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: `${SITE_URL}/${locale}/`,
       },
       {
         "@type": "ListItem",
@@ -398,7 +401,7 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <nav aria-label="Breadcrumb" class="mb-5 flex items-center gap-1.5 text-xs text-slate-500">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}/`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
@@ -525,7 +528,7 @@ const jsonLd = [
           </div>
 
           <div class="rounded-lg border border-slate-200 bg-white p-3">
-            <div class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <div class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-600">
               {isKo ? "생성된 마크다운 미리보기" : "Generated Markdown Preview"}
             </div>
             <pre
@@ -581,7 +584,8 @@ const jsonLd = [
           {LEGAL_SLUGS.map((s) => (
             <li>
               <a
-                href={withBase(`/${locale}/${s}`)}
+                href={withBase(`/${locale}/${s}/`)}
+                aria-current={s === legal ? "page" : undefined}
                 class:list={[
                   "block rounded-md px-3 py-2 font-medium transition-colors",
                   s === legal
@@ -599,120 +603,144 @@ const jsonLd = [
   </div>
 </BaseLayout>
 
-{legal === "contact" && (
-  <script is:inline>
-    (function () {
-      var box = document.getElementById("spec-discrepancy-form");
-      if (!box) return;
-      var cfg = {};
-      try {
-        cfg = JSON.parse(box.getAttribute("data-config") || "{}");
-      } catch (_e) {
-        cfg = {};
-      }
+<script>
+  import { copyToClipboard } from "../../lib/clipboard";
 
-      var verticalEl = document.getElementById("rep-vertical");
-      var skuEl = document.getElementById("rep-sku");
-      var fieldEl = document.getElementById("rep-field");
-      var sourceEl = document.getElementById("rep-source");
-      var detailsEl = document.getElementById("rep-details");
-      var previewEl = document.getElementById("rep-preview");
-      var ghLink = document.getElementById("rep-github-link");
-      var copyBtn = document.getElementById("rep-copy-btn");
+  interface ReporterCfg {
+    locale?: string;
+    repoIssuesUrl?: string;
+    copiedText?: string;
+    copyFailedText?: string;
+    copyBtnText?: string;
+  }
 
-      // Prefill from ?sku=&vertical= query params
-      try {
-        var params = new URLSearchParams(window.location.search);
-        var qVertical = (params.get("vertical") || "").trim().toLowerCase();
-        var qSku = (params.get("sku") || "").trim();
-        if (qVertical && verticalEl) {
-          for (var i = 0; i < verticalEl.options.length; i++) {
-            if (verticalEl.options[i].value === qVertical) {
-              verticalEl.value = qVertical;
-              break;
-            }
+  (() => {
+    const box = document.getElementById("spec-discrepancy-form");
+    if (!box) return;
+
+    let cfg: ReporterCfg = {};
+    try {
+      cfg = JSON.parse(box.getAttribute("data-config") || "{}") as ReporterCfg;
+    } catch {
+      cfg = {};
+    }
+
+    const verticalEl = document.getElementById("rep-vertical") as HTMLSelectElement | null;
+    const skuEl = document.getElementById("rep-sku") as HTMLInputElement | null;
+    const fieldEl = document.getElementById("rep-field") as HTMLSelectElement | null;
+    const sourceEl = document.getElementById("rep-source") as HTMLInputElement | null;
+    const detailsEl = document.getElementById("rep-details") as HTMLTextAreaElement | null;
+    const previewEl = document.getElementById("rep-preview");
+    const ghLink = document.getElementById("rep-github-link") as HTMLAnchorElement | null;
+    const copyBtn = document.getElementById("rep-copy-btn") as HTMLButtonElement | null;
+
+    const track = (name: string, params?: Record<string, unknown>) => {
+      const w = window as unknown as {
+        smTrack?: (ev: string, p?: Record<string, unknown>) => void;
+      };
+      if (typeof w.smTrack === "function") w.smTrack(name, params);
+    };
+
+    // Prefill from ?sku=&vertical= query params
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const qVertical = (params.get("vertical") || "").trim().toLowerCase();
+      const qSku = (params.get("sku") || "").trim();
+      if (qVertical && verticalEl) {
+        for (let i = 0; i < verticalEl.options.length; i += 1) {
+          if (verticalEl.options[i].value === qVertical) {
+            verticalEl.value = qVertical;
+            break;
           }
         }
-        if (qSku && skuEl) {
-          skuEl.value = qSku;
-        }
-      } catch (_e) {
-        // ignore URLSearchParams errors
       }
-
-      function buildReport() {
-        var vertical = verticalEl ? verticalEl.value : "wattcheck";
-        var sku = (skuEl && skuEl.value ? skuEl.value : "").trim() || "(not specified)";
-        var field = fieldEl ? fieldEl.value : "Other";
-        var source = (sourceEl && sourceEl.value ? sourceEl.value : "").trim() || "(please attach official URL)";
-        var details = (detailsEl && detailsEl.value ? detailsEl.value : "").trim() || "(describe current vs official value)";
-
-        var title = "[Spec Correction] [" + vertical + "] " + sku + " — " + field;
-        var markdown = [
-          "### SpecMatrix Discrepancy Report",
-          "- **Locale:** `" + (cfg.locale || "en") + "`",
-          "- **Vertical:** `" + vertical + "`",
-          "- **SKU / Route:** `" + sku + "`",
-          "- **Field:** " + field,
-          "- **Official Source URL:** " + source,
-          "",
-          "#### Verified Discrepancy Details",
-          details,
-        ].join("\n");
-
-        if (previewEl) previewEl.textContent = markdown;
-        if (ghLink) {
-          var base = cfg.repoIssuesUrl || "https://github.com/kbu3986/specmatrix-global/issues/new";
-          var qs =
-            "?title=" +
-            encodeURIComponent(title) +
-            "&body=" +
-            encodeURIComponent(markdown) +
-            "&labels=" +
-            encodeURIComponent("spec-correction");
-          ghLink.setAttribute("href", base + qs);
-        }
-        return markdown;
+      if (qSku && skuEl) {
+        skuEl.value = qSku;
       }
+    } catch {
+      // ignore URLSearchParams errors
+    }
 
-      [verticalEl, skuEl, fieldEl, sourceEl, detailsEl].forEach(function (el) {
-        if (!el) return;
-        el.addEventListener("input", buildReport);
-        el.addEventListener("change", buildReport);
-      });
+    function buildReport(): string {
+      const vertical = verticalEl ? verticalEl.value : "wattcheck";
+      const sku = (skuEl?.value || "").trim() || "(not specified)";
+      const field = fieldEl ? fieldEl.value : "Other";
+      const source = (sourceEl?.value || "").trim() || "(please attach official URL)";
+      const details = (detailsEl?.value || "").trim() || "(describe current vs official value)";
 
+      const title = `[Spec Correction] [${vertical}] ${sku} — ${field}`;
+      const markdown = [
+        "### SpecMatrix Discrepancy Report",
+        `- **Locale:** \`${cfg.locale || "en"}\``,
+        `- **Vertical:** \`${vertical}\``,
+        `- **SKU / Route:** \`${sku}\``,
+        `- **Field:** ${field}`,
+        `- **Official Source URL:** ${source}`,
+        "",
+        "#### Verified Discrepancy Details",
+        details,
+      ].join("\n");
+
+      if (previewEl) previewEl.textContent = markdown;
       if (ghLink) {
-        ghLink.addEventListener("click", function () {
-          if (typeof window.smTrack === "function") {
-            window.smTrack("spec_report_github", {
-              vertical: verticalEl ? verticalEl.value : "",
-              sku: skuEl ? skuEl.value : "",
-            });
-          }
-        });
+        const base = cfg.repoIssuesUrl || "https://github.com/kbu3986/specmatrix-global/issues/new";
+        const qs =
+          `?title=${encodeURIComponent(title)}` +
+          `&body=${encodeURIComponent(markdown)}` +
+          `&labels=${encodeURIComponent("spec-correction")}`;
+        ghLink.setAttribute("href", base + qs);
       }
+      return markdown;
+    }
 
-      if (copyBtn) {
-        copyBtn.addEventListener("click", function () {
-          var md = buildReport();
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(md).then(function () {
-              copyBtn.textContent = cfg.copiedText || "Copied ✓";
-              setTimeout(function () {
-                copyBtn.textContent = cfg.copyBtnText || "Copy Report Markdown";
-              }, 2000);
-            });
-          }
-          if (typeof window.smTrack === "function") {
-            window.smTrack("spec_report_copy", {
-              vertical: verticalEl ? verticalEl.value : "",
-              sku: skuEl ? skuEl.value : "",
-            });
-          }
+    [verticalEl, skuEl, fieldEl, sourceEl, detailsEl].forEach((el) => {
+      if (!el) return;
+      el.addEventListener("input", buildReport);
+      el.addEventListener("change", buildReport);
+    });
+
+    if (ghLink) {
+      ghLink.addEventListener("click", () => {
+        track("spec_report_github", {
+          vertical: verticalEl ? verticalEl.value : "",
+          sku: skuEl ? skuEl.value : "",
         });
-      }
+      });
+    }
 
-      buildReport();
-    })();
-  </script>
-)}
+    if (copyBtn) {
+      let resetTimer: number | undefined;
+      copyBtn.addEventListener("click", async () => {
+        const md = buildReport();
+        const ok = await copyToClipboard(md);
+        if (resetTimer !== undefined) window.clearTimeout(resetTimer);
+        if (ok) {
+          copyBtn.textContent = cfg.copiedText || "Copied ✓";
+          copyBtn.classList.remove("border-rose-400", "text-rose-700", "bg-rose-50");
+          copyBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          track("spec_report_copy", {
+            vertical: verticalEl ? verticalEl.value : "",
+            sku: skuEl ? skuEl.value : "",
+          });
+        } else {
+          copyBtn.textContent = cfg.copyFailedText || "Copy failed — select preview text manually";
+          copyBtn.classList.remove("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          copyBtn.classList.add("border-rose-400", "text-rose-700", "bg-rose-50");
+        }
+        resetTimer = window.setTimeout(() => {
+          copyBtn.textContent = cfg.copyBtnText || "Copy Report Markdown";
+          copyBtn.classList.remove(
+            "border-emerald-500",
+            "text-emerald-700",
+            "bg-emerald-50",
+            "border-rose-400",
+            "text-rose-700",
+            "bg-rose-50"
+          );
+        }, 2400);
+      });
+    }
+
+    buildReport();
+  })();
+</script>

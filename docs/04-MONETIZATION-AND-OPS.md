@@ -11,14 +11,14 @@
 | 수익·운영 채널 | 기존 확보 코드 (`ssalmeok-empire`) | `specmatrix-global` 즉시 연동 방식 | 확장·고도화 포인트 |
 | :--- | :--- | :--- | :--- |
 | **구글 애드센스** | `ca-pub-8587506565277191` | `<meta name="google-adsense-account">` + 비동기 스크립트 + 루트 `ads.txt` (`google.com, pub-8587506565277191, DIRECT, f08c47fec0942fa0`) 자동 생성 | 독립 커스텀 도메인 연결 즉시 AdSense 사이트 추가 심사 제출 |
-| **쿠팡 파트너스 (KR)** | `AF2200875` / Sub-ID `ssalmeok-kr` | `ko` 로케일 1순위 CTA 버튼(`lptag=AF2200875&subId=...`) 자동 조립 | 버티컬별 ROI 추적을 위해 Sub-ID를 `specmatrix-watt`, `specmatrix-pure`, `specmatrix-cycle`, `specmatrix-home`으로 분기(미지정 시 `ssalmeok-kr` 폴백) |
-| **아마존 어소시에이트 (US)** | `kbu3986-20` | `en` 로케일 1순위 CTA 및 ASIN/검색 딥링크(`tag=kbu3986-20`) 즉시 적용 | **Amazon OneLink** 마스터 허브로 지정해 JP/DE/ES/UK/CA 스토어 ID 일괄 연동 |
-| **아이허브 리워드 (신규 활성화)** | 현재 공란 (`iherbCode: ""`) | `NEXT_PUBLIC_IHERB_CODE` 활성화 즉시 PureGram `en`/`ko`/`ja` 전 페이지 2순위 버튼 점화 | 보충제 수수료 5–10퍼센트로 아마존(1–3퍼센트) 대비 수익성 2–3배 우위 |
+| **쿠팡 파트너스 (KR)** | `AF2200875` / Sub-ID `sm-*-kr` | `ko` 로케일 1순위 CTA 버튼(`lptag=AF2200875&subId=...`) 및 공식 `link.coupang.com/a/...` 단축링크 적용 | 버티컬별 ROI 추적을 위해 Sub-ID를 `sm-watt-kr`, `sm-pure-kr`, `sm-cycle-kr`, `sm-home-kr`로 분기(미지정 시 `ssalmeok-kr` 폴백) |
+| **아마존 어소시에이트 (US)** | `kbu3986-20` | `en` 로케일 1순위 CTA 및 검증된 ASIN/검색 딥링크(`tag=kbu3986-20`) 즉시 적용 | **Amazon OneLink** 마스터 허브로 지정해 JP/DE/ES/UK/CA 스토어 ID 트래픽 연동 순차 확장 |
+| **iHerb 정책 (영구 금지)** | 미사용 (`영구 차단`) | 모든 데이터·UI·아웃바운드 링크에서 iHerb 제휴 링크·코드 삽입 영구 금지 | PureGram은 쿠팡 파트너스(KR)·Amazon(US/글로벌)·공식 스토어 위주로 운영 |
 | **검색엔진 소유권 인증** | GSC `srNR80vNCy3sBgCrxGn_bZLwTPgwsvqmdTxF4arEhw4` / Naver `8c10763f9e41c812023c31dc42cce3517af9ad25` | `kbu3986.github.io` 파일럿 구간 즉시 재사용 | 독립 커스텀 도메인 전환 시 DNS TXT 레코드 기반 도메인 속성(Domain Property) 신규 등록 |
 
-### Control Tower 확장 규격 (`monetization-config.v2.json`)
+### 통합 설정 파일 규격 (`config/monetization-config.v2.json`)
 
-기존 1-Click GUI(`딸깍_수익화_세팅기.cmd` · `deploy-ops/control-tower/server.mjs`)를 5개국어·멀티제휴 대응 `v2` 설정 포맷으로 승격해 코드 수정 없이 전 버티컬 수익 ID를 일괄 배포한다.
+로컬 전용 운영 도구(`ops/launchpad`, 공개 빌드 절대 제외)와 `v2` 설정 포맷으로 코드 수정 없이 전 버티컬 수익 ID를 관리한다.
 
 ```json
 {
@@ -36,22 +36,20 @@
   },
   "amazonOneLink": {
     "us": "kbu3986-20",
-    "jp": "specmatrix-jp-22",
-    "de": "specmatrix-de-21",
-    "es": "specmatrix-es-21",
-    "uk": "specmatrix-uk-21",
-    "ca": "specmatrix-ca-20"
+    "jp": "",
+    "de": "",
+    "es": "",
+    "uk": "",
+    "ca": ""
   },
   "globalAffiliates": {
-    "iherbCode": "PENDING_FILL",
-    "aliexpressTrackingId": "PENDING_FILL",
-    "rakutenAffiliateId": "PENDING_FILL",
-    "awinPublisherId": "PENDING_FILL",
-    "impactAccountSid": "PENDING_FILL"
+    "aliexpressTrackingId": "",
+    "awinPublisherId": "",
+    "impactAccountSid": ""
   },
   "releaseGate": {
     "releaseWaveMax": 1,
-    "maxPublishedPages": 200
+    "maxPublishedPages": 300
   }
 }
 ```
@@ -79,11 +77,11 @@
 
 아마존 전자기기 수수료(1–3퍼센트)의 한계를 돌파하기 위해 **버티컬별 2순위·3순위 고수수료 파트너**를 모든 제품 카드에 병렬 배치한다.
 
-| 로케일 | 1순위 메인 스토어 | 2순위 고수수료 특화 스토어 (버티컬별) | 3순위 글로벌·직구 보완망 | 기대 수수료율 범위 |
+| 로케일 | 1순위 메인 스토어 | 2순위 고수수료 특화 스토어 (버티컬별 · iHerb 영구 금지) | 3순위 글로벌·직구 보완망 | 기대 수수료율 범위 |
 | :--- | :--- | :--- | :--- | :--- |
-| **`en` (US/UK/CA)** | Amazon OneLink (`kbu3986-20`) | PureGram: **iHerb**(5–10퍼센트) / CycleGear: **AvantLink·Impact**(Competitive Cyclist·Jenson USA·COROS·Wahoo 5–8퍼센트) / HomeTech: **Anker·Roborock·Beelink 직영몰**(Impact/CJ 4–8퍼센트) | **AliExpress Portals** (Magene·Cuktech·MiniPC 등 3–9퍼센트) | **3–10퍼센트** |
-| **`ko` (KR)** | **쿠팡 파트너스** (`AF2200875`) | PureGram: **iHerb KR**(5–10퍼센트) / CycleGear·HomeTech: **AliExpress Portals KR**(파워미터·카본·MiniPC 초고전환 3–9퍼센트) | Amazon US 직구 (`kbu3986-20`), 쿠팡 로켓직구 특가 | **3–9퍼센트** |
-| **`ja` (JP)** | **Amazon JP** (OneLink) | **Rakuten Affiliate**(라쿠텐 2–4퍼센트, 일본 내 보충제·가전·자전거 최고 신뢰도) + **iHerb JP**(5–10퍼센트) | **ValueCommerce**(Yahoo! Shopping), AliExpress JP | **2–10퍼센트** |
+| **`en` (US/UK/CA)** | Amazon OneLink (`kbu3986-20`) | PureGram: **Amazon US / 브랜드 직영몰(Impact/CJ)** / CycleGear: **AvantLink·Impact**(Competitive Cyclist·Jenson USA·COROS·Wahoo 5–8퍼센트) / HomeTech: **Anker·Roborock·Beelink 직영몰**(Impact/CJ 4–8퍼센트) | **AliExpress Portals** (Magene·Cuktech·MiniPC 등 3–9퍼센트) | **3–8퍼센트** |
+| **`ko` (KR)** | **쿠팡 파트너스** (`AF2200875`) | CycleGear·HomeTech: **AliExpress Portals KR**(파워미터·카본·MiniPC 3–9퍼센트) / PureGram: **쿠팡 로켓배송·공식 스토어** | Amazon US 직구 (`kbu3986-20`) | **3–9퍼센트** |
+| **`ja` (JP)** | **Amazon JP** (OneLink) | **Impact / Rakuten Advertising 글로벌** (해외 정산 가능 네트워크 우선) | AliExpress JP | **2–8퍼센트** |
 | **`de` (DACH)** | **Amazon DE** (OneLink) | **Awin / TradeTracker**(Bike24·Bike-Components·Rose Bikes·ESN·Mindfactory·Galaxus 3–8퍼센트) | AliExpress DE, 브랜드 EU 공식몰 | **3–8퍼센트** |
 | **`es` (ES/LATAM)** | **Amazon ES** (OneLink) | **Awin / TradeDoubler**(Deporvillage·Tradeinn/Bikeinn·PcComponentes·HSNstore 4–8퍼센트) | AliExpress ES (스페인어권 점유율 최상위 3–9퍼센트) | **3–9퍼센트** |
 
@@ -92,7 +90,7 @@
 | 버티컬 | 평균 객단가(AOV) | 애드센스 예상 RPM (5개국 가중) | 제휴 예상 클릭당 수익(EPC) | 핵심 수익 드라이버 |
 | :--- | :--- | :--- | :--- | :--- |
 | **1. WattCheck Matrix** | 8만 원 (60 USD) | 6–14 USD | 0.12–0.28 USD | 여행 시즌(5–8월·12–2월) 폭발적 검색량 + 절연 파우치·케이블 묶음 전환 |
-| **2. PureGram Matrix** | 6만 원 (45 USD) | 5–12 USD | 0.15–0.35 USD | iHerb·쿠팡 정기 재구매 + 1:1 VS 페이지 초고클릭률(CTR 12–20퍼센트) |
+| **2. PureGram Matrix** | 6만 원 (45 USD) | 5–12 USD | 0.12–0.28 USD | 쿠팡·아마존 정기 재구매 + 1:1 VS 페이지 초고클릭률(CTR 12–20퍼센트) |
 | **3. CycleGear Matrix** | **85만 원 (620 USD)** | **12–26 USD** | **0.60–1.80 USD** | 50만–200만 원 고단가 파워미터·스마트 트레이너·GPS 컴퓨터 단건 고액 수수료 |
 | **4. HomeTech TCO Matrix** | **65만 원 (480 USD)** | **14–30 USD** | **0.45–1.30 USD** | B2B/홈서버·가전 고CPC 광고 단가 + 독일·일본·미국 고단가 NAS/로봇청소기 전환 |
 
@@ -112,7 +110,7 @@
 
 ## 3. 자동 가격·품절 갱신(스냅샷 배치) 및 죽은 링크 자동 대체 규칙
 
-기존 `ssalmeok-empire/site3-puregram/scripts/update-prices.mjs`의 무인 환율·스냅샷 구조를 4대 버티컬·5개 통화 대응 **3-Tier 배치 파이프라인**으로 확장한다.
+기존 환율·스냅샷 배치 구조를 4대 버티컬·5개 통화 대응 **3-Tier 배치 파이프라인**(`pipeline/update-fx.mjs`, `pipeline/check-links-health.mjs`)으로 운영한다.
 
 > [!CAUTION]
 > **정책·컴플라이언스 절대 원칙**: 아마존·쿠팡·유통사 웹페이지 무단 HTML 스크래핑, 봇 탐지·CAPTCHA 우회, API 미승인 상태의 실시간 가격 위조 표기는 계정 영구 정지 사유이므로 **전면 금지**한다. 오직 공식 허가 API(Amazon PA-API/Creators API, 쿠팡 파트너스 오픈 API, AliExpress Portals API, Rakuten Item Search API, Awin/CJ 제품 피드, 공개 환율 API)와 제조사 공식 출고가(MSRP)만 사용한다.
@@ -148,7 +146,7 @@ flowchart TD
 | 상태 코드 | 판정 조건 | UI / CTA 자동 동작 | 수익 링크 폴백 규칙 | SEO 처리 |
 | :--- | :--- | :--- | :--- | :--- |
 | **`IN_STOCK`** | 공식 피드 재고 확인 또는 정상 판매 중 | 기본 1·2·3순위 구매 버튼 정상 노출 + 확인 일자(`YYYY-MM-DD`) 표기 | ASIN/상품 직링크 우선, 미확보 시 정밀 검색 딥링크 | 정상 색인(`index, follow`) |
-| **`OUT_OF_STOCK_TEMP`** | 1순위 스토어 일시 품절 (14일 미만) | 1순위 버튼에 `"일시 품절 가능 — 재고 확인"` 배지 부착, **2순위 재고 보유 스토어를 1순위로 자동 승격** | 예: Amazon US 품절 → iHerb 또는 AliExpress / 직영몰 1순위 노출 | 정상 색인 유지 |
+| **`OUT_OF_STOCK_TEMP`** | 1순위 스토어 일시 품절 (14일 미만) | 1순위 버튼에 `"일시 품절 가능 — 재고 확인"` 배지 부착, **2순위 재고 보유 스토어를 1순위로 자동 승격** | 예: Amazon US 품절 → AliExpress / 브랜드 직영몰 1순위 노출 | 정상 색인 유지 |
 | **`DISCONTINUED_OR_404`** | 제조사 단종 확인 또는 **14일 이상 연속 404/품절** | 페이지 최상단에 **단종 안내 배너** 노출 + JSON `successor_slug` 또는 동일 스펙 클러스터 최상위 가용 제품 2종(`auto_fallback_slugs`)을 **"동급·후속 추천 모델" 카드**로 즉시 대체 | 죽은 상품 직링크를 자동 비활성화하고 **`buildSearchFallbackUrl(brand + category + keySpec)`** 안전 검색 딥링크로 소프트 강등 | **절대 404 삭제 금지**, 단종 모델 검색 트래픽을 후속 모델로 자연 전환 |
 | **`PRICE_STALE`** | 스냅샷 최종 확인 후 **30일 초과 미갱신** | 단가 옆에 `"참고가 기준일 경과"` 툴팁 자동 표시 + 랭킹표 계산기에서 사용자 직접 가격 입력 유도 | 링크는 유지하되 월간 재검증 큐에 자동 등록 | 정상 색인 유지(허위 실시간 가격 표기 방지) |
 
@@ -220,5 +218,5 @@ flowchart TD
 | 주기 | 소요 시간 | 점검 항목 | 자동화 여부 및 액션 |
 | :--- | :--- | :--- | :--- |
 | **일간** | 0분 (무인) | Tier 1 환율 배치 + 배포 상태 확인 | GitHub Actions 실패 시에만 이메일/텔레그램 알림 수신 |
-| **주간 (월요일)** | 15분 | 1) GSC 분할 사이트맵 색인율 체크 2) Tier 3 죽은 링크·품절 리포트 확인 3) 애드센스·쿠팡·아마존·iHerb 클릭/CTR 점검 | 게이트 통과 시 `RELEASE_WAVE_MAX` 1단계 상향, `pending_review` 가격 이상치 2–3건 승인 |
+| **주간 (월요일)** | 15분 | 1) GSC 분할 사이트맵 색인율 체크 2) Tier 3 죽은 링크·품절 리포트 확인 3) 애드센스·쿠팡·아마존 클릭/CTR 점검 | 게이트 통과 시 `RELEASE_WAVE_MAX` 1단계 상향, `pending_review` 가격 이상치 2–3건 승인 |
 | **월간 (매월 1일)** | 60분 | 1) 60일 무노출·미색인 URL 가지치기 실행 2) 고전환 상위 20개 페이지 CTA·제휴 버튼 A/B 개선 3) 신제품 시드(월 50–100종) 토큰 파이프라인 투입 | `cyclegear`·`wattcheck` 신제품 출시(예: 신형 Edge/COROS, 신형 Anker/UGREEN) 우선 반영으로 퍼스트 무버 트래픽 선점 |

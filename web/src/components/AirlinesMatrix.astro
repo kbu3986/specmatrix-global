@@ -129,7 +129,8 @@ const payload = {
         ) : (
           airlines.map((a) => (
             <tr
-              class="air-row"
+              id={a.iata_code}
+              class="air-row scroll-mt-24 transition-colors"
               data-region={a.region}
               data-search={`${a.name_en} ${a.name_ko} ${a.iata_code} ${a.slug}`.toLowerCase()}
               data-u100={a.under_100wh_max_pcs}
@@ -302,15 +303,44 @@ const payload = {
       }
     }
 
+    function setActiveRegion(reg: string) {
+      activeRegion = reg;
+      regBtns.forEach((o) => {
+        const on = (o.getAttribute("data-region") || "ALL") === activeRegion;
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+        o.className = on
+          ? "air-reg-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
+          : "air-reg-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 font-mono text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+      });
+    }
+
+    const HIGHLIGHT_CLS = ["bg-blue-50", "ring-2", "ring-inset", "ring-blue-500"];
+
+    function highlightFromHash() {
+      rows.forEach((tr) => tr.classList.remove(...HIGHLIGHT_CLS));
+      const code = window.location.hash.replace(/^#/, "").trim().toUpperCase();
+      if (!code) return;
+      const targetRow = rows.find((tr) => tr.id.toUpperCase() === code);
+      if (!targetRow) return;
+
+      let filtersReset = false;
+      if (activeRegion !== "ALL") {
+        setActiveRegion("ALL");
+        filtersReset = true;
+      }
+      if (searchInput && searchInput.value.trim()) {
+        searchInput.value = "";
+        filtersReset = true;
+      }
+      if (filtersReset) update();
+
+      targetRow.classList.add(...HIGHLIGHT_CLS);
+      targetRow.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     regBtns.forEach((b) => {
       b.addEventListener("click", () => {
-        activeRegion = b.getAttribute("data-region") || "ALL";
-        regBtns.forEach((o) => {
-          const on = o === b;
-          o.className = on
-            ? "air-reg-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
-            : "air-reg-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 font-mono text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
-        });
+        setActiveRegion(b.getAttribute("data-region") || "ALL");
         update();
       });
     });
@@ -324,6 +354,9 @@ const payload = {
 
     if (whInput) whInput.addEventListener("input", update);
     if (searchInput) searchInput.addEventListener("input", update);
+    setActiveRegion("ALL");
     update();
+    highlightFromHash();
+    window.addEventListener("hashchange", highlightFromHash);
   })();
 </script>

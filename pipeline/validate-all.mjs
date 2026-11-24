@@ -26,7 +26,7 @@ import {
   VsInsightSchema,
   WattCheckItemSchema,
 } from "../schemas/ssot-schema.mjs";
-import { verifyItemComplete } from "./physics-math.mjs";
+import { REAL_ASIN_REGEX, verifyItemComplete } from "./physics-math.mjs";
 
 const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
 const ITEM_SCHEMAS = {
@@ -38,6 +38,37 @@ const ITEM_SCHEMAS = {
 
 const REQUIRED_AIRLINE_REGIONS = ["KR", "NA", "EU", "APAC", "ME"];
 const MIN_AIRLINES_COUNT = 30;
+const EU_LOCALES = new Set(["de", "es"]);
+const PRICE_STALE_MAX_DAYS = 30;
+const FX_STALE_MAX_DAYS = 7;
+const LOCAL_PATH_PII_REGEX = /[A-Za-z]:(?:\\|\\\\|\/)Users(?:\\|\\\\|\/)/i;
+const FORBIDDEN_IHERB_REGEX = /iherb\.com|iherbCode|아이허브/i;
+const GENERATED_AUDIT_REPORT_FILES = new Set([
+  "validation-report.json",
+  "ig-audit-report.json",
+  "link-health-report.json",
+  "stage6-qa-report.json",
+]);
+
+function walkJsonFiles(dir, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      walkJsonFiles(full, out);
+    } else if (entry.isFile() && entry.name.toLowerCase().endsWith(".json")) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+function daysSinceIsoDate(isoDate, referenceDateMs) {
+  if (typeof isoDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return null;
+  const parsedMs = Date.parse(`${isoDate}T00:00:00Z`);
+  if (!Number.isFinite(parsedMs)) return null;
+  return (referenceDateMs - parsedMs) / 86_400_000;
+}
 
 function readJsonFile(filePath) {
   if (!fs.existsSync(filePath)) {
@@ -71,8 +102,14 @@ function round(n, decimals = 2) {
 /**
  * Execute full Phase 1 Pilot validation against `rootDir`.
  */
-export function runValidation({ rootDir, writeReport = true } = {}) {
+export function runValidation({ rootDir, writeReport = true, referenceDate } = {}) {
   const resolvedRoot = path.resolve(rootDir || path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."));
+  const referenceDateMs =
+    referenceDate !== undefined
+      ? typeof referenceDate === "number"
+        ? referenceDate
+        : Date.parse(referenceDate)
+      : Date.now();
 
   const manifestPath = path.join(resolvedRoot, "data", "pilot-manifest.json");
   const blocklistPath = path.join(resolvedRoot, "schemas", "legacy-blocklist.json");
@@ -142,6 +179,23 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
   const minTrustScore = config.releaseGate?.minTrustScore ?? 95;
   const breakerThresholdPct = config.releaseGate?.quarantineCircuitBreakerPct ?? 15;
 
+  // Hard EU release gate: de/es locales require verified Google CMP + Impressum readiness
+  if (activeLocales.some((loc) => EU_LOCALES.has(loc)) && config.compliance?.euCmpReady !== true) {
+    failures.push({
+      category: "config",
+      vertical: "global",
+      id: "eu-release-gate",
+      file: relPath(resolvedRoot, configPath),
+      errors: [
+        {
+          code: "EU_CMP_GATE_NOT_READY",
+          field: "compliance.euCmpReady",
+          message: `EU locale(s) [${activeLocales.filter((l) => EU_LOCALES.has(l)).join(", ")}] enabled while compliance.euCmpReady is not true`,
+        },
+      ],
+    });
+  }
+
   const validatedItemsByVertical = {
     wattcheck: new Map(),
     puregram: new Map(),
@@ -149,6 +203,7 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
     hometech: new Map(),
   };
 
+  const globalAsinOwners = new Map();
   const quarantinedSet = new Set();
 
   const counts = {
@@ -271,6 +326,37 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
           itemErrors.push(...physicsAndGuards.errors);
         }
 
+        // Cross-SKU duplicate ASIN detection & PRICE_STALE (>30d) non-fatal warning
+        for (const [region, offer] of Object.entries(item.regional_offers || {})) {
+          if (!offer || typeof offer !== "object") continue;
+
+          const priceAgeDays = daysSinceIsoDate(offer.price_checked_at, referenceDateMs);
+          if (priceAgeDays !== null && priceAgeDays > PRICE_STALE_MAX_DAYS) {
+            warnings.push({
+              code: "PRICE_STALE",
+              file: relPath(resolvedRoot, itemFile),
+              message: `regional_offers.${region}.price_checked_at (${offer.price_checked_at}) is ${Math.floor(priceAgeDays)} days old (> ${PRICE_STALE_MAX_DAYS} days)`,
+            });
+          }
+
+          if (typeof offer.asin === "string" && offer.asin.trim() !== "") {
+            const asinTrimmed = offer.asin.trim();
+            if (REAL_ASIN_REGEX.test(asinTrimmed)) {
+              const asinKey = asinTrimmed.toUpperCase();
+              const prev = globalAsinOwners.get(asinKey);
+              if (prev && (prev.vertical !== vertical || prev.slug !== slug)) {
+                itemErrors.push({
+                  code: "SM02_CROSS_SKU_DUPLICATE_ASIN",
+                  field: `regional_offers.${region}.asin`,
+                  message: `ASIN "${asinTrimmed}" is duplicated across distinct SKUs: ${prev.vertical}/${prev.slug} (${prev.region}) and ${vertical}/${slug} (${region})`,
+                });
+              } else if (!prev) {
+                globalAsinOwners.set(asinKey, { vertical, slug, region });
+              }
+            }
+          }
+        }
+
         if (itemErrors.length === 0) {
           validatedItemsByVertical[vertical].set(slug, item);
         }
@@ -333,6 +419,29 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
             field: "trust_score",
             message: `Audit trust_score (${audit.trust_score}) < minTrustScore (${minTrustScore})`,
           });
+        }
+
+        // Cross-consistency check between item JSON audit metadata and .audit.json log
+        if (itemRes.ok && itemRes.data?.audit) {
+          const itemAudit = itemRes.data.audit;
+          if (itemAudit.trust_score !== audit.trust_score) {
+            auditErrors.push({
+              code: "AUDIT_ITEM_TRUST_SCORE_MISMATCH",
+              field: "trust_score",
+              message: `Audit log trust_score (${audit.trust_score}) does not match item.audit.trust_score (${itemAudit.trust_score})`,
+            });
+          }
+          const auditPassFlag =
+            typeof audit.adversarial_pass === "boolean"
+              ? audit.adversarial_pass
+              : audit.verdict === "PASS";
+          if (itemAudit.adversarial_pass !== auditPassFlag) {
+            auditErrors.push({
+              code: "AUDIT_ITEM_ADVERSARIAL_PASS_MISMATCH",
+              field: "verdict",
+              message: `Audit log pass state (${auditPassFlag}) does not match item.audit.adversarial_pass (${itemAudit.adversarial_pass})`,
+            });
+          }
         }
       }
 
@@ -475,7 +584,7 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
   }
 
   // ---------------------------------------------------------------------------
-  // 3. Validate 25 VS Insights & Cross-Reference Integrity
+  // 3. Validate 31 VS Insights & Cross-Reference Integrity
   // ---------------------------------------------------------------------------
   for (const vertical of VERTICALS) {
     const manifestPairs = Array.isArray(manifest.vs_pairs?.[vertical]) ? manifest.vs_pairs[vertical] : [];
@@ -640,7 +749,7 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
   }
 
   // ---------------------------------------------------------------------------
-  // 4. Validate 10 Matrix & Compat Pages + Cross-Reference Integrity
+  // 4. Validate 13 Matrix & Compat Pages + Cross-Reference Integrity
   // ---------------------------------------------------------------------------
   for (const vertical of VERTICALS) {
     const manifestMatrices = Array.isArray(manifest.matrix_compat?.[vertical])
@@ -776,6 +885,59 @@ export function runValidation({ rootDir, writeReport = true } = {}) {
               message: `Required manifest ${req.archetype} page "${req.slug}" missing from ${relPath(resolvedRoot, matrixFile)}`,
             },
           ],
+        });
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4b. FX Snapshot Freshness Warning (>7 days) & PII / Forbidden iHerb Scan
+  // ---------------------------------------------------------------------------
+  const fxPath = path.join(resolvedRoot, "data", "snapshots", "fx-rates.json");
+  if (fs.existsSync(fxPath)) {
+    const fxRes = readJsonFile(fxPath);
+    if (fxRes.ok && fxRes.data?.updated_at) {
+      const fxAgeDays = daysSinceIsoDate(fxRes.data.updated_at, referenceDateMs);
+      if (fxAgeDays !== null && fxAgeDays > FX_STALE_MAX_DAYS) {
+        warnings.push({
+          code: "FX_STALE",
+          file: relPath(resolvedRoot, fxPath),
+          message: `FX snapshot updated_at (${fxRes.data.updated_at}) is ${Math.floor(fxAgeDays)} days old (> ${FX_STALE_MAX_DAYS} days)`,
+        });
+      }
+    }
+  }
+
+  for (const scanDir of ["config", "schemas", "data"]) {
+    const dirAbs = path.join(resolvedRoot, scanDir);
+    for (const fileAbs of walkJsonFiles(dirAbs)) {
+      const rel = relPath(resolvedRoot, fileAbs);
+      if (rel.startsWith("data/audit/") && GENERATED_AUDIT_REPORT_FILES.has(path.basename(fileAbs))) {
+        continue;
+      }
+      const rawText = fs.readFileSync(fileAbs, "utf8");
+      const complianceErrors = [];
+      if (LOCAL_PATH_PII_REGEX.test(rawText)) {
+        complianceErrors.push({
+          code: "PII_LOCAL_PATH_LEAK",
+          field: "(file)",
+          message: `Local Windows user path detected in ${rel} (forbidden in PUBLIC repo)`,
+        });
+      }
+      if (FORBIDDEN_IHERB_REGEX.test(rawText)) {
+        complianceErrors.push({
+          code: "FORBIDDEN_IHERB_REFERENCE",
+          field: "(file)",
+          message: `Forbidden iHerb URL/code/mention detected in ${rel} (permanent iHerb ban)`,
+        });
+      }
+      if (complianceErrors.length > 0) {
+        failures.push({
+          category: "compliance",
+          vertical: "global",
+          id: rel,
+          file: rel,
+          errors: complianceErrors,
         });
       }
     }

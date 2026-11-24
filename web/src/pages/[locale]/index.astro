@@ -60,13 +60,13 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "SpecMatrix Global",
-    url: `${SITE_URL}/${locale}`,
+    url: `${SITE_URL}/${locale}/`,
     inLanguage: locale,
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/${locale}/tools?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/${locale}/tools/?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -76,7 +76,7 @@ const jsonLd = [
     "@type": "CollectionPage",
     name: pageTitle,
     description: pageDesc,
-    url: `${SITE_URL}/${locale}`,
+    url: `${SITE_URL}/${locale}/`,
     inLanguage: locale,
   },
   {
@@ -88,7 +88,7 @@ const jsonLd = [
         "@type": "ListItem",
         position: 2,
         name: isKo ? "한국어 허브" : "English Hub",
-        item: `${SITE_URL}/${locale}`,
+        item: `${SITE_URL}/${locale}/`,
       },
     ],
   },
@@ -99,7 +99,7 @@ const jsonLd = [
   title={pageTitle}
   description={pageDesc}
   locale={locale}
-  currentPath={`/${locale}`}
+  currentPath={`/${locale}/`}
   jsonLd={jsonLd}
 >
   <!-- Hero Section -->
@@ -166,16 +166,16 @@ const jsonLd = [
         </h2>
       </div>
       <a
-        href={withBase(`/${locale}/tools`)}
+        href={withBase(`/${locale}/tools/`)}
         class="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 font-mono text-xs font-bold text-white transition-colors hover:bg-blue-500"
       >
         <span>{isKo ? "모든 도구 보기 →" : "Explore All Tools →"}</span>
       </a>
     </div>
 
-    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       <a
-        href={withBase(`/${locale}/compare`)}
+        href={withBase(`/${locale}/compare/`)}
         class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
       >
         <div>
@@ -197,12 +197,12 @@ const jsonLd = [
       </a>
 
       <a
-        href={withBase(`/${locale}/tools/travel-power-kit`)}
+        href={withBase(`/${locale}/tools/travel-power-kit/`)}
         class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-sky-400"
       >
         <div>
           <div class="font-mono text-[10px] font-bold uppercase text-sky-300">
-            {isKo ? "WATTCHECK × 30 항공사" : "WATTCHECK × 30 AIRLINES"}
+            {isKo ? `WATTCHECK × ${airlines.length} 항공사` : `WATTCHECK × ${airlines.length} AIRLINES`}
           </div>
           <div class="mt-1 text-sm font-bold text-white group-hover:text-sky-200">
             {isKo ? "해외여행 충전 키트 조합기" : "Travel Power Kit Builder"}
@@ -219,7 +219,7 @@ const jsonLd = [
       </a>
 
       <a
-        href={withBase(`/${locale}/tools/fueling-planner`)}
+        href={withBase(`/${locale}/tools/fueling-planner/`)}
         class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
       >
         <div>
@@ -241,23 +241,67 @@ const jsonLd = [
       </a>
 
       <a
-        href={withBase(`/${locale}/tools`)}
+        href={withBase(`/${locale}/tools/hometech-tco-studio/`)}
         class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-violet-400"
       >
         <div>
           <div class="font-mono text-[10px] font-bold uppercase text-violet-300">
-            {isKo ? "ALL STUDIOS & MATRICES" : "FULL TOOLBOX"}
+            {isKo ? "HOMETECH TCO × UPS" : "HOMETECH TCO × UPS"}
           </div>
           <div class="mt-1 text-sm font-bold text-white group-hover:text-violet-200">
+            {isKo ? "3년 TCO 회수기간 · UPS 런타임" : "3-Year TCO & UPS Runtime Studio"}
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            {isKo
+              ? "24시간 대기전력 손익분기점 및 NAS·미니PC 정전 백업 시간 계산"
+              : "Compare 24/7 idle electricity payback & multi-device UPS backup."}
+          </p>
+        </div>
+        <span class="mt-3 font-mono text-xs font-semibold text-violet-300">
+          {isKo ? "TCO 계산 →" : "Simulate →"}
+        </span>
+      </a>
+
+      <a
+        href={withBase(`/${locale}/tools/tire-pressure-guard/`)}
+        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-amber-400"
+      >
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-amber-300">
+            {isKo ? "CYCLEGEAR 후크리스 가드" : "CYCLEGEAR ETRTO TSS"}
+          </div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-amber-200">
+            {isKo ? "로드 타이어 공기압 · 5.0 bar 가드" : "Tire Pressure & Hookless Guard"}
+          </div>
+          <p class="mt-1 text-xs text-slate-300">
+            {isKo
+              ? "체중·림폭·노면별 앞/뒤 공기압 및 후크리스 72.5 psi 한계 검증"
+              : "Front/rear bar & psi calculator with ETRTO TSS rim-width checks."}
+          </p>
+        </div>
+        <span class="mt-3 font-mono text-xs font-semibold text-amber-300">
+          {isKo ? "공기압 검증 →" : "Check PSI →"}
+        </span>
+      </a>
+
+      <a
+        href={withBase(`/${locale}/tools/`)}
+        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-slate-400"
+      >
+        <div>
+          <div class="font-mono text-[10px] font-bold uppercase text-slate-300">
+            {isKo ? "ALL STUDIOS & MATRICES" : "FULL TOOLBOX"}
+          </div>
+          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
             {isKo ? "전체 검증 도구 허브" : "Interactive Lab Tools Hub"}
           </div>
           <p class="mt-1 text-xs text-slate-300">
             {isKo
-              ? "30개 항공사 조회, HomeTech 3년 TCO, 후크리스 공기압 가드"
-              : "Airlines checker, HomeTech 3-Yr TCO & hookless pressure guard."}
+              ? "4대 버티컬 전용 계산기, 30개 항공사 조회, 1:1 비교 허브 모음"
+              : "Browse all 5 interactive studios, 30-airline checker & matrices."}
           </p>
         </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-violet-300">
+        <span class="mt-3 font-mono text-xs font-semibold text-slate-200">
           {isKo ? "허브 열기 →" : "Open Hub →"}
         </span>
       </a>
@@ -298,7 +342,7 @@ const jsonLd = [
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {block.matrices.map((m) => (
               <a
-                href={withBase(`/${locale}/${block.id}/${m.archetype}/${m.slug}`)}
+                href={withBase(`/${locale}/${block.id}/${m.archetype}/${m.slug}/`)}
                 class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
               >
                 <div>
@@ -332,14 +376,14 @@ const jsonLd = [
             <div class="grid gap-3 md:grid-cols-2">
               {block.vs.slice(0, 4).map((v) => (
                 <a
-                  href={withBase(`/${locale}/${block.id}/vs/${v.pair_slug}`)}
-                  class="lab-card group flex items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-500"
+                  href={withBase(`/${locale}/${block.id}/vs/${v.pair_slug}/`)}
+                  class="lab-card group flex min-w-0 items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-500"
                 >
-                  <div class="min-w-0">
+                  <div class="min-w-0 flex-1">
                     <div class="truncate text-sm font-bold text-slate-900 group-hover:text-blue-700">
                       {v.verdict[locale].headline}
                     </div>
-                    <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+                    <div class="mt-0.5 truncate font-mono text-[11px] text-slate-500">
                       {v.pair_slug} · IG {v.info_gain_score}/100
                     </div>
                   </div>
@@ -362,7 +406,7 @@ const jsonLd = [
                 const offer = isKo ? item.regional_offers.kr : item.regional_offers.us;
                 return (
                   <a
-                    href={withBase(`/${locale}/${block.id}/item/${item.slug}`)}
+                    href={withBase(`/${locale}/${block.id}/item/${item.slug}/`)}
                     class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
                   >
                     <div>

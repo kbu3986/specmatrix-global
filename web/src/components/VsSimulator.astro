@@ -305,6 +305,8 @@ const payload = {
 </div>
 
 <script>
+  import { copyToClipboard } from "../lib/clipboard";
+
   (() => {
     const dataEl = document.getElementById("vs-sim-data");
     if (!dataEl) return;
@@ -470,28 +472,6 @@ const payload = {
       syncPresetHighlight(detectMatchingPreset(weights));
     }
 
-    function copyText(text: string): Promise<boolean> {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        return navigator.clipboard
-          .writeText(text)
-          .then(() => true)
-          .catch(() => false);
-      }
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        return Promise.resolve(ok);
-      } catch {
-        return Promise.resolve(false);
-      }
-    }
-
     presetBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-preset") || "balanced";
@@ -539,7 +519,8 @@ const payload = {
               `Winner: ${lastWinnerSummary} | Weights: ${lastWeightsSummary}`,
               window.location.href,
             ];
-        copyText(lines.join("\n")).then(() => {
+        copyToClipboard(lines.join("\n")).then((ok) => {
+          if (!ok) return;
           copyBtn.textContent = copiedLabel;
           copyBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
           track("vs_simulator_use", { action: "copy_verdict", preset: activePresetKey || "custom" });

@@ -5,6 +5,10 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 
+const DEFAULT_PUBLIC_SITE_URL = "https://kbu3986.github.io/specmatrix-global";
+const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
+const LOCALES = ["en", "ko"];
+
 function extractLocs(xml) {
   const locs = [];
   const re = /<loc>\s*([^<]+?)\s*<\/loc>/gi;
@@ -22,47 +26,102 @@ async function fetchText(url) {
   return res.text();
 }
 
+export function resolveIndexNowConfig({ cfg = {}, env = process.env, argv = process.argv.slice(2) } = {}) {
+  const rawSiteUrl = (
+    env.PUBLIC_SITE_URL ||
+    env.INDEXNOW_SITE_URL ||
+    DEFAULT_PUBLIC_SITE_URL ||
+    cfg.siteUrl ||
+    ""
+  )
+    .trim()
+    .replace(/\/+$/, "");
+
+  const parsed = new URL(rawSiteUrl);
+  const host = (env.INDEXNOW_HOST || parsed.host).trim();
+  const basePath = parsed.pathname.replace(/\/+$/, "");
+  const sitePrefix = `https://${host}${basePath}`;
+  const key = (cfg.verification?.indexNowKey || "").trim();
+
+  const sitemapSources = [
+    `${sitePrefix}/sitemap-core.xml`,
+    ...VERTICALS.flatMap((v) =>
+      LOCALES.map((loc) => `${sitePrefix}/sitemap-${v}-${loc}.xml`)
+    ),
+  ];
+
+  const includeSibling = argv.includes("--include-sibling-sitemaps");
+  if (includeSibling) {
+    const rootSitemap = `https://${host}/sitemap.xml`;
+    if (!sitemapSources.includes(rootSitemap)) {
+      sitemapSources.push(rootSitemap);
+    }
+  }
+
+  for (const arg of argv) {
+    if (arg.startsWith("--extra-sitemap=")) {
+      const extra = arg.slice("--extra-sitemap=".length).trim();
+      if (extra.startsWith("https://") && !sitemapSources.includes(extra)) {
+        sitemapSources.push(extra);
+      }
+    }
+  }
+
+  const keyLocationCandidates = [];
+  if (env.INDEXNOW_KEY_LOCATION && env.INDEXNOW_KEY_LOCATION.trim()) {
+    keyLocationCandidates.push(env.INDEXNOW_KEY_LOCATION.trim());
+  }
+  keyLocationCandidates.push(`${sitePrefix}/${key}.txt`);
+  if (basePath) {
+    keyLocationCandidates.push(`https://${host}/${key}.txt`);
+  }
+
+  return {
+    siteUrl: sitePrefix,
+    host,
+    basePath,
+    key,
+    keyLocationCandidates: [...new Set(keyLocationCandidates)],
+    sitemapSources,
+  };
+}
+
+async function resolveLiveKeyLocation(candidates, expectedKey) {
+  let lastError = null;
+  for (const candidate of candidates) {
+    try {
+      const keyCheck = await fetchText(candidate);
+      if (keyCheck.trim() === expectedKey) {
+        return candidate;
+      }
+      lastError = new Error(`Key verification mismatch at ${candidate}`);
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError || new Error("No live IndexNow key file verified");
+}
+
 async function main() {
   const cfg = JSON.parse(
     fs.readFileSync(path.join(REPO_ROOT, "config", "monetization-config.v2.json"), "utf8")
   );
-  const key = (cfg.verification?.indexNowKey || "").trim();
-  if (!key) {
+  const plan = resolveIndexNowConfig({ cfg });
+  if (!plan.key) {
     throw new Error("Missing verification.indexNowKey in config/monetization-config.v2.json");
   }
 
-  const host = (process.env.INDEXNOW_HOST || "kbu3986.github.io").trim();
-  const keyLocation = `https://${host}/${key}.txt`;
-
-  // Verify key file is live before submitting
-  const keyCheck = await fetchText(keyLocation);
-  if (keyCheck.trim() !== key) {
-    throw new Error(`Key verification mismatch at ${keyLocation}`);
-  }
+  const keyLocation = await resolveLiveKeyLocation(plan.keyLocationCandidates, plan.key);
   console.log(`[indexnow] Verified live key file: ${keyLocation}`);
-
-  // Collect URLs from live sitemaps under this host
-  const sitemapSources = [
-    `https://${host}/specmatrix-global/sitemap-core.xml`,
-    `https://${host}/specmatrix-global/sitemap-wattcheck-en.xml`,
-    `https://${host}/specmatrix-global/sitemap-wattcheck-ko.xml`,
-    `https://${host}/specmatrix-global/sitemap-puregram-en.xml`,
-    `https://${host}/specmatrix-global/sitemap-puregram-ko.xml`,
-    `https://${host}/specmatrix-global/sitemap-cyclegear-en.xml`,
-    `https://${host}/specmatrix-global/sitemap-cyclegear-ko.xml`,
-    `https://${host}/specmatrix-global/sitemap-hometech-en.xml`,
-    `https://${host}/specmatrix-global/sitemap-hometech-ko.xml`,
-    `https://${host}/pin2pin-global/sitemap.xml`,
-    `https://${host}/sitemap.xml`,
-  ];
+  console.log(`[indexnow] Target site: ${plan.siteUrl} (host=${plan.host})`);
 
   const urlSet = new Set();
-  for (const sm of sitemapSources) {
+  for (const sm of plan.sitemapSources) {
     try {
       const xml = await fetchText(sm);
       const locs = extractLocs(xml).filter((u) => {
         try {
-          return new URL(u).host === host;
+          return new URL(u).host === plan.host;
         } catch {
           return false;
         }
@@ -80,8 +139,8 @@ async function main() {
   }
 
   const body = {
-    host,
-    key,
+    host: plan.host,
+    key: plan.key,
     keyLocation,
     urlList,
   };
@@ -108,7 +167,16 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error("[indexnow] Failed:", err.message);
-  process.exit(1);
-});
+function isDirectRun(metaUrl) {
+  if (!process.argv[1]) return false;
+  const a = path.resolve(fileURLToPath(metaUrl));
+  const b = path.resolve(process.argv[1]);
+  return process.platform === "win32" ? a.toLowerCase() === b.toLowerCase() : a === b;
+}
+
+if (isDirectRun(import.meta.url)) {
+  main().catch((err) => {
+    console.error("[indexnow] Failed:", err.message);
+    process.exit(1);
+  });
+}

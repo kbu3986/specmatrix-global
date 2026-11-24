@@ -19,9 +19,11 @@ import { fileURLToPath } from "node:url";
 
 export const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
 export const DEFAULT_CONCURRENCY = 6;
-export const DEFAULT_TIMEOUT_MS = 6000;
+export const DEFAULT_TIMEOUT_MS = 10000;
 export const LINK_HEALTH_USER_AGENT =
   "SpecMatrix-LinkHealthBot/1.0 (+https://specmatrix.io/en/methodology)";
+export const BROWSER_FALLBACK_USER_AGENT =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
 export const HEALTH_CLASSES = {
   OK: "OK",
@@ -29,6 +31,29 @@ export const HEALTH_CLASSES = {
   BOT_CHALLENGE: "BOT_CHALLENGE",
   DEAD: "DEAD",
 };
+
+const SOFT_404_PATH_PATTERN = /\/error(\/|\.html|$)|\/404(\/|\.html|$)|\/page-not-found(\/|\.html|$)/i;
+const WAF_RESTRICTED_URL_PATTERN = /accessrestricted/i;
+
+/**
+ * Inspect final redirected URL for soft-404 error pages or WAF restriction redirects.
+ */
+export function detectSoftErrorRedirect(finalUrl) {
+  if (typeof finalUrl !== "string" || !finalUrl.trim()) return null;
+  if (WAF_RESTRICTED_URL_PATTERN.test(finalUrl)) {
+    return HEALTH_CLASSES.BOT_CHALLENGE;
+  }
+  let pathname = finalUrl;
+  try {
+    pathname = new URL(finalUrl).pathname;
+  } catch {
+    pathname = finalUrl;
+  }
+  if (SOFT_404_PATH_PATTERN.test(pathname)) {
+    return HEALTH_CLASSES.DEAD;
+  }
+  return null;
+}
 
 function readJsonSafe(filePath) {
   if (!fs.existsSync(filePath)) return null;
@@ -47,13 +72,24 @@ function round(val, decimals = 2) {
 
 /**
  * Pure HTTP status classifier:
+ *  - Soft-404 / WAF error-page redirects detected via `finalUrl`
  *  - 2xx -> OK (or REDIRECT if fetch followed a redirect)
  *  - 3xx -> REDIRECT
  *  - 403, 429 -> BOT_CHALLENGE
  *  - 404, 410, 5xx, other 4xx, or network/timeout error -> DEAD
  */
-export function classifyHttpStatus(status, { redirected = false, error = null } = {}) {
+export function classifyHttpStatus(
+  status,
+  { redirected = false, error = null, finalUrl = "" } = {}
+) {
   if (error || typeof status !== "number" || !Number.isFinite(status)) {
+    return HEALTH_CLASSES.DEAD;
+  }
+  const softError = detectSoftErrorRedirect(finalUrl);
+  if (softError === HEALTH_CLASSES.BOT_CHALLENGE) {
+    return HEALTH_CLASSES.BOT_CHALLENGE;
+  }
+  if (status >= 200 && status < 400 && softError === HEALTH_CLASSES.DEAD) {
     return HEALTH_CLASSES.DEAD;
   }
   if (status >= 200 && status < 300) {
@@ -169,18 +205,28 @@ export function collectLinksToCheck(rootDir) {
   };
 }
 
-async function fetchWithTimeout(url, method, { fetchImpl, timeoutMs }) {
+async function fetchWithTimeout(url, method, { fetchImpl, timeoutMs, useBrowserHeaders = false }) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   const started = Date.now();
+  const headers = useBrowserHeaders
+    ? {
+        "User-Agent": BROWSER_FALLBACK_USER_AGENT,
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+      }
+    : {
+        "User-Agent": LINK_HEALTH_USER_AGENT,
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      };
+
   try {
     const response = await fetchImpl(url, {
       method,
       redirect: "follow",
-      headers: {
-        "User-Agent": LINK_HEALTH_USER_AGENT,
-        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      },
+      headers,
       signal: controller.signal,
     });
     const latencyMs = Date.now() - started;
@@ -193,9 +239,12 @@ async function fetchWithTimeout(url, method, { fetchImpl, timeoutMs }) {
     return {
       ok: true,
       status: typeof response?.status === "number" ? response.status : null,
-      redirected: Boolean(response?.redirected) || (typeof response?.url === "string" && response.url !== "" && response.url !== url),
+      redirected:
+        Boolean(response?.redirected) ||
+        (typeof response?.url === "string" && response.url !== "" && response.url !== url),
       finalUrl: response?.url || url,
       latencyMs,
+      isTimeout: false,
       error: null,
     };
   } catch (err) {
@@ -207,6 +256,7 @@ async function fetchWithTimeout(url, method, { fetchImpl, timeoutMs }) {
       redirected: false,
       finalUrl: url,
       latencyMs,
+      isTimeout,
       error: isTimeout ? `timeout (${timeoutMs}ms)` : err?.message || String(err),
     };
   } finally {
@@ -215,35 +265,81 @@ async function fetchWithTimeout(url, method, { fetchImpl, timeoutMs }) {
 }
 
 /**
- * Probe a single URL with HEAD first and automatic GET fallback when HEAD returns
- * an error, >=400 status (e.g. 405/403/404/429/5xx), or fails at the network layer.
+ * Probe a single URL with HEAD first, automatic GET fallback on >=400/error,
+ * and smart browser-UA GET retry when bot UA hits timeouts or 403/405/429 WAF tarpits.
  */
 export async function checkSingleUrl(
   url,
   { fetchImpl = globalThis.fetch, timeoutMs = DEFAULT_TIMEOUT_MS } = {}
 ) {
   let methodUsed = "HEAD";
-  let probe = await fetchWithTimeout(url, "HEAD", { fetchImpl, timeoutMs });
+  let browserRetryUsed = false;
+  let probe = await fetchWithTimeout(url, "HEAD", {
+    fetchImpl,
+    timeoutMs,
+    useBrowserHeaders: false,
+  });
 
-  const shouldFallbackToGet =
-    !probe.ok ||
-    probe.status === null ||
-    probe.status >= 400;
+  const headClass = classifyHttpStatus(probe.status, {
+    redirected: probe.redirected,
+    error: probe.error,
+    finalUrl: probe.finalUrl,
+  });
 
-  if (shouldFallbackToGet) {
-    const getProbe = await fetchWithTimeout(url, "GET", { fetchImpl, timeoutMs });
+  const headNeedsBrowserRetry =
+    probe.isTimeout ||
+    probe.status === 403 ||
+    probe.status === 429 ||
+    headClass === HEALTH_CLASSES.BOT_CHALLENGE;
+
+  if (headNeedsBrowserRetry) {
+    probe = await fetchWithTimeout(url, "GET", {
+      fetchImpl,
+      timeoutMs,
+      useBrowserHeaders: true,
+    });
     methodUsed = "GET";
-    probe = getProbe;
+    browserRetryUsed = true;
+  } else if (!probe.ok || probe.status === null || probe.status >= 400) {
+    probe = await fetchWithTimeout(url, "GET", {
+      fetchImpl,
+      timeoutMs,
+      useBrowserHeaders: false,
+    });
+    methodUsed = "GET";
+
+    const getClass = classifyHttpStatus(probe.status, {
+      redirected: probe.redirected,
+      error: probe.error,
+      finalUrl: probe.finalUrl,
+    });
+
+    if (
+      probe.isTimeout ||
+      probe.status === 403 ||
+      probe.status === 405 ||
+      probe.status === 429 ||
+      getClass === HEALTH_CLASSES.BOT_CHALLENGE
+    ) {
+      probe = await fetchWithTimeout(url, "GET", {
+        fetchImpl,
+        timeoutMs,
+        useBrowserHeaders: true,
+      });
+      browserRetryUsed = true;
+    }
   }
 
   const classification = classifyHttpStatus(probe.status, {
     redirected: probe.redirected,
     error: probe.error,
+    finalUrl: probe.finalUrl,
   });
 
   return {
     url,
     method_used: methodUsed,
+    browser_retry_used: browserRetryUsed,
     status: probe.status,
     redirected: probe.redirected,
     final_url: probe.finalUrl,

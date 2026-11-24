@@ -81,7 +81,7 @@ function main() {
       sub_en: "Compare any 2 verified SKUs with custom weights",
       sub_ko: "4대 버티컬 모든 모델 자유 비교 · 가중치 시뮬레이터",
       k: "compare vs workbench diff simulator 비교 스튜디오",
-      p: "/compare",
+      p: "/compare/",
     },
     {
       t: "tool",
@@ -91,7 +91,7 @@ function main() {
       sub_en: "All calculators, optimizers & comparison studios",
       sub_ko: "전용 계산기·최적화 스튜디오·항공사 체커 모음",
       k: "tools studio calculators hub 도구 계산기",
-      p: "/tools",
+      p: "/tools/",
     },
     {
       t: "tool",
@@ -101,7 +101,7 @@ function main() {
       sub_en: "Match multi-device wattage + airline Wh/CCC rules",
       sub_ko: "보유 기기 동시 충전 W · 기내반입 조건 맞춤 추천",
       k: "travel power kit flight airline usb-pd gan 여행 보조배터리 키트 기내반입",
-      p: "/tools/travel-power-kit",
+      p: "/tools/travel-power-kit/",
     },
     {
       t: "tool",
@@ -111,7 +111,27 @@ function main() {
       sub_en: "Build hourly carb, sodium & caffeine pack plan",
       sub_ko: "시간당 탄수화물·나트륨·카페인 목표 맞춤 보급 계산기",
       k: "fueling planner marathon cycling gel carb sodium caffeine 마라톤 보급 에너지젤",
-      p: "/tools/fueling-planner",
+      p: "/tools/fueling-planner/",
+    },
+    {
+      t: "tool",
+      v: "hometech",
+      en: "HomeTech 3-Year TCO & UPS Runtime Studio",
+      ko: "홈테크 3년 TCO 회수기간 · UPS 정전 런타임 스튜디오",
+      sub_en: "Compare 24/7 idle electricity payback & multi-device UPS backup",
+      sub_ko: "24시간 대기전력 손익분기점 및 NAS·미니PC UPS 백업 시간 계산",
+      k: "hometech tco payback electricity kepco ups runtime nas minipc 전기요금 대기전력 정전 백업",
+      p: "/tools/hometech-tco-studio/",
+    },
+    {
+      t: "tool",
+      v: "cyclegear",
+      en: "Road Tire Pressure & Hookless 5.0 Bar Safety Guard",
+      ko: "로드 타이어 공기압 · 후크리스 5.0 bar 안전 가드",
+      sub_en: "Front/rear bar & psi calculator with ETRTO TSS rim-width checks",
+      sub_ko: "체중·림폭·노면별 앞/뒤 공기압 및 후크리스 72.5 psi 한계 검증",
+      k: "tire pressure hookless etrto tss bar psi road cycling tubeless 타이어 공기압 후크리스 튜블리스",
+      p: "/tools/tire-pressure-guard/",
     },
   ];
 
@@ -154,7 +174,7 @@ function main() {
             .filter(Boolean)
             .join(" ")
             .toLowerCase(),
-          p: `/${v}/item/${item.slug}`,
+          p: `/${v}/item/${item.slug}/`,
         });
       }
     }
@@ -178,7 +198,7 @@ function main() {
         sub_en: `${v.toUpperCase()} 1:1 VS · IG ${vs.info_gain_score}`,
         sub_ko: `${v.toUpperCase()} 1:1 비교 · IG ${vs.info_gain_score}`,
         k: `${vs.pair_slug} ${vs.slug_a} ${vs.slug_b} ${v} vs`.toLowerCase(),
-        p: `/${v}/vs/${vs.pair_slug}`,
+        p: `/${v}/vs/${vs.pair_slug}/`,
       });
     }
 
@@ -199,7 +219,7 @@ function main() {
         sub_en: `${v.toUpperCase()} · ${m.archetype === "compat" ? "Compatibility Matrix" : "Filter Matrix"}`,
         sub_ko: `${v.toUpperCase()} · ${m.archetype === "compat" ? "호환성 매트릭스" : "비교 매트릭스"}`,
         k: `${m.slug} ${m.filter_category || ""} ${m.archetype} ${v}`.toLowerCase(),
-        p: `/${v}/${m.archetype}/${m.slug}`,
+        p: `/${v}/${m.archetype}/${m.slug}/`,
       });
     }
   }
@@ -217,7 +237,7 @@ function main() {
       sub_en: `<100Wh max ${a.under_100wh_max_pcs} pcs · ${a.region}`,
       sub_ko: `100Wh 이하 최대 ${a.under_100wh_max_pcs}개 · ${a.region}`,
       k: `${a.iata_code} ${a.slug} ${a.name_en} ${a.name_ko} airline flight 항공사 기내`.toLowerCase(),
-      p: `/wattcheck/matrix/airlines-30#${a.iata_code}`,
+      p: `/wattcheck/matrix/airlines-30/#${a.iata_code}`,
     });
   }
 

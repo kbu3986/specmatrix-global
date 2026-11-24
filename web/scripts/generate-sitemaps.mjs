@@ -4,13 +4,43 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WEB_DIR = path.resolve(__dirname, "..");
+const REPO_ROOT = path.resolve(WEB_DIR, "..");
 const DIST_DIR = path.join(WEB_DIR, "dist");
-const SITE_URL = (process.env.PUBLIC_SITE_URL || "https://specmatrix.io")
+
+const RAW_BASE = (process.env.PUBLIC_BASE_PATH || "").trim();
+const BASE_PATH =
+  RAW_BASE && RAW_BASE !== "/"
+    ? `/${RAW_BASE.replace(/^\/+|\/+$/g, "")}`
+    : "";
+
+const RAW_SITE_URL = (process.env.PUBLIC_SITE_URL || "https://specmatrix.io")
   .trim()
   .replace(/\/+$/, "");
+
+const SITE_URL =
+  BASE_PATH && !RAW_SITE_URL.endsWith(BASE_PATH)
+    ? `${RAW_SITE_URL}${BASE_PATH}`
+    : RAW_SITE_URL;
+
 const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
-const LOCALES = ["en", "ko"];
 const TODAY = new Date().toISOString().slice(0, 10);
+
+function readConfigSafe() {
+  const cfgPath = path.join(REPO_ROOT, "config", "monetization-config.v2.json");
+  if (!fs.existsSync(cfgPath)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(cfgPath, "utf-8"));
+  } catch {
+    return {};
+  }
+}
+
+const CFG = readConfigSafe();
+const LOCALES =
+  Array.isArray(CFG?.releaseGate?.activeLocales) && CFG.releaseGate.activeLocales.length > 0
+    ? CFG.releaseGate.activeLocales
+    : ["en", "ko"];
+const INDEXNOW_KEY = String(CFG?.verification?.indexNowKey || "").trim();
 
 function walkHtmlFiles(dir, relBase = "") {
   const results = [];
@@ -33,13 +63,15 @@ function htmlRelToUrl(rel) {
     return `${SITE_URL}/`;
   }
   if (normalized.endsWith("/index.html")) {
-    const route = normalized.slice(0, -"/index.html".length);
-    return `${SITE_URL}/${route}`;
+    const route = normalized.slice(0, -"/index.html".length).replace(/^\/+|\/+$/g, "");
+    return route ? `${SITE_URL}/${route}/` : `${SITE_URL}/`;
   }
   if (normalized.endsWith(".html")) {
-    return `${SITE_URL}/${normalized.slice(0, -".html".length)}`;
+    const route = normalized.slice(0, -".html".length).replace(/^\/+|\/+$/g, "");
+    return route ? `${SITE_URL}/${route}/` : `${SITE_URL}/`;
   }
-  return `${SITE_URL}/${normalized}`;
+  const route = normalized.replace(/^\/+|\/+$/g, "");
+  return route ? `${SITE_URL}/${route}/` : `${SITE_URL}/`;
 }
 
 function xmlEscape(str) {
@@ -110,7 +142,7 @@ function main() {
   fs.writeFileSync(path.join(DIST_DIR, coreName), buildUrlSetXml(buckets.core), "utf-8");
   generatedFiles.push(coreName);
 
-  // 8 split vertical-locale sitemaps
+  // Split vertical-locale sitemaps
   for (const v of VERTICALS) {
     for (const l of LOCALES) {
       const fileName = `sitemap-${v}-${l}.xml`;
@@ -137,8 +169,15 @@ function main() {
   // Required for GitHub Pages so _astro/ CSS/JS assets are never hidden by Jekyll
   fs.writeFileSync(path.join(DIST_DIR, ".nojekyll"), "", "utf-8");
 
+  // Emit standalone IndexNow key verification file when configured
+  let indexNowNote = "";
+  if (INDEXNOW_KEY && /^[a-zA-Z0-9_-]{8,128}$/.test(INDEXNOW_KEY)) {
+    fs.writeFileSync(path.join(DIST_DIR, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY, "utf-8");
+    indexNowNote = ` + ${INDEXNOW_KEY}.txt`;
+  }
+
   console.log(
-    `[sitemaps] Generated sitemap-index.xml + ${generatedFiles.length} split sitemaps + robots.txt + .nojekyll (${htmlFiles.length} HTML pages, site=${SITE_URL}).`
+    `[sitemaps] Generated sitemap-index.xml + ${generatedFiles.length} split sitemaps + robots.txt + .nojekyll${indexNowNote} (${htmlFiles.length} HTML pages, locales=${LOCALES.join(",")}, site=${SITE_URL}).`
   );
   for (const [k, list] of Object.entries(buckets)) {
     console.log(`  - ${k}: ${list.length} URLs`);

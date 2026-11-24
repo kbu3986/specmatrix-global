@@ -1,5 +1,6 @@
 ---
-import type { ActiveLocale, AnyItem, PilotVertical } from "../lib/types";
+import type { ActiveLocale, AnyItem, PilotVertical, WattCheckItem } from "../lib/types";
+import { formatNum } from "../lib/i18n";
 
 interface Props {
   vertical: PilotVertical;
@@ -14,6 +15,25 @@ const cycleItem = item && item.vertical === "cyclegear" ? item : null;
 const wattItem = item && item.vertical === "wattcheck" ? item : null;
 const homeItem = item && item.vertical === "hometech" ? item : null;
 const homeVoltageRisk = Boolean(homeItem && !homeItem.specs.dual_voltage_100_240v);
+
+function buildKoMolitSummary(w: WattCheckItem): string {
+  const acp = w.airline_compliance_profile;
+  const whStr =
+    w.specs.battery_energy_wh !== null ? `정격 ${formatNum(w.specs.battery_energy_wh, 1)} Wh` : "";
+  const checkedStr = acp.checked_baggage === "allowed" ? "위탁수하물 허용" : "위탁수하물 금지";
+  const cccStr = acp.china_domestic_ccc_ok ? "중국 국내선 CCC 충족" : "중국 국내선 CCC 미충족(주의)";
+
+  if (acp.iata_tier === "no_battery_always_allowed") {
+    return "리튬배터리 미내장 AC 충전기: IATA·국토부 배터리 용량 제한 비대상으로 기내 반입 및 위탁수하물 모두 허용됩니다.";
+  }
+  if (acp.iata_tier === "under_100wh_no_approval") {
+    return `${whStr ? `${whStr} (100 Wh 이하)` : "100 Wh 이하"}: 항공사 사전 승인 없이 기내 휴대 반입 가능 · ${checkedStr}. 국내 출발편은 개별 지퍼백·단자 절연 보관, 선반 보관 금지, 기내 충전 금지가 적용됩니다. (${cccStr})`;
+  }
+  if (acp.iata_tier === "100_to_160wh_approval_required") {
+    return `${whStr ? `${whStr} (100–160 Wh)` : "100–160 Wh"}: 항공사 사전 승인 필수(통상 1인 최대 2개) · ${checkedStr}. 국내 출발편은 개별 지퍼백·단자 절연 보관, 선반 보관 금지, 기내 충전 금지가 적용됩니다. (${cccStr})`;
+  }
+  return `${whStr ? `${whStr} (160 Wh 초과)` : "160 Wh 초과"}: IATA·국토부 규정상 전 세계 여객기 기내 반입 및 위탁수하물 전면 금지 대상입니다. 육상·선박 운송만 가능합니다.`;
+}
 ---
 
 {vertical === "wattcheck" && (
@@ -38,8 +58,10 @@ const homeVoltageRisk = Boolean(homeItem && !homeItem.specs.dual_voltage_100_240
         </p>
         {wattItem && (
           <p class="font-mono text-xs text-amber-900">
-            {isKo ? "SKU 국토부/IATA 노트: " : "SKU Compliance Note: "}
-            {wattItem.airline_compliance_profile.korea_molit_2026_notes}
+            {isKo ? "SKU 국토부/IATA 판정: " : "SKU Compliance Note: "}
+            {isKo
+              ? buildKoMolitSummary(wattItem)
+              : wattItem.airline_compliance_profile.korea_molit_2026_notes}
           </p>
         )}
       </div>

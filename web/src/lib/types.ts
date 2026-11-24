@@ -1,3 +1,5 @@
+import type { VsInsight as BaseVsInsight } from "../../../schemas/ssot-types";
+
 export type {
   Locale,
   ActiveLocale,
@@ -16,10 +18,13 @@ export type {
   CycleGearItem,
   HomeTechItem,
   AnyItem,
-  VsInsight,
   MatrixPage,
   FxRates,
 } from "../../../schemas/ssot-types";
+
+export interface VsInsight extends BaseVsInsight {
+  serp_gaps_captured_ko?: string[];
+}
 
 export type PilotVertical = "wattcheck" | "puregram" | "cyclegear" | "hometech";
 export type LegalSlug = "about" | "methodology" | "disclaimer" | "privacy" | "contact";
@@ -89,7 +94,7 @@ export interface VsMetricRow {
   winner: "a" | "b" | "tie" | "neutral";
   barPctA: number;
   barPctB: number;
-  higherIsBetter: boolean;
+  higherIsBetter: boolean | null;
 }
 
 export interface VsDimensionScores {

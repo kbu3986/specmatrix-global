@@ -45,18 +45,47 @@ const coupangIframe =
     class="my-6 overflow-hidden rounded-xl border border-slate-200 bg-white p-3"
     aria-label="쿠팡 파트너스 추천 상품"
   >
-    <iframe
-      src={coupangIframe}
-      width="100%"
-      height="140"
-      frameborder="0"
-      scrolling="no"
-      referrerpolicy="unsafe-url"
-      loading="lazy"
-      title="쿠팡 파트너스 추천 배너"
-    />
-    <p class="mt-1.5 text-right text-[10px] text-slate-400">
+    <div
+      data-coupang-frame-wrap
+      class="relative mx-auto w-full max-w-[680px] overflow-hidden"
+      style="aspect-ratio: 680 / 140;"
+    >
+      <iframe
+        src={coupangIframe}
+        width="680"
+        height="140"
+        referrerpolicy="no-referrer-when-downgrade"
+        loading="lazy"
+        title="쿠팡 파트너스 추천 배너"
+        class="block h-[140px] w-[680px] origin-top-left border-0 overflow-hidden"
+      />
+    </div>
+    <p class="mt-1.5 text-right text-[10px] text-slate-600">
       이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
     </p>
+    <script is:inline>
+      (function () {
+        var wraps = document.querySelectorAll("[data-coupang-frame-wrap]");
+        wraps.forEach(function (wrap) {
+          if (wrap.dataset.bound === "1") return;
+          wrap.dataset.bound = "1";
+          var iframe = wrap.querySelector("iframe");
+          if (!iframe) return;
+          function resize() {
+            var w = wrap.clientWidth;
+            if (!w || w <= 0) return;
+            var scale = Math.min(1, w / 680);
+            iframe.style.transform = scale < 1 ? "scale(" + scale + ")" : "";
+            wrap.style.height = Math.round(140 * scale) + "px";
+          }
+          resize();
+          if (typeof ResizeObserver === "function") {
+            new ResizeObserver(resize).observe(wrap);
+          } else {
+            window.addEventListener("resize", resize);
+          }
+        });
+      })();
+    </script>
   </aside>
 )}

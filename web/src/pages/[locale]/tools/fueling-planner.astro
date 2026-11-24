@@ -8,12 +8,12 @@ import { computePureGramDerived } from "../../../lib/derived";
 import { buildMonetizationModel } from "../../../lib/monetization";
 import {
   ACTIVE_LOCALES,
-  SITE_URL,
   formatCurrency,
   formatInt,
   formatNum,
   getCategoryLabel,
   safeJsonLd,
+  toAbsoluteUrl,
   withBase,
 } from "../../../lib/i18n";
 
@@ -157,7 +157,7 @@ const jsonLd = [
     applicationCategory: "HealthApplication",
     operatingSystem: "Any",
     description: pageDesc,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     inLanguage: locale,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
@@ -169,19 +169,19 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: toAbsoluteUrl(`/${locale}`),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
-        item: `${SITE_URL}/${locale}/tools`,
+        item: toAbsoluteUrl(`/${locale}/tools`),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: isKo ? "레이스 보급 믹스 플래너" : "Race Fueling Mix Planner",
-        item: `${SITE_URL}${currentPath}`,
+        item: toAbsoluteUrl(currentPath),
       },
     ],
   },
@@ -227,6 +227,7 @@ const jsonLd = [
           <button
             type="button"
             data-curr="KRW"
+            aria-pressed={isKo ? "true" : "false"}
             class:list={[
               "fp-curr-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
               isKo
@@ -239,6 +240,7 @@ const jsonLd = [
           <button
             type="button"
             data-curr="USD"
+            aria-pressed={!isKo ? "true" : "false"}
             class:list={[
               "fp-curr-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
               !isKo
@@ -273,6 +275,7 @@ const jsonLd = [
             data-dur="1.5"
             data-carb="60"
             data-na="600"
+            aria-pressed="false"
             class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
           >
             {isKo ? "하프 마라톤 (1.5h · 60g/hr)" : "Half Marathon (1.5h / 60g/hr)"}
@@ -283,6 +286,7 @@ const jsonLd = [
             data-dur="3.5"
             data-carb="80"
             data-na="750"
+            aria-pressed="true"
             class="fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
           >
             {isKo ? "풀 마라톤 (3.5h · 80g/hr)" : "Full Marathon (3.5h / 80g/hr)"}
@@ -293,6 +297,7 @@ const jsonLd = [
             data-dur="4"
             data-carb="90"
             data-na="850"
+            aria-pressed="false"
             class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
           >
             {isKo ? "그란폰도 100km (4h · 90g/hr)" : "Gran Fondo 100km (4h / 90g/hr)"}
@@ -303,6 +308,7 @@ const jsonLd = [
             data-dur="5"
             data-carb="110"
             data-na="950"
+            aria-pressed="false"
             class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
           >
             {isKo ? "프로 / 울트라 (5h · 110g/hr)" : "Pro / Ultra (5h / 110g/hr)"}
@@ -337,7 +343,7 @@ const jsonLd = [
             <span id="fp-dur-val" class="font-mono font-bold text-blue-700">3.5 hr</span>
           </div>
           <input id="fp-dur" type="range" min="1" max="8" step="0.5" value="3.5" class="lab-slider mt-2.5" />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
             <span>1h</span>
             <span>4h</span>
             <span>8h</span>
@@ -352,7 +358,7 @@ const jsonLd = [
             <span id="fp-carb-val" class="font-mono font-bold text-blue-700">80 g/hr</span>
           </div>
           <input id="fp-carb" type="range" min="30" max="120" step="5" value="80" class="lab-slider mt-2.5" />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
             <span>30g/hr</span>
             <span>75g/hr</span>
             <span>120g/hr</span>
@@ -367,7 +373,7 @@ const jsonLd = [
             <span id="fp-na-val" class="font-mono font-bold text-blue-700">750 mg/hr</span>
           </div>
           <input id="fp-na" type="range" min="400" max="1200" step="50" value="750" class="lab-slider mt-2.5" />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
             <span>400mg</span>
             <span>800mg</span>
             <span>1,200mg</span>
@@ -397,8 +403,9 @@ const jsonLd = [
         <input
           id="fp-search"
           type="search"
+          aria-label={isKo ? "보급식 제품명 또는 브랜드 검색" : "Search fuel products or brands"}
           placeholder={isKo ? "제품명·브랜드 검색 (예: 모튼, SiS, 아미노바이탈, 프리시전)..." : "Search gel, mix, or electrolyte (e.g. Maurten, SiS, Precision, Tailwind)..."}
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:outline-none"
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:border-blue-600 focus:outline-none"
         />
         <div class="flex flex-wrap gap-1.5" role="group" aria-label={isKo ? "카테고리 필터" : "Category filter"}>
           {[
@@ -411,6 +418,7 @@ const jsonLd = [
             <button
               type="button"
               data-cat={tab.id}
+              aria-pressed={idx === 0 ? "true" : "false"}
               class:list={[
                 "fp-cat-btn rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors",
                 idx === 0
@@ -440,17 +448,17 @@ const jsonLd = [
                 </span>
                 {it.dualSourceTier === "optimal_108" && (
                   <span class="rounded bg-emerald-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-800">
-                    1:0.8 Dual
+                    {isKo ? "1:0.8 듀얼당" : "1:0.8 Dual"}
                   </span>
                 )}
                 {it.dualSourceTier === "dual_21" && (
                   <span class="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-blue-800">
-                    2:1 Dual
+                    {isKo ? "2:1 듀얼당" : "2:1 Dual"}
                   </span>
                 )}
                 {it.caffeineMg > 0 && (
                   <span class="rounded bg-amber-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-amber-800">
-                    Caf {it.caffeineMg}mg
+                    {isKo ? `카페인 ${it.caffeineMg}mg` : `Caf ${it.caffeineMg}mg`}
                   </span>
                 )}
               </div>
@@ -461,9 +469,11 @@ const jsonLd = [
                 {it.name}
               </a>
               <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-slate-600">
-                <span class="font-semibold text-slate-900">{formatNum(it.carbsG, 1)}g Carbs</span>
+                <span class="font-semibold text-slate-900">
+                  {formatNum(it.carbsG, 1)}g {isKo ? "탄수화물" : "Carbs"}
+                </span>
                 <span>{formatInt(it.sodiumMg)}mg Na</span>
-                <span>{formatNum(it.servingWeightG, 0)}g wt</span>
+                <span>{formatNum(it.servingWeightG, 0)}g {isKo ? "중량" : "wt"}</span>
                 <span class="fp-item-unit-cost text-blue-700" data-slug={it.slug}>
                   {isKo
                     ? `${formatCurrency(it.krwPerServing, "KRW", "ko")}/회`
@@ -477,7 +487,7 @@ const jsonLd = [
                 type="button"
                 data-slug={it.slug}
                 data-delta="-1"
-                aria-label={`Remove 1 ${it.name}`}
+                aria-label={isKo ? `${it.name} 1개 빼기` : `Remove 1 ${it.name}`}
                 class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-700"
               >
                 −
@@ -492,7 +502,7 @@ const jsonLd = [
                 type="button"
                 data-slug={it.slug}
                 data-delta="1"
-                aria-label={`Add 1 ${it.name}`}
+                aria-label={isKo ? `${it.name} 1개 추가` : `Add 1 ${it.name}`}
                 class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-blue-600 bg-blue-600 font-mono text-base font-bold text-white hover:bg-blue-700"
               >
                 +
@@ -510,7 +520,9 @@ const jsonLd = [
           <h2 id="fp-dash-heading" class="text-base font-extrabold text-slate-900">
             {isKo ? "실시간 레이스 보급 대시보드" : "Live Race Fueling Dashboard"}
           </h2>
-          <span id="fp-total-items-pill" class="badge-info font-mono">0 pcs</span>
+          <span id="fp-total-items-pill" class="badge-info font-mono">
+            {isKo ? "총 0개" : "0 pcs"}
+          </span>
         </div>
 
         <!-- Carbs Progress -->
@@ -524,7 +536,9 @@ const jsonLd = [
           </div>
           <div class="flex items-center justify-between text-[11px] text-slate-600">
             <span id="fp-carbs-rate" class="font-mono">0.0 g/hr</span>
-            <span id="fp-gut-badge" class="badge-info">1:0.8 Gut Check</span>
+            <span id="fp-gut-badge" class="badge-info">
+              {isKo ? "1:0.8 위장 점검" : "1:0.8 Gut Check"}
+            </span>
           </div>
         </div>
 
@@ -608,7 +622,9 @@ const jsonLd = [
           <h3 class="text-sm font-bold text-slate-900">
             {isKo ? "내 보급 팩 체크리스트 & 공식 스토어" : "Pack Checklist & Verified Stores"}
           </h3>
-          <span class="font-mono text-[10px] uppercase text-slate-500">MSRP Benchmark</span>
+          <span class="font-mono text-[10px] uppercase text-slate-600">
+            {isKo ? "MSRP 참고가" : "MSRP Benchmark"}
+          </span>
         </div>
         <p class="mt-1 text-[11px] text-slate-500">
           {isKo
@@ -638,6 +654,8 @@ const jsonLd = [
 </BaseLayout>
 
 <script>
+  import { copyToClipboard } from "../../../lib/clipboard";
+
   (() => {
     const dataEl = document.getElementById("fp-data");
     if (!dataEl) return;
@@ -868,10 +886,104 @@ const jsonLd = [
       }
 
       syncQtyDisplays();
-      recalcDashboard();
+      recalcDashboard(true, false);
     }
 
-    function recalcDashboard() {
+    function syncPresetUi(activePreset: string | null) {
+      presetBtns.forEach((o) => {
+        const on = activePreset !== null && (o.getAttribute("data-preset") || "") === activePreset;
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+        o.className = on
+          ? "fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
+          : "fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500";
+      });
+    }
+
+    function syncCurrencyUi() {
+      currBtns.forEach((o) => {
+        const on = (o.getAttribute("data-curr") || "KRW") === activeCurrency;
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+        o.className = on
+          ? "fp-curr-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
+          : "fp-curr-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-xs font-semibold text-white hover:bg-white/20 transition-colors";
+      });
+    }
+
+    function syncHash() {
+      const params = new URLSearchParams();
+      if (durSlider) params.set("dur", durSlider.value);
+      if (carbSlider) params.set("carb", carbSlider.value);
+      if (naSlider) params.set("na", naSlider.value);
+      params.set("curr", activeCurrency);
+      const packParts: string[] = [];
+      qtyMap.forEach((qty, slug) => {
+        if (qty > 0) packParts.push(`${slug}:${qty}`);
+      });
+      if (packParts.length > 0) {
+        params.set("pack", packParts.join(","));
+      }
+      try {
+        window.history.replaceState(null, "", `#${params.toString()}`);
+      } catch {
+        // ignore
+      }
+    }
+
+    function loadFromHash(): boolean {
+      const raw = window.location.hash.replace(/^#/, "").trim();
+      if (!raw || !raw.includes("=")) return false;
+      const params = new URLSearchParams(raw);
+      let loaded = false;
+
+      const dur = Number(params.get("dur"));
+      if (durSlider && Number.isFinite(dur) && dur >= 1 && dur <= 8) {
+        durSlider.value = String(dur);
+        loaded = true;
+      }
+      const carb = Number(params.get("carb"));
+      if (carbSlider && Number.isFinite(carb) && carb >= 30 && carb <= 120) {
+        carbSlider.value = String(carb);
+        loaded = true;
+      }
+      const na = Number(params.get("na"));
+      if (naSlider && Number.isFinite(na) && na >= 400 && na <= 1200) {
+        naSlider.value = String(na);
+        loaded = true;
+      }
+      const curr = params.get("curr");
+      if (curr === "KRW" || curr === "USD") {
+        activeCurrency = curr;
+        syncCurrencyUi();
+        refreshCatalogPrices();
+        loaded = true;
+      }
+      if (params.has("pack")) {
+        qtyMap.clear();
+        const entries = (params.get("pack") || "").split(",").filter(Boolean);
+        entries.forEach((token) => {
+          const idx = token.lastIndexOf(":");
+          if (idx <= 0) return;
+          const slug = token.slice(0, idx);
+          const q = Math.max(0, Math.min(20, Math.round(Number(token.slice(idx + 1)))));
+          if (itemsMap.has(slug) && q > 0) qtyMap.set(slug, q);
+        });
+        syncQtyDisplays();
+        loaded = true;
+      }
+      if (loaded) {
+        // Match preset button highlight if exact match, else clear highlight
+        const matchBtn = presetBtns.find(
+          (b) =>
+            b.getAttribute("data-dur") === (durSlider?.value || "") &&
+            b.getAttribute("data-carb") === (carbSlider?.value || "") &&
+            b.getAttribute("data-na") === (naSlider?.value || "")
+        );
+        syncPresetUi(matchBtn ? matchBtn.getAttribute("data-preset") : null);
+      }
+      return loaded;
+    }
+
+    function recalcDashboard(rebuildChecklist = true, shouldSyncHash = false) {
       const dur = Math.max(0.5, Number(durSlider ? durSlider.value : 3.5) || 3.5);
       const carbTargetHr = Number(carbSlider ? carbSlider.value : 80) || 80;
       const naTargetHr = Number(naSlider ? naSlider.value : 750) || 750;
@@ -1025,9 +1137,16 @@ const jsonLd = [
       if (kcalVal) kcalVal.textContent = `${new Intl.NumberFormat("en-US").format(Math.round(totalKcal))} kcal`;
       if (costVal) costVal.textContent = fmtCost(totalCost);
 
-      // Render Checklist with verified affiliate CTAs & editable unit cost
+      // Update Checklist (either in-place to preserve input focus or full rebuild)
       if (checklistEl) {
-        if (selectedEntries.length === 0) {
+        if (!rebuildChecklist) {
+          selectedEntries.forEach(({ item, qty, unitPrice }) => {
+            const subEl = checklistEl.querySelector<HTMLElement>(
+              `[data-subtotal-slug="${CSS.escape(item.slug)}"]`
+            );
+            if (subEl) subEl.textContent = fmtCost(unitPrice * qty);
+          });
+        } else if (selectedEntries.length === 0) {
           checklistEl.innerHTML = `<p class="py-4 text-center text-xs text-slate-500">${
             isKo ? "선택된 보급식이 없습니다. 왼쪽 목록에서 + 버튼을 누르거나 자동 추천을 실행하세요." : "No items added yet. Click + on the left or press Auto-Build Optimal Mix."
           }</p>`;
@@ -1042,19 +1161,21 @@ const jsonLd = [
               const stepVal = activeCurrency === "KRW" ? "100" : "0.10";
               const inputVal =
                 activeCurrency === "KRW" ? String(Math.round(unitPrice)) : unitPrice.toFixed(2);
+              const carbLbl = isKo ? "탄수" : "Carbs";
+              const cafLbl = isKo ? "카페인" : "Caf";
               return `
                 <div class="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs">
                   <div class="flex items-start justify-between gap-2">
                     <div class="min-w-0">
                       <a href="${esc(item.href)}" class="font-bold text-slate-900 hover:text-blue-700 hover:underline">${esc(item.name)}</a>
                       <div class="mt-0.5 font-mono text-[11px] text-slate-600">
-                        ×${qty} · ${Math.round(item.carbsG * qty)}g Carbs · ${Math.round(item.sodiumMg * qty)}mg Na${item.caffeineMg > 0 ? ` · ${Math.round(item.caffeineMg * qty)}mg Caf` : ""}
+                        ×${qty} · ${Math.round(item.carbsG * qty)}g ${carbLbl} · ${Math.round(item.sodiumMg * qty)}mg Na${item.caffeineMg > 0 ? ` · ${Math.round(item.caffeineMg * qty)}mg ${cafLbl}` : ""}
                       </div>
                     </div>
-                    <span class="shrink-0 font-mono font-bold text-slate-900">${esc(fmtCost(subtotal))}</span>
+                    <span data-subtotal-slug="${esc(item.slug)}" class="shrink-0 font-mono font-bold text-slate-900">${esc(fmtCost(subtotal))}</span>
                   </div>
                   <div class="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/80 pt-2">
-                    <label class="inline-flex items-center gap-1 font-mono text-[10px] text-slate-500">
+                    <label class="inline-flex items-center gap-1 font-mono text-[10px] text-slate-600">
                       <span>${isKo ? "1회 단가" : "Unit"} (${activeCurrency}):</span>
                       <input type="number" min="0" step="${stepVal}" value="${esc(inputVal)}" data-price-slug="${esc(item.slug)}" class="fp-unit-price-input w-20 rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[11px] text-slate-800" />
                     </label>
@@ -1066,78 +1187,56 @@ const jsonLd = [
             .join("");
 
           checklistEl.querySelectorAll<HTMLInputElement>(".fp-unit-price-input").forEach((inp) => {
-            inp.addEventListener("change", () => {
+            const onPriceEdit = () => {
               const slug = inp.getAttribute("data-price-slug") || "";
               const val = Number(inp.value);
               if (slug && Number.isFinite(val) && val >= 0) {
                 customUnitPrice.set(`${activeCurrency}:${slug}`, val);
                 refreshCatalogPrices();
-                recalcDashboard();
+                recalcDashboard(false, false);
               }
-            });
+            };
+            inp.addEventListener("input", onPriceEdit);
+            inp.addEventListener("change", onPriceEdit);
           });
         }
       }
-    }
 
-    function copyText(text: string): Promise<boolean> {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        return navigator.clipboard
-          .writeText(text)
-          .then(() => true)
-          .catch(() => false);
-      }
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        return Promise.resolve(ok);
-      } catch {
-        return Promise.resolve(false);
-      }
+      if (shouldSyncHash) syncHash();
     }
 
     // Event wiring
     presetBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
+        const presetId = btn.getAttribute("data-preset") || "full";
         const dur = btn.getAttribute("data-dur") || "3.5";
         const carb = btn.getAttribute("data-carb") || "80";
         const na = btn.getAttribute("data-na") || "750";
         if (durSlider) durSlider.value = dur;
         if (carbSlider) carbSlider.value = carb;
         if (naSlider) naSlider.value = na;
-        presetBtns.forEach((o) => {
-          const on = o === btn;
-          o.className = on
-            ? "fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
-            : "fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500";
-        });
+        syncPresetUi(presetId);
         autoBuildOptimalMix();
-        track("fueling_planner_use", { action: "preset", preset: btn.getAttribute("data-preset") || "" });
+        syncHash();
+        track("fueling_planner_use", { action: "preset", preset: presetId });
       });
     });
 
     [durSlider, carbSlider, naSlider].forEach((s) => {
-      if (s) s.addEventListener("input", recalcDashboard);
+      if (s) {
+        s.addEventListener("input", () => {
+          syncPresetUi(null);
+          recalcDashboard(false, true);
+        });
+      }
     });
 
     currBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const c = btn.getAttribute("data-curr") === "USD" ? "USD" : "KRW";
-        activeCurrency = c;
-        currBtns.forEach((o) => {
-          const on = o === btn;
-          o.className = on
-            ? "fp-curr-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
-            : "fp-curr-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-xs font-semibold text-white hover:bg-white/20 transition-colors";
-        });
+        activeCurrency = btn.getAttribute("data-curr") === "USD" ? "USD" : "KRW";
+        syncCurrencyUi();
         refreshCatalogPrices();
-        recalcDashboard();
+        recalcDashboard(true, true);
       });
     });
 
@@ -1146,6 +1245,7 @@ const jsonLd = [
         activeCat = btn.getAttribute("data-cat") || "ALL";
         catBtns.forEach((o) => {
           const on = o === btn;
+          o.setAttribute("aria-pressed", on ? "true" : "false");
           o.className = on
             ? "fp-cat-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-white transition-colors"
             : "fp-cat-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
@@ -1165,13 +1265,14 @@ const jsonLd = [
         if (next === 0) qtyMap.delete(slug);
         else qtyMap.set(slug, next);
         syncQtyDisplays();
-        recalcDashboard();
+        recalcDashboard(true, true);
       });
     });
 
     if (autoBuildBtn) {
       autoBuildBtn.addEventListener("click", () => {
         autoBuildOptimalMix();
+        syncHash();
         track("fueling_planner_use", { action: "autobuild" });
       });
     }
@@ -1180,7 +1281,7 @@ const jsonLd = [
       clearBtn.addEventListener("click", () => {
         qtyMap.clear();
         syncQtyDisplays();
-        recalcDashboard();
+        recalcDashboard(true, true);
       });
     }
 
@@ -1188,6 +1289,7 @@ const jsonLd = [
       const defLabel = isKo ? "레이스 보급 계획 복사하기" : "Copy Race Plan";
       const okLabel = isKo ? "보급 계획 복사됨 ✓" : "Race Plan Copied ✓";
       copyPlanBtn.addEventListener("click", () => {
+        syncHash();
         const dur = Number(durSlider ? durSlider.value : 3.5) || 3.5;
         const lines: string[] = [];
         lines.push(
@@ -1199,7 +1301,9 @@ const jsonLd = [
           const it = itemsMap.get(slug);
           if (it && qty > 0) {
             lines.push(
-              `- ${it.name} × ${qty} (${Math.round(it.carbsG * qty)}g Carbs / ${Math.round(it.sodiumMg * qty)}mg Na${it.caffeineMg > 0 ? ` / ${Math.round(it.caffeineMg * qty)}mg Caf` : ""})`
+              isKo
+                ? `- ${it.name} × ${qty} (${Math.round(it.carbsG * qty)}g 탄수화물 / ${Math.round(it.sodiumMg * qty)}mg 나트륨${it.caffeineMg > 0 ? ` / ${Math.round(it.caffeineMg * qty)}mg 카페인` : ""})`
+                : `- ${it.name} × ${qty} (${Math.round(it.carbsG * qty)}g Carbs / ${Math.round(it.sodiumMg * qty)}mg Na${it.caffeineMg > 0 ? ` / ${Math.round(it.caffeineMg * qty)}mg Caf` : ""})`
             );
           }
         });
@@ -1207,7 +1311,8 @@ const jsonLd = [
           `${isKo ? "합계" : "Totals"}: ${carbsSummary?.textContent || ""} | ${naSummary?.textContent || ""} | ${isKo ? "카페인" : "Caffeine"} ${cafVal?.textContent || ""} | ${isKo ? "중량" : "Weight"} ${weightVal?.textContent || ""} | ${isKo ? "비용" : "Cost"} ${costVal?.textContent || ""}`
         );
         lines.push(window.location.href);
-        copyText(lines.join("\n")).then(() => {
+        copyToClipboard(lines.join("\n")).then((ok) => {
+          if (!ok) return;
           copyPlanBtn.textContent = okLabel;
           copyPlanBtn.classList.add("bg-emerald-700");
           track("fueling_planner_use", { action: "copy_plan" });
@@ -1219,8 +1324,16 @@ const jsonLd = [
       });
     }
 
-    // Initialize with optimal Full Marathon mix
-    autoBuildOptimalMix();
+    // Initialize from URL hash or default Full Marathon optimal mix
+    if (loadFromHash()) {
+      recalcDashboard(true, false);
+    } else {
+      autoBuildOptimalMix();
+    }
     applyCatalogFilter();
+
+    window.addEventListener("hashchange", () => {
+      if (loadFromHash()) recalcDashboard(true, false);
+    });
   })();
 </script>

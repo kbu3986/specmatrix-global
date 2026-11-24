@@ -28,6 +28,71 @@ const yn = (b: boolean | null | undefined) => {
   return b ? (isKo ? "지원 / 예" : "Yes") : isKo ? "미지원 / 아니오" : "No";
 };
 
+const KO_UNIT_TYPE: Record<string, string> = {
+  packet: "포(패킷)",
+  scoop: "스쿱",
+  tablet: "정(태블릿)",
+  pouch: "파우치",
+  bottle: "병",
+  bar: "바",
+};
+
+const KO_ACTIVE_TYPE: Record<string, string> = {
+  carbohydrates: "탄수화물",
+  electrolytes_sodium_potassium: "전해질 (나트륨+칼륨)",
+  creatine_monohydrate: "크레아틴 모노하이드레이트",
+  "creatine monohydrate": "크레아틴 모노하이드레이트",
+};
+
+const KO_DELIVERY_FORM: Record<string, string> = {
+  hydrogel: "하이드로겔",
+  isotonic: "아이소토닉",
+  standard: "스탠다드",
+  none: "해당 없음",
+};
+
+function formatKoSweetenerSummary(listed: boolean, details: string): string {
+  const low = (details || "").toLowerCase();
+  if (listed) {
+    const found: string[] = [];
+    if (low.includes("acesulfame") || low.includes("ace-k")) found.push("아세설팜칼륨(Ace-K)");
+    if (low.includes("sucralose")) found.push("수크랄로스");
+    if (low.includes("sorbitol")) found.push("소르비톨");
+    if (low.includes("aspartame")) found.push("아스파탐");
+    if (low.includes("saccharin")) found.push("사카린");
+    if (low.includes("stevia")) found.push("스테비아");
+    return found.length > 0 ? `포함 (${found.join(" · ")})` : `포함 (${details})`;
+  }
+  if (low.includes("flavored") && low.includes("sucralose")) {
+    return "인공감미료 무첨가 (무향 기준 · 가향 제품은 수크랄로스 포함)";
+  }
+  if (low.includes("creapure")) {
+    return "인공감미료 무첨가 (무향 100% 독일산 Creapure 단일 성분)";
+  }
+  if (low.includes("creatine")) {
+    return "인공감미료 무첨가 (무향 단일 성분 크레아틴)";
+  }
+  if (low.includes("alginate") || low.includes("hydrogel")) {
+    return "인공감미료 무첨가 (포도당·과당 알지네이트 하이드로겔)";
+  }
+  if (low.includes("cane sugar")) {
+    return "인공감미료 무첨가 (사탕수수당·포도당·천연 과일 파우더)";
+  }
+  if (low.includes("maltodextrin") && low.includes("fructose")) {
+    return "인공감미료 무첨가 (말토덱스트린·과당 기반)";
+  }
+  if (low.includes("dextrose") && low.includes("sucrose")) {
+    return "인공감미료 무첨가 (포도당·자당 기반)";
+  }
+  if (low.includes("dextrin")) {
+    return "인공감미료 무첨가 (설탕·포도당·덱스트린 기반)";
+  }
+  if (low.includes("glucose") && low.includes("fructose")) {
+    return "인공감미료 무첨가 (포도당·과당 기반)";
+  }
+  return "인공감미료 무첨가";
+}
+
 if (item.vertical === "wattcheck") {
   const s = item.specs;
   const ac = item.airline_compliance_profile;
@@ -126,11 +191,24 @@ if (item.vertical === "wattcheck") {
   const p = item.package_spec;
   const nl = item.nutrition_label;
   const dm = item.derived_math;
+  const unitDisplay = isKo ? (KO_UNIT_TYPE[p.unit_type] ?? p.unit_type) : p.unit_type;
+  const activeTypeDisplay = isKo
+    ? (KO_ACTIVE_TYPE[nl.active_ingredient_type] ??
+      KO_ACTIVE_TYPE[nl.active_ingredient_type.replace(/_/g, " ")] ??
+      nl.active_ingredient_type.replace(/_/g, " "))
+    : nl.active_ingredient_type.replace(/_/g, " ");
+  const formDisplay = isKo
+    ? (KO_DELIVERY_FORM[nl.hydrogel_or_isotonic] ?? nl.hydrogel_or_isotonic)
+    : nl.hydrogel_or_isotonic;
+  const sweetenerDisplay = isKo
+    ? formatKoSweetenerSummary(nl.artificial_sweeteners_listed, nl.sweetener_details)
+    : `${yn(nl.artificial_sweeteners_listed)} (${nl.sweetener_details})`;
+
   rows.push(
     { label: isKo ? "총 내용량" : "Net Package Weight", value: `${formatNum(p.net_weight_g, 1)} g`, mono: true },
-    { label: isKo ? "총 제공 횟수 (서빙 수)" : "Total Servings", value: `${formatInt(p.total_servings)} (${p.unit_type})`, mono: true },
+    { label: isKo ? "총 제공 횟수 (서빙 수)" : "Total Servings", value: `${formatInt(p.total_servings)} (${unitDisplay})`, mono: true },
     { label: isKo ? "1회 제공량 중량" : "Serving Weight", value: `${formatNum(p.serving_weight_g, 1)} g`, mono: true },
-    { label: isKo ? "핵심 유효성분 유형" : "Active Ingredient Type", value: nl.active_ingredient_type.replace(/_/g, " ") },
+    { label: isKo ? "핵심 유효성분 유형" : "Active Ingredient Type", value: activeTypeDisplay },
     { label: isKo ? "1회당 유효성분" : "Active per Serving", value: `${formatNum(nl.active_per_serving_g, 1)} g`, mono: true },
     { label: isKo ? "팩당 총 순수 유효성분" : "Total Pure Active / Pack", value: `${formatNum(dm.total_pure_active_g, 1)} g`, mono: true },
     { label: isKo ? "유효성분 순도 / 등급" : "Purity Ratio / Grade", value: `${formatNum(dm.purity_pct, 1)}% (${dm.purity_grade})`, mono: true },
@@ -138,12 +216,12 @@ if (item.vertical === "wattcheck") {
     { label: isKo ? "탄수화물 / 당류 / 식이섬유" : "Carbs / Sugar / Fiber", value: `${formatNum(nl.carbs_g, 1)} g / ${formatNum(nl.sugar_g, 1)} g / ${formatNum(nl.fiber_g, 1)} g`, mono: true },
     { label: isKo ? "단백질 / 지방" : "Protein / Fat", value: `${formatNum(nl.protein_g, 1)} g / ${formatNum(nl.fat_g, 1)} g`, mono: true },
     { label: isKo ? "포도당 : 과당 비율" : "Glucose : Fructose Ratio", value: nl.carb_ratio_glucose_to_fructose ?? "—", mono: true },
-    { label: isKo ? "제형 (하이드로젤/아이소토닉)" : "Delivery Form", value: nl.hydrogel_or_isotonic },
+    { label: isKo ? "제형 (하이드로젤/아이소토닉)" : "Delivery Form", value: formDisplay },
     { label: isKo ? "카페인 함량" : "Caffeine / Serving", value: `${formatInt(nl.caffeine_mg)} mg`, mono: true },
     { label: isKo ? "나트륨 / 칼륨 / 마그네슘" : "Na / K / Mg per Serving", value: `${formatInt(nl.sodium_mg)} mg / ${formatInt(nl.potassium_mg)} mg / ${formatInt(nl.magnesium_mg)} mg`, mono: true },
     { label: isKo ? "Creapure 독일 원료 인증" : "Creapure Certified", value: yn(nl.creapure_certified) },
     { label: isKo ? "유리 아미노산 원재료 기재" : "Free-Form Amino Listed", value: yn(nl.free_form_amino_listed) },
-    { label: isKo ? "인공감미료 기재 및 내역" : "Artificial Sweeteners", value: `${yn(nl.artificial_sweeteners_listed)} (${nl.sweetener_details})` },
+    { label: isKo ? "인공감미료 기재 및 내역" : "Artificial Sweeteners", value: sweetenerDisplay },
     { label: isKo ? "제3자 인증" : "Certifications", value: item.certifications.join(", ") }
   );
 } else if (item.vertical === "cyclegear") {

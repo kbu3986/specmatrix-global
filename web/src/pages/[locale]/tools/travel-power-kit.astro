@@ -14,10 +14,10 @@ import { buildMonetizationModel } from "../../../lib/monetization";
 import {
   ACTIVE_LOCALES,
   BASE_PATH,
-  SITE_URL,
   formatCurrency,
   getCategoryLabel,
   safeJsonLd,
+  toAbsoluteUrl,
   withBase,
 } from "../../../lib/i18n";
 
@@ -52,9 +52,13 @@ const groupedAirlines = REGION_ORDER.map((reg) => ({
   carriers: airlines.filter((a) => a.region === reg),
 })).filter((g) => g.carriers.length > 0);
 
-const defaultAirlineSlug = isKo
-  ? airlines.find((a) => a.slug === "korean-air")?.slug ?? airlines[0]?.slug ?? ""
-  : airlines.find((a) => a.region === "NA")?.slug ?? airlines[0]?.slug ?? "";
+const defaultAirline =
+  (isKo
+    ? airlines.find((a) => a.slug === "korean-air")
+    : airlines.find((a) => a.iata_code === "DL" || a.slug === "delta-air-lines") ??
+      airlines.find((a) => a.region === "NA")) ??
+  airlines[0];
+const defaultAirlineSlug = defaultAirline?.slug ?? "";
 
 interface DeviceDef {
   id: string;
@@ -284,7 +288,7 @@ const jsonLd = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     description: pageDesc,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     inLanguage: locale,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
@@ -296,19 +300,19 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: toAbsoluteUrl(`/${locale}`),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
-        item: `${SITE_URL}/${locale}/tools`,
+        item: toAbsoluteUrl(`/${locale}/tools`),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: isKo ? "여행 전력 키트 최적화기" : "Travel Power Kit Optimizer",
-        item: `${SITE_URL}${currentPath}`,
+        item: toAbsoluteUrl(currentPath),
       },
     ],
   },
@@ -489,6 +493,7 @@ const jsonLd = [
               <button
                 type="button"
                 data-gear={g.id}
+                aria-pressed={idx === 0 ? "true" : "false"}
                 class:list={[
                   "tpk-gear-btn rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors",
                   idx === 0
@@ -517,6 +522,7 @@ const jsonLd = [
               <button
                 type="button"
                 data-prio={p.id}
+                aria-pressed={idx === 0 ? "true" : "false"}
                 class:list={[
                   "tpk-prio-btn rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors",
                   idx === 0
@@ -570,13 +576,24 @@ const jsonLd = [
         <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
           {isKo ? "선택 항공사 기내 반입 체크리스트" : "SELECTED AIRLINE BOARDING CHECKLIST"}
         </span>
-        <span id="tpk-air-badge" class="badge-info font-mono">KE</span>
+        <span id="tpk-air-badge" class="badge-info font-mono">
+          {defaultAirline
+            ? `${defaultAirline.iata_code} · ${isKo ? defaultAirline.name_ko : defaultAirline.name_en}`
+            : isKo
+              ? "KE"
+              : "DL"}
+        </span>
       </div>
       <div id="tpk-air-pills" class="mt-3 flex flex-wrap gap-2"></div>
-      <p id="tpk-air-notes" class="mt-2.5 text-xs leading-relaxed text-slate-600"></p>
+      <p id="tpk-air-notes" class="mt-2.5 text-xs leading-relaxed text-slate-600">
+        {defaultAirline ? (isKo ? defaultAirline.notes_ko : defaultAirline.notes_en) : ""}
+      </p>
       <a
         id="tpk-air-policy-url"
-        href="https://www.koreanair.com/legal/restricted-items"
+        href={
+          defaultAirline?.official_policy_url ??
+          "https://www.delta.com/us/en/baggage/prohibited-items/battery-fuel-powered-items"
+        }
         target="_blank"
         rel="noopener noreferrer"
         class="mt-2 inline-block font-mono text-[11px] font-semibold text-blue-700 hover:underline"
@@ -624,6 +641,8 @@ const jsonLd = [
 </BaseLayout>
 
 <script>
+  import { copyToClipboard } from "../../../lib/clipboard";
+
   (() => {
     const dataEl = document.getElementById("tpk-data");
     if (!dataEl) return;
@@ -765,6 +784,7 @@ const jsonLd = [
 
     let activeGear: "both" | "power-bank" | "gan-charger" = "both";
     let activePrio: "headroom" | "weight" | "msrp" | "density" = "headroom";
+    let cccAutoChecked = false;
     let lastRanked: Array<{ sku: KitSku; score: number; simW: number; simPorts: number }> = [];
 
     function estimateSimultaneousW(sku: KitSku, selectedDevices: DeviceDef[]): { simW: number; simPorts: number } {
@@ -772,29 +792,49 @@ const jsonLd = [
         return { simW: sku.maxSingleW, simPorts: 1 };
       }
       const needed = [...selectedDevices].sort((a, b) => b.maxW - a.maxW);
-      const maxSlots = Math.min(needed.length, sku.totalPorts);
+      const maxAllocCount = sku.portAllocations.reduce((m, a) => Math.max(m, a.count), 0);
+      const maxPortsAvailable =
+        maxAllocCount > 0 ? Math.min(sku.totalPorts, maxAllocCount) : Math.max(1, sku.totalPorts);
+      const targetSlots = Math.min(needed.length, maxPortsAvailable);
+
+      let candidates = sku.portAllocations;
+      if (needed.length >= 2) {
+        const exact = sku.portAllocations.filter((a) => a.count === targetSlots);
+        const multi = sku.portAllocations.filter((a) => a.count >= targetSlots);
+        candidates =
+          exact.length > 0
+            ? exact
+            : multi.length > 0
+              ? multi
+              : sku.portAllocations.filter((a) => a.count === maxAllocCount);
+      } else {
+        const single = sku.portAllocations.filter((a) => a.count === 1);
+        candidates = single.length > 0 ? single : sku.portAllocations;
+      }
 
       let bestDelivered = 0;
-      let bestSlots = 1;
+      let bestSlots = Math.max(1, targetSlots);
 
-      // Evaluate actual official port_allocation_matrix rows
-      for (const alloc of sku.portAllocations) {
-        if (alloc.count > needed.length) continue;
+      for (const alloc of candidates) {
         let delivered = 0;
         const limit = Math.min(alloc.outputs.length, needed.length);
         for (let i = 0; i < limit; i++) {
           delivered += Math.min(alloc.outputs[i], needed[i].maxW);
         }
-        if (delivered > bestDelivered || (delivered === bestDelivered && alloc.count > bestSlots)) {
+        const usedPorts = Math.min(alloc.count, needed.length);
+        if (delivered > bestDelivered || (delivered === bestDelivered && usedPorts > bestSlots)) {
           bestDelivered = delivered;
-          bestSlots = alloc.count;
+          bestSlots = usedPorts;
         }
       }
 
       if (bestDelivered === 0) {
-        const cap = Math.min(sku.maxTotalW, needed.slice(0, maxSlots).reduce((a, d) => a + d.maxW, 0));
+        const cap = Math.min(
+          sku.maxTotalW,
+          needed.slice(0, targetSlots).reduce((a, d) => a + d.maxW, 0)
+        );
         bestDelivered = Math.round(cap);
-        bestSlots = maxSlots;
+        bestSlots = Math.max(1, targetSlots);
       }
 
       return { simW: Math.round(bestDelivered), simPorts: bestSlots };
@@ -933,14 +973,19 @@ const jsonLd = [
         if (activeGear === "power-bank" && sku.category !== "power-bank") return false;
         if (activeGear === "gan-charger" && sku.category !== "gan-charger") return false;
         if (carryonOnly && sku.hasBattery && !sku.carryonNoApproval) return false;
-        if (needCcc && !sku.cccOk) return false;
-        if (needJp100 && sku.japan100vLimitW !== null) return false;
+        if (needCcc && sku.hasBattery && !sku.cccOk) return false;
+        if (needJp100 && sku.japan100vLimitW !== null && sku.japan100vLimitW < sku.maxTotalW) {
+          return false;
+        }
         return true;
       });
 
-      const minWeight = Math.min(...eligible.map((s) => s.weightG), 100);
-      const minMsrp = Math.min(...eligible.map((s) => s.msrpUsd), 25);
-      const maxDensity = Math.max(...eligible.map((s) => s.wPer100g), 20);
+      const minWeight =
+        eligible.length > 0 ? Math.min(...eligible.map((s) => s.weightG)) : 1;
+      const minMsrp =
+        eligible.length > 0 ? Math.min(...eligible.map((s) => s.msrp)) : 1;
+      const maxDensity =
+        eligible.length > 0 ? Math.max(...eligible.map((s) => s.wPer100g)) : 1;
 
       const ranked = eligible
         .map((sku) => {
@@ -961,11 +1006,11 @@ const jsonLd = [
           // Optimization priority bonus (0..22 pts)
           let prioBonus = 0;
           if (activePrio === "weight") {
-            prioBonus = (minWeight / Math.max(sku.weightG, 50)) * 22;
+            prioBonus = (minWeight / Math.max(sku.weightG, 1)) * 22;
           } else if (activePrio === "msrp") {
-            prioBonus = (minMsrp / Math.max(sku.msrpUsd, 10)) * 22;
+            prioBonus = (minMsrp / Math.max(sku.msrp, 1)) * 22;
           } else if (activePrio === "density") {
-            prioBonus = (sku.wPer100g / maxDensity) * 22;
+            prioBonus = (sku.wPer100g / Math.max(maxDensity, 0.01)) * 22;
           } else {
             // Max Headroom
             const headroomRatio = totalDemandW > 0 ? Math.min(1.5, sku.maxTotalW / totalDemandW) : 1;
@@ -1012,7 +1057,7 @@ const jsonLd = [
         .map((entry, idx) => {
           const { sku, score, simW, simPorts } = entry;
           const runnerUp = topList[idx === 0 ? 1 : 0]?.sku.slug || sku.slug;
-          const compareHref = `${bp}/${payload.locale}/compare#wattcheck:${sku.slug}:${runnerUp}`;
+          const compareHref = `${bp}/${payload.locale}/compare/#wattcheck:${sku.slug}:${runnerUp}`;
           const usableChargesText =
             sku.hasBattery && sku.usableWh !== null
               ? totalDeviceWh > 0
@@ -1028,9 +1073,24 @@ const jsonLd = [
           if (!sku.hasBattery) {
             badges.push({ cls: "badge-pass", text: isKo ? "배터리 없음 OK" : "No Battery OK" });
           } else if (sku.carryonNoApproval) {
-            badges.push({ cls: "badge-pass", text: isKo ? `기내 OK (${sku.batteryWh}Wh)` : `Cabin OK (${sku.batteryWh}Wh)` });
+            badges.push({
+              cls: "badge-pass",
+              text: isKo ? `기내 무승인 OK (${sku.batteryWh}Wh)` : `Cabin OK (${sku.batteryWh}Wh)`,
+            });
+          } else if (sku.carryonAllowed && !sku.carryonNoApproval) {
+            badges.push({
+              cls: "badge-caution",
+              text: isKo
+                ? `항공사 승인 필요 (${sku.batteryWh}Wh)`
+                : `Approval Required (${sku.batteryWh}Wh)`,
+            });
           } else {
-            badges.push({ cls: "badge-fail", text: isKo ? `기내 불가 (${sku.batteryWh}Wh)` : `No Flight (${sku.batteryWh}Wh)` });
+            badges.push({
+              cls: "badge-fail",
+              text: isKo
+                ? `기내 반입 불가 (${sku.batteryWh}Wh)`
+                : `Flight Prohibited (${sku.batteryWh}Wh)`,
+            });
           }
           if (sku.cccOk) badges.push({ cls: "badge-info", text: "CCC OK" });
           if (sku.supportsEpr) badges.push({ cls: "badge-info", text: "PD 3.1 EPR" });
@@ -1068,7 +1128,7 @@ const jsonLd = [
                   </div>
                   <div>
                     <div class="font-mono text-[10px] text-slate-500">${isKo ? "무게 / 밀도" : "Weight / Dens."}</div>
-                    <div class="font-mono text-xs font-bold text-slate-900">${sku.weightG}g · ${sku.wPer100g}W</div>
+                    <div class="font-mono text-xs font-bold text-slate-900">${sku.weightG}g · ${sku.wPer100g}W/100g</div>
                   </div>
                   <div>
                     <div class="font-mono text-[10px] text-slate-500">MSRP</div>
@@ -1102,6 +1162,7 @@ const jsonLd = [
         .join("");
 
       if (emitEvent) {
+        syncHash();
         track("travel_kit_optimize", {
           airline: airSlug,
           gear_type: activeGear,
@@ -1111,67 +1172,121 @@ const jsonLd = [
       }
     }
 
-    function copyText(text: string): Promise<boolean> {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        return navigator.clipboard
-          .writeText(text)
-          .then(() => true)
-          .catch(() => false);
-      }
+    function syncGearUi() {
+      gearBtns.forEach((o) => {
+        const on = (o.getAttribute("data-gear") || "both") === activeGear;
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+        o.className = on
+          ? "tpk-gear-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition-colors"
+          : "tpk-gear-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+      });
+    }
+
+    function syncPrioUi() {
+      prioBtns.forEach((o) => {
+        const on = (o.getAttribute("data-prio") || "headroom") === activePrio;
+        o.setAttribute("aria-pressed", on ? "true" : "false");
+        o.className = on
+          ? "tpk-prio-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-bold text-white transition-colors"
+          : "tpk-prio-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+      });
+    }
+
+    function syncHash() {
+      const params = new URLSearchParams();
+      if (airlineSel && airlineSel.value) params.set("air", airlineSel.value);
+      const checkedDevs = devChks.filter((c) => c.checked).map((c) => c.value);
+      params.set("dev", checkedDevs.join(","));
+      params.set("gear", activeGear);
+      params.set("prio", activePrio);
+      params.set("co", carryonChk && carryonChk.checked ? "1" : "0");
+      params.set("ccc", cccChk && cccChk.checked ? "1" : "0");
+      params.set("jp", jp100Chk && jp100Chk.checked ? "1" : "0");
       try {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        return Promise.resolve(ok);
+        window.history.replaceState(null, "", `#${params.toString()}`);
       } catch {
-        return Promise.resolve(false);
+        // ignore
       }
+    }
+
+    function loadFromHash() {
+      const raw = window.location.hash.replace(/^#/, "").trim();
+      if (!raw || !raw.includes("=")) return;
+      const params = new URLSearchParams(raw);
+      const air = params.get("air");
+      if (air && airlineMap.has(air) && airlineSel) {
+        airlineSel.value = air;
+      }
+      if (params.has("dev")) {
+        const set = new Set((params.get("dev") || "").split(",").filter(Boolean));
+        devChks.forEach((c) => {
+          c.checked = set.has(c.value);
+        });
+      }
+      const gear = params.get("gear");
+      if (gear === "both" || gear === "power-bank" || gear === "gan-charger") {
+        activeGear = gear;
+        syncGearUi();
+      }
+      const prio = params.get("prio");
+      if (prio === "headroom" || prio === "weight" || prio === "msrp" || prio === "density") {
+        activePrio = prio;
+        syncPrioUi();
+      }
+      if (params.has("co") && carryonChk) carryonChk.checked = params.get("co") !== "0";
+      if (params.has("ccc") && cccChk) {
+        cccChk.checked = params.get("ccc") === "1";
+        cccAutoChecked = false;
+      }
+      if (params.has("jp") && jp100Chk) jp100Chk.checked = params.get("jp") === "1";
     }
 
     // Event wiring
     if (airlineSel) {
       airlineSel.addEventListener("change", () => {
         const a = airlineMap.get(airlineSel.value);
-        if (a && cccChk && a.ccc_marking_required_domestic) {
-          cccChk.checked = true;
+        if (cccChk) {
+          if (a && a.ccc_marking_required_domestic) {
+            if (!cccChk.checked) {
+              cccChk.checked = true;
+              cccAutoChecked = true;
+            }
+          } else if (cccAutoChecked) {
+            cccChk.checked = false;
+            cccAutoChecked = false;
+          }
         }
         recompute(true);
       });
     }
 
-    [carryonChk, cccChk, jp100Chk, ...devChks].forEach((chk) => {
+    if (cccChk) {
+      cccChk.addEventListener("change", () => {
+        cccAutoChecked = false;
+        recompute(true);
+      });
+    }
+
+    [carryonChk, jp100Chk, ...devChks].forEach((chk) => {
       if (chk) chk.addEventListener("change", () => recompute(true));
     });
 
     gearBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const g = (btn.getAttribute("data-gear") || "both") as "both" | "power-bank" | "gan-charger";
-        activeGear = g;
-        gearBtns.forEach((o) => {
-          const on = o === btn;
-          o.className = on
-            ? "tpk-gear-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition-colors"
-            : "tpk-gear-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
-        });
+        activeGear = (btn.getAttribute("data-gear") || "both") as "both" | "power-bank" | "gan-charger";
+        syncGearUi();
         recompute(true);
       });
     });
 
     prioBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const p = (btn.getAttribute("data-prio") || "headroom") as "headroom" | "weight" | "msrp" | "density";
-        activePrio = p;
-        prioBtns.forEach((o) => {
-          const on = o === btn;
-          o.className = on
-            ? "tpk-prio-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-bold text-white transition-colors"
-            : "tpk-prio-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
-        });
+        activePrio = (btn.getAttribute("data-prio") || "headroom") as
+          | "headroom"
+          | "weight"
+          | "msrp"
+          | "density";
+        syncPrioUi();
         recompute(true);
       });
     });
@@ -1198,8 +1313,9 @@ const jsonLd = [
 
     if (copyPlanBtn) {
       const def = isKo ? "추천 키트 요약 복사" : "Copy Travel Kit Plan";
-      const ok = isKo ? "키트 요약 복사됨 ✓" : "Kit Plan Copied ✓";
+      const okLabel = isKo ? "키트 요약 복사됨 ✓" : "Kit Plan Copied ✓";
       copyPlanBtn.addEventListener("click", () => {
+        syncHash();
         const air = airlineMap.get(airlineSel ? airlineSel.value : "");
         const top3 = lastRanked
           .slice(0, 3)
@@ -1214,8 +1330,9 @@ const jsonLd = [
           ...top3,
           window.location.href,
         ];
-        copyText(lines.join("\n")).then(() => {
-          copyPlanBtn.textContent = ok;
+        copyToClipboard(lines.join("\n")).then((ok) => {
+          if (!ok) return;
+          copyPlanBtn.textContent = okLabel;
           window.setTimeout(() => {
             copyPlanBtn.textContent = def;
           }, 1800);
@@ -1223,6 +1340,11 @@ const jsonLd = [
       });
     }
 
+    loadFromHash();
     recompute(false);
+    window.addEventListener("hashchange", () => {
+      loadFromHash();
+      recompute(false);
+    });
   })();
 </script>

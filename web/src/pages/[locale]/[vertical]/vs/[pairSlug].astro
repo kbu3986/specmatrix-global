@@ -14,7 +14,7 @@ import {
   getVerticalVsInsights,
 } from "../../../../lib/data";
 import { computeVsDiff } from "../../../../lib/derived";
-import { ACTIVE_LOCALES, SITE_URL, VERTICAL_META, withBase } from "../../../../lib/i18n";
+import { ACTIVE_LOCALES, VERTICAL_META, toAbsoluteUrl, withBase } from "../../../../lib/i18n";
 
 export function getStaticPaths() {
   const allVs = getAllVsInsights();
@@ -61,16 +61,22 @@ const relatedVs = getVerticalVsInsights(vertical)
 
 const pageTitle = `${nameA} vs ${nameB} — ${verdict.headline} | SpecMatrix Global`;
 const pageDesc = verdict.bottom_line;
+const gaps =
+  isKo && vs.serp_gaps_captured_ko?.length
+    ? vs.serp_gaps_captured_ko
+    : vs.serp_gaps_captured;
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: `${nameA} vs ${nameB} Priority Comparison Simulator`,
+    name: isKo
+      ? `${nameA} vs ${nameB} 가중치 우선순위 비교 시뮬레이터`
+      : `${nameA} vs ${nameB} Priority Comparison Simulator`,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     description: verdict.bottom_line,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
   {
@@ -81,19 +87,19 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: toAbsoluteUrl(`/${locale}`),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: VERTICAL_META[vertical].shortName[locale],
-        item: `${SITE_URL}${verticalHref}`,
+        item: toAbsoluteUrl(verticalHref),
       },
       {
         "@type": "ListItem",
         position: 3,
         name: `${nameA} vs ${nameB}`,
-        item: `${SITE_URL}${currentPath}`,
+        item: toAbsoluteUrl(currentPath),
       },
     ],
   },
@@ -106,6 +112,7 @@ const jsonLd = [
   locale={locale}
   currentPath={currentPath}
   activeVertical={vertical}
+  hasStickyCta={true}
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
@@ -210,7 +217,7 @@ const jsonLd = [
       <span class="font-mono text-xs text-slate-500">SERP IG {vs.info_gain_score}/100</span>
     </div>
     <ul class="mt-3 space-y-2 text-sm text-slate-700">
-      {vs.serp_gaps_captured.map((gap) => (
+      {gaps.map((gap) => (
         <li class="flex items-start gap-2.5">
           <span class="mt-0.5 font-mono text-xs font-bold text-blue-700">✓</span>
           <span>{gap}</span>
@@ -340,13 +347,13 @@ const jsonLd = [
         {relatedVs.map((rel) => (
           <a
             href={withBase(`/${locale}/${vertical}/vs/${rel.pair_slug}`)}
-            class="lab-card group flex items-center justify-between gap-3 p-4 transition-colors hover:border-blue-500"
+            class="lab-card group flex min-w-0 items-center justify-between gap-3 p-4 transition-colors hover:border-blue-500"
           >
-            <div class="min-w-0">
+            <div class="min-w-0 flex-1">
               <div class="truncate text-sm font-bold text-slate-900 group-hover:text-blue-700">
                 {rel.verdict[locale].headline}
               </div>
-              <div class="mt-1 font-mono text-[11px] text-slate-500">
+              <div class="mt-1 truncate font-mono text-[11px] text-slate-500">
                 {rel.pair_slug} · IG {rel.info_gain_score}/100
               </div>
             </div>

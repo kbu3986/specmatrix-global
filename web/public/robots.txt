@@ -1,3 +1,4 @@
+# SpecMatrix Global — Default robots.txt (overwritten dynamically during build by web/scripts/generate-sitemaps.mjs)
 User-agent: *
 Allow: /
 

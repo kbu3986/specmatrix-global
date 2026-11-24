@@ -133,7 +133,13 @@ export function auditItemInformationGain(item, fx = DEFAULT_FX_RATES) {
   }
   if (!Number.isFinite(minGotchas)) minGotchas = 0;
 
-  const citationsCount = Array.isArray(item?.citations) ? item.citations.length : 0;
+  const citations = Array.isArray(item?.citations) ? item.citations : [];
+  const citationsCount = citations.length;
+  const tier1CitationsCount = citations.filter((c) => c?.source_tier === 1).length;
+  const humanSpotChecked = item?.audit?.human_spot_checked === true;
+  const hasVerifiedAsin = Object.values(item?.regional_offers || {}).some(
+    (offer) => typeof offer?.asin === "string" && offer.asin.trim().length > 0
+  );
   const declaredIgScore = typeof item?.audit?.info_gain_score === "number" ? item.audit.info_gain_score : 0;
 
   if (structuredFieldsCount < IG_THRESHOLDS.minStructuredFields) {
@@ -160,14 +166,37 @@ export function auditItemInformationGain(item, fx = DEFAULT_FX_RATES) {
     );
   }
 
-  // Objective deterministic IG breakdown (30 + 30 + 20 + 20 = 100 pts)
-  const quantPts = Math.min(30, Math.round((structuredFieldsCount / 18) * 30));
-  const derivedPts = Math.min(30, Math.round((derivedMetricsCount / 4) * 30));
-  const gotchaPts = Math.min(20, Math.round((minGotchas / 2) * 20));
-  const localizedPts =
-    (activeLocales.includes("en") && activeLocales.includes("ko") ? 10 : 5) +
-    (citationsCount >= 2 ? 10 : citationsCount * 5);
-  const computedIgScore = Math.min(100, quantPts + derivedPts + gotchaPts + localizedPts);
+  // Recalibrated deterministic IG rubric (28 + 24 + 18 + 16 + 14 = 100 pts)
+  // Differentiates structured depth, derived metrics, localized gotchas, Tier-1 citations,
+  // human spot-check status, and verified real regional ASINs.
+  const quantPts = Math.min(28, structuredFieldsCount);
+  const derivedPts =
+    derivedMetricsCount >= 6
+      ? 24
+      : derivedMetricsCount === 5
+        ? 21
+        : derivedMetricsCount === 4
+          ? 18
+          : Math.min(24, derivedMetricsCount * 4);
+  const gotchaPts =
+    minGotchas >= 3 ? 18 : minGotchas === 2 ? 14 : Math.min(18, minGotchas * 6);
+  const citationPts =
+    Math.min(8, citationsCount * 3) +
+    (tier1CitationsCount >= 2 ? 8 : tier1CitationsCount === 1 ? 5 : 0);
+  const verificationPts =
+    (activeLocales.includes("en") && activeLocales.includes("ko") ? 8 : 3) +
+    (humanSpotChecked ? 4 : 0) +
+    (hasVerifiedAsin ? 2 : 0);
+  const computedIgScore = Math.min(
+    100,
+    quantPts + derivedPts + gotchaPts + citationPts + verificationPts
+  );
+
+  if (computedIgScore < IG_THRESHOLDS.minInfoGainScore) {
+    errors.push(
+      `Computed info_gain_score (${computedIgScore}) < minimum ${IG_THRESHOLDS.minInfoGainScore}`
+    );
+  }
 
   return {
     slug: item?.slug ?? "(unknown)",
@@ -178,13 +207,17 @@ export function auditItemInformationGain(item, fx = DEFAULT_FX_RATES) {
     local_gotchas_by_locale: gotchaCounts,
     min_local_gotchas: minGotchas,
     citations_count: citationsCount,
+    tier1_citations_count: tier1CitationsCount,
+    human_spot_checked: humanSpotChecked,
+    has_verified_asin: hasVerifiedAsin,
     declared_ig_score: declaredIgScore,
     computed_ig_score: computedIgScore,
     score_breakdown: {
       quantitative_specs: quantPts,
       derived_metrics: derivedPts,
       real_world_caveats: gotchaPts,
-      localized_regulatory_value: localizedPts,
+      citation_authority: citationPts,
+      localized_verification_signals: verificationPts,
     },
     errors,
   };
@@ -200,6 +233,9 @@ export function auditVsInformationGain(vsInsight, itemA, itemB, fx = DEFAULT_FX_
   const serpGapsCount = Array.isArray(vsInsight?.serp_gaps_captured)
     ? vsInsight.serp_gaps_captured.length
     : 0;
+  const serpGapsKoCount = Array.isArray(vsInsight?.serp_gaps_captured_ko)
+    ? vsInsight.serp_gaps_captured_ko.length
+    : 0;
 
   if (declaredIgScore < IG_THRESHOLDS.minInfoGainScore) {
     errors.push(
@@ -212,19 +248,31 @@ export function auditVsInformationGain(vsInsight, itemA, itemB, fx = DEFAULT_FX_
     );
   }
 
+  let enVerdictOk = false;
+  let koVerdictOk = false;
+  let minChoiceBullets = Infinity;
+
   for (const loc of ["en", "ko"]) {
     const v = vsInsight?.verdict?.[loc];
     if (!v) {
       errors.push(`Missing verdict.${loc}`);
     } else {
-      if (!Array.isArray(v.choose_a_if) || v.choose_a_if.length < 2) {
+      const aLen = Array.isArray(v.choose_a_if) ? v.choose_a_if.length : 0;
+      const bLen = Array.isArray(v.choose_b_if) ? v.choose_b_if.length : 0;
+      if (aLen < 2) {
         errors.push(`verdict.${loc}.choose_a_if requires >= 2 entries`);
       }
-      if (!Array.isArray(v.choose_b_if) || v.choose_b_if.length < 2) {
+      if (bLen < 2) {
         errors.push(`verdict.${loc}.choose_b_if requires >= 2 entries`);
+      }
+      if (aLen >= 2 && bLen >= 2) {
+        if (loc === "en") enVerdictOk = true;
+        if (loc === "ko") koVerdictOk = true;
+        minChoiceBullets = Math.min(minChoiceBullets, aLen, bLen);
       }
     }
   }
+  if (!Number.isFinite(minChoiceBullets)) minChoiceBullets = 0;
 
   let diffRowsCount = 0;
   let scoredMetricsCount = 0;
@@ -259,14 +307,47 @@ export function auditVsInformationGain(vsInsight, itemA, itemB, fx = DEFAULT_FX_
     }
   }
 
+  // Deterministic VS IG rubric (25 + 25 + 35 + 15 = 100 pts)
+  const serpGapsPts =
+    serpGapsCount >= 4 ? 25 : serpGapsCount === 3 ? 21 : Math.min(25, serpGapsCount * 6);
+  const verdictPts =
+    enVerdictOk && koVerdictOk
+      ? minChoiceBullets >= 3
+        ? 25
+        : 22
+      : enVerdictOk || koVerdictOk
+        ? 10
+        : 0;
+  const diffPts = nanFound
+    ? 0
+    : diffRowsCount >= 8
+      ? 35
+      : Math.min(35, Math.round((diffRowsCount / 8) * 35));
+  const bilingualGapsPts = serpGapsKoCount >= 3 ? 15 : serpGapsKoCount > 0 ? 7 : 0;
+  const computedIgScore = Math.min(100, serpGapsPts + verdictPts + diffPts + bilingualGapsPts);
+
+  if (computedIgScore < IG_THRESHOLDS.minInfoGainScore) {
+    errors.push(
+      `VS computed info_gain_score (${computedIgScore}) < minimum ${IG_THRESHOLDS.minInfoGainScore}`
+    );
+  }
+
   return {
     pair_slug: vsInsight?.pair_slug ?? "(unknown)",
     vertical: vsInsight?.vertical ?? "(unknown)",
     passed: errors.length === 0,
     declared_ig_score: declaredIgScore,
+    computed_ig_score: computedIgScore,
     serp_gaps_count: serpGapsCount,
+    serp_gaps_ko_count: serpGapsKoCount,
     diff_rows_count: diffRowsCount,
     scored_metrics_count: scoredMetricsCount,
+    score_breakdown: {
+      serp_gaps_en: serpGapsPts,
+      verdict_depth: verdictPts,
+      diff_table_depth: diffPts,
+      bilingual_serp_gaps: bilingualGapsPts,
+    },
     errors,
   };
 }
@@ -367,10 +448,24 @@ export function runIgAudit({ rootDir, writeReport = true } = {}) {
           ).toFixed(2)
         )
       : 0;
+  const avgItemComputedIg =
+    itemResults.length > 0
+      ? Number(
+          (
+            itemResults.reduce((acc, r) => acc + (r.computed_ig_score || 0), 0) / itemResults.length
+          ).toFixed(2)
+        )
+      : 0;
   const avgVsIg =
     vsResults.length > 0
       ? Number(
           (vsResults.reduce((acc, r) => acc + (r.declared_ig_score || 0), 0) / vsResults.length).toFixed(2)
+        )
+      : 0;
+  const avgVsComputedIg =
+    vsResults.length > 0
+      ? Number(
+          (vsResults.reduce((acc, r) => acc + (r.computed_ig_score || 0), 0) / vsResults.length).toFixed(2)
         )
       : 0;
 
@@ -389,10 +484,12 @@ export function runIgAudit({ rootDir, writeReport = true } = {}) {
       items_passed: itemsPassed,
       items_failed: itemResults.length - itemsPassed,
       avg_item_ig_score: avgItemIg,
+      avg_item_computed_ig_score: avgItemComputedIg,
       vs_total: vsResults.length,
       vs_passed: vsPassed,
       vs_failed: vsResults.length - vsPassed,
       avg_vs_ig_score: avgVsIg,
+      avg_vs_computed_ig_score: avgVsComputedIg,
     },
     items: itemResults,
     vs_pairs: vsResults,
@@ -421,10 +518,10 @@ if (isDirectRun(import.meta.url)) {
 
   console.log("=== SpecMatrix Global — Stage 3 SERP Information Gain Audit ===");
   console.log(
-    `Items:    ${s.items_passed}/${s.items_total} passed (avg IG score: ${s.avg_item_ig_score})`
+    `Items:    ${s.items_passed}/${s.items_total} passed (declared avg: ${s.avg_item_ig_score} | computed avg: ${s.avg_item_computed_ig_score})`
   );
   console.log(
-    `VS Pairs: ${s.vs_passed}/${s.vs_total} passed (avg IG score: ${s.avg_vs_ig_score})`
+    `VS Pairs: ${s.vs_passed}/${s.vs_total} passed (declared avg: ${s.avg_vs_ig_score} | computed avg: ${s.avg_vs_computed_ig_score})`
   );
   if (report.report_path) {
     console.log(`Report:   ${report.report_path}`);

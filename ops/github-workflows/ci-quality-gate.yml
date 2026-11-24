@@ -16,9 +16,9 @@ permissions:
 
 jobs:
   quality-gate:
-    name: Validate, Audit, Test, Build & Stage 6 QA
+    name: Validate, Audit, Test, Astro Check, Root + Subpath Build & Stage 6 QA
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
@@ -48,11 +48,21 @@ jobs:
       - name: Pipeline Unit Tests
         run: npm run test:pipeline
 
-      - name: Build Astro 5 Static Site & Split Sitemaps
-        run: npm run web:build
+      - name: Astro & TypeScript Static Check
+        run: npm --prefix web run check
 
-      - name: Stage 6 Built HTML QA Gate
-        run: npm run qa:stage6
+      - name: Build Root Static Site (specmatrix.io) & Stage 6 QA
+        run: |
+          npm run web:build
+          npm run qa:stage6
+
+      - name: Build GitHub Pages Subpath Site (/specmatrix-global) & Stage 6 QA
+        env:
+          PUBLIC_SITE_URL: https://kbu3986.github.io/specmatrix-global
+          PUBLIC_BASE_PATH: /specmatrix-global
+        run: |
+          npm run web:build
+          npm run qa:stage6
 
       - name: Upload Quality Gate Audit Reports
         if: always()

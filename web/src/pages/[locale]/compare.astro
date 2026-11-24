@@ -25,12 +25,12 @@ import {
   ACTIVE_LOCALES,
   BASE_PATH,
   PILOT_VERTICALS,
-  SITE_URL,
   VERTICAL_META,
   formatCurrency,
   formatInt,
   getCategoryLabel,
   safeJsonLd,
+  toAbsoluteUrl,
   withBase,
 } from "../../lib/i18n";
 
@@ -133,6 +133,7 @@ function serializeItem(item: AnyItem): CompareSkuPayload {
     const d = computePureGramDerived(item, fx);
     const nl = item.nutrition_label;
     metrics = {
+      activeIngredientType: nl.active_ingredient_type,
       benchLabel: isKo
         ? item.derived_math.benchmark_label_ko
         : item.derived_math.benchmark_label_en,
@@ -160,24 +161,30 @@ function serializeItem(item: AnyItem): CompareSkuPayload {
     metrics = {
       tco3yr: isKo ? d.tco3yrKrw : d.tco3yrUsd,
       tco3yrUsd: d.tco3yrUsd,
+      tco3yrKrw: d.tco3yrKrw,
       weightedAvgW: d.weightedAvgW,
       annualKwh: d.annualKwh,
       annualElec: isKo ? d.annualElecKrw : d.annualElecUsd,
+      annualConsumables: isKo ? s.annual_consumables_krw : s.annual_consumables_usd,
       idlePowerW: s.idle_power_w,
       typicalLoadW: s.typical_load_w,
       peakPowerW: s.peak_power_w,
       noiseLoadDba: s.noise_load_dba,
       noiseIdleDba: s.noise_idle_dba,
       weightG: s.weight_g,
+      volumeL: +((s.dimensions_mm.l * s.dimensions_mm.w * s.dimensions_mm.h) / 1_000_000).toFixed(4),
       dualVoltage: s.dual_voltage_100_240v,
       alwaysOn247: tp.always_on_24_7,
       certCount: s.certifications.length,
+      ramGbDefault: s.ram_gb_default,
       lanSpeedGbps: s.lan_speed_gbps,
       driveBays: s.drive_bays,
       upsVaRating: s.ups_va_rating,
       upsWattRating: s.ups_watt_rating,
       upsWaveform: s.ups_waveform ?? "",
+      upsRuntimeHalfLoadMin: s.ups_runtime_half_load_min,
       suctionPa: s.suction_pa,
+      dustbagCapacityL: s.dustbag_capacity_l,
       lifespanYears: tp.expected_lifespan_years,
     };
   } else {
@@ -270,6 +277,25 @@ const defaultItemB =
   defaultItems[1] ||
   null;
 
+function groupByCategory(
+  list: CompareSkuPayload[]
+): Array<{ category: string; label: string; items: CompareSkuPayload[] }> {
+  const map = new Map<string, { category: string; label: string; items: CompareSkuPayload[] }>();
+  for (const item of list) {
+    let grp = map.get(item.category);
+    if (!grp) {
+      grp = { category: item.category, label: item.categoryLabel, items: [] };
+      map.set(item.category, grp);
+    }
+    grp.items.push(item);
+  }
+  return Array.from(map.values());
+}
+
+const defaultGroupedItems = groupByCategory(defaultItems);
+const statusToneClass = (tone: "pass" | "caution" | "fail"): string =>
+  tone === "pass" ? "badge-pass" : tone === "fail" ? "badge-fail" : "badge-caution";
+
 const clientPayload = {
   locale,
   currency,
@@ -303,7 +329,7 @@ const jsonLd = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     description: pageDesc,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     inLanguage: locale,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
@@ -315,13 +341,19 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: toAbsoluteUrl(`/${locale}`),
       },
       {
         "@type": "ListItem",
         position: 2,
+        name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
+        item: toAbsoluteUrl(`/${locale}/tools`),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
         name: isKo ? "실시간 1:1 비교" : "Live 1:1 Compare",
-        item: `${SITE_URL}${currentPath}`,
+        item: toAbsoluteUrl(currentPath),
       },
     ],
   },
@@ -435,10 +467,14 @@ const jsonLd = [
           id="cmp-select-a"
           class="mt-1.5 w-full rounded-lg border border-blue-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
         >
-          {defaultItems.map((it) => (
-            <option value={it.slug} selected={it.slug === defaultItemA?.slug}>
-              {it.name} ({it.msrpDisplay})
-            </option>
+          {defaultGroupedItems.map((grp) => (
+            <optgroup label={grp.label}>
+              {grp.items.map((it) => (
+                <option value={it.slug} selected={it.slug === defaultItemA?.slug}>
+                  {it.name} ({it.msrpDisplay})
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
       </div>
@@ -470,12 +506,35 @@ const jsonLd = [
           id="cmp-select-b"
           class="mt-1.5 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-emerald-600 focus:outline-none"
         >
-          {defaultItems.map((it) => (
-            <option value={it.slug} selected={it.slug === defaultItemB?.slug}>
-              {it.name} ({it.msrpDisplay})
-            </option>
+          {defaultGroupedItems.map((grp) => (
+            <optgroup label={grp.label}>
+              {grp.items.map((it) => (
+                <option value={it.slug} selected={it.slug === defaultItemB?.slug}>
+                  {it.name} ({it.msrpDisplay})
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
+      </div>
+    </div>
+
+    <!-- Cross-Category Warning Banner (dynamic) -->
+    <div
+      id="cmp-cross-cat-banner"
+      role="status"
+      class="mt-3 hidden items-start gap-2.5 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-950"
+    >
+      <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-200 font-mono text-[11px] font-bold text-amber-950">
+        !
+      </span>
+      <div class="min-w-0">
+        <div class="font-bold text-amber-950">
+          {isKo
+            ? "서로 다른 제품군(카테고리) 간 비교 중입니다"
+            : "Cross-Category Comparison Active"}
+        </div>
+        <p id="cmp-cross-cat-msg" class="mt-0.5 leading-relaxed text-amber-900"></p>
       </div>
     </div>
 
@@ -532,7 +591,7 @@ const jsonLd = [
         href={defaultVsFirst ? defaultVsFirst.href : withBase(`/${locale}`)}
         class="shrink-0 rounded-lg bg-blue-700 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-800"
       >
-        {isKo ? "에디토리얼 심층 VS 분석 열기 →" : "Curated Editorial VS Available →"}
+        {isKo ? "에디토리얼 심층 VS 분석 열기 →" : "Open Curated Editorial VS →"}
       </a>
     </div>
   </section>
@@ -739,7 +798,9 @@ const jsonLd = [
                 <div class="font-mono text-[11px] font-bold uppercase text-blue-700">MODEL A</div>
                 <h3 class="mt-0.5 text-base font-bold text-slate-900">{defaultItemA.name}</h3>
               </div>
-              <span class="badge-pass">{defaultItemA.monetization.statusLabel}</span>
+              <span class={statusToneClass(defaultItemA.monetization.statusTone)}>
+                {defaultItemA.monetization.statusLabel}
+              </span>
             </div>
             <div class="mt-2 font-mono text-2xl font-bold text-slate-900">
               {defaultItemA.monetization.benchmarkPriceFormatted}
@@ -782,7 +843,9 @@ const jsonLd = [
                 <div class="font-mono text-[11px] font-bold uppercase text-emerald-700">MODEL B</div>
                 <h3 class="mt-0.5 text-base font-bold text-slate-900">{defaultItemB.name}</h3>
               </div>
-              <span class="badge-pass">{defaultItemB.monetization.statusLabel}</span>
+              <span class={statusToneClass(defaultItemB.monetization.statusTone)}>
+                {defaultItemB.monetization.statusLabel}
+              </span>
             </div>
             <div class="mt-2 font-mono text-2xl font-bold text-slate-900">
               {defaultItemB.monetization.benchmarkPriceFormatted}
@@ -823,6 +886,8 @@ const jsonLd = [
 </BaseLayout>
 
 <script>
+  import { copyToClipboard } from "../../lib/clipboard";
+
   (() => {
     const dataEl = document.getElementById("cmp-workbench-data");
     if (!dataEl) return;
@@ -979,31 +1044,35 @@ const jsonLd = [
       displayA: string,
       displayB: string,
       higherBetter: boolean,
-      formatDelta: (diff: number) => string
+      formatDelta: (diff: number) => string,
+      neutral = false,
+      neutralText?: string
     ): DiffRow {
       let winner: "a" | "b" | "tie" | "neutral" = "neutral";
-      let deltaText = "—";
+      let deltaText = neutral ? (neutralText || (isKo ? "목적별 상이" : "Use-case dependent")) : "—";
       let barPctA = 50;
       let barPctB = 50;
       if (rawA !== null && rawB !== null) {
         const maxVal = Math.max(Math.abs(rawA), Math.abs(rawB), 0.0001);
         barPctA = Math.max(8, Math.min(100, Math.round((Math.abs(rawA) / maxVal) * 100)));
         barPctB = Math.max(8, Math.min(100, Math.round((Math.abs(rawB) / maxVal) * 100)));
-        const diff = rawA - rawB;
-        if (Math.abs(diff) < 0.005) {
-          winner = "tie";
-          deltaText = isKo ? "동일" : "Tie";
-        } else {
-          const aWins = higherBetter ? diff > 0 : diff < 0;
-          winner = aWins ? "a" : "b";
-          const formatted = formatDelta(Math.abs(diff));
-          deltaText = isKo
-            ? aWins
-              ? `A 우세 (${formatted})`
-              : `B 우세 (${formatted})`
-            : aWins
-              ? `A leads by ${formatted}`
-              : `B leads by ${formatted}`;
+        if (!neutral) {
+          const diff = rawA - rawB;
+          if (Math.abs(diff) < 0.005) {
+            winner = "tie";
+            deltaText = isKo ? "동일" : "Tie";
+          } else {
+            const aWins = higherBetter ? diff > 0 : diff < 0;
+            winner = aWins ? "a" : "b";
+            const formatted = formatDelta(Math.abs(diff));
+            deltaText = isKo
+              ? aWins
+                ? `A 우세 (${formatted})`
+                : `B 우세 (${formatted})`
+              : aWins
+                ? `A leads by ${formatted}`
+                : `B leads by ${formatted}`;
+          }
         }
       }
       return { label, displayA, displayB, barPctA, barPctB, winner, deltaText };
@@ -1257,12 +1326,12 @@ const jsonLd = [
           )
         );
 
-        const cWhUsdA = numVal(mA.costPer10WhUsd);
-        const cWhUsdB = numVal(mB.costPer10WhUsd);
-        const useWhVal = Boolean(mA.hasBattery && mB.hasBattery && cWhUsdA && cWhUsdB);
+        const cWhLocA = numVal(mA.costPer10Wh);
+        const cWhLocB = numVal(mB.costPer10Wh);
+        const useWhVal = Boolean(mA.hasBattery && mB.hasBattery && cWhLocA && cWhLocB);
         const [valA, valB] = pairScores(
-          useWhVal ? (cWhUsdA ?? 1) : (numVal(mA.costPer10WUsd) ?? 1),
-          useWhVal ? (cWhUsdB ?? 1) : (numVal(mB.costPer10WUsd) ?? 1),
+          useWhVal ? (cWhLocA ?? 1) : (numVal(mA.costPer10W) ?? 1),
+          useWhVal ? (cWhLocB ?? 1) : (numVal(mB.costPer10W) ?? 1),
           false
         );
         const [portA, portB] = pairScores(wtA ?? 100, wtB ?? 100, false);
@@ -1303,18 +1372,38 @@ const jsonLd = [
         const r90A = numVal(mA.race90gCost);
         const r90B = numVal(mB.race90gCost);
 
+        const benchLabelA = String(mA.benchLabel || (isKo ? "기준" : "Unit"));
+        const benchLabelB = String(mB.benchLabel || (isKo ? "기준" : "Unit"));
+        const sameBenchUnit = a.category === b.category && benchLabelA === benchLabelB;
+        const bothElectrolyte = a.category === "electrolyte" && b.category === "electrolyte";
+        const bothCarbActive =
+          mA.activeIngredientType === "carbohydrates" &&
+          mB.activeIngredientType === "carbohydrates";
+
         rows.push(
-          makeRow(
-            isKo
-              ? `기준 단위 실단가 (${String(mA.benchLabel || "기준")})`
-              : `Cost / Benchmark (${String(mA.benchLabel || "Unit")})`,
-            cbA,
-            cbB,
-            fmtCurr(cbA),
-            fmtCurr(cbB),
-            false,
-            (d) => fmtCurr(d)
-          ),
+          sameBenchUnit
+            ? makeRow(
+                isKo
+                  ? `기준 단위 실단가 (${benchLabelA})`
+                  : `Cost / Benchmark (${benchLabelA})`,
+                cbA,
+                cbB,
+                fmtCurr(cbA),
+                fmtCurr(cbB),
+                false,
+                (d) => fmtCurr(d)
+              )
+            : makeRow(
+                isKo ? "기준 단위 실단가 (카테고리별 상이)" : "Cost / Benchmark Unit (Differs)",
+                null,
+                null,
+                `${fmtCurr(cbA)} / ${benchLabelA}`,
+                `${fmtCurr(cbB)} / ${benchLabelB}`,
+                false,
+                (d) => fmtCurr(d),
+                true,
+                isKo ? "기준 단위 상이" : "Incompatible units"
+              ),
           makeRow(
             isKo ? "유효성분 순도 (%)" : "Active Purity (%)",
             purA,
@@ -1331,7 +1420,9 @@ const jsonLd = [
             `${fmtNum(actA, 1)} g`,
             `${fmtNum(actB, 1)} g`,
             true,
-            (d) => `${fmtNum(d, 1)} g`
+            (d) => `${fmtNum(d, 1)} g`,
+            !sameBenchUnit,
+            isKo ? "성분군 상이" : "Different actives"
           ),
           makeRow(
             isKo ? "1회분 기준 단가" : "Cost per Serving",
@@ -1348,8 +1439,10 @@ const jsonLd = [
             naB,
             `${fmtInt(naA)} mg`,
             `${fmtInt(naB)} mg`,
-            true,
-            (d) => `${fmtInt(d)} mg`
+            bothElectrolyte,
+            (d) => `${fmtInt(d)} mg`,
+            !bothElectrolyte,
+            isKo ? "목적별 상이" : "Use-case dependent"
           ),
           makeRow(
             isKo ? "패키지 총 서빙 수" : "Total Servings / Pack",
@@ -1361,7 +1454,7 @@ const jsonLd = [
             (d) => `${fmtInt(d)}`
           )
         );
-        if (r90A !== null && r90B !== null) {
+        if (bothCarbActive && r90A !== null && r90B !== null) {
           rows.push(
             makeRow(
               isKo ? "시간당 90g 레이스 보급비" : "90g/hr Race Fueling Cost",
@@ -1375,11 +1468,9 @@ const jsonLd = [
           );
         }
 
-        const [valA, valB] = pairScores(
-          numVal(mA.costPerBenchUsd) ?? 1,
-          numVal(mB.costPerBenchUsd) ?? 1,
-          false
-        );
+        const [valA, valB] = sameBenchUnit
+          ? pairScores(cbA ?? 1, cbB ?? 1, false)
+          : pairScores(srvCostA ?? a.msrp, srvCostB ?? b.msrp, false);
         const [portA, portB] = pairScores(purA ?? 50, purB ?? 50, true);
         const perf = (m: Record<string, number | string | boolean | null>) =>
           (numVal(m.activePerServingG) ?? 0) * 2 +
@@ -1413,14 +1504,28 @@ const jsonLd = [
         const elecB = numVal(mB.annualElec);
         const idleA = numVal(mA.idlePowerW);
         const idleB = numVal(mB.idlePowerW);
-        const noiseA = numVal(mA.noiseLoadDba) ?? numVal(mA.noiseIdleDba);
-        const noiseB = numVal(mB.noiseLoadDba) ?? numVal(mB.noiseIdleDba);
+        const typA = numVal(mA.typicalLoadW);
+        const typB = numVal(mB.typicalLoadW);
         const wtA = numVal(mA.weightG);
         const wtB = numVal(mB.weightG);
+        const consA = numVal(mA.annualConsumables);
+        const consB = numVal(mB.annualConsumables);
+        const noiseLoadA = numVal(mA.noiseLoadDba);
+        const noiseLoadB = numVal(mB.noiseLoadDba);
+        const lanA = numVal(mA.lanSpeedGbps);
+        const lanB = numVal(mB.lanSpeedGbps);
+        const baysA = numVal(mA.driveBays);
+        const baysB = numVal(mB.driveBays);
+        const upsWA = numVal(mA.upsWattRating);
+        const upsWB = numVal(mB.upsWattRating);
+        const upsVaA = numVal(mA.upsVaRating);
+        const upsVaB = numVal(mB.upsVaRating);
+        const sucA = numVal(mA.suctionPa);
+        const sucB = numVal(mB.suctionPa);
 
         rows.push(
           makeRow(
-            isKo ? "3년 총소유비용(TCO)" : "3-Year TCO (Incl. Power)",
+            isKo ? "3년 총소유비용 (3-Yr TCO)" : "3-Year TCO (HW + Power + Maint.)",
             tcoA,
             tcoB,
             fmtCurr(tcoA),
@@ -1429,7 +1534,7 @@ const jsonLd = [
             (d) => fmtCurr(d)
           ),
           makeRow(
-            isKo ? "가중 평균 소비전력" : "Weighted Average Power",
+            isKo ? "가중 평균 소비전력 (낮을수록 우세)" : "Weighted Avg Power (Lower Wins)",
             avgWA,
             avgWB,
             `${fmtNum(avgWA, 1)} W`,
@@ -1438,16 +1543,16 @@ const jsonLd = [
             (d) => `${fmtNum(d, 1)} W`
           ),
           makeRow(
-            isKo ? "연간 예상 전력량 (kWh)" : "Annual Energy Use (kWh)",
+            isKo ? "연간 전력 소비량 (kWh/yr)" : "Annual Energy Consumption",
             kwhA,
             kwhB,
-            `${fmtInt(kwhA)} kWh`,
-            `${fmtInt(kwhB)} kWh`,
+            `${fmtNum(kwhA, 1)} kWh`,
+            `${fmtNum(kwhB, 1)} kWh`,
             false,
-            (d) => `${fmtInt(d)} kWh`
+            (d) => `${fmtNum(d, 1)} kWh`
           ),
           makeRow(
-            isKo ? "연간 예상 전기요금" : "Est. Annual Electricity Cost",
+            isKo ? "연간 예상 전기요금 (한전 2구간)" : "Annual Electricity Cost ($0.17/kWh)",
             elecA,
             elecB,
             fmtCurr(elecA),
@@ -1456,64 +1561,152 @@ const jsonLd = [
             (d) => fmtCurr(d)
           ),
           makeRow(
-            isKo ? "대기 전력 (Idle W)" : "Idle Power Draw",
+            isKo ? "24/7 대기전력 (Idle W)" : "Idle Power Draw (W)",
             idleA,
             idleB,
             `${fmtNum(idleA, 1)} W`,
             `${fmtNum(idleB, 1)} W`,
             false,
             (d) => `${fmtNum(d, 1)} W`
+          ),
+          makeRow(
+            isKo ? "실사용 평균 부하 전력" : "Typical Active Load",
+            typA,
+            typB,
+            `${fmtNum(typA, 1)} W`,
+            `${fmtNum(typB, 1)} W`,
+            false,
+            (d) => `${fmtNum(d, 1)} W`
+          ),
+          makeRow(
+            isKo ? "본체 무게 (g)" : "Unit Weight (g)",
+            wtA,
+            wtB,
+            `${fmtInt(wtA)} g`,
+            `${fmtInt(wtB)} g`,
+            false,
+            (d) => `${fmtInt(d)} g`
           )
         );
-        if (noiseA !== null && noiseB !== null) {
+        if ((consA ?? 0) > 0 || (consB ?? 0) > 0) {
           rows.push(
             makeRow(
-              isKo ? "소음 수준 (낮을수록 정숙)" : "Acoustic Noise (Quieter Wins)",
-              noiseA,
-              noiseB,
-              `${fmtNum(noiseA, 1)} dBA`,
-              `${fmtNum(noiseB, 1)} dBA`,
+              isKo ? "연간 소모품 유지비" : "Annual Consumables Cost",
+              consA,
+              consB,
+              fmtCurr(consA),
+              fmtCurr(consB),
+              false,
+              (d) => fmtCurr(d)
+            )
+          );
+        }
+        if (noiseLoadA !== null && noiseLoadB !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "부하 소음 (dBA, 낮을수록 정숙)" : "Load Noise (dBA, Quieter Wins)",
+              noiseLoadA,
+              noiseLoadB,
+              `${fmtNum(noiseLoadA, 1)} dBA`,
+              `${fmtNum(noiseLoadB, 1)} dBA`,
               false,
               (d) => `${fmtNum(d, 1)} dBA`
             )
           );
         }
-        rows.push(
-          makeRow(
-            isKo ? "본체 무게" : "Unit Weight",
-            wtA,
-            wtB,
-            wtA !== null && wtA >= 1000 ? `${fmtNum(wtA / 1000, 2)} kg` : `${fmtInt(wtA)} g`,
-            wtB !== null && wtB >= 1000 ? `${fmtNum(wtB / 1000, 2)} kg` : `${fmtInt(wtB)} g`,
-            false,
-            (d) => (d >= 1000 ? `${fmtNum(d / 1000, 2)} kg` : `${fmtInt(d)} g`)
-          )
-        );
+        if (lanA !== null && lanB !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "유선 네트워크 대역폭" : "Wired LAN Bandwidth",
+              lanA,
+              lanB,
+              `${fmtNum(lanA, lanA % 1 !== 0 ? 1 : 0)} GbE`,
+              `${fmtNum(lanB, lanB % 1 !== 0 ? 1 : 0)} GbE`,
+              true,
+              (d) => `${fmtNum(d, d % 1 !== 0 ? 1 : 0)} GbE`
+            )
+          );
+        }
+        if (baysA !== null && baysB !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "스토리지 드라이브 베이" : "Storage Drive Bays",
+              baysA,
+              baysB,
+              `${fmtInt(baysA)}-Bay`,
+              `${fmtInt(baysB)}-Bay`,
+              true,
+              (d) => `${fmtInt(d)}`
+            )
+          );
+        }
+        if (upsWA !== null && upsWB !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "UPS 유효 출력 용량 (W)" : "UPS Real Power Capacity (W)",
+              upsWA,
+              upsWB,
+              `${fmtInt(upsWA)} W (${fmtInt(upsVaA)} VA)`,
+              `${fmtInt(upsWB)} W (${fmtInt(upsVaB)} VA)`,
+              true,
+              (d) => `${fmtInt(d)} W`
+            )
+          );
+        }
+        if (sucA !== null && sucB !== null) {
+          rows.push(
+            makeRow(
+              isKo ? "최대 흡입력 (Pa)" : "Peak Suction Power (Pa)",
+              sucA,
+              sucB,
+              `${fmtInt(sucA)} Pa`,
+              `${fmtInt(sucB)} Pa`,
+              true,
+              (d) => `${fmtInt(d)} Pa`
+            )
+          );
+        }
 
-        const [valA, valB] = pairScores(
-          numVal(mA.tco3yrUsd) ?? a.msrpUsd,
-          numVal(mB.tco3yrUsd) ?? b.msrpUsd,
-          false
-        );
-        const [portA, portB] = pairScores(
-          (noiseA ?? 35) * 2 + Math.min(60, (wtA ?? 1000) / 100),
-          (noiseB ?? 35) * 2 + Math.min(60, (wtB ?? 1000) / 100),
-          false
-        );
-        const perf = (m: Record<string, number | string | boolean | null>) =>
-          (numVal(m.lanSpeedGbps) ?? 0) * 10 +
-          (numVal(m.driveBays) ?? 0) * 12 +
-          (numVal(m.upsWattRating) ?? 0) / 20 +
-          (m.upsWaveform === "pure-sine" ? 25 : 0) +
-          (numVal(m.suctionPa) ?? 0) / 250 +
-          Math.min(40, (numVal(m.peakPowerW) ?? 0) / 5);
+        // Aligned 1:1 with web/src/lib/derived.ts (locale-aware TCO for value)
+        const [valA, valB] = pairScores(tcoA ?? a.msrp, tcoB ?? b.msrp, false);
+
+        const footprintRaw = (m: Record<string, number | string | boolean | null>) => {
+          const volL = numVal(m.volumeL) ?? 0;
+          const noise = numVal(m.noiseLoadDba) ?? numVal(m.noiseIdleDba) ?? 38;
+          const wt = numVal(m.weightG) ?? 1000;
+          return noise * 2 + Math.min(40, volL * 2.5) + Math.min(30, wt / 400);
+        };
+        const [portA, portB] = pairScores(footprintRaw(mA), footprintRaw(mB), false);
+
+        const perf = (m: Record<string, number | string | boolean | null>) => {
+          const ram = numVal(m.ramGbDefault);
+          const lan = numVal(m.lanSpeedGbps);
+          const bays = numVal(m.driveBays);
+          const upsW = numVal(m.upsWattRating);
+          const upsRun = numVal(m.upsRuntimeHalfLoadMin);
+          const suc = numVal(m.suctionPa);
+          const bag = numVal(m.dustbagCapacityL);
+          const peakW = numVal(m.peakPowerW) ?? 0;
+          return (
+            (ram ? Math.min(32, ram) * 1.4 : 0) +
+            (lan ? lan * 8 : 0) +
+            (bays ? bays * 12 : 0) +
+            (upsW ? upsW / 18 : 0) +
+            (m.upsWaveform === "pure-sine" ? 22 : 0) +
+            (upsRun ? upsRun * 2 : 0) +
+            (suc ? suc / 220 : 0) +
+            (bag ? bag * 6 : 0) +
+            Math.min(25, peakW / 10)
+          );
+        };
         const [perfA, perfB] = pairScores(perf(mA), perf(mB), true);
+
         const prac = (m: Record<string, number | string | boolean | null>) =>
-          (m.dualVoltage ? 25 : 0) +
-          (m.alwaysOn247 ? 15 : 5) +
-          Math.max(0, 30 - (numVal(m.idlePowerW) ?? 15)) +
-          (numVal(m.certCount) ?? 0) * 8 +
-          (numVal(m.lifespanYears) ?? 5) * 4;
+          Math.max(5, 45 - (numVal(m.weightedAvgW) ?? 15) * 0.6) +
+          (m.dualVoltage ? 22 : 0) +
+          (m.alwaysOn247 ? 10 : 5) +
+          (numVal(m.lifespanYears) ?? 5) * 3 +
+          (numVal(m.certCount) ?? 0) * 5;
         const [pracA, pracB] = pairScores(prac(mA), prac(mB), true);
 
         return {
@@ -1608,7 +1801,7 @@ const jsonLd = [
         )
       );
 
-      const [valA, valB] = pairScores(a.msrpUsd, b.msrpUsd, false);
+      const [valA, valB] = pairScores(a.msrp, b.msrp, false);
       const [portA, portB] = pairScores(wtA ?? 200, wtB ?? 200, false);
       const perf = (m: Record<string, number | string | boolean | null>) =>
         (numVal(m.accuracyPct) !== null ? (3.5 - (numVal(m.accuracyPct) ?? 1.5)) * 25 : 40) +
@@ -1634,6 +1827,8 @@ const jsonLd = [
     const linkA = document.getElementById("cmp-link-a") as HTMLAnchorElement | null;
     const linkB = document.getElementById("cmp-link-b") as HTMLAnchorElement | null;
     const popularWrap = document.getElementById("cmp-popular-chips");
+    const crossCatBanner = document.getElementById("cmp-cross-cat-banner");
+    const crossCatMsg = document.getElementById("cmp-cross-cat-msg");
     const curatedBanner = document.getElementById("cmp-curated-banner");
     const curatedIg = document.getElementById("cmp-curated-ig");
     const curatedHeadline = document.getElementById("cmp-curated-headline");
@@ -1728,8 +1923,25 @@ const jsonLd = [
             : "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition-colors hover:border-blue-500 hover:text-blue-700";
       });
 
-      const optsHtml = list
-        .map((it) => `<option value="${esc(it.slug)}">${esc(it.name)} (${esc(it.msrpDisplay)})</option>`)
+      const grouped = new Map<string, { label: string; items: SkuData[] }>();
+      list.forEach((it) => {
+        let g = grouped.get(it.category);
+        if (!g) {
+          g = { label: it.categoryLabel, items: [] };
+          grouped.set(it.category, g);
+        }
+        g.items.push(it);
+      });
+      const optsHtml = Array.from(grouped.values())
+        .map(
+          (g) =>
+            `<optgroup label="${esc(g.label)}">${g.items
+              .map(
+                (it) =>
+                  `<option value="${esc(it.slug)}">${esc(it.name)} (${esc(it.msrpDisplay)})</option>`
+              )
+              .join("")}</optgroup>`
+        )
         .join("");
       if (selectA) selectA.innerHTML = optsHtml;
       if (selectB) selectB.innerHTML = optsHtml;
@@ -1843,7 +2055,36 @@ const jsonLd = [
       `;
     }
 
-    function updateScoresOnly() {
+    const DIM_ORDER = ["value", "portability", "performance", "practicality"] as const;
+
+    function getCurrentWeightsTuple(): number[] {
+      return DIM_ORDER.map((dim) => {
+        const el = document.getElementById(`cmp-w-${dim}`) as HTMLInputElement | null;
+        const v = Number(el?.value ?? 25);
+        return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : 25;
+      });
+    }
+
+    function buildShareHash(): string {
+      const base = `#${activeVertical}:${slugA}:${slugB}`;
+      const dims = getDimensionsForVertical(activeVertical);
+      const defaults = DIM_ORDER.map(
+        (id) => dims.find((d) => d.id === id)?.defaultWeight ?? 25
+      );
+      const cur = getCurrentWeightsTuple();
+      const isDefault = cur.every((v, idx) => v === defaults[idx]);
+      return isDefault ? base : `${base}:w=${cur.join(",")}`;
+    }
+
+    function syncUrlHash() {
+      try {
+        window.history.replaceState(null, "", buildShareHash());
+      } catch {
+        // ignore
+      }
+    }
+
+    function updateScoresOnly(syncHash = false) {
       const list = payload.itemsByVertical[activeVertical] || [];
       const itemA = list.find((i) => i.slug === slugA);
       const itemB = list.find((i) => i.slug === slugB);
@@ -1923,6 +2164,7 @@ const jsonLd = [
         }
       }
       syncPresetHighlight(matched);
+      if (syncHash) syncUrlHash();
     }
 
     function renderComparison(syncHash: boolean, emitEvent: boolean) {
@@ -1946,6 +2188,20 @@ const jsonLd = [
       if (barNameBEl) barNameBEl.textContent = `B · ${itemB.name}`;
       if (thA) thA.textContent = `A · ${itemA.name}`;
       if (thB) thB.textContent = `B · ${itemB.name}`;
+
+      // Cross-category safety warning
+      if (crossCatBanner && crossCatMsg) {
+        if (itemA.category !== itemB.category) {
+          crossCatBanner.classList.remove("hidden");
+          crossCatBanner.classList.add("flex");
+          crossCatMsg.textContent = isKo
+            ? `모델 A(${itemA.categoryLabel})와 모델 B(${itemB.categoryLabel})는 용도·측정 단위가 다른 제품군입니다. 동일 카테고리 내 정밀 비교를 원하면 드롭다운의 카테고리 그룹 내에서 선택해 주세요.`
+            : `Model A (${itemA.categoryLabel}) and Model B (${itemB.categoryLabel}) belong to different product categories with distinct benchmark units. Pick models from the same category group for strict apples-to-apples scoring.`;
+        } else {
+          crossCatBanner.classList.add("hidden");
+          crossCatBanner.classList.remove("flex");
+        }
+      }
 
       // Check Curated Editorial VS banner
       const [s1, s2] = [slugA, slugB].sort();
@@ -2009,15 +2265,10 @@ const jsonLd = [
 
       renderCtaCard(ctaAWrap, itemA, "A");
       renderCtaCard(ctaBWrap, itemB, "B");
-      updateScoresOnly();
+      updateScoresOnly(false);
 
       if (syncHash) {
-        const nextHash = `#${activeVertical}:${slugA}:${slugB}`;
-        try {
-          window.history.replaceState(null, "", nextHash);
-        } catch {
-          // ignore
-        }
+        syncUrlHash();
       }
       if (emitEvent) {
         track("compare_launch", { vertical: activeVertical, pair: `${s1}-vs-${s2}` });
@@ -2030,6 +2281,7 @@ const jsonLd = [
         payload.verticals.find((v) => v.count >= 2)?.id || "wattcheck";
       let targetA = "";
       let targetB = "";
+      let parsedWeights: number[] | null = null;
 
       if (raw && raw.includes(":")) {
         const parts = raw.split(":");
@@ -2038,11 +2290,27 @@ const jsonLd = [
           targetV = candV;
           targetA = parts[1] || "";
           targetB = parts[2] || "";
+          const wSeg = parts.slice(3).find((seg) => /^w=\d+,\d+,\d+,\d+$/.test(seg));
+          if (wSeg) {
+            parsedWeights = wSeg
+              .slice(2)
+              .split(",")
+              .map((n) => Math.max(0, Math.min(100, Number(n))));
+          }
         }
       }
 
       activeVertical = targetV;
       applyVerticalUI(activeVertical);
+
+      if (parsedWeights && parsedWeights.length === 4) {
+        DIM_ORDER.forEach((dim, idx) => {
+          const el = document.getElementById(`cmp-w-${dim}`) as HTMLInputElement | null;
+          if (el && Number.isFinite(parsedWeights![idx])) {
+            el.value = String(parsedWeights![idx]);
+          }
+        });
+      }
 
       const list = payload.itemsByVertical[activeVertical] || [];
       const firstVs = payload.curatedVs.find((v) => v.vertical === activeVertical);
@@ -2061,28 +2329,6 @@ const jsonLd = [
       }
 
       renderComparison(Boolean(raw), emitEvent);
-    }
-
-    function copyText(text: string): Promise<boolean> {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        return navigator.clipboard
-          .writeText(text)
-          .then(() => true)
-          .catch(() => false);
-      }
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        return Promise.resolve(ok);
-      } catch {
-        return Promise.resolve(false);
-      }
     }
 
     vertPills.forEach((pill) => {
@@ -2138,24 +2384,20 @@ const jsonLd = [
           const dim = s.getAttribute("data-dim") || "";
           if (dim in p) s.value = String(p[dim]);
         });
-        updateScoresOnly();
+        updateScoresOnly(true);
         syncPresetHighlight(key);
       });
     });
 
-    sliders.forEach((s) => s.addEventListener("input", updateScoresOnly));
+    sliders.forEach((s) => s.addEventListener("input", () => updateScoresOnly(true)));
 
     if (copyLinkBtn) {
       const def = isKo ? "공유 링크 복사" : "Copy Share Link";
       const done = isKo ? "링크 복사됨 ✓" : "Link Copied ✓";
       copyLinkBtn.addEventListener("click", () => {
-        const nextHash = `#${activeVertical}:${slugA}:${slugB}`;
-        try {
-          window.history.replaceState(null, "", nextHash);
-        } catch {
-          // ignore
-        }
-        copyText(window.location.href).then(() => {
+        syncUrlHash();
+        copyToClipboard(window.location.href).then((ok) => {
+          if (!ok) return;
           copyLinkBtn.textContent = done;
           copyLinkBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
           window.setTimeout(() => {
@@ -2175,12 +2417,7 @@ const jsonLd = [
         const itemB = list.find((i) => i.slug === slugB);
         if (!itemA || !itemB) return;
 
-        const nextHash = `#${activeVertical}:${slugA}:${slugB}`;
-        try {
-          window.history.replaceState(null, "", nextHash);
-        } catch {
-          // ignore
-        }
+        syncUrlHash();
 
         const header = `### ${itemA.name} vs ${itemB.name} (SpecMatrix Global)`;
         const verdictLine = isKo
@@ -2197,14 +2434,17 @@ const jsonLd = [
           ? `출처: [SpecMatrix 실시간 1:1 비교](${window.location.href})`
           : `Source: [SpecMatrix Live 1:1 Compare](${window.location.href})`;
 
-        copyText([header, "", verdictLine, "", ...tableLines, "", footer].join("\n")).then(() => {
-          copyMdBtn.textContent = done;
-          copyMdBtn.classList.add("bg-emerald-700");
-          window.setTimeout(() => {
-            copyMdBtn.textContent = def;
-            copyMdBtn.classList.remove("bg-emerald-700");
-          }, 1800);
-        });
+        copyToClipboard([header, "", verdictLine, "", ...tableLines, "", footer].join("\n")).then(
+          (ok) => {
+            if (!ok) return;
+            copyMdBtn.textContent = done;
+            copyMdBtn.classList.add("bg-emerald-700");
+            window.setTimeout(() => {
+              copyMdBtn.textContent = def;
+              copyMdBtn.classList.remove("bg-emerald-700");
+            }, 1800);
+          }
+        );
       });
     }
 

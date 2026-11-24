@@ -11,6 +11,11 @@
       "Side-by-side spindle wrench requirement (8 mm internal hex at 35–40 Nm vs 15 mm open-end pedal wrench at 34 Nm) and CR1/3N vs LR44 cell reliability trap.",
       "Korean official distributor pricing delta (1,190,000 KRW vs 1,390,000 KRW) alongside direct-import customs duty threshold calculation."
     ],
+    "serp_gaps_captured_ko": [
+      "시마노 듀라에이스·울테그라 페달에서 기변 시 안장 높이 보정에 직결되는 정확한 스택 높이(10.5 mm vs 12.2 mm)와 페어 무게 73 g 격차 정량화.",
+      "스핀들 장착 공구 차이(8 mm 육각 렌치 35~40 Nm vs 15 mm 페달 렌치 34 Nm) 및 랠리 CR1/3N 대 LR44 전지 접점 안정성 비교.",
+      "국내 공식 수입가 격차(119만 원 vs 139만 원)와 해외 직구 관부가세 기준선 비교."
+    ],
     "verdict": {
       "en": {
         "headline": "Assioma PRO RS-2 Wins on Weight (-73 g), Stack (-1.7 mm) & Value; Rally RS200 Wins on 120-Hr Replaceable Battery",
@@ -49,6 +54,11 @@
       "Direct cleat-ecosystem switching math: Look Keo (DUO) vs Shimano SPD-SL (PRO RS-2) total cost including cleats, float geometry, and shoe-sole pod clearance.",
       "Hardware architecture audit comparing external spindle-collar pods (303 g, 54 mm Q-factor, 50 hrs) against internal pod-free spindles (247 g, 53 mm Q-factor, 60+ hrs, PCO).",
       "Clear differentiation from legacy Assioma DUO-Shi (+65 mm Q-factor) so Shimano riders avoid outdated forum advice."
+    ],
+    "serp_gaps_captured_ko": [
+      "클릿 생태계 전환 총비용 비교: 룩 케오(DUO) 대 시마노 SPD-SL(PRO RS-2)의 클릿 교체·플로트 각도·슈즈 아웃솔 간섭 유무 분석.",
+      "하드웨어 구조 대비: 외장 스핀들 칼라 포드(303 g, Q-팩터 54 mm, 50시간) 대 스핀들 완전 내장 포드리스(247 g, Q-팩터 53 mm, 60시간+, PCO 지원).",
+      "구형 아시오마 DUO-Shi(+65 mm 광폭 Q-팩터)와의 명확한 구분으로 시마노 유저가 구버전 정보와 혼동하지 않도록 정리."
     ],
     "verdict": {
       "en": {
@@ -89,6 +99,11 @@
       "Total cost & compatibility audit including Magene Base's excluded chainrings, BB86/BSA 24 mm Hollowtech II fitment vs Trek BB90/T47 clearance traps, and 100 km mandatory bolt re-torque.",
       "Multi-bike ownership math: 3-minute pedal swap vs fixed single-bike crankset installation across a 2.5x price spread ($759 vs $299 / 1,190,000 vs 460,000 KRW)."
     ],
+    "serp_gaps_captured_ko": [
+      "계측 방식의 공학적 차이: 진짜 독립 좌우 페달 스트레인 게이지(±1.0%) 대 합산 토크 기반 스파이더 센서(±1.5%, 좌우 밸런스 추정).",
+      "총비용·호환성 점검: 마진 베이스의 체인링 별매 구조, BB86·BSA 24 mm 할로우테크 II 호환 대 트렉 BB90·T47 간섭 주의, 주행 100 km 후 체인링 볼트 재토크 필수 사항.",
+      "다중 자전거 운용 효율: 2.5배 가격 격차($759 vs $299 / 119만 vs 46만 원) 속에서 3분 페달 이식 대 단일 자전거 고정 크랭크 장착 비교."
+    ],
     "verdict": {
       "en": {
         "headline": "True Dual-Leg Portability & ±1.0% Precision (Assioma PRO RS-2) vs Unbeatable $299 Total Power (Magene P505)",
@@ -127,6 +142,11 @@
       "Real-world solar & battery math: COROS 120 hrs base + 2 hrs/hr direct sun vs Garmin Edge 840 Solar 26 hrs base / 32 hrs with solar (~25 min/hr gain).",
       "Offline standalone rerouting & Free-Ride ClimbPro (Edge 840) vs phone-assisted Google Maps rerouting and native 2-way Intervals.icu workflow (COROS DURA).",
       "Di2/AXS hood button support, cockpit weight/size delta (102 g vs 85 g), and $301 / 321,000 KRW price-value audit."
+    ],
+    "serp_gaps_captured_ko": [
+      "실사용 태양광·배터리 계산: 코로스 듀라 기본 120시간 + 직사광선 1시간당 +2시간 대 가민 엣지 840 솔라 기본 26시간 / 태양광 포함 32시간(시간당 약 +25분).",
+      "경로 탐색 및 훈련 생태계 차이: 스마트폰 없이 독립 재탐색·프리라이드 클라임프로(엣지 840) 대 스마트폰 연동 구글 지도 재탐색·네이티브 양방향 Intervals.icu 동기화(코로스 듀라).",
+      "Di2·AXS 후드 버튼 지원, 콕핏 무게·크기 차이(102 g vs 85 g) 및 미국 $301·한국 321,000원 가격 효율 분석."
     ],
     "verdict": {
       "en": {
@@ -167,6 +187,11 @@
       "Aero cockpit mounting traps on BOTH units: Edge 1050's lower-shifted Garmin tab colliding with short integrated mounts vs ROAM V2's 90-degree rotated Wahoo insert.",
       "68 g weight penalty and $300 / 529,000 KRW price spread mapped against real-world training & map navigation use cases."
     ],
+    "serp_gaps_captured_ko": [
+      "디스플레이·조작 철학 대비: 3.5인치 480×800 고휘도 LCD·내장 전자 벨(161 g) 대 2.7인치 반사방지 논터치·볼록 물리 버튼·퀵룩 LED 바(93 g).",
+      "양쪽 모델의 에어로 콕핏 마운트 간섭 함정: 엣지 1050의 하단 이동 가민 탭과 짧은 일체형 마운트 간섭 대 와후 롬 V2의 90도 회전 전용 인서트 규격.",
+      "68 g 무게 증가와 미국 $300·한국 529,000원 가격 격차를 실전 훈련·지도 내비게이션 시나리오별로 분석."
+    ],
     "verdict": {
       "en": {
         "headline": "Smartphone-Grade 3.5\" LCD & Digital Bell (Edge 1050) vs 93 g Pure-Button Simplicity & -$300 Value (ROAM V2)",
@@ -206,6 +231,11 @@
       "Mandatory ETRTO 5.0 bar (72.5 psi) hookless (TSS) safety audit highlighting Vittoria's 28 mm+ minimum size cutoff and rim OEM list verification.",
       "Real-world maintenance & total cost per 1,000 km: tubeless overnight air retention, sidewall cut durability, and sealant compatibility (ammonia-free for cotton)."
     ],
+    "serp_gaps_captured_ko": [
+      "동일 공식 무게 280 g에서의 케이싱 구조 비교: 2/220 TPI 가황 나일론 + 벡트란 브레이커(GP5000 S TR) 대 320 TPI 심리스 코튼-아라미드(코르사 프로).",
+      "필수 ETRTO 5.0 bar(72.5 psi) 후크리스(TSS) 안전 검증: 비토리아 28 mm 이상 전용 호환 기준과 림 제조사 공식 승인 리스트 확인 의무.",
+      "1,000 km당 실운용 유지관리 비교: 튜블리스 하룻밤 공기압 유지력, 사이드월 절단 내구성, 코튼 전용 무암모니아 실란트 호환성."
+    ],
     "verdict": {
       "en": {
         "headline": "Identical 280 g Weight, Opposite DNA: All-Round Nylon Durability (GP5000 S TR) vs 320 TPI Cotton Road Feel (Corsa PRO)",
@@ -244,6 +274,11 @@
       "Apples-to-apples weight & power-meter accounting: Dura-Ace R9270 (~2,480 g without power meter) vs SRAM RED AXS E1 (2,496 g INCLUDING integrated Quarq spider power meter).",
       "Hidden ecosystem migration checklist: HG-L2 + legacy 11s HG-EV & 24 mm Hollowtech II (ideal on BB86 shells) vs mandatory SRAM XDR freehub, Flattop chain, DUB 28.99 mm BB, and DOT 5.1 fluid.",
       "Shifting & power architecture trade-off: semi-wireless EW-SD300 seatpost BT-DN300 (~1,000 km) + fastest FD shift under load vs 100% wireless hot-swappable batteries (~60 hrs) + E1 one-finger hood braking."
+    ],
+    "serp_gaps_captured_ko": [
+      "동일 조건 무게·파워미터 보정 비교: 듀라에이스 R9270(파워미터 미포함 약 2,480 g) 대 스램 레드 AXS E1(Quarq 스파이더 파워미터 포함 2,496 g).",
+      "구동계 기변 시 숨은 호환 체크리스트: 시마노 HG-L2/기존 11단 HG-EV·24 mm 할로우테크 II(BB86 유리) 대 스램 전용 XDR 프리허브·플랫톱 체인·DUB 28.99 mm BB·DOT 5.1 오일.",
+      "변속·전원 구조 트레이드오프: 반무선 싯포스트 내장 BT-DN300(약 1,000 km)·최속 부하 앞변속 대 100% 무선 탈착식 상호교환 배터리(약 60시간)·E1 원핑거 후드 제동."
     ],
     "verdict": {
       "en": {

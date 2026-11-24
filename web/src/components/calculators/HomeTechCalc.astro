@@ -30,11 +30,19 @@ const initPresetId = isKo ? "kr2" : "us";
 const initCurrency: "KRW" | "USD" = isKo ? "KRW" : "USD";
 const initRate = isKo ? 214 : 0.17;
 const initHardware = isKo ? krMsrp : usMsrp;
-const initAnnualElec = isKo ? Math.round(defaultAnnualKwh * 214) : defaultAnnualKwh * 0.17;
+const initAnnualElec = isKo
+  ? Math.round(defaultAnnualKwh * 214)
+  : +(defaultAnnualKwh * 0.17).toFixed(2);
 const initAnnualCons = isKo ? s.annual_consumables_krw : s.annual_consumables_usd;
-const initTotalElec = initAnnualElec * defaultYears;
-const initTotalCons = initAnnualCons * defaultYears;
-const initTotalTco = initHardware + initTotalElec + initTotalCons;
+const initTotalElec = isKo
+  ? initAnnualElec * defaultYears
+  : +(initAnnualElec * defaultYears).toFixed(2);
+const initTotalCons = isKo
+  ? Math.round(initAnnualCons * defaultYears)
+  : +(initAnnualCons * defaultYears).toFixed(2);
+const initTotalTco = isKo
+  ? Math.round(initHardware + initTotalElec + initTotalCons)
+  : +(initHardware + initTotalElec + initTotalCons).toFixed(2);
 
 const initHwPct = initTotalTco > 0 ? (initHardware / initTotalTco) * 100 : 100;
 const initElecPct = initTotalTco > 0 ? (initTotalElec / initTotalTco) * 100 : 0;
@@ -159,7 +167,9 @@ const payload = {
       <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
         {isUps
           ? `${formatInt(upsVa)} VA / ${formatInt(upsWatt)} W · PF ${formatNum(upsPf, 2)}`
-          : `${formatNum(s.idle_power_w, 1)} W idle · ${formatNum(s.typical_load_w, 1)} W load`}
+          : isKo
+            ? `유휴 ${formatNum(s.idle_power_w, 1)} W · 부하 ${formatNum(s.typical_load_w, 1)} W`
+            : `${formatNum(s.idle_power_w, 1)} W idle · ${formatNum(s.typical_load_w, 1)} W load`}
       </span>
     </div>
   </div>
@@ -274,9 +284,9 @@ const payload = {
               class="lab-slider mt-3"
             />
             <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
-              <span>0h (Idle)</span>
-              <span>12h</span>
-              <span>24h (Load)</span>
+              <span>{isKo ? "0시간 (유휴)" : "0h (Idle)"}</span>
+              <span>{isKo ? "12시간" : "12h"}</span>
+              <span>{isKo ? "24시간 (부하)" : "24h (Load)"}</span>
             </div>
           </div>
 
@@ -299,9 +309,9 @@ const payload = {
               class="lab-slider mt-3"
             />
             <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
-              <span>1 yr</span>
-              <span>3 yr</span>
-              <span>5 yr</span>
+              <span>{isKo ? "1년" : "1 yr"}</span>
+              <span>{isKo ? "3년" : "3 yr"}</span>
+              <span>{isKo ? "5년" : "5 yr"}</span>
             </div>
           </div>
         </div>
@@ -317,7 +327,9 @@ const payload = {
             {formatNum(defaultWeightedW, 1)} W
           </div>
           <div class="mt-0.5 font-mono text-[11px] text-slate-500">
-            Idle {formatNum(s.idle_power_w, 1)}W / Load {formatNum(s.typical_load_w, 1)}W
+            {isKo
+              ? `유휴 ${formatNum(s.idle_power_w, 1)}W / 부하 ${formatNum(s.typical_load_w, 1)}W`
+              : `Idle ${formatNum(s.idle_power_w, 1)}W / Load ${formatNum(s.typical_load_w, 1)}W`}
           </div>
         </div>
 
@@ -480,7 +492,7 @@ const payload = {
               {isKo ? "연결 장비 실소비전력 (W):" : "Connected Equipment Load (W):"}
             </label>
             <span id="ht-ups-load-val" class="font-mono text-sm font-bold text-violet-700">
-              {upsInitLoadW} W / {formatInt(upsWatt)} W max
+              {isKo ? `${upsInitLoadW} W / 최대 ${formatInt(upsWatt)} W` : `${upsInitLoadW} W / ${formatInt(upsWatt)} W max`}
             </span>
           </div>
           <input
@@ -587,7 +599,7 @@ const payload = {
             </p>
           </div>
           <span class="badge-info font-mono">
-            Peak {formatNum(s.peak_power_w, 0)} W × 1.4
+            {isKo ? `피크 ${formatNum(s.peak_power_w, 0)} W × 1.4` : `Peak ${formatNum(s.peak_power_w, 0)} W × 1.4`}
           </span>
         </div>
 
@@ -609,7 +621,7 @@ const payload = {
           />
           <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
             <span>0 W ({isKo ? "단독 연결" : "Unit Only"})</span>
-            <span>25 W (Router+Switch)</span>
+            <span>{isKo ? "25 W (공유기+스위치)" : "25 W (Router+Switch)"}</span>
             <span>150 W</span>
           </div>
         </div>
@@ -623,7 +635,7 @@ const payload = {
               {formatInt(recMinUpsWatt)} W
             </div>
             <div id="ht-ups-rec-w-sub" class="mt-0.5 font-mono text-[11px] text-violet-800">
-              Peak {formatNum(s.peak_power_w, 0)} W × 1.4 headroom
+              {isKo ? `피크 ${formatNum(s.peak_power_w, 0)} W × 1.4 여유율` : `Peak ${formatNum(s.peak_power_w, 0)} W × 1.4 headroom`}
             </div>
           </div>
 
@@ -646,7 +658,7 @@ const payload = {
               {isKo ? "평상시 실부하 / 권장 파형" : "Typical Load / Recommended Wave"}
             </div>
             <div id="ht-ups-rec-typ" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-700">
-              {formatNum(s.typical_load_w, 1)} W · Pure Sine
+              {isKo ? `${formatNum(s.typical_load_w, 1)} W · 순수 정현파` : `${formatNum(s.typical_load_w, 1)} W · Pure Sine`}
             </div>
             <div class="mt-0.5 text-[11px] text-slate-600">
               {isKo
@@ -702,9 +714,9 @@ const payload = {
               class="lab-slider mt-2.5"
             />
             <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
-              <span>2/wk ({isKo ? "1인가구" : "Light"})</span>
-              <span>7/wk ({isKo ? "매일 1회" : "Daily"})</span>
-              <span>14/wk ({isKo ? "반려동물·다회" : "Pets / Heavy"})</span>
+              <span>{isKo ? "주 2회 (1인가구)" : "2/wk (Light)"}</span>
+              <span>{isKo ? "주 7회 (매일 1회)" : "7/wk (Daily)"}</span>
+              <span>{isKo ? "주 14회 (반려동물·다회)" : "14/wk (Pets / Heavy)"}</span>
             </div>
           </div>
 
@@ -728,7 +740,13 @@ const payload = {
                 ~60 {isKo ? "일" : "days"}
               </div>
               <div class="mt-0.5 font-mono text-[11px] text-slate-500">
-                {s.dustbag_capacity_l !== null ? `${formatNum(s.dustbag_capacity_l, 1)} L bag` : "Auto-empty dock"}
+                {s.dustbag_capacity_l !== null
+                  ? isKo
+                    ? `${formatNum(s.dustbag_capacity_l, 1)} L 더스트백`
+                    : `${formatNum(s.dustbag_capacity_l, 1)} L bag`
+                  : isKo
+                    ? "자동 비움 스테이션"
+                    : "Auto-empty dock"}
               </div>
             </div>
           </div>
@@ -909,12 +927,21 @@ const payload = {
 
       const weightedW = (cfg.typicalW * hours + cfg.idleW * (24 - hours)) / 24;
       const annualKwh = weightedW * 8.76;
-      const annualElec = annualKwh * rate;
-      const totalElec = annualElec * years;
+      const isZeroDec = activeCurrency === "KRW" || activeCurrency === "JPY";
+      const annualElec = isZeroDec
+        ? Math.round(annualKwh * rate)
+        : +(annualKwh * rate).toFixed(2);
+      const totalElec = isZeroDec
+        ? annualElec * years
+        : +(annualElec * years).toFixed(2);
 
       const annualCons = getAnnualConsumables(activeCurrency);
-      const totalCons = annualCons * years;
-      const totalTco = hwPrice + totalElec + totalCons;
+      const totalCons = isZeroDec
+        ? Math.round(annualCons * years)
+        : +(annualCons * years).toFixed(2);
+      const totalTco = isZeroDec
+        ? Math.round(hwPrice + totalElec + totalCons)
+        : +(hwPrice + totalElec + totalCons).toFixed(2);
 
       const hwPct = totalTco > 0 ? (hwPrice / totalTco) * 100 : 100;
       const elecPct = totalTco > 0 ? (totalElec / totalTco) * 100 : 0;
@@ -978,7 +1005,11 @@ const payload = {
       const rawMin = cfg.ups.halfLoadMin * Math.pow((0.5 * cfg.ups.watt) / Math.max(loadW, 1), 1.15);
       const clampedMin = Math.max(1, Math.min(240, rawMin));
 
-      if (upsLoadVal) upsLoadVal.textContent = `${loadW} W / ${cfg.ups.watt} W max`;
+      if (upsLoadVal) {
+        upsLoadVal.textContent = isKo
+          ? `${loadW} W / 최대 ${cfg.ups.watt} W`
+          : `${loadW} W / ${cfg.ups.watt} W max`;
+      }
       if (upsRuntimeEl) {
         upsRuntimeEl.textContent = `${clampedMin >= 60 ? clampedMin.toFixed(0) : clampedMin.toFixed(1)} ${isKo ? "분" : "min"}`;
       }
@@ -1006,9 +1037,17 @@ const payload = {
 
       if (extraLoadVal) extraLoadVal.textContent = `${extraW} W`;
       if (recWEl) recWEl.textContent = `${minWatt} W`;
-      if (recWSubEl) recWSubEl.textContent = `Peak ${Math.round(totalPeak)} W × 1.4 headroom`;
+      if (recWSubEl) {
+        recWSubEl.textContent = isKo
+          ? `피크 ${Math.round(totalPeak)} W × 1.4 여유율`
+          : `Peak ${Math.round(totalPeak)} W × 1.4 headroom`;
+      }
       if (recVaEl) recVaEl.textContent = `${new Intl.NumberFormat("en-US").format(vaClass)} VA+`;
-      if (recTypEl) recTypEl.textContent = `${totalTyp.toFixed(1)} W · Pure Sine`;
+      if (recTypEl) {
+        recTypEl.textContent = isKo
+          ? `${totalTyp.toFixed(1)} W · 순수 정현파`
+          : `${totalTyp.toFixed(1)} W · Pure Sine`;
+      }
     }
 
     function recalcVacuum() {
@@ -1114,9 +1153,15 @@ const payload = {
       });
     }
 
-    updatePresetButtons();
-    recalcTco();
-    recalcUps();
-    recalcComputeUpsSizing();
+    function syncAll() {
+      updatePresetButtons();
+      recalcVacuum();
+      recalcTco();
+      recalcUps();
+      recalcComputeUpsSizing();
+    }
+
+    syncAll();
+    window.addEventListener("pageshow", syncAll);
   })();
 </script>

@@ -68,7 +68,7 @@ export function getMonetizationConfig(): MonetizationConfig {
     adsenseSlots: {},
     coupang: {
       partnersId: "AF2200875",
-      defaultSubId: "ssalmeok-kr",
+      defaultSubId: "specmatrix-kr",
       redirectUrl: "",
       iframeUrl: "",
       verticalSubIds: {
@@ -100,7 +100,7 @@ export function getMonetizationConfig(): MonetizationConfig {
       minCitations: 2,
     },
     compliance: {
-      euCmpReady: true,
+      euCmpReady: false,
       disclosures: {
         en: "Disclosure: As an Amazon Associate and affiliate partner, SpecMatrix Global earns from qualifying purchases at no extra cost to you. Prices shown are manufacturer MSRP benchmarks; verify live checkout pricing on official stores.",
         ko: "고지: 이 페이지는 쿠팡 파트너스 및 아마존 어소시에이트 등 글로벌 제휴 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 표기 가격은 제조사 공식 출고가(MSRP) 기준 참고가이며, 실제 결제가는 공식 판매처에서 확인해 주세요.",
@@ -302,13 +302,13 @@ export function getPrimaryVerticalHref(locale: ActiveLocale, vertical: PilotVert
   const matrices = getVerticalMatrices(vertical);
   const firstMatrix = matrices.find((m) => m.archetype === "matrix") ?? matrices[0];
   if (firstMatrix) {
-    return `/${locale}/${vertical}/${firstMatrix.archetype}/${firstMatrix.slug}`;
+    return `/${locale}/${vertical}/${firstMatrix.archetype}/${firstMatrix.slug}/`;
   }
   const items = getVerticalItems(vertical);
   if (items.length > 0) {
-    return `/${locale}/${vertical}/item/${items[0].slug}`;
+    return `/${locale}/${vertical}/item/${items[0].slug}/`;
   }
-  return `/${locale}`;
+  return `/${locale}/`;
 }
 
 export function getFallbackItems(item: AnyItem, limit = 3): AnyItem[] {
@@ -377,7 +377,7 @@ export function getItemsForMatrix(matrix: MatrixPage): AnyItem[] {
     const featured = matrix.featured_item_slugs
       .map((slug) => all.find((i) => i.slug === slug))
       .filter((i): i is AnyItem => i !== null && i !== undefined);
-    if (featured.length > 0 && (matrix.archetype === "compat" || matrix.filter_category !== null)) {
+    if (featured.length > 0) {
       return featured;
     }
   }

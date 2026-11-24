@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-11-24T02:06:24.705Z",
+  "overall_passed": true,
+  "dist_dir": "web/dist",
+  "site_url": "https://kbu3986.github.io/specmatrix-global",
+  "stats": {
+    "total_files": 294,
+    "max_total_files": 20000,
+    "html_files": 258,
+    "min_core_pages": 200,
+    "localized_html_files": 256,
+    "internal_links_checked": 9901,
+    "affiliate_links_checked": 704,
+    "jsonld_blocks_checked": 660,
+    "sitemap_files_validated": 9,
+    "sitemap_urls_checked": 257,
+    "error_fallback_pages": 1,
+    "social_meta_pages_checked": 256,
+    "og_images_validated": 5,
+    "search_index_entries": 152
+  },
+  "failures": []
+}

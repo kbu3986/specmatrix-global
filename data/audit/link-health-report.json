@@ -1,268 +1,53 @@
 {
-  "generated_at": "2026-11-23T01:12:22.799Z",
+  "generated_at": "2026-11-24T01:49:52.673Z",
   "dry_run": false,
   "config": {
     "concurrency": 6,
-    "timeout_ms": 6000
+    "timeout_ms": 10000
   },
   "collection": {
-    "total_references": 255,
-    "unique_urls": 228,
+    "total_references": 267,
+    "unique_urls": 240,
     "references_by_kind": {
       "citation": 165,
       "airline_policy": 30,
-      "coupang_deeplink": 60
+      "coupang_deeplink": 72
     }
   },
   "summary": {
-    "total_unique_urls": 228,
-    "ok": 97,
-    "redirect": 19,
-    "bot_challenge": 98,
-    "dead": 14,
-    "healthy_count": 116,
-    "dead_rate_pct": 6.14,
+    "total_unique_urls": 240,
+    "ok": 113,
+    "redirect": 27,
+    "bot_challenge": 100,
+    "dead": 0,
+    "healthy_count": 140,
+    "dead_rate_pct": 0,
     "by_source_kind": {
       "citation": {
         "total": 138,
-        "ok": 90,
-        "redirect": 17,
-        "bot_challenge": 27,
-        "dead": 4
+        "ok": 97,
+        "redirect": 22,
+        "bot_challenge": 19,
+        "dead": 0
       },
       "airline_policy": {
         "total": 30,
-        "ok": 7,
-        "redirect": 2,
-        "bot_challenge": 11,
-        "dead": 10
+        "ok": 16,
+        "redirect": 5,
+        "bot_challenge": 9,
+        "dead": 0
       },
       "coupang_deeplink": {
-        "total": 60,
+        "total": 72,
         "ok": 0,
         "redirect": 0,
-        "bot_challenge": 60,
+        "bot_challenge": 72,
         "dead": 0
       }
     }
   },
-  "dead_links": [
-    {
-      "url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "asiana-airlines",
-          "iata_code": "OZ"
-        }
-      ]
-    },
-    {
-      "url": "https://www.airchina.com/",
-      "status": null,
-      "method_used": "GET",
-      "error": "fetch failed",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "air-china",
-          "iata_code": "CA"
-        }
-      ]
-    },
-    {
-      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "hometech",
-          "slug": "beelink-ser8-8745hs",
-          "label": "AMD Ryzen 7 8745HS Official Processor Specifications",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "hometech",
-          "slug": "minisforum-um890-pro",
-          "label": "AMD Ryzen 9 8945HS Official Processor Specifications",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "ana",
-          "iata_code": "NH"
-        }
-      ]
-    },
-    {
-      "url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "british-airways",
-          "iata_code": "BA"
-        }
-      ]
-    },
-    {
-      "url": "https://www.cathaypacific.com/cx/en_US/baggage.html",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "cathay-pacific",
-          "iata_code": "CX"
-        }
-      ]
-    },
-    {
-      "url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "emirates",
-          "iata_code": "EK"
-        }
-      ]
-    },
-    {
-      "url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "peach-aviation",
-          "iata_code": "MM"
-        }
-      ]
-    },
-    {
-      "url": "https://www.koreanair.com/legal/restricted-items",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "korean-air",
-          "iata_code": "KE"
-        }
-      ]
-    },
-    {
-      "url": "https://www.pirelli.com/cycling/en-ww/road",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "pirelli-p-zero-race-rs-tlr-28",
-          "label": "Pirelli Official — Bollate Italy Factory & FSC Certified SmartEVO² Technical Release",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "pirelli-p-zero-race-rs-tlr-28",
-          "label": "Pirelli Cycling Official — P ZERO Race TLR RS Product Specifications",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://www.united.com/en/us/fly/baggage/dangerous-items.html",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "united-airlines",
-          "iata_code": "UA"
-        }
-      ]
-    },
-    {
-      "url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
-      "status": null,
-      "method_used": "GET",
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "air-france",
-          "iata_code": "AF"
-        }
-      ]
-    }
-  ],
+  "dead_links": [],
   "bot_challenge_links": [
-    {
-      "url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
-      "status": 403,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "shimano-dura-ace-r9270-di2-12s",
-          "label": "Shimano Official — DURA-ACE R9200 12-Speed Series Component Lineup",
-          "source_tier": 1
-        }
-      ]
-    },
     {
       "url": "https://device.report/cuktech/p23",
       "status": 403,
@@ -288,6 +73,19 @@
           "slug": "jarrow-formulas-creatine-monohydrate",
           "label": "NIH Dietary Supplement Label Database (DSLD) — Jarrow Formulas Creatine Monohydrate",
           "source_tier": 2
+        }
+      ]
+    },
+    {
+      "url": "https://help.ryanair.com/hc/en-gb/categories/12502999419409-Permitted-Items-On-Board",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "ryanair",
+          "iata_code": "FR"
         }
       ]
     },
@@ -1012,6 +810,150 @@
       ]
     },
     {
+      "url": "https://link.coupang.com/a/iTYuaU3m0q",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "apc-back-ups-bx750mi"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYw3yJf1o",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nasync-dxp4800-plus"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwB60ww0",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "minisforum-um890-pro"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwcosqHY",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "apple-mac-mini-m4"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwHfL3Bs",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "roborock-qrevo-master"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwhz3W44",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "beelink-ser8-8745hs"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwm8nnRk",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cyberpower-cp1500pfclcd"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwNH0s0q",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "roborock-s8-maxv-ultra"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwrHy2I8",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "dreame-x40-ultra"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwSSkmEC",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "synology-ds224-plus"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwwURiBo",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "gmktec-nucbox-g3-plus-n150"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwXWY8YK",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "synology-ds423-plus"
+        }
+      ]
+    },
+    {
       "url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
       "status": 403,
       "method_used": "GET",
@@ -1180,62 +1122,6 @@
       ]
     },
     {
-      "url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "hometech",
-          "slug": "ugreen-nasync-dxp4800-plus",
-          "label": "UGREEN NASync DXP4800 Plus Official Product & Specifications Page",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://sharge.com/products/shargeek-170",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "wattcheck",
-          "slug": "shargeek-170-powerbank-24000mah",
-          "label": "SHARGE Official Product Page — Shargeek 170 SP170",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
-      "status": 403,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "shimano-dura-ace-r9270-di2-12s",
-          "label": "Shimano Technical Documents (SI) — DURA-ACE R9200 Dealer Manuals & Torque Specs",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "puregram",
-          "slug": "skratch-labs-sport-hydration-mix",
-          "label": "Skratch Labs Official Product Page — Sport Hydration Drink Mix",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
       "url": "https://sport.wetestyoutrust.com/supplement-search",
       "status": 403,
       "method_used": "GET",
@@ -1299,71 +1185,79 @@
       ]
     },
     {
-      "url": "https://support.apple.com/en-us/103253",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "hometech",
-          "slug": "apple-mac-mini-m4",
-          "label": "Apple Support HT103253 — Mac mini Power Consumption and Thermal Output Information",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://support.apple.com/en-us/121555",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "hometech",
-          "slug": "apple-mac-mini-m4",
-          "label": "Apple Support HT121555 — Mac mini (2024) Tech Specs",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://tools.myfooddata.com/",
+      "url": "https://support.coros.com/hc/en-us",
       "status": 403,
       "method_used": "GET",
       "sources": [
         {
           "kind": "citation",
-          "vertical": "puregram",
-          "slug": "skratch-labs-sport-hydration-mix",
-          "label": "USDA / MyFoodData Nutrition Facts Reference — Skratch Labs Sport Hydration",
-          "source_tier": 2
-        }
-      ]
-    },
-    {
-      "url": "https://us.ecoflow.com/products/river-3-portable-power-station",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "wattcheck",
-          "slug": "ecoflow-river-3-245wh",
-          "label": "EcoFlow Official Product Page — RIVER 3 (245Wh)",
+          "vertical": "cyclegear",
+          "slug": "coros-dura-solar-gps",
+          "label": "COROS Support — Shimano Di2, ANT+ Radar & Intervals.icu Integration",
           "source_tier": 1
         }
       ]
     },
     {
-      "url": "https://www.aa.com/i18n/travel-info/baggage/restricted-items.jsp",
+      "url": "https://support.garmin.com/en-US/",
       "status": 403,
       "method_used": "GET",
       "sources": [
         {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "american-airlines",
-          "iata_code": "AA"
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-1050",
+          "label": "Garmin Edge 1050 Official Owner's Manual & Support Hub",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-edge-840-solar",
+          "label": "Garmin Edge 840 Series Official Owner's Manual (Di2 & Sensor Pairing)",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "garmin-rally-rs200",
+          "label": "Garmin Rally Series Official Owner's Manual (Installation Torque & Battery Spec)",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.garmin.com/en-US/?productID=690890",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "tacx-neo-2t-smart",
+          "label": "Garmin Support — Tacx NEO 2T Freehub, Disc Caliper Spacer & Firmware Guide",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
+      "url": "https://support.wahoofitness.com/hc/en-us",
+      "status": 403,
+      "method_used": "GET",
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-elemnt-roam-v2",
+          "label": "Wahoo Support — ELEMNT ROAM v2 (WFCC6) Technical Specs & Di2/AXS Guide",
+          "source_tier": 1
+        },
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "wahoo-kickr-core",
+          "label": "Wahoo Support — KICKR CORE Thru-Axle, Freehub & Zwift Cog Compatibility",
+          "source_tier": 1
         }
       ]
     },
@@ -1394,42 +1288,28 @@
       ]
     },
     {
-      "url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
+      "url": "https://www.airpremia.com/a/en/customer/notice/686",
       "status": 403,
       "method_used": "GET",
       "sources": [
         {
           "kind": "airline_policy",
           "vertical": "wattcheck",
-          "slug": "easyjet",
-          "iata_code": "U2"
+          "slug": "air-premia",
+          "iata_code": "YP"
         }
       ]
     },
     {
-      "url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
+      "url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
       "status": 403,
       "method_used": "GET",
       "sources": [
         {
           "kind": "airline_policy",
           "vertical": "wattcheck",
-          "slug": "eva-air",
-          "iata_code": "BR"
-        }
-      ]
-    },
-    {
-      "url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
-      "status": 403,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "wattcheck",
-          "slug": "ecoflow-river-3-245wh",
-          "label": "FAA PackSafe — Lithium Batteries Over 160 Wh Prohibited",
-          "source_tier": 2
+          "slug": "emirates",
+          "iata_code": "EK"
         }
       ]
     },
@@ -1484,71 +1364,18 @@
           "iata_code": "LH"
         }
       ]
-    },
-    {
-      "url": "https://www.qatarairways.com/en/baggage/restrictions.html",
-      "status": 403,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "qatar-airways",
-          "iata_code": "QR"
-        }
-      ]
-    },
-    {
-      "url": "https://www.twayair.com/app/serviceInfo/contents/1148",
-      "status": 403,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "tway-air",
-          "iata_code": "TW"
-        }
-      ]
-    },
-    {
-      "url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "wattcheck",
-          "slug": "ugreen-nexode-powerbank-20000mah-130w",
-          "label": "UGREEN Official Product Page — Nexode 20000mAh 130W PB721",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://www.vittoria.com/products/corsa-pro-tlr",
-      "status": 429,
-      "method_used": "GET",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "vittoria-corsa-pro-tlr-28",
-          "label": "Vittoria Official — Corsa PRO TLR Technical Specifications",
-          "source_tier": 1
-        }
-      ]
     }
   ],
   "results": [
     {
       "url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
       "method_used": "GET",
-      "status": 403,
-      "redirected": false,
-      "final_url": "https://bike.shimano.com/en-EU/product/component/dura-ace-r9200.html",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 24,
+      "browser_retry_used": true,
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://bike.shimano.com/home.html",
+      "classification": "REDIRECT",
+      "latency_ms": 121,
       "error": null,
       "sources": [
         {
@@ -1561,13 +1388,33 @@
       ]
     },
     {
+      "url": "https://bj.airchina.com.cn/cn/ysztjyw/497611.shtml",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://bj.airchina.com.cn/cn/ysztjyw/497611.shtml",
+      "classification": "OK",
+      "latency_ms": 323,
+      "error": null,
+      "sources": [
+        {
+          "kind": "airline_policy",
+          "vertical": "wattcheck",
+          "slug": "air-china",
+          "iata_code": "CA"
+        }
+      ]
+    },
+    {
       "url": "https://choice.wetestyoutrust.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://choice.wetestyoutrust.com/",
       "classification": "OK",
-      "latency_ms": 488,
+      "latency_ms": 553,
       "error": null,
       "sources": [
         {
@@ -1596,11 +1443,12 @@
     {
       "url": "https://connectinternationalone-global.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://connectinternationalone-global.com/",
       "classification": "OK",
-      "latency_ms": 156,
+      "latency_ms": 147,
       "error": null,
       "sources": [
         {
@@ -1615,11 +1463,12 @@
     {
       "url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://connectinternationalone.co.jp/cioproduct/adapter/novaport/cio-g67w2c1a-n2/",
       "classification": "OK",
-      "latency_ms": 474,
+      "latency_ms": 554,
       "error": null,
       "sources": [
         {
@@ -1634,11 +1483,12 @@
     {
       "url": "https://coros.com/dura",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://coros.com/dura",
       "classification": "OK",
-      "latency_ms": 776,
+      "latency_ms": 863,
       "error": null,
       "sources": [
         {
@@ -1652,12 +1502,13 @@
     },
     {
       "url": "https://cuktech.com/products/cuktech-15-power-bank-20000mah-150w",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://cuktech.com/products/cuktech-15-power-bank-20000mah-150w",
       "classification": "OK",
-      "latency_ms": 135,
+      "latency_ms": 145,
       "error": null,
       "sources": [
         {
@@ -1671,12 +1522,13 @@
     },
     {
       "url": "https://cuktech.com/products/p23-cuktech-p-series-25000mah-210w-power-bank",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://cuktech.com/products/p23-cuktech-p-series-25000mah-210w-power-bank",
       "classification": "OK",
-      "latency_ms": 131,
+      "latency_ms": 139,
       "error": null,
       "sources": [
         {
@@ -1691,11 +1543,12 @@
     {
       "url": "https://cycling.favero.com/en/support",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://cycling.favero.com/support/",
       "classification": "REDIRECT",
-      "latency_ms": 2156,
+      "latency_ms": 3174,
       "error": null,
       "sources": [
         {
@@ -1717,11 +1570,12 @@
     {
       "url": "https://cycling.favero.com/shop/assioma-duo/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://cycling.favero.com/shop/assioma-duo/",
       "classification": "OK",
-      "latency_ms": 1195,
+      "latency_ms": 1185,
       "error": null,
       "sources": [
         {
@@ -1736,11 +1590,12 @@
     {
       "url": "https://cycling.favero.com/shop/assioma-pro-rs2/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://cycling.favero.com/shop/assioma-pro-rs2/",
       "classification": "OK",
-      "latency_ms": 1160,
+      "latency_ms": 1125,
       "error": null,
       "sources": [
         {
@@ -1755,11 +1610,12 @@
     {
       "url": "https://device.report/cuktech/p23",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://device.report/cuktech/p23",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 260,
+      "latency_ms": 213,
       "error": null,
       "sources": [
         {
@@ -1774,11 +1630,12 @@
     {
       "url": "https://dsld.od.nih.gov/",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://dsld.od.nih.gov/",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 461,
+      "latency_ms": 470,
       "error": null,
       "sources": [
         {
@@ -1792,12 +1649,13 @@
     },
     {
       "url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://eu.baseus.com/products/blade-hd-laptop-power-bank-100w-20000mah",
       "classification": "OK",
-      "latency_ms": 156,
+      "latency_ms": 269,
       "error": null,
       "sources": [
         {
@@ -1810,14 +1668,15 @@
       ]
     },
     {
-      "url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
+      "url": "https://flyasiana.com/C/KR/EN/contents/restricted-transport-items",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
-      "classification": "DEAD",
-      "latency_ms": 6014,
-      "error": "timeout (6000ms)",
+      "final_url": "https://flyasiana.com/C/KR/EN/contents/restricted-transport-items",
+      "classification": "OK",
+      "latency_ms": 850,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -1829,12 +1688,13 @@
     },
     {
       "url": "https://global.dreametech.com/products/x40-ultra",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://global.dreametech.com/products/x40-ultra",
       "classification": "OK",
-      "latency_ms": 256,
+      "latency_ms": 141,
       "error": null,
       "sources": [
         {
@@ -1849,11 +1709,12 @@
     {
       "url": "https://global.roborock.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://global.roborock.com/",
       "classification": "OK",
-      "latency_ms": 151,
+      "latency_ms": 142,
       "error": null,
       "sources": [
         {
@@ -1874,12 +1735,13 @@
     },
     {
       "url": "https://guenergy.com/products/energy-gel",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://guenergy.com/products/energy-gel",
       "classification": "OK",
-      "latency_ms": 317,
+      "latency_ms": 150,
       "error": null,
       "sources": [
         {
@@ -1893,12 +1755,13 @@
     },
     {
       "url": "https://guenergy.com/products/roctane-energy-gel",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://guenergy.com/products/roctane-energy-gel",
       "classification": "OK",
-      "latency_ms": 294,
+      "latency_ms": 366,
       "error": null,
       "sources": [
         {
@@ -1913,11 +1776,12 @@
     {
       "url": "https://help.ryanair.com/hc/en-gb/categories/12502999419409-Permitted-Items-On-Board",
       "method_used": "GET",
-      "status": 200,
+      "browser_retry_used": true,
+      "status": 403,
       "redirected": false,
       "final_url": "https://help.ryanair.com/hc/en-gb/categories/12502999419409-Permitted-Items-On-Board",
-      "classification": "OK",
-      "latency_ms": 221,
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 189,
       "error": null,
       "sources": [
         {
@@ -1931,11 +1795,12 @@
     {
       "url": "https://int.vittoria.com/pages/tire-pressure",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://int.vittoria.com/pages/tire-pressure",
       "classification": "OK",
-      "latency_ms": 816,
+      "latency_ms": 331,
       "error": null,
       "sources": [
         {
@@ -1948,13 +1813,34 @@
       ]
     },
     {
+      "url": "https://int.vittoria.com/products/corsa-pro-tubeless-ready",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://int.vittoria.com/products/corsa-pro-tubeless-ready",
+      "classification": "OK",
+      "latency_ms": 444,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "vittoria-corsa-pro-tlr-28",
+          "label": "Vittoria Official — Corsa PRO TLR Technical Specifications",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
       "url": "https://intervals.icu/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.intervals.icu/",
       "classification": "REDIRECT",
-      "latency_ms": 614,
+      "latency_ms": 995,
       "error": null,
       "sources": [
         {
@@ -1969,11 +1855,12 @@
     {
       "url": "https://link.coupang.com/a/iTcD2fTdcq",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcD2fTdcq",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%EC%86%94%EB%A6%AD%EC%8A%A4%20C300%20DC%20288Wh%20%ED%8C%8C%EC%9B%8C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98%20A1726&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%EC%86%94%EB%A6%AD%EC%8A%A4%20C300%20DC%20288Wh%20%ED%8C%8C%EC%9B%8C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98%20A1726&lptag=AF2200875&itime=20261124104916&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%EC%86%94%EB%A6%AD%EC%8A%A4%20C300%20DC%20288Wh%20%ED%8C%8C%EC%9B%8C%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98%20A1726&wPcid=17954849564698310493084&wRef=&wTime=20261124104916&redirect=landing&traceid=V0-181-7f4ad416465a46cb&mcid=f97c5cb21d0f44c3b25641fa262607d6&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 73,
+      "latency_ms": 215,
       "error": null,
       "sources": [
         {
@@ -1986,11 +1873,12 @@
     {
       "url": "https://link.coupang.com/a/iTcD5lBkdM",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcD5lBkdM",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%EC%A1%B8%EB%A1%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%2030W%20A1681&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%EC%A1%B8%EB%A1%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%2030W%20A1681&lptag=AF2200875&itime=20261124104916&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%EC%A1%B8%EB%A1%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%2030W%20A1681&wPcid=17954849566901669762886&wRef=&wTime=20261124104916&redirect=landing&traceid=V0-181-0b7a65a6bdcbe0a0&mcid=d141710ef96e45fb8b14e6837c258879&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 34,
+      "latency_ms": 224,
       "error": null,
       "sources": [
         {
@@ -2003,11 +1891,12 @@
     {
       "url": "https://link.coupang.com/a/iTcD8sLMSi",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcD8sLMSi",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A0%ED%94%8C%20%EC%A0%95%ED%92%88%20140W%20USB-C%20%EC%A0%84%EC%9B%90%20%EC%96%B4%EB%8C%91%ED%84%B0%20A2452&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A0%ED%94%8C%20%EC%A0%95%ED%92%88%20140W%20USB-C%20%EC%A0%84%EC%9B%90%20%EC%96%B4%EB%8C%91%ED%84%B0%20A2452&lptag=AF2200875&itime=20261124104916&pageType=SEARCH&pageValue=%EC%95%A0%ED%94%8C%20%EC%A0%95%ED%92%88%20140W%20USB-C%20%EC%A0%84%EC%9B%90%20%EC%96%B4%EB%8C%91%ED%84%B0%20A2452&wPcid=17954849566255428357828&wRef=&wTime=20261124104916&redirect=landing&traceid=V0-181-9f03474954f3da0c&mcid=cfa712a0a7434f80b19fd349affe4638&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 63,
+      "latency_ms": 124,
       "error": null,
       "sources": [
         {
@@ -2020,11 +1909,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDFKz1Y4",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDFKz1Y4",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20140W%204%ED%8F%AC%ED%8A%B8%20PD%203.1%20%EB%94%94%EC%8A%A4%ED%94%8C%EB%A0%88%EC%9D%B4%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2697&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20140W%204%ED%8F%AC%ED%8A%B8%20PD%203.1%20%EB%94%94%EC%8A%A4%ED%94%8C%EB%A0%88%EC%9D%B4%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2697&lptag=AF2200875&itime=20261124104916&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20140W%204%ED%8F%AC%ED%8A%B8%20PD%203.1%20%EB%94%94%EC%8A%A4%ED%94%8C%EB%A0%88%EC%9D%B4%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2697&wPcid=17954849566981999171275&wRef=&wTime=20261124104916&redirect=landing&traceid=V0-181-15196310902d80ce&mcid=1a55513b90624f69a094fecd345c63ec&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 88,
+      "latency_ms": 313,
       "error": null,
       "sources": [
         {
@@ -2037,11 +1927,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDIIeu8O",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDIIeu8O",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20737%20%ED%8C%8C%EC%9B%8C%EC%BD%94%EC%96%B4%2024000mAh%20140W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1289&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20737%20%ED%8C%8C%EC%9B%8C%EC%BD%94%EC%96%B4%2024000mAh%20140W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1289&lptag=AF2200875&itime=20261124104916&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20737%20%ED%8C%8C%EC%9B%8C%EC%BD%94%EC%96%B4%2024000mAh%20140W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1289&wPcid=17954849567995920611696&wRef=&wTime=20261124104916&redirect=landing&traceid=V0-181-bc66bdb3eb8defa3&mcid=b4451081d9004d478943c2960b29f0c0&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 60,
+      "latency_ms": 133,
       "error": null,
       "sources": [
         {
@@ -2054,11 +1945,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDLVmxwG",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDLVmxwG",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%EB%82%98%EB%85%B8%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2010000mAh%2030W%20A1259&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%EB%82%98%EB%85%B8%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2010000mAh%2030W%20A1259&lptag=AF2200875&itime=20261124104916&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%EB%82%98%EB%85%B8%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2010000mAh%2030W%20A1259&wPcid=17954849569715455313051&wRef=&wTime=20261124104916&redirect=landing&traceid=V0-181-88b9d8e0cbb5ba2d&mcid=4d2ec7dee4de48e580390c7c87723777&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 43,
+      "latency_ms": 151,
       "error": null,
       "sources": [
         {
@@ -2071,11 +1963,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDOUsu2m",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDOUsu2m",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20100W%20GaN%203%ED%8F%AC%ED%8A%B8%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2688&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20100W%20GaN%203%ED%8F%AC%ED%8A%B8%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2688&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20100W%20GaN%203%ED%8F%AC%ED%8A%B8%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2688&wPcid=17954849571563486862381&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-052d532c79240b5b&mcid=f8100caf6b804a8db76a8c0c6d7dd530&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 30,
+      "latency_ms": 257,
       "error": null,
       "sources": [
         {
@@ -2088,11 +1981,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDShngLQ",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDShngLQ",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%2020000mAh%20200W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1336&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%2020000mAh%20200W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1336&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%2020000mAh%20200W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1336&wPcid=17954849570471649623133&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-673f79e5d9301180&mcid=12aeaf93148847eca04a5494ccecf1b4&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 42,
+      "latency_ms": 171,
       "error": null,
       "sources": [
         {
@@ -2105,11 +1999,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDVGFHLE",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDVGFHLE",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20200W%206%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2683&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20200W%206%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2683&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20200W%206%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2683&wPcid=17954849571436484050443&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-aeefe7771df80b73&mcid=c93043402ecb4a18b0d1f4692bd2bc08&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 74,
+      "latency_ms": 123,
       "error": null,
       "sources": [
         {
@@ -2122,11 +2017,12 @@
     {
       "url": "https://link.coupang.com/a/iTcDZbGtlA",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcDZbGtlA",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20250W%206%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2345&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20250W%206%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2345&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%20250W%206%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20A2345&wPcid=17954849572710425400133&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-ec86a3387a0109d6&mcid=cc52dca9e0444467b31146fbbfbe0bb0&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 33,
+      "latency_ms": 186,
       "error": null,
       "sources": [
         {
@@ -2139,11 +2035,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEAauVR6",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEAauVR6",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%83%A4%EA%B8%B1%20170%2024000mAh%20170W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20SP170&src=1139000&spec=10799999&addtag=200&ctag=%EC%83%A4%EA%B8%B1%20170%2024000mAh%20170W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20SP170&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%83%A4%EA%B8%B1%20170%2024000mAh%20170W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20SP170&wPcid=17954849573518725105877&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-4fe64b397403d30f&mcid=f639f0035da64cee9e6ab08b44aab1d9&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 78,
+      "latency_ms": 205,
       "error": null,
       "sources": [
         {
@@ -2156,11 +2053,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEbz4Cse",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEbz4Cse",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%96%B4%EC%8A%A4%20%EB%B8%94%EB%A0%88%EC%9D%B4%EB%93%9C%20HD%2020000mAh%20100W%20%EC%8A%AC%EB%A6%BC%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC&src=1139000&spec=10799999&addtag=200&ctag=%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%96%B4%EC%8A%A4%20%EB%B8%94%EB%A0%88%EC%9D%B4%EB%93%9C%20HD%2020000mAh%20100W%20%EC%8A%AC%EB%A6%BC%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%96%B4%EC%8A%A4%20%EB%B8%94%EB%A0%88%EC%9D%B4%EB%93%9C%20HD%2020000mAh%20100W%20%EC%8A%AC%EB%A6%BC%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC&wPcid=17954849574352418975034&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-5e746599029f1eda&mcid=8baf1a2c556f4049a590bfd1f6af9986&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 42,
+      "latency_ms": 311,
       "error": null,
       "sources": [
         {
@@ -2173,11 +2071,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEeJn8Ee",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEeJn8Ee",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=CIO%20%EB%85%B8%EB%B0%94%ED%8F%AC%ED%8A%B8%20%ED%8A%B8%EB%A6%AC%EC%98%A4%202%2067W%20%EC%B4%88%EC%86%8C%ED%98%95%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0&src=1139000&spec=10799999&addtag=200&ctag=CIO%20%EB%85%B8%EB%B0%94%ED%8F%AC%ED%8A%B8%20%ED%8A%B8%EB%A6%AC%EC%98%A4%202%2067W%20%EC%B4%88%EC%86%8C%ED%98%95%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=CIO%20%EB%85%B8%EB%B0%94%ED%8F%AC%ED%8A%B8%20%ED%8A%B8%EB%A6%AC%EC%98%A4%202%2067W%20%EC%B4%88%EC%86%8C%ED%98%95%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0&wPcid=17954849574382702326539&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-1d6f22c798c3a8e8&mcid=f5a51105d31f4ce1b4ebf749e884018f&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 69,
+      "latency_ms": 170,
       "error": null,
       "sources": [
         {
@@ -2190,11 +2089,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEhSpqhM",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEhSpqhM",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%BF%A1%ED%85%8C%ED%81%AC%2015%ED%98%B8%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%20150W%20PB200P&src=1139000&spec=10799999&addtag=200&ctag=%EC%BF%A1%ED%85%8C%ED%81%AC%2015%ED%98%B8%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%20150W%20PB200P&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%BF%A1%ED%85%8C%ED%81%AC%2015%ED%98%B8%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%20150W%20PB200P&wPcid=17954849576082139277585&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-26dfec80adbe623d&mcid=dce2d4d56963485fa56cc042bd514c57&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 51,
+      "latency_ms": 162,
       "error": null,
       "sources": [
         {
@@ -2207,11 +2107,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEk4MGd2",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEk4MGd2",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%BF%A1%ED%85%8C%ED%81%AC%2020%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2025000mAh%20210W%20P23&src=1139000&spec=10799999&addtag=200&ctag=%EC%BF%A1%ED%85%8C%ED%81%AC%2020%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2025000mAh%20210W%20P23&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%BF%A1%ED%85%8C%ED%81%AC%2020%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2025000mAh%20210W%20P23&wPcid=17954849576479801523128&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-3a7cc7fd2cd9410d&mcid=59bb32f46e1f40ee8d108c03ff0975e8&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 66,
+      "latency_ms": 260,
       "error": null,
       "sources": [
         {
@@ -2224,11 +2125,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEnVla8a",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEnVla8a",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%97%90%EC%BD%94%ED%94%8C%EB%A1%9C%EC%9A%B0%20%EB%A6%AC%EB%B2%84%203%20245Wh%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%ED%8C%8C%EC%9B%8C%EB%B1%85%ED%81%AC&src=1139000&spec=10799999&addtag=200&ctag=%EC%97%90%EC%BD%94%ED%94%8C%EB%A1%9C%EC%9A%B0%20%EB%A6%AC%EB%B2%84%203%20245Wh%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%ED%8C%8C%EC%9B%8C%EB%B1%85%ED%81%AC&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%97%90%EC%BD%94%ED%94%8C%EB%A1%9C%EC%9A%B0%20%EB%A6%AC%EB%B2%84%203%20245Wh%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%ED%8C%8C%EC%9B%8C%EB%B1%85%ED%81%AC&wPcid=17954849576567927495161&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-4652d58eff59921e&mcid=b7044b3289184b219f8c03ca7fd5afdd&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 44,
+      "latency_ms": 276,
       "error": null,
       "sources": [
         {
@@ -2241,11 +2143,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEqXOPu0",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEqXOPu0",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%82%BC%EC%84%B1%2045W%20%EB%B0%B0%ED%84%B0%EB%A6%AC%ED%8C%A9%2020000mAh%20EB-P4520%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%82%BC%EC%84%B1%2045W%20%EB%B0%B0%ED%84%B0%EB%A6%AC%ED%8C%A9%2020000mAh%20EB-P4520%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%82%BC%EC%84%B1%2045W%20%EB%B0%B0%ED%84%B0%EB%A6%AC%ED%8C%A9%2020000mAh%20EB-P4520%20%EC%A0%95%ED%92%88&wPcid=17954849577883722173544&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-0c61201f89045935&mcid=069f8c36512f4eacb3c370d343d982f2&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 41,
+      "latency_ms": 151,
       "error": null,
       "sources": [
         {
@@ -2258,11 +2161,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEt6oqwC",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEt6oqwC",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%82%AC%ED%85%8C%EC%B9%98%20165W%20USB-C%204%ED%8F%AC%ED%8A%B8%20PD%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0&src=1139000&spec=10799999&addtag=200&ctag=%EC%82%AC%ED%85%8C%EC%B9%98%20165W%20USB-C%204%ED%8F%AC%ED%8A%B8%20PD%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%82%AC%ED%85%8C%EC%B9%98%20165W%20USB-C%204%ED%8F%AC%ED%8A%B8%20PD%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0&wPcid=17954849577906332426901&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-e682155337e80cb4&mcid=5844f31318a544aaa07d12862407f034&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 65,
+      "latency_ms": 185,
       "error": null,
       "sources": [
         {
@@ -2275,11 +2179,12 @@
     {
       "url": "https://link.coupang.com/a/iTcEw4dCAC",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcEw4dCAC",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%83%A4%EA%B8%B1%20140%2020000mAh%20140W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC&src=1139000&spec=10799999&addtag=200&ctag=%EC%83%A4%EA%B8%B1%20140%2020000mAh%20140W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%83%A4%EA%B8%B1%20140%2020000mAh%20140W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC&wPcid=17954849578443129274317&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-03b62f830c5f6cd8&mcid=6ffedf9ff96f4e519e9ed35c3f101674&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 49,
+      "latency_ms": 130,
       "error": null,
       "sources": [
         {
@@ -2292,11 +2197,12 @@
     {
       "url": "https://link.coupang.com/a/iTcF1F6tVs",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcF1F6tVs",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%ED%94%84%EB%A1%9C%20100W%203%ED%8F%AC%ED%8A%B8%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20X757&src=1139000&spec=10799999&addtag=200&ctag=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%ED%94%84%EB%A1%9C%20100W%203%ED%8F%AC%ED%8A%B8%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20X757&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%ED%94%84%EB%A1%9C%20100W%203%ED%8F%AC%ED%8A%B8%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20X757&wPcid=17954849581385635355600&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-d433404dcc396bfb&mcid=c321b9040eb741c4a9b73604f55dcbdf&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 98,
+      "latency_ms": 213,
       "error": null,
       "sources": [
         {
@@ -2309,11 +2215,12 @@
     {
       "url": "https://link.coupang.com/a/iTcF7i84Ye",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcF7i84Ye",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%ED%94%84%EB%A1%9C%20160W%204%ED%8F%AC%ED%8A%B8%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20X763&src=1139000&spec=10799999&addtag=200&ctag=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%ED%94%84%EB%A1%9C%20160W%204%ED%8F%AC%ED%8A%B8%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20X763&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%ED%94%84%EB%A1%9C%20160W%204%ED%8F%AC%ED%8A%B8%20GaN%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20X763&wPcid=17954849580737870651538&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-f97230e979599976&mcid=c4d6ebb9600249e6aa4236c182ca9410&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 36,
+      "latency_ms": 129,
       "error": null,
       "sources": [
         {
@@ -2326,11 +2233,12 @@
     {
       "url": "https://link.coupang.com/a/iTcFRsIwvI",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcFRsIwvI",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20300W%205%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20CD333&src=1139000&spec=10799999&addtag=200&ctag=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20300W%205%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20CD333&lptag=AF2200875&itime=20261124104917&pageType=SEARCH&pageValue=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20300W%205%ED%8F%AC%ED%8A%B8%20GaN%20%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%83%91%20%EC%B6%A9%EC%A0%84%EA%B8%B0%20CD333&wPcid=17954849579586671311102&wRef=&wTime=20261124104917&redirect=landing&traceid=V0-181-33bc5927f4b032ac&mcid=ead6486566f144dab271c729ca5b26a0&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 86,
+      "latency_ms": 173,
       "error": null,
       "sources": [
         {
@@ -2343,11 +2251,12 @@
     {
       "url": "https://link.coupang.com/a/iTcFUJoYE0",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcFUJoYE0",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%20130W%20PB721&src=1139000&spec=10799999&addtag=200&ctag=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%20130W%20PB721&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2020000mAh%20130W%20PB721&wPcid=17954849580395584955458&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-d296268c0b2ef00c&mcid=dfa10d09cc024cf1ba89a98da089321c&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 140,
+      "latency_ms": 183,
       "error": null,
       "sources": [
         {
@@ -2360,11 +2269,12 @@
     {
       "url": "https://link.coupang.com/a/iTcFXUVrc4",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcFXUVrc4",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2025000mAh%20200W%20PB722&src=1139000&spec=10799999&addtag=200&ctag=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2025000mAh%20200W%20PB722&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20%EB%84%A5%EC%86%8C%EB%93%9C%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%2025000mAh%20200W%20PB722&wPcid=17954849581501907370399&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-61fe8f1f6094acb4&mcid=d7a2fd522b7c4e92a38c2b435ffd9b36&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 74,
+      "latency_ms": 122,
       "error": null,
       "sources": [
         {
@@ -2377,11 +2287,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGADM3lA",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGADM3lA",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%AA%A8%EB%A9%98%ED%84%B0%EC%8A%A4%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20NSF%20450g&src=1139000&spec=10799999&addtag=200&ctag=%EB%AA%A8%EB%A9%98%ED%84%B0%EC%8A%A4%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20NSF%20450g&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EB%AA%A8%EB%A9%98%ED%84%B0%EC%8A%A4%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20NSF%20450g&wPcid=17954849581994086031741&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-aa9b07990c437b92&mcid=8f6af32fbdd3433a86ef6a78cb7630cf&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 67,
+      "latency_ms": 189,
       "error": null,
       "sources": [
         {
@@ -2394,11 +2305,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGaE1s72",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGaE1s72",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%84%EB%AF%B8%EB%85%B8%EB%B0%94%EC%9D%B4%ED%83%88%20%ED%8D%BC%ED%8E%99%ED%8A%B8%20%EC%97%90%EB%84%88%EC%A7%80%20130g%206%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%84%EB%AF%B8%EB%85%B8%EB%B0%94%EC%9D%B4%ED%83%88%20%ED%8D%BC%ED%8E%99%ED%8A%B8%20%EC%97%90%EB%84%88%EC%A7%80%20130g%206%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%95%84%EB%AF%B8%EB%85%B8%EB%B0%94%EC%9D%B4%ED%83%88%20%ED%8D%BC%ED%8E%99%ED%8A%B8%20%EC%97%90%EB%84%88%EC%A7%80%20130g%206%EA%B0%9C%EC%9E%85&wPcid=17954849582274668300610&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-a8b2c5bc5e9e4598&mcid=a0f4f3bd6b2e4c039ce39a0b8494d07c&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 31,
+      "latency_ms": 412,
       "error": null,
       "sources": [
         {
@@ -2411,11 +2323,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGDsTcCy",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGDsTcCy",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%84%A4%EB%B2%84%EC%84%B8%EC%BB%A8%EB%93%9C%20C30%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%EB%84%A4%EB%B2%84%EC%84%B8%EC%BB%A8%EB%93%9C%20C30%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EB%84%A4%EB%B2%84%EC%84%B8%EC%BB%A8%EB%93%9C%20C30%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&wPcid=17954849583991078641091&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-5395b9956964cc2b&mcid=c739847877614a13a182bc01f795a9c3&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 43,
+      "latency_ms": 358,
       "error": null,
       "sources": [
         {
@@ -2428,11 +2341,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGeeidEW",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGeeidEW",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=ESN%20%EC%9A%B8%ED%8A%B8%EB%9D%BC%ED%93%A8%EC%96%B4%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20%EB%AA%A8%EB%85%B8%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%ED%8A%B8%20500g&src=1139000&spec=10799999&addtag=200&ctag=ESN%20%EC%9A%B8%ED%8A%B8%EB%9D%BC%ED%93%A8%EC%96%B4%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20%EB%AA%A8%EB%85%B8%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%ED%8A%B8%20500g&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=ESN%20%EC%9A%B8%ED%8A%B8%EB%9D%BC%ED%93%A8%EC%96%B4%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20%EB%AA%A8%EB%85%B8%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%ED%8A%B8%20500g&wPcid=17954849583578594684757&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-178fd9b6ad04d131&mcid=6ec8905dc1244c4787b0b7fa00f35618&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 80,
+      "latency_ms": 146,
       "error": null,
       "sources": [
         {
@@ -2445,11 +2359,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGGuEqwC",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGGuEqwC",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%8F%99%EC%95%84%EC%98%A4%EC%B8%A0%EC%B9%B4%20%ED%8F%AC%EC%B9%B4%EB%A6%AC%EC%8A%A4%EC%9B%A8%ED%8A%B8%20%EB%B6%84%EB%A7%90%2074g%205%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%EB%8F%99%EC%95%84%EC%98%A4%EC%B8%A0%EC%B9%B4%20%ED%8F%AC%EC%B9%B4%EB%A6%AC%EC%8A%A4%EC%9B%A8%ED%8A%B8%20%EB%B6%84%EB%A7%90%2074g%205%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EB%8F%99%EC%95%84%EC%98%A4%EC%B8%A0%EC%B9%B4%20%ED%8F%AC%EC%B9%B4%EB%A6%AC%EC%8A%A4%EC%9B%A8%ED%8A%B8%20%EB%B6%84%EB%A7%90%2074g%205%EA%B0%9C%EC%9E%85&wPcid=17954849584567155257114&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-dd24c7204ae01a4c&mcid=f5917ebca57d4ec89585a074f133d911&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 31,
+      "latency_ms": 375,
       "error": null,
       "sources": [
         {
@@ -2462,11 +2377,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGhMjHrM",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGhMjHrM",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=GU%20%EA%B5%AC%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%20%EC%98%A4%EB%A6%AC%EC%A7%80%EB%84%90%2024%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=GU%20%EA%B5%AC%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%20%EC%98%A4%EB%A6%AC%EC%A7%80%EB%84%90%2024%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=GU%20%EA%B5%AC%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%20%EC%98%A4%EB%A6%AC%EC%A7%80%EB%84%90%2024%EA%B0%9C%EC%9E%85&wPcid=17954849584199452390924&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-e95a5b1327770ae4&mcid=38c2fc29177e493f8dedf0eb5f0b82bc&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 50,
+      "latency_ms": 142,
       "error": null,
       "sources": [
         {
@@ -2479,11 +2395,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGJAxgse",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGJAxgse",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%93%A8%EC%96%BC%20PF%2030%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2015%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%93%A8%EC%96%BC%20PF%2030%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2015%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%93%A8%EC%96%BC%20PF%2030%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2015%EA%B0%9C%EC%9E%85&wPcid=17954849585357367468536&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-c18cbde19ebc256a&mcid=33c3057646174b3198b71397d4d8f2ac&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 32,
+      "latency_ms": 137,
       "error": null,
       "sources": [
         {
@@ -2496,11 +2413,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGkXz3zo",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGkXz3zo",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=GU%20%EB%A1%9D%ED%85%8C%EC%9D%B8%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2024%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=GU%20%EB%A1%9D%ED%85%8C%EC%9D%B8%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2024%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=GU%20%EB%A1%9D%ED%85%8C%EC%9D%B8%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2024%EA%B0%9C%EC%9E%85&wPcid=17954849586180697186273&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-573c434af3f3c961&mcid=ed3f6dfd5cd441d3854f11b1afe08f61&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 39,
+      "latency_ms": 181,
       "error": null,
       "sources": [
         {
@@ -2513,11 +2431,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGMGzkAu",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGMGzkAu",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%93%A8%EC%96%BC%20PF%2090%20%EC%A0%90%EB%B3%B4%20%EC%A0%A4&src=1139000&spec=10799999&addtag=200&ctag=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%93%A8%EC%96%BC%20PF%2090%20%EC%A0%90%EB%B3%B4%20%EC%A0%A4&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%93%A8%EC%96%BC%20PF%2090%20%EC%A0%90%EB%B3%B4%20%EC%A0%A4&wPcid=17954849587693269559245&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-685138b9dc61e5bc&mcid=1c458df05917461ca1c6b7a6db6f05f1&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 56,
+      "latency_ms": 167,
       "error": null,
       "sources": [
         {
@@ -2530,11 +2449,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGn2Scxg",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGn2Scxg",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9E%AC%EB%A1%9C%EC%9A%B0%20%ED%8F%AC%EB%AE%AC%EB%9D%BC%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20%EB%AA%A8%EB%85%B8%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%ED%8A%B8%20%ED%81%AC%EB%A0%88%EC%95%84%ED%93%A8%EC%96%B4%20325g&src=1139000&spec=10799999&addtag=200&ctag=%EC%9E%AC%EB%A1%9C%EC%9A%B0%20%ED%8F%AC%EB%AE%AC%EB%9D%BC%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20%EB%AA%A8%EB%85%B8%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%ED%8A%B8%20%ED%81%AC%EB%A0%88%EC%95%84%ED%93%A8%EC%96%B4%20325g&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%9E%AC%EB%A1%9C%EC%9A%B0%20%ED%8F%AC%EB%AE%AC%EB%9D%BC%20%ED%81%AC%EB%A0%88%EC%95%84%ED%8B%B4%20%EB%AA%A8%EB%85%B8%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%ED%8A%B8%20%ED%81%AC%EB%A0%88%EC%95%84%ED%93%A8%EC%96%B4%20325g&wPcid=17954849586735867568644&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-1f748006dfc33487&mcid=9007372dc0564cd0af9f469734bc7c33&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 32,
+      "latency_ms": 333,
       "error": null,
       "sources": [
         {
@@ -2547,11 +2467,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGQzQm9k",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGQzQm9k",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20PH%201000%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95&src=1139000&spec=10799999&addtag=200&ctag=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20PH%201000%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20PH%201000%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95&wPcid=17954849587136626650292&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-f363e7cee17f0e7e&mcid=5006178c269a483480153ca1bfc633a7&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 46,
+      "latency_ms": 119,
       "error": null,
       "sources": [
         {
@@ -2564,11 +2485,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGrresCG",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGrresCG",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20100%20%EC%B9%B4%ED%8E%98%EC%9D%B8%2012%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20100%20%EC%B9%B4%ED%8E%98%EC%9D%B8%2012%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20100%20%EC%B9%B4%ED%8E%98%EC%9D%B8%2012%EA%B0%9C%EC%9E%85&wPcid=17954849587486137317889&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-3a5d8df521a0526d&mcid=f23046376e3a433696b84b31745fc3ea&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 29,
+      "latency_ms": 194,
       "error": null,
       "sources": [
         {
@@ -2581,11 +2503,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGTNHtqm",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGTNHtqm",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20PH%201500%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95&src=1139000&spec=10799999&addtag=200&ctag=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20PH%201500%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%ED%94%84%EB%A6%AC%EC%8B%9C%EC%A0%84%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20PH%201500%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95&wPcid=17954849590064802595294&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-98ffbccedd5a3789&mcid=8abc67cdf0984f3399873e50ac003184&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 37,
+      "latency_ms": 153,
       "error": null,
       "sources": [
         {
@@ -2598,11 +2521,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGumkxBQ",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGumkxBQ",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20100%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20100%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20100%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&wPcid=17954849588602807143581&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-bf39c2805233b485&mcid=6464f5a144a14547be172632205391d6&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 29,
+      "latency_ms": 97,
       "error": null,
       "sources": [
         {
@@ -2615,11 +2539,12 @@
     {
       "url": "https://link.coupang.com/a/iTcGxsttXU",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcGxsttXU",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20160%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20160%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EB%AA%A8%EB%A5%B4%ED%85%90%20%EC%A0%A4%20160%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2012%EA%B0%9C%EC%9E%85&wPcid=17954849590374014830074&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-d691609918687b8e&mcid=437f83d38536424b98f0c93d3251c618&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 62,
+      "latency_ms": 266,
       "error": null,
       "sources": [
         {
@@ -2632,11 +2557,12 @@
     {
       "url": "https://link.coupang.com/a/iTcI1NaXqm",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcI1NaXqm",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%8A%A4%EB%9E%A8%20%EB%A0%88%EB%93%9C%20AXS%20E1%2012%EB%8B%A8%20%EB%AC%B4%EC%84%A0%20%EC%A0%84%EB%8F%99%20%EA%B7%B8%EB%A3%B9%EC%85%8B%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%8A%A4%EB%9E%A8%20%EB%A0%88%EB%93%9C%20AXS%20E1%2012%EB%8B%A8%20%EB%AC%B4%EC%84%A0%20%EC%A0%84%EB%8F%99%20%EA%B7%B8%EB%A3%B9%EC%85%8B%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104918&pageType=SEARCH&pageValue=%EC%8A%A4%EB%9E%A8%20%EB%A0%88%EB%93%9C%20AXS%20E1%2012%EB%8B%A8%20%EB%AC%B4%EC%84%A0%20%EC%A0%84%EB%8F%99%20%EA%B7%B8%EB%A3%B9%EC%85%8B%20%EC%A0%95%ED%92%88&wPcid=17954849589490962838176&wRef=&wTime=20261124104918&redirect=landing&traceid=V0-181-17466156da52c631&mcid=33d5089887984e8dbaa712cde44852df&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 36,
+      "latency_ms": 142,
       "error": null,
       "sources": [
         {
@@ -2649,11 +2575,12 @@
     {
       "url": "https://link.coupang.com/a/iTcI4GRT2q",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcI4GRT2q",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EA%B0%80%EB%AF%BC%20%ED%83%81%EC%8A%A4%20%EB%84%A4%EC%98%A4%202T%20%EC%8A%A4%EB%A7%88%ED%8A%B8%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%84%88%20%EB%A1%9C%EB%9D%BC%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EA%B0%80%EB%AF%BC%20%ED%83%81%EC%8A%A4%20%EB%84%A4%EC%98%A4%202T%20%EC%8A%A4%EB%A7%88%ED%8A%B8%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%84%88%20%EB%A1%9C%EB%9D%BC%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EA%B0%80%EB%AF%BC%20%ED%83%81%EC%8A%A4%20%EB%84%A4%EC%98%A4%202T%20%EC%8A%A4%EB%A7%88%ED%8A%B8%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%84%88%20%EB%A1%9C%EB%9D%BC%20%EC%A0%95%ED%92%88&wPcid=17954849590354190960146&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-8df76315e3ed622c&mcid=ff74859b64af40dd813639c1214e6baf&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 74,
+      "latency_ms": 115,
       "error": null,
       "sources": [
         {
@@ -2666,11 +2593,12 @@
     {
       "url": "https://link.coupang.com/a/iTcI7M2k56",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcI7M2k56",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%B9%84%ED%86%A0%EB%A6%AC%EC%95%84%20%EC%BD%94%EB%A5%B4%EC%82%AC%20%ED%94%84%EB%A1%9C%20TLR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&src=1139000&spec=10799999&addtag=200&ctag=%EB%B9%84%ED%86%A0%EB%A6%AC%EC%95%84%20%EC%BD%94%EB%A5%B4%EC%82%AC%20%ED%94%84%EB%A1%9C%20TLR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EB%B9%84%ED%86%A0%EB%A6%AC%EC%95%84%20%EC%BD%94%EB%A5%B4%EC%82%AC%20%ED%94%84%EB%A1%9C%20TLR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&wPcid=17954849591093748107470&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-3a75430bd1084b3e&mcid=edd3c53baa9c4487ac7b5fe80f1c259f&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 34,
+      "latency_ms": 304,
       "error": null,
       "sources": [
         {
@@ -2683,11 +2611,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIBo23Gu",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIBo23Gu",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%8C%8C%EB%B2%A0%EB%A1%9C%20%EC%95%84%EC%8B%9C%EC%98%A4%EB%A7%88%20%EB%93%80%EC%98%A4%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%8E%98%EB%8B%AC%20%EB%A3%A9%20%EC%BC%80%EC%98%A4&src=1139000&spec=10799999&addtag=200&ctag=%ED%8C%8C%EB%B2%A0%EB%A1%9C%20%EC%95%84%EC%8B%9C%EC%98%A4%EB%A7%88%20%EB%93%80%EC%98%A4%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%8E%98%EB%8B%AC%20%EB%A3%A9%20%EC%BC%80%EC%98%A4&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%ED%8C%8C%EB%B2%A0%EB%A1%9C%20%EC%95%84%EC%8B%9C%EC%98%A4%EB%A7%88%20%EB%93%80%EC%98%A4%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%8E%98%EB%8B%AC%20%EB%A3%A9%20%EC%BC%80%EC%98%A4&wPcid=17954849591482105919041&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-d09eacde386e4a67&mcid=4155860331224435b35c56dc5702a36e&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 47,
+      "latency_ms": 194,
       "error": null,
       "sources": [
         {
@@ -2700,11 +2629,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIEBsFBA",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIEBsFBA",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%8C%8C%EB%B2%A0%EB%A1%9C%20%EC%95%84%EC%8B%9C%EC%98%A4%EB%A7%88%20%ED%94%84%EB%A1%9C%20RS-2%20%EC%8B%9C%EB%A7%88%EB%85%B8%20SPD-SL%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0&src=1139000&spec=10799999&addtag=200&ctag=%ED%8C%8C%EB%B2%A0%EB%A1%9C%20%EC%95%84%EC%8B%9C%EC%98%A4%EB%A7%88%20%ED%94%84%EB%A1%9C%20RS-2%20%EC%8B%9C%EB%A7%88%EB%85%B8%20SPD-SL%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%ED%8C%8C%EB%B2%A0%EB%A1%9C%20%EC%95%84%EC%8B%9C%EC%98%A4%EB%A7%88%20%ED%94%84%EB%A1%9C%20RS-2%20%EC%8B%9C%EB%A7%88%EB%85%B8%20SPD-SL%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0&wPcid=17954849592250860336089&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-56300205d89e22ad&mcid=3c7920205a264cc3bc6a74468f31cc82&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 34,
+      "latency_ms": 176,
       "error": null,
       "sources": [
         {
@@ -2717,11 +2647,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIeKxP5g",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIeKxP5g",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=SiS%20%EB%B2%A0%ED%83%80%ED%93%A8%EC%97%98%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2030%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=SiS%20%EB%B2%A0%ED%83%80%ED%93%A8%EC%97%98%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2030%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=SiS%20%EB%B2%A0%ED%83%80%ED%93%A8%EC%97%98%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2030%EA%B0%9C%EC%9E%85&wPcid=17954849591939192214209&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-4f530429e10ef8cd&mcid=26958573dbfb47538c3e7077d150a4f5&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 43,
+      "latency_ms": 259,
       "error": null,
       "sources": [
         {
@@ -2734,11 +2665,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIh33qfY",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIh33qfY",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=SiS%20GO%20%EC%95%84%EC%9D%B4%EC%86%8C%ED%86%A0%EB%8B%89%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2030%EA%B0%9C%EC%9E%85&src=1139000&spec=10799999&addtag=200&ctag=SiS%20GO%20%EC%95%84%EC%9D%B4%EC%86%8C%ED%86%A0%EB%8B%89%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2030%EA%B0%9C%EC%9E%85&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=SiS%20GO%20%EC%95%84%EC%9D%B4%EC%86%8C%ED%86%A0%EB%8B%89%20%EC%97%90%EB%84%88%EC%A7%80%EC%A0%A4%2030%EA%B0%9C%EC%9E%85&wPcid=17954849593676973510978&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-d822119c03c1ff8c&mcid=579620bc2de8469cbe2c00947b378531&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 37,
+      "latency_ms": 324,
       "error": null,
       "sources": [
         {
@@ -2751,11 +2683,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIInEBb2",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIInEBb2",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EA%B0%80%EB%AF%BC%20%EC%97%A3%EC%A7%80%201050%20%EC%9E%90%EC%A0%84%EA%B1%B0%20GPS%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EA%B0%80%EB%AF%BC%20%EC%97%A3%EC%A7%80%201050%20%EC%9E%90%EC%A0%84%EA%B1%B0%20GPS%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EA%B0%80%EB%AF%BC%20%EC%97%A3%EC%A7%80%201050%20%EC%9E%90%EC%A0%84%EA%B1%B0%20GPS%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&wPcid=17954849594648941968771&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-3165f17bbe31f2d6&mcid=a84780b0bf32465c8b714436fdd9af8f&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 86,
+      "latency_ms": 145,
       "error": null,
       "sources": [
         {
@@ -2768,11 +2701,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIk1ZuxM",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIk1ZuxM",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=SiS%20GO%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A1%9C%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95%2020%EC%A0%95&src=1139000&spec=10799999&addtag=200&ctag=SiS%20GO%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A1%9C%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95%2020%EC%A0%95&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=SiS%20GO%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A1%9C%20%EC%A0%84%ED%95%B4%EC%A7%88%20%EB%B0%9C%ED%8F%AC%EC%A0%95%2020%EC%A0%95&wPcid=17954849593808321355373&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-f2c7c8d812a7ae11&mcid=5eaa12b18c1c442eb565e279ae3c7711&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 83,
+      "latency_ms": 149,
       "error": null,
       "sources": [
         {
@@ -2785,11 +2719,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIMu5ehg",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIMu5ehg",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EA%B0%80%EB%AF%BC%20%EC%97%A3%EC%A7%80%20840%20%EC%86%94%EB%9D%BC%20%EC%9E%90%EC%A0%84%EA%B1%B0%20GPS%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EA%B0%80%EB%AF%BC%20%EC%97%A3%EC%A7%80%20840%20%EC%86%94%EB%9D%BC%20%EC%9E%90%EC%A0%84%EA%B1%B0%20GPS%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EA%B0%80%EB%AF%BC%20%EC%97%A3%EC%A7%80%20840%20%EC%86%94%EB%9D%BC%20%EC%9E%90%EC%A0%84%EA%B1%B0%20GPS%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&wPcid=17954849593876477144928&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-d90412d3812261b3&mcid=3807e1247b0e49658c832f420a7ebcb3&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 71,
+      "latency_ms": 143,
       "error": null,
       "sources": [
         {
@@ -2802,11 +2737,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIoFEAW4",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIoFEAW4",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%8A%A4%ED%81%AC%EB%9E%98%EC%B9%98%20%EB%9E%A9%EC%8A%A4%20%EC%8A%A4%ED%8F%AC%EC%B8%A0%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20%EB%AF%B9%EC%8A%A4%20440g&src=1139000&spec=10799999&addtag=200&ctag=%EC%8A%A4%ED%81%AC%EB%9E%98%EC%B9%98%20%EB%9E%A9%EC%8A%A4%20%EC%8A%A4%ED%8F%AC%EC%B8%A0%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20%EB%AF%B9%EC%8A%A4%20440g&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EC%8A%A4%ED%81%AC%EB%9E%98%EC%B9%98%20%EB%9E%A9%EC%8A%A4%20%EC%8A%A4%ED%8F%AC%EC%B8%A0%20%ED%95%98%EC%9D%B4%EB%93%9C%EB%A0%88%EC%9D%B4%EC%85%98%20%EB%AF%B9%EC%8A%A4%20440g&wPcid=17954849595360481410197&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-a3a4fb34745ef685&mcid=9c417db1cd204b31901a991c242a856a&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 26,
+      "latency_ms": 319,
       "error": null,
       "sources": [
         {
@@ -2819,11 +2755,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIPu2Qsm",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIPu2Qsm",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EA%B0%80%EB%AF%BC%20%EB%9E%A0%EB%A6%AC%20RS200%20%EC%8B%9C%EB%A7%88%EB%85%B8%20SPD-SL%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%8E%98%EB%8B%AC&src=1139000&spec=10799999&addtag=200&ctag=%EA%B0%80%EB%AF%BC%20%EB%9E%A0%EB%A6%AC%20RS200%20%EC%8B%9C%EB%A7%88%EB%85%B8%20SPD-SL%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%8E%98%EB%8B%AC&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EA%B0%80%EB%AF%BC%20%EB%9E%A0%EB%A6%AC%20RS200%20%EC%8B%9C%EB%A7%88%EB%85%B8%20SPD-SL%20%EC%96%91%EB%B0%9C%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%8E%98%EB%8B%AC&wPcid=17954849595864452366772&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-4f1840776aa0b7b5&mcid=6918c9375fc24ff19c06d8640205d2f4&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 60,
+      "latency_ms": 171,
       "error": null,
       "sources": [
         {
@@ -2836,11 +2773,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIr0jqVg",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIr0jqVg",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%85%8C%EC%9D%BC%EC%9C%88%EB%93%9C%20%EC%9D%B8%EB%93%80%EC%96%B4%EB%9F%B0%EC%8A%A4%20%ED%93%A8%EC%96%BC%2050%EC%84%9C%EB%B9%99&src=1139000&spec=10799999&addtag=200&ctag=%ED%85%8C%EC%9D%BC%EC%9C%88%EB%93%9C%20%EC%9D%B8%EB%93%80%EC%96%B4%EB%9F%B0%EC%8A%A4%20%ED%93%A8%EC%96%BC%2050%EC%84%9C%EB%B9%99&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%ED%85%8C%EC%9D%BC%EC%9C%88%EB%93%9C%20%EC%9D%B8%EB%93%80%EC%96%B4%EB%9F%B0%EC%8A%A4%20%ED%93%A8%EC%96%BC%2050%EC%84%9C%EB%B9%99&wPcid=17954849595493741587136&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-c4ff211ab68f6a2f&mcid=e317c6480ff94077955b70282c9c0c58&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 122,
+      "latency_ms": 308,
       "error": null,
       "sources": [
         {
@@ -2853,11 +2791,12 @@
     {
       "url": "https://link.coupang.com/a/iTcISsHjB6",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcISsHjB6",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%A7%88%EC%A7%84%20PES%20P505%20%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EC%8A%A4%ED%8C%8C%EC%9D%B4%EB%8D%94%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%81%AC%EB%9E%AD%ED%81%AC%2024mm&src=1139000&spec=10799999&addtag=200&ctag=%EB%A7%88%EC%A7%84%20PES%20P505%20%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EC%8A%A4%ED%8C%8C%EC%9D%B4%EB%8D%94%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%81%AC%EB%9E%AD%ED%81%AC%2024mm&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EB%A7%88%EC%A7%84%20PES%20P505%20%EB%B2%A0%EC%9D%B4%EC%8A%A4%20%EC%8A%A4%ED%8C%8C%EC%9D%B4%EB%8D%94%20%ED%8C%8C%EC%9B%8C%EB%AF%B8%ED%84%B0%20%ED%81%AC%EB%9E%AD%ED%81%AC%2024mm&wPcid=17954849596630363774018&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-66b364b734e077e3&mcid=098fc50251724bcd842d13918cc79a4b&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 52,
+      "latency_ms": 278,
       "error": null,
       "sources": [
         {
@@ -2870,11 +2809,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIvju3Y4",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIvju3Y4",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%BD%98%ED%8B%B0%EB%84%A8%ED%83%88%20%EA%B7%B8%EB%9E%91%ED%94%84%EB%A6%AC%20GP5000%20S%20TR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&src=1139000&spec=10799999&addtag=200&ctag=%EC%BD%98%ED%8B%B0%EB%84%A8%ED%83%88%20%EA%B7%B8%EB%9E%91%ED%94%84%EB%A6%AC%20GP5000%20S%20TR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EC%BD%98%ED%8B%B0%EB%84%A8%ED%83%88%20%EA%B7%B8%EB%9E%91%ED%94%84%EB%A6%AC%20GP5000%20S%20TR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&wPcid=17954849596498795688895&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-dbddd16c278c6d8c&mcid=49a80411bd0a4826af0c9e3f19a5cf9c&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 101,
+      "latency_ms": 109,
       "error": null,
       "sources": [
         {
@@ -2887,11 +2827,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIVsqZCS",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIVsqZCS",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%ED%94%BC%EB%A0%90%EB%A6%AC%20%ED%94%BC%EC%A0%9C%EB%A1%9C%20%EB%A0%88%EC%9D%B4%EC%8A%A4%20RS%20TLR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&src=1139000&spec=10799999&addtag=200&ctag=%ED%94%BC%EB%A0%90%EB%A6%AC%20%ED%94%BC%EC%A0%9C%EB%A1%9C%20%EB%A0%88%EC%9D%B4%EC%8A%A4%20RS%20TLR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%ED%94%BC%EB%A0%90%EB%A6%AC%20%ED%94%BC%EC%A0%9C%EB%A1%9C%20%EB%A0%88%EC%9D%B4%EC%8A%A4%20RS%20TLR%2028c%20%ED%8A%9C%EB%B8%94%EB%A6%AC%EC%8A%A4%20%EB%A1%9C%EB%93%9C%20%ED%83%80%EC%9D%B4%EC%96%B4&wPcid=17954849599853099313640&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-e0ab979af2129d0a&mcid=afdb9225cb5b4f688e186bc807372cc0&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 31,
+      "latency_ms": 333,
       "error": null,
       "sources": [
         {
@@ -2904,11 +2845,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIycsIQ8",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIycsIQ8",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%BD%94%EB%A1%9C%EC%8A%A4%20%EB%93%80%EB%9D%BC%20%EC%86%94%EB%9D%BC%20GPS%20%EC%9E%90%EC%A0%84%EA%B1%B0%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A1%B0%EC%9D%B4%EC%9B%8D%EC%8A%A4&src=1139000&spec=10799999&addtag=200&ctag=%EC%BD%94%EB%A1%9C%EC%8A%A4%20%EB%93%80%EB%9D%BC%20%EC%86%94%EB%9D%BC%20GPS%20%EC%9E%90%EC%A0%84%EA%B1%B0%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A1%B0%EC%9D%B4%EC%9B%8D%EC%8A%A4&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EC%BD%94%EB%A1%9C%EC%8A%A4%20%EB%93%80%EB%9D%BC%20%EC%86%94%EB%9D%BC%20GPS%20%EC%9E%90%EC%A0%84%EA%B1%B0%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A1%B0%EC%9D%B4%EC%9B%8D%EC%8A%A4&wPcid=17954849599295282800988&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-a19391a10a55f092&mcid=e4a5955c603d484789d2207393055a2f&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 54,
+      "latency_ms": 284,
       "error": null,
       "sources": [
         {
@@ -2921,11 +2863,12 @@
     {
       "url": "https://link.coupang.com/a/iTcIYFpNN6",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcIYFpNN6",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%8B%9C%EB%A7%88%EB%85%B8%20%EB%93%80%EB%9D%BC%EC%97%90%EC%9D%B4%EC%8A%A4%20R9270%20Di2%2012%EB%8B%A8%20%EB%94%94%EC%8A%A4%ED%81%AC%20%EA%B7%B8%EB%A3%B9%EC%85%8B%20%EB%82%98%EB%88%85%EC%8A%A4&src=1139000&spec=10799999&addtag=200&ctag=%EC%8B%9C%EB%A7%88%EB%85%B8%20%EB%93%80%EB%9D%BC%EC%97%90%EC%9D%B4%EC%8A%A4%20R9270%20Di2%2012%EB%8B%A8%20%EB%94%94%EC%8A%A4%ED%81%AC%20%EA%B7%B8%EB%A3%B9%EC%85%8B%20%EB%82%98%EB%88%85%EC%8A%A4&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EC%8B%9C%EB%A7%88%EB%85%B8%20%EB%93%80%EB%9D%BC%EC%97%90%EC%9D%B4%EC%8A%A4%20R9270%20Di2%2012%EB%8B%A8%20%EB%94%94%EC%8A%A4%ED%81%AC%20%EA%B7%B8%EB%A3%B9%EC%85%8B%20%EB%82%98%EB%88%85%EC%8A%A4&wPcid=17954849599071779830915&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-6b8f4a5e7d92c3de&mcid=34865724e2ab418ea1322b94aceb7ae5&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 57,
+      "latency_ms": 189,
       "error": null,
       "sources": [
         {
@@ -2938,11 +2881,12 @@
     {
       "url": "https://link.coupang.com/a/iTcJaRBcjY",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcJaRBcjY",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%99%80%ED%9B%84%20%EC%97%98%EB%A6%AC%EB%A8%BC%ED%8A%B8%20%EB%A1%AC%20V2%20GPS%20%EC%9E%90%EC%A0%84%EA%B1%B0%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%99%80%ED%9B%84%20%EC%97%98%EB%A6%AC%EB%A8%BC%ED%8A%B8%20%EB%A1%AC%20V2%20GPS%20%EC%9E%90%EC%A0%84%EA%B1%B0%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%99%80%ED%9B%84%20%EC%97%98%EB%A6%AC%EB%A8%BC%ED%8A%B8%20%EB%A1%AC%20V2%20GPS%20%EC%9E%90%EC%A0%84%EA%B1%B0%20%EC%86%8D%EB%8F%84%EA%B3%84%20%EC%A0%95%ED%92%88&wPcid=17954849599921537760514&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-8b4602b3a987f033&mcid=62c8372bb782434b959a42cc22fe1087&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 39,
+      "latency_ms": 206,
       "error": null,
       "sources": [
         {
@@ -2955,11 +2899,12 @@
     {
       "url": "https://link.coupang.com/a/iTcJdVGqwC",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcJdVGqwC",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%99%80%ED%9B%84%20%ED%82%A4%EC%BB%A4%20%EC%BD%94%EC%96%B4%20%EC%8A%A4%EB%A7%88%ED%8A%B8%20%EB%A1%9C%EB%9D%BC%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%84%88%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%99%80%ED%9B%84%20%ED%82%A4%EC%BB%A4%20%EC%BD%94%EC%96%B4%20%EC%8A%A4%EB%A7%88%ED%8A%B8%20%EB%A1%9C%EB%9D%BC%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%84%88%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104919&pageType=SEARCH&pageValue=%EC%99%80%ED%9B%84%20%ED%82%A4%EC%BB%A4%20%EC%BD%94%EC%96%B4%20%EC%8A%A4%EB%A7%88%ED%8A%B8%20%EB%A1%9C%EB%9D%BC%20%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%84%88%20%EC%A0%95%ED%92%88&wPcid=17954849599389817036224&wRef=&wTime=20261124104919&redirect=landing&traceid=V0-181-221d82d73350dd25&mcid=d72f66c6c57145249829ae1db22fa3d2&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 34,
+      "latency_ms": 122,
       "error": null,
       "sources": [
         {
@@ -2972,11 +2917,12 @@
     {
       "url": "https://link.coupang.com/a/iTcuJmqDpk",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
-      "redirected": false,
-      "final_url": "https://link.coupang.com/a/iTcuJmqDpk",
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%2027650mAh%20250W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1340&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%2027650mAh%20250W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1340&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%95%A4%EC%BB%A4%20%ED%94%84%EB%9D%BC%EC%9E%84%2027650mAh%20250W%20%EB%B3%B4%EC%A1%B0%EB%B0%B0%ED%84%B0%EB%A6%AC%20A1340&wPcid=17954849601730993850663&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-64f6f847d9edb412&mcid=cf226869111b4bcf85b13d7fdec2e46c&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 101,
+      "latency_ms": 168,
       "error": null,
       "sources": [
         {
@@ -2987,13 +2933,230 @@
       ]
     },
     {
+      "url": "https://link.coupang.com/a/iTYuaU3m0q",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://pages.coupang.com/p/121237?sourceType=gm_crm_goldbox&subSourceType=gm_crm_externallanding_s1139000_p10799999_a310_cGOLDBOX&src=1139000&spec=10799999&addtag=310&ctag=GOLDBOX&lptag=AF2200875&itime=20261124104920&pageType=GOLDBOX&pageValue=GOLDBOX&wPcid=17954849603049740295884&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-969b06e95b87326d&mcid=7178cd06071244458f4f8a5f32dba452&placementid=&campaignid=&clickBeacon=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&subid=&campaigntype=&requestid=&contentkeyword=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 136,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "apc-back-ups-bx750mi"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYw3yJf1o",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20NASync%20DXP4800%20Plus%204%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%2010GbE&src=1139000&spec=10799999&addtag=200&ctag=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20NASync%20DXP4800%20Plus%204%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%2010GbE&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%9C%A0%EA%B7%B8%EB%A6%B0%20NASync%20DXP4800%20Plus%204%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%2010GbE&wPcid=17954849602662221424872&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-5760f842f656eede&mcid=063fd1a61ab44336945b32e72ce01bfc&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 174,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "ugreen-nasync-dxp4800-plus"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwB60ww0",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%AF%B8%EB%8B%88%EC%8A%A4%ED%8F%AC%EB%9F%BC%20UM890%20Pro%20%EB%9D%BC%EC%9D%B4%EC%A0%A0%209%208945HS%2032GB%201TB%20%EB%AF%B8%EB%8B%88PC&src=1139000&spec=10799999&addtag=200&ctag=%EB%AF%B8%EB%8B%88%EC%8A%A4%ED%8F%AC%EB%9F%BC%20UM890%20Pro%20%EB%9D%BC%EC%9D%B4%EC%A0%A0%209%208945HS%2032GB%201TB%20%EB%AF%B8%EB%8B%88PC&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EB%AF%B8%EB%8B%88%EC%8A%A4%ED%8F%AC%EB%9F%BC%20UM890%20Pro%20%EB%9D%BC%EC%9D%B4%EC%A0%A0%209%208945HS%2032GB%201TB%20%EB%AF%B8%EB%8B%88PC&wPcid=17954849602842660503001&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-0955d4da79afe795&mcid=d5dbc6e5e7794f17bb3db00fd0f3d64d&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 158,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "minisforum-um890-pro"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwcosqHY",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%95%A0%ED%94%8C%20%EB%A7%A5%20%EB%AF%B8%EB%8B%88%20M4%2016GB%20256GB%20MU9D3KH%2FA%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%95%A0%ED%94%8C%20%EB%A7%A5%20%EB%AF%B8%EB%8B%88%20M4%2016GB%20256GB%20MU9D3KH%2FA%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%95%A0%ED%94%8C%20%EB%A7%A5%20%EB%AF%B8%EB%8B%88%20M4%2016GB%20256GB%20MU9D3KH%2FA%20%EC%A0%95%ED%92%88&wPcid=17954849601886292180686&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-f37762b73735f639&mcid=fa1c5eeafd0e42bb93ba41e3073914cc&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 117,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "apple-mac-mini-m4"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwHfL3Bs",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%A1%9C%EB%B3%B4%EB%9D%BD%20%ED%81%90%EB%A0%88%EB%B3%B4%20%EB%A7%88%EC%8A%A4%ED%84%B0%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EB%A1%9C%EB%B3%B4%EB%9D%BD%20%ED%81%90%EB%A0%88%EB%B3%B4%20%EB%A7%88%EC%8A%A4%ED%84%B0%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EB%A1%9C%EB%B3%B4%EB%9D%BD%20%ED%81%90%EB%A0%88%EB%B3%B4%20%EB%A7%88%EC%8A%A4%ED%84%B0%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&wPcid=17954849603505678051688&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-5aebc28acccd9199&mcid=85b88af7bd7b4ea79924da41182b5557&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 189,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "roborock-qrevo-master"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwhz3W44",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%B9%84%EB%A7%81%ED%81%AC%20SER8%20%EB%9D%BC%EC%9D%B4%EC%A0%A0%207%208745HS%2032GB%201TB%20%EB%AF%B8%EB%8B%88PC&src=1139000&spec=10799999&addtag=200&ctag=%EB%B9%84%EB%A7%81%ED%81%AC%20SER8%20%EB%9D%BC%EC%9D%B4%EC%A0%A0%207%208745HS%2032GB%201TB%20%EB%AF%B8%EB%8B%88PC&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EB%B9%84%EB%A7%81%ED%81%AC%20SER8%20%EB%9D%BC%EC%9D%B4%EC%A0%A0%207%208745HS%2032GB%201TB%20%EB%AF%B8%EB%8B%88PC&wPcid=17954849604300979309224&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-96cfa97a689f38b5&mcid=72432014d59944af9c5ac6d1086c86c4&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 212,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "beelink-ser8-8745hs"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwm8nnRk",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%82%AC%EC%9D%B4%EB%B2%84%ED%8C%8C%EC%9B%8C%20CP1500EPFCLCD%20220V%20%EC%A0%95%ED%98%84%ED%8C%8C%20UPS%20%EB%AC%B4%EC%A0%95%EC%A0%84%EC%A0%84%EC%9B%90%EC%9E%A5%EC%B9%98&src=1139000&spec=10799999&addtag=200&ctag=%EC%82%AC%EC%9D%B4%EB%B2%84%ED%8C%8C%EC%9B%8C%20CP1500EPFCLCD%20220V%20%EC%A0%95%ED%98%84%ED%8C%8C%20UPS%20%EB%AC%B4%EC%A0%95%EC%A0%84%EC%A0%84%EC%9B%90%EC%9E%A5%EC%B9%98&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%82%AC%EC%9D%B4%EB%B2%84%ED%8C%8C%EC%9B%8C%20CP1500EPFCLCD%20220V%20%EC%A0%95%ED%98%84%ED%8C%8C%20UPS%20%EB%AC%B4%EC%A0%95%EC%A0%84%EC%A0%84%EC%9B%90%EC%9E%A5%EC%B9%98&wPcid=17954849604880395758034&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-4d0c11cc4632d4b1&mcid=3de1272a6b604e3c81bef8c71884d811&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 219,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "cyberpower-cp1500pfclcd"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwNH0s0q",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%A1%9C%EB%B3%B4%EB%9D%BD%20S8%20MaxV%20Ultra%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EB%A1%9C%EB%B3%B4%EB%9D%BD%20S8%20MaxV%20Ultra%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EB%A1%9C%EB%B3%B4%EB%9D%BD%20S8%20MaxV%20Ultra%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&wPcid=17954849605505624011780&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-0f56f3b8e687b8ad&mcid=68840f292f6d40f798ad05d7a85c027e&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 447,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "roborock-s8-maxv-ultra"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwrHy2I8",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EB%93%9C%EB%A6%AC%EB%AF%B8%20X40%20%EC%9A%B8%ED%8A%B8%EB%9D%BC%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EB%93%9C%EB%A6%AC%EB%AF%B8%20X40%20%EC%9A%B8%ED%8A%B8%EB%9D%BC%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EB%93%9C%EB%A6%AC%EB%AF%B8%20X40%20%EC%9A%B8%ED%8A%B8%EB%9D%BC%20%EB%A1%9C%EB%B4%87%EC%B2%AD%EC%86%8C%EA%B8%B0%20%EC%A0%95%ED%92%88&wPcid=17954849605249570908347&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-55ce146c41590ac8&mcid=128b67e3f887430388771ae435e479dc&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 246,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "dreame-x40-ultra"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwSSkmEC",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%8B%9C%EB%86%80%EB%A1%9C%EC%A7%80%20DS224%2B%202%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%20NAS%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%8B%9C%EB%86%80%EB%A1%9C%EC%A7%80%20DS224%2B%202%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%20NAS%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%8B%9C%EB%86%80%EB%A1%9C%EC%A7%80%20DS224%2B%202%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%20NAS%20%EC%A0%95%ED%92%88&wPcid=17954849606143348297759&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-6e7590ed9e3365a3&mcid=5c44c3540c6049978eff4c115ea999a9&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 125,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "synology-ds224-plus"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwwURiBo",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=GMKtec%20NucBox%20G3%20Plus%20%EC%9D%B8%ED%85%94%20N150%2016GB%20512GB%20%EB%AF%B8%EB%8B%88PC&src=1139000&spec=10799999&addtag=200&ctag=GMKtec%20NucBox%20G3%20Plus%20%EC%9D%B8%ED%85%94%20N150%2016GB%20512GB%20%EB%AF%B8%EB%8B%88PC&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=GMKtec%20NucBox%20G3%20Plus%20%EC%9D%B8%ED%85%94%20N150%2016GB%20512GB%20%EB%AF%B8%EB%8B%88PC&wPcid=17954849606264104660746&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-58255429577c0052&mcid=7ddb2c289c854ebd9fa4bb2411a517f2&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 114,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "gmktec-nucbox-g3-plus-n150"
+        }
+      ]
+    },
+    {
+      "url": "https://link.coupang.com/a/iTYwXWY8YK",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.coupang.com/np/search?q=%EC%8B%9C%EB%86%80%EB%A1%9C%EC%A7%80%20DS423%2B%204%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%20NAS%20%EC%A0%95%ED%92%88&src=1139000&spec=10799999&addtag=200&ctag=%EC%8B%9C%EB%86%80%EB%A1%9C%EC%A7%80%20DS423%2B%204%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%20NAS%20%EC%A0%95%ED%92%88&lptag=AF2200875&itime=20261124104920&pageType=SEARCH&pageValue=%EC%8B%9C%EB%86%80%EB%A1%9C%EC%A7%80%20DS423%2B%204%EB%B2%A0%EC%9D%B4%20%EB%82%98%EC%8A%A4%20NAS%20%EC%A0%95%ED%92%88&wPcid=17954849606708066937559&wRef=&wTime=20261124104920&redirect=landing&traceid=V0-181-600d605b4e0fa255&mcid=3b714791872e4f9ba79d8e8fe8c3ce99&placementid=&campaignid=&contentcategory=&imgsize=&pageid=&tsource=&deviceid=&contenttype=&token=&impressionid=&sig=&subid=&campaigntype=&requestid=&contentkeyword=&ctime=&subparam=",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 106,
+      "error": null,
+      "sources": [
+        {
+          "kind": "coupang_deeplink",
+          "vertical": "global",
+          "slug": "synology-ds423-plus"
+        }
+      ]
+    },
+    {
       "url": "https://manuals.ecoflow.com/product/river-3",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://manuals.ecoflow.com/redirect?to=%2Fproduct%2Friver-3",
       "classification": "REDIRECT",
-      "latency_ms": 1381,
+      "latency_ms": 1392,
       "error": null,
       "sources": [
         {
@@ -3008,11 +3171,12 @@
     {
       "url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/anker/a1726-solix-c300-dc-portable-power-station-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 28,
+      "latency_ms": 35,
       "error": null,
       "sources": [
         {
@@ -3027,11 +3191,12 @@
     {
       "url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/anker/a2345-prime-250w-ganprime-charger-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 31,
+      "latency_ms": 34,
       "error": null,
       "sources": [
         {
@@ -3046,11 +3211,12 @@
     {
       "url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/anker/a2688-prime-100w-gan-charger-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 28,
+      "latency_ms": 39,
       "error": null,
       "sources": [
         {
@@ -3065,11 +3231,12 @@
     {
       "url": "https://manuals.plus/anker/a2697-140w-4-port-pd-3-1-charger-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/anker/a2697-140w-4-port-pd-3-1-charger-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 29,
+      "latency_ms": 32,
       "error": null,
       "sources": [
         {
@@ -3084,11 +3251,12 @@
     {
       "url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/cuktech/pb200p-15-power-bank-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 17,
+      "latency_ms": 27,
       "error": null,
       "sources": [
         {
@@ -3103,11 +3271,12 @@
     {
       "url": "https://manuals.plus/satechi/st-uc165gm-165w-usb-c-4-port-pd-gan-charger-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/satechi/st-uc165gm-165w-usb-c-4-port-pd-gan-charger-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 40,
+      "latency_ms": 30,
       "error": null,
       "sources": [
         {
@@ -3122,11 +3291,12 @@
     {
       "url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/sharge/sp170-shargeek-170-power-bank-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 30,
+      "latency_ms": 27,
       "error": null,
       "sources": [
         {
@@ -3141,11 +3311,12 @@
     {
       "url": "https://manuals.plus/sharge/x1i-shargeek-140-power-bank-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/sharge/x1i-shargeek-140-power-bank-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 33,
+      "latency_ms": 43,
       "error": null,
       "sources": [
         {
@@ -3160,11 +3331,12 @@
     {
       "url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/ugreen/pb721-20000mah-130w-power-bank-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 30,
+      "latency_ms": 29,
       "error": null,
       "sources": [
         {
@@ -3179,11 +3351,12 @@
     {
       "url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/ugreen/pb722-25000mah-200w-power-bank-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 35,
+      "latency_ms": 36,
       "error": null,
       "sources": [
         {
@@ -3198,11 +3371,12 @@
     {
       "url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/ugreen/x757-nexode-pro-100w-gan-charger-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 28,
+      "latency_ms": 25,
       "error": null,
       "sources": [
         {
@@ -3217,11 +3391,12 @@
     {
       "url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://manuals.plus/ugreen/x763-nexode-pro-160w-gan-charger-manual",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 33,
+      "latency_ms": 31,
       "error": null,
       "sources": [
         {
@@ -3235,12 +3410,13 @@
     },
     {
       "url": "https://minisforumpc.eu/products/minisforum-um890-pro-mini-pc",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://minisforumpc.eu/products/minisforum-um890-pro-mini-pc",
       "classification": "OK",
-      "latency_ms": 457,
+      "latency_ms": 444,
       "error": null,
       "sources": [
         {
@@ -3254,12 +3430,13 @@
     },
     {
       "url": "https://nas.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
-      "method_used": "GET",
-      "status": 429,
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
       "redirected": true,
       "final_url": "https://ai.ugreen.com/products/ugreen-nasync-dxp4800-plus-nas-storage",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 240,
+      "classification": "REDIRECT",
+      "latency_ms": 279,
       "error": null,
       "sources": [
         {
@@ -3274,11 +3451,12 @@
     {
       "url": "https://never2.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://never2.com/",
       "classification": "OK",
-      "latency_ms": 138,
+      "latency_ms": 425,
       "error": null,
       "sources": [
         {
@@ -3293,6 +3471,7 @@
     {
       "url": "https://pocarisweat.jp/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://pocarisweat.jp/",
@@ -3312,11 +3491,12 @@
     {
       "url": "https://productinfo.shimano.com/en/compatibility",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://productinfo.shimano.com/en/compatibility",
       "classification": "OK",
-      "latency_ms": 359,
+      "latency_ms": 354,
       "error": null,
       "sources": [
         {
@@ -3330,12 +3510,13 @@
     },
     {
       "url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://satechi.com/products/165w-usb-c-4-port-pd-gan-charger",
       "classification": "OK",
-      "latency_ms": 279,
+      "latency_ms": 317,
       "error": null,
       "sources": [
         {
@@ -3350,11 +3531,12 @@
     {
       "url": "https://service.anker.com/product-description/a085g000004xGWmAAM",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://service.anker.com/product-description/a085g000004xGWmAAM",
       "classification": "OK",
-      "latency_ms": 256,
+      "latency_ms": 470,
       "error": null,
       "sources": [
         {
@@ -3369,11 +3551,12 @@
     {
       "url": "https://service.anker.com/product-description/a085g00000BdlzHAAR",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://service.anker.com/product-description/a085g00000BdlzHAAR",
       "classification": "OK",
-      "latency_ms": 232,
+      "latency_ms": 613,
       "error": null,
       "sources": [
         {
@@ -3388,11 +3571,12 @@
     {
       "url": "https://service.anker.com/product-description/a085g00000GiZgpAAF",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://service.anker.com/product-description/a085g00000GiZgpAAF",
       "classification": "OK",
-      "latency_ms": 19,
+      "latency_ms": 426,
       "error": null,
       "sources": [
         {
@@ -3407,11 +3591,12 @@
     {
       "url": "https://service.anker.com/product-description/a085g00000Gj24LAAR",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://service.anker.com/product-description/a085g00000Gj24LAAR",
       "classification": "OK",
-      "latency_ms": 21,
+      "latency_ms": 243,
       "error": null,
       "sources": [
         {
@@ -3426,11 +3611,12 @@
     {
       "url": "https://service.anker.com/product-description/a085g00000GjJCwAAN",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://service.anker.com/product-description/a085g00000GjJCwAAN",
       "classification": "OK",
-      "latency_ms": 330,
+      "latency_ms": 212,
       "error": null,
       "sources": [
         {
@@ -3445,11 +3631,12 @@
     {
       "url": "https://service.anker.com/product-description/a08J1000000Xkc2IAC",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://service.anker.com/product-description/a08J1000000Xkc2IAC",
       "classification": "OK",
-      "latency_ms": 217,
+      "latency_ms": 657,
       "error": null,
       "sources": [
         {
@@ -3463,12 +3650,13 @@
     },
     {
       "url": "https://sharge.com/products/shargeek-140",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://sharge.com/products/shargeek-140",
       "classification": "OK",
-      "latency_ms": 158,
+      "latency_ms": 146,
       "error": null,
       "sources": [
         {
@@ -3482,12 +3670,13 @@
     },
     {
       "url": "https://sharge.com/products/shargeek-170",
-      "method_used": "GET",
-      "status": 429,
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
       "redirected": false,
       "final_url": "https://sharge.com/products/shargeek-170",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 114,
+      "classification": "OK",
+      "latency_ms": 159,
       "error": null,
       "sources": [
         {
@@ -3502,11 +3691,12 @@
     {
       "url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
       "method_used": "GET",
-      "status": 403,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://si.shimano.com/en/search?series=DURA-ACE%20R9200",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 26,
+      "classification": "OK",
+      "latency_ms": 72,
       "error": null,
       "sources": [
         {
@@ -3520,12 +3710,13 @@
     },
     {
       "url": "https://skratchlabs.com/products/hydration-sport-drink-mix",
-      "method_used": "GET",
-      "status": 429,
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
       "redirected": true,
       "final_url": "https://www.skratchlabs.com/products/hydration-sport-drink-mix",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 237,
+      "classification": "REDIRECT",
+      "latency_ms": 310,
       "error": null,
       "sources": [
         {
@@ -3540,11 +3731,12 @@
     {
       "url": "https://sport.wetestyoutrust.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://sport.wetestyoutrust.com/",
       "classification": "OK",
-      "latency_ms": 526,
+      "latency_ms": 453,
       "error": null,
       "sources": [
         {
@@ -3559,11 +3751,12 @@
     {
       "url": "https://sport.wetestyoutrust.com/supplement-search",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://sport.wetestyoutrust.com/supplement-search",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 218,
+      "latency_ms": 144,
       "error": null,
       "sources": [
         {
@@ -3627,11 +3820,12 @@
     {
       "url": "https://support.apple.com/en-us/103253",
       "method_used": "GET",
-      "status": 429,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://support.apple.com/en-us/103253",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 279,
+      "classification": "OK",
+      "latency_ms": 112,
       "error": null,
       "sources": [
         {
@@ -3645,12 +3839,13 @@
     },
     {
       "url": "https://support.apple.com/en-us/109509",
-      "method_used": "HEAD",
+      "method_used": "GET",
+      "browser_retry_used": true,
       "status": 200,
       "redirected": false,
       "final_url": "https://support.apple.com/en-us/109509",
       "classification": "OK",
-      "latency_ms": 98,
+      "latency_ms": 111,
       "error": null,
       "sources": [
         {
@@ -3665,11 +3860,12 @@
     {
       "url": "https://support.apple.com/en-us/121555",
       "method_used": "GET",
-      "status": 429,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://support.apple.com/en-us/121555",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 279,
+      "classification": "OK",
+      "latency_ms": 107,
       "error": null,
       "sources": [
         {
@@ -3684,11 +3880,12 @@
     {
       "url": "https://support.baseus.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://support.baseus.com/",
       "classification": "OK",
-      "latency_ms": 719,
+      "latency_ms": 701,
       "error": null,
       "sources": [
         {
@@ -3703,11 +3900,12 @@
     {
       "url": "https://support.coros.com/hc/en-us",
       "method_used": "GET",
-      "status": 200,
+      "browser_retry_used": true,
+      "status": 403,
       "redirected": false,
       "final_url": "https://support.coros.com/hc/en-us",
-      "classification": "OK",
-      "latency_ms": 530,
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 130,
       "error": null,
       "sources": [
         {
@@ -3722,11 +3920,12 @@
     {
       "url": "https://support.garmin.com/en-US/",
       "method_used": "GET",
-      "status": 200,
+      "browser_retry_used": true,
+      "status": 403,
       "redirected": false,
       "final_url": "https://support.garmin.com/en-US/",
-      "classification": "OK",
-      "latency_ms": 302,
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 27,
       "error": null,
       "sources": [
         {
@@ -3755,11 +3954,12 @@
     {
       "url": "https://support.garmin.com/en-US/?productID=690890",
       "method_used": "GET",
-      "status": 200,
+      "browser_retry_used": true,
+      "status": 403,
       "redirected": false,
       "final_url": "https://support.garmin.com/en-US/?productID=690890",
-      "classification": "OK",
-      "latency_ms": 203,
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 25,
       "error": null,
       "sources": [
         {
@@ -3774,11 +3974,12 @@
     {
       "url": "https://support.southwest.com/helpcenter/article/Traveling-with-lithium-batteries-e-cigarettes-and-lighters",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://support.southwest.com/helpcenter/article/Traveling-with-lithium-batteries-e-cigarettes-and-lighters",
       "classification": "OK",
-      "latency_ms": 492,
+      "latency_ms": 560,
       "error": null,
       "sources": [
         {
@@ -3792,11 +3993,12 @@
     {
       "url": "https://support.wahoofitness.com/hc/en-us",
       "method_used": "GET",
-      "status": 200,
+      "browser_retry_used": true,
+      "status": 403,
       "redirected": false,
       "final_url": "https://support.wahoofitness.com/hc/en-us",
-      "classification": "OK",
-      "latency_ms": 437,
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 130,
       "error": null,
       "sources": [
         {
@@ -3818,11 +4020,12 @@
     {
       "url": "https://support.zwift.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://support.zwift.com/",
       "classification": "OK",
-      "latency_ms": 1055,
+      "latency_ms": 1020,
       "error": null,
       "sources": [
         {
@@ -3844,11 +4047,12 @@
     {
       "url": "https://tailwindnutrition.com/pages/science",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://tailwindnutrition.com/pages/science",
       "classification": "OK",
-      "latency_ms": 146,
+      "latency_ms": 168,
       "error": null,
       "sources": [
         {
@@ -3862,12 +4066,13 @@
     },
     {
       "url": "https://tailwindnutrition.com/products/endurance-fuel",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://tailwindnutrition.com/products/endurance-fuel",
       "classification": "OK",
-      "latency_ms": 293,
+      "latency_ms": 146,
       "error": null,
       "sources": [
         {
@@ -3882,11 +4087,12 @@
     {
       "url": "https://tools.myfooddata.com/",
       "method_used": "GET",
-      "status": 403,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://tools.myfooddata.com/",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 19,
+      "classification": "OK",
+      "latency_ms": 17,
       "error": null,
       "sources": [
         {
@@ -3900,12 +4106,13 @@
     },
     {
       "url": "https://us.ecoflow.com/products/river-3-portable-power-station",
-      "method_used": "GET",
-      "status": 429,
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
       "redirected": true,
-      "final_url": "https://us.ecoflow.com/products/river-3-max-river-3-plus-extra-battery-300?variant=54335026528329",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 277,
+      "final_url": "https://us.ecoflow.com/collections/river-series",
+      "classification": "REDIRECT",
+      "latency_ms": 333,
       "error": null,
       "sources": [
         {
@@ -3920,11 +4127,12 @@
     {
       "url": "https://us.roborock.com/pages/roborock-s8-maxv-ultra",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://us.roborock.com/",
       "classification": "REDIRECT",
-      "latency_ms": 312,
+      "latency_ms": 274,
       "error": null,
       "sources": [
         {
@@ -3938,12 +4146,13 @@
     },
     {
       "url": "https://us.roborock.com/products/roborock-qrevo-master",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://us.roborock.com/products/roborock-qrevo-s5v",
       "classification": "REDIRECT",
-      "latency_ms": 482,
+      "latency_ms": 343,
       "error": null,
       "sources": [
         {
@@ -3958,11 +4167,12 @@
     {
       "url": "https://us.ugreen.com/blogs/news/ugreen-launches-nexode-pro-series",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://us.ugreen.com/blogs/news/ugreen-launches-nexode-pro-series",
       "classification": "OK",
-      "latency_ms": 324,
+      "latency_ms": 497,
       "error": null,
       "sources": [
         {
@@ -3983,12 +4193,13 @@
     },
     {
       "url": "https://us.ugreen.com/products/ugreen-25000mah-200w-power-bank",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://us.ugreen.com/products/ugreen-25000mah-200w-power-bank",
       "classification": "OK",
-      "latency_ms": 421,
+      "latency_ms": 519,
       "error": null,
       "sources": [
         {
@@ -4002,12 +4213,13 @@
     },
     {
       "url": "https://us.ugreen.com/products/ugreen-nexode-300w-charger",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://us.ugreen.com/products/ugreen-nexode-300w-charger",
       "classification": "OK",
-      "latency_ms": 482,
+      "latency_ms": 439,
       "error": null,
       "sources": [
         {
@@ -4022,11 +4234,12 @@
     {
       "url": "https://www.aa.com/i18n/travel-info/baggage/restricted-items.jsp",
       "method_used": "GET",
-      "status": 403,
-      "redirected": false,
-      "final_url": "https://www.aa.com/i18n/travel-info/baggage/restricted-items.jsp",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 41,
+      "browser_retry_used": true,
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.aa.com/web/i18n/travel-info/baggage/restricted-items.html",
+      "classification": "REDIRECT",
+      "latency_ms": 406,
       "error": null,
       "sources": [
         {
@@ -4040,11 +4253,12 @@
     {
       "url": "https://www.aerok.com/en/service/baggage",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://www.aerok.com/en/service/baggage",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 28,
+      "latency_ms": 27,
       "error": null,
       "sources": [
         {
@@ -4058,11 +4272,12 @@
     {
       "url": "https://www.airbusan.com/content/common/service/baggage/restricted",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://www.airbusan.com/content/common/service/baggage/restricted",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 23,
+      "latency_ms": 27,
       "error": null,
       "sources": [
         {
@@ -4076,11 +4291,12 @@
     {
       "url": "https://www.aircanada.com/ca/en/aco/home/plan/baggage/restricted-and-prohibited-items.html",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.aircanada.com/ca/en/aco/home/plan/baggage/restricted-and-prohibited-items.html",
       "classification": "OK",
-      "latency_ms": 400,
+      "latency_ms": 523,
       "error": null,
       "sources": [
         {
@@ -4092,31 +4308,14 @@
       ]
     },
     {
-      "url": "https://www.airchina.com/",
-      "method_used": "GET",
-      "status": null,
-      "redirected": false,
-      "final_url": "https://www.airchina.com/",
-      "classification": "DEAD",
-      "latency_ms": 2685,
-      "error": "fetch failed",
-      "sources": [
-        {
-          "kind": "airline_policy",
-          "vertical": "wattcheck",
-          "slug": "air-china",
-          "iata_code": "CA"
-        }
-      ]
-    },
-    {
       "url": "https://www.airpremia.com/a/en/customer/notice/686",
       "method_used": "GET",
-      "status": 200,
+      "browser_retry_used": true,
+      "status": 403,
       "redirected": false,
       "final_url": "https://www.airpremia.com/a/en/customer/notice/686",
-      "classification": "OK",
-      "latency_ms": 152,
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 20,
       "error": null,
       "sources": [
         {
@@ -4130,11 +4329,12 @@
     {
       "url": "https://www.ajinomoto.co.jp/aminovital/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.ajinomoto.co.jp/aminovital/",
       "classification": "OK",
-      "latency_ms": 157,
+      "latency_ms": 134,
       "error": null,
       "sources": [
         {
@@ -4149,12 +4349,13 @@
     {
       "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-7-8745hs.html",
-      "classification": "DEAD",
-      "latency_ms": 6016,
-      "error": "timeout (6000ms)",
+      "classification": "OK",
+      "latency_ms": 66,
+      "error": null,
       "sources": [
         {
           "kind": "citation",
@@ -4168,12 +4369,13 @@
     {
       "url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://www.amd.com/en/products/processors/laptop/ryzen/8000-series/amd-ryzen-9-8945hs.html",
-      "classification": "DEAD",
-      "latency_ms": 6010,
-      "error": "timeout (6000ms)",
+      "classification": "OK",
+      "latency_ms": 39,
+      "error": null,
       "sources": [
         {
           "kind": "citation",
@@ -4185,14 +4387,15 @@
       ]
     },
     {
-      "url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
+      "url": "https://www.ana.co.jp/en/us/travel-information/baggage-information/restricted-prohibited/",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
-      "classification": "DEAD",
-      "latency_ms": 6001,
-      "error": "timeout (6000ms)",
+      "final_url": "https://www.ana.co.jp/en/us/travel-information/baggage-information/restricted-prohibited/",
+      "classification": "OK",
+      "latency_ms": 100,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -4205,11 +4408,12 @@
     {
       "url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/au/products/a1336-20000mah-power-bank",
       "classification": "OK",
-      "latency_ms": 452,
+      "latency_ms": 874,
       "error": null,
       "sources": [
         {
@@ -4224,11 +4428,12 @@
     {
       "url": "https://www.anker.com/au/products/a1340-250w-power-bank",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/au/products/a1340-250w-power-bank",
       "classification": "OK",
-      "latency_ms": 741,
+      "latency_ms": 828,
       "error": null,
       "sources": [
         {
@@ -4243,11 +4448,12 @@
     {
       "url": "https://www.anker.com/product-recalls",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/product-recalls",
       "classification": "OK",
-      "latency_ms": 656,
+      "latency_ms": 346,
       "error": null,
       "sources": [
         {
@@ -4262,11 +4468,12 @@
     {
       "url": "https://www.anker.com/products/a1259-built-in-cable-power-bank-10000mah",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/products/a1259-built-in-cable-power-bank-10000mah",
       "classification": "OK",
-      "latency_ms": 304,
+      "latency_ms": 657,
       "error": null,
       "sources": [
         {
@@ -4281,11 +4488,12 @@
     {
       "url": "https://www.anker.com/products/a1289",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/products/a1289",
       "classification": "OK",
-      "latency_ms": 331,
+      "latency_ms": 583,
       "error": null,
       "sources": [
         {
@@ -4300,11 +4508,12 @@
     {
       "url": "https://www.anker.com/products/a2345-anker-prime-charger-250w-6-ports-ganprime",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/products/a2345-anker-prime-charger-250w-6-ports-ganprime",
       "classification": "OK",
-      "latency_ms": 30,
+      "latency_ms": 334,
       "error": null,
       "sources": [
         {
@@ -4319,11 +4528,12 @@
     {
       "url": "https://www.anker.com/products/a2683-anker-prime-charger-200w-6-ports-gan",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/products/a2683-anker-prime-charger-200w-6-ports-gan",
       "classification": "OK",
-      "latency_ms": 651,
+      "latency_ms": 332,
       "error": null,
       "sources": [
         {
@@ -4338,11 +4548,12 @@
     {
       "url": "https://www.anker.com/products/a2688-anker-prime-charger-100w-3-ports-gan",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/products/a2688-anker-prime-charger-100w-3-ports-gan",
       "classification": "OK",
-      "latency_ms": 25,
+      "latency_ms": 313,
       "error": null,
       "sources": [
         {
@@ -4357,11 +4568,12 @@
     {
       "url": "https://www.anker.com/products/a2697-anker-charger-140w-4-port",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.anker.com/products/a2697-anker-charger-140w-4-port",
       "classification": "OK",
-      "latency_ms": 340,
+      "latency_ms": 186,
       "error": null,
       "sources": [
         {
@@ -4376,11 +4588,12 @@
     {
       "url": "https://www.ankersolix.com/products/c300-dc",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.ankersolix.com/products/c300-dc",
       "classification": "OK",
-      "latency_ms": 174,
+      "latency_ms": 681,
       "error": null,
       "sources": [
         {
@@ -4395,11 +4608,12 @@
     {
       "url": "https://www.apple.com/mac-mini/specs/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.apple.com/mac-mini/specs/",
       "classification": "OK",
-      "latency_ms": 83,
+      "latency_ms": 34,
       "error": null,
       "sources": [
         {
@@ -4414,11 +4628,12 @@
     {
       "url": "https://www.apple.com/shop/product/mkfq4am/a/140w-power-adapter",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.apple.com/shop/product/mkfq4am/a/140w-power-adapter",
       "classification": "OK",
-      "latency_ms": 199,
+      "latency_ms": 245,
       "error": null,
       "sources": [
         {
@@ -4432,12 +4647,13 @@
     },
     {
       "url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.bee-link.com/products/beelink-ser8-8745hs",
       "classification": "OK",
-      "latency_ms": 245,
+      "latency_ms": 219,
       "error": null,
       "sources": [
         {
@@ -4450,14 +4666,15 @@
       ]
     },
     {
-      "url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
-      "method_used": "GET",
-      "status": null,
+      "url": "https://www.britishairways.com/content/information/baggage-essentials/liquids-and-restrictions",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
-      "classification": "DEAD",
-      "latency_ms": 6015,
-      "error": "timeout (6000ms)",
+      "final_url": "https://www.britishairways.com/content/information/baggage-essentials/liquids-and-restrictions",
+      "classification": "OK",
+      "latency_ms": 40,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -4470,11 +4687,12 @@
     {
       "url": "https://www.caas.gov.sg/resources/media-and-publication/newsroom/new-power-bank-safety-restrictions-to-be-implemented-on-flights-departing-singapore/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.caas.gov.sg/resources/media-and-publication/newsroom/new-power-bank-safety-restrictions-to-be-implemented-on-flights-departing-singapore/",
       "classification": "OK",
-      "latency_ms": 139,
+      "latency_ms": 43,
       "error": null,
       "sources": [
         {
@@ -4488,12 +4706,13 @@
     {
       "url": "https://www.cathaypacific.com/cx/en_US/baggage.html",
       "method_used": "GET",
-      "status": null,
-      "redirected": false,
-      "final_url": "https://www.cathaypacific.com/cx/en_US/baggage.html",
-      "classification": "DEAD",
-      "latency_ms": 6013,
-      "error": "timeout (6000ms)",
+      "browser_retry_used": true,
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://flights.cathaypacific.com/en_US/baggage/baggage-calculator.html",
+      "classification": "REDIRECT",
+      "latency_ms": 274,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -4506,11 +4725,12 @@
     {
       "url": "https://www.ceair.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.ceair.com/ko/krw/home",
       "classification": "REDIRECT",
-      "latency_ms": 169,
+      "latency_ms": 51,
       "error": null,
       "sources": [
         {
@@ -4524,11 +4744,12 @@
     {
       "url": "https://www.continental-tires.com/products/bicycle/tires/grand-prix-5000-s-tr/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.continental-tires.com/products/bicycle/tires/grand-prix-5000-s-tr/",
       "classification": "OK",
-      "latency_ms": 1857,
+      "latency_ms": 67,
       "error": null,
       "sources": [
         {
@@ -4543,11 +4764,12 @@
     {
       "url": "https://www.continental-tires.com/tire-knowledge/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.continental-tires.com/tire-knowledge/",
       "classification": "OK",
-      "latency_ms": 23,
+      "latency_ms": 22,
       "error": null,
       "sources": [
         {
@@ -4562,11 +4784,12 @@
     {
       "url": "https://www.creapure.com/en/creapure/what-is-creapure/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.creapure.com/en/creapure/what-is-creapure/",
       "classification": "OK",
-      "latency_ms": 941,
+      "latency_ms": 987,
       "error": null,
       "sources": [
         {
@@ -4581,11 +4804,12 @@
     {
       "url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.cyberpower.com/eu/en/product/sku/cp1500epfclcd",
       "classification": "OK",
-      "latency_ms": 418,
+      "latency_ms": 431,
       "error": null,
       "sources": [
         {
@@ -4600,11 +4824,12 @@
     {
       "url": "https://www.delta.com/us/en/baggage/prohibited-items/battery-fuel-powered-items",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "http://ssp.delta.com/content/dam/delta-www/sorry-server/delta_sorry.html",
       "classification": "REDIRECT",
-      "latency_ms": 271,
+      "latency_ms": 548,
       "error": null,
       "sources": [
         {
@@ -4618,11 +4843,12 @@
     {
       "url": "https://www.dreametech.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.dreametech.com/",
       "classification": "OK",
-      "latency_ms": 386,
+      "latency_ms": 848,
       "error": null,
       "sources": [
         {
@@ -4637,11 +4863,12 @@
     {
       "url": "https://www.eastarjet.com/newstar/PGWIB00001",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.eastarjet.com/newstar/PGWIB00001",
       "classification": "OK",
-      "latency_ms": 981,
+      "latency_ms": 955,
       "error": null,
       "sources": [
         {
@@ -4653,13 +4880,14 @@
       ]
     },
     {
-      "url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
+      "url": "https://www.easyjet.com/en/help-centre/baggage/dangerous-goods",
       "method_used": "GET",
-      "status": 403,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 38,
+      "final_url": "https://www.easyjet.com/en/help-centre/baggage/dangerous-goods",
+      "classification": "OK",
+      "latency_ms": 902,
       "error": null,
       "sources": [
         {
@@ -4673,12 +4901,13 @@
     {
       "url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
       "method_used": "GET",
-      "status": null,
-      "redirected": false,
-      "final_url": "https://www.emirates.com/english/before-you-fly/baggage/dangerous-goods-policy/",
-      "classification": "DEAD",
-      "latency_ms": 6007,
-      "error": "timeout (6000ms)",
+      "browser_retry_used": true,
+      "status": 403,
+      "redirected": true,
+      "final_url": "https://www.emirates.com/error/accessrestricted.html?refid=18.54e9fbcb.1795484979.e709402a",
+      "classification": "BOT_CHALLENGE",
+      "latency_ms": 144,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -4691,11 +4920,12 @@
     {
       "url": "https://www.esn.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.esn.com/",
       "classification": "OK",
-      "latency_ms": 697,
+      "latency_ms": 407,
       "error": null,
       "sources": [
         {
@@ -4710,11 +4940,12 @@
     {
       "url": "https://www.etrto.org/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.etrto.org/",
       "classification": "OK",
-      "latency_ms": 1073,
+      "latency_ms": 1001,
       "error": null,
       "sources": [
         {
@@ -4741,13 +4972,14 @@
       ]
     },
     {
-      "url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
+      "url": "https://www.evaair.com/en-global/fly-prepare/baggage/additional-baggage-information/restrictions/",
       "method_used": "GET",
-      "status": 403,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 35,
+      "final_url": "https://www.evaair.com/en-global/fly-prepare/baggage/additional-baggage-information/restrictions/",
+      "classification": "OK",
+      "latency_ms": 373,
       "error": null,
       "sources": [
         {
@@ -4761,11 +4993,12 @@
     {
       "url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
       "method_used": "GET",
-      "status": 403,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 24,
+      "classification": "OK",
+      "latency_ms": 28,
       "error": null,
       "sources": [
         {
@@ -4780,11 +5013,12 @@
     {
       "url": "https://www.flyairseoul.com/CW/en/carryingIn_baggage.do",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": true,
       "final_url": "https://flyairseoul.com/",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 42,
+      "latency_ms": 49,
       "error": null,
       "sources": [
         {
@@ -4796,14 +5030,15 @@
       ]
     },
     {
-      "url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
+      "url": "https://www.flypeach.com/en/lm/ai/airports/baggage/limited_bag",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
-      "classification": "DEAD",
-      "latency_ms": 6001,
-      "error": "timeout (6000ms)",
+      "final_url": "https://www.flypeach.com/en/lm/ai/airports/baggage/limited_bag",
+      "classification": "OK",
+      "latency_ms": 297,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -4816,11 +5051,12 @@
     {
       "url": "https://www.garmin.com/en-US/p/1196129/",
       "method_used": "GET",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.garmin.com/en-US/p/1196129/",
       "classification": "OK",
-      "latency_ms": 38,
+      "latency_ms": 36,
       "error": null,
       "sources": [
         {
@@ -4835,11 +5071,12 @@
     {
       "url": "https://www.garmin.com/en-US/p/658593/",
       "method_used": "GET",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.garmin.com/en-US/p/658593/",
       "classification": "OK",
-      "latency_ms": 44,
+      "latency_ms": 31,
       "error": null,
       "sources": [
         {
@@ -4854,11 +5091,12 @@
     {
       "url": "https://www.garmin.com/en-US/p/701670/",
       "method_used": "GET",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.garmin.com/en-US/p/701670/",
       "classification": "OK",
-      "latency_ms": 46,
+      "latency_ms": 35,
       "error": null,
       "sources": [
         {
@@ -4873,11 +5111,12 @@
     {
       "url": "https://www.garmin.com/en-US/p/798925/pn/010-02695-20/",
       "method_used": "GET",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.garmin.com/en-US/p/798925/pn/010-02695-20/",
       "classification": "OK",
-      "latency_ms": 36,
+      "latency_ms": 48,
       "error": null,
       "sources": [
         {
@@ -4892,11 +5131,12 @@
     {
       "url": "https://www.gmktec.com/pages/drivers-and-software",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.gmktec.com/pages/drivers-and-software",
       "classification": "OK",
-      "latency_ms": 135,
+      "latency_ms": 498,
       "error": null,
       "sources": [
         {
@@ -4910,12 +5150,13 @@
     },
     {
       "url": "https://www.gmktec.com/products/nucbox-g3-plus-enhanced-performance-mini-pc-with-intel-n150-processor",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.gmktec.com/products/nucbox-g3-plus-enhanced-performance-mini-pc-with-intel-n150-processor",
       "classification": "OK",
-      "latency_ms": 289,
+      "latency_ms": 123,
       "error": null,
       "sources": [
         {
@@ -4930,11 +5171,12 @@
     {
       "url": "https://www.iata.org/en/programs/cargo/dgr/lithium-batteries/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.iata.org/en/programs/cargo/dangerous-goods/lithium-batteries/",
       "classification": "REDIRECT",
-      "latency_ms": 800,
+      "latency_ms": 1368,
       "error": null,
       "sources": [
         {
@@ -4956,11 +5198,12 @@
     {
       "url": "https://www.jal.co.jp/jp/en/inter/baggage/restricted/",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://www.jal.co.jp/jp/en/inter/baggage/restricted/",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 28,
+      "latency_ms": 25,
       "error": null,
       "sources": [
         {
@@ -4974,11 +5217,12 @@
     {
       "url": "https://www.jejuair.net/en/linkService/boardingProcessGuide/restrictedItems.do",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.jejuair.net/en/linkService/boardingProcessGuide/restrictedItems.do",
       "classification": "OK",
-      "latency_ms": 61,
+      "latency_ms": 52,
       "error": null,
       "sources": [
         {
@@ -4992,11 +5236,12 @@
     {
       "url": "https://www.jinair.com/ready/baggage",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://www.jinair.com/ready/baggage",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 22,
+      "latency_ms": 21,
       "error": null,
       "sources": [
         {
@@ -5010,11 +5255,12 @@
     {
       "url": "https://www.koelnerliste.com/en/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.koelnerliste.com/en/",
       "classification": "OK",
-      "latency_ms": 905,
+      "latency_ms": 771,
       "error": null,
       "sources": [
         {
@@ -5029,12 +5275,13 @@
     {
       "url": "https://www.koreanair.com/legal/restricted-items",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://www.koreanair.com/legal/restricted-items",
-      "classification": "DEAD",
-      "latency_ms": 6004,
-      "error": "timeout (6000ms)",
+      "classification": "OK",
+      "latency_ms": 186,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -5046,12 +5293,13 @@
     },
     {
       "url": "https://www.livemomentous.com/products/creatine",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.livemomentous.com/",
       "classification": "REDIRECT",
-      "latency_ms": 522,
+      "latency_ms": 312,
       "error": null,
       "sources": [
         {
@@ -5066,11 +5314,12 @@
     {
       "url": "https://www.lufthansa.com/de/en/information-and-services/baggage/dangerous-goods-information/electronic-devices-and-batteries",
       "method_used": "GET",
+      "browser_retry_used": true,
       "status": 403,
       "redirected": false,
       "final_url": "https://www.lufthansa.com/de/en/information-and-services/baggage/dangerous-goods-information/electronic-devices-and-batteries",
       "classification": "BOT_CHALLENGE",
-      "latency_ms": 23,
+      "latency_ms": 26,
       "error": null,
       "sources": [
         {
@@ -5084,11 +5333,12 @@
     {
       "url": "https://www.magene.com/en/content/6-support",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.magene.com/en/index.php?controller=404",
       "classification": "REDIRECT",
-      "latency_ms": 1019,
+      "latency_ms": 1017,
       "error": null,
       "sources": [
         {
@@ -5103,11 +5353,12 @@
     {
       "url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.magene.com/en/power-meters/41-pes-p505-base-power-meter.html",
       "classification": "OK",
-      "latency_ms": 3008,
+      "latency_ms": 2943,
       "error": null,
       "sources": [
         {
@@ -5122,11 +5373,12 @@
     {
       "url": "https://www.maurten.com/products/gel-100-box",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.maurten.com/products/gel-100-box",
       "classification": "OK",
-      "latency_ms": 1832,
+      "latency_ms": 1784,
       "error": null,
       "sources": [
         {
@@ -5141,11 +5393,12 @@
     {
       "url": "https://www.maurten.com/products/gel-100-caf-100-box",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.maurten.com/products/gel-100-caf-100-box",
       "classification": "OK",
-      "latency_ms": 1709,
+      "latency_ms": 1801,
       "error": null,
       "sources": [
         {
@@ -5160,11 +5413,12 @@
     {
       "url": "https://www.maurten.com/products/gel-160-box",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.maurten.com/products/gel-160-box",
       "classification": "OK",
-      "latency_ms": 1704,
+      "latency_ms": 1791,
       "error": null,
       "sources": [
         {
@@ -5178,12 +5432,13 @@
     },
     {
       "url": "https://www.minisforum.com/products/minisforum-um890-pro",
-      "method_used": "GET",
+      "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.minisforum.com/products/minisforum-um890-pro",
       "classification": "OK",
-      "latency_ms": 240,
+      "latency_ms": 156,
       "error": null,
       "sources": [
         {
@@ -5198,11 +5453,12 @@
     {
       "url": "https://www.nsfsport.com/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.nsfsport.com/",
       "classification": "OK",
-      "latency_ms": 819,
+      "latency_ms": 671,
       "error": null,
       "sources": [
         {
@@ -5231,11 +5487,12 @@
     {
       "url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.otsuka.co.jp/en/nutraceutical/products/pocarisweat/",
       "classification": "OK",
-      "latency_ms": 168,
+      "latency_ms": 201,
       "error": null,
       "sources": [
         {
@@ -5248,33 +5505,15 @@
       ]
     },
     {
-      "url": "https://www.pirelli.com/cycling/en-ww/road",
+      "url": "https://www.pirelli.com/tyres/en-ww/bike/catalog/product/p-zero-race-tlr-rs",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.pirelli.com/cycling/en-ww/road",
-      "classification": "DEAD",
-      "latency_ms": 6016,
-      "error": "timeout (6000ms)",
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "pirelli-p-zero-race-rs-tlr-28",
-          "label": "Pirelli Official — Bollate Italy Factory & FSC Certified SmartEVO² Technical Release",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
-      "url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
-      "method_used": "GET",
-      "status": null,
-      "redirected": false,
-      "final_url": "https://www.pirelli.com/cycling/en-ww/road/p-zero-race-tlr-rs",
-      "classification": "DEAD",
-      "latency_ms": 6015,
-      "error": "timeout (6000ms)",
+      "final_url": "https://www.pirelli.com/tyres/en-ww/bike/catalog/product/p-zero-race-tlr-rs",
+      "classification": "OK",
+      "latency_ms": 270,
+      "error": null,
       "sources": [
         {
           "kind": "citation",
@@ -5286,13 +5525,34 @@
       ]
     },
     {
+      "url": "https://www.pirelli.com/tyres/en-ww/bike/homepage",
+      "method_used": "GET",
+      "browser_retry_used": true,
+      "status": 200,
+      "redirected": false,
+      "final_url": "https://www.pirelli.com/tyres/en-ww/bike/homepage",
+      "classification": "OK",
+      "latency_ms": 729,
+      "error": null,
+      "sources": [
+        {
+          "kind": "citation",
+          "vertical": "cyclegear",
+          "slug": "pirelli-p-zero-race-rs-tlr-28",
+          "label": "Pirelli Official — Bollate Italy Factory & FSC Certified SmartEVO² Technical Release",
+          "source_tier": 1
+        }
+      ]
+    },
+    {
       "url": "https://www.precisionhydration.com/products/pf-30-gel",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.precisionhydration.com/products/pf-30-gel/",
       "classification": "REDIRECT",
-      "latency_ms": 764,
+      "latency_ms": 524,
       "error": null,
       "sources": [
         {
@@ -5307,11 +5567,12 @@
     {
       "url": "https://www.precisionhydration.com/products/pf-90-gel",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.precisionhydration.com/products/pf-90-gel/",
       "classification": "REDIRECT",
-      "latency_ms": 669,
+      "latency_ms": 466,
       "error": null,
       "sources": [
         {
@@ -5326,11 +5587,12 @@
     {
       "url": "https://www.precisionhydration.com/us/en/products/ph-1000-electrolyte-drink-mix/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.precisionhydration.com/us/en/products/ph-1000-electrolyte-drink-mix/",
       "classification": "OK",
-      "latency_ms": 408,
+      "latency_ms": 454,
       "error": null,
       "sources": [
         {
@@ -5345,11 +5607,12 @@
     {
       "url": "https://www.precisionhydration.com/us/en/products/ph-1500-electrolyte-drink-mix/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.precisionhydration.com/us/en/products/ph-1500-electrolyte-drink-mix/",
       "classification": "OK",
-      "latency_ms": 400,
+      "latency_ms": 455,
       "error": null,
       "sources": [
         {
@@ -5362,13 +5625,14 @@
       ]
     },
     {
-      "url": "https://www.qatarairways.com/en/baggage/restrictions.html",
+      "url": "https://www.qatarairways.com/content/dam/documents/safety-notice-devices.pdf",
       "method_used": "GET",
-      "status": 403,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://www.qatarairways.com/en/baggage/restrictions.html",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 38,
+      "final_url": "https://www.qatarairways.com/content/dam/documents/safety-notice-devices.pdf",
+      "classification": "OK",
+      "latency_ms": 33,
       "error": null,
       "sources": [
         {
@@ -5382,11 +5646,12 @@
     {
       "url": "https://www.samsung.com/sec/mobile-accessories/pd-battery-pack-20000mah-45w-beige-eb-p4520xuegkr/EB-P4520XUEGKR/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.samsung.com/sec/mobile-accessories/pd-battery-pack-20000mah-45w-beige-eb-p4520xuegkr/EB-P4520XUEGKR/",
       "classification": "OK",
-      "latency_ms": 373,
+      "latency_ms": 67,
       "error": null,
       "sources": [
         {
@@ -5401,11 +5666,12 @@
     {
       "url": "https://www.samsung.com/us/mobile/mobile-accessories/phones/20a-battery-pack-beige-eb-p4520xuegus/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.samsung.com/us/mobile-accessories/all-mobile-accessories/",
       "classification": "REDIRECT",
-      "latency_ms": 385,
+      "latency_ms": 1196,
       "error": null,
       "sources": [
         {
@@ -5420,11 +5686,12 @@
     {
       "url": "https://www.scienceinsport.com/beta-fuel",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.scienceinsport.com/beta-fuel",
       "classification": "OK",
-      "latency_ms": 221,
+      "latency_ms": 240,
       "error": null,
       "sources": [
         {
@@ -5439,11 +5706,12 @@
     {
       "url": "https://www.scienceinsport.com/go-hydro-tablets",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.scienceinsport.com/go-hydro-tablets",
       "classification": "OK",
-      "latency_ms": 1067,
+      "latency_ms": 159,
       "error": null,
       "sources": [
         {
@@ -5458,11 +5726,12 @@
     {
       "url": "https://www.scienceinsport.com/us/go-isotonic-energy-gels",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.scienceinsport.com/us/go-isotonic-energy-gels",
       "classification": "OK",
-      "latency_ms": 263,
+      "latency_ms": 228,
       "error": null,
       "sources": [
         {
@@ -5477,11 +5746,12 @@
     {
       "url": "https://www.se.com/ww/en/product/BX750MI-GR/apc-back-ups-750va-230v-avr-4-schuko-outlets/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.se.com/ww/en/product-country-selector/?pageType=product&sourceId=BX750MI-GR",
       "classification": "REDIRECT",
-      "latency_ms": 947,
+      "latency_ms": 71,
       "error": null,
       "sources": [
         {
@@ -5496,11 +5766,12 @@
     {
       "url": "https://www.se.com/ww/en/product/BX750MI/apc-back-ups-750va-tower-230v-4-iec-c13-avr/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.se.com/ww/en/product-country-selector/?pageType=product&sourceId=BX750MI",
       "classification": "REDIRECT",
-      "latency_ms": 949,
+      "latency_ms": 65,
       "error": null,
       "sources": [
         {
@@ -5515,11 +5786,12 @@
     {
       "url": "https://www.sram.com/en/service/articles/sram-road-compatibility-map",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.sram.com/en/service/articles/sram-road-compatibility-map",
       "classification": "OK",
-      "latency_ms": 980,
+      "latency_ms": 869,
       "error": null,
       "sources": [
         {
@@ -5534,11 +5806,12 @@
     {
       "url": "https://www.sram.com/en/service/models/gs-red-e-e1",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.sram.com/en/service/models/gs-red-e-e1",
       "classification": "OK",
-      "latency_ms": 1237,
+      "latency_ms": 519,
       "error": null,
       "sources": [
         {
@@ -5553,11 +5826,12 @@
     {
       "url": "https://www.sram.com/en/sram/road/series/red-axs",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.sram.com/en/sram/road/series/red-axs",
       "classification": "OK",
-      "latency_ms": 996,
+      "latency_ms": 368,
       "error": null,
       "sources": [
         {
@@ -5572,11 +5846,12 @@
     {
       "url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS423%2B",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.synology.com/en-global/compatibility?search_by=products&model=DS423%2B",
       "classification": "OK",
-      "latency_ms": 24,
+      "latency_ms": 18,
       "error": null,
       "sources": [
         {
@@ -5591,6 +5866,7 @@
     {
       "url": "https://www.synology.com/en-global/products/DS423+",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.synology.com/en-global/support/download/DS423+",
@@ -5610,11 +5886,12 @@
     {
       "url": "https://www.synology.com/en-global/support/download/DS224+",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.synology.com/en-global/support/download/DS224+",
       "classification": "OK",
-      "latency_ms": 19,
+      "latency_ms": 14,
       "error": null,
       "sources": [
         {
@@ -5629,11 +5906,12 @@
     {
       "url": "https://www.synology.com/en-global/support/download/DS423+",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.synology.com/en-global/support/download/DS423+",
       "classification": "OK",
-      "latency_ms": 17,
+      "latency_ms": 14,
       "error": null,
       "sources": [
         {
@@ -5648,11 +5926,12 @@
     {
       "url": "https://www.synology.com/en-us/compatibility?search_by=category&category=upses",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.synology.com/en-us/compatibility?search_by=category&category=upses",
       "classification": "OK",
-      "latency_ms": 19,
+      "latency_ms": 16,
       "error": null,
       "sources": [
         {
@@ -5667,11 +5946,12 @@
     {
       "url": "https://www.synology.com/products/DS224+",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.synology.com/en-global/support/download/DS224+",
       "classification": "REDIRECT",
-      "latency_ms": 71,
+      "latency_ms": 47,
       "error": null,
       "sources": [
         {
@@ -5686,11 +5966,12 @@
     {
       "url": "https://www.techpowerup.com/review/quick-look-ugreen-nexode-300w-gan-desktop-charger/",
       "method_used": "GET",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.techpowerup.com/review/quick-look-ugreen-nexode-300w-gan-desktop-charger/",
       "classification": "OK",
-      "latency_ms": 571,
+      "latency_ms": 681,
       "error": null,
       "sources": [
         {
@@ -5705,11 +5986,12 @@
     {
       "url": "https://www.techpowerup.com/review/ugreen-nasync-dxp4800-plus/",
       "method_used": "GET",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.techpowerup.com/review/ugreen-nasync-dxp4800-plus/",
       "classification": "OK",
-      "latency_ms": 580,
+      "latency_ms": 551,
       "error": null,
       "sources": [
         {
@@ -5724,11 +6006,12 @@
     {
       "url": "https://www.thisisant.com/directory/",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://developer.garmin.com/ant-program",
       "classification": "REDIRECT",
-      "latency_ms": 342,
+      "latency_ms": 333,
       "error": null,
       "sources": [
         {
@@ -5785,11 +6068,12 @@
     {
       "url": "https://www.twayair.com/app/serviceInfo/contents/1148",
       "method_used": "GET",
-      "status": 403,
-      "redirected": false,
-      "final_url": "https://www.twayair.com/app/serviceInfo/contents/1148",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 24,
+      "browser_retry_used": true,
+      "status": 200,
+      "redirected": true,
+      "final_url": "https://www.trinityairways.com/app/serviceInfo/contents/1148",
+      "classification": "REDIRECT",
+      "latency_ms": 257,
       "error": null,
       "sources": [
         {
@@ -5802,12 +6086,13 @@
     },
     {
       "url": "https://www.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
-      "method_used": "GET",
-      "status": 429,
+      "method_used": "HEAD",
+      "browser_retry_used": false,
+      "status": 200,
       "redirected": true,
       "final_url": "https://us.ugreen.com/products/ugreen-nexode-power-bank-20000mah-130w",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 282,
+      "classification": "REDIRECT",
+      "latency_ms": 695,
       "error": null,
       "sources": [
         {
@@ -5822,12 +6107,13 @@
     {
       "url": "https://www.united.com/en/us/fly/baggage/dangerous-items.html",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
       "final_url": "https://www.united.com/en/us/fly/baggage/dangerous-items.html",
-      "classification": "DEAD",
-      "latency_ms": 6004,
-      "error": "timeout (6000ms)",
+      "classification": "OK",
+      "latency_ms": 556,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",
@@ -5838,32 +6124,14 @@
       ]
     },
     {
-      "url": "https://www.vittoria.com/products/corsa-pro-tlr",
-      "method_used": "GET",
-      "status": 429,
-      "redirected": true,
-      "final_url": "https://vittoria.com/products/corsa-pro-tlr",
-      "classification": "BOT_CHALLENGE",
-      "latency_ms": 229,
-      "error": null,
-      "sources": [
-        {
-          "kind": "citation",
-          "vertical": "cyclegear",
-          "slug": "vittoria-corsa-pro-tlr-28",
-          "label": "Vittoria Official — Corsa PRO TLR Technical Specifications",
-          "source_tier": 1
-        }
-      ]
-    },
-    {
       "url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-buy",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": false,
       "final_url": "https://www.wahoofitness.com/devices/bike-computers/elemnt-roam-buy",
       "classification": "OK",
-      "latency_ms": 26,
+      "latency_ms": 38,
       "error": null,
       "sources": [
         {
@@ -5878,11 +6146,12 @@
     {
       "url": "https://www.wahoofitness.com/devices/indoor-cycling/kickr-core-buy",
       "method_used": "HEAD",
+      "browser_retry_used": false,
       "status": 200,
       "redirected": true,
       "final_url": "https://www.wahoofitness.com/devices/indoor-cycling/bike-trainers/kickr-core-2-buy",
       "classification": "REDIRECT",
-      "latency_ms": 32,
+      "latency_ms": 40,
       "error": null,
       "sources": [
         {
@@ -5895,14 +6164,15 @@
       ]
     },
     {
-      "url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
+      "url": "https://wwws.airfrance.fr/en/information/bagages/popin_produits-interdits-et-reglementes/produits-interdits-et-reglementes-3",
       "method_used": "GET",
-      "status": null,
+      "browser_retry_used": true,
+      "status": 200,
       "redirected": false,
-      "final_url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
-      "classification": "DEAD",
-      "latency_ms": 6004,
-      "error": "timeout (6000ms)",
+      "final_url": "https://wwws.airfrance.fr/en/information/bagages/popin_produits-interdits-et-reglementes/produits-interdits-et-reglementes-3",
+      "classification": "OK",
+      "latency_ms": 620,
+      "error": null,
       "sources": [
         {
           "kind": "airline_policy",

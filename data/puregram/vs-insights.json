@@ -12,6 +12,12 @@
       "Sugar-vs-maltodextrin osmolality split: Maurten encapsulates 25 g pure glucose+fructose in alginate hydrogel (25 g sugars), whereas SiS pairs 21 g maltodextrin with 19 g fructose (40 g total) in a standard liquid gel.",
       "Both supply minimal sodium (20 mg vs 30 mg per pouch), requiring separate electrolyte pairing on warm marathons and gran fondos."
     ],
+    "serp_gaps_captured_ko": [
+      "시간당 90 g 보급 실비용 계산: 동일한 1:0.8 이중 탄수화물 비율을 쓰면서도 SiS 베타퓨엘은 미국 기준 44%($7.50 vs $13.50/시간), 한국 기준 60%(10,125원 vs 25,200원/시간) 비용을 절감합니다.",
+      "시간당 90 g 기준 개봉 개수 및 휴대 중량: SiS 베타퓨엘은 2.25포(총 153 g), 모르텐 젤 100은 3.60포(총 144 g)가 필요합니다.",
+      "당류 대 말토덱스트린 조성 차이: 모르텐은 알긴산 하이드로겔에 순수 포도당·과당 25 g(당류 25 g)을 담았고, SiS는 말토덱스트린 21 g + 과당 19 g(총 40 g)을 일반 액상 젤로 배합했습니다.",
+      "두 제품 모두 파우치당 나트륨 함량이 매우 낮아(20 mg vs 30 mg) 더운 날씨의 마라톤·그란폰도에서는 별도 전해질 병행 보급이 필수입니다."
+    ],
     "verdict": {
       "en": {
         "headline": "SiS Beta Fuel Wins High-Carb Value by 44%; Maurten Gel 100 Wins Sensitive-Gut Hydrogel",
@@ -55,6 +61,12 @@
       "Box-count & net-weight accuracy: Maurten Gel 160 ships in 12 x 65 g boxes (780 g, 61.5% carb purity) vs SiS Beta Fuel 30 x ~68 g boxes (2,040 g, 58.8% carb purity).",
       "Carbohydrate composition contrast: Maurten delivers 40 g pure glucose+fructose sugars inside hydrogel with zero preservatives, while SiS uses 21 g maltodextrin + 19 g fructose with gellan/xanthan gums and preservatives.",
       "Korea market import spread: Maurten's local KR markup widens the per-30 g cost gap from 27% in the US to 50% in South Korea."
+    ],
+    "serp_gaps_captured_ko": [
+      "동일 40 g·1:0.8·시간당 2.25포 조건 정면 비교: 하이드로겔 제형 프리미엄을 정확히 분리하면 탄수화물 30 g당 미국 $3.44 vs $2.50, 한국 6,750원 vs 3,375원 격차가 드러납니다.",
+      "박스 구성 및 순중량 검증: 모르텐 젤 160은 65 g × 12포(총 780 g, 탄수화물 밀도 61.5%), SiS 베타퓨엘은 약 68 g × 30포(총 2,040 g, 밀도 58.8%) 기준입니다.",
+      "원료 구성 대비: 모르텐은 무보존료 하이드로겔에 포도당·과당 40 g을 담았고, SiS는 말토덱스트린 21 g + 과당 19 g에 젤란검·잔탄검과 보존료를 사용합니다.",
+      "국내 수입 유통가 스프레드: 모르텐의 한국 정발 마진 구조로 인해 30 g당 단가 격차가 미국 27%에서 한국에서는 50%까지 벌어집니다."
     ],
     "verdict": {
       "en": {
@@ -100,6 +112,12 @@
       "Ratio & osmolality trade-off: Maurten's 1:0.8 hydrogel (25 g pure sugars) vs PF 30's 2:1 maltodextrin-fructose gel (12 g sugars, 0 mg sodium, mild neutral citrus).",
       "Pocket footprint per 90 g/hr: 3 x PF 30 = 153 g (3 wrappers) vs 3.6 x Gel 100 = 144 g (4 wrappers needed to clear 90 g)."
     ],
+    "serp_gaps_captured_ko": [
+      "시간당 보급 단위 계산 편의성: 프리시전 PF 30은 정확히 3.00포로 시간당 90 g을 채우지만, 모르텐 젤 100은 3.60포가 필요해 소수점 잔여분이 발생합니다.",
+      "인폼드 스포츠 인증 젤 간 약 절반 가격 격차: PF 30은 탄수화물 30 g당 $2.33(한국 3,667원)으로 모르텐 젤 100($4.50 / 8,400원) 대비 미국 48%, 한국 56% 저렴합니다.",
+      "배합 비율 및 당류·나트륨 차이: 모르텐은 1:0.8 하이드로겔(당류 25 g)이며, PF 30은 2:1 말토덱스트린-과당 배합(당류 12 g, 나트륨 0 mg, 순한 중립 시트러스 향)입니다.",
+      "시간당 90 g 휴대 부피 비교: PF 30 3포는 153 g(봉지 3개), 모르텐 젤 100은 90 g을 넘기려면 실질적으로 4포(3.6포 기준 144 g, 4포 160 g)를 챙겨야 합니다."
+    ],
     "verdict": {
       "en": {
         "headline": "Precision PF 30 Cuts Cost by 48% with Clean 30 g Math; Maurten Keeps 1:0.8 Hydrogel Edge",
@@ -143,6 +161,12 @@
       "Caffeine pacing architecture: GU Roctane's 35 mg/gel allows taking 3–4 caffeinated gels safely (105–140 mg total), whereas Maurten Caf 100 packs 100 mg/gel (limiting intake to 1–3 packets across an entire marathon).",
       "Electrolyte & amino contrast: GU Roctane delivers 8.2x more sodium (180 mg vs 22 mg) plus 1,425 mg declared free-form amino acids (BCAAs, taurine, beta-alanine), whereas Maurten supplies pure 1:0.8 hydrogel carbs + caffeine.",
       "Water & texture penalty: GU's thick 32 g paste demands immediate water chasing, while Maurten's 40 g hydrogel encapsulates sugar without added flavors."
+    ],
+    "serp_gaps_captured_ko": [
+      "포당 가격 착시 보정: GU 록테인은 1포 가격이 저렴하지만($3.00 vs $4.33) 씨솔트 초콜릿 기준 탄수화물이 19 g뿐이어서, 순수 탄수화물 30 g당 실단가는 $4.74 vs $5.20으로 격차가 9%에 불과합니다.",
+      "카페인 분할 투입 설계: GU 록테인은 포당 35 mg으로 3~4포(105~140 mg)로 완만히 조절할 수 있고, 모르텐 Caf 100은 포당 100 mg 고함량으로 풀코스 전체 1~3포 집중 투입에 맞습니다.",
+      "나트륨·아미노산 성분 대비: GU 록테인은 8.2배 많은 나트륨(180 mg vs 22 mg)과 표기 아미노산 1,425 mg(BCAA·타우린·베타알라닌)을 포함하고, 모르텐은 순수 1:0.8 하이드로겔 탄수화물과 카페인에 집중합니다.",
+      "제형 및 수분 동반 필요성: GU의 점도 높은 32 g 페이스트는 섭취 직후 물이 필요하며, 모르텐의 40 g 하이드로겔은 무향 젤리 형태로 깔끔하게 삼킬 수 있습니다."
     ],
     "verdict": {
       "en": {
@@ -188,6 +212,12 @@
       "Swallowability without water: Neversecond's thinner 60 mL fluid consistency goes down cleanly mid-sprint without chasing water, while PF 30's 51 g gel is thicker and slightly lighter in pockets.",
       "Exact 90 g/hr budget impact: 3 hours at 90 g/hr costs $31.50 USD (₩49,500 KRW) on Neversecond C30 vs $21.00 USD (₩33,000 KRW) on Precision PF 30."
     ],
+    "serp_gaps_captured_ko": [
+      "동일한 30 g·2:1·인폼드 스포츠 조건에서 분리한 나트륨+액상 프리미엄: 네버세컨드 C30의 나트륨 200 mg과 묽은 액상 제형은 30 g당 +$1.17(+50% USD)과 파우치당 +9 g(60 g vs 51 g) 차이를 만듭니다.",
+      "시간당 나트륨 자동 보급 구조: 네버세컨드 C30 3포는 시간당 나트륨 600 mg을 자동 공급해 별도 염분 정제 없이도 기본 염분을 채우지만, PF 30 3포는 의도적으로 나트륨 0 mg으로 설계되었습니다.",
+      "물 없이 섭취하는 목넘김 대 휴대 중량: 네버세컨드 60 mL 묽은 액상은 스프린트 중에도 물 없이 부드럽게 넘어가고, PF 30은 51 g으로 약간 더 묵직한 제형 대신 포켓 부담이 적습니다.",
+      "3시간·시간당 90 g 실전 예산 차이: 네버세컨드 C30은 총 $31.50(한국 49,500원), 프리시전 PF 30은 총 $21.00(한국 33,000원)이 소요됩니다."
+    ],
     "verdict": {
       "en": {
         "headline": "Both Nail 30 g 2:1 Modular Math: Neversecond Adds 200 mg Sodium + Liquid Flow; PF 30 Saves 33%",
@@ -231,6 +261,12 @@
       "Filler-vs-fuel composition split: PH 1500 tablet is 14.6% pure Na+K (only 16 kcal / 1.8 g carbs), whereas Skratch scoop is 1.91% Na+K because 90.9% (20 g) is cane sugar and dextrose for active fueling.",
       "Anti-doping & sweetener divergence: PH 1500 tablets are NSF Certified for Sport but contain sucralose, whereas Skratch uses 100% real fruit and cane sugar with zero artificial sweeteners but lacks NSF/Informed Sport certification.",
       "Bottle sodium density: 1 PH 1500 tablet supplies 750 mg sodium per 500 mL (1,500 mg/L), nearly double Skratch's 380 mg per 500 mL scoop."
+    ],
+    "serp_gaps_captured_ko": [
+      "순수 전해질(Na+K) 1,000 mg당 2.08배 실단가 격차: PH 1500은 $1.37(한국 2,229원)인 반면 스크래치 랩스는 $2.85(한국 4,643원)입니다.",
+      "전해질 전용 대 탄수화물 겸용 조성 차이: PH 1500 발포정은 순수 Na+K 비중이 14.6%(16 kcal, 탄수화물 1.8 g)지만, 스크래치 1스쿱은 90.9%(20 g)가 에너지 공급용 사탕수수당·포도당이라 Na+K 비중이 1.91%입니다.",
+      "반도핑 인증 및 감미료 분기점: PH 1500은 NSF Certified for Sport 인증을 갖췄으나 수크랄로스를 함유하고, 스크래치는 100% 천연 과즙·사탕수수당(무인공감미료)이지만 NSF·인폼드 스포츠 인증은 없습니다.",
+      "500 mL 보틀당 나트륨 농도: PH 1500 1정은 750 mg(1,500 mg/L)으로 스크래치 1스쿱(380 mg/500 mL)의 거의 2배입니다."
     ],
     "verdict": {
       "en": {
@@ -276,6 +312,12 @@
       "EU vs US scoop trap exposed: ESN's 3.5 g EU serving (yielding 3.0 g anhydrous creatine) gives 142 label servings but 100 US-equivalent 5 g doses, compared to Momentous's 90 x 5 g doses in 450 g.",
       "Anti-doping jurisdiction match: Cologne List (Kölner Liste) for European/general athletes vs NSF Certified for Sport mandated by NCAA/US pro leagues."
     ],
+    "serp_gaps_captured_ko": [
+      "2026년 6월 원료 전환 팩트체크: 모멘터스는 2026년 6월 16일 독일 크레아퓨어(Creapure®)에서 자체 99.99% Signature Spec™ 원료로 전환해, NSF Certified for Sport 인증은 유지하되 기존 '크레아퓨어 유무' 구도가 해소되었습니다.",
+      "표준 5 g 환산 실단가 비교: ESN 울트라퓨어는 5 g당 $0.32(한국 453원), 모멘터스는 $0.48(한국 722원)로 NSF 및 PFAS·미세플라스틱 검사에 약 50% 프리미엄이 붙습니다.",
+      "유럽 대 미국 스쿱 표기 함정: ESN의 유럽 기준 3.5 g(무수 크레아틴 3.0 g) 스쿱은 라벨상 142회분이지만 표준 5 g 환산 시 100회분이며, 모멘터스 450 g은 5 g × 90회분입니다.",
+      "반도핑 인증 체계 차이: 유럽·일반 동호인용 쾰른 리스트(Kölner Liste) 대 NCAA·미국 프로리그 필수 기준인 NSF Certified for Sport 인증으로 구분됩니다."
+    ],
     "verdict": {
       "en": {
         "headline": "ESN Ultrapure Saves 33% per 5 g with Cologne List; Momentous Adds NSF Sport & PFAS Testing",
@@ -319,6 +361,12 @@
       "Single-pouch payload vs pocket weight: aminoVITAL delivers 86% more carbs per tear (41 g vs 22 g) plus 5,000 mg L-alanine/L-proline, but weighs 2.17x more per pouch (130 g vs 60 g).",
       "Shared low-sugar Ace-K design: both rely on maltodextrin/dextrin to keep sugar ultra-low (2.2 g vs 0.6 g) and both use Acesulfame K (Ace-K) artificial sweetener.",
       "Anti-doping & water-free distinction: SiS GO Isotonic is clinically isotonic (zero water needed) with Informed Sport batch certification, while aminoVITAL is a thicker resealable jelly best suited for pre-race or cycling pockets."
+    ],
+    "serp_gaps_captured_ko": [
+      "미국·한국 지역별 단가 격차: 미국 기준 30 g당 단가는 거의 같지만($2.68 vs $2.73), 한국에서는 동아시아 유통 이점 덕분에 아미노바이탈이 16% 더 저렴합니다(3,146원 vs 3,727원).",
+      "1팩 공급량 대 휴대 중량 대비: 아미노바이탈은 1팩당 탄수화물이 86% 더 많고(41 g vs 22 g) L-알라닌·L-프롤린 5,000 mg을 추가하지만 파우치 중량도 2.17배 무겁습니다(130 g vs 60 g).",
+      "공통 저당·Ace-K 설계: 두 제품 모두 덱스트린·말토덱스트린 기반으로 당류를 극도로 낮추고(2.2 g vs 0.6 g) 아세설팜칼륨(Ace-K) 감미료를 사용합니다.",
+      "등장성 무물 섭취 및 반도핑 인증 차이: SiS GO 아이소토닉은 물 없이 바로 섭취하는 등장성 제형에 인폼드 스포츠 배치 인증을 갖췄고, 아미노바이탈은 재밀봉 스파우트 젤리 형태로 사전 로딩·사이클 져지 수납에 적합합니다."
     ],
     "verdict": {
       "en": {

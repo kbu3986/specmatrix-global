@@ -152,6 +152,24 @@ export function verifyWattCheckPhysics(item) {
             )
           );
         }
+        if (air.carryon_allowed !== true) {
+          errors.push(
+            makeError(
+              "WATT_IATA_UNDER_100WH_CARRYON",
+              "airline_compliance_profile.carryon_allowed",
+              `Battery ${wh} Wh <= 100 Wh MUST have carryon_allowed === true`
+            )
+          );
+        }
+        if (air.carryon_no_approval !== true) {
+          errors.push(
+            makeError(
+              "WATT_IATA_UNDER_100WH_NO_APPROVAL",
+              "airline_compliance_profile.carryon_no_approval",
+              `Battery ${wh} Wh <= 100 Wh MUST have carryon_no_approval === true`
+            )
+          );
+        }
       }
 
       if (wh > 160) {
@@ -180,6 +198,15 @@ export function verifyWattCheckPhysics(item) {
               "WATT_IATA_TIER_100_TO_160WH",
               "airline_compliance_profile.iata_tier",
               `Battery ${wh} Wh in (100, 160] MUST have iata_tier "100_to_160wh_approval_required" (got "${air.iata_tier}")`
+            )
+          );
+        }
+        if (air.carryon_allowed !== true) {
+          errors.push(
+            makeError(
+              "WATT_IATA_100_TO_160WH_CARRYON",
+              "airline_compliance_profile.carryon_allowed",
+              `Battery ${wh} Wh in (100, 160] MUST have carryon_allowed === true`
             )
           );
         }
@@ -485,6 +512,38 @@ export function verifyPureGramPhysics(item) {
     );
   }
 
+  // 2b. Sugar & fiber sub-macro ceilings: sugar_g <= carbs_g and fiber_g <= carbs_g
+  if (
+    typeof nut.sugar_g === "number" &&
+    Number.isFinite(nut.sugar_g) &&
+    typeof nut.carbs_g === "number" &&
+    Number.isFinite(nut.carbs_g) &&
+    nut.sugar_g > nut.carbs_g + EPS
+  ) {
+    errors.push(
+      makeError(
+        "PURE_SUGAR_EXCEEDS_CARBS",
+        "nutrition_label.sugar_g",
+        `sugar_g (${nut.sugar_g} g) exceeds total carbs_g (${nut.carbs_g} g)`
+      )
+    );
+  }
+  if (
+    typeof nut.fiber_g === "number" &&
+    Number.isFinite(nut.fiber_g) &&
+    typeof nut.carbs_g === "number" &&
+    Number.isFinite(nut.carbs_g) &&
+    nut.fiber_g > nut.carbs_g + EPS
+  ) {
+    errors.push(
+      makeError(
+        "PURE_FIBER_EXCEEDS_CARBS",
+        "nutrition_label.fiber_g",
+        `fiber_g (${nut.fiber_g} g) exceeds total carbs_g (${nut.carbs_g} g)`
+      )
+    );
+  }
+
   // 3. Active per serving ceiling: active_per_serving_g <= serving_weight_g
   if (nut.active_per_serving_g > pkg.serving_weight_g + EPS) {
     errors.push(
@@ -560,24 +619,33 @@ export function verifyPureGramPhysics(item) {
     checks.kcal_check_skipped = true;
   }
 
-  // 7. Carb 90g/hr servings check when provided on carbohydrate products
-  if (
-    nut.active_ingredient_type === "carbohydrates" &&
-    dm.servings_for_90g_per_hour !== null &&
-    dm.servings_for_90g_per_hour !== undefined
-  ) {
-    const expected90 = 90 / nut.active_per_serving_g;
-    const diff90 = Math.abs(dm.servings_for_90g_per_hour - expected90);
-    checks.servings_90g_expected = Number(expected90.toFixed(2));
-    if (diff90 > 0.05 + EPS) {
-      errors.push(
-        makeError(
-          "PURE_90G_SERVINGS_MISMATCH",
-          "derived_math.servings_for_90g_per_hour",
-          `servings_for_90g_per_hour (${dm.servings_for_90g_per_hour}) differs from 90 / ${nut.active_per_serving_g} (${expected90.toFixed(2)})`
-        )
-      );
+  // 7. Carb 90g/hr servings check: validate formula for carbs, require null for non-carb products
+  if (nut.active_ingredient_type === "carbohydrates") {
+    if (
+      dm.servings_for_90g_per_hour !== null &&
+      dm.servings_for_90g_per_hour !== undefined
+    ) {
+      const expected90 = 90 / nut.active_per_serving_g;
+      const diff90 = Math.abs(dm.servings_for_90g_per_hour - expected90);
+      checks.servings_90g_expected = Number(expected90.toFixed(2));
+      if (diff90 > 0.05 + EPS) {
+        errors.push(
+          makeError(
+            "PURE_90G_SERVINGS_MISMATCH",
+            "derived_math.servings_for_90g_per_hour",
+            `servings_for_90g_per_hour (${dm.servings_for_90g_per_hour}) differs from 90 / ${nut.active_per_serving_g} (${expected90.toFixed(2)})`
+          )
+        );
+      }
     }
+  } else if (dm.servings_for_90g_per_hour !== null && dm.servings_for_90g_per_hour !== undefined) {
+    errors.push(
+      makeError(
+        "PURE_NON_CARB_90G_SERVINGS",
+        "derived_math.servings_for_90g_per_hour",
+        `Non-carbohydrate item (${nut.active_ingredient_type}) MUST set servings_for_90g_per_hour === null (got ${dm.servings_for_90g_per_hour})`
+      )
+    );
   }
 
   // 8. SM-05 YMYL forbidden accusation/medical term scan

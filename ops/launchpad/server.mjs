@@ -1,6 +1,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
@@ -8,15 +9,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const CONFIG_PATH = path.join(REPO_ROOT, "config", "monetization-config.v2.json");
 const DEEPLINKS_PATH = path.join(REPO_ROOT, "config", "coupang-deeplinks.json");
-const SSALMEOK_CONFIG_PATH = path.resolve(
-  REPO_ROOT,
-  "..",
-  "ssalmeok-empire",
-  "deploy-ops",
-  "monetization-config.json"
-);
 const PORT = Number(process.env.LAUNCHPAD_PORT || 3299);
 const HOST = "127.0.0.1";
+const MAX_BODY_BYTES = 512 * 1024;
+const CSRF_TOKEN = crypto.randomBytes(24).toString("hex");
+const ALLOWED_HOSTS = new Set([`127.0.0.1:${PORT}`, `localhost:${PORT}`]);
+const ALLOWED_ORIGINS = new Set([`http://127.0.0.1:${PORT}`, `http://localhost:${PORT}`]);
 
 let activeJob = null;
 
@@ -32,7 +30,9 @@ function readJson(filePath, fallback) {
 function extractCoupangIframeUrl(raw) {
   const s = String(raw || "").trim();
   if (!s) return "";
-  const srcMatch = s.match(/src\s*=\s*["'](https:\/\/ads-partners\.coupang\.com\/widgets\.html\?[^"']+)["']/i);
+  const srcMatch = s.match(
+    /src\s*=\s*["'](https:\/\/ads-partners\.coupang\.com\/widgets\.html\?[^"']+)["']/i
+  );
   if (srcMatch) return srcMatch[1].trim();
   const directMatch = s.match(/(https:\/\/ads-partners\.coupang\.com\/widgets\.html\?[^\s"'<>]+)/i);
   if (directMatch) return directMatch[1].trim();
@@ -49,7 +49,7 @@ function extractCoupangShortUrl(raw) {
 function sanitizeGa4(raw) {
   const s = String(raw || "").trim().toUpperCase();
   if (!s) return "";
-  const m = s.match(/G-[A-Z0-9]{6,14}/);
+  const m = s.match(/^G-[A-Z0-9]{6,14}$/);
   return m ? m[0] : "";
 }
 
@@ -80,84 +80,12 @@ function loadAllKoCoupangExportLines() {
   return rows;
 }
 
-const SEEDING_POSTS = [
-  {
-    id: "dossa",
-    platform: "도싸 (Dossa) · 로드사이클 자유/용품 게시판",
-    badge: "객단가 20만–200만 원 · 최우선 추천",
-    openUrl: "https://corearoadbike.com/",
-    title:
-      "[정보/도구] 로드 타이어 후크리스 5 bar 안전체커 & 파워미터·에너지젤 90g/hr 보급 단가 계산기 만들어 봤습니다 (무료/무가입)",
-    body: `파워미터나 튜블리스 타이어, 대회용 에너지젤 살 때마다 제조사 매뉴얼·BB 규격·후크리스 최대 공기압(5 bar / 72.5 psi) 매번 찾아보기 번거로워서 개인적으로 정리하다 무료 웹 도구로 만들었습니다.
-회원가입·로그인 없이 브라우저에서 바로 돌아갑니다.
-
-1) GP5000 S TR / Corsa PRO / P ZERO Race RS 후크리스·후크드 공기압 안전 체커
-https://kbu3986.github.io/specmatrix-global/ko/cyclegear/item/continental-gp5000-s-tr-28
-
-2) 파베로 아시오마 PRO RS-2 vs 가민 랠리 RS200 / 코로스 듀라 vs 엣지 840 가중치 비교 시뮬레이터
-https://kbu3986.github.io/specmatrix-global/ko/cyclegear/vs/favero-assioma-pro-rs-2-vs-garmin-rally-rs200
-
-3) 파워미터·GPS·트레이너 전체 호환 필터 매트릭스
-https://kbu3986.github.io/specmatrix-global/ko/cyclegear/matrix/power-meters
-
-4) 모르텐·SiS 베타퓨얼·PF30·GU 에너지젤 시간당 90g 보급 시 대회 총비용 계산기 (본인 구매가 직접 입력 가능)
-https://kbu3986.github.io/specmatrix-global/ko/puregram/matrix/energy-gels
-
-빠진 부품이나 수정할 스펙 있으면 댓글로 알려주시면 바로 반영하겠습니다.`,
-  },
-  {
-    id: "clien",
-    platform: "클리앙 (Clien) · 모두의공원 / 유용한사이트",
-    badge: "여행·테크 고빈도 클릭",
-    openUrl: "https://www.clien.net/service/board/park",
-    title:
-      "[자작도구] 2025–2026 국토부·전 세계 30개 항공사 보조배터리 기내반입 + USB-PD 멀티포트 출력 분배표 정리해 봤습니다",
-    body: `최근 한국 국토부 기내 선반 보관 금지·투명 지퍼백 규정, 중국 국내선 CCC 마크 의무화, 에미레이트 100Wh 1개 제한 등 항공사마다 보조배터리 규정이 제각각이라 30개 주요 항공사 공식 정책을 전수 대조해서 무료 웹 매트릭스로 묶었습니다.
-
-1) 전 세계 30개 항공사 기내반입 실시간 Wh 필터표 (대한항공·아시아나·제주·티웨이·ANA·JAL·에미레이트 등)
-https://kbu3986.github.io/specmatrix-global/ko/wattcheck/matrix/airlines-30
-
-2) 앤커 프라임 27650 (99.54Wh) 멀티포트 분배·항공사 즉시 체크
-https://kbu3986.github.io/specmatrix-global/ko/wattcheck/item/anker-prime-27650mah-250w
-
-3) 최신 멀티포트 GaN 충전기 10종 동시 출력 비교표
-https://kbu3986.github.io/specmatrix-global/ko/wattcheck/matrix/gan-chargers
-
-본인 보조배터리 Wh를 입력하면 30개 항공사별 반입 가능·사전승인 필요·불가 여부가 바로 나오고, C1+C2+A1 동시 연결 시 출력 강하와 재협상 끊김 여부도 확인할 수 있습니다.`,
-  },
-  {
-    id: "reddit-usbc",
-    platform: "Reddit · r/UsbCHardware (Amazon US 달러 수익)",
-    badge: "글로벌 EN · 아마존 US 직결",
-    openUrl: "https://www.reddit.com/r/UsbCHardware/submit",
-    title:
-      "I built a free spec matrix for 25 USB-PD power banks & GaN chargers with real multi-port allocation tables + 30-airline flight checker",
-    body: `Every time I compare 140W–250W power banks or GaN bricks (Anker Prime 27650, Shargeek 170, UGREEN Nexode 25000, Cuktech 20, etc.), retail listings hide the actual C1+C2+A1 wattage drop, renegotiation disconnect behavior, and exact airline carry-on limits (Emirates 1-pc cap, China CCC domestic mark, Korea MOLIT overhead-bin ban).
-
-So I compiled manufacturer manual specs and verified weights into a zero-signup static matrix with interactive port toggles and a 30-airline checker:
-
-- Power Banks & Flight Filter Matrix: https://kbu3986.github.io/specmatrix-global/en/wattcheck/matrix/power-banks
-- Multi-Port GaN Chargers Matrix: https://kbu3986.github.io/specmatrix-global/en/wattcheck/matrix/gan-chargers
-- 30 Global Airlines Battery Rules: https://kbu3986.github.io/specmatrix-global/en/wattcheck/matrix/airlines-30
-
-Happy to add missing SKUs or fix any port-split edge cases if you spot one!`,
-  },
-  {
-    id: "reddit-cycling",
-    platform: "Reddit · r/cycling 또는 r/Velo (고단가 EN 제휴)",
-    badge: "글로벌 EN · 고객단가",
-    openUrl: "https://www.reddit.com/r/cycling/submit",
-    title:
-      "Built a free road cycling fueling calculator (cost per 30g carbs & 90g/hr race planner) + power meter & hookless tire spec matrix",
-    body: `Put together a free, zero-signup client-side matrix comparing 20 endurance gels & electrolytes (Maurten 100/160, SiS Beta Fuel, PF 30/90, Neversecond C30, GU Roctane, Skratch) by true cost per 30g carbs and hourly 90g/hr race cost — plus a CycleGear matrix covering Favero Assioma PRO RS-2 vs Rally RS200, COROS DURA vs Edge 840, and ETRTO 5.0 bar / 72.5 psi hookless checks:
-
-- Energy Gels 30g Carb Cost & 90g/hr Planner: https://kbu3986.github.io/specmatrix-global/en/puregram/matrix/energy-gels
-- Power Meters & Drivetrain Matrix: https://kbu3986.github.io/specmatrix-global/en/cyclegear/matrix/power-meters
-- Favero Assioma PRO RS-2 vs Garmin Rally RS200 Simulator: https://kbu3986.github.io/specmatrix-global/en/cyclegear/vs/favero-assioma-pro-rs-2-vs-garmin-rally-rs200
-
-All specs link directly to manufacturer nutrition labels and tech sheets. Feedback welcome!`,
-  },
-];
+function constantTimeTokenMatch(provided, expected) {
+  const a = Buffer.from(String(provided || ""), "utf8");
+  const b = Buffer.from(String(expected || ""), "utf8");
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
 
 function startBackgroundJob(name, command, args) {
   if (activeJob && activeJob.status === "running") {
@@ -176,7 +104,7 @@ function startBackgroundJob(name, command, args) {
 
   const child = spawn(command, args, {
     cwd: REPO_ROOT,
-    shell: true,
+    shell: false,
     windowsHide: true,
   });
 
@@ -188,9 +116,19 @@ function startBackgroundJob(name, command, args) {
     }
   };
 
-  child.stdout.on("data", appendLines);
-  child.stderr.on("data", appendLines);
+  child.on("error", (err) => {
+    job.exitCode = -1;
+    job.status = "error";
+    job.finishedAt = new Date().toISOString();
+    job.logs.push(
+      `[${new Date().toLocaleTimeString("ko-KR")}] 프로세스 실행 오류: ${err.message}`
+    );
+  });
+
+  if (child.stdout) child.stdout.on("data", appendLines);
+  if (child.stderr) child.stderr.on("data", appendLines);
   child.on("close", (code) => {
+    if (job.status !== "running") return;
     job.exitCode = code;
     job.status = code === 0 ? "success" : "error";
     job.finishedAt = new Date().toISOString();
@@ -204,10 +142,22 @@ function startBackgroundJob(name, command, args) {
   return { ok: true, job };
 }
 
+function runPowerShellCommand(name, psScript) {
+  const exe = process.platform === "win32" ? "powershell.exe" : "pwsh";
+  return startBackgroundJob(name, exe, [
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-Command",
+    psScript,
+  ]);
+}
+
 function sendJson(res, status, payload) {
   res.writeHead(status, {
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
   });
   res.end(JSON.stringify(payload));
 }
@@ -215,26 +165,77 @@ function sendJson(res, status, payload) {
 function readRequestBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
-    req.on("data", (c) => chunks.push(c));
+    let totalBytes = 0;
+    let settled = false;
+
+    req.on("data", (chunk) => {
+      if (settled) return;
+      totalBytes += chunk.length;
+      if (totalBytes > MAX_BODY_BYTES) {
+        settled = true;
+        const err = new Error("Request body exceeds 512 KB limit.");
+        err.statusCode = 413;
+        req.destroy();
+        reject(err);
+        return;
+      }
+      chunks.push(chunk);
+    });
+
     req.on("end", () => {
+      if (settled) return;
+      settled = true;
       try {
         const raw = Buffer.concat(chunks).toString("utf8");
         resolve(raw ? JSON.parse(raw) : {});
-      } catch (e) {
-        reject(e);
+      } catch {
+        const err = new Error("Invalid JSON request body.");
+        err.statusCode = 400;
+        reject(err);
       }
     });
-    req.on("error", reject);
+
+    req.on("error", (e) => {
+      if (settled) return;
+      settled = true;
+      reject(e);
+    });
   });
 }
 
-function renderHtml() {
+function validateRequestSecurity(req, isPost) {
+  const host = String(req.headers.host || "").toLowerCase();
+  if (!ALLOWED_HOSTS.has(host)) {
+    return { ok: false, status: 403, error: "Forbidden Host header." };
+  }
+
+  if (isPost) {
+    const origin = req.headers.origin;
+    if (origin !== undefined && !ALLOWED_ORIGINS.has(String(origin).toLowerCase())) {
+      return { ok: false, status: 403, error: "Forbidden Origin header." };
+    }
+
+    const contentType = String(req.headers["content-type"] || "").toLowerCase();
+    if (!contentType.startsWith("application/json")) {
+      return { ok: false, status: 415, error: "Content-Type must be application/json." };
+    }
+
+    const token = req.headers["x-launchpad-token"];
+    if (!constantTimeTokenMatch(token, CSRF_TOKEN)) {
+      return { ok: false, status: 403, error: "Invalid or missing X-Launchpad-Token." };
+    }
+  }
+
+  return { ok: true };
+}
+
+function renderHtml(skuCount) {
   return `<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SpecMatrix Global — 원클릭 최종 마무리 런치패드</title>
+  <title>SpecMatrix Global — 로컬 운영 제어 런치패드</title>
   <style>
     :root {
       --bg: #f8fafc; --card: #ffffff; --ink: #0f172a; --muted: #475569;
@@ -257,7 +258,6 @@ function renderHtml() {
     .step h2 { margin: 0; font-size: 1.12rem; display: flex; align-items: center; }
     .time-badge { font-size: 0.78rem; font-weight: 700; color: var(--green); background: var(--green-bg); border: 1px solid #a7f3d0; padding: 3px 10px; border-radius: 999px; }
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
     .box { border: 1px solid var(--border); border-radius: 10px; padding: 14px; background: #fbfdff; }
     .box h3 { margin: 0 0 6px; font-size: 0.94rem; }
     .box p { margin: 0 0 10px; font-size: 0.83rem; color: var(--muted); }
@@ -280,10 +280,6 @@ function renderHtml() {
     .log-box { background: #0b1220; color: #e2e8f0; border-radius: 10px; padding: 14px; font-family: ui-monospace, monospace; font-size: 0.78rem; max-height: 260px; overflow-y: auto; white-space: pre-wrap; margin-top: 12px; display: none; }
     .toast { position: fixed; bottom: 20px; right: 20px; background: #0f172a; color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.2); opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 99; }
     .toast.show { opacity: 1; }
-    .seed-card { border: 1px solid var(--border); border-radius: 12px; padding: 15px; background: #fff; }
-    .seed-card.done { border-color: #6ee7b7; background: #f0fdf4; }
-    .seed-preview { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; font-size: 0.78rem; color: #334155; max-height: 125px; overflow-y: auto; white-space: pre-wrap; margin: 8px 0 10px; }
-    .tag { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: var(--blue-bg); color: var(--blue); }
     .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: #94a3b8; }
     .status-ok { background: #10b981; }
     .status-err { background: #ef4444; }
@@ -294,47 +290,47 @@ function renderHtml() {
 <body>
 <div class="wrap">
   <div class="hero">
-    <h1>SpecMatrix Global · 최종 마무리 원클릭 런치패드</h1>
-    <p>운영자가 로그인 후 <strong>버튼·링크만 순서대로 찍 누르면</strong> 수익화(쿠팡 공식 배너·GA4)·구글 색인·첫 트래픽 시딩까지 5분 안에 전부 끝납니다.</p>
+    <h1>SpecMatrix Global · 로컬 운영 제어 런치패드</h1>
+    <p>로컬 전용 운영 도구입니다. 수익화 설정(쿠팡 파트너스·GA4·Clarity), 빌드·QA·GitHub Pages 재배포, IndexNow 제출 및 라이브 상태를 안전하게 관리합니다. (${skuCount}종 검증 SKU · 258p+ SSG)</p>
     <div class="pill-row">
-      <a class="pill" href="https://kbu3986.github.io/specmatrix-global/ko" target="_blank">SpecMatrix 한국어 ↗</a>
-      <a class="pill" href="https://kbu3986.github.io/specmatrix-global/en" target="_blank">SpecMatrix English ↗</a>
-      <a class="pill" href="https://kbu3986.github.io/pin2pin-global/en/" target="_blank">Pin2Pin Global ↗</a>
-      <a class="pill" href="https://kbu3986.github.io/ko/" target="_blank">통합 루트 허브 ↗</a>
-      <a class="pill" href="https://github.com/kbu3986/specmatrix-global" target="_blank">GitHub 저장소 ↗</a>
+      <a class="pill" href="https://kbu3986.github.io/specmatrix-global/ko/" target="_blank" rel="noopener noreferrer">SpecMatrix 한국어 ↗</a>
+      <a class="pill" href="https://kbu3986.github.io/specmatrix-global/en/" target="_blank" rel="noopener noreferrer">SpecMatrix English ↗</a>
+      <a class="pill" href="https://kbu3986.github.io/pin2pin-global/en/" target="_blank" rel="noopener noreferrer">Pin2Pin Global ↗</a>
+      <a class="pill" href="https://kbu3986.github.io/ko/" target="_blank" rel="noopener noreferrer">통합 루트 허브 ↗</a>
+      <a class="pill" href="https://github.com/kbu3986/specmatrix-global" target="_blank" rel="noopener noreferrer">GitHub 저장소 ↗</a>
     </div>
   </div>
 
   <!-- STEP 1 -->
   <section class="step">
     <div class="step-head">
-      <h2><span class="step-num">STEP 1</span>구글 서치콘솔(GSC) &amp; 애드센스 상태 찍고 끝내기</h2>
-      <span class="time-badge">소요 30초 · 네이버/Bing 407 URL은 이미 제출 완료</span>
+      <h2><span class="step-num">STEP 1</span>구글 서치콘솔(GSC) &amp; 애드센스 상태 점검</h2>
+      <span class="time-badge">분할 사이트맵 9종 · ads.txt 확인</span>
     </div>
     <div class="grid-2">
       <div class="box">
-        <h3>1-A. Google Search Console 통합 사이트맵 재제출</h3>
-        <p>아래 주소 복사 후 GSC <strong>사이트맵</strong> 메뉴에 붙여넣고 제출 버튼만 누르세요. (5개 사이트 1,292페이지 전체가 한 번에 들어갑니다.)</p>
+        <h3>1-A. Google Search Console 통합 사이트맵</h3>
+        <p>GSC <strong>사이트맵</strong> 메뉴에 아래 경로를 제출해 전 버티컬·스튜디오 색인을 점검합니다.</p>
         <div class="mono-copy">
           <span id="sm-root">sitemap-index.xml</span>
-          <button class="btn btn-outline" onclick="copyText('sitemap-index.xml')">복사</button>
+          <button class="btn btn-outline" type="button" onclick="copyText('sitemap-index.xml')">복사</button>
         </div>
         <div class="mono-copy">
           <span id="sm-spec">specmatrix-global/sitemap-index.xml</span>
-          <button class="btn btn-outline" onclick="copyText('specmatrix-global/sitemap-index.xml')">복사</button>
+          <button class="btn btn-outline" type="button" onclick="copyText('specmatrix-global/sitemap-index.xml')">복사</button>
         </div>
         <div class="btn-row">
-          <a class="btn btn-primary" href="https://search.google.com/search-console/sitemaps?resource_id=https%3A%2F%2Fkbu3986.github.io%2F" target="_blank">GSC 사이트맵 바로 열기 ↗</a>
-          <a class="btn btn-outline" href="https://searchadvisor.naver.com/console/board" target="_blank">네이버 서치어드바이저 ↗</a>
+          <a class="btn btn-primary" href="https://search.google.com/search-console/sitemaps?resource_id=https%3A%2F%2Fkbu3986.github.io%2F" target="_blank" rel="noopener noreferrer">GSC 사이트맵 열기 ↗</a>
+          <a class="btn btn-outline" href="https://searchadvisor.naver.com/console/board" target="_blank" rel="noopener noreferrer">네이버 서치어드바이저 ↗</a>
         </div>
       </div>
 
       <div class="box">
-        <h3>1-B. Google AdSense 승인 확인 (자동 광고 ON 확인)</h3>
-        <p>방금 전 페이지에 <code>adsbygoogle.js</code> 송출 스크립트까지 패치 완료했습니다. 애드센스 사이트 관리에서 <code>kbu3986.github.io</code> 심사 상태와 자동 광고 토글만 확인하세요.</p>
+        <h3>1-B. Google AdSense 승인 및 ads.txt 확인</h3>
+        <p>애드센스 사이트 관리에서 승인 상태와 루트 <code>ads.txt</code> 게시 상태를 확인합니다.</p>
         <div class="btn-row" style="margin-top: 16px;">
-          <a class="btn btn-dark" href="https://www.google.com/adsense/new/u/0/pub-8587506565277191/sites" target="_blank">애드센스 사이트 현황 열기 ↗</a>
-          <a class="btn btn-outline" href="https://kbu3986.github.io/ads.txt" target="_blank">루트 ads.txt 확인 ↗</a>
+          <a class="btn btn-dark" href="https://www.google.com/adsense/new/u/0/pub-8587506565277191/sites" target="_blank" rel="noopener noreferrer">애드센스 사이트 현황 ↗</a>
+          <a class="btn btn-outline" href="https://kbu3986.github.io/ads.txt" target="_blank" rel="noopener noreferrer">루트 ads.txt 확인 ↗</a>
         </div>
       </div>
     </div>
@@ -343,22 +339,22 @@ function renderHtml() {
   <!-- STEP 2 -->
   <section class="step">
     <div class="step-head">
-      <h2><span class="step-num">STEP 2</span>쿠팡 공식 배너 &amp; GA4/Clarity 붙여넣고 원클릭 자동 재배포</h2>
-      <span class="time-badge">소요 2분 · 붙여넣기 후 버튼 1번</span>
+      <h2><span class="step-num">STEP 2</span>쿠팡 파트너스 &amp; GA4/Clarity 설정 병합 및 자동 재배포</h2>
+      <span class="time-badge">안전 병합 저장 (빈 칸 덮어쓰기 차단)</span>
     </div>
 
     <div class="btn-row" style="margin-bottom: 14px;">
-      <a class="btn btn-outline" href="https://partners.coupang.com/#affiliate/ws/banner" target="_blank">1) 쿠팡 다이나믹 배너 열기 ↗</a>
-      <a class="btn btn-outline" href="https://partners.coupang.com/#affiliate/ws/link" target="_blank">2) 쿠팡 간편 링크 열기 ↗</a>
-      <a class="btn btn-outline" href="https://analytics.google.com/" target="_blank">3) GA4 측정 ID 열기 ↗</a>
-      <a class="btn btn-outline" href="https://clarity.microsoft.com/" target="_blank">4) Clarity(무료 히트맵) 열기 ↗</a>
+      <a class="btn btn-outline" href="https://partners.coupang.com/#affiliate/ws/banner" target="_blank" rel="noopener noreferrer">1) 쿠팡 다이나믹 배너 ↗</a>
+      <a class="btn btn-outline" href="https://partners.coupang.com/#affiliate/ws/link" target="_blank" rel="noopener noreferrer">2) 쿠팡 간편 링크 ↗</a>
+      <a class="btn btn-outline" href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer">3) GA4 측정 ID ↗</a>
+      <a class="btn btn-outline" href="https://clarity.microsoft.com/" target="_blank" rel="noopener noreferrer">4) Microsoft Clarity ↗</a>
     </div>
 
     <div class="grid-2">
       <div>
         <label class="field">
           <span class="lbl">쿠팡 파트너스 다이나믹 배너 코드 (HTML &lt;iframe&gt; 통째로 복붙 가능)</span>
-          <textarea id="f-coupang-iframe" placeholder='<iframe src="https://ads-partners.coupang.com/widgets.html?id=..." ...></iframe> 그대로 붙여넣으면 URL만 자동 추출합니다.'></textarea>
+          <textarea id="f-coupang-iframe" placeholder='<iframe src="https://ads-partners.coupang.com/widgets.html?id=..." ...></iframe>'></textarea>
         </label>
 
         <label class="field">
@@ -369,37 +365,28 @@ function renderHtml() {
 
       <div>
         <label class="field">
-          <span class="lbl">Google Analytics 4 측정 ID <small>방문자·제휴 버튼 클릭 실시간 추적</small></span>
+          <span class="lbl">Google Analytics 4 측정 ID <small>방문자·제휴 클릭 추적</small></span>
           <input type="text" id="f-ga4" placeholder="G-XXXXXXXXXX" />
         </label>
 
         <label class="field">
-          <span class="lbl">Microsoft Clarity 프로젝트 ID (선택) <small>클릭 히트맵·세션 녹화</small></span>
+          <span class="lbl">Microsoft Clarity 프로젝트 ID (선택) <small>클릭 히트맵</small></span>
           <input type="text" id="f-clarity" placeholder="예: q1w2e3r4t5" />
-        </label>
-
-        <label class="field">
-          <span class="lbl">아이허브 리워드 코드 (선택 · PureGram 5–10% 수수료)</span>
-          <input type="text" id="f-iherb" placeholder="예: ABC1234" />
         </label>
       </div>
     </div>
 
     <label class="field">
       <span class="lbl">
-        <span>(선택) 상품별 공식 <code>link.coupang.com/a/...</code> 단축 링크 일괄 등록</span>
-        <button class="btn btn-outline" style="padding:4px 10px;font-size:0.76rem;" onclick="copyAllCoupangUrls()">60종 쿠팡 검색 URL 복사</button>
+        <span>(선택) 상품별 공식 <code>link.coupang.com/a/...</code> 단축 링크 병합 등록</span>
+        <button class="btn btn-outline" type="button" style="padding:4px 10px;font-size:0.76rem;" onclick="copyAllCoupangUrls()">${skuCount}종 쿠팡 검색 URL 복사</button>
       </span>
-      <textarea id="f-deeplinks" placeholder="한 줄에 하나씩: anker-prime-27650mah-250w https://link.coupang.com/a/XXXXXX"></textarea>
+      <textarea id="f-deeplinks" placeholder="한 줄에 하나씩 추가·갱신 (비워두면 기존 등록 링크 보존): anker-prime-27650mah-250w https://link.coupang.com/a/XXXXXX"></textarea>
     </label>
 
     <div class="btn-row">
-      <button class="btn btn-outline" onclick="saveOnly()">설정만 저장</button>
-      <button class="btn btn-primary" onclick="saveAndDeploy()">저장 + 203p 빌드 + QA + 라이브 재배포 + IndexNow 자동 실행</button>
-      <label style="font-size:0.82rem;color:#334155;display:inline-flex;align-items:center;gap:6px;margin-left:6px;">
-        <input type="checkbox" id="f-sync-ssalmeok" checked />
-        기존 ssalmeok-empire 설정에도 쿠팡 배너·아이허브 동시 동기화
-      </label>
+      <button class="btn btn-outline" type="button" onclick="saveOnly()">설정만 안전 병합 저장</button>
+      <button class="btn btn-primary" type="button" onclick="saveAndDeploy()">저장 + 258p+ 빌드 + Stage 6 QA + 라이브 재배포 + IndexNow 실행</button>
     </div>
 
     <div id="job-log" class="log-box"></div>
@@ -408,23 +395,13 @@ function renderHtml() {
   <!-- STEP 3 -->
   <section class="step">
     <div class="step-head">
-      <h2><span class="step-num">STEP 3</span>오늘 첫 클릭·첫 제휴 수익 만들기 (커뮤니티 4곳 복붙 시딩)</h2>
-      <span class="time-badge">소요 2분 · 제목/본문 1클릭 복사</span>
-    </div>
-    <p style="margin:0 0 14px;font-size:0.86rem;color:var(--muted);">검색 색인(1–3주)을 마냥 기다리지 않고 오늘 바로 첫 실사용자와 첫 쿠팡·아마존 클릭을 만드는 단계입니다. 각 카드에서 <strong>[제목 복사] → [본문 복사] → [게시판 열기]</strong>만 누르세요.</p>
-    <div id="seeding-grid" class="grid-2"></div>
-  </section>
-
-  <!-- STEP 4 -->
-  <section class="step">
-    <div class="step-head">
-      <h2><span class="step-num">STEP 4</span>전체 6개 라이브 사이트 원클릭 점검 &amp; 운영 도구</h2>
-      <span class="time-badge">실시간 HTTP 200 모니터링</span>
+      <h2><span class="step-num">STEP 3</span>라이브 엔드포인트 점검 &amp; 데이터 운영 액션</h2>
+      <span class="time-badge">실시간 HTTP 상태 모니터링</span>
     </div>
     <div class="btn-row">
-      <button class="btn btn-green" onclick="checkLiveHealth()">전체 6개 사이트 실시간 상태 점검</button>
-      <button class="btn btn-outline" onclick="runQuickAction('fx')">실시간 환율 갱신 (fx:update)</button>
-      <button class="btn btn-outline" onclick="runQuickAction('indexnow')">네이버·Bing IndexNow 407 URL 재제출</button>
+      <button class="btn btn-green" type="button" onclick="checkLiveHealth()">라이브 사이트 실시간 상태 점검</button>
+      <button class="btn btn-outline" type="button" onclick="runQuickAction('fx')">실시간 환율 갱신 (fx:update)</button>
+      <button class="btn btn-outline" type="button" onclick="runQuickAction('indexnow')">네이버·Bing IndexNow 제출</button>
     </div>
     <div id="health-grid" class="health-grid"></div>
   </section>
@@ -433,6 +410,7 @@ function renderHtml() {
 <div id="toast" class="toast"></div>
 
 <script>
+  const LAUNCHPAD_TOKEN = ${JSON.stringify(CSRF_TOKEN)};
   let state = null;
   let pollTimer = null;
 
@@ -444,67 +422,26 @@ function renderHtml() {
     window.__tt = setTimeout(() => el.classList.remove("show"), 2600);
   }
 
-  async function copyText(txt) {
-    try {
-      await navigator.clipboard.writeText(txt);
-      toast("클립보드에 복사되었습니다!");
-    } catch {
-      const ta = document.createElement("textarea");
-      ta.value = txt;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      toast("클립보드에 복사되었습니다!");
-    }
-  }
-
-  function getDoneSet() {
-    try { return new Set(JSON.parse(localStorage.getItem("sm_seed_done") || "[]")); }
-    catch { return new Set(); }
-  }
-  function toggleSeedDone(id) {
-    const s = getDoneSet();
-    if (s.has(id)) s.delete(id); else s.add(id);
-    localStorage.setItem("sm_seed_done", JSON.stringify([...s]));
-    renderSeeding();
-  }
-
-  function renderSeeding() {
-    if (!state) return;
-    const done = getDoneSet();
-    const grid = document.getElementById("seeding-grid");
-    grid.innerHTML = state.seedingPosts.map((p) => {
-      const isDone = done.has(p.id);
-      return \`
-        <div class="seed-card \${isDone ? "done" : ""}">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
-            <strong style="font-size:0.93rem;">\${p.platform}</strong>
-            <span class="tag">\${p.badge}</span>
-          </div>
-          <div style="font-size:0.83rem;font-weight:700;color:#0f172a;margin-bottom:4px;">\${escapeHtml(p.title)}</div>
-          <div class="seed-preview">\${escapeHtml(p.body)}</div>
-          <div class="btn-row">
-            <button class="btn btn-outline" onclick="copySeed('\${p.id}','title')">제목 복사</button>
-            <button class="btn btn-primary" onclick="copySeed('\${p.id}','body')">본문 복사</button>
-            <a class="btn btn-dark" href="\${p.openUrl}" target="_blank">게시판 열기 ↗</a>
-            <label style="margin-left:auto;font-size:0.8rem;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
-              <input type="checkbox" \${isDone ? "checked" : ""} onchange="toggleSeedDone('\${p.id}')" />
-              게시 완료
-            </label>
-          </div>
-        </div>\`;
-    }).join("");
-  }
-
   function escapeHtml(s) {
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    return String(s ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
-  function copySeed(id, part) {
-    const p = state.seedingPosts.find((x) => x.id === id);
-    if (!p) return;
-    copyText(part === "title" ? p.title : p.body);
+  async function copyText(txt) {
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+      try {
+        await navigator.clipboard.writeText(txt);
+        toast("클립보드에 복사되었습니다!");
+        return;
+      } catch {
+        // fall through
+      }
+    }
+    toast("클립보드 자동 복사가 차단되었습니다. 수동으로 복사해 주세요.");
   }
 
   function copyAllCoupangUrls() {
@@ -519,18 +456,23 @@ function renderHtml() {
       coupangRedirectRaw: document.getElementById("f-coupang-redirect").value,
       ga4MeasurementId: document.getElementById("f-ga4").value,
       clarityProjectId: document.getElementById("f-clarity").value,
-      iherbCode: document.getElementById("f-iherb").value,
       deeplinksText: document.getElementById("f-deeplinks").value,
-      syncSsalmeok: document.getElementById("f-sync-ssalmeok").checked,
     };
   }
 
-  async function saveOnly() {
-    const res = await fetch("/api/save-config", {
+  function postJson(endpoint, payload) {
+    return fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(collectForm()),
+      headers: {
+        "Content-Type": "application/json",
+        "X-Launchpad-Token": LAUNCHPAD_TOKEN,
+      },
+      body: JSON.stringify(payload || {}),
     });
+  }
+
+  async function saveOnly() {
+    const res = await postJson("/api/save-config", collectForm());
     const data = await res.json();
     if (data.ok) {
       toast("설정 저장 완료! (" + data.summary + ")");
@@ -541,11 +483,7 @@ function renderHtml() {
   }
 
   async function saveAndDeploy() {
-    const res = await fetch("/api/save-and-deploy", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(collectForm()),
-    });
+    const res = await postJson("/api/save-and-deploy", collectForm());
     const data = await res.json();
     if (!data.ok) {
       toast("실행 오류: " + data.error);
@@ -556,7 +494,7 @@ function renderHtml() {
   }
 
   async function runQuickAction(action) {
-    const res = await fetch("/api/action/" + action, { method: "POST" });
+    const res = await postJson("/api/action/" + encodeURIComponent(action), {});
     const data = await res.json();
     if (!data.ok) {
       toast("오류: " + data.error);
@@ -590,27 +528,28 @@ function renderHtml() {
     grid.innerHTML = '<div class="health-item">실시간 점검 중...</div>';
     const r = await fetch("/api/health-check");
     const d = await r.json();
-    grid.innerHTML = d.results.map((item) => \`
+    grid.innerHTML = d.results.map((item) => {
+      const safeUrl = /^https:\\/\\//i.test(String(item.url || "")) ? item.url : "#";
+      return \`
       <div class="health-item">
         <span><span class="status-dot \${item.ok ? "status-ok" : "status-err"}"></span>
-          <a href="\${item.url}" target="_blank" style="color:#0f172a;text-decoration:none;font-weight:600;">\${item.label}</a>
+          <a href="\${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" style="color:#0f172a;text-decoration:none;font-weight:600;">\${escapeHtml(item.label)}</a>
         </span>
-        <strong style="font-family:monospace;color:\${item.ok ? "#047857" : "#be123c"}">\${item.status} (\${item.ms}ms)</strong>
-      </div>\`).join("");
+        <strong style="font-family:monospace;color:\${item.ok ? "#047857" : "#be123c"}">\${escapeHtml(item.status)} (\${escapeHtml(item.ms)}ms)</strong>
+      </div>\`;
+    }).join("");
   }
 
   async function loadState() {
     const r = await fetch("/api/state");
     state = await r.json();
-    const c = state.config;
+    const c = state.config || {};
     document.getElementById("f-coupang-iframe").value = c.coupang?.iframeUrl || "";
     document.getElementById("f-coupang-redirect").value = c.coupang?.redirectUrl || "";
     document.getElementById("f-ga4").value = c.analytics?.ga4MeasurementId || "";
     document.getElementById("f-clarity").value = c.analytics?.clarityProjectId || "";
-    document.getElementById("f-iherb").value = c.globalAffiliates?.iherbCode || "";
     const dlEntries = Object.entries(state.deeplinks?.links || {}).map(([k, v]) => \`\${k} \${v}\`).join("\\n");
     document.getElementById("f-deeplinks").value = dlEntries;
-    renderSeeding();
   }
 
   loadState();
@@ -622,76 +561,93 @@ function renderHtml() {
 
 function applyConfigPayload(body) {
   const cfg = readJson(CONFIG_PATH, {});
-  const iframeUrl = extractCoupangIframeUrl(body.coupangIframeRaw);
-  const redirectUrl = extractCoupangShortUrl(body.coupangRedirectRaw);
-  const ga4 = sanitizeGa4(body.ga4MeasurementId);
-  const clarity = sanitizeSimpleId(body.clarityProjectId);
-  const iherb = sanitizeSimpleId(body.iherbCode);
-
   cfg.coupang = cfg.coupang || {};
-  cfg.coupang.iframeUrl = iframeUrl;
-  cfg.coupang.redirectUrl = redirectUrl;
   cfg.analytics = cfg.analytics || {};
-  cfg.analytics.ga4MeasurementId = ga4;
-  cfg.analytics.clarityProjectId = clarity;
-  cfg.globalAffiliates = cfg.globalAffiliates || {};
-  cfg.globalAffiliates.iherbCode = iherb;
-  cfg.updatedAt = new Date().toISOString().slice(0, 10);
 
+  const rawIframe = String(body.coupangIframeRaw ?? "").trim();
+  if (rawIframe) {
+    const parsed = extractCoupangIframeUrl(rawIframe);
+    if (!parsed) throw new Error("유효한 쿠팡 다이나믹 배너 URL(ads-partners.coupang.com)이 아닙니다.");
+    cfg.coupang.iframeUrl = parsed;
+  }
+
+  const rawRedirect = String(body.coupangRedirectRaw ?? "").trim();
+  if (rawRedirect) {
+    const parsed = extractCoupangShortUrl(rawRedirect);
+    if (!parsed) throw new Error("유효한 쿠팡 단축 링크(https://link.coupang.com/...)가 아닙니다.");
+    cfg.coupang.redirectUrl = parsed;
+  }
+
+  const rawGa4 = String(body.ga4MeasurementId ?? "").trim();
+  if (rawGa4) {
+    const parsed = sanitizeGa4(rawGa4);
+    if (!parsed) throw new Error("GA4 측정 ID 형식이 올바르지 않습니다 (예: G-XXXXXXXXXX).");
+    cfg.analytics.ga4MeasurementId = parsed;
+  }
+
+  const rawClarity = String(body.clarityProjectId ?? "").trim();
+  if (rawClarity) {
+    const parsed = sanitizeSimpleId(rawClarity);
+    if (!parsed) throw new Error("Clarity 프로젝트 ID 형식이 올바르지 않습니다.");
+    cfg.analytics.clarityProjectId = parsed;
+  }
+
+  cfg.updatedAt = new Date().toISOString().slice(0, 10);
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2) + "\n", "utf8");
 
-  // Parse per-SKU official link.coupang.com lines
+  // Merge non-empty per-SKU official link.coupang.com lines (never wipe existing links on blank submit)
   const dlObj = readJson(DEEPLINKS_PATH, {
     schema_version: "1.0.0",
     description: "Official Coupang Partners short-link registry (https://link.coupang.com/a/...).",
     updated_at: cfg.updatedAt,
     links: {},
   });
-  const newLinks = {};
-  const lines = String(body.deeplinksText || "").split(/\r?\n/);
-  for (const raw of lines) {
-    const line = raw.trim();
-    if (!line || line.startsWith("#")) continue;
-    const parts = line.split(/[\s,]+/).filter(Boolean);
-    if (parts.length >= 2) {
-      const slug = parts[0].trim();
-      const shortUrl = extractCoupangShortUrl(parts[1]);
-      if (/^[a-z0-9-]+$/.test(slug) && shortUrl) {
-        newLinks[slug] = shortUrl;
+  const mergedLinks = { ...(dlObj.links || {}) };
+  const rawDeeplinks = String(body.deeplinksText ?? "").trim();
+  if (rawDeeplinks) {
+    for (const raw of rawDeeplinks.split(/\r?\n/)) {
+      const line = raw.trim();
+      if (!line || line.startsWith("#")) continue;
+      const parts = line.split(/[\s,]+/).filter(Boolean);
+      if (parts.length >= 2) {
+        const slug = parts[0].trim();
+        const shortUrl = extractCoupangShortUrl(parts[1]);
+        if (/^[a-z0-9-]+$/.test(slug) && shortUrl) {
+          mergedLinks[slug] = shortUrl;
+        }
       }
     }
   }
   dlObj.updated_at = cfg.updatedAt;
-  dlObj.links = newLinks;
+  dlObj.links = mergedLinks;
   fs.writeFileSync(DEEPLINKS_PATH, JSON.stringify(dlObj, null, 2) + "\n", "utf8");
 
-  // Optional sync to ssalmeok-empire monetization-config.json
-  let syncedSsalmeok = false;
-  if (body.syncSsalmeok && fs.existsSync(SSALMEOK_CONFIG_PATH)) {
-    const sm = readJson(SSALMEOK_CONFIG_PATH, null);
-    if (sm) {
-      if (iframeUrl) sm.coupangIframeUrl = iframeUrl;
-      if (redirectUrl) sm.coupangRedirectUrl = redirectUrl;
-      if (iherb) sm.iherbCode = iherb;
-      sm.updatedAt = new Date().toISOString();
-      fs.writeFileSync(SSALMEOK_CONFIG_PATH, JSON.stringify(sm, null, 2) + "\n", "utf8");
-      syncedSsalmeok = true;
-    }
-  }
-
   return {
-    summary: `배너=${iframeUrl ? "ON" : "미입력"}, GA4=${ga4 || "미입력"}, Clarity=${
-      clarity || "미입력"
-    }, 개별쿠팡링크=${Object.keys(newLinks).length}건${syncedSsalmeok ? ", ssalmeok 동기화됨" : ""}`,
+    summary: `배너=${cfg.coupang.iframeUrl ? "ON" : "미입력"}, GA4=${
+      cfg.analytics.ga4MeasurementId || "미입력"
+    }, Clarity=${cfg.analytics.clarityProjectId || "미입력"}, 개별쿠팡링크=${
+      Object.keys(mergedLinks).length
+    }건`,
   };
 }
 
 const server = http.createServer(async (req, res) => {
+  const isPost = req.method === "POST";
+  const sec = validateRequestSecurity(req, isPost);
+  if (!sec.ok) {
+    return sendJson(res, sec.status, { ok: false, error: sec.error });
+  }
+
   const url = new URL(req.url || "/", `http://${HOST}:${PORT}`);
 
   if (req.method === "GET" && url.pathname === "/") {
-    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    res.end(renderHtml());
+    const skuCount = loadAllKoCoupangExportLines().length;
+    res.writeHead(200, {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+    });
+    res.end(renderHtml(skuCount));
     return;
   }
 
@@ -700,7 +656,6 @@ const server = http.createServer(async (req, res) => {
       config: readJson(CONFIG_PATH, {}),
       deeplinks: readJson(DEEPLINKS_PATH, { links: {} }),
       coupangExport: loadAllKoCoupangExportLines(),
-      seedingPosts: SEEDING_POSTS,
     });
   }
 
@@ -710,20 +665,25 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === "GET" && url.pathname === "/api/health-check") {
     const targets = [
-      { label: "SpecMatrix 한국어", url: "https://kbu3986.github.io/specmatrix-global/ko" },
-      { label: "SpecMatrix English", url: "https://kbu3986.github.io/specmatrix-global/en" },
+      { label: "SpecMatrix 한국어", url: "https://kbu3986.github.io/specmatrix-global/ko/" },
+      { label: "SpecMatrix English", url: "https://kbu3986.github.io/specmatrix-global/en/" },
+      { label: "HomeTech TCO 스튜디오", url: "https://kbu3986.github.io/specmatrix-global/ko/tools/hometech-tco-studio/" },
+      { label: "타이어 공기압 가드", url: "https://kbu3986.github.io/specmatrix-global/ko/tools/tire-pressure-guard/" },
       { label: "Pin2Pin Global", url: "https://kbu3986.github.io/pin2pin-global/en/" },
-      { label: "루트 허브 (ads.txt/GSC)", url: "https://kbu3986.github.io/ko/" },
-      { label: "WattCheck (1호기)", url: "https://kbu3986.github.io/wattcheck-global/ko" },
-      { label: "PureGram (3호기)", url: "https://kbu3986.github.io/puregram-global/ko" },
+      { label: "통합 루트 허브", url: "https://kbu3986.github.io/ko/" },
     ];
     const results = await Promise.all(
       targets.map(async (t) => {
         const t0 = Date.now();
         try {
-          const r = await fetch(t.url, { method: "HEAD" });
-          return { ...t, ok: r.status >= 200 && r.status < 400, status: `HTTP ${r.status}`, ms: Date.now() - t0 };
-        } catch (e) {
+          const r = await fetch(t.url, { method: "HEAD", redirect: "manual" });
+          return {
+            ...t,
+            ok: r.status === 200,
+            status: `HTTP ${r.status}`,
+            ms: Date.now() - t0,
+          };
+        } catch {
           return { ...t, ok: false, status: "ERR", ms: Date.now() - t0 };
         }
       })
@@ -731,50 +691,51 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, { results });
   }
 
-  if (req.method === "POST" && url.pathname === "/api/save-config") {
+  if (isPost && url.pathname === "/api/save-config") {
     try {
       const body = await readRequestBody(req);
       const out = applyConfigPayload(body);
       return sendJson(res, 200, { ok: true, ...out });
     } catch (e) {
-      return sendJson(res, 400, { ok: false, error: e.message });
+      return sendJson(res, e.statusCode || 400, { ok: false, error: e.message });
     }
   }
 
-  if (req.method === "POST" && url.pathname === "/api/save-and-deploy") {
+  if (isPost && url.pathname === "/api/save-and-deploy") {
     try {
       const body = await readRequestBody(req);
       applyConfigPayload(body);
-      const started = startBackgroundJob(
-        "SpecMatrix 203p 재배포 + IndexNow 자동 제출",
-        "powershell",
-        [
-          "-ExecutionPolicy",
-          "Bypass",
-          "-Command",
-          "git add config/monetization-config.v2.json config/coupang-deeplinks.json; git diff --cached --quiet; if ($LASTEXITCODE -ne 0) { git commit -m 'chore(config): update monetization and analytics via Launchpad' }; npm run deploy:gh-pages; if ($LASTEXITCODE -eq 0) { npm run indexnow:submit }",
-        ]
+      const started = runPowerShellCommand(
+        "SpecMatrix 258p+ 빌드 · QA · 재배포 · IndexNow",
+        "git add config/monetization-config.v2.json config/coupang-deeplinks.json; git diff --cached --quiet; if ($LASTEXITCODE -ne 0) { git commit -m 'chore(config): update monetization and analytics via Launchpad' }; npm run deploy:gh-pages; if ($LASTEXITCODE -eq 0) { npm run indexnow:submit }"
       );
       return sendJson(res, started.ok ? 200 : 409, started);
     } catch (e) {
-      return sendJson(res, 400, { ok: false, error: e.message });
+      return sendJson(res, e.statusCode || 400, { ok: false, error: e.message });
     }
   }
 
-  if (req.method === "POST" && url.pathname === "/api/action/fx") {
-    const started = startBackgroundJob("실시간 환율 갱신", "npm", ["run", "fx:update"]);
-    return sendJson(res, started.ok ? 200 : 409, started);
+  if (isPost && url.pathname === "/api/action/fx") {
+    try {
+      await readRequestBody(req);
+      const started = runPowerShellCommand("실시간 환율 갱신", "npm run fx:update");
+      return sendJson(res, started.ok ? 200 : 409, started);
+    } catch (e) {
+      return sendJson(res, e.statusCode || 400, { ok: false, error: e.message });
+    }
   }
 
-  if (req.method === "POST" && url.pathname === "/api/action/indexnow") {
-    const started = startBackgroundJob("네이버·Bing IndexNow 407 URL 제출", "npm", [
-      "run",
-      "indexnow:submit",
-    ]);
-    return sendJson(res, started.ok ? 200 : 409, started);
+  if (isPost && url.pathname === "/api/action/indexnow") {
+    try {
+      await readRequestBody(req);
+      const started = runPowerShellCommand("네이버·Bing IndexNow 제출", "npm run indexnow:submit");
+      return sendJson(res, started.ok ? 200 : 409, started);
+    } catch (e) {
+      return sendJson(res, e.statusCode || 400, { ok: false, error: e.message });
+    }
   }
 
-  res.writeHead(404);
+  res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
   res.end("Not Found");
 });
 

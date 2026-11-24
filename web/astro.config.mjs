@@ -16,7 +16,7 @@ export default defineConfig({
   site: siteOrigin,
   base,
   output: "static",
-  trailingSlash: "never",
+  trailingSlash: "always",
   build: {
     format: "directory",
   },

@@ -10,18 +10,45 @@ export const BASE_PATH =
     ? `/${RAW_BASE.replace(/^\/+|\/+$/g, "")}`
     : "";
 
-export const SITE_URL = (
+const RAW_SITE_URL = (
   (typeof process !== "undefined" && process.env?.PUBLIC_SITE_URL) ||
   "https://specmatrix.io"
 )
   .trim()
   .replace(/\/+$/, "");
 
+export const SITE_URL =
+  BASE_PATH && !RAW_SITE_URL.endsWith(BASE_PATH)
+    ? `${RAW_SITE_URL}${BASE_PATH}`
+    : RAW_SITE_URL;
+
+const FILE_EXT_RE =
+  /\.(?:png|jpe?g|gif|svg|webp|avif|ico|xml|json|txt|html?|css|m?js|map|pdf|woff2?|ttf|eot|webmanifest|csv)$/i;
+
+function stripBasePath(pathname: string): string {
+  if (!BASE_PATH) return pathname;
+  if (pathname === BASE_PATH) return "/";
+  if (pathname.startsWith(`${BASE_PATH}/`)) {
+    return pathname.slice(BASE_PATH.length) || "/";
+  }
+  if (pathname.startsWith(`${BASE_PATH}?`) || pathname.startsWith(`${BASE_PATH}#`)) {
+    return `/${pathname.slice(BASE_PATH.length)}`;
+  }
+  return pathname;
+}
+
 export function withBase(pathname: string): string {
   const norm = normalizePath(pathname);
   if (!BASE_PATH) return norm;
-  if (norm === BASE_PATH || norm.startsWith(`${BASE_PATH}/`)) return norm;
-  return norm === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${norm}`;
+  if (
+    norm === BASE_PATH ||
+    norm.startsWith(`${BASE_PATH}/`) ||
+    norm.startsWith(`${BASE_PATH}?`) ||
+    norm.startsWith(`${BASE_PATH}#`)
+  ) {
+    return norm;
+  }
+  return `${BASE_PATH}${norm}`;
 }
 export const ACTIVE_LOCALES: ActiveLocale[] = ["en", "ko"];
 export const PILOT_VERTICALS: PilotVertical[] = [
@@ -209,33 +236,63 @@ export function formatCurrency(
 }
 
 export function normalizePath(p: string): string {
-  if (!p || p === "/") return "/";
-  const withSlash = p.startsWith("/") ? p : `/${p}`;
-  return withSlash.length > 1 && withSlash.endsWith("/")
-    ? withSlash.slice(0, -1)
-    : withSlash;
+  if (!p) return "/";
+  const trimmed = p.trim();
+  if (!trimmed || trimmed === "/") return "/";
+
+  const hashIdx = trimmed.indexOf("#");
+  const hash = hashIdx >= 0 ? trimmed.slice(hashIdx) : "";
+  const beforeHash = hashIdx >= 0 ? trimmed.slice(0, hashIdx) : trimmed;
+
+  const qIdx = beforeHash.indexOf("?");
+  const query = qIdx >= 0 ? beforeHash.slice(qIdx) : "";
+  const rawPath = qIdx >= 0 ? beforeHash.slice(0, qIdx) : beforeHash;
+
+  let pathPart = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
+  pathPart = pathPart.replace(/\/{2,}/g, "/");
+
+  if (pathPart === "/") {
+    return `/${query}${hash}`;
+  }
+
+  const withoutTrailing = pathPart.replace(/\/+$/, "");
+  const lastSeg = withoutTrailing.slice(withoutTrailing.lastIndexOf("/") + 1);
+  if (FILE_EXT_RE.test(lastSeg)) {
+    return `${withoutTrailing}${query}${hash}`;
+  }
+
+  return `${withoutTrailing}/${query}${hash}`;
 }
 
 export function toAbsoluteUrl(pathname: string): string {
-  const norm = normalizePath(pathname);
-  return norm === "/" ? `${SITE_URL}/` : `${SITE_URL}${norm}`;
+  const norm = normalizePath(stripBasePath(pathname));
+  return `${SITE_URL}${norm}`;
 }
 
 export function switchLocalePath(pathname: string, targetLocale: ActiveLocale): string {
-  const norm = normalizePath(pathname);
-  if (norm === "/") {
-    return `/${targetLocale}`;
+  const stripped = stripBasePath((pathname || "/").trim());
+  const norm = normalizePath(stripped);
+
+  const hashIdx = norm.indexOf("#");
+  const hash = hashIdx >= 0 ? norm.slice(hashIdx) : "";
+  const beforeHash = hashIdx >= 0 ? norm.slice(0, hashIdx) : norm;
+
+  const qIdx = beforeHash.indexOf("?");
+  const query = qIdx >= 0 ? beforeHash.slice(qIdx) : "";
+  const pathOnly = qIdx >= 0 ? beforeHash.slice(0, qIdx) : beforeHash;
+
+  let swapped: string;
+  if (pathOnly === "/" || pathOnly === "/en/" || pathOnly === "/ko/") {
+    swapped = `/${targetLocale}/`;
+  } else if (pathOnly.startsWith("/en/")) {
+    swapped = `/${targetLocale}/${pathOnly.slice(4)}`;
+  } else if (pathOnly.startsWith("/ko/")) {
+    swapped = `/${targetLocale}/${pathOnly.slice(4)}`;
+  } else {
+    swapped = `/${targetLocale}${pathOnly}`;
   }
-  if (norm === "/en" || norm === "/ko") {
-    return `/${targetLocale}`;
-  }
-  if (norm.startsWith("/en/")) {
-    return `/${targetLocale}${norm.slice(3)}`;
-  }
-  if (norm.startsWith("/ko/")) {
-    return `/${targetLocale}${norm.slice(3)}`;
-  }
-  return `/${targetLocale}${norm}`;
+
+  return normalizePath(`${swapped}${query}${hash}`);
 }
 
 export function safeJsonLd(payload: unknown): string {

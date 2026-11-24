@@ -16,12 +16,11 @@ const copy = item.i18n[locale] ?? item.i18n.en;
 
 {primaryBtn && (
   <>
-    <!-- Mobile safe spacing so fixed bar never overlaps footer controls -->
-    <div class="h-16 lg:hidden" aria-hidden="true"></div>
-
     <aside
       id="mobile-sticky-cta"
       data-sku={item.slug}
+      aria-hidden="true"
+      inert
       class="fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-slate-200 bg-white/95 px-4 py-2.5 shadow-lg backdrop-blur transition-transform duration-200 will-change-transform lg:hidden"
       aria-label={isKo ? "빠른 실시간 가격 확인" : "Quick live price check"}
     >
@@ -30,10 +29,10 @@ const copy = item.i18n[locale] ?? item.i18n.en;
           <div class="truncate text-xs font-bold text-slate-900">
             {copy.name}
           </div>
-          <div class="flex items-center gap-1.5 font-mono text-xs">
+          <div class="flex flex-wrap items-center gap-1.5 font-mono text-xs">
             <span class="kpi-value font-bold text-slate-900">{m.benchmarkPriceFormatted}</span>
-            <span class="text-[10px] text-slate-500">
-              {isKo ? "MSRP 참고가" : "MSRP ref."}
+            <span class="text-[10px] text-slate-600">
+              {isKo ? "MSRP 참고가 · 제휴 링크" : "MSRP ref. · Affiliate"}
             </span>
           </div>
         </div>
@@ -52,8 +51,8 @@ const copy = item.i18n[locale] ?? item.i18n.en;
             <span>
               {isKo
                 ? primaryBtn.storeName.includes("Coupang")
-                  ? "쿠팡 최저가"
-                  : "최저가 확인"
+                  ? "쿠팡 실시간가 확인"
+                  : "실시간가 확인"
                 : "Check Price"}
             </span>
             <span class="font-mono text-[11px]" aria-hidden="true">↗</span>
@@ -63,7 +62,7 @@ const copy = item.i18n[locale] ?? item.i18n.en;
             type="button"
             id="mobile-sticky-cta-dismiss"
             aria-label={isKo ? "하단 가격 바 닫기" : "Dismiss sticky price bar"}
-            class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 font-mono text-base leading-none text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+            class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 font-mono text-base leading-none text-slate-600 hover:bg-slate-100 hover:text-slate-900"
           >
             ×
           </button>
@@ -73,9 +72,26 @@ const copy = item.i18n[locale] ?? item.i18n.en;
 
     <script>
       (() => {
-        const bar = document.getElementById("mobile-sticky-cta");
+        const bar = document.getElementById("mobile-sticky-cta") as (HTMLElement & { inert?: boolean }) | null;
         const closeBtn = document.getElementById("mobile-sticky-cta-dismiss");
         if (!bar) return;
+
+        function setHiddenState(hidden: boolean) {
+          if (!bar) return;
+          if (hidden) {
+            bar.classList.add("translate-y-full");
+            bar.classList.remove("translate-y-0");
+            bar.inert = true;
+            bar.setAttribute("inert", "");
+            bar.setAttribute("aria-hidden", "true");
+          } else {
+            bar.classList.remove("translate-y-full");
+            bar.classList.add("translate-y-0");
+            bar.inert = false;
+            bar.removeAttribute("inert");
+            bar.removeAttribute("aria-hidden");
+          }
+        }
 
         const storageKey = `sm_sticky_dismissed_${bar.getAttribute("data-sku") || "page"}`;
         let dismissed = false;
@@ -85,23 +101,20 @@ const copy = item.i18n[locale] ?? item.i18n.en;
           dismissed = false;
         }
         if (dismissed) {
+          setHiddenState(true);
           bar.classList.add("hidden");
           return;
         }
 
         let visible = false;
+        setHiddenState(true);
+
         function onScroll() {
           if (dismissed || !bar) return;
           const shouldShow = window.scrollY > 280;
           if (shouldShow === visible) return;
           visible = shouldShow;
-          if (visible) {
-            bar.classList.remove("translate-y-full");
-            bar.classList.add("translate-y-0");
-          } else {
-            bar.classList.add("translate-y-full");
-            bar.classList.remove("translate-y-0");
-          }
+          setHiddenState(!visible);
         }
 
         window.addEventListener("scroll", onScroll, { passive: true });
@@ -110,8 +123,8 @@ const copy = item.i18n[locale] ?? item.i18n.en;
         if (closeBtn) {
           closeBtn.addEventListener("click", () => {
             dismissed = true;
-            bar.classList.add("translate-y-full");
-            bar.classList.remove("translate-y-0");
+            visible = false;
+            setHiddenState(true);
             try {
               window.sessionStorage.setItem(storageKey, "1");
             } catch {

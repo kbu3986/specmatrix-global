@@ -281,6 +281,7 @@ export interface VsInsight {
   release_wave: number;
   info_gain_score: number;
   serp_gaps_captured: string[];
+  serp_gaps_captured_ko?: string[];
   verdict: {
     en: {
       headline: string;

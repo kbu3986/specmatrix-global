@@ -8,7 +8,82 @@ import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = path.resolve(__dirname, "..", "public", "og");
+const WEB_DIR = path.resolve(__dirname, "..");
+const REPO_ROOT = path.resolve(WEB_DIR, "..");
+const OUT_DIR = path.join(WEB_DIR, "public", "og");
+
+const VERTICALS = ["wattcheck", "puregram", "cyclegear", "hometech"];
+
+function readJsonSafe(fullPath, fallback) {
+  if (!fs.existsSync(fullPath)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(fullPath, "utf8"));
+  } catch {
+    return fallback;
+  }
+}
+
+function computeDynamicCounts() {
+  const cfg = readJsonSafe(path.join(REPO_ROOT, "config", "monetization-config.v2.json"), {});
+  const gate = {
+    releaseWaveMax: cfg?.releaseGate?.releaseWaveMax ?? 1,
+    minTrustScore: cfg?.releaseGate?.minTrustScore ?? 95,
+    minInfoGainScore: cfg?.releaseGate?.minInfoGainScore ?? 75,
+    minCitations: cfg?.releaseGate?.minCitations ?? 2,
+  };
+
+  let skus = 0;
+  let vs = 0;
+
+  for (const v of VERTICALS) {
+    const itemsDir = path.join(REPO_ROOT, "data", v, "items");
+    const validSlugs = new Set();
+
+    if (fs.existsSync(itemsDir)) {
+      const files = fs.readdirSync(itemsDir).filter((f) => f.endsWith(".json")).sort();
+      for (const f of files) {
+        const item = readJsonSafe(path.join(itemsDir, f), null);
+        if (!item || item.vertical !== v) continue;
+        if (item.release_wave > gate.releaseWaveMax) continue;
+        if (!item.audit?.adversarial_pass) continue;
+        if (item.audit.trust_score < gate.minTrustScore) continue;
+        if (item.audit.info_gain_score < gate.minInfoGainScore) continue;
+        if (!Array.isArray(item.citations) || item.citations.length < gate.minCitations) continue;
+        validSlugs.add(item.slug);
+        skus += 1;
+      }
+    }
+
+    const rawVs = readJsonSafe(path.join(REPO_ROOT, "data", v, "vs-insights.json"), []);
+    const vsArr = Array.isArray(rawVs)
+      ? rawVs
+      : rawVs?.pairs || rawVs?.vs || rawVs?.insights || rawVs?.vs_insights || [];
+    for (const pair of vsArr) {
+      if (!pair || pair.vertical !== v) continue;
+      if (pair.release_wave > gate.releaseWaveMax) continue;
+      if (pair.info_gain_score < gate.minInfoGainScore) continue;
+      if (!validSlugs.has(pair.slug_a) || !validSlugs.has(pair.slug_b)) continue;
+      vs += 1;
+    }
+  }
+
+  const rawAirlines = readJsonSafe(path.join(REPO_ROOT, "data", "wattcheck", "airlines.json"), []);
+  const airlinesArr = Array.isArray(rawAirlines) ? rawAirlines : rawAirlines?.airlines || [];
+  const airlines = airlinesArr.filter((a) => a && a.iata_code).length;
+
+  let studios = 0;
+  const toolsDir = path.join(WEB_DIR, "src", "pages", "[locale]", "tools");
+  if (fs.existsSync(toolsDir)) {
+    studios += fs
+      .readdirSync(toolsDir)
+      .filter((f) => f.endsWith(".astro") && f !== "index.astro").length;
+  }
+  if (fs.existsSync(path.join(WEB_DIR, "src", "pages", "[locale]", "compare.astro"))) {
+    studios += 1;
+  }
+
+  return { skus, vs, airlines, studios };
+}
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -194,6 +269,8 @@ function createCanvas(w, h) {
   return { rgb, setPixel, fillRect, fillRoundedRect, strokeRect, drawText };
 }
 
+const COUNTS = computeDynamicCounts();
+
 const CARDS = [
   {
     file: "og-default.png",
@@ -202,7 +279,7 @@ const CARDS = [
     badge: "EVIDENCE-ANCHORED SPEC LAB",
     title1: "SPECMATRIX",
     title2: "GLOBAL",
-    subtitle: "72 SKUS | 30 AIRLINES | 31 VS | LIVE TOOLS",
+    subtitle: `${COUNTS.skus} SKUS | ${COUNTS.airlines} AIRLINES | ${COUNTS.vs} VS | ${COUNTS.studios} STUDIOS`,
     pills: ["WATTCHECK", "PUREGRAM", "CYCLEGEAR", "HOMETECH"],
   },
   {
@@ -212,7 +289,7 @@ const CARDS = [
     badge: "WATTCHECK POWER MATRIX",
     title1: "POWER BANKS",
     title2: "& GAN CHARGERS",
-    subtitle: "USB-PD PORT SPLIT | REAL USABLE WH | 30 AIRLINES",
+    subtitle: `USB-PD PORT SPLIT | REAL USABLE WH | ${COUNTS.airlines} AIRLINES`,
     pills: ["IATA 100WH", "MOLIT 2026", "PD 3.1 EPR", "KC / PSE"],
   },
   {

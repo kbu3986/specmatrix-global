@@ -13,9 +13,11 @@ import {
 } from "../../../lib/data";
 import {
   ACTIVE_LOCALES,
+  BASE_PATH,
   PILOT_VERTICALS,
-  SITE_URL,
   formatInt,
+  safeJsonLd,
+  toAbsoluteUrl,
   withBase,
 } from "../../../lib/i18n";
 
@@ -49,6 +51,7 @@ interface ToolCard {
   description: string;
   dbMetric: string;
   highlights: string[];
+  rawPath: string;
   href: string;
   ctaLabel: string;
 }
@@ -69,15 +72,16 @@ const tools: ToolCard[] = [
       : `${allItems.length} verified SKUs · ${formatInt(totalPairwise)}+ matchups`,
     highlights: isKo
       ? [
-          "URL 해시(#)로 비교 조합 무제한 공유 (크롤링 오염 0)",
+          "URL 해시(#)로 비교 조합 및 가중치 무제한 공유",
           "에디토리얼 VS 페이지 자동 연동 및 마크다운 요약 복사",
           "공식 MSRP 참고가 및 검증된 쿠팡·아마존 제휴 링크 탑재",
         ]
       : [
-          "Shareable URL hash state (#vertical:slugA:slugB) with zero crawl bloat",
+          "Shareable URL hash state (#vertical:slugA:slugB:w=...) with zero crawl bloat",
           "Auto-detects curated editorial VS guides & exports Markdown tables",
           "Live 4-dimension weighting simulator + verified store links",
         ],
+    rawPath: `/${locale}/compare`,
     href: withBase(`/${locale}/compare`),
     ctaLabel: isKo ? "1:1 비교 워크벤치 열기 →" : "Launch Live Compare →",
   },
@@ -105,6 +109,7 @@ const tools: ToolCard[] = [
           "Simulates true multi-port simultaneous output from official matrices",
           "Rank by lightest weight, lowest MSRP, headroom, or W/100g density",
         ],
+    rawPath: `/${locale}/tools/travel-power-kit`,
     href: withBase(`/${locale}/tools/travel-power-kit`),
     ctaLabel: isKo ? "여행 전력 키트 구성하기 →" : "Build Travel Power Kit →",
   },
@@ -132,8 +137,65 @@ const tools: ToolCard[] = [
           "Dual-source 1:0.8 gut tolerance check & >300/>400 mg caffeine alerts",
           "Pocket carry weight, KRW/USD cost calculator & copyable race plan",
         ],
+    rawPath: `/${locale}/tools/fueling-planner`,
     href: withBase(`/${locale}/tools/fueling-planner`),
     ctaLabel: isKo ? "레이스 보급 믹스 설계 →" : "Plan Race Fueling Mix →",
+  },
+  {
+    id: "hometech-tco-studio",
+    tag: "HOMETECH TCO & UPS STUDIO",
+    toneClass: "bg-violet-50 text-violet-800 border-violet-200",
+    title: isKo
+      ? "HomeTech 3년 TCO 손익분기 & UPS 런타임 스튜디오"
+      : "HomeTech 3-Year TCO & UPS Runtime Studio",
+    description: isKo
+      ? "미니PC·NAS·로봇청소기·UPS 두 모델의 한전 누진제·미국·독일·일본 전기요금 기준 3년 TCO 손익분기 개월 수를 비교하고, 멀티기기 UPS 정전 유지시간과 120V/220V 전압 잠금을 검증합니다."
+      : "Compare side-by-side 3-year hardware, electricity & consumables TCO payback months across US/KR/DE/JP tariffs, and size multi-device NAS/MiniPC UPS runtime with 120V/220V & Active-PFC guards.",
+    dbMetric: isKo
+      ? `${homeItems.length}종 홈테크 SKU · TCO + UPS`
+      : `${homeItems.length} HomeTech SKUs · TCO + UPS`,
+    highlights: isKo
+      ? [
+          "한전 1–3구간·미국 $0.17·독일 €0.38·일본 ¥31/kWh & 커스텀 단가 슬라이더",
+          "저전력 모델 초기 차액 회수 기간(Break-Even Payback 개월 수) 자동 산출",
+          "멀티 MiniPC+NAS 합산 부하·120V/220V 직결 경고·정현파 UPS 런타임 추정",
+        ]
+      : [
+          "US $0.17, KEPCO T1–T3, DE €0.38, JP ¥31/kWh presets + custom kWh slider",
+          "Automatic break-even payback months when lower-idle gear costs more upfront",
+          "Multi-device UPS Safe Mode runtime + 120V/220V grid-lock & Active-PFC checks",
+        ],
+    rawPath: `/${locale}/tools/hometech-tco-studio`,
+    href: withBase(`/${locale}/tools/hometech-tco-studio`),
+    ctaLabel: isKo ? "TCO & UPS 스튜디오 열기 →" : "Launch TCO & UPS Studio →",
+  },
+  {
+    id: "tire-pressure-guard",
+    tag: "CYCLEGEAR HOOKLESS GUARD",
+    toneClass: "bg-rose-50 text-rose-800 border-rose-200",
+    title: isKo
+      ? "로드 타이어 공기압 & 후크리스 5.0 bar 안전 가드"
+      : "Road Tire Pressure & Hookless 5.0 Bar Safety Guard",
+    description: isKo
+      ? "시스템 총중량(50–125kg), 타이어 폭(25–32mm), 내부 림폭(19–25mm), 노면 조건으로 앞/뒤 권장 공기압(bar·psi)을 산출하고 ISO/ETRTO 후크리스 5.0 bar(72.5 psi) 상한을 강제 검증합니다."
+      : "Calculate front/rear road tire pressure (bar & psi) from system weight, tire width, internal rim width, and road surface with a mandatory ISO/ETRTO 5.0 bar (72.5 psi) hookless safety ceiling.",
+    dbMetric: isKo
+      ? `${cycleItems.length}종 로드사이클 검증 DB`
+      : `${cycleItems.length} verified CycleGear SKUs`,
+    highlights: isKo
+      ? [
+          "42/58% 전후 하중 배분 & 내부 림폭 팽창 반영 결정론적 bar/psi 계산",
+          "후크리스 5.0 bar(72.5 psi) 초과 및 28mm 미만 타이어 즉시 적색 경보",
+          "GP5000 S TR · Corsa PRO · P Zero Race RS 공식 TPI·무게·비교 연동",
+        ]
+      : [
+          "42/58% weight distribution & internal rim-width expansion physics (bar/psi)",
+          "Instant red DANGER guard on >5.0 bar (72.5 psi) or <28 mm hookless pairings",
+          "Verified GP5000 S TR, Corsa PRO & P Zero Race RS specs + Compare links",
+        ],
+    rawPath: `/${locale}/tools/tire-pressure-guard`,
+    href: withBase(`/${locale}/tools/tire-pressure-guard`),
+    ctaLabel: isKo ? "타이어 공기압 가드 열기 →" : "Launch Tire Pressure Guard →",
   },
   {
     id: "airlines-30",
@@ -159,62 +221,9 @@ const tools: ToolCard[] = [
           "Region filter (KR/NA/EU/APAC/ME) + instant carrier/IATA search",
           "Direct official airline policy source URLs with verification dates",
         ],
+    rawPath: `/${locale}/wattcheck/matrix/airlines-30`,
     href: withBase(`/${locale}/wattcheck/matrix/airlines-30`),
     ctaLabel: isKo ? "30개 항공사 규정 확인 →" : "Open 30-Airline Checker →",
-  },
-  {
-    id: "hometech-tco",
-    tag: "HOMETECH TCO LAB",
-    toneClass: "bg-violet-50 text-violet-800 border-violet-200",
-    title: isKo
-      ? "HomeTech 3년 전기요금 & 총소유비용(TCO) 매트릭스"
-      : "HomeTech 3-Year Electricity & TCO Matrix",
-    description: isKo
-      ? "24/7 상시 구동하는 미니PC·NAS·UPS·로봇청소기의 대기/부하 소비전력(W), 연간 kWh, 한전 누진구간·미국·독일 전기요금 및 소모품을 합산한 3년 실질 총소유비용을 비교합니다."
-      : "Compare 24/7 MiniPCs, NAS enclosures, UPS backups, and robot vacuums by weighted idle/load wattage, annual kWh, KEPCO/US/EU electricity cost, noise dBA, and 3-year TCO.",
-    dbMetric: isKo
-      ? `${homeItems.length}종 홈테크 SKU · 3년 TCO 산출`
-      : `${homeItems.length} HomeTech SKUs · 3-Yr TCO`,
-    highlights: isKo
-      ? [
-          "대기전력·평균 소비전력(W)·연간 kWh 기반 3년 총소유비용(TCO) 정렬",
-          "24/7 저전력(<12W), 100–240V 프리볼트, 정현파 UPS·2.5GbE+ 필터",
-          "각 모델 상세 페이지에서 전기요금 단가별 실시간 TCO 시뮬레이션",
-        ]
-      : [
-          "Sort by 3-year TCO, weighted average watts, annual kWh & noise dBA",
-          "Filter by 24/7 low-idle (<12W), 100–240V dual voltage & pure sine UPS",
-          "Interactive per-kWh tariff TCO calculator on every product profile",
-        ],
-    href: withBase(`/${locale}/hometech/matrix/minipc-nas-tco`),
-    ctaLabel: isKo ? "HomeTech TCO 매트릭스 →" : "Open HomeTech TCO Matrix →",
-  },
-  {
-    id: "cyclegear-hookless",
-    tag: "CYCLEGEAR SAFETY GUARD",
-    toneClass: "bg-rose-50 text-rose-800 border-rose-200",
-    title: isKo
-      ? "CycleGear 후크리스 5.0 bar 안전 가드 & 호환 매트릭스"
-      : "CycleGear Hookless 5.0 bar & Tire Pressure Guard",
-    description: isKo
-      ? "로드 튜블리스 타이어, GPS 컴퓨터, 스마트 트레이너의 무게·정확도·구동계 호환 지수를 비교하고, 후크리스(TSS) 림 5.0 bar / 72.5 psi 안전 상한과 적정 공기압을 검증합니다."
-      : "Compare road tubeless tires, GPS computers, and smart trainers with compatibility scoring, ETRTO 5.0 bar (72.5 psi) hookless rim safety guardrails, and interactive tire pressure math.",
-    dbMetric: isKo
-      ? `${cycleItems.length}종 로드사이클 검증 SKU`
-      : `${cycleItems.length} verified CycleGear SKUs`,
-    highlights: isKo
-      ? [
-          "ISO/ETRTO 후크리스 5.0 bar(72.5 psi) 강제 클램프 안전 가드",
-          "Shimano 12단·ANT+·좌우 밸런스·후크리스 호환 원클릭 다중 필터",
-          "URL 해시 필터 공유 및 임의 2종 1:1 비교 워크벤치 즉시 연동",
-        ]
-      : [
-          "Mandatory ISO/ETRTO 5.0 bar / 72.5 psi hookless safety ceiling guard",
-          "Multi-facet filtering for Shimano 12s, ANT+, L/R balance & hookless fit",
-          "Shareable hash filters + instant jump into Live 1:1 Compare Workbench",
-        ],
-    href: withBase(`/${locale}/cyclegear/matrix/gps-tires-trainers`),
-    ctaLabel: isKo ? "CycleGear 매트릭스 열기 →" : "Open CycleGear Guard →",
   },
 ];
 
@@ -223,8 +232,8 @@ const pageTitle = isKo
   ? "SpecMatrix 인터랙티브 랩 도구 허브 — 계산기 & 실시간 비교 스튜디오 | SpecMatrix Global"
   : "SpecMatrix Interactive Lab Tools Hub — Calculators & Live Comparison Studios";
 const pageDesc = isKo
-  ? `검증된 ${allItems.length}종 공식 스펙 DB와 ${airlines.length}개 항공사 규정으로 구동되는 6종 무지연 인터랙티브 비교·보급·전력·TCO·안전 검증 도구 허브.`
-  : `Launch 6 deterministic, zero-latency interactive engineering tools powered by ${allItems.length} verified SKUs and ${airlines.length} airline policies across 4 verticals.`;
+  ? `검증된 ${allItems.length}종 공식 스펙 DB와 ${airlines.length}개 항공사 규정으로 구동되는 6종 무지연 인터랙티브 비교·보급·전력·TCO·타이어 공기압 도구 허브.`
+  : `Launch 6 deterministic, zero-latency interactive engineering tools powered by ${allItems.length} verified SKUs and ${airlines.length} airline policies across all 4 verticals.`;
 
 const jsonLd = [
   {
@@ -232,12 +241,13 @@ const jsonLd = [
     "@type": "CollectionPage",
     name: pageTitle,
     description: pageDesc,
-    url: `${SITE_URL}${currentPath}`,
+    url: toAbsoluteUrl(currentPath),
     inLanguage: locale,
     hasPart: tools.map((t) => ({
       "@type": "WebApplication",
       name: t.title,
       description: t.description,
+      url: toAbsoluteUrl(t.rawPath),
       applicationCategory: "UtilitiesApplication",
       operatingSystem: "Any",
     })),
@@ -250,17 +260,23 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: isKo ? "홈" : "Home",
-        item: `${SITE_URL}/${locale}`,
+        item: toAbsoluteUrl(`/${locale}`),
       },
       {
         "@type": "ListItem",
         position: 2,
         name: isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools",
-        item: `${SITE_URL}${currentPath}`,
+        item: toAbsoluteUrl(currentPath),
       },
     ],
   },
 ];
+
+const searchCfg = {
+  locale,
+  basePath: BASE_PATH,
+  indexUrl: `${BASE_PATH}/search-index.json`,
+};
 ---
 
 <BaseLayout
@@ -271,12 +287,12 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-600">
     <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-800">
+    <span class="font-medium text-slate-900">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </span>
   </nav>
@@ -297,53 +313,107 @@ const jsonLd = [
     </h1>
     <p class="mt-2.5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
       {isKo
-        ? "단순 스펙 나열을 넘어 내 실제 사용 환경(탑승 항공사·기기 조합·대회 시간·전기요금·림 규격)을 입력해 즉시 공학적 의사결정을 내릴 수 있는 6종 전용 워크벤치입니다."
-        : "Six purpose-built interactive studios powered by verified manufacturer specs, nutrition panels, electricity tariff models, and 30-airline safety rules — running entirely in your browser."}
+        ? "단순 스펙 나열을 넘어 내 실제 사용 환경(탑승 항공사·기기 조합·대회 시간·전기요금·림 규격)을 입력해 즉시 공학적 의사결정을 내릴 수 있는 4대 버티컬 전용 워크벤치입니다."
+        : "Purpose-built interactive studios across all 4 verticals — powered by verified manufacturer datasheets, nutrition labels, electricity tariffs, and 30-airline safety rules."}
     </p>
+
+    <!-- Inline Quick Search Bar (?q= SearchAction Endpoint) -->
+    <form
+      id="tools-search-form"
+      role="search"
+      method="get"
+      action={withBase(`/${locale}/tools`)}
+      class="mt-5 flex flex-wrap items-center gap-2"
+    >
+      <label for="tools-q-input" class="sr-only">
+        {isKo ? "검증된 SKU, 1:1 VS, 항공사, 스튜디오 통합 검색" : "Search verified SKUs, VS matchups, airlines, or tools"}
+      </label>
+      <input
+        id="tools-q-input"
+        name="q"
+        type="search"
+        placeholder={isKo
+          ? "전체 DB 즉시 검색 (예: Anker, Mac mini, GP5000, Maurten, KE)..."
+          : "Instant database search (e.g. Anker, Mac mini, GP5000, Maurten, DL)..."}
+        class="min-w-[220px] flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-500 focus:border-blue-600 focus:bg-white focus:outline-none"
+      />
+      <button
+        type="submit"
+        class="rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-blue-700"
+      >
+        {isKo ? "검색" : "Search"}
+      </button>
+      <button
+        type="button"
+        id="tools-open-modal-btn"
+        class="rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 font-mono text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500 hover:text-blue-700"
+      >
+        {isKo ? "전체 팔레트 ⌘K" : "Palette ⌘K"}
+      </button>
+    </form>
+
+    <!-- Live Inline Search Results Panel (shown when ?q= or input active) -->
+    <div
+      id="tools-search-panel"
+      class="mt-4 hidden rounded-xl border border-blue-200 bg-blue-50/40 p-4"
+      aria-live="polite"
+    >
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <span id="tools-search-heading" class="font-mono text-xs font-bold text-blue-900"></span>
+        <button
+          type="button"
+          id="tools-search-clear"
+          class="font-mono text-[11px] font-semibold text-slate-600 hover:text-rose-700 hover:underline"
+        >
+          {isKo ? "검색 초기화 ✕" : "Clear Search ✕"}
+        </button>
+      </div>
+      <div id="tools-search-results" class="mt-3 grid gap-2 sm:grid-cols-2"></div>
+    </div>
 
     <!-- Live DB Telemetry Strip -->
     <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
       <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="font-mono text-[11px] uppercase text-slate-600">
           {isKo ? "검증 완료 DB" : "Verified SKUs"}
         </div>
         <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
           {allItems.length}
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
           {PILOT_VERTICALS.length} {isKo ? "개 버티컬" : "Verticals"}
         </div>
       </div>
       <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="font-mono text-[11px] uppercase text-slate-600">
           {isKo ? "자유 1:1 조합" : "Live 1:1 Combos"}
         </div>
         <div class="kpi-value mt-1 font-mono text-2xl font-bold text-blue-700">
           {formatInt(totalPairwise)}+
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
           {allVs.length} {isKo ? "에디토리얼 VS 포함" : "Editorial VS"}
         </div>
       </div>
       <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="font-mono text-[11px] uppercase text-slate-600">
           {isKo ? "글로벌 항공사" : "Airlines Indexed"}
         </div>
         <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
           {airlines.length}
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
           MOLIT · IATA · CCC
         </div>
       </div>
       <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="font-mono text-[11px] uppercase text-slate-600">
           {isKo ? "독립 인터랙티브 도구" : "Interactive Studios"}
         </div>
         <div class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-700">
           {tools.length}
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
           {isKo ? "무료 · 로그인 불필요" : "Free · No Login"}
         </div>
       </div>
@@ -361,7 +431,7 @@ const jsonLd = [
             <span class={`inline-flex rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${tool.toneClass}`}>
               0{index + 1} · {tool.tag}
             </span>
-            <span class="font-mono text-[11px] font-semibold text-slate-500">
+            <span class="font-mono text-[11px] font-semibold text-slate-600">
               {tool.dbMetric}
             </span>
           </div>
@@ -429,4 +499,190 @@ const jsonLd = [
       </div>
     </div>
   </section>
+
+  <script type="application/json" id="tools-search-cfg" set:html={safeJsonLd(searchCfg)} />
 </BaseLayout>
+
+<script>
+  (() => {
+    const cfgEl = document.getElementById("tools-search-cfg");
+    if (!cfgEl) return;
+
+    interface SearchEntry {
+      t: string;
+      v?: string;
+      p: string;
+      en?: string;
+      ko?: string;
+      sub_en?: string;
+      sub_ko?: string;
+      k?: string;
+    }
+
+    let cfg: { locale: string; basePath: string; indexUrl: string };
+    try {
+      cfg = JSON.parse(cfgEl.textContent || "{}");
+    } catch {
+      return;
+    }
+
+    const isKo = cfg.locale === "ko";
+    const form = document.getElementById("tools-search-form") as HTMLFormElement | null;
+    const input = document.getElementById("tools-q-input") as HTMLInputElement | null;
+    const panel = document.getElementById("tools-search-panel");
+    const heading = document.getElementById("tools-search-heading");
+    const resultsWrap = document.getElementById("tools-search-results");
+    const clearBtn = document.getElementById("tools-search-clear");
+    const modalBtn = document.getElementById("tools-open-modal-btn");
+
+    let cachedIndex: SearchEntry[] | null = null;
+
+    const esc = (s: unknown): string =>
+      String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    function buildHref(entry: SearchEntry): string {
+      const base = cfg.basePath || "";
+      const p = entry.p || "/";
+      const withLoc =
+        p.startsWith("/en/") || p.startsWith("/ko/")
+          ? p
+          : `/${cfg.locale}${p.startsWith("/") ? p : `/${p}`}`;
+      const norm = withLoc.endsWith("/") || withLoc.includes(".") || withLoc.includes("#")
+        ? withLoc
+        : `${withLoc}/`;
+      return `${base}${norm}`;
+    }
+
+    async function loadIndex(): Promise<SearchEntry[]> {
+      if (cachedIndex) return cachedIndex;
+      try {
+        const res = await fetch(cfg.indexUrl, { credentials: "same-origin" });
+        if (!res.ok) return [];
+        const data = await res.json();
+        const combined: SearchEntry[] = [];
+        for (const key of ["tools", "items", "vs", "matrices", "airlines"]) {
+          if (Array.isArray(data?.[key])) combined.push(...data[key]);
+        }
+        cachedIndex = combined;
+        return combined;
+      } catch {
+        return [];
+      }
+    }
+
+    async function runQuery(rawQ: string, updateUrl = false) {
+      const q = rawQ.trim();
+      if (updateUrl) {
+        try {
+          const url = new URL(window.location.href);
+          if (q) url.searchParams.set("q", q);
+          else url.searchParams.delete("q");
+          window.history.replaceState(null, "", url.toString());
+        } catch {
+          // ignore
+        }
+      }
+
+      if (!q) {
+        if (panel) panel.classList.add("hidden");
+        return;
+      }
+
+      if (panel) panel.classList.remove("hidden");
+      if (heading) {
+        heading.textContent = isKo ? `"${q}" 검색 중...` : `Searching for "${q}"...`;
+      }
+
+      const entries = await loadIndex();
+      const tokens = q.toLowerCase().split(/\s+/).filter(Boolean);
+      const matches = entries
+        .filter((e) => {
+          const hay = `${e.en || ""} ${e.ko || ""} ${e.sub_en || ""} ${e.sub_ko || ""} ${e.k || ""}`.toLowerCase();
+          return tokens.every((tok) => hay.includes(tok));
+        })
+        .slice(0, 12);
+
+      if (heading) {
+        heading.textContent = isKo
+          ? `"${q}" 통합 검색 결과 (${matches.length}건)`
+          : `Verified Matches for "${q}" (${matches.length})`;
+      }
+
+      if (!resultsWrap) return;
+      if (matches.length === 0) {
+        resultsWrap.innerHTML = `<div class="col-span-full rounded-lg border border-slate-200 bg-white p-4 text-xs text-slate-600">${
+          isKo
+            ? "일치하는 항목이 없습니다. 브랜드명, 모델명, IATA 코드(KE/DL) 또는 카테고리로 검색해 보세요."
+            : "No matches found. Try a brand, model name, IATA code (DL/KE), or category."
+        }</div>`;
+        return;
+      }
+
+      resultsWrap.innerHTML = matches
+        .map((item) => {
+          const title = isKo ? item.ko || item.en || "" : item.en || item.ko || "";
+          const sub = isKo ? item.sub_ko || item.sub_en || "" : item.sub_en || item.sub_ko || "";
+          const badge = (item.t || "item").toUpperCase();
+          return `
+            <a href="${esc(buildHref(item))}" class="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-slate-900 transition-colors hover:border-blue-500 hover:bg-blue-50/40">
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-slate-700">${esc(badge)}</span>
+                  <span class="truncate text-xs font-bold">${esc(title)}</span>
+                </div>
+                ${sub ? `<div class="mt-0.5 truncate font-mono text-[11px] text-slate-600">${esc(sub)}</div>` : ""}
+              </div>
+              <span class="shrink-0 font-mono text-xs font-bold text-blue-700">→</span>
+            </a>
+          `;
+        })
+        .join("");
+    }
+
+    if (form && input) {
+      form.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        runQuery(input.value, true);
+      });
+      input.addEventListener("input", () => {
+        if (!input.value.trim()) runQuery("", true);
+        else runQuery(input.value, false);
+      });
+    }
+
+    if (clearBtn && input) {
+      clearBtn.addEventListener("click", () => {
+        input.value = "";
+        runQuery("", true);
+        input.focus();
+      });
+    }
+
+    if (modalBtn) {
+      modalBtn.addEventListener("click", () => {
+        window.dispatchEvent(new CustomEvent("specmatrix:open-search"));
+        const q = input?.value.trim();
+        if (q) {
+          window.setTimeout(() => {
+            const modalInput = document.getElementById("sm-search-input") as HTMLInputElement | null;
+            if (modalInput) {
+              modalInput.value = q;
+              modalInput.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+          }, 50);
+        }
+      });
+    }
+
+    const initialQ = new URLSearchParams(window.location.search).get("q");
+    if (initialQ && initialQ.trim()) {
+      if (input) input.value = initialQ.trim();
+      runQuery(initialQ.trim(), false);
+    }
+  })();
+</script>

@@ -38,10 +38,13 @@ import {
 import { runValidation } from "../validate-all.mjs";
 import {
   classifyHttpStatus,
+  detectSoftErrorRedirect,
   checkSingleUrl,
   mapWithConcurrency,
   summarizeHealthResults,
   runLinkHealthCheck,
+  DEFAULT_TIMEOUT_MS,
+  BROWSER_FALLBACK_USER_AGENT,
 } from "../check-links-health.mjs";
 import {
   scanVisibleLeakTokens,
@@ -49,6 +52,7 @@ import {
   resolveInternalHref,
   extractLinkTags,
   extractAffiliateLinks,
+  extractForbiddenOutboundLinks,
   extractJsonLdBlocks,
   validateSitemapXml,
   isErrorFallbackPage,
@@ -541,12 +545,12 @@ function makeCycleTrainerItem(overrides = {}) {
   return Object.assign(base, overrides);
 }
 
-function makeAuditLog(slug, vertical) {
+function makeAuditLog(slug, vertical, trustScore = 98) {
   return {
     sku_slug: slug,
     vertical,
     audited_at: "2026-11-22",
-    trust_score: 98,
+    trust_score: trustScore,
     evidence_quotes: [
       {
         field: "primary_spec",
@@ -1401,34 +1405,40 @@ describe("serp-ig-audit & validate-all: IG compliance and 15% circuit breaker", 
         JSON.stringify(miniManifest, null, 2)
       );
 
-      for (const s of wattSlugs) {
+      for (let idx = 0; idx < wattSlugs.length; idx += 1) {
+        const s = wattSlugs[idx];
+        const wItem = makeWattBatteryItem({ slug: s });
+        // Keep real ASINs unique across distinct SKUs (SM-02)
+        wItem.regional_offers.us.asin = idx === 0 ? "B0BYP2F3SG" : null;
         fs.writeFileSync(
           path.join(tmpRoot, "data", "wattcheck", "items", `${s}.json`),
-          JSON.stringify(makeWattBatteryItem({ slug: s }), null, 2)
+          JSON.stringify(wItem, null, 2)
         );
         fs.writeFileSync(
           path.join(tmpRoot, "data", "audit", "wattcheck", `${s}.audit.json`),
-          JSON.stringify(makeAuditLog(s, "wattcheck"), null, 2)
+          JSON.stringify(makeAuditLog(s, "wattcheck", wItem.audit.trust_score), null, 2)
         );
       }
       for (const s of pureSlugs) {
+        const pItem = makePureGramGelItem({ slug: s });
         fs.writeFileSync(
           path.join(tmpRoot, "data", "puregram", "items", `${s}.json`),
-          JSON.stringify(makePureGramGelItem({ slug: s }), null, 2)
+          JSON.stringify(pItem, null, 2)
         );
         fs.writeFileSync(
           path.join(tmpRoot, "data", "audit", "puregram", `${s}.audit.json`),
-          JSON.stringify(makeAuditLog(s, "puregram"), null, 2)
+          JSON.stringify(makeAuditLog(s, "puregram", pItem.audit.trust_score), null, 2)
         );
       }
       for (const s of cycleSlugs) {
+        const cItem = makeCyclePowerMeterItem({ slug: s });
         fs.writeFileSync(
           path.join(tmpRoot, "data", "cyclegear", "items", `${s}.json`),
-          JSON.stringify(makeCyclePowerMeterItem({ slug: s }), null, 2)
+          JSON.stringify(cItem, null, 2)
         );
         fs.writeFileSync(
           path.join(tmpRoot, "data", "audit", "cyclegear", `${s}.audit.json`),
-          JSON.stringify(makeAuditLog(s, "cyclegear"), null, 2)
+          JSON.stringify(makeAuditLog(s, "cyclegear", cItem.audit.trust_score), null, 2)
         );
       }
 
@@ -1483,6 +1493,7 @@ describe("serp-ig-audit & validate-all: IG compliance and 15% circuit breaker", 
 
       // Break 2 out of 10 items (20% > 15%) -> circuit breaker triggers!
       const badWatt = makeWattBatteryItem({ slug: "w-item-3" });
+      badWatt.regional_offers.us.asin = null;
       badWatt.specs.nominal_capacity_mah = 10000; // Wh mismatch
       fs.writeFileSync(
         path.join(tmpRoot, "data", "wattcheck", "items", "w-item-3.json"),
@@ -1564,7 +1575,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
 
     const goodXml = `<?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <url><loc>https://specmatrix.io/en/wattcheck/item/anker-prime-27650mah-250w</loc></url>
+        <url><loc>https://specmatrix.io/en/wattcheck/item/anker-prime-27650mah-250w/</loc></url>
       </urlset>`;
     assert.equal(
       validateSitemapXml(goodXml, {
@@ -1575,7 +1586,20 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
       true
     );
 
-    const badXml = `<urlset><url><loc>http://specmatrix.io/ko/wattcheck/item/foo</loc></url></urlset>`;
+    const noTrailingSlashXml = `<?xml version="1.0" encoding="UTF-8"?>
+      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url><loc>https://specmatrix.io/en/wattcheck/item/anker-prime-27650mah-250w</loc></url>
+      </urlset>`;
+    assert.equal(
+      validateSitemapXml(noTrailingSlashXml, {
+        kind: "urlset",
+        siteUrl: "https://specmatrix.io",
+        requiredPrefix: "https://specmatrix.io/en/wattcheck/",
+      }).valid,
+      false
+    );
+
+    const badXml = `<urlset><url><loc>http://specmatrix.io/ko/wattcheck/item/foo/</loc></url></urlset>`;
     assert.equal(
       validateSitemapXml(badXml, {
         kind: "urlset",
@@ -1598,11 +1622,13 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         includeJsonLd = true,
         omitKoHreflang = false,
         omitSocialMeta = false,
+        omitCanonicalTrailingSlash = false,
         ogImageFile = "og-default.png",
       } = {}
     ) {
-      const rest = locale ? routePath.replace(new RegExp(`^/${locale}`), "") : "";
-      const dir = routePath === "/" ? tmpDist : path.join(tmpDist, routePath.replace(/^\//, ""));
+      const restRaw = locale ? routePath.replace(new RegExp(`^/${locale}`), "") : "";
+      const rest = restRaw ? (restRaw.endsWith("/") ? restRaw : `${restRaw}/`) : "/";
+      const dir = routePath === "/" ? tmpDist : path.join(tmpDist, routePath.replace(/^\/+|\/+$/g, ""));
       fs.mkdirSync(dir, { recursive: true });
 
       const disclosure =
@@ -1610,9 +1636,13 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
           ? "고지: 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다."
           : "Disclosure: As an Amazon Associate and affiliate partner, SpecMatrix earns from qualifying purchases.";
 
+      const canonicalHref = omitCanonicalTrailingSlash
+        ? `${siteUrl}/${locale}${rest}`.replace(/\/+$/, "")
+        : `${siteUrl}/${locale}${rest}`;
+
       const headLinks = locale
         ? `
-          <link rel="canonical" href="${siteUrl}/${locale}${rest}" />
+          <link rel="canonical" href="${canonicalHref}" />
           <link rel="alternate" hreflang="en" href="${siteUrl}/en${rest}" />
           ${omitKoHreflang ? "" : `<link rel="alternate" hreflang="ko" href="${siteUrl}/ko${rest}" />`}
           <link rel="alternate" hreflang="x-default" href="${siteUrl}/en${rest}" />
@@ -1638,7 +1668,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         ${headLinks}
         ${jsonLd}
       </head><body>
-        <nav><a href="/">Home</a><a href="/en">EN</a><a href="/ko">KO</a></nav>
+        <nav><a href="/">Home</a><a href="/en/">EN</a><a href="/ko/">KO</a></nav>
         <main>
           <h1>${routePath}</h1>
           ${extraBody}
@@ -1650,19 +1680,20 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
     }
 
     try {
-      // Build a complete small dist covering root, en/ko portals, 404.html, and all 8 vertical-locale pairs
+      // Build a complete small dist covering root, en/ko portals, 404.html, tools, and all 8 vertical-locale pairs
       writePage("/");
       writePage("/en", { locale: "en" });
       writePage("/ko", { locale: "ko" });
 
-      // Non-localized 404.html fallback (no canonical/hreflang/og:image — must be excluded cleanly)
+      // Non-localized 404.html fallback (no AdSense, no canonical/hreflang/og:image — must pass cleanly)
       fs.writeFileSync(
         path.join(tmpDist, "404.html"),
-        `<!doctype html><html lang="en"><head><meta charset="utf-8" /><title>404 Not Found</title></head><body><main><h1>Page Not Found</h1><a href="/en">EN Hub</a><a href="/ko">KO Hub</a></main></body></html>`,
+        `<!doctype html><html lang="en"><head><meta charset="utf-8" /><title>404 Not Found</title></head><body><main><h1>Page Not Found</h1><a href="/en/">EN Hub</a><a href="/ko/">KO Hub</a></main></body></html>`,
         "utf8"
       );
 
       const sampleRoutes = [
+        { route: "/tools", og: "og-default.png" },
         { route: "/wattcheck/item/anker-prime-27650mah-250w", og: "og-wattcheck.png" },
         { route: "/wattcheck/matrix/airlines-30", og: "og-wattcheck.png" },
         { route: "/puregram/item/maurten-gel-100", og: "og-puregram.png" },
@@ -1703,19 +1734,20 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         fs.writeFileSync(path.join(tmpDist, "og", ogFile), minimalPng);
       }
 
-      // Client-side search-index.json with non-empty SKU items, airlines, VS, and matrices
+      // Client-side search-index.json with non-empty SKU items, airlines, VS, matrices, and tools
       fs.writeFileSync(
         path.join(tmpDist, "search-index.json"),
         JSON.stringify(
           {
-            generated_at: "2026-11-23",
-            counts: { sku: 2, airline: 1, vs: 1, matrix: 1 },
+            generated_at: "2026-11-24",
+            counts: { sku: 2, airline: 1, vs: 1, matrix: 1, tool: 1 },
             items: [
-              { t: "sku", v: "wattcheck", en: "Anker Prime 27650", p: "/wattcheck/item/anker-prime-27650mah-250w" },
-              { t: "sku", v: "hometech", en: "Apple Mac mini M4", p: "/hometech/item/apple-mac-mini-m4" },
-              { t: "airline", v: "wattcheck", en: "Korean Air (KE)", p: "/wattcheck/matrix/airlines-30#KE" },
-              { t: "vs", v: "hometech", en: "Mac mini M4 vs SER8", p: "/hometech/vs/apple-mac-mini-m4-vs-beelink-ser8-8745hs" },
-              { t: "matrix", v: "wattcheck", en: "30 Global Airlines Matrix", p: "/wattcheck/matrix/airlines-30" },
+              { t: "sku", v: "wattcheck", en: "Anker Prime 27650", p: "/wattcheck/item/anker-prime-27650mah-250w/" },
+              { t: "sku", v: "hometech", en: "Apple Mac mini M4", p: "/hometech/item/apple-mac-mini-m4/" },
+              { t: "airline", v: "wattcheck", en: "Korean Air (KE)", p: "/wattcheck/matrix/airlines-30/#KE" },
+              { t: "vs", v: "hometech", en: "Mac mini M4 vs SER8", p: "/hometech/vs/apple-mac-mini-m4-vs-beelink-ser8-8745hs/" },
+              { t: "matrix", v: "wattcheck", en: "30 Global Airlines Matrix", p: "/wattcheck/matrix/airlines-30/" },
+              { t: "tool", v: "tools", en: "Interactive Tools Hub", p: "/tools/" },
             ],
           },
           null,
@@ -1724,7 +1756,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         "utf8"
       );
 
-      // 8 split sitemaps + sitemap-index.xml
+      // 8 split sitemaps + sitemap-index.xml (trailingSlash: "always")
       assert.equal(REQUIRED_SPLIT_SITEMAPS.length, 8);
       const indexEntries = REQUIRED_SPLIT_SITEMAPS.map(
         (s) => `<sitemap><loc>${siteUrl}/${s.file}</loc></sitemap>`
@@ -1742,7 +1774,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         hometech: "apple-mac-mini-m4",
       };
       for (const s of REQUIRED_SPLIT_SITEMAPS) {
-        const pageUrl = `${siteUrl}/${s.locale}/${s.vertical}/item/${itemSlugByVertical[s.vertical]}`;
+        const pageUrl = `${siteUrl}/${s.locale}/${s.vertical}/item/${itemSlugByVertical[s.vertical]}/`;
         fs.writeFileSync(
           path.join(tmpDist, s.file),
           `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${pageUrl}</loc></url></urlset>`,
@@ -1750,31 +1782,31 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
         );
       }
 
-      // 1. Passing run (3 portals + 1 404.html + 6*2 routes = 16 HTML files)
-      const passQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 16 });
+      // 1. Passing run (3 portals + 1 404.html + 7*2 routes = 18 HTML files)
+      const passQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 18 });
       assert.equal(passQa.overall_passed, true, JSON.stringify(passQa.failures, null, 2));
-      assert.equal(passQa.stats.html_files, 16);
-      assert.equal(passQa.stats.affiliate_links_checked, 12);
+      assert.equal(passQa.stats.html_files, 18);
+      assert.equal(passQa.stats.affiliate_links_checked, 14);
       assert.equal(passQa.stats.error_fallback_pages, 1);
       assert.equal(passQa.stats.og_images_validated, REQUIRED_OG_IMAGES.length);
-      assert.equal(passQa.stats.search_index_entries, 5);
+      assert.equal(passQa.stats.search_index_entries, 6);
 
       // 2. Verify resolveInternalHref helper
-      assert.equal(resolveInternalHref(tmpDist, "/en/wattcheck/item/anker-prime-27650mah-250w"), true);
-      assert.equal(resolveInternalHref(tmpDist, "/en/hometech/item/apple-mac-mini-m4"), true);
-      assert.equal(resolveInternalHref(tmpDist, "/en/does-not-exist"), false);
+      assert.equal(resolveInternalHref(tmpDist, "/en/wattcheck/item/anker-prime-27650mah-250w/"), true);
+      assert.equal(resolveInternalHref(tmpDist, "/en/hometech/item/apple-mac-mini-m4/"), true);
+      assert.equal(resolveInternalHref(tmpDist, "/en/does-not-exist/"), false);
       assert.equal(resolveInternalHref(tmpDist, "/../../etc/passwd"), false);
 
       // 3. Inject defects: broken internal link, visible NaN, missing JSON-LD, asymmetric hreflang, missing social meta
       writePage("/en/wattcheck/item/anker-prime-27650mah-250w", {
         locale: "en",
-        extraBody: `<a href="/en/broken-page">Broken</a><p>Weight: NaN g</p>`,
+        extraBody: `<a href="/en/broken-page/">Broken</a><p>Weight: NaN g</p>`,
         includeJsonLd: false,
         omitKoHreflang: true,
         omitSocialMeta: true,
       });
 
-      const failQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 16 });
+      const failQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 18 });
       assert.equal(failQa.overall_passed, false);
       const checks = new Set(failQa.failures.map((f) => f.check));
       assert.ok(checks.has("broken_internal_link"));
@@ -1785,7 +1817,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
       assert.ok(checks.has("og_image_meta_missing"));
       assert.ok(checks.has("twitter_card_meta_missing"));
 
-      // 4. Verify minCorePages enforcement (default 200 fails when only 16 pages built) & maxTotalFiles cap
+      // 4. Verify minCorePages enforcement (default 200 fails when only 18 pages built) & maxTotalFiles cap
       const underCapQa = runStage6HtmlQa({ distDir: tmpDist });
       assert.ok(underCapQa.failures.some((f) => f.check === "min_core_pages"));
 
@@ -1796,9 +1828,9 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
       const scriptHtml = `<html><body>
         <script>const html = '<a href="/should-not-be-checked">x</a>';</script>
         <a href="//cdn.example.com/lib.js">CDN</a>
-        <a href="/en/about#faq">About</a>
+        <a href="/en/about/#faq">About</a>
       </body></html>`;
-      assert.deepEqual(extractInternalHrefs(scriptHtml), ["/en/about#faq"]);
+      assert.deepEqual(extractInternalHrefs(scriptHtml), ["/en/about/#faq"]);
 
       // 6. Verify missing ads.txt, robots.txt, hometech split sitemap, corrupt OG PNG, and missing search-index.json are caught
       fs.unlinkSync(path.join(tmpDist, "ads.txt"));
@@ -1806,7 +1838,7 @@ describe("stage6-html-qa: helpers & end-to-end static dist verification", () => 
       fs.unlinkSync(path.join(tmpDist, "sitemap-hometech-ko.xml"));
       fs.writeFileSync(path.join(tmpDist, "og", "og-hometech.png"), "not-a-png-file", "utf8");
       fs.unlinkSync(path.join(tmpDist, "search-index.json"));
-      const missingMetaQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 16 });
+      const missingMetaQa = runStage6HtmlQa({ distDir: tmpDist, minCorePages: 18 });
       const missingChecks = new Set(missingMetaQa.failures.map((f) => f.check));
       assert.ok(missingChecks.has("ads_txt_missing"));
       assert.ok(missingChecks.has("robots_txt_missing"));
@@ -2357,24 +2389,289 @@ describe("stage6-html-qa: v2 helpers (404 exclusion, PNG signature, social meta,
 
     const flatValid = validateSearchIndexPayload({
       items: [
-        { t: "sku", p: "/hometech/item/apple-mac-mini-m4" },
-        { t: "airline", p: "/wattcheck/matrix/airlines-30#KE" },
-        { t: "vs", p: "/hometech/vs/a-vs-b" },
-        { t: "matrix", p: "/hometech/matrix/minipc-nas-tco" },
+        { t: "sku", p: "/hometech/item/apple-mac-mini-m4/" },
+        { t: "airline", p: "/wattcheck/matrix/airlines-30/#KE" },
+        { t: "vs", p: "/hometech/vs/a-vs-b/" },
+        { t: "matrix", p: "/hometech/matrix/minipc-nas-tco/" },
+        { t: "tool", p: "/tools/" },
       ],
     });
     assert.equal(flatValid.valid, true);
 
     const splitValid = validateSearchIndexPayload({
-      items: [{ p: "/hometech/item/apple-mac-mini-m4" }],
-      airlines: [{ p: "/wattcheck/matrix/airlines-30#KE" }],
-      vs: [{ p: "/hometech/vs/a-vs-b" }],
-      matrices: [{ p: "/hometech/matrix/minipc-nas-tco" }],
+      items: [{ p: "/hometech/item/apple-mac-mini-m4/" }],
+      airlines: [{ p: "/wattcheck/matrix/airlines-30/#KE" }],
+      vs: [{ p: "/hometech/vs/a-vs-b/" }],
+      matrices: [{ p: "/hometech/matrix/minipc-nas-tco/" }],
+      tools: [{ p: "/tools/" }],
     });
     assert.equal(splitValid.valid, true);
 
     const missingGroups = validateSearchIndexPayload({ items: [{ t: "sku", p: "/a" }] });
     assert.equal(missingGroups.valid, false);
-    assert.equal(missingGroups.errors.length, 3);
+    assert.equal(missingGroups.errors.length, 4);
+  });
+});
+
+// =============================================================================
+// 8. Hardened Compliance, Link Health Soft-404/WAF, Physics & Stage 6 Guards
+// =============================================================================
+
+describe("hardened guards: link health soft-404/WAF, cross-SKU ASIN, PureGram non-carb & Stage 6 safety", () => {
+  it("classifies soft-404 error redirects as DEAD, accessrestricted as BOT_CHALLENGE, and retries Akamai WAF tarpits with browser headers", async () => {
+    assert.equal(DEFAULT_TIMEOUT_MS, 10000);
+    assert.equal(detectSoftErrorRedirect("https://example.com/error/error.html"), "DEAD");
+    assert.equal(detectSoftErrorRedirect("https://example.com/en/error/"), "DEAD");
+    assert.equal(detectSoftErrorRedirect("https://example.com/accessrestricted?ref=bot"), "BOT_CHALLENGE");
+    assert.equal(detectSoftErrorRedirect("https://example.com/products/corsa-pro-tubeless-ready"), null);
+
+    assert.equal(
+      classifyHttpStatus(200, { redirected: true, finalUrl: "https://example.com/error/error.html" }),
+      "DEAD"
+    );
+    assert.equal(
+      classifyHttpStatus(200, { redirected: true, finalUrl: "https://example.com/accessrestricted" }),
+      "BOT_CHALLENGE"
+    );
+
+    // Simulate Akamai WAF tarpit: bot UA receives 403/timeout, browser UA retry resolves cleanly to 200 OK
+    const seenRequests = [];
+    const wafRes = await checkSingleUrl("https://www.koreanair.com/legal/restricted-items", {
+      fetchImpl: async (url, opts) => {
+        seenRequests.push({
+          method: opts.method,
+          ua: opts.headers["User-Agent"],
+          lang: opts.headers["Accept-Language"],
+        });
+        if (opts.headers["User-Agent"] === BROWSER_FALLBACK_USER_AGENT) {
+          return { status: 200, redirected: false, url };
+        }
+        return { status: 403, redirected: false, url };
+      },
+    });
+    assert.equal(wafRes.classification, "OK");
+    assert.equal(wafRes.browser_retry_used, true);
+    assert.equal(seenRequests.length, 2);
+    assert.equal(seenRequests[1].method, "GET");
+    assert.equal(seenRequests[1].lang, "en-US,en;q=0.9");
+
+    // Simulate soft-404 redirect on 200 OK -> DEAD
+    const soft404Res = await checkSingleUrl("https://example.com/old-page", {
+      fetchImpl: async () => ({
+        status: 200,
+        redirected: true,
+        url: "https://example.com/error/error.html",
+      }),
+    });
+    assert.equal(soft404Res.classification, "DEAD");
+  });
+
+  it("enforces PureGram non-carb 90g/hr null guard, sugar/fiber <= carbs, and WattCheck <=100Wh/100-160Wh carry-on flags", () => {
+    const creatine = makePureGramGelItem({ category: "creatine", slug: "test-creatine-noncarb" });
+    creatine.package_spec = {
+      net_weight_g: 300,
+      total_servings: 60,
+      serving_weight_g: 5,
+      unit_type: "scoop",
+      flavors_tracked: ["Unflavored"],
+    };
+    creatine.nutrition_label = {
+      ...creatine.nutrition_label,
+      calories_kcal: 0,
+      active_ingredient_type: "creatine_monohydrate",
+      active_per_serving_g: 5,
+      protein_g: 0,
+      carbs_g: 0,
+      fat_g: 0,
+      sugar_g: 0,
+      fiber_g: 0,
+      carb_ratio_glucose_to_fructose: null,
+      hydrogel_or_isotonic: "none",
+    };
+    creatine.derived_math = {
+      purity_pct: 100,
+      total_pure_active_g: 300,
+      benchmark_unit_g: 5,
+      benchmark_label_en: "Per 5 g Creatine",
+      benchmark_label_ko: "크레아틴 5g당",
+      servings_for_90g_per_hour: 18, // forbidden on non-carb product!
+      purity_grade: "A+",
+    };
+    const nonCarbRes = verifyPureGramPhysics(creatine);
+    assert.equal(nonCarbRes.passed, false);
+    assert.ok(nonCarbRes.errors.some((e) => e.code === "PURE_NON_CARB_90G_SERVINGS"));
+
+    const badCarbSub = makePureGramGelItem();
+    badCarbSub.nutrition_label.sugar_g = 30; // > 25g carbs
+    badCarbSub.nutrition_label.fiber_g = 26; // > 25g carbs
+    const subRes = verifyPureGramPhysics(badCarbSub);
+    assert.equal(subRes.passed, false);
+    assert.ok(subRes.errors.some((e) => e.code === "PURE_SUGAR_EXCEEDS_CARBS"));
+    assert.ok(subRes.errors.some((e) => e.code === "PURE_FIBER_EXCEEDS_CARBS"));
+
+    // WattCheck <=100Wh must have carryon_allowed === true && carryon_no_approval === true
+    const badUnder100 = makeWattBatteryItem();
+    badUnder100.airline_compliance_profile.carryon_no_approval = false;
+    assert.ok(
+      verifyWattCheckPhysics(badUnder100).errors.some((e) => e.code === "WATT_IATA_UNDER_100WH_NO_APPROVAL")
+    );
+
+    // WattCheck 100 < wh <= 160 must have carryon_allowed === true
+    const badMid = makeWattBatteryItem();
+    badMid.specs.nominal_capacity_mah = 35000;
+    badMid.specs.nominal_voltage_v = 3.7;
+    badMid.specs.battery_energy_wh = 129.5;
+    badMid.airline_compliance_profile.iata_tier = "100_to_160wh_approval_required";
+    badMid.airline_compliance_profile.carryon_no_approval = false;
+    badMid.airline_compliance_profile.carryon_allowed = false;
+    assert.ok(
+      verifyWattCheckPhysics(badMid).errors.some((e) => e.code === "WATT_IATA_100_TO_160WH_CARRYON")
+    );
+  });
+
+  it("rejects cross-SKU duplicate ASINs and EU locale launch without euCmpReady in runValidation", () => {
+    const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sm-dupasin-test-"));
+    try {
+      fs.mkdirSync(path.join(tmpRoot, "config"), { recursive: true });
+      fs.mkdirSync(path.join(tmpRoot, "schemas"), { recursive: true });
+      fs.mkdirSync(path.join(tmpRoot, "data", "wattcheck", "items"), { recursive: true });
+      fs.mkdirSync(path.join(tmpRoot, "data", "audit", "wattcheck"), { recursive: true });
+
+      const cfg = JSON.parse(
+        fs.readFileSync(path.join(REPO_ROOT, "config", "monetization-config.v2.json"), "utf8")
+      );
+      // Enable EU locale while euCmpReady=false -> must fail hard EU gate
+      cfg.releaseGate.activeLocales = ["en", "ko", "de"];
+      cfg.compliance.euCmpReady = false;
+      fs.writeFileSync(
+        path.join(tmpRoot, "config", "monetization-config.v2.json"),
+        JSON.stringify(cfg, null, 2)
+      );
+      fs.copyFileSync(
+        path.join(REPO_ROOT, "schemas", "legacy-blocklist.json"),
+        path.join(tmpRoot, "schemas", "legacy-blocklist.json")
+      );
+
+      const miniManifest = {
+        pilot_version: "test-dupasin",
+        active_locales: ["en", "ko"],
+        items: { wattcheck: ["sku-alpha", "sku-beta"], puregram: [], cyclegear: [], hometech: [] },
+        vs_pairs: { wattcheck: [], puregram: [], cyclegear: [], hometech: [] },
+        matrix_compat: { wattcheck: [], puregram: [], cyclegear: [], hometech: [] },
+      };
+      fs.writeFileSync(
+        path.join(tmpRoot, "data", "pilot-manifest.json"),
+        JSON.stringify(miniManifest, null, 2)
+      );
+
+      for (const slug of ["sku-alpha", "sku-beta"]) {
+        const item = makeWattBatteryItem({ slug });
+        item.regional_offers.us.asin = "B0BYP2F3SG"; // identical real ASIN across two distinct SKUs!
+        fs.writeFileSync(
+          path.join(tmpRoot, "data", "wattcheck", "items", `${slug}.json`),
+          JSON.stringify(item, null, 2)
+        );
+        fs.writeFileSync(
+          path.join(tmpRoot, "data", "audit", "wattcheck", `${slug}.audit.json`),
+          JSON.stringify(makeAuditLog(slug, "wattcheck", item.audit.trust_score), null, 2)
+        );
+      }
+
+      const regions = ["KR", "NA", "EU", "APAC", "ME"];
+      fs.writeFileSync(
+        path.join(tmpRoot, "data", "wattcheck", "airlines.json"),
+        JSON.stringify(
+          Array.from({ length: 30 }, (_, idx) => makeAirline(idx + 1, regions[idx % regions.length])),
+          null,
+          2
+        )
+      );
+
+      const report = runValidation({ rootDir: tmpRoot, writeReport: false });
+      assert.equal(report.overall_passed, false);
+      const errorCodes = new Set(
+        report.failures.flatMap((f) => f.errors.map((e) => e.code))
+      );
+      assert.ok(errorCodes.has("SM02_CROSS_SKU_DUPLICATE_ASIN"));
+      assert.ok(errorCodes.has("EU_CMP_GATE_NOT_READY"));
+    } finally {
+      fs.rmSync(tmpRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("hard-fails Stage 6 QA on iherb.com links, adsbygoogle.js/canonical inside 404.html, and missing trailing-slash canonicals", () => {
+    assert.deepEqual(
+      extractForbiddenOutboundLinks('<a href="https://kr.iherb.com/pr/test/123">Buy</a>'),
+      ["https://kr.iherb.com/pr/test/123"]
+    );
+
+    const tmpDist = fs.mkdtempSync(path.join(os.tmpdir(), "sm-stage6-guards-"));
+    const siteUrl = "https://specmatrix.io";
+    const reportOut = path.join(tmpDist, "stage6-qa-report.json");
+
+    try {
+      // Minimal pages with intentional violations
+      fs.mkdirSync(path.join(tmpDist, "en"), { recursive: true });
+      fs.mkdirSync(path.join(tmpDist, "ko"), { recursive: true });
+      fs.writeFileSync(path.join(tmpDist, "index.html"), `<!doctype html><html><body><a href="/en/">EN</a></body></html>`);
+
+      // EN hub: missing trailing slash on canonical + forbidden iherb.com link + internal link missing trailing slash
+      fs.writeFileSync(
+        path.join(tmpDist, "en", "index.html"),
+        `<!doctype html><html lang="en"><head>
+          <link rel="canonical" href="${siteUrl}/en" />
+          <link rel="alternate" hreflang="en" href="${siteUrl}/en/" />
+          <link rel="alternate" hreflang="ko" href="${siteUrl}/ko/" />
+          <link rel="alternate" hreflang="x-default" href="${siteUrl}/en/" />
+        </head><body>
+          <a href="/ko">KO no slash</a>
+          <a href="https://www.iherb.com/pr/sample/1" rel="sponsored nofollow noopener">iHerb</a>
+          <p>Disclosure: As an Amazon Associate, SpecMatrix earns from qualifying purchases.</p>
+        </body></html>`
+      );
+      fs.writeFileSync(
+        path.join(tmpDist, "ko", "index.html"),
+        `<!doctype html><html lang="ko"><head>
+          <link rel="canonical" href="${siteUrl}/ko/" />
+          <link rel="alternate" hreflang="en" href="${siteUrl}/en/" />
+          <link rel="alternate" hreflang="ko" href="${siteUrl}/ko/" />
+          <link rel="alternate" hreflang="x-default" href="${siteUrl}/en/" />
+        </head><body>
+          <p>고지: 쿠팡 파트너스 활동의 일환으로 일정액의 수수료를 제공받습니다.</p>
+        </body></html>`
+      );
+
+      // 404.html illegally containing adsbygoogle.js, canonical, and hreflang
+      fs.writeFileSync(
+        path.join(tmpDist, "404.html"),
+        `<!doctype html><html lang="en"><head>
+          <link rel="canonical" href="${siteUrl}/404/" />
+          <link rel="alternate" hreflang="en" href="${siteUrl}/en/" />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        </head><body><h1>404</h1></body></html>`
+      );
+
+      const qa = runStage6HtmlQa({
+        distDir: tmpDist,
+        minCorePages: 4,
+        requireSocialMeta: false,
+        requireOgImages: false,
+        requireSearchIndex: false,
+        writeReport: true,
+        reportPath: reportOut,
+      });
+
+      assert.equal(qa.overall_passed, false);
+      const checks = new Set(qa.failures.map((f) => f.check));
+      assert.ok(checks.has("forbidden_host_link"));
+      assert.ok(checks.has("error_page_has_adsense"));
+      assert.ok(checks.has("error_page_has_canonical"));
+      assert.ok(checks.has("error_page_has_hreflang"));
+      assert.ok(checks.has("canonical_not_self_referencing"));
+      assert.ok(checks.has("internal_link_missing_trailing_slash"));
+      assert.ok(fs.existsSync(reportOut));
+    } finally {
+      fs.rmSync(tmpDist, { recursive: true, force: true });
+    }
   });
 });

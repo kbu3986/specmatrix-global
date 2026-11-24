@@ -23,6 +23,7 @@ interface Props {
   activeVertical?: PilotVertical | null;
   isRootPortal?: boolean;
   noindex?: boolean;
+  hasStickyCta?: boolean;
   availableLocales?: ActiveLocale[];
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
@@ -35,6 +36,7 @@ const {
   activeVertical = null,
   isRootPortal = false,
   noindex = false,
+  hasStickyCta = false,
   availableLocales = ["en", "ko"],
   jsonLd = [],
 } = Astro.props;
@@ -44,16 +46,16 @@ const normPath = normalizePath(currentPath);
 const canonical = toAbsoluteUrl(normPath);
 
 const enHref = isRootPortal
-  ? toAbsoluteUrl("/en")
+  ? toAbsoluteUrl("/en/")
   : toAbsoluteUrl(switchLocalePath(normPath, "en"));
 const koHref = isRootPortal
-  ? toAbsoluteUrl("/ko")
+  ? toAbsoluteUrl("/ko/")
   : toAbsoluteUrl(switchLocalePath(normPath, "ko"));
 const xDefaultHref = isRootPortal ? toAbsoluteUrl("/") : enHref;
 
 const otherLocale: ActiveLocale = locale === "en" ? "ko" : "en";
 const toggleHref = withBase(
-  isRootPortal ? `/${otherLocale}` : switchLocalePath(normPath, otherLocale)
+  isRootPortal ? `/${otherLocale}/` : switchLocalePath(normPath, otherLocale)
 );
 const hasOtherLocale = isRootPortal || availableLocales.includes(otherLocale);
 
@@ -64,10 +66,12 @@ const verticalNav = PILOT_VERTICALS.map((v) => ({
   active: activeVertical === v,
 }));
 
-const toolsHref = withBase(`/${locale}/tools`);
-const compareHref = withBase(`/${locale}/compare`);
-const isToolsActive = normPath === `/${locale}/tools` || normPath.startsWith(`/${locale}/tools/`);
-const isCompareActive = normPath === `/${locale}/compare`;
+const toolsHref = withBase(`/${locale}/tools/`);
+const compareHref = withBase(`/${locale}/compare/`);
+const isToolsActive =
+  normPath === `/${locale}/tools/` || normPath.startsWith(`/${locale}/tools/`);
+const isCompareActive =
+  normPath === `/${locale}/compare/` || normPath.startsWith(`/${locale}/compare/`);
 
 const ogImagePath = activeVertical ? `/og/og-${activeVertical}.png` : "/og/og-default.png";
 const ogImageUrl = toAbsoluteUrl(ogImagePath);
@@ -89,16 +93,37 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 
+    <!-- Google Consent Mode v2 (EEA / UK / CH regional default) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        wait_for_update: 500,
+        region: [
+          "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU",
+          "IS", "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO",
+          "SK", "SI", "ES", "SE", "CH", "GB",
+        ],
+      });
+    </script>
+
     <!-- AdSense & Search Console Verification -->
     {cfg.adsenseId && (
-      <>
-        <meta name="google-adsense-account" content={cfg.adsenseId} />
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${cfg.adsenseId}`}
-          crossorigin="anonymous"
-        ></script>
-      </>
+      <meta name="google-adsense-account" content={cfg.adsenseId} />
+    )}
+    {cfg.adsenseId && !noindex && (
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${cfg.adsenseId}`}
+        crossorigin="anonymous"
+      ></script>
     )}
     {cfg.verification.gsc && (
       <meta name="google-site-verification" content={cfg.verification.gsc} />
@@ -113,12 +138,13 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
         <script is:inline define:vars={{ ga4Id }}>
           window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            window.dataLayer.push(arguments);
+          if (typeof window.gtag !== "function") {
+            window.gtag = function () {
+              window.dataLayer.push(arguments);
+            };
           }
-          window.gtag = gtag;
-          gtag("js", new Date());
-          gtag("config", ga4Id, { anonymize_ip: true });
+          window.gtag("js", new Date());
+          window.gtag("config", ga4Id, { anonymize_ip: true });
         </script>
       </>
     )}
@@ -154,14 +180,18 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
     )}
 
     <!-- Canonical & Symmetric Hreflang -->
-    <link rel="canonical" href={canonical} />
-    {(isRootPortal || availableLocales.includes("en")) && (
-      <link rel="alternate" hreflang="en" href={enHref} />
+    {!noindex && (
+      <>
+        <link rel="canonical" href={canonical} />
+        {(isRootPortal || availableLocales.includes("en")) && (
+          <link rel="alternate" hreflang="en" href={enHref} />
+        )}
+        {(isRootPortal || availableLocales.includes("ko")) && (
+          <link rel="alternate" hreflang="ko" href={koHref} />
+        )}
+        <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+      </>
     )}
-    {(isRootPortal || availableLocales.includes("ko")) && (
-      <link rel="alternate" hreflang="ko" href={koHref} />
-    )}
-    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
     <!-- OpenGraph & Twitter Large Image Cards -->
     <meta property="og:type" content="website" />
@@ -195,7 +225,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
       <div class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
         <div class="flex items-center gap-4 lg:gap-5">
           <a
-            href={withBase(isRootPortal ? "/" : `/${locale}`)}
+            href={withBase(isRootPortal ? "/" : `/${locale}/`)}
             class="flex shrink-0 items-center gap-2.5 text-slate-900 no-underline hover:opacity-90"
           >
             <span
@@ -221,6 +251,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             {verticalNav.map((item) => (
               <a
                 href={item.href}
+                aria-current={item.active ? "page" : undefined}
                 class:list={[
                   "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
                   item.active
@@ -234,6 +265,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             <span class="mx-1 h-4 w-px bg-slate-200" aria-hidden="true"></span>
             <a
               href={toolsHref}
+              aria-current={isToolsActive ? "page" : undefined}
               class:list={[
                 "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
                 isToolsActive
@@ -245,6 +277,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             </a>
             <a
               href={compareHref}
+              aria-current={isCompareActive ? "page" : undefined}
               class:list={[
                 "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
                 isCompareActive
@@ -304,6 +337,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
           {verticalNav.map((item) => (
             <a
               href={item.href}
+              aria-current={item.active ? "page" : undefined}
               class:list={[
                 "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
                 item.active
@@ -316,6 +350,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
           ))}
           <a
             href={toolsHref}
+            aria-current={isToolsActive ? "page" : undefined}
             class:list={[
               "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
               isToolsActive
@@ -327,6 +362,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
           </a>
           <a
             href={compareHref}
+            aria-current={isCompareActive ? "page" : undefined}
             class:list={[
               "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
               isCompareActive
@@ -398,7 +434,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
               {LEGAL_SLUGS.map((slug) => (
                 <li>
                   <a
-                    href={withBase(`/${locale}/${slug}`)}
+                    href={withBase(`/${locale}/${slug}/`)}
                     class="text-slate-700 hover:text-blue-700 hover:underline"
                   >
                     {LEGAL_LABELS[slug][locale]}
@@ -421,6 +457,8 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
         </div>
       </div>
     </footer>
+
+    {hasStickyCta && <div class="h-16 lg:hidden" aria-hidden="true"></div>}
 
     <GlobalSearchModal locale={locale} />
 

@@ -60,7 +60,7 @@ const cfg = {
   >
     <div class="flex items-center gap-3 border-b border-slate-200 px-4 py-3.5">
       <svg
-        class="h-5 w-5 shrink-0 text-slate-400"
+        class="h-5 w-5 shrink-0 text-slate-600"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -76,17 +76,19 @@ const cfg = {
       <input
         id="sm-search-input"
         type="search"
+        role="combobox"
+        aria-expanded="false"
         autocomplete="off"
         spellcheck="false"
         placeholder={cfg.labels.placeholder}
-        class="w-full bg-transparent text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none sm:text-base"
+        class="w-full rounded-md bg-transparent px-1.5 py-0.5 text-sm font-medium text-slate-900 placeholder:text-slate-500 outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 sm:text-base"
         aria-controls="sm-search-results"
         aria-autocomplete="list"
       />
       <button
         id="sm-search-close"
         type="button"
-        class="shrink-0 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+        class="shrink-0 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30"
         aria-label={cfg.labels.close}
       >
         ESC
@@ -106,7 +108,7 @@ const cfg = {
           data-search-tab={tabId}
           aria-selected={tabId === "all" ? "true" : "false"}
           class:list={[
-            "shrink-0 rounded-md px-2.5 py-1 font-mono text-[11px] font-semibold transition-colors",
+            "shrink-0 rounded-md px-2.5 py-1 font-mono text-[11px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30",
             tabId === "all"
               ? "bg-slate-900 text-white"
               : "text-slate-600 hover:bg-slate-200/70 hover:text-slate-900",
@@ -117,7 +119,7 @@ const cfg = {
       ))}
       <span
         id="sm-search-count"
-        class="ml-auto shrink-0 font-mono text-[11px] text-slate-500"
+        class="ml-auto shrink-0 font-mono text-[11px] text-slate-600"
       ></span>
     </div>
 
@@ -127,12 +129,12 @@ const cfg = {
       role="listbox"
       class="max-h-[60vh] overflow-y-auto divide-y divide-slate-100 p-2"
     >
-      <div class="p-6 text-center text-xs text-slate-500">{cfg.labels.loading}</div>
+      <div class="p-6 text-center text-xs text-slate-600">{cfg.labels.loading}</div>
     </div>
 
     <!-- Keyboard Shortcut Hints -->
     <div
-      class="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50 px-4 py-2.5 font-mono text-[11px] text-slate-500"
+      class="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50 px-4 py-2.5 font-mono text-[11px] text-slate-600"
     >
       <div class="flex items-center gap-3">
         <span><kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 text-[10px]">↑↓</kbd> {isKo ? "이동" : "Navigate"}</span>
@@ -190,11 +192,21 @@ const cfg = {
     function buildHref(entry) {
       var base = cfg.basePath || "";
       var loc = cfg.locale || "en";
-      var p = entry && entry.p ? String(entry.p) : "/";
-      if (p.indexOf("/en/") === 0 || p.indexOf("/ko/") === 0) {
-        return base + p;
+      var raw = entry && entry.p ? String(entry.p) : "/";
+      var hashIdx = raw.indexOf("#");
+      var hash = hashIdx >= 0 ? raw.slice(hashIdx) : "";
+      var beforeHash = hashIdx >= 0 ? raw.slice(0, hashIdx) : raw;
+      var qIdx = beforeHash.indexOf("?");
+      var query = qIdx >= 0 ? beforeHash.slice(qIdx) : "";
+      var pathPart = qIdx >= 0 ? beforeHash.slice(0, qIdx) : beforeHash;
+      if (pathPart.charAt(0) !== "/") pathPart = "/" + pathPart;
+      if (pathPart !== "/" && pathPart.charAt(pathPart.length - 1) !== "/" && !/\.[a-z0-9]{1,8}$/i.test(pathPart)) {
+        pathPart += "/";
       }
-      return base + "/" + loc + (p.charAt(0) === "/" ? p : "/" + p);
+      if (pathPart.indexOf("/en/") === 0 || pathPart.indexOf("/ko/") === 0 || pathPart === "/en/" || pathPart === "/ko/") {
+        return base + pathPart + query + hash;
+      }
+      return base + "/" + loc + pathPart + query + hash;
     }
 
     function loadIndex() {
@@ -250,7 +262,7 @@ const cfg = {
     }
 
     function filterEntries(query) {
-      if (!indexData) return [];
+      if (!indexData) return { items: [], total: 0 };
       var q = (query || "").trim().toLowerCase();
       var list = activeTab === "all"
         ? indexData
@@ -261,9 +273,9 @@ const cfg = {
           var tools = list.filter(function (e) { return e.t === "tool"; });
           var matrices = list.filter(function (e) { return e.t === "matrix"; }).slice(0, 6);
           var skus = list.filter(function (e) { return e.t === "sku"; }).slice(0, 8);
-          return tools.concat(matrices, skus).slice(0, 18);
+          return { items: tools.concat(matrices, skus).slice(0, 18), total: list.length };
         }
-        return list.slice(0, 20);
+        return { items: list.slice(0, 20), total: list.length };
       }
 
       var tokens = q.split(/\s+/).filter(Boolean);
@@ -273,38 +285,50 @@ const cfg = {
         if (s > 0) scored.push({ item: list[i], score: s });
       }
       scored.sort(function (a, b) { return b.score - a.score; });
-      return scored.slice(0, 24).map(function (x) { return x.item; });
+      return {
+        items: scored.slice(0, 24).map(function (x) { return x.item; }),
+        total: scored.length,
+      };
     }
 
     function renderResults() {
       if (!resultsEl) return;
       if (indexData === null) {
-        resultsEl.innerHTML = '<div class="p-6 text-center text-xs text-slate-500">' + escapeHtml(cfg.labels.loading) + "</div>";
-        return;
-      }
-
-      var q = (input && input.value ? input.value : "").trim();
-      currentResults = filterEntries(q);
-      if (activeIdx >= currentResults.length) activeIdx = 0;
-
-      if (countEl) {
-        countEl.textContent = currentResults.length + " " + (cfg.labels.resultsCount || "matches");
-      }
-
-      if (currentResults.length === 0) {
-        resultsEl.innerHTML =
-          '<div class="p-8 text-center">' +
-          '<div class="text-sm font-bold text-slate-800">' + escapeHtml(cfg.labels.emptyTitle) + "</div>" +
-          '<p class="mt-1 text-xs text-slate-500">' + escapeHtml(cfg.labels.emptyHint) + "</p>" +
-          "</div>";
+        resultsEl.innerHTML = '<div class="p-6 text-center text-xs text-slate-600">' + escapeHtml(cfg.labels.loading) + "</div>";
         return;
       }
 
       var loc = cfg.locale || "en";
+      var q = (input && input.value ? input.value : "").trim();
+      var filtered = filterEntries(q);
+      currentResults = filtered.items;
+      var totalMatches = filtered.total;
+      if (activeIdx >= currentResults.length) activeIdx = 0;
+
+      if (countEl) {
+        if (totalMatches > currentResults.length) {
+          countEl.textContent = loc === "ko"
+            ? "총 " + totalMatches + "건 중 " + currentResults.length + "건 표시"
+            : "Showing " + currentResults.length + " of " + totalMatches + " matches";
+        } else {
+          countEl.textContent = currentResults.length + " " + (cfg.labels.resultsCount || "matches");
+        }
+      }
+
+      if (currentResults.length === 0) {
+        if (input) input.removeAttribute("aria-activedescendant");
+        resultsEl.innerHTML =
+          '<div class="p-8 text-center">' +
+          '<div class="text-sm font-bold text-slate-800">' + escapeHtml(cfg.labels.emptyTitle) + "</div>" +
+          '<p class="mt-1 text-xs text-slate-600">' + escapeHtml(cfg.labels.emptyHint) + "</p>" +
+          "</div>";
+        return;
+      }
+
       var html = "";
       if (!q && activeTab === "all") {
         html +=
-          '<div class="px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">' +
+          '<div class="px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-600">' +
           escapeHtml(cfg.labels.featuredHeader) +
           "</div>";
       }
@@ -321,16 +345,16 @@ const cfg = {
         html +=
           '<a id="sm-sr-' + i + '" role="option" aria-selected="' + (isSel ? "true" : "false") + '" ' +
           'data-result-idx="' + i + '" href="' + escapeHtml(href) + '" ' +
-          'class="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 transition-colors ' +
+          'class="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/30 ' +
           (isSel ? "bg-blue-50 text-blue-950" : "text-slate-800 hover:bg-slate-50") + '">' +
           '<div class="min-w-0 flex-1">' +
           '<div class="flex items-center gap-2">' +
           '<span class="shrink-0 rounded border px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase ' + badgeCls + '">' + escapeHtml(badge) + "</span>" +
           '<span class="truncate text-sm font-semibold">' + escapeHtml(title) + "</span>" +
           "</div>" +
-          (sub ? '<div class="mt-0.5 truncate pl-0.5 font-mono text-[11px] text-slate-500">' + escapeHtml(sub) + "</div>" : "") +
+          (sub ? '<div class="mt-0.5 truncate pl-0.5 font-mono text-[11px] text-slate-600">' + escapeHtml(sub) + "</div>" : "") +
           "</div>" +
-          '<span class="shrink-0 font-mono text-xs font-semibold ' + (isSel ? "text-blue-700" : "text-slate-400") + '">→</span>' +
+          '<span data-result-arrow class="shrink-0 font-mono text-xs font-semibold ' + (isSel ? "text-blue-700" : "text-slate-600") + '">→</span>' +
           "</a>";
       }
 
@@ -345,7 +369,8 @@ const cfg = {
           if (typeof window.smTrack === "function") {
             window.smTrack("site_search", {
               search_term: q,
-              results_count: currentResults.length,
+              results_count: totalMatches,
+              shown_count: currentResults.length,
               tab: activeTab,
               locale: loc,
             });
@@ -364,6 +389,12 @@ const cfg = {
         links[i].classList.toggle("bg-blue-50", isSel);
         links[i].classList.toggle("text-blue-950", isSel);
         links[i].classList.toggle("text-slate-800", !isSel);
+        links[i].classList.toggle("hover:bg-slate-50", !isSel);
+        var arrow = links[i].querySelector("[data-result-arrow]");
+        if (arrow) {
+          arrow.classList.toggle("text-blue-700", isSel);
+          arrow.classList.toggle("text-slate-600", !isSel);
+        }
         if (isSel && links[i].scrollIntoView) {
           links[i].scrollIntoView({ block: "nearest" });
         }
@@ -379,6 +410,7 @@ const cfg = {
       modal.classList.add("flex");
       document.body.style.overflow = "hidden";
       if (input) {
+        input.setAttribute("aria-expanded", "true");
         input.focus();
         input.select();
       }
@@ -391,17 +423,30 @@ const cfg = {
       });
     }
 
-    function closeModal() {
+    function closeModal(restoreFocus) {
       modal.classList.add("hidden");
       modal.classList.remove("flex");
       document.body.style.overflow = "";
-      if (lastFocused && typeof lastFocused.focus === "function") {
+      if (input) {
+        input.setAttribute("aria-expanded", "false");
+      }
+      if (restoreFocus !== false && lastFocused && typeof lastFocused.focus === "function") {
         lastFocused.focus();
       }
     }
 
     function isModalOpen() {
       return !modal.classList.contains("hidden");
+    }
+
+    function getFocusableElements() {
+      var selector =
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      return Array.prototype.slice
+        .call(modal.querySelectorAll(selector))
+        .filter(function (el) {
+          return el.offsetParent !== null;
+        });
     }
 
     window.addEventListener("specmatrix:open-search", openModal);
@@ -414,9 +459,9 @@ const cfg = {
       }
     });
 
-    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    if (closeBtn) closeBtn.addEventListener("click", function () { closeModal(true); });
     modal.addEventListener("click", function (ev) {
-      if (ev.target === modal) closeModal();
+      if (ev.target === modal) closeModal(true);
     });
 
     tabButtons.forEach(function (btn) {
@@ -429,6 +474,8 @@ const cfg = {
           b.classList.toggle("bg-slate-900", sel);
           b.classList.toggle("text-white", sel);
           b.classList.toggle("text-slate-600", !sel);
+          b.classList.toggle("hover:bg-slate-200/70", !sel);
+          b.classList.toggle("hover:text-slate-900", !sel);
         });
         renderResults();
         if (input) input.focus();
@@ -455,13 +502,14 @@ const cfg = {
             path: entry.p,
           });
         }
+        closeModal(false);
       });
     }
 
     document.addEventListener("keydown", function (ev) {
       if ((ev.metaKey || ev.ctrlKey) && ev.key && ev.key.toLowerCase() === "k") {
         ev.preventDefault();
-        if (isModalOpen()) closeModal();
+        if (isModalOpen()) closeModal(true);
         else openModal();
         return;
       }
@@ -480,16 +528,36 @@ const cfg = {
 
       if (!isModalOpen()) return;
 
+      if (ev.key === "Tab") {
+        var focusables = getFocusableElements();
+        if (focusables.length > 0) {
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          if (ev.shiftKey) {
+            if (document.activeElement === first || !modal.contains(document.activeElement)) {
+              ev.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last || !modal.contains(document.activeElement)) {
+              ev.preventDefault();
+              first.focus();
+            }
+          }
+        }
+        return;
+      }
+
       if (ev.key === "Escape") {
         ev.preventDefault();
-        closeModal();
+        closeModal(true);
       } else if (ev.key === "ArrowDown") {
         ev.preventDefault();
         updateHighlight(activeIdx + 1);
       } else if (ev.key === "ArrowUp") {
         ev.preventDefault();
         updateHighlight(activeIdx - 1);
-      } else if (ev.key === "Enter" && currentResults[activeIdx]) {
+      } else if (ev.key === "Enter" && document.activeElement === input && currentResults[activeIdx]) {
         ev.preventDefault();
         var chosen = currentResults[activeIdx];
         if (typeof window.smTrack === "function") {
@@ -499,8 +567,19 @@ const cfg = {
             path: chosen.p,
           });
         }
+        closeModal(false);
         window.location.href = buildHref(chosen);
       }
     });
+
+    try {
+      var initQ = new URLSearchParams(window.location.search).get("q");
+      if (initQ && initQ.trim()) {
+        if (input) input.value = initQ.trim();
+        openModal();
+      }
+    } catch (_e) {
+      // ignore URLSearchParams error
+    }
   })();
 </script>

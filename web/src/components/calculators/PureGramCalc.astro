@@ -10,7 +10,7 @@ interface Props {
 
 const { item, fx, locale } = Astro.props;
 const isKo = locale === "ko";
-const isCarbProduct = item.nutrition_label.carbs_g >= 5;
+const isCarbProduct = item.nutrition_label.active_ingredient_type === "carbohydrates";
 const isCreatine = item.category === "creatine";
 const krwPerUsd = Number.isFinite(fx.rates.KRW) && fx.rates.KRW > 0 ? fx.rates.KRW : 1400;
 
@@ -83,6 +83,7 @@ const payload = {
           <button
             type="button"
             id="pg-cur-usd"
+            aria-pressed={!isKo ? "true" : "false"}
             class:list={[
               "px-3 py-1.5 transition-colors",
               !isKo ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100",
@@ -93,6 +94,7 @@ const payload = {
           <button
             type="button"
             id="pg-cur-krw"
+            aria-pressed={isKo ? "true" : "false"}
             class:list={[
               "px-3 py-1.5 transition-colors",
               isKo ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100",
@@ -209,21 +211,21 @@ const payload = {
           <div id="pg-rate-btns" class="mt-2 flex gap-2">
             {isCarbProduct ? (
               <>
-                <button type="button" data-rate="60" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">60 g/hr</button>
-                <button type="button" data-rate="90" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">90 g/hr</button>
-                <button type="button" data-rate="120" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">120 g/hr</button>
+                <button type="button" data-rate="60" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">60 g/hr</button>
+                <button type="button" data-rate="90" aria-pressed="true" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">90 g/hr</button>
+                <button type="button" data-rate="120" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">120 g/hr</button>
               </>
             ) : isCreatine ? (
               <>
-                <button type="button" data-rate="3" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">3 g/day</button>
-                <button type="button" data-rate="5" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">5 g/day</button>
-                <button type="button" data-rate="10" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">10 g/day</button>
+                <button type="button" data-rate="3" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">3 g/day</button>
+                <button type="button" data-rate="5" aria-pressed="true" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">5 g/day</button>
+                <button type="button" data-rate="10" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">10 g/day</button>
               </>
             ) : (
               <>
-                <button type="button" data-rate="1" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">1 /hr</button>
-                <button type="button" data-rate="1.5" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">1.5 /hr</button>
-                <button type="button" data-rate="2" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">2 /hr</button>
+                <button type="button" data-rate="1" aria-pressed="true" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">1 /hr</button>
+                <button type="button" data-rate="1.5" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">1.5 /hr</button>
+                <button type="button" data-rate="2" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">2 /hr</button>
               </>
             )}
           </div>
@@ -302,24 +304,27 @@ const payload = {
     </div>
 
     <!-- Part C: Domestic (KR) vs Overseas Direct Import (US USD→KRW) Break-Even Checker -->
-    <div class="pt-6">
-      <div class="flex flex-wrap items-center justify-between gap-2">
+    <details class="group pt-6" open={isKo}>
+      <summary class="flex cursor-pointer list-none flex-wrap items-center justify-between gap-2">
         <div>
           <h3 class="text-sm font-bold text-slate-900">
             {isKo
               ? "3. 국내 구매(KR) vs 해외 직구(US USD→KRW) 손익분기 계산기"
-              : "3. Domestic (KR) vs Overseas Direct Import (US USD→KRW) Break-Even Checker"}
+              : "3. Optional: Korea Domestic (KRW) vs US Direct Import Break-Even Checker"}
           </h3>
           <p class="mt-0.5 text-xs text-slate-600">
             {isKo
               ? "실시간 환율로 미국 직구 판매가(+배송비)와 국내 구매가를 나란히 비교해 팩당·기준단위당 직구 이득률을 계산합니다."
-              : "Compare US retail (+ international shipping) converted via live FX against Korea domestic pricing to quantify exact import savings or premium."}
+              : "Expand to compare US retail (+ international shipping) converted via live FX against Korea domestic KRW pricing."}
           </p>
         </div>
-        <span class="badge-info font-mono text-[11px]">
-          FX $1 = ₩{formatInt(krwPerUsd)} ({fx.updated_at})
-        </span>
-      </div>
+        <div class="flex items-center gap-2">
+          <span class="badge-info font-mono text-[11px]">
+            FX $1 = ₩{formatInt(krwPerUsd)} ({fx.updated_at})
+          </span>
+          <span class="font-mono text-xs font-bold text-slate-600 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+        </div>
+      </summary>
 
       <div class="mt-4 grid gap-3 sm:grid-cols-3">
         <div>
@@ -398,7 +403,7 @@ const payload = {
       </div>
 
       <p id="pg-imp-summary" class="mt-3 text-xs leading-relaxed text-slate-600"></p>
-    </div>
+    </details>
   </div>
 
   <script type="application/json" id="pg-calc-data" set:html={safeJsonLd(payload)} />
@@ -581,6 +586,8 @@ const payload = {
 
     function updateCurrencyButtons() {
       if (btnUsd && btnKrw) {
+        btnUsd.setAttribute("aria-pressed", currency === "USD" ? "true" : "false");
+        btnKrw.setAttribute("aria-pressed", currency === "KRW" ? "true" : "false");
         btnUsd.className =
           currency === "USD"
             ? "px-3 py-1.5 transition-colors bg-slate-900 text-white"
@@ -685,9 +692,12 @@ const payload = {
         trackInteract();
         if (currency === "USD") return;
         currency = "USD";
-        if (priceInput) priceInput.value = String(cfg.usMsrp);
+        if (priceInput) {
+          priceInput.value = usPriceInput && usPriceInput.value ? usPriceInput.value : String(cfg.usMsrp);
+        }
         updateCurrencyButtons();
         recalc();
+        recalcImportBreakEven();
       });
     }
 
@@ -696,9 +706,12 @@ const payload = {
         trackInteract();
         if (currency === "KRW") return;
         currency = "KRW";
-        if (priceInput) priceInput.value = String(cfg.krMsrp);
+        if (priceInput) {
+          priceInput.value = krPriceInput && krPriceInput.value ? krPriceInput.value : String(cfg.krMsrp);
+        }
         updateCurrencyButtons();
         recalc();
+        recalcImportBreakEven();
       });
     }
 
@@ -732,14 +745,34 @@ const payload = {
       });
     }
 
-    [usPriceInput, usShipInput, krPriceInput].forEach((el) => {
-      if (el) {
-        el.addEventListener("input", () => {
-          trackInteract();
-          recalcImportBreakEven();
-        });
-      }
-    });
+    if (usPriceInput) {
+      usPriceInput.addEventListener("input", () => {
+        trackInteract();
+        if (currency === "USD" && priceInput) {
+          priceInput.value = usPriceInput.value;
+          recalc();
+        }
+        recalcImportBreakEven();
+      });
+    }
+
+    if (krPriceInput) {
+      krPriceInput.addEventListener("input", () => {
+        trackInteract();
+        if (currency === "KRW" && priceInput) {
+          priceInput.value = krPriceInput.value;
+          recalc();
+        }
+        recalcImportBreakEven();
+      });
+    }
+
+    if (usShipInput) {
+      usShipInput.addEventListener("input", () => {
+        trackInteract();
+        recalcImportBreakEven();
+      });
+    }
 
     rateBtns.forEach((b) => {
       b.addEventListener("click", () => {
@@ -747,6 +780,7 @@ const payload = {
         targetRate = Number(b.getAttribute("data-rate") || targetRate);
         rateBtns.forEach((other) => {
           const on = other === b;
+          other.setAttribute("aria-pressed", on ? "true" : "false");
           other.className = on
             ? "pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white"
             : "pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700";

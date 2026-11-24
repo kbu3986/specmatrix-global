@@ -36,8 +36,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Follows Korea MOLIT 2025-2026 cabin battery mandate: power banks under 100 Wh permitted up to 5 pcs without approval (100-160 Wh max 2 pcs with counter approval sticker), individual pouch/tape required, no overhead bin storage, and no inflight charging.",
     "notes_ko": "국토부 2025~2026 기내 안전 규정 준수: 100 Wh 이하 최대 5개(100~160 Wh는 카운터 승인 스티커 부착 후 최대 2개) 기내 휴대 가능, 개별 지퍼백·단자 절연 필수, 기내 선반 적재 및 기내 충전 전면 금지.",
-    "official_policy_url": "https://flyasiana.com/C/KR/EN/contents/restricted-items",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://flyasiana.com/C/KR/EN/contents/restricted-transport-items",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "jeju-air",
@@ -336,8 +336,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Carry-on only (max 2 power banks per passenger; 100-160 Wh requires prior approval). Power banks must not be placed in overhead lockers and cannot be used to charge devices or recharged via seat power during flight.",
     "notes_ko": "기내 휴대 전용(1인 최대 2개, 100~160 Wh 사전 승인 필요). 머리 위 선반 보관이 금지되며 비행 중 보조배터리 사용 및 좌석 전원을 통한 자체 충전도 금지됩니다.",
-    "official_policy_url": "https://www.britishairways.com/content/information/baggage-essentials/restricted-items",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.britishairways.com/content/information/baggage-essentials/liquids-and-restrictions",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "air-france",
@@ -356,8 +356,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Strict EASA-aligned cabin policy: power banks must travel in under-seat carry-on baggage (never overhead bins or checked hold), individually insulated against short circuits, and using or charging power banks onboard is prohibited.",
     "notes_ko": "유럽 EASA 강화 기준 적용: 보조배터리는 단자 절연 후 앞좌석 하단 가방 또는 직접 소지해야 하며(선반·위탁 금지), 기내에서 보조배터리를 사용하거나 충전하는 행위가 금지됩니다.",
-    "official_policy_url": "https://wwws.airfrance.fr/en/information/bagages/produits-interdits",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://wwws.airfrance.fr/en/information/bagages/popin_produits-interdits-et-reglementes/produits-interdits-et-reglementes-3",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "ryanair",
@@ -396,8 +396,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Maximum 2 spare lithium batteries/power banks in cabin only, individually protected against short circuits (taped terminals or separate pouches). Power banks must not be stored in overhead bins or used to charge devices onboard.",
     "notes_ko": "기내 휴대 전용 최대 2개, 단자 테이핑 또는 개별 파우치 보호 의무. 기내 선반 보관을 피하고 좌석 하단에 두어야 하며, 비행 중 보조배터리로 기기를 충전하는 행위는 금지됩니다.",
-    "official_policy_url": "https://www.easyjet.com/en/help/baggage/dangerous-goods",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.easyjet.com/en/help-centre/baggage/dangerous-goods",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "ana",
@@ -416,8 +416,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Enforces Japan MLIT 2025-2026 directives: max 2 power banks in carry-on only (never checked), strictly prohibited in overhead storage compartments (keep visible in seat pocket/on person), and inflight charging/use is banned.",
     "notes_ko": "일본 국토교통성(MLIT) 2025~2026 강화 규정 적용: 위탁 수하물 금지, 1인 최대 2개 기내 휴대(100~160 Wh 확인 필요), 머리 위 선반 보관 금지, 기내 충방전 사용 전면 금지.",
-    "official_policy_url": "https://www.ana.co.jp/en/jp/guide/boardinginfo/baggage/restricted/",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.ana.co.jp/en/us/travel-information/baggage-information/restricted-prohibited/",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "jal",
@@ -456,8 +456,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Japanese LCC strictly enforcing MLIT 2025-2026 safety rules: max 2 power banks up to 160 Wh in carry-on only, prohibited in overhead compartments, and inflight charging/use is strictly prohibited (note Peach A320 cabins also lack seat outlets).",
     "notes_ko": "일본 MLIT 2025~2026 규정 엄격 적용: 기내 휴대 최대 2개(위탁 불가), 선반 보관 금지, 기내 보조배터리 사용·충전 전면 금지(기내 좌석 전원도 미제공이므로 탑승 전 완충 필수).",
-    "official_policy_url": "https://www.flypeach.com/en/lm/ai/baggage/restricted",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.flypeach.com/en/lm/ai/airports/baggage/limited_bag",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "singapore-airlines",
@@ -516,8 +516,8 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Taiwanese carrier enforcing strict 2025-2026 inflight power bank ban: power banks cannot be used or recharged onboard at any point, must be stowed under the seat (never overhead bin), and require clear Wh labeling.",
     "notes_ko": "대만 에바항공 2025~2026 강화 규정: 비행 전 구간 보조배터리 사용 및 충전 전면 금지, 선반 보관 금지(앞좌석 하단 보관), 본체 Wh 표기 확인 필수(최대 2개).",
-    "official_policy_url": "https://www.evaair.com/en-global/fly-prepare/baggage/restrictions/",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.evaair.com/en-global/fly-prepare/baggage/additional-baggage-information/restrictions/",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "china-eastern",
@@ -556,8 +556,8 @@
     "ccc_marking_required_domestic": true,
     "notes_en": "Strict CAAC enforcement: mainland China domestic flights require a crisp CCC (3C) certification logo plus readable Wh/mAh specs; foreign CE/FCC/KC-only power banks are routinely confiscated on domestic legs. Max 2 pcs carry-on; zero inflight use.",
     "notes_ko": "CAAC 규정 엄격 적용: 중국 국내선 이용 시 본체 CCC(3C) 마크와 선명한 Wh 표기가 필수이며, 해외 정발(KC/CE/FCC 전용) 배터리는 압수 위험이 매우 높습니다. 기내 휴대 최대 2개, 기내 사용 금지.",
-    "official_policy_url": "https://www.airchina.com/",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://bj.airchina.com.cn/cn/ysztjyw/497611.shtml",
+    "verified_at": "2026-11-24"
   },
   {
     "slug": "emirates",
@@ -596,7 +596,7 @@
     "ccc_marking_required_domestic": false,
     "notes_en": "Max 2 power banks in carry-on only (100-160 Wh needs approval). Charging personal devices in plain view under direct supervision is permitted (never stowed in overhead bins or concealed inside bags), while recharging the power bank itself from seat power is strictly prohibited.",
     "notes_ko": "기내 휴대 최대 2개(100~160 Wh 사전 승인). 선반 보관 및 가방 속 은폐 충전은 금지되나, 승객의 직접 시야 내에서 기기를 충전하는 것은 허용됩니다(단, 좌석 전원으로 보조배터리 자체를 충전하는 행위는 금지).",
-    "official_policy_url": "https://www.qatarairways.com/en/baggage/restrictions.html",
-    "verified_at": "2026-11-22"
+    "official_policy_url": "https://www.qatarairways.com/content/dam/documents/safety-notice-devices.pdf",
+    "verified_at": "2026-11-24"
   }
 ]

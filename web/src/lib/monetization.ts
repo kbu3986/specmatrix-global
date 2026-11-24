@@ -122,7 +122,7 @@ export function buildMonetizationModel(
     cfg.coupang.verticalSubIds?.[item.vertical] ||
     DEFAULT_VERTICAL_SUB_IDS[item.vertical as PilotVertical] ||
     cfg.coupang.defaultSubId ||
-    "ssalmeok-kr";
+    "specmatrix-kr";
 
   const fallbackQuery = `${item.brand} ${item.category.replace(/-/g, " ")}`;
   const buttons: OutboundCtaButton[] = [];

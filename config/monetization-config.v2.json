@@ -7,6 +7,12 @@
   "adsTxtLine": "google.com, pub-8587506565277191, DIRECT, f08c47fec0942fa0",
   "adsenseSlots": {
     "hub-top": "",
+    "compare-top": "",
+    "tools-hub-top": "",
+    "travel-kit-mid": "",
+    "fueling-planner-top": "",
+    "hometech-tco-top": "",
+    "tire-pressure-top": "",
     "item-top-wattcheck": "",
     "item-top-puregram": "",
     "item-top-cyclegear": "",
@@ -19,11 +25,14 @@
     "matrix-top-puregram": "",
     "matrix-top-cyclegear": "",
     "matrix-top-hometech": "",
+    "compat-top-wattcheck": "",
+    "compat-top-puregram": "",
+    "compat-top-cyclegear": "",
     "compat-top-hometech": ""
   },
   "coupang": {
     "partnersId": "AF2200875",
-    "defaultSubId": "ssalmeok-kr",
+    "defaultSubId": "specmatrix-kr",
     "redirectUrl": "https://link.coupang.com/a/iTctub5D1U",
     "iframeUrl": "https://ads-partners.coupang.com/widgets.html?id=1054684&template=carousel&trackingCode=AF2200875&subId=&width=680&height=140&tsource=",
     "verticalSubIds": {
@@ -42,7 +51,6 @@
     "ca": ""
   },
   "globalAffiliates": {
-    "iherbCode": "",
     "aliexpressTrackingId": "",
     "awinPublisherId": "",
     "impactAccountSid": ""
@@ -67,11 +75,11 @@
     "minCitations": 2
   },
   "compliance": {
-    "euCmpReady": true,
+    "euCmpReady": false,
     "disclosures": {
       "en": "Disclosure: As an Amazon Associate and affiliate partner, SpecMatrix Global earns from qualifying purchases at no extra cost to you. Prices shown are manufacturer MSRP benchmarks; verify live checkout pricing on official stores.",
       "ko": "고지: 이 페이지는 쿠팡 파트너스 및 아마존 어소시에이트 등 글로벌 제휴 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 표기 가격은 제조사 공식 출고가(MSRP) 기준 참고가이며, 실제 결제가는 공식 판매처에서 확인해 주세요."
     }
   },
-  "updatedAt": "2026-11-23"
+  "updatedAt": "2026-11-24"
 }

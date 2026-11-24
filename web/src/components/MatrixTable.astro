@@ -48,14 +48,14 @@ interface RowModel {
   msrp: number;
   msrpDisplay: string;
   trustScore: number;
-  // Numeric sort keys
-  metric1: number;
+  // Numeric sort keys (null sorts always at bottom)
+  metric1: number | null;
   metric1Display: string;
-  metric2: number;
+  metric2: number | null;
   metric2Display: string;
-  metric3: number;
+  metric3: number | null;
   metric3Display: string;
-  metric4: number;
+  metric4: number | null;
   metric4Display: string;
   // Facet flags
   flagA: boolean;
@@ -77,8 +77,8 @@ const rows: RowModel[] = items.map((item) => {
     const ac = item.airline_compliance_profile;
     const unitCost = s.has_battery
       ? isKo
-        ? d.krwPer10Wh ?? 0
-        : d.usdPer10Wh ?? 0
+        ? d.krwPer10Wh
+        : d.usdPer10Wh
       : isKo
         ? d.krwPer10W
         : d.usdPer10W;
@@ -92,14 +92,17 @@ const rows: RowModel[] = items.map((item) => {
       msrp,
       msrpDisplay,
       trustScore: item.audit.trust_score,
-      metric1: s.battery_energy_wh ?? 0,
-      metric1Display: s.battery_energy_wh !== null ? `${formatNum(s.battery_energy_wh, 1)} Wh` : "GaN AC",
+      metric1: s.has_battery && s.battery_energy_wh !== null ? s.battery_energy_wh : null,
+      metric1Display: s.has_battery && s.battery_energy_wh !== null ? `${formatNum(s.battery_energy_wh, 1)} Wh` : "GaN AC",
       metric2: s.max_total_output_w,
       metric2Display: `${formatInt(s.max_total_output_w)} W`,
       metric3: s.weight_g,
       metric3Display: `${formatInt(s.weight_g)} g`,
       metric4: unitCost,
-      metric4Display: `${formatCurrency(unitCost, isKo ? "KRW" : "USD", locale)}/${s.has_battery ? "10Wh" : "10W"}`,
+      metric4Display:
+        unitCost !== null
+          ? `${formatCurrency(unitCost, isKo ? "KRW" : "USD", locale)}/${s.has_battery ? "10Wh" : "10W"}`
+          : "—",
       flagA: ac.carryon_no_approval,
       flagB: s.supports_pd_3_1_epr,
       flagC: s.kc_certified || s.pse_certified,
@@ -145,10 +148,14 @@ const rows: RowModel[] = items.map((item) => {
       flagC: item.certifications.some((c) => /informed|nsf|creapure/i.test(c)),
       compatBadge:
         nl.carb_ratio_glucose_to_fructose === "1:0.8"
-          ? "1:0.8 High-Carb"
+          ? isKo
+            ? "1:0.8 고탄수"
+            : "1:0.8 High-Carb"
           : nl.creapure_certified
             ? "Creapure"
-            : `${item.derived_math.purity_grade} Grade`,
+            : isKo
+              ? `${item.derived_math.purity_grade} 등급`
+              : `${item.derived_math.purity_grade} Grade`,
       compatTone: item.derived_math.purity_pct >= 65 ? "pass" : "caution",
     };
   }
@@ -158,7 +165,7 @@ const rows: RowModel[] = items.map((item) => {
     const s = item.specs;
     const tp = item.tco_profile;
     const tco3yr = isKo ? d.tco3yrKrw : d.tco3yrUsd;
-    const noiseVal = s.noise_load_dba ?? s.noise_idle_dba ?? 0;
+    const noiseVal = s.noise_load_dba ?? s.noise_idle_dba ?? null;
     const noiseDisp =
       s.noise_load_dba !== null
         ? `${formatNum(s.noise_load_dba, 1)} dBA`
@@ -228,7 +235,7 @@ const rows: RowModel[] = items.map((item) => {
     trustScore: item.audit.trust_score,
     metric1: s.weight_g,
     metric1Display: `${formatInt(s.weight_g)} g`,
-    metric2: s.claimed_accuracy_pct ?? s.battery_life_hours ?? s.tire_width_mm ?? s.drivetrain_speeds ?? 0,
+    metric2: s.claimed_accuracy_pct ?? s.battery_life_hours ?? s.tire_width_mm ?? s.drivetrain_speeds ?? null,
     metric2Display:
       s.claimed_accuracy_pct !== null
         ? `±${formatNum(s.claimed_accuracy_pct, 1)}%`
@@ -438,34 +445,34 @@ const clientPayload = {
       <thead>
         <tr>
           <th class="w-10">{isKo ? "비교" : "VS"}</th>
-          <th>
+          <th aria-sort="none" class="sticky left-0 z-10 min-w-[160px] bg-slate-50 shadow-[1px_0_0_0_#e2e8f0] md:shadow-none">
             <button type="button" data-sort="name" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
-              {isKo ? "모델명" : "Model"} <span class="text-[10px]">↕</span>
+              {isKo ? "모델명" : "Model"} <span class="mx-sort-ind text-[10px]">↕</span>
             </button>
           </th>
-          <th>
+          <th aria-sort="none">
             <button type="button" data-sort="m1" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
-              {colHeaders.m1} <span class="text-[10px]">↕</span>
+              {colHeaders.m1} <span class="mx-sort-ind text-[10px]">↕</span>
             </button>
           </th>
-          <th>
+          <th aria-sort="none">
             <button type="button" data-sort="m2" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
-              {colHeaders.m2} <span class="text-[10px]">↕</span>
+              {colHeaders.m2} <span class="mx-sort-ind text-[10px]">↕</span>
             </button>
           </th>
-          <th>
+          <th aria-sort="none">
             <button type="button" data-sort="m3" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
-              {colHeaders.m3} <span class="text-[10px]">↕</span>
+              {colHeaders.m3} <span class="mx-sort-ind text-[10px]">↕</span>
             </button>
           </th>
-          <th>
+          <th aria-sort="none">
             <button type="button" data-sort="m4" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
-              {colHeaders.m4} <span class="text-[10px]">↕</span>
+              {colHeaders.m4} <span class="mx-sort-ind text-[10px]">↕</span>
             </button>
           </th>
-          <th>
+          <th aria-sort="none">
             <button type="button" data-sort="msrp" class="mx-sort-btn inline-flex items-center gap-1 hover:text-slate-900">
-              {isKo ? "MSRP 참고가" : "MSRP Ref."} <span class="text-[10px]">↕</span>
+              {isKo ? "MSRP 참고가" : "MSRP Ref."} <span class="mx-sort-ind text-[10px]">↕</span>
             </button>
           </th>
           <th>{isKo ? "판정" : "Status"}</th>
@@ -488,11 +495,11 @@ const clientPayload = {
               data-name={r.name.toLowerCase()}
               data-brand={r.brand}
               data-cat={r.category}
-              data-msrp={r.msrp}
-              data-m1={r.metric1}
-              data-m2={r.metric2}
-              data-m3={r.metric3}
-              data-m4={r.metric4}
+              data-msrp={r.msrp ?? ""}
+              data-m1={r.metric1 ?? ""}
+              data-m2={r.metric2 ?? ""}
+              data-m3={r.metric3 ?? ""}
+              data-m4={r.metric4 ?? ""}
               data-fa={r.flagA ? "1" : "0"}
               data-fb={r.flagB ? "1" : "0"}
               data-fc={r.flagC ? "1" : "0"}
@@ -503,10 +510,10 @@ const clientPayload = {
                   class="mx-cmp-chk h-4 w-4 rounded border-slate-300 text-blue-600"
                   data-slug={r.slug}
                   data-label={r.name}
-                  aria-label={`Compare ${r.name}`}
+                  aria-label={isKo ? `${r.name} 비교 선택` : `Compare ${r.name}`}
                 />
               </td>
-              <td>
+              <td class="sticky left-0 z-10 max-w-[200px] bg-white shadow-[1px_0_0_0_#e2e8f0] sm:max-w-none md:shadow-none">
                 <a href={r.href} class="font-semibold text-slate-900 hover:text-blue-700 hover:underline">
                   {r.name}
                 </a>
@@ -546,6 +553,8 @@ const clientPayload = {
 </section>
 
 <script>
+  import { copyToClipboard } from "../lib/clipboard";
+
   (() => {
     const cfgEl = document.getElementById("mx-config-data");
     const tbody = document.getElementById("mx-tbody");
@@ -560,6 +569,7 @@ const clientPayload = {
     const isKo = cfg.locale === "ko";
     const vsSet = new Set<string>(cfg.vsPairs || []);
     const allRows = Array.from(tbody.querySelectorAll<HTMLTableRowElement>(".mx-row"));
+    const initialRows = [...allRows];
 
     const searchInput = document.getElementById("mx-search") as HTMLInputElement | null;
     const catSelect = document.getElementById("mx-cat") as HTMLSelectElement | null;
@@ -598,6 +608,41 @@ const clientPayload = {
       track("matrix_filter", { vertical: cfg.vertical });
     }
 
+    function updateSortIndicators() {
+      sortBtns.forEach((btn) => {
+        const k = btn.getAttribute("data-sort") || "";
+        const th = btn.closest("th");
+        const ind = btn.querySelector<HTMLElement>(".mx-sort-ind");
+        const isActive = Boolean(sortKey && k === sortKey);
+        if (th) {
+          th.setAttribute("aria-sort", isActive ? (sortAsc ? "ascending" : "descending") : "none");
+        }
+        if (ind) {
+          ind.textContent = isActive ? (sortAsc ? "↑" : "↓") : "↕";
+        }
+        btn.classList.toggle("text-blue-700", isActive);
+        btn.classList.toggle("font-bold", isActive);
+      });
+    }
+
+    function restoreInitialOrder() {
+      sortKey = "";
+      sortAsc = true;
+      if (tbody) {
+        initialRows.forEach((tr) => tbody.appendChild(tr));
+      }
+      updateSortIndicators();
+    }
+
+    function parseNumericAttr(el: HTMLElement, attr: string): number | null {
+      const raw = el.getAttribute(attr);
+      if (raw === null) return null;
+      const trimmed = raw.trim();
+      if (!trimmed || trimmed.toLowerCase() === "null") return null;
+      const n = Number(trimmed);
+      return Number.isFinite(n) ? n : null;
+    }
+
     function syncHashFromState() {
       const params = new URLSearchParams();
       const q = (searchInput ? searchInput.value : "").trim();
@@ -623,23 +668,32 @@ const clientPayload = {
 
     function restoreStateFromHash() {
       const rawHash = window.location.hash.replace(/^#/, "");
-      if (!rawHash) return;
+      if (!rawHash) {
+        if (searchInput) searchInput.value = "";
+        if (catSelect) catSelect.value = "";
+        if (brandSelect) brandSelect.value = "";
+        if (flagA) flagA.checked = false;
+        if (flagB) flagB.checked = false;
+        if (flagC) flagC.checked = false;
+        restoreInitialOrder();
+        return;
+      }
       const params = new URLSearchParams(rawHash);
-      if (searchInput && params.has("q")) searchInput.value = params.get("q") || "";
-      if (catSelect && params.has("cat")) catSelect.value = params.get("cat") || "";
-      if (brandSelect && params.has("brand")) brandSelect.value = params.get("brand") || "";
+      if (searchInput) searchInput.value = params.get("q") || "";
+      if (catSelect) catSelect.value = params.get("cat") || "";
+      if (brandSelect) brandSelect.value = params.get("brand") || "";
       if (flagA) flagA.checked = params.get("fa") === "1";
       if (flagB) flagB.checked = params.get("fb") === "1";
       if (flagC) flagC.checked = params.get("fc") === "1";
 
       const sortParam = params.get("sort") || "";
-      if (sortParam) {
-        const [k, dir] = sortParam.split(":");
-        if (k && ["name", "m1", "m2", "m3", "m4", "msrp"].includes(k)) {
-          sortKey = k;
-          sortAsc = dir !== "desc";
-          renderSortedRows(k, sortAsc);
-        }
+      const [k, dir] = sortParam.split(":");
+      if (k && ["name", "m1", "m2", "m3", "m4", "msrp"].includes(k)) {
+        sortKey = k;
+        sortAsc = dir !== "desc";
+        renderSortedRows(k, sortAsc);
+      } else {
+        restoreInitialOrder();
       }
     }
 
@@ -674,20 +728,24 @@ const clientPayload = {
     }
 
     function renderSortedRows(key: string, asc: boolean) {
-      const sorted = [...allRows].sort((a, b) => {
+      const sorted = [...initialRows].sort((a, b) => {
         if (key === "name") {
           const sa = a.getAttribute("data-name") || "";
           const sb = b.getAttribute("data-name") || "";
           return asc ? sa.localeCompare(sb) : sb.localeCompare(sa);
         }
-        const na = Number(a.getAttribute(`data-${key}`) || 0);
-        const nb = Number(b.getAttribute(`data-${key}`) || 0);
+        const na = parseNumericAttr(a, `data-${key}`);
+        const nb = parseNumericAttr(b, `data-${key}`);
+        if (na === null && nb === null) return 0;
+        if (na === null) return 1;
+        if (nb === null) return -1;
         return asc ? na - nb : nb - na;
       });
 
       const targetBody = tbody;
       if (!targetBody) return;
       sorted.forEach((tr) => targetBody.appendChild(tr));
+      updateSortIndicators();
     }
 
     function applySort(key: string) {
@@ -728,39 +786,17 @@ const clientPayload = {
 
       liveCompareLink.setAttribute(
         "href",
-        `${bp}/${cfg.locale}/compare#${cfg.vertical}:${a}:${b}`
+        `${bp}/${cfg.locale}/compare/#${cfg.vertical}:${a}:${b}`
       );
       liveCompareLink.classList.remove("hidden");
 
       if (vsSet.has(pairSlug)) {
-        compareLink.setAttribute("href", `${bp}/${cfg.locale}/${cfg.vertical}/vs/${pairSlug}`);
+        compareLink.setAttribute("href", `${bp}/${cfg.locale}/${cfg.vertical}/vs/${pairSlug}/`);
         compareLink.classList.remove("hidden");
         compareHint.textContent = "";
       } else {
         compareLink.classList.add("hidden");
         compareHint.textContent = "";
-      }
-    }
-
-    function copyText(text: string): Promise<boolean> {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        return navigator.clipboard
-          .writeText(text)
-          .then(() => true)
-          .catch(() => false);
-      }
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        return Promise.resolve(ok);
-      } catch {
-        return Promise.resolve(false);
       }
     }
 
@@ -785,8 +821,7 @@ const clientPayload = {
         if (flagA) flagA.checked = false;
         if (flagB) flagB.checked = false;
         if (flagC) flagC.checked = false;
-        sortKey = "";
-        sortAsc = true;
+        restoreInitialOrder();
         applyFilter(true);
       });
     }
@@ -796,7 +831,8 @@ const clientPayload = {
       const okLabel = isKo ? "링크 복사됨 ✓" : "Link Copied ✓";
       copyFilterBtn.addEventListener("click", () => {
         syncHashFromState();
-        copyText(window.location.href).then(() => {
+        copyToClipboard(window.location.href).then((ok) => {
+          if (!ok) return;
           copyFilterBtn.textContent = okLabel;
           copyFilterBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
           window.setTimeout(() => {

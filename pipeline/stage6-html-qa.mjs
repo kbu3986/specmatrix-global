@@ -52,6 +52,7 @@ const SEARCH_INDEX_REQUIRED_GROUPS = [
   { key: "airlines", label: "airline" },
   { key: "vs", label: "VS matchup" },
   { key: "matrices", label: "matrix/compat" },
+  { key: "tools", label: "interactive tool" },
 ];
 
 const SEARCH_INDEX_TYPE_TO_GROUP = {
@@ -62,6 +63,7 @@ const SEARCH_INDEX_TYPE_TO_GROUP = {
   vs: "vs",
   matrix: "matrices",
   compat: "matrices",
+  tool: "tools",
 };
 
 const MAX_SEARCH_PATH_FAILURES_REPORTED = 25;
@@ -73,11 +75,15 @@ export const FORBIDDEN_LEAK_TOKENS = [
   { id: "PENDING_FILL", regex: /\bPENDING_FILL\b/ },
 ];
 
+export const FORBIDDEN_HOST_PATTERNS = [
+  /(^|\.)iherb\.com$/i,
+  /(^|\.)iherb\.co\b/i,
+];
+
 const AFFILIATE_HOST_PATTERNS = [
   /^(www\.)?amazon\.(com|co\.jp|de|es|co\.uk|ca)$/i,
   /^amzn\.to$/i,
   /^(www\.|link\.)?coupang\.com$/i,
-  /^(www\.|kr\.|jp\.|de\.|es\.)?iherb\.com$/i,
   /^(www\.|s\.click\.|ko\.)?aliexpress\.com$/i,
   /(^|\.)awin1\.com$/i,
   /(^|\.)avantlink\.com$/i,
@@ -85,11 +91,65 @@ const AFFILIATE_HOST_PATTERNS = [
   /(^|\.)pxf\.io$/i,
 ];
 
-const AFFILIATE_QUERY_PATTERNS = [
+const DEFAULT_AFFILIATE_QUERY_PATTERNS = [
   /[?&]tag=kbu3986-20\b/i,
   /[?&]lptag=AF2200875\b/i,
   /[?&]subid=sm-/i,
 ];
+
+const ADSENSE_SCRIPT_REGEX = /adsbygoogle\.js|pagead2\.googlesyndication\.com/i;
+const LAUNCHPAD_PATH_REGEX = /(^|\/)launchpad(\/|$|\.)/i;
+const LAUNCHPAD_TEXT_REGEX = /\blaunchpad\b|ops\/launchpad/i;
+const LOCAL_PATH_PII_REGEX = /[A-Za-z]:(?:\\|\\\\|\/)Users(?:\\|\\\\|\/)/i;
+const TEXT_SCAN_EXTENSIONS = new Set([
+  ".html",
+  ".js",
+  ".mjs",
+  ".css",
+  ".json",
+  ".xml",
+  ".txt",
+  ".svg",
+]);
+
+function escapeRegExp(str) {
+  return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Dynamically build affiliate URL query patterns from config/monetization-config.v2.json
+ * with safe fallbacks so config changes automatically propagate into Stage 6 QA.
+ */
+export function buildAffiliateQueryPatterns(config = {}) {
+  const patterns = [];
+
+  const amazonTags = Object.values(config?.amazonOneLink || {})
+    .map((v) => (typeof v === "string" ? v.trim() : ""))
+    .filter(Boolean);
+  for (const tag of amazonTags.length > 0 ? amazonTags : ["kbu3986-20"]) {
+    patterns.push(new RegExp(`[?&]tag=${escapeRegExp(tag)}\\b`, "i"));
+  }
+
+  const partnersId =
+    typeof config?.coupang?.partnersId === "string" && config.coupang.partnersId.trim()
+      ? config.coupang.partnersId.trim()
+      : "AF2200875";
+  patterns.push(new RegExp(`[?&]lptag=${escapeRegExp(partnersId)}\\b`, "i"));
+
+  const subIds = [
+    config?.coupang?.defaultSubId,
+    ...Object.values(config?.coupang?.verticalSubIds || {}),
+  ]
+    .map((v) => (typeof v === "string" ? v.trim() : ""))
+    .filter(Boolean);
+
+  patterns.push(/[?&]subid=sm-/i);
+  for (const subId of new Set(subIds)) {
+    patterns.push(new RegExp(`[?&]subid=${escapeRegExp(subId)}\\b`, "i"));
+  }
+
+  return patterns;
+}
 
 const DISCLOSURE_PATTERNS = {
   en: /amazon associate|affiliate partner|qualifying purchases|affiliate disclosure|earns from qualifying/i,
@@ -189,20 +249,23 @@ export function extractInternalHrefs(html) {
 }
 
 /**
- * Resolve an internal root-relative href ("/en/about", "/_astro/a.css", "/") against a built dist directory.
+ * Classify and resolve an internal root-relative href ("/en/about/", "/_astro/a.css", "/")
+ * against a built dist directory, reporting whether it targets a directory route (`index.html`)
+ * and whether its pathname includes the required trailing slash.
  */
-export function resolveInternalHref(distDir, href, basePath = "") {
+export function classifyInternalHref(distDir, href, basePath = "") {
   if (typeof href !== "string" || !href.startsWith("/") || href.startsWith("//")) {
-    return false;
+    return { resolved: false, isDirectoryRoute: false, hasTrailingSlash: false };
   }
 
   let cleanPath = href.split("#")[0].split("?")[0];
   try {
     cleanPath = decodeURIComponent(cleanPath);
   } catch {
-    return false;
+    return { resolved: false, isDirectoryRoute: false, hasTrailingSlash: false };
   }
 
+  const rawHasTrailingSlash = cleanPath.endsWith("/");
   const normBase =
     basePath && basePath !== "/"
       ? `/${basePath.replace(/^\/+|\/+$/g, "")}`
@@ -213,39 +276,60 @@ export function resolveInternalHref(distDir, href, basePath = "") {
     } else if (cleanPath.startsWith(`${normBase}/`)) {
       cleanPath = cleanPath.slice(normBase.length);
     } else {
-      return false;
+      return { resolved: false, isDirectoryRoute: false, hasTrailingSlash: rawHasTrailingSlash };
     }
   }
 
   if (cleanPath === "/" || cleanPath === "") {
-    return fs.existsSync(path.join(distDir, "index.html"));
+    return {
+      resolved: fs.existsSync(path.join(distDir, "index.html")),
+      isDirectoryRoute: true,
+      hasTrailingSlash: rawHasTrailingSlash,
+    };
   }
 
   const trimmed = cleanPath.replace(/^\/+/, "").replace(/\/+$/, "");
   if (!trimmed) {
-    return fs.existsSync(path.join(distDir, "index.html"));
+    return {
+      resolved: fs.existsSync(path.join(distDir, "index.html")),
+      isDirectoryRoute: true,
+      hasTrailingSlash: rawHasTrailingSlash,
+    };
   }
 
   // Prevent directory traversal outside distDir
   const resolvedRoot = path.resolve(distDir);
-  const candidates = [
-    path.resolve(distDir, trimmed),
-    path.resolve(distDir, trimmed, "index.html"),
-    path.resolve(distDir, `${trimmed}.html`),
-  ];
+  const directFile = path.resolve(distDir, trimmed);
+  const dirIndexFile = path.resolve(distDir, trimmed, "index.html");
+  const flatHtmlFile = path.resolve(distDir, `${trimmed}.html`);
 
-  for (const candidate of candidates) {
-    if (!candidate.startsWith(resolvedRoot)) continue;
+  const checkFile = (candidate) => {
+    if (!candidate.startsWith(resolvedRoot)) return false;
     try {
-      if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
-        return true;
-      }
+      return fs.existsSync(candidate) && fs.statSync(candidate).isFile();
     } catch {
-      // ignore stat errors
+      return false;
     }
+  };
+
+  if (checkFile(directFile)) {
+    return { resolved: true, isDirectoryRoute: false, hasTrailingSlash: rawHasTrailingSlash };
+  }
+  if (checkFile(dirIndexFile)) {
+    return { resolved: true, isDirectoryRoute: true, hasTrailingSlash: rawHasTrailingSlash };
+  }
+  if (checkFile(flatHtmlFile)) {
+    return { resolved: true, isDirectoryRoute: false, hasTrailingSlash: rawHasTrailingSlash };
   }
 
-  return false;
+  return { resolved: false, isDirectoryRoute: false, hasTrailingSlash: rawHasTrailingSlash };
+}
+
+/**
+ * Resolve an internal root-relative href ("/en/about/", "/_astro/a.css", "/") against a built dist directory.
+ */
+export function resolveInternalHref(distDir, href, basePath = "") {
+  return classifyInternalHref(distDir, href, basePath).resolved;
 }
 
 /**
@@ -277,11 +361,55 @@ export function extractLinkTags(html) {
 }
 
 /**
+ * Determine whether an outbound URL points to a permanently forbidden host (e.g., iherb.com).
+ */
+export function isForbiddenOutboundUrl(urlStr) {
+  if (typeof urlStr !== "string" || !/^https?:\/\//i.test(urlStr)) return false;
+  try {
+    const parsed = new URL(urlStr);
+    return FORBIDDEN_HOST_PATTERNS.some((re) => re.test(parsed.hostname));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Extract all permanently forbidden outbound links/references (such as iherb.com) from HTML.
+ */
+export function extractForbiddenOutboundLinks(html) {
+  const hits = new Set();
+  const raw = String(html || "");
+
+  const tagRe = /<(?:a|link|area|iframe|script)\b([^>]*)>/gi;
+  let m;
+  while ((m = tagRe.exec(raw)) !== null) {
+    const attrs = parseAttributes(m[1]);
+    for (const urlCandidate of [attrs.href, attrs.src]) {
+      if (urlCandidate && isForbiddenOutboundUrl(urlCandidate)) {
+        hits.add(urlCandidate);
+      }
+    }
+  }
+
+  // Catch raw iherb.com URLs even inside inline scripts/JSON-LD/data attributes
+  const rawUrlRe = /https?:\/\/[^\s"'<>`]+/gi;
+  while ((m = rawUrlRe.exec(raw)) !== null) {
+    const candidate = m[0].replace(/[),.;]+$/, "");
+    if (isForbiddenOutboundUrl(candidate)) {
+      hits.add(candidate);
+    }
+  }
+
+  return [...hits];
+}
+
+/**
  * Determine whether an outbound URL is an affiliate link.
  */
-export function isAffiliateUrl(urlStr) {
+export function isAffiliateUrl(urlStr, queryPatterns = DEFAULT_AFFILIATE_QUERY_PATTERNS) {
   if (typeof urlStr !== "string" || !/^https?:\/\//i.test(urlStr)) return false;
-  if (AFFILIATE_QUERY_PATTERNS.some((re) => re.test(urlStr))) return true;
+  if (isForbiddenOutboundUrl(urlStr)) return false;
+  if (queryPatterns.some((re) => re.test(urlStr))) return true;
   try {
     const parsed = new URL(urlStr);
     return AFFILIATE_HOST_PATTERNS.some((re) => re.test(parsed.hostname));
@@ -293,14 +421,14 @@ export function isAffiliateUrl(urlStr) {
 /**
  * Extract all affiliate outbound <a> links and validate rel="sponsored nofollow noopener".
  */
-export function extractAffiliateLinks(html) {
+export function extractAffiliateLinks(html, queryPatterns = DEFAULT_AFFILIATE_QUERY_PATTERNS) {
   const clean = stripScriptsStylesComments(html);
   const results = [];
   const aRe = /<a\b([^>]*)>/gi;
   let m;
   while ((m = aRe.exec(clean)) !== null) {
     const attrs = parseAttributes(m[1]);
-    if (!attrs.href || !isAffiliateUrl(attrs.href)) continue;
+    if (!attrs.href || !isAffiliateUrl(attrs.href, queryPatterns)) continue;
     const relTokens = new Set(
       (attrs.rel || "")
         .toLowerCase()
@@ -380,7 +508,10 @@ export function extractJsonLdBlocks(html) {
 /**
  * Validate XML sitemap or sitemap-index contents and return extracted <loc> URLs.
  */
-export function validateSitemapXml(xml, { kind = "urlset", siteUrl = "https://specmatrix.io", requiredPrefix } = {}) {
+export function validateSitemapXml(
+  xml,
+  { kind = "urlset", siteUrl = "https://specmatrix.io", requiredPrefix, requireTrailingSlash = true } = {}
+) {
   const errors = [];
   const locs = [];
   const text = String(xml || "").trim();
@@ -422,6 +553,14 @@ export function validateSitemapXml(xml, { kind = "urlset", siteUrl = "https://sp
         errors.push(`Sitemap URL "${loc}" does not match expected prefix "${requiredPrefix}"`);
       }
     }
+    if (
+      kind === "urlset" &&
+      requireTrailingSlash &&
+      !parsed.pathname.endsWith("/") &&
+      !/\.[a-z0-9]{2,5}$/i.test(parsed.pathname)
+    ) {
+      errors.push(`Sitemap directory URL must end with "/": "${loc}"`);
+    }
   }
 
   if (locs.length === 0) {
@@ -439,22 +578,12 @@ function htmlFileToRoutePath(distDir, filePath) {
   const rel = path.relative(distDir, filePath).replace(/\\/g, "/");
   if (rel === "index.html") return "/";
   if (rel.endsWith("/index.html")) {
-    return `/${rel.slice(0, -"/index.html".length)}`;
+    return `/${rel.slice(0, -"/index.html".length)}/`;
   }
   if (rel.endsWith(".html")) {
     return `/${rel.slice(0, -".html".length)}`;
   }
   return `/${rel}`;
-}
-
-function normalizeUrlNoTrailingSlash(urlStr) {
-  try {
-    const u = new URL(urlStr);
-    const p = u.pathname === "/" ? "/" : u.pathname.replace(/\/+$/, "");
-    return `${u.origin}${p}`;
-  } catch {
-    return String(urlStr || "").replace(/\/+$/, "");
-  }
 }
 
 function isContentRoute(routePath) {
@@ -508,13 +637,13 @@ function classifySearchEntry(entry) {
  *
  * Supports both shapes:
  *  - Flat:  `{ items: [{ t: "sku" | "airline" | "vs" | "matrix" | "tool", p: "/..." }, ...] }`
- *  - Split: `{ items: [...], airlines: [...], vs: [...], matrices: [...] }`
+ *  - Split: `{ items: [...], airlines: [...], vs: [...], matrices: [...], tools: [...] }`
  *
- * Requires non-empty SKU items, airlines, VS, and matrix/compat groups.
+ * Requires non-empty SKU items, airlines, VS, matrix/compat, and interactive tool groups.
  */
 export function validateSearchIndexPayload(payload) {
   const errors = [];
-  const counts = { items: 0, airlines: 0, vs: 0, matrices: 0, total_entries: 0 };
+  const counts = { items: 0, airlines: 0, vs: 0, matrices: 0, tools: 0, total_entries: 0 };
   const entries = [];
 
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
@@ -526,7 +655,9 @@ export function validateSearchIndexPayload(payload) {
     };
   }
 
-  const isSplitShape = ["airlines", "vs", "matrices"].some((k) => Array.isArray(payload[k]));
+  const isSplitShape = ["airlines", "vs", "matrices", "tools"].some((k) =>
+    Array.isArray(payload[k])
+  );
 
   if (isSplitShape) {
     for (const group of SEARCH_INDEX_REQUIRED_GROUPS) {
@@ -564,11 +695,23 @@ export function validateSearchIndexPayload(payload) {
   };
 }
 
-function resolveSearchEntryPath(distDir, rawPath, basePath) {
+function resolveSearchEntryPaths(distDir, rawPath, basePath) {
   const p = String(rawPath || "").split("#")[0];
-  if (!p.startsWith("/") || p.startsWith("//")) return false;
-  const localized = /^\/(en|ko)(\/|$)/.test(p) ? p : `/en${p === "/" ? "" : p}`;
-  return resolveInternalHref(distDir, `${basePath}${localized}`, basePath);
+  if (!p.startsWith("/") || p.startsWith("//")) {
+    return { ok: false, missingLocales: ["en", "ko"] };
+  }
+  if (/^\/(en|ko)(\/|$)/.test(p)) {
+    const ok = resolveInternalHref(distDir, `${basePath}${p}`, basePath);
+    return { ok, missingLocales: ok ? [] : [p.slice(1, 3)] };
+  }
+  const suffix = p === "/" ? "/" : p;
+  const missingLocales = [];
+  for (const loc of ["en", "ko"]) {
+    if (!resolveInternalHref(distDir, `${basePath}/${loc}${suffix}`, basePath)) {
+      missingLocales.push(loc);
+    }
+  }
+  return { ok: missingLocales.length === 0, missingLocales };
 }
 
 /**
@@ -584,6 +727,8 @@ export function runStage6HtmlQa({
   requireSocialMeta = true,
   requireOgImages = true,
   requireSearchIndex = true,
+  writeReport = false,
+  reportPath,
 } = {}) {
   const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
   const resolvedDist = path.resolve(distDir || path.join(repoRoot, "web", "dist"));
@@ -602,6 +747,7 @@ export function runStage6HtmlQa({
       // fall back to defaults
     }
   }
+  const affiliateQueryPatterns = buildAffiliateQueryPatterns(config);
   const siteUrl = String(
     siteUrlOverride || config.siteUrl || "https://specmatrix.io"
   ).replace(/\/+$/, "");
@@ -619,10 +765,12 @@ export function runStage6HtmlQa({
       file: resolvedDist,
       message: `Build output directory does not exist: ${resolvedDist}`,
     });
-    return {
+    const relDistMissing = path.relative(repoRoot, resolvedDist).replace(/\\/g, "/");
+    const safeDistMissing = relDistMissing && !relDistMissing.startsWith("..") ? relDistMissing : path.basename(resolvedDist);
+    const missingReport = {
       generated_at: new Date().toISOString(),
       overall_passed: false,
-      dist_dir: resolvedDist,
+      dist_dir: safeDistMissing,
       site_url: siteUrl,
       stats: {
         total_files: 0,
@@ -642,6 +790,15 @@ export function runStage6HtmlQa({
       },
       failures,
     };
+    if (writeReport) {
+      const targetReport = path.resolve(
+        reportPath || path.join(repoRoot, "data", "audit", "stage6-qa-report.json")
+      );
+      fs.mkdirSync(path.dirname(targetReport), { recursive: true });
+      fs.writeFileSync(targetReport, `${JSON.stringify(missingReport, null, 2)}\n`, "utf8");
+      missingReport.report_path = path.relative(repoRoot, targetReport).replace(/\\/g, "/");
+    }
+    return missingReport;
   }
 
   let siteHost = "";
@@ -653,6 +810,36 @@ export function runStage6HtmlQa({
 
   const allFiles = walkFiles(resolvedDist);
   const htmlFiles = allFiles.filter((f) => f.toLowerCase().endsWith(".html"));
+
+  // 0. Hard safety gate: zero launchpad files/strings and zero local Windows path PII leaks in web/dist
+  for (const absFile of allFiles) {
+    const relFile = path.relative(resolvedDist, absFile).replace(/\\/g, "/");
+    if (LAUNCHPAD_PATH_REGEX.test(relFile)) {
+      failures.push({
+        check: "launchpad_artifact_in_dist",
+        file: relFile,
+        message: `Local operator Launchpad artifact leaked into public build: ${relFile}`,
+      });
+    }
+    const ext = path.extname(absFile).toLowerCase();
+    if (TEXT_SCAN_EXTENSIONS.has(ext)) {
+      const text = fs.readFileSync(absFile, "utf8");
+      if (LAUNCHPAD_TEXT_REGEX.test(text)) {
+        failures.push({
+          check: "launchpad_leak_in_dist",
+          file: relFile,
+          message: `Forbidden Launchpad reference leaked into public build file: ${relFile}`,
+        });
+      }
+      if (LOCAL_PATH_PII_REGEX.test(text)) {
+        failures.push({
+          check: "local_path_pii_leak",
+          file: relFile,
+          message: `Local Windows user path PII leaked into public build file: ${relFile}`,
+        });
+      }
+    }
+  }
 
   // 1. Cloudflare Pages file cap (< 20,000) & minimum core HTML pages (>= 200)
   if (allFiles.length >= maxTotalFiles) {
@@ -695,15 +882,58 @@ export function runStage6HtmlQa({
       });
     }
 
-    // 3. Internal href="/..." resolution
+    // 2b. Permanently forbidden outbound hosts (iherb.com) — HARD-FAIL
+    const forbiddenHostUrls = extractForbiddenOutboundLinks(html);
+    for (const badUrl of forbiddenHostUrls) {
+      failures.push({
+        check: "forbidden_host_link",
+        file: relFile,
+        message: `Permanently forbidden outbound host emitted in HTML: "${badUrl}"`,
+      });
+    }
+
+    // 3. Internal href="/..." resolution & trailingSlash: "always" enforcement on directory routes
     const internalHrefs = extractInternalHrefs(html);
     for (const href of internalHrefs) {
       totalInternalLinksChecked += 1;
-      if (!resolveInternalHref(resolvedDist, href, basePath)) {
+      const hrefInfo = classifyInternalHref(resolvedDist, href, basePath);
+      if (!hrefInfo.resolved) {
         failures.push({
           check: "broken_internal_link",
           file: relFile,
           message: `Broken internal link href="${href}" does not resolve in web/dist (basePath="${basePath}")`,
+        });
+      } else if (hrefInfo.isDirectoryRoute && !hrefInfo.hasTrailingSlash) {
+        failures.push({
+          check: "internal_link_missing_trailing_slash",
+          file: relFile,
+          message: `Internal directory link href="${href}" must end with "/" (trailingSlash: "always")`,
+        });
+      }
+    }
+
+    // 3b. Dedicated 404/500 error fallback page hygiene (no AdSense, no canonical, no hreflang)
+    if (isErrorPage) {
+      if (ADSENSE_SCRIPT_REGEX.test(html)) {
+        failures.push({
+          check: "error_page_has_adsense",
+          file: relFile,
+          message: `Error fallback page "${relFile}" must NOT include adsbygoogle.js / Google AdSense`,
+        });
+      }
+      const { canonicals: errCanonicals, alternates: errAlternates } = extractLinkTags(html);
+      if (errCanonicals.length > 0) {
+        failures.push({
+          check: "error_page_has_canonical",
+          file: relFile,
+          message: `Error fallback page "${relFile}" must NOT emit <link rel="canonical">`,
+        });
+      }
+      if (errAlternates.length > 0) {
+        failures.push({
+          check: "error_page_has_hreflang",
+          file: relFile,
+          message: `Error fallback page "${relFile}" must NOT emit <link rel="alternate" hreflang>`,
         });
       }
     }
@@ -712,7 +942,8 @@ export function runStage6HtmlQa({
     const locMatch = isErrorPage ? null : routePath.match(/^\/(en|ko)(\/.*)?$/);
     if (locMatch) {
       const locale = locMatch[1];
-      const rest = locMatch[2] || "";
+      const rawRest = locMatch[2] || "/";
+      const rest = rawRest.endsWith("/") ? rawRest : `${rawRest}/`;
       const { canonicals, alternates } = extractLinkTags(html);
 
       const expectedSelf = `${siteUrl}/${locale}${rest}`;
@@ -725,11 +956,11 @@ export function runStage6HtmlQa({
           file: relFile,
           message: `Expected exactly 1 <link rel="canonical">, found ${canonicals.length}`,
         });
-      } else if (normalizeUrlNoTrailingSlash(canonicals[0]) !== expectedSelf) {
+      } else if (canonicals[0] !== expectedSelf) {
         failures.push({
           check: "canonical_not_self_referencing",
           file: relFile,
-          message: `Canonical "${canonicals[0]}" does not match self URL "${expectedSelf}"`,
+          message: `Canonical "${canonicals[0]}" does not exactly match self URL "${expectedSelf}" (trailingSlash: "always")`,
         });
       }
 
@@ -750,7 +981,7 @@ export function runStage6HtmlQa({
             file: relFile,
             message: `Missing <link rel="alternate" hreflang="${langKey}">`,
           });
-        } else if (normalizeUrlNoTrailingSlash(actual) !== expectedHref) {
+        } else if (actual !== expectedHref) {
           failures.push({
             check: "hreflang_target_mismatch",
             file: relFile,
@@ -767,7 +998,7 @@ export function runStage6HtmlQa({
         });
       }
 
-      localizedPages.set(routePath, {
+      localizedPages.set(`/${locale}${rest}`, {
         file: relFile,
         locale,
         rest,
@@ -834,7 +1065,7 @@ export function runStage6HtmlQa({
     }
 
     // 5b. Affiliate outbound link rel="sponsored nofollow noopener"
-    const affLinks = extractAffiliateLinks(html);
+    const affLinks = extractAffiliateLinks(html, affiliateQueryPatterns);
     for (const link of affLinks) {
       totalAffiliateLinksChecked += 1;
       if (!link.validRel) {
@@ -893,7 +1124,7 @@ export function runStage6HtmlQa({
     } else {
       const peerBackLink = peer.altMap.get(meta.locale);
       const expectedBack = `${siteUrl}${routePath}`;
-      if (!peerBackLink || normalizeUrlNoTrailingSlash(peerBackLink) !== expectedBack) {
+      if (!peerBackLink || peerBackLink !== expectedBack) {
         failures.push({
           check: "hreflang_asymmetric_backlink",
           file: meta.file,
@@ -1155,13 +1386,14 @@ export function runStage6HtmlQa({
         for (const entry of res.entries) {
           const rawPath = entry?.p ?? entry?.path ?? null;
           if (typeof rawPath !== "string") continue;
-          if (!resolveSearchEntryPath(resolvedDist, rawPath, basePath)) {
+          const pathCheck = resolveSearchEntryPaths(resolvedDist, rawPath, basePath);
+          if (!pathCheck.ok) {
             brokenPaths += 1;
             if (brokenPaths <= MAX_SEARCH_PATH_FAILURES_REPORTED) {
               failures.push({
                 check: "search_index_broken_path",
                 file: SEARCH_INDEX_FILE,
-                message: `Search entry path "${rawPath}" does not resolve to a built /en page in web/dist`,
+                message: `Search entry path "${rawPath}" failed to resolve in web/dist for locale(s): ${pathCheck.missingLocales.map((l) => `/${l}`).join(", ")}`,
               });
             }
           }
@@ -1177,10 +1409,12 @@ export function runStage6HtmlQa({
     }
   }
 
-  return {
+  const relDist = path.relative(repoRoot, resolvedDist).replace(/\\/g, "/");
+  const safeDistDir = relDist && !relDist.startsWith("..") ? relDist : path.basename(resolvedDist);
+  const report = {
     generated_at: new Date().toISOString(),
     overall_passed: failures.length === 0,
-    dist_dir: resolvedDist,
+    dist_dir: safeDistDir,
     site_url: siteUrl,
     stats: {
       total_files: allFiles.length,
@@ -1200,6 +1434,17 @@ export function runStage6HtmlQa({
     },
     failures,
   };
+
+  if (writeReport) {
+    const targetReport = path.resolve(
+      reportPath || path.join(repoRoot, "data", "audit", "stage6-qa-report.json")
+    );
+    fs.mkdirSync(path.dirname(targetReport), { recursive: true });
+    fs.writeFileSync(targetReport, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+    report.report_path = path.relative(repoRoot, targetReport).replace(/\\/g, "/");
+  }
+
+  return report;
 }
 
 function isDirectRun(metaUrl) {
@@ -1213,6 +1458,7 @@ if (isDirectRun(import.meta.url)) {
   const report = runStage6HtmlQa({
     siteUrl: process.env.PUBLIC_SITE_URL,
     basePath: process.env.PUBLIC_BASE_PATH,
+    writeReport: true,
   });
   const s = report.stats;
 
@@ -1226,6 +1472,9 @@ if (isDirectRun(import.meta.url)) {
   console.log(`Sitemaps:        ${s.sitemap_files_validated} files / ${s.sitemap_urls_checked} URLs checked`);
   console.log(`Social Meta:     ${s.social_meta_pages_checked} localized pages | OG PNGs: ${s.og_images_validated}/${REQUIRED_OG_IMAGES.length}`);
   console.log(`Search Index:    ${s.search_index_entries} entries | Fallback pages excluded: ${s.error_fallback_pages}`);
+  if (report.report_path) {
+    console.log(`Report:          ${report.report_path}`);
+  }
 
   if (!report.overall_passed) {
     console.error(`\nSTAGE 6 QA FAILED (${report.failures.length} issues):`);

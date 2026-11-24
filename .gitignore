@@ -6,9 +6,10 @@ out/
 .venv/
 __pycache__/
 *.pyc
-.env
-.env.local
-.env.*.local
+.env*
+!.env.example
 *.log
 .DS_Store
 Thumbs.db
+딸깍_최종마무리_런치패드.cmd
+ops/seeding-posts.md

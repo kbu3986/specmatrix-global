@@ -353,6 +353,7 @@ export const VsInsightSchema = z.object({
   release_wave: z.number().int().min(1).max(4),
   info_gain_score: z.number().min(75).max(100),
   serp_gaps_captured: z.array(z.string().min(10)).min(3),
+  serp_gaps_captured_ko: z.array(z.string().min(8)).min(3).optional(),
   verdict: z.object({
     en: z.object({
       headline: z.string().min(15),

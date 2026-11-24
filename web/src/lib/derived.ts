@@ -21,6 +21,46 @@ export const REFERENCE_DEVICES = [
   { id: "ipadpro13", name_en: "iPad Pro 13\" M4", name_ko: "아이패드 프로 13\"", wh: 39.0, max_w: 38 },
 ] as const;
 
+const DEFAULT_FX_MAP: Record<"USD" | "KRW" | "JPY" | "EUR" | "GBP", number> = {
+  USD: 1,
+  KRW: 1400,
+  JPY: 154,
+  EUR: 0.94,
+  GBP: 0.79,
+};
+
+function roundTo(val: number, decimals = 2): number {
+  const factor = 10 ** decimals;
+  return Math.round((val + Number.EPSILON) * factor) / factor;
+}
+
+function convertCurrency(
+  amount: number,
+  fromCurrency: "USD" | "KRW" | "JPY" | "EUR" | "GBP",
+  toCurrency: "USD" | "KRW" | "JPY" | "EUR" | "GBP",
+  fx?: FxRates
+): number {
+  if (!Number.isFinite(amount)) return 0;
+  if (fromCurrency === toCurrency) return amount;
+  const rates = { ...DEFAULT_FX_MAP, ...(fx?.rates ?? {}) };
+  const fromRate = rates[fromCurrency];
+  const toRate = rates[toCurrency];
+  if (!fromRate || !toRate) return amount;
+  const usd = fromCurrency === "USD" ? amount : amount / fromRate;
+  return toCurrency === "USD" ? usd : usd * toRate;
+}
+
+function extractBenchmarkPrices(item: AnyItem, fx: FxRates): { usMsrp: number; krMsrp: number } {
+  const usOffer = item.regional_offers.us;
+  const krOffer = item.regional_offers.kr;
+  const usMsrp = convertCurrency(usOffer.msrp, usOffer.currency || "USD", "USD", fx);
+  const krMsrp = convertCurrency(krOffer.msrp, krOffer.currency || "KRW", "KRW", fx);
+  return {
+    usMsrp: roundTo(usMsrp, 2),
+    krMsrp: Math.round(krMsrp),
+  };
+}
+
 export interface WattCheckDerived {
   usableWh: number | null;
   whPer100g: number | null;
@@ -40,35 +80,38 @@ export interface WattCheckDerived {
   maxDualPortW: number;
 }
 
-export function computeWattCheckDerived(item: WattCheckItem, _fx: FxRates): WattCheckDerived {
+export function computeWattCheckDerived(item: WattCheckItem, fx: FxRates): WattCheckDerived {
   const s = item.specs;
-  const eff = s.conversion_efficiency_pct ?? 82;
-  const usableWh =
+  const eff =
+    typeof s.conversion_efficiency_pct === "number" && s.conversion_efficiency_pct > 0
+      ? s.conversion_efficiency_pct
+      : 80;
+  const rawUsableWh =
     s.has_battery && s.battery_energy_wh && s.battery_energy_wh > 0
-      ? +(s.battery_energy_wh * (eff / 100)).toFixed(2)
+      ? s.battery_energy_wh * (eff / 100)
       : null;
+  const usableWh = rawUsableWh !== null ? roundTo(rawUsableWh, 2) : null;
 
   const whPer100g =
     s.has_battery && s.battery_energy_wh && s.weight_g > 0
-      ? +((s.battery_energy_wh / s.weight_g) * 100).toFixed(2)
+      ? roundTo((s.battery_energy_wh / s.weight_g) * 100, 2)
       : null;
 
-  const wPer100g = s.weight_g > 0 ? +((s.max_total_output_w / s.weight_g) * 100).toFixed(2) : 0;
+  const wPer100g = s.weight_g > 0 ? roundTo((s.max_total_output_w / s.weight_g) * 100, 2) : 0;
 
   const charges = {
-    mbp16: usableWh ? +(usableWh / 100.0).toFixed(2) : null,
-    iphone16pro: usableWh ? +(usableWh / 13.8).toFixed(2) : null,
-    s25ultra: usableWh ? +(usableWh / 19.4).toFixed(2) : null,
-    steamdeck: usableWh ? +(usableWh / 50.0).toFixed(2) : null,
-    ipadpro13: usableWh ? +(usableWh / 39.0).toFixed(2) : null,
+    mbp16: rawUsableWh !== null ? roundTo(rawUsableWh / 100.0, 2) : null,
+    iphone16pro: rawUsableWh !== null ? roundTo(rawUsableWh / 13.8, 2) : null,
+    s25ultra: rawUsableWh !== null ? roundTo(rawUsableWh / 19.4, 2) : null,
+    steamdeck: rawUsableWh !== null ? roundTo(rawUsableWh / 50.0, 2) : null,
+    ipadpro13: rawUsableWh !== null ? roundTo(rawUsableWh / 39.0, 2) : null,
   };
 
-  const usMsrp = item.regional_offers.us.msrp;
-  const krMsrp = item.regional_offers.kr.msrp;
+  const { usMsrp, krMsrp } = extractBenchmarkPrices(item, fx);
 
   const usdPer10Wh =
     s.has_battery && s.battery_energy_wh && s.battery_energy_wh > 0
-      ? +(usMsrp / (s.battery_energy_wh / 10)).toFixed(2)
+      ? roundTo(usMsrp / (s.battery_energy_wh / 10), 2)
       : null;
   const krwPer10Wh =
     s.has_battery && s.battery_energy_wh && s.battery_energy_wh > 0
@@ -76,7 +119,7 @@ export function computeWattCheckDerived(item: WattCheckItem, _fx: FxRates): Watt
       : null;
 
   const usdPer10W =
-    s.max_total_output_w > 0 ? +(usMsrp / (s.max_total_output_w / 10)).toFixed(2) : 0;
+    s.max_total_output_w > 0 ? roundTo(usMsrp / (s.max_total_output_w / 10), 2) : 0;
   const krwPer10W =
     s.max_total_output_w > 0 ? Math.round(krMsrp / (s.max_total_output_w / 10)) : 0;
 
@@ -123,7 +166,7 @@ export interface PureGramDerived {
   raceCost90gPerHourKrw: number | null;
 }
 
-export function computePureGramDerived(item: PureGramItem, _fx: FxRates): PureGramDerived {
+export function computePureGramDerived(item: PureGramItem, fx: FxRates): PureGramDerived {
   const pkg = item.package_spec;
   const dm = item.derived_math;
   const nl = item.nutrition_label;
@@ -131,36 +174,39 @@ export function computePureGramDerived(item: PureGramItem, _fx: FxRates): PureGr
   const totalPureActiveG =
     dm.total_pure_active_g > 0
       ? dm.total_pure_active_g
-      : +(nl.active_per_serving_g * pkg.total_servings).toFixed(2);
+      : roundTo(nl.active_per_serving_g * pkg.total_servings, 2);
 
   const benchmarkUnitsPerPack =
     dm.benchmark_unit_g > 0 ? totalPureActiveG / dm.benchmark_unit_g : pkg.total_servings;
 
-  const usMsrp = item.regional_offers.us.msrp;
-  const krMsrp = item.regional_offers.kr.msrp;
+  const { usMsrp, krMsrp } = extractBenchmarkPrices(item, fx);
 
   const usdPerBenchmarkUnit =
-    benchmarkUnitsPerPack > 0 ? +(usMsrp / benchmarkUnitsPerPack).toFixed(2) : 0;
+    benchmarkUnitsPerPack > 0 ? roundTo(usMsrp / benchmarkUnitsPerPack, 2) : 0;
   const krwPerBenchmarkUnit =
     benchmarkUnitsPerPack > 0 ? Math.round(krMsrp / benchmarkUnitsPerPack) : 0;
 
-  const usdPerServing = pkg.total_servings > 0 ? +(usMsrp / pkg.total_servings).toFixed(2) : 0;
+  const usdPerServing = pkg.total_servings > 0 ? roundTo(usMsrp / pkg.total_servings, 2) : 0;
   const krwPerServing = pkg.total_servings > 0 ? Math.round(krMsrp / pkg.total_servings) : 0;
 
-  const fillerTaxPct = +Math.max(0, 100 - dm.purity_pct).toFixed(1);
+  const fillerTaxPct = roundTo(Math.max(0, 100 - dm.purity_pct), 2);
 
-  const servingsFor90gPerHour =
-    dm.servings_for_90g_per_hour ??
-    (nl.carbs_g > 0 ? +(90 / nl.carbs_g).toFixed(2) : null);
+  let servingsFor90gPerHour: number | null = null;
+  let raceCost90gPerHourUsd: number | null = null;
+  let raceCost90gPerHourKrw: number | null = null;
 
-  const raceCost90gPerHourUsd =
-    servingsFor90gPerHour !== null ? +(usdPerServing * servingsFor90gPerHour).toFixed(2) : null;
-  const raceCost90gPerHourKrw =
-    servingsFor90gPerHour !== null ? Math.round(krwPerServing * servingsFor90gPerHour) : null;
+  if (nl.active_ingredient_type === "carbohydrates" && nl.active_per_serving_g > 0) {
+    const rawServings90 = 90 / nl.active_per_serving_g;
+    servingsFor90gPerHour = roundTo(rawServings90, 2);
+    if (pkg.total_servings > 0) {
+      raceCost90gPerHourUsd = roundTo(rawServings90 * (usMsrp / pkg.total_servings), 2);
+      raceCost90gPerHourKrw = Math.round(rawServings90 * (krMsrp / pkg.total_servings));
+    }
+  }
 
   return {
     totalPureActiveG,
-    benchmarkUnitsPerPack: +benchmarkUnitsPerPack.toFixed(2),
+    benchmarkUnitsPerPack: roundTo(benchmarkUnitsPerPack, 2),
     usdPerBenchmarkUnit,
     krwPerBenchmarkUnit,
     usdPerServing,
@@ -172,35 +218,64 @@ export function computePureGramDerived(item: PureGramItem, _fx: FxRates): PureGr
   };
 }
 
+export type CycleGearSafetyTier =
+  | "HOOKLESS_CRITICAL"
+  | "TORQUE_SPEC_REQUIRED"
+  | "AXLE_FIT_CHECK"
+  | "STANDARD_MOUNT";
+
 export interface CycleGearDerived {
   usdPer100g: number;
   krwPer100g: number;
   compatBreadthScore: number;
-  safetyTier: "HOOKLESS_GUARD" | "TORQUE_SPEC";
+  safetyTier: CycleGearSafetyTier;
   hooklessMaxBar: number | null;
 }
 
-export function computeCycleGearDerived(item: CycleGearItem, _fx: FxRates): CycleGearDerived {
+export function computeCycleGearDerived(item: CycleGearItem, fx: FxRates): CycleGearDerived {
   const s = item.specs;
   const cg = item.compatibility_graph;
-  const usMsrp = item.regional_offers.us.msrp;
-  const krMsrp = item.regional_offers.kr.msrp;
+  const { usMsrp, krMsrp } = extractBenchmarkPrices(item, fx);
 
-  const usdPer100g = s.weight_g > 0 ? +((usMsrp / s.weight_g) * 100).toFixed(2) : 0;
+  const usdPer100g = s.weight_g > 0 ? roundTo((usMsrp / s.weight_g) * 100, 2) : 0;
   const krwPer100g = s.weight_g > 0 ? Math.round((krMsrp / s.weight_g) * 100) : 0;
 
-  const compatBreadthScore =
-    (cg.drivetrain_compatible?.length ?? 0) +
-    (cg.head_unit_or_app_verified?.length ?? 0) +
-    (s.connectivity?.length ?? 0);
+  // Deterministic compatibility breadth score (0–100), matching pipeline/derived-metrics.mjs
+  const drivetrainCount = Array.isArray(cg.drivetrain_compatible) ? cg.drivetrain_compatible.length : 0;
+  const headUnitCount = Array.isArray(cg.head_unit_or_app_verified) ? cg.head_unit_or_app_verified.length : 0;
+  const connectivityCount = Array.isArray(s.connectivity) ? s.connectivity.length : 0;
+  const mountStr = String(cg.bb_or_mount_standard || "").toLowerCase();
+  const isUniversalMount =
+    mountStr.includes("universal") ||
+    mountStr.includes("9/16") ||
+    mountStr.includes("700c") ||
+    mountStr.includes("quarter-turn") ||
+    mountStr.includes("standard");
 
-  const safetyTier = item.safety_warning.requires_hookless_warning
-    ? "HOOKLESS_GUARD"
-    : "TORQUE_SPEC";
+  const drivetrainPts = Math.min(40, drivetrainCount * 10);
+  const headUnitPts = Math.min(35, headUnitCount * 7);
+  const connectivityPts = Math.min(15, connectivityCount * 5);
+  const mountBonus = isUniversalMount
+    ? 10
+    : (cg.incompatible_notes_en?.length ?? 2) <= 1
+      ? 5
+      : 0;
+  const compatBreadthScore = Math.min(100, drivetrainPts + headUnitPts + connectivityPts + mountBonus);
+
+  let safetyTier: CycleGearSafetyTier;
+  if (item.safety_warning.requires_hookless_warning) {
+    safetyTier = "HOOKLESS_CRITICAL";
+  } else if (item.category === "drivetrain" || item.category === "power-meter") {
+    safetyTier = "TORQUE_SPEC_REQUIRED";
+  } else if (item.category === "smart-trainer") {
+    safetyTier = "AXLE_FIT_CHECK";
+  } else {
+    safetyTier = "STANDARD_MOUNT";
+  }
 
   const hooklessMaxBar =
     s.hookless_max_psi !== null && s.hookless_max_psi > 0
-      ? +(s.hookless_max_psi / 14.5038).toFixed(2)
+      ? roundTo(s.hookless_max_psi / 14.5038, 2)
       : null;
 
   return {
@@ -223,25 +298,27 @@ export interface HomeTechDerived {
   upsPowerFactor: number | null;
 }
 
-export function computeHomeTechDerived(item: HomeTechItem, _fx: FxRates): HomeTechDerived {
+export function computeHomeTechDerived(item: HomeTechItem, fx: FxRates): HomeTechDerived {
   const s = item.specs;
+  const { usMsrp, krMsrp } = extractBenchmarkPrices(item, fx);
   const h = Math.max(0, Math.min(24, s.default_daily_hours_active));
-  const weightedAvgW = +((s.typical_load_w * h + s.idle_power_w * (24 - h)) / 24).toFixed(2);
-  const annualKwh = +(weightedAvgW * 8.76).toFixed(2);
-  const annualElecUsd = +(annualKwh * 0.17).toFixed(2);
-  const annualElecKrw = Math.round(annualKwh * 214);
-  const annualElecEurDe = +(annualKwh * 0.38).toFixed(2);
+  const rawWeightedAvgW = (s.typical_load_w * h + s.idle_power_w * (24 - h)) / 24;
+  const rawAnnualKwh = rawWeightedAvgW * 8.76;
 
-  const usMsrp = item.regional_offers.us.msrp;
-  const krMsrp = item.regional_offers.kr.msrp;
-  const tco3yrUsd = +(usMsrp + 3 * (annualElecUsd + s.annual_consumables_usd)).toFixed(2);
+  const weightedAvgW = roundTo(rawWeightedAvgW, 2);
+  const annualKwh = roundTo(rawAnnualKwh, 2);
+  const annualElecUsd = roundTo(rawAnnualKwh * 0.17, 2);
+  const annualElecKrw = Math.round(rawAnnualKwh * 214);
+  const annualElecEurDe = roundTo(rawAnnualKwh * 0.38, 2);
+
+  const tco3yrUsd = roundTo(usMsrp + 3 * (annualElecUsd + s.annual_consumables_usd), 2);
   const tco3yrKrw = Math.round(krMsrp + 3 * (annualElecKrw + s.annual_consumables_krw));
   const upsPowerFactor =
     s.ups_va_rating !== null &&
     s.ups_va_rating > 0 &&
     s.ups_watt_rating !== null &&
     s.ups_watt_rating > 0
-      ? +(s.ups_watt_rating / s.ups_va_rating).toFixed(2)
+      ? roundTo(s.ups_watt_rating / s.ups_va_rating, 2)
       : null;
 
   return {
@@ -268,12 +345,16 @@ export function getItemDerivedKpis(
     const cards: DerivedKpiCard[] = [];
 
     if (s.has_battery && d.usableWh !== null) {
+      const effDisplay =
+        typeof s.conversion_efficiency_pct === "number" && s.conversion_efficiency_pct > 0
+          ? s.conversion_efficiency_pct
+          : 80;
       cards.push({
         label: isKo ? "실가용 에너지 (변환효율 반영)" : "Real Usable Energy",
         value: `${formatNum(d.usableWh, 1)} Wh`,
         sublabel: isKo
-          ? `정격 ${formatNum(s.battery_energy_wh, 2)} Wh × ${s.conversion_efficiency_pct ?? 82}% 효율`
-          : `Rated ${formatNum(s.battery_energy_wh, 2)} Wh × ${s.conversion_efficiency_pct ?? 82}% eff.`,
+          ? `정격 ${formatNum(s.battery_energy_wh, 2)} Wh × ${effDisplay}% 효율`
+          : `Rated ${formatNum(s.battery_energy_wh, 2)} Wh × ${effDisplay}% eff.`,
         tone: "info",
       });
       cards.push({
@@ -292,7 +373,7 @@ export function getItemDerivedKpis(
                 : "Flight Prohibited",
         sublabel: isKo
           ? `위탁수하물: ${item.airline_compliance_profile.checked_baggage === "allowed" ? "가능" : "금지"}`
-          : `Checked bag: ${item.airline_compliance_profile.checked_baggage}`,
+          : `Checked bag: ${item.airline_compliance_profile.checked_baggage === "allowed" ? "Allowed" : "Prohibited"}`,
         tone:
           item.airline_compliance_profile.iata_tier === "under_100wh_no_approval"
             ? "pass"
@@ -525,6 +606,32 @@ export function getItemDerivedKpis(
   const d = computeCycleGearDerived(item, fx);
   const s = item.specs;
   const isKo = locale === "ko";
+  const safetyTierMeta: Record<
+    CycleGearSafetyTier,
+    { valueEn: string; valueKo: string; tone: DerivedKpiCard["tone"] }
+  > = {
+    HOOKLESS_CRITICAL: {
+      valueEn: "Hookless 5.0 bar Guard",
+      valueKo: "후크리스 5.0 bar 경고",
+      tone: "caution",
+    },
+    TORQUE_SPEC_REQUIRED: {
+      valueEn: "Torque Spec Required",
+      valueKo: "규정 토크 필수 확인",
+      tone: "caution",
+    },
+    AXLE_FIT_CHECK: {
+      valueEn: "Axle & Dropout Check",
+      valueKo: "스루액슬·프레임 확인",
+      tone: "info",
+    },
+    STANDARD_MOUNT: {
+      valueEn: "Standard Mount & Tether",
+      valueKo: "표준 마운트·스트랩 권장",
+      tone: "pass",
+    },
+  };
+  const tierMeta = safetyTierMeta[d.safetyTier];
   return [
     {
       label: isKo ? "100g당 기준 단가 (MSRP)" : "Benchmark Cost / 100g",
@@ -581,7 +688,7 @@ export function getItemDerivedKpis(
     },
     {
       label: isKo ? "생태계 호환 지수" : "Ecosystem Breadth",
-      value: `${d.compatBreadthScore} pts`,
+      value: `${d.compatBreadthScore} / 100`,
       sublabel: isKo
         ? `통신 ${s.connectivity.slice(0, 3).join(" · ") || "기계식"}`
         : `${s.connectivity.slice(0, 3).join(" · ") || "Mechanical"}`,
@@ -589,18 +696,11 @@ export function getItemDerivedKpis(
     },
     {
       label: isKo ? "안전 검증 등급" : "Safety Gate",
-      value:
-        d.safetyTier === "HOOKLESS_GUARD"
-          ? isKo
-            ? "후크리스 5 bar 경고"
-            : "Hookless 5 bar Guard"
-          : isKo
-            ? "토크 규격 필수 확인"
-            : "Torque Spec Required",
+      value: isKo ? tierMeta.valueKo : tierMeta.valueEn,
       sublabel: isKo
         ? `규격: ${item.compatibility_graph.bb_or_mount_standard}`
         : `Mount: ${item.compatibility_graph.bb_or_mount_standard}`,
-      tone: d.safetyTier === "HOOKLESS_GUARD" ? "caution" : "default",
+      tone: tierMeta.tone,
     },
   ];
 }
@@ -613,12 +713,24 @@ function makeMetricRow(opts: {
   rawB: number | null;
   displayA: string;
   displayB: string;
-  higherIsBetter: boolean;
+  higherIsBetter: boolean | null;
   locale: ActiveLocale;
   formatDelta?: (diff: number) => string;
+  neutralText?: string;
 }): VsMetricRow {
-  const { key, label, unit, rawA, rawB, displayA, displayB, higherIsBetter, locale, formatDelta } =
-    opts;
+  const {
+    key,
+    label,
+    unit,
+    rawA,
+    rawB,
+    displayA,
+    displayB,
+    higherIsBetter,
+    locale,
+    formatDelta,
+    neutralText,
+  } = opts;
   let winner: "a" | "b" | "tie" | "neutral" = "neutral";
   let deltaText = "—";
   let barPctA = 50;
@@ -629,19 +741,26 @@ function makeMetricRow(opts: {
     barPctA = Math.max(8, Math.min(100, Math.round((Math.abs(rawA) / maxVal) * 100)));
     barPctB = Math.max(8, Math.min(100, Math.round((Math.abs(rawB) / maxVal) * 100)));
 
-    const diff = rawA - rawB;
-    if (Math.abs(diff) < 0.005) {
-      winner = "tie";
-      deltaText = locale === "ko" ? "동일" : "Tie";
+    if (higherIsBetter === null) {
+      winner = "neutral";
+      deltaText = neutralText ?? (locale === "ko" ? "참고 수치" : "Informational");
     } else {
-      const aWins = higherIsBetter ? diff > 0 : diff < 0;
-      winner = aWins ? "a" : "b";
-      const absDiff = Math.abs(diff);
-      const formatted = formatDelta ? formatDelta(absDiff) : `${formatNum(absDiff, 1)}${unit ? ` ${unit}` : ""}`;
-      if (locale === "ko") {
-        deltaText = aWins ? `A 우세 (${formatted})` : `B 우세 (${formatted})`;
+      const diff = rawA - rawB;
+      if (Math.abs(diff) < 0.005) {
+        winner = "tie";
+        deltaText = locale === "ko" ? "동일" : "Tie";
       } else {
-        deltaText = aWins ? `A leads by ${formatted}` : `B leads by ${formatted}`;
+        const aWins = higherIsBetter ? diff > 0 : diff < 0;
+        winner = aWins ? "a" : "b";
+        const absDiff = Math.abs(diff);
+        const formatted = formatDelta
+          ? formatDelta(absDiff)
+          : `${formatNum(absDiff, 1)}${unit ? ` ${unit}` : ""}`;
+        if (locale === "ko") {
+          deltaText = aWins ? `A 우세 (${formatted})` : `B 우세 (${formatted})`;
+        } else {
+          deltaText = aWins ? `A leads by ${formatted}` : `B leads by ${formatted}`;
+        }
       }
     }
   }
@@ -697,8 +816,10 @@ export function computeVsDiff(
   const isKo = locale === "ko";
   const rows: VsMetricRow[] = [];
 
-  const priceA = isKo ? itemA.regional_offers.kr.msrp : itemA.regional_offers.us.msrp;
-  const priceB = isKo ? itemB.regional_offers.kr.msrp : itemB.regional_offers.us.msrp;
+  const pricesA = extractBenchmarkPrices(itemA, fx);
+  const pricesB = extractBenchmarkPrices(itemB, fx);
+  const priceA = isKo ? pricesA.krMsrp : pricesA.usMsrp;
+  const priceB = isKo ? pricesB.krMsrp : pricesB.usMsrp;
   const currency = isKo ? "KRW" : "USD";
 
   rows.push(
@@ -841,9 +962,16 @@ export function computeVsDiff(
       })
     );
 
+    const bothBattery = Boolean(
+      sA.has_battery && sB.has_battery && dA.usdPer10Wh !== null && dB.usdPer10Wh !== null
+    );
     const [valA, valB] = pairRelativeScores(
-      sA.has_battery && dA.usdPer10Wh && dB.usdPer10Wh ? dA.usdPer10Wh : dA.usdPer10W,
-      sB.has_battery && dA.usdPer10Wh && dB.usdPer10Wh ? dB.usdPer10Wh : dB.usdPer10W,
+      isKo
+        ? (bothBattery ? (dA.krwPer10Wh ?? dA.krwPer10W) : dA.krwPer10W)
+        : (bothBattery ? (dA.usdPer10Wh ?? dA.usdPer10W) : dA.usdPer10W),
+      isKo
+        ? (bothBattery ? (dB.krwPer10Wh ?? dB.krwPer10W) : dB.krwPer10W)
+        : (bothBattery ? (dB.usdPer10Wh ?? dB.usdPer10W) : dB.usdPer10W),
       false
     );
     const [portA, portB] = pairRelativeScores(sA.weight_g, sB.weight_g, false);
@@ -902,20 +1030,45 @@ export function computeVsDiff(
     const nlA = itemA.nutrition_label;
     const nlB = itemB.nutrition_label;
 
+    const sameBenchmarkUnit =
+      itemA.derived_math.benchmark_unit_g === itemB.derived_math.benchmark_unit_g &&
+      itemA.derived_math.benchmark_label_en === itemB.derived_math.benchmark_label_en &&
+      nlA.active_ingredient_type === nlB.active_ingredient_type;
+    const bothElectrolyte =
+      itemA.category === "electrolyte" && itemB.category === "electrolyte";
+
+    const benchCostA = isKo ? dA.krwPerBenchmarkUnit : dA.usdPerBenchmarkUnit;
+    const benchCostB = isKo ? dB.krwPerBenchmarkUnit : dB.usdPerBenchmarkUnit;
+    const benchLabelA = isKo
+      ? itemA.derived_math.benchmark_label_ko
+      : itemA.derived_math.benchmark_label_en;
+    const benchLabelB = isKo
+      ? itemB.derived_math.benchmark_label_ko
+      : itemB.derived_math.benchmark_label_en;
+
     rows.push(
       makeMetricRow({
         key: "cost_per_benchmark",
-        label: isKo
-          ? `순수 유효성분 기준 단가 (${itemA.derived_math.benchmark_label_ko})`
-          : `Cost per Benchmark (${itemA.derived_math.benchmark_label_en})`,
+        label: sameBenchmarkUnit
+          ? isKo
+            ? `순수 유효성분 기준 단가 (${benchLabelA})`
+            : `Cost per Benchmark (${benchLabelA})`
+          : isKo
+            ? "순수 유효성분 기준 단가 (기준 단위 상이)"
+            : "Cost per Benchmark (Different Units)",
         unit: currency,
-        rawA: isKo ? dA.krwPerBenchmarkUnit : dA.usdPerBenchmarkUnit,
-        rawB: isKo ? dB.krwPerBenchmarkUnit : dB.usdPerBenchmarkUnit,
-        displayA: formatCurrency(isKo ? dA.krwPerBenchmarkUnit : dA.usdPerBenchmarkUnit, currency, locale),
-        displayB: formatCurrency(isKo ? dB.krwPerBenchmarkUnit : dB.usdPerBenchmarkUnit, currency, locale),
-        higherIsBetter: false,
+        rawA: benchCostA,
+        rawB: benchCostB,
+        displayA: sameBenchmarkUnit
+          ? formatCurrency(benchCostA, currency, locale)
+          : `${formatCurrency(benchCostA, currency, locale)} (${benchLabelA})`,
+        displayB: sameBenchmarkUnit
+          ? formatCurrency(benchCostB, currency, locale)
+          : `${formatCurrency(benchCostB, currency, locale)} (${benchLabelB})`,
+        higherIsBetter: sameBenchmarkUnit ? false : null,
         locale,
         formatDelta: (d) => formatCurrency(d, currency, locale),
+        neutralText: isKo ? "기준 단위 상이 (참고)" : "Different units (info)",
       }),
       makeMetricRow({
         key: "purity_pct",
@@ -936,8 +1089,9 @@ export function computeVsDiff(
         rawB: nlB.active_per_serving_g,
         displayA: `${formatNum(nlA.active_per_serving_g, 1)} g`,
         displayB: `${formatNum(nlB.active_per_serving_g, 1)} g`,
-        higherIsBetter: true,
+        higherIsBetter: sameBenchmarkUnit ? true : null,
         locale,
+        neutralText: isKo ? "유효성분 유형 상이" : "Different active type",
       }),
       makeMetricRow({
         key: "cost_per_serving",
@@ -959,9 +1113,10 @@ export function computeVsDiff(
         rawB: nlB.sodium_mg,
         displayA: `${formatInt(nlA.sodium_mg)} mg`,
         displayB: `${formatInt(nlB.sodium_mg)} mg`,
-        higherIsBetter: true,
+        higherIsBetter: bothElectrolyte ? true : null,
         locale,
         formatDelta: (d) => `${formatInt(d)} mg`,
+        neutralText: isKo ? "참고 수치" : "Informational",
       }),
       makeMetricRow({
         key: "servings",
@@ -977,7 +1132,14 @@ export function computeVsDiff(
       })
     );
 
-    if (dA.raceCost90gPerHourUsd !== null && dB.raceCost90gPerHourUsd !== null) {
+    if (
+      nlA.active_ingredient_type === "carbohydrates" &&
+      nlB.active_ingredient_type === "carbohydrates" &&
+      dA.servingsFor90gPerHour !== null &&
+      dB.servingsFor90gPerHour !== null &&
+      dA.raceCost90gPerHourUsd !== null &&
+      dB.raceCost90gPerHourUsd !== null
+    ) {
       rows.push(
         makeMetricRow({
           key: "race_90g_cost",
@@ -994,7 +1156,13 @@ export function computeVsDiff(
       );
     }
 
-    const [valA, valB] = pairRelativeScores(dA.usdPerBenchmarkUnit, dB.usdPerBenchmarkUnit, false);
+    const [valA, valB] = sameBenchmarkUnit
+      ? pairRelativeScores(benchCostA, benchCostB, false)
+      : pairRelativeScores(
+          isKo ? dA.krwPerServing : dA.usdPerServing,
+          isKo ? dB.krwPerServing : dB.usdPerServing,
+          false
+        );
     const [portA, portB] = pairRelativeScores(
       itemA.derived_math.purity_pct,
       itemB.derived_math.purity_pct,
@@ -1242,7 +1410,11 @@ export function computeVsDiff(
       );
     }
 
-    const [valA, valB] = pairRelativeScores(dA.tco3yrUsd, dB.tco3yrUsd, false);
+    const [valA, valB] = pairRelativeScores(
+      isKo ? dA.tco3yrKrw : dA.tco3yrUsd,
+      isKo ? dB.tco3yrKrw : dB.tco3yrUsd,
+      false
+    );
 
     const footprintScoreRaw = (it: HomeTechItem) => {
       const volL =
@@ -1412,8 +1584,8 @@ export function computeVsDiff(
       unit: "pts",
       rawA: dA.compatBreadthScore,
       rawB: dB.compatBreadthScore,
-      displayA: `${dA.compatBreadthScore} pts`,
-      displayB: `${dB.compatBreadthScore} pts`,
+      displayA: `${dA.compatBreadthScore} / 100`,
+      displayB: `${dB.compatBreadthScore} / 100`,
       higherIsBetter: true,
       locale,
       formatDelta: (d) => `${formatInt(d)} pts`,
@@ -1421,8 +1593,8 @@ export function computeVsDiff(
   );
 
   const [valA, valB] = pairRelativeScores(
-    cgA.regional_offers.us.msrp,
-    cgB.regional_offers.us.msrp,
+    isKo ? pricesA.krMsrp : pricesA.usMsrp,
+    isKo ? pricesB.krMsrp : pricesB.usMsrp,
     false
   );
   const [portA, portB] = pairRelativeScores(sA.weight_g, sB.weight_g, false);

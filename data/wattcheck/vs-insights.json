@@ -12,6 +12,12 @@
       "Input port asymmetry: Anker 737 only accepts recharge input on USB-C1 (140 W), while Prime accepts bi-directional recharge on BOTH USB-C ports up to 170 W dual-input.",
       "Samsung 45 W SFC 2.0 (5 A PPS) and Bluetooth app Find-My-Device telemetry are available on Prime A1340 but absent on legacy 737 A1289."
     ],
+    "serp_gaps_captured_ko": [
+      "멀티포트 병목 격차: 앤커 737은 2포트 동시 출력이 140 W(100 W + 40 W)로 제한되지만, 프라임 27650은 240 W(140 W + 100 W)를 유지해 노트북 2대 동시 고속 충전이 가능합니다.",
+      "실효 DC-DC 변환 효율 기준 가용 전력 차이: 프라임 27650은 약 81.6 Wh(99.54 Wh × 82%), 737은 약 69.1 Wh(86.4 Wh × 80%)로 무게 +37 g 증가만으로 +12.5 Wh를 더 제공합니다.",
+      "입력 포트 비대칭성: 앤커 737은 USB-C1 단독(140 W) 입력만 지원하지만, 프라임은 USB-C1·C2 양방향 입력과 듀얼 입력 최대 170 W를 지원합니다.",
+      "삼성 45 W 초고속 충전 2.0(5 A PPS)과 블루투스 앱 위치 찾기·실시간 모니터링은 프라임 A1340에서만 지원하며 구형 737 A1289에는 빠져 있습니다."
+    ],
     "verdict": {
       "en": {
         "headline": "Prime 27,650 mAh dominates dual-laptop travel (+110 W ceiling, +13.14 Wh), while 737 saves $30 for single-laptop 140 W use",
@@ -51,6 +57,12 @@
       "Energy density inversion: Anker Prime packs 99.54 Wh into 667 g (14.92 Wh/100 g), beating Shargeek 170's 86.4 Wh in 680 g (12.71 Wh/100 g) while costing $35 less MSRP.",
       "3-port laptop drop comparison: Anker Prime sustains 140 W + 92 W + 18 W (250 W), whereas Shargeek 170 drops to 65 W + 65 W + 18 W (148 W) when all 3 ports are plugged in.",
       "Environmental durability trade-off: Shargeek 170 adds IP66 water/dust resistance for outdoor/field shoots where Anker Prime has zero ingress rating."
+    ],
+    "serp_gaps_captured_ko": [
+      "중국 민항국(CAAC) 2025년 6월 국내선 규정 분기점: 샤긱 170은 공식 CCC(3C) 인증 마크를 각인하고 있으나, 글로벌판 앤커 프라임 A1340은 통상 CCC 각인이 빠져 있습니다.",
+      "무게 대비 에너지 밀도 역전: 앤커 프라임은 667 g에 99.54 Wh(14.92 Wh/100 g)를 담아 680 g·86.4 Wh(12.71 Wh/100 g)인 샤긱 170을 앞서며 미국 출고가도 $35 저렴합니다.",
+      "3포트 동시 연결 시 출력 하락 폭: 앤커 프라임은 140 W + 92 W + 18 W(합산 250 W)를 유지하지만, 샤긱 170은 3포트 모두 연결 시 65 W + 65 W + 18 W(148 W)로 떨어집니다.",
+      "현장 내구성 트레이드오프: 샤긱 170은 야외·우천 촬영에 유리한 IP66 방수·방진 등급을 제공하지만 앤커 프라임은 별도 방수 등급이 없습니다."
     ],
     "verdict": {
       "en": {
@@ -92,6 +104,12 @@
       "Cost & portability edge: UGREEN PB722 saves $40 USD / 70,000 KRW MSRP and shaves 58 g (609 g vs 667 g) while still delivering 90 Wh and 100 W + 100 W dual-laptop output.",
       "Regional CCC availability: UGREEN offers CCC-marked PB722 retail batches for China domestic flights, whereas global Anker A1340 omits CCC."
     ],
+    "serp_gaps_captured_ko": [
+      "자체 재충전 회전율 격차: 앤커 프라임은 최대 170 W 입력(약 37분 완충)을 지원하지만, 유그린 PB722는 입력이 65 W(약 2.5시간)로 제한되어 짧은 공항 환승 시 약 4배 느립니다.",
+      "3포트 출력 배분 급락 구간: C1+C2+A1 동시 연결 시 앤커는 140 W + 92 W + 18 W(250 W)를 유지하지만, 유그린은 C2+A1을 20 W 공유 풀(140 W + 10 W + 10 W = 160 W)로 제한합니다.",
+      "가격·휴대성 우위: 유그린 PB722는 90 Wh 용량과 100 W + 100 W 듀얼 노트북 출력을 제공하면서도 출고가가 $40(국내 7만 원) 저렴하고 무게도 58 g 가볍습니다(609 g vs 667 g).",
+      "중국 국내선 CCC 확보 여부: 유그린 PB722는 중국 본토 국내선 통과용 CCC 각인 유통 물량이 존재하지만, 글로벌 앤커 A1340은 CCC 표기가 없습니다."
+    ],
     "verdict": {
       "en": {
         "headline": "Anker Prime 27,650 mAh dominates recharge speed (170 W vs 65 W) & 3-port power; UGREEN PB722 wins value (-$40, -58 g)",
@@ -131,6 +149,12 @@
       "Samsung 45 W SFC 2.0 reliability: UGREEN PB721 supports 5 A PPS on C1 consistently, whereas initial Anker A1336 production units shipped with 3 A PPS (limiting Galaxy flagships to 25 W).",
       "Weight & MSRP gap: UGREEN PB721 is 65 g lighter (480 g vs 545 g) and $40 USD / 60,000 KRW cheaper ($89.99 vs $129.99) for identical 72 Wh capacity.",
       "Self-recharge trade-off: Anker A1336 refills at 100 W (~75 min) vs UGREEN PB721's 65 W (~120 min)."
+    ],
+    "serp_gaps_captured_ko": [
+      "동일한 72 Wh 용량에서 완전히 다른 C2 출력 상한: 앤커 프라임 A1336은 노트북 2대용 100 W + 100 W(200 W)를 지원하지만, 유그린 PB721은 C2 상한이 30 W(100 W + 30 W = 130 W)입니다.",
+      "삼성 45 W 초고속 충전 2.0 안정성: 유그린 PB721은 C1 포트에서 일관되게 5 A PPS를 지원하지만, 앤커 A1336 초기 생산분은 3 A PPS로 출하되어 갤럭시 플래그십이 25 W로 제한된 사례가 있습니다.",
+      "무게·출고가 격차: 유그린 PB721은 동일한 72 Wh 배터리로 65 g 더 가볍고(480 g vs 545 g) 미국 $40·국내 6만 원 저렴합니다($89.99 vs $129.99).",
+      "자체 충전 속도 차이: 앤커 A1336은 100 W 입력(약 75분 완충)을 지원해 유그린 PB721의 65 W(약 120분) 대비 완충 시간이 짧습니다."
     ],
     "verdict": {
       "en": {
@@ -172,6 +196,12 @@
       "Dual USB-C laptop behavior: CUKTECH 20 holds C1 at 140 W + C2 at 60 W (200 W total), whereas Shargeek 170 drops C1 to 100 W + C2 at 65 W (165 W total).",
       "Shargeek 170 counters with faster 140 W recharge (vs 110 W), true IP66 weatherproofing, and symmetrical 140 W on both C1 and C2."
     ],
+    "serp_gaps_captured_ko": [
+      "중국 본토 국내선 CCC(3C) 공식 인증 보유 모델끼리의 140 W PD 3.1 맞대결로, 양쪽 모두 CAAC 보안검색 통과 요건을 충족합니다.",
+      "가격 대비 성능 격차: 쿡테크 20호는 출고가가 미국 $85·국내 11만 원 저렴하면서도($129.99 vs $214.99) 용량 +4.3 Wh(90.7 Wh vs 86.4 Wh), 최대 출력 +40 W(210 W vs 170 W), 무게 -45 g(635 g vs 680 g) 우위를 점합니다.",
+      "듀얼 USB-C 동시 출력 유지력: 쿡테크 20호는 C1 140 W + C2 60 W(총 200 W)를 유지하지만, 샤긱 170은 C1이 100 W + C2 65 W(총 165 W)로 하향됩니다.",
+      "샤긱 170의 차별화 강점은 더 빠른 140 W 자체 충전(쿡테크 110 W), IP66 방수·방진 보호 등급, 그리고 C1·C2 대칭 140 W 입출력 구조입니다."
+    ],
     "verdict": {
       "en": {
         "headline": "CUKTECH 20 crushes value (-$85, -45 g, +4.3 Wh, 140+60 W dual-C); Shargeek 170 earns its premium only for IP66 waterproofing & 140 W recharge",
@@ -211,6 +241,12 @@
       "Self-recharge speed difference: CUKTECH 15 supports 90 W input vs Baseus Blade HD's 65 W input.",
       "Multi-port symmetry vs peak output: Baseus Blade HD supports blind-mate 100 W on BOTH C1 & C2 plus 4 total ports (2C2A, though 4-port throttles to 30 W), whereas CUKTECH 15 puts 100 W PD / 120 W Xiaomi solely on C1 with C2 capped at 33 W.",
       "China domestic CCC readiness: CUKTECH 15 ships widely with CCC marking, whereas global Baseus Blade HD batches frequently omit CCC."
+    ],
+    "serp_gaps_captured_ko": [
+      "폼팩터 대 셀 화학 구조 대결: 베이스어스 블레이드 HD는 슬림 노트북 파우치 수납에 특화된 19.8 mm 평판형 Li-Po 파우치 셀(445 g)을, 쿡테크 15호는 지속 방열 내구성이 뛰어난 21700 원통형 셀(두께 39.9 mm, 480 g)을 채택했습니다.",
+      "자체 충전 속도 차이: 쿡테크 15호는 최대 90 W 고속 입력을 지원해 베이스어스 블레이드 HD(65 W)보다 재충전이 빠릅니다.",
+      "포트 대칭성 대 단일 최대 출력: 블레이드 HD는 C1·C2 모두 100 W 블라인드 출력과 2C2A 4포트(단 4포트 동시 30 W 제한)를 제공하지만, 쿡테크 15호는 C1 전용 100 W PD·샤오미 120 W에 C2는 33 W 상한입니다.",
+      "중국 국내선 CCC 대응: 쿡테크 15호는 CCC 인증 각인 물량이 널리 유통되지만, 글로벌판 베이스어스 블레이드 HD는 CCC 표기가 없는 배치 비중이 높습니다."
     ],
     "verdict": {
       "en": {
@@ -252,6 +288,12 @@
       "Dual-port allocation edge: Anker delivers 65 W + 35 W (100 W) vs UGREEN's 65 W + 30 W (95 W), giving iPad/MacBook Air secondary devices +5 W headroom.",
       "Korean market pricing advantage: UGREEN X757 undercuts Anker A2688 in Korea (89,000 KRW vs 99,000 KRW benchmark) while sharing identical 3-port 65 W + 24-25 W shared profiles."
     ],
+    "serp_gaps_captured_ko": [
+      "C2 포트 블라인드 100 W 우위: 앤커 프라임 A2688은 C1·C2 어느 포트나 단독 100 W를 지원하지만, 유그린 넥소드 프로 X757은 단독 연결 시에도 C2가 30 W로 영구 제한됩니다.",
+      "무게 및 벽면 콘센트 처짐 인체공학: 앤커 프라임 A2688은 170 g·두께 29 mm로 유그린 X757(212 g·두께 33 mm) 대비 42 g 가벼워 느슨한 호텔·기내 콘센트에서 처짐이 확연히 적습니다.",
+      "2포트 동시 배분 여유: 앤커는 65 W + 35 W(총 100 W)를 공급해 유그린(65 W + 30 W = 95 W) 대비 아이패드·맥북 에어 보조 충전 시 +5 W 여유가 있습니다.",
+      "한국 시장 출고가 메리트: 유그린 X757은 국내 기준가 89,000원으로 앤커 A2688(99,000원)보다 1만 원 저렴하면서 3포트 65 W + 24~25 W 분배 구조는 사실상 동일합니다."
+    ],
     "verdict": {
       "en": {
         "headline": "Anker Prime 100 W (A2688) wins weight (-42 g), blind-mate dual-100 W ports & US MSRP; UGREEN X757 shines on street discounts in Korea",
@@ -291,6 +333,12 @@
       "4-port simultaneous power allocation advantage: Satechi 165 W delivers an extraordinary 60 W + 45 W + 30 W + 30 W (165 W full) across 4 USB-C ports, beating UGREEN's 65 W + 65 W + 7.5 W + 7.5 W (145 W) bottleneck on ports 3 & 4.",
       "Form factor ergonomics: Satechi uses a detachable IEC C7 desktop cord + stand (zero wall-outlet sag), while UGREEN X763 is a 304 g direct wall-plug brick.",
       "Price advantage: UGREEN X763 undercuts Satechi by $20 USD / 40,000 KRW MSRP ($99.99 vs $119.99)."
+    ],
+    "serp_gaps_captured_ko": [
+      "USB-PD 3.1 140 W EPR 및 삼성 45 W PPS 격차: 유그린 넥소드 프로 160 W는 140 W EPR(맥북 프로 16용)과 5 A PPS(갤럭시 울트라용)를 모두 지원하지만, 사테치 165 W는 둘 다 미지원(포트당 최대 100 W PD 3.0, PPS 없음)입니다.",
+      "4포트 동시 출력 배분 우위: 사테치 165 W는 USB-C 4포트 전체에 60 W + 45 W + 30 W + 30 W(총 165 W 풀출력)를 유지해, 3·4번 포트가 7.5 W로 급락하는 유그린(65+65+7.5+7.5 W = 145 W) 병목을 완전히 피합니다.",
+      "폼팩터 편의성: 사테치는 분리형 IEC C7 전원 코드와 스탠드로 벽면 콘센트 처짐이 전혀 없는 데스크형이며, 유그린 X763은 304 g 무게의 벽면 직결형 어댑터입니다.",
+      "가격 우위: 유그린 X763은 미국 출고가 $20, 국내 정가 4만 원 더 저렴합니다($99.99 vs $119.99)."
     ],
     "verdict": {
       "en": {
@@ -332,6 +380,12 @@
       "Mass & cost gap: Anker Prime 250 W weighs 228 g less (640 g vs 868 g) and costs $50 USD / 30,000 KRW less MSRP ($149.99 vs $199.99).",
       "AC cord grounding nuance: UGREEN 300 W uses a 3-prong grounded IEC C5 cord (ideal for reducing laptop chassis tingle on 220 V Korea outlets), while Anker 250 W uses a 2-prong IEC C7 figure-8 cord."
     ],
+    "serp_gaps_captured_ko": [
+      "노트북 3대 워크스테이션 출력 상한: 유그린 300 W는 140 W + 100 W + 60 W 동시 출력은 물론 5포트 풀로드에서도 C1 140 W를 고정 유지하지만, 앤커 250 W는 6포트 연결 시 C1이 100 W로 낮아집니다.",
+      "계측·스마트 제어 우위: 앤커 프라임 250 W는 2.26인치 실시간 LCD 와트미터, 물리 다이얼, Wi-Fi/BLE 앱 포트별 수동 배분, 6포트(4C2A)를 갖춰 디스플레이 없는 5포트(4C1A) 유그린과 차별화됩니다.",
+      "무게·가격 격차: 앤커 프라임 250 W는 228 g 더 가볍고(640 g vs 868 g) 미국 출고가 $50·국내 3만 원 저렴합니다($149.99 vs $199.99).",
+      "AC 접지 코드 차이: 유그린 300 W는 한국 220 V 콘센트에서 금속 노트북 팜레스트 누설전류를 줄여주는 3핀 접지형 IEC C5 코드를, 앤커 250 W는 비접지 2핀 IEC C7(8자) 코드를 사용합니다."
+    ],
     "verdict": {
       "en": {
         "headline": "Anker Prime 250 W wins value (-$50), weight (-228 g), LCD metering & 6 ports; UGREEN 300 W wins triple-laptop 140+100+60 W brute power",
@@ -371,6 +425,12 @@
       "Pure-DC efficiency vs pure-sine AC inverter: Anker SOLIX C300 DC strips out the AC inverter to deliver +43 Wh more battery (288 Wh vs 245 Wh), -750 g less weight (2.8 kg vs 3.55 kg), dual 140 W PD 3.1 ports, and $99 lower MSRP ($199.99 vs $299).",
       "Home UPS & AC appliance capability: EcoFlow RIVER 3 adds a 300 W pure-sine AC inverter (600 W X-Boost), <20 ms home NAS/router UPS switchover, and direct 320 W AC wall charging without external bricks.",
       "Regional 120 V vs 220 V lock-in: Anker SOLIX C300 DC is globally voltage-agnostic via USB-C/solar DC input, whereas EcoFlow RIVER 3 is region-locked to 120 V (US) or 220 V (KR/EU) AC outlets."
+    ],
+    "serp_gaps_captured_ko": [
+      "공통 필수 항공 경고: 두 제품(288 Wh·245 Wh) 모두 IATA·FAA·국토부 절대 상한인 160 Wh를 크게 초과해 모든 민간 여객기 기내·위탁 반입이 전면 금지됩니다.",
+      "순수 DC 효율 대 순수정현파 AC 인버터: 앤커 솔릭스 C300 DC는 AC 인버터를 과감히 제거해 +43 Wh 더 큰 용량(288 Wh vs 245 Wh), -750 g 경량화(2.8 kg vs 3.55 kg), 듀얼 140 W PD 3.1, $99 저렴한 출고가($199.99 vs $299)를 달성했습니다.",
+      "가정용 UPS 및 AC 가전 구동: 에코플로우 리버 3는 정격 300 W 순수정현파 AC 인버터(X-Boost 600 W), 20 ms 미만 공유기·NAS UPS 절체, 별도 어댑터 없는 AC 직결 320 W 충전을 지원합니다.",
+      "지역 전압(120 V vs 220 V) 종속성: 앤커 C300 DC는 USB-C·태양광 DC 입력으로 전 세계 전압과 무관하게 쓸 수 있지만, 에코플로우 리버 3는 미국 120 V판과 한국·유럽 220 V판이 별도 분리됩니다."
     ],
     "verdict": {
       "en": {
