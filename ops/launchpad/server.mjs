@@ -295,7 +295,7 @@ function renderHtml() {
 <div class="wrap">
   <div class="hero">
     <h1>SpecMatrix Global · 최종 마무리 원클릭 런치패드</h1>
-    <p>병욱님이 로그인 후 <strong>버튼·링크만 순서대로 찍 누르면</strong> 수익화(쿠팡 공식 배너·GA4)·구글 색인·첫 트래픽 시딩까지 5분 안에 전부 끝납니다.</p>
+    <p>운영자가 로그인 후 <strong>버튼·링크만 순서대로 찍 누르면</strong> 수익화(쿠팡 공식 배너·GA4)·구글 색인·첫 트래픽 시딩까지 5분 안에 전부 끝납니다.</p>
     <div class="pill-row">
       <a class="pill" href="https://kbu3986.github.io/specmatrix-global/ko" target="_blank">SpecMatrix 한국어 ↗</a>
       <a class="pill" href="https://kbu3986.github.io/specmatrix-global/en" target="_blank">SpecMatrix English ↗</a>

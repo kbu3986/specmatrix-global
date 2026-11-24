@@ -6,7 +6,7 @@
 
 ## 1. 기존 `ssalmeok-empire` 수익 자산 즉시 연동 (Day 0 상속)
 
-`C:\Users\kbu39\.gemini\antigravity\scratch\ssalmeok-empire\deploy-ops\monetization-config.json`에 저장된 기존 수익 코드와 검색엔진 인증 토큰을 `specmatrix-global` 빌드 환경변수(`.env.production.local`)에 그대로 상속하여 **런칭 1일차부터 광고·제휴 수익이 즉시 발생**하도록 구성한다.
+기존 수익화 설정(`monetization-config.json` 또는 `.env.production.local`)에 저장된 수익 코드와 검색엔진 인증 토큰을 `specmatrix-global` 빌드 환경변수에 그대로 상속하여 **런칭 1일차부터 광고·제휴 수익이 즉시 발생**하도록 구성한다.
 
 | 수익·운영 채널 | 기존 확보 코드 (`ssalmeok-empire`) | `specmatrix-global` 즉시 연동 방식 | 확장·고도화 포인트 |
 | :--- | :--- | :--- | :--- |
