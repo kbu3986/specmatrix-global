@@ -1,6 +1,6 @@
 {
   "description": "Hard blocklist of all 48 legacy ssalmeok-empire site3-puregram slugs. Phase 1 Pilot MUST have 0% overlap (SM-01).",
-  "source": "C:\\Users\\kbu39\\.gemini\\antigravity\\scratch\\ssalmeok-empire\\site3-puregram\\src\\data\\products-*.ts",
+  "source": "legacy-puregram-archive/products-*.ts",
   "blocked_slugs": [
     "lmnt-zero-sugar-electrolytes",
     "liquid-iv-hydration-multiplier",
