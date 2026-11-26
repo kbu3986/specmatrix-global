@@ -67,22 +67,22 @@ const payload = {
 
 <section
   id="wattcheck-calc"
-  class="lab-card overflow-hidden border-blue-200/80"
+  class="lab-card overflow-hidden border-sky-700/40"
   aria-labelledby="wc-calc-heading"
 >
-  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+  <div class="border-b border-white/10 bg-[#111111] px-5 py-4 text-white">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div>
-        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-300">
           {isKo ? "INTERACTIVE LAB SIMULATOR" : "INTERACTIVE LAB SIMULATOR"}
         </span>
-        <h2 id="wc-calc-heading" class="mt-0.5 text-lg font-bold">
+        <h2 id="wc-calc-heading" class="mt-0.5 text-lg font-bold text-white">
           {isKo
             ? "기내반입 30개 항공사 · USB-PD 멀티포트 · 기기 완충 시뮬레이터"
             : "30-Airline Carry-On, USB-PD Port Allocator & Device Charge Simulator"}
         </h2>
       </div>
-      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+      <span class="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-xs text-neutral-200">
         {item.specs.has_battery && item.specs.battery_energy_wh !== null
           ? `${item.specs.battery_energy_wh} Wh · ${item.specs.max_total_output_w} W`
           : `GaN · ${item.specs.max_total_output_w} W`}
@@ -90,26 +90,26 @@ const payload = {
     </div>
   </div>
 
-  <div class="divide-y divide-slate-200 p-5">
+  <div class="divide-y divide-white/10 p-5">
     <!-- Part A: 30-Airline Checker -->
     <div class="pb-6">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <h3 class="text-sm font-bold text-slate-900">
+        <h3 class="text-sm font-bold text-white">
           {isKo ? "1. 항공사별 기내반입 · 국토부 2026 규정 즉시 조회" : "1. 30-Airline Carry-On & MOLIT 2026 Rule Checker"}
         </h3>
-        <span class="font-mono text-xs text-slate-500">
+        <span class="font-mono text-xs text-neutral-400">
           {sortedAirlines.length} {isKo ? "개 항공사 DB" : "airlines loaded"}
         </span>
       </div>
 
       <div class="mt-3 grid gap-4 md:grid-cols-12">
         <div class="md:col-span-5">
-          <label for="wc-airline-select" class="block text-xs font-semibold text-slate-600">
+          <label for="wc-airline-select" class="block text-xs font-semibold text-neutral-300">
             {isKo ? "탑승 항공사 선택" : "Select Operating Airline"}
           </label>
           <select
             id="wc-airline-select"
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-900 focus:border-blue-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-sm font-medium text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
           >
             {sortedAirlines.length === 0 ? (
               <option value="">{isKo ? "IATA 표준 규정 (기본)" : "IATA Baseline Standard"}</option>
@@ -124,7 +124,7 @@ const payload = {
         </div>
 
         <div class="md:col-span-7">
-          <div id="wc-airline-result" class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div id="wc-airline-result" class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <span id="wc-airline-badge" class="badge-pass">
                 {item.airline_compliance_profile.carryon_allowed
@@ -135,18 +135,18 @@ const payload = {
                     ? "항공 반입 불가"
                     : "Prohibited on Aircraft"}
               </span>
-              <span id="wc-airline-pcs" class="font-mono text-xs font-semibold text-slate-700">
+              <span id="wc-airline-pcs" class="font-mono text-xs font-semibold text-neutral-200">
                 {item.specs.has_battery ? "IATA / MOLIT" : isKo ? "배터리 없음" : "No Battery"}
               </span>
             </div>
             <div id="wc-airline-pills" class="mt-2.5 flex flex-wrap gap-1.5 text-xs"></div>
-            <p id="wc-airline-note" class="mt-2 text-xs leading-relaxed text-slate-600"></p>
+            <p id="wc-airline-note" class="mt-2 text-xs leading-relaxed text-neutral-300"></p>
             <a
               id="wc-airline-link"
               href={sortedAirlines[0]?.official_policy_url ?? "https://www.iata.org/en/programs/cargo/dgr/lithium-batteries/"}
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-2 inline-block font-mono text-xs font-medium text-blue-700 hover:underline"
+              class="mt-2 inline-block font-mono text-xs font-medium text-[#dafa9c] hover:underline"
             >
               {isKo ? "항공사 공식 수하물 규정 원문 ↗" : "Official Airline Baggage Policy ↗"}
             </a>
@@ -158,7 +158,7 @@ const payload = {
     <!-- Part B: USB-PD Multi-Port Allocator -->
     <div class="py-6">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <h3 class="text-sm font-bold text-slate-900">
+        <h3 class="text-sm font-bold text-white">
           {isKo ? "2. USB-PD 멀티포트 동시 연결 출력 시뮬레이터" : "2. Live USB-PD Multi-Port Wattage Allocator"}
         </h3>
         <span
@@ -176,7 +176,7 @@ const payload = {
         </span>
       </div>
 
-      <p class="mt-1 text-xs text-slate-600">
+      <p class="mt-1 text-xs text-neutral-400">
         {isKo
           ? "동시에 연결할 포트를 클릭해 포트별 실출력(W) 배분과 합산 출력을 확인하세요."
           : "Toggle active ports below to inspect real-time wattage splits from the manufacturer port allocation matrix."}
@@ -189,10 +189,10 @@ const payload = {
             data-port-id={port.id}
             aria-pressed={idx === 0 ? "true" : "false"}
             class:list={[
-              "wc-port-btn inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold transition-colors",
+              "wc-port-btn inline-flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-semibold transition-colors",
               idx === 0
-                ? "border-blue-600 bg-blue-600 text-white"
-                : "border-slate-300 bg-white text-slate-700 hover:border-blue-400",
+                ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
             ]}
           >
             <span class="font-mono">{port.id}</span>
@@ -201,23 +201,23 @@ const payload = {
         ))}
       </div>
 
-      <div id="wc-port-bars" class="mt-4 space-y-2.5 rounded-lg border border-slate-200 bg-slate-50 p-4">
-        <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
+      <div id="wc-port-bars" class="mt-4 space-y-2.5 rounded-lg border border-white/10 bg-[#111111] p-4">
+        <div class="flex items-center justify-between text-xs font-semibold text-neutral-300">
           <span id="wc-port-combo-label">{isKo ? "활성 포트 조합" : "Active Port Combination"}</span>
-          <span id="wc-port-total" class="font-mono text-sm text-blue-700">
+          <span id="wc-port-total" class="font-mono text-sm text-[#dafa9c]">
             {item.specs.max_single_port_output_w} W
           </span>
         </div>
         <div id="wc-port-rows" class="space-y-2"></div>
-        <p id="wc-port-hint" class="text-[11px] text-slate-500"></p>
+        <p id="wc-port-hint" class="text-[11px] text-neutral-400"></p>
       </div>
 
       <!-- 2-Device Simultaneous Trip Mode -->
-      <div class="mt-3 rounded-lg border border-slate-200 bg-white p-3.5">
+      <div class="mt-3 rounded-lg border border-white/10 bg-[#111111] p-3.5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <label
             class:list={[
-              "inline-flex items-center gap-2 text-xs font-bold text-slate-900",
+              "inline-flex items-center gap-2 text-xs font-bold text-white",
               isSinglePort ? "cursor-not-allowed opacity-60" : "cursor-pointer",
             ]}
           >
@@ -225,7 +225,7 @@ const payload = {
               id="wc-trip-toggle"
               type="checkbox"
               disabled={isSinglePort}
-              class="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              class="h-4 w-4 rounded border-white/20 bg-[#111111] accent-[#dafa9c] disabled:cursor-not-allowed disabled:opacity-50"
             />
             <span>
               {isKo
@@ -243,7 +243,7 @@ const payload = {
                 : "Select 2+ ports to evaluate"}
           </span>
         </div>
-        <p id="wc-trip-summary" class="mt-1.5 text-xs leading-relaxed text-slate-600">
+        <p id="wc-trip-summary" class="mt-1.5 text-xs leading-relaxed text-neutral-300">
           {isSinglePort
             ? isKo
               ? "출력 포트가 1개뿐인 단일 포트 충전기이므로 노트북+스마트폰 2기기 동시 출장 모드를 사용할 수 없습니다."
@@ -258,7 +258,7 @@ const payload = {
     <!-- Part C: Target Device Charge Estimator -->
     <div class="pt-6">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <h3 class="text-sm font-bold text-slate-900">
+        <h3 class="text-sm font-bold text-white">
           {item.specs.has_battery
             ? isKo
               ? "3. 내 기기 실측 완충 횟수 계산기 (변환효율 반영)"
@@ -283,10 +283,10 @@ const payload = {
             data-dev-id={dev.id}
             aria-pressed={idx === 0 ? "true" : "false"}
             class:list={[
-              "wc-dev-btn rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors",
+              "wc-dev-btn rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors",
               idx === 0
-                ? "border-slate-900 bg-slate-900 text-white"
-                : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
             ]}
           >
             {isKo ? dev.name_ko : dev.name_en}
@@ -296,7 +296,7 @@ const payload = {
           type="button"
           data-dev-id="custom"
           aria-pressed="false"
-          class="wc-dev-btn rounded-lg border border-dashed border-blue-400 bg-blue-50/60 px-3 py-1.5 text-xs font-semibold text-blue-800 transition-colors hover:border-blue-600"
+          class="wc-dev-btn rounded-md border border-dashed border-sky-700/60 bg-[#0f1f30] px-3 py-1.5 text-xs font-semibold text-sky-200 transition-colors hover:border-sky-400 hover:text-white"
         >
           {isKo ? "+ 커스텀 기기 (직접 입력)" : "+ Custom Device"}
         </button>
@@ -305,10 +305,10 @@ const payload = {
       <!-- Custom Device Inputs (shown when Custom Device tab is active) -->
       <div
         id="wc-custom-panel"
-        class="mt-3 hidden grid-cols-1 gap-3 rounded-lg border border-blue-200 bg-blue-50/50 p-3.5 sm:grid-cols-2"
+        class="mt-3 hidden grid-cols-1 gap-3 rounded-lg border border-sky-700/50 bg-[#0f1f30] p-3.5 sm:grid-cols-2"
       >
         <div>
-          <label for="wc-custom-wh" class="block text-xs font-semibold text-slate-700">
+          <label for="wc-custom-wh" class="block text-xs font-semibold text-sky-200">
             {isKo ? "커스텀 기기 배터리 용량 (Wh)" : "Custom Device Battery (Wh)"}
           </label>
           <input
@@ -318,14 +318,14 @@ const payload = {
             max="300"
             step="1"
             value="55"
-            class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-sm font-bold text-slate-900 focus:border-blue-600 focus:outline-none"
+            class="mt-1 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
           />
-          <p class="mt-0.5 text-[11px] text-slate-500">
+          <p class="mt-0.5 text-[11px] text-neutral-400">
             {isKo ? "예: 울트라북 55 Wh · 미러리스 카메라 20 Wh" : "e.g. 55 Wh ultrabook or 20 Wh mirrorless camera"}
           </p>
         </div>
         <div>
-          <label for="wc-custom-w" class="block text-xs font-semibold text-slate-700">
+          <label for="wc-custom-w" class="block text-xs font-semibold text-sky-200">
             {isKo ? "기기 최대 충전 입력 (W)" : "Device Max Charging Input (W)"}
           </label>
           <input
@@ -335,9 +335,9 @@ const payload = {
             max="240"
             step="5"
             value="65"
-            class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-sm font-bold text-slate-900 focus:border-blue-600 focus:outline-none"
+            class="mt-1 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
           />
-          <p class="mt-0.5 text-[11px] text-slate-500">
+          <p class="mt-0.5 text-[11px] text-neutral-400">
             {isKo ? "예: 노트북 65–100 W · 카메라/태블릿 20–45 W" : "e.g. 65–100 W laptop or 20–45 W camera/tablet"}
           </p>
         </div>
@@ -345,9 +345,9 @@ const payload = {
 
       {item.specs.has_battery && (
         <div class="mt-4 flex flex-wrap items-center gap-4">
-          <label for="wc-eff-slider" class="text-xs font-semibold text-slate-600">
+          <label for="wc-eff-slider" class="text-xs font-semibold text-neutral-300">
             {isKo ? "실제 DC-DC 변환효율 조정:" : "DC-DC Conversion Efficiency:"}
-            <span id="wc-eff-val" class="ml-1 font-mono text-blue-700">
+            <span id="wc-eff-val" class="ml-1 font-mono text-[#dafa9c]">
               {item.specs.conversion_efficiency_pct ?? 82}%
             </span>
           </label>
@@ -364,8 +364,8 @@ const payload = {
       )}
 
       <div class="mt-4 grid gap-3 sm:grid-cols-3">
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {item.specs.has_battery
               ? isKo
                 ? "예상 실완충 횟수"
@@ -374,14 +374,14 @@ const payload = {
                 ? "기기 인가 최대 출력"
                 : "Delivered Peak Power"}
           </div>
-          <div id="wc-dev-primary" class="kpi-value mt-1 font-mono text-2xl font-bold text-blue-700">
+          <div id="wc-dev-primary" class="kpi-value mt-1 font-mono text-2xl font-bold text-[#dafa9c]">
             —
           </div>
-          <div id="wc-dev-primary-sub" class="mt-0.5 text-xs text-slate-500"></div>
+          <div id="wc-dev-primary-sub" class="mt-0.5 text-xs text-neutral-400"></div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {item.specs.has_battery
               ? isKo
                 ? "실가용 에너지 (손실 제외)"
@@ -390,20 +390,20 @@ const payload = {
                 ? "0 → 50% 고속충전 추정"
                 : "Est. 0–50% Charge Time"}
           </div>
-          <div id="wc-dev-secondary" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+          <div id="wc-dev-secondary" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
             —
           </div>
-          <div id="wc-dev-secondary-sub" class="mt-0.5 text-xs text-slate-500"></div>
+          <div id="wc-dev-secondary-sub" class="mt-0.5 text-xs text-neutral-400"></div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "프로토콜 매칭 판정" : "Protocol Compatibility"}
           </div>
-          <div id="wc-dev-proto" class="mt-1 font-mono text-base font-bold text-emerald-700">
+          <div id="wc-dev-proto" class="mt-1 font-mono text-base font-bold text-emerald-300">
             —
           </div>
-          <div id="wc-dev-proto-sub" class="mt-0.5 text-xs text-slate-500"></div>
+          <div id="wc-dev-proto-sub" class="mt-0.5 text-xs text-neutral-400"></div>
         </div>
       </div>
     </div>
@@ -679,8 +679,8 @@ const payload = {
         const isOn = activeSet.has(pid);
         btn.setAttribute("aria-pressed", isOn ? "true" : "false");
         btn.className = isOn
-          ? "wc-port-btn inline-flex items-center gap-2 rounded-lg border border-blue-600 bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors"
-          : "wc-port-btn inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:border-blue-400 transition-colors";
+          ? "wc-port-btn inline-flex items-center gap-2 rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-2 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "wc-port-btn inline-flex items-center gap-2 rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
 
       if (!portRowsEl || !portTotalEl || !portLabelEl || !portHintEl) return;
@@ -740,11 +740,11 @@ const payload = {
           return `
             <div class="space-y-1">
               <div class="flex items-center justify-between text-xs">
-                <span class="font-mono font-semibold text-slate-800">${esc(pid)} <span class="font-normal text-slate-500">(${esc(protos)})</span></span>
-                <span class="font-mono font-bold text-slate-900">${esc(w)} W</span>
+                <span class="font-mono font-semibold text-white">${esc(pid)} <span class="font-normal text-neutral-400">(${esc(protos)})</span></span>
+                <span class="font-mono font-bold text-[#dafa9c]">${esc(w)} W</span>
               </div>
-              <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-                <div class="h-full rounded-full bg-blue-600" style="width:${pct}%"></div>
+              <div class="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                <div class="h-full rounded-full bg-sky-400" style="width:${pct}%"></div>
               </div>
             </div>
           `;
@@ -851,12 +851,12 @@ const payload = {
         b.setAttribute("aria-pressed", on ? "true" : "false");
         if (bid === "custom") {
           b.className = on
-            ? "wc-dev-btn rounded-lg border border-blue-700 bg-blue-700 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
-            : "wc-dev-btn rounded-lg border border-dashed border-blue-400 bg-blue-50/60 px-3 py-1.5 text-xs font-semibold text-blue-800 hover:border-blue-600 transition-colors";
+            ? "wc-dev-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+            : "wc-dev-btn rounded-md border border-dashed border-sky-700/60 bg-[#0f1f30] px-3 py-1.5 text-xs font-semibold text-sky-200 hover:border-sky-400 hover:text-white transition-colors";
         } else {
           b.className = on
-            ? "wc-dev-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
-            : "wc-dev-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+            ? "wc-dev-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+            : "wc-dev-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
         }
       });
 
@@ -887,30 +887,30 @@ const payload = {
 
       if (dev.id === "mbp16") {
         if (cfg.supportsEpr && cfg.maxSingleW >= 140) {
-          protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-700";
+          protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-300";
           protoEl.textContent = isKo ? "PD 3.1 140W 풀스피드" : "PD 3.1 140W Full Speed";
           protoSubEl.textContent = isKo ? "240W E-Marker 케이블 사용 권장" : "Use certified 240W E-Marker cable";
         } else if (cfg.maxSingleW >= 100) {
-          protoEl.className = "mt-1 font-mono text-base font-bold text-blue-700";
+          protoEl.className = "mt-1 font-mono text-base font-bold text-sky-300";
           protoEl.textContent = isKo ? `PD 3.0 ${deliveredW}W 호환` : `PD 3.0 ${deliveredW}W Compatible`;
           protoSubEl.textContent = isKo ? "140W EPR 미지원 · 일반 작업 충분" : "No 140W EPR; solid for daily loads";
         } else {
-          protoEl.className = "mt-1 font-mono text-base font-bold text-amber-700";
+          protoEl.className = "mt-1 font-mono text-base font-bold text-amber-300";
           protoEl.textContent = isKo ? `저속 충전 (${deliveredW}W)` : `Slow Charge (${deliveredW}W)`;
           protoSubEl.textContent = isKo ? "고부하 시 배터리 유지·완속 충전" : "Slow charge under heavy laptop load";
         }
       } else if (dev.id === "s25ultra") {
         if (cfg.supportsPps45) {
-          protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-700";
+          protoEl.className = "mt-1 font-mono text-base font-bold text-emerald-300";
           protoEl.textContent = isKo ? "초고속충전 2.0 (45W PPS)" : "45W Super Fast 2.0 (PPS)";
           protoSubEl.textContent = isKo ? "5A 지원 USB-C 케이블 필요" : "Requires 5A E-Marker USB-C cable";
         } else {
-          protoEl.className = "mt-1 font-mono text-base font-bold text-amber-700";
+          protoEl.className = "mt-1 font-mono text-base font-bold text-amber-300";
           protoEl.textContent = isKo ? "일반 고속충전 (~25W)" : "Standard Fast (~25W)";
           protoSubEl.textContent = isKo ? "삼성 45W 5A PPS 미지원" : "45W 5A PPS profile not confirmed";
         }
       } else if (dev.id === "custom" && dev.maxW > 100 && !cfg.supportsEpr) {
-        protoEl.className = "mt-1 font-mono text-base font-bold text-amber-700";
+        protoEl.className = "mt-1 font-mono text-base font-bold text-amber-300";
         protoEl.textContent = isKo ? `PD 3.0 상한 (${deliveredW}W)` : `PD 3.0 Capped (${deliveredW}W)`;
         protoSubEl.textContent = isKo
           ? `요구 ${dev.maxW}W 대비 140W EPR 미지원 (최대 ${cfg.maxSingleW}W)`
@@ -918,8 +918,8 @@ const payload = {
       } else {
         protoEl.className =
           deliveredW >= dev.maxW
-            ? "mt-1 font-mono text-base font-bold text-emerald-700"
-            : "mt-1 font-mono text-base font-bold text-amber-700";
+            ? "mt-1 font-mono text-base font-bold text-emerald-300"
+            : "mt-1 font-mono text-base font-bold text-amber-300";
         protoEl.textContent = deliveredW >= dev.maxW
           ? isKo ? `최대 속도 지원 (${deliveredW}W)` : `Full Speed (${deliveredW}W)`
           : isKo ? `부분 호환 (${deliveredW}W)` : `Partial (${deliveredW}W)`;

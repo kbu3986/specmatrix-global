@@ -21,17 +21,17 @@ const copy = item.i18n[locale] ?? item.i18n.en;
       data-sku={item.slug}
       aria-hidden="true"
       inert
-      class="fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-slate-200 bg-white/95 px-4 py-2.5 shadow-lg backdrop-blur transition-transform duration-200 will-change-transform lg:hidden"
+      class="fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-white/15 bg-[#111111] px-4 py-2.5 shadow-2xl transition-transform duration-200 will-change-transform lg:hidden"
       aria-label={isKo ? "빠른 실시간 가격 확인" : "Quick live price check"}
     >
       <div class="mx-auto flex max-w-2xl items-center justify-between gap-2.5">
         <div class="min-w-0 flex-1">
-          <div class="truncate text-xs font-bold text-slate-900">
+          <div class="truncate text-xs font-bold text-white">
             {copy.name}
           </div>
           <div class="flex flex-wrap items-center gap-1.5 font-mono text-xs">
-            <span class="kpi-value font-bold text-slate-900">{m.benchmarkPriceFormatted}</span>
-            <span class="text-[10px] text-slate-600">
+            <span class="kpi-value font-bold text-[#dafa9c]">{m.benchmarkPriceFormatted}</span>
+            <span class="text-[10px] text-[#9a9a9a]">
               {isKo ? "MSRP 참고가 · 제휴 링크" : "MSRP ref. · Affiliate"}
             </span>
           </div>
@@ -46,7 +46,7 @@ const copy = item.i18n[locale] ?? item.i18n.en;
             data-affiliate-vertical={item.vertical}
             data-affiliate-sku={item.slug}
             data-affiliate-mode={primaryBtn.linkMode}
-            class="inline-flex items-center gap-1.5 rounded-lg bg-blue-700 px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-blue-800"
+            class="inline-flex items-center gap-1.5 rounded-md bg-[#dafa9c] px-3.5 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             <span>
               {isKo
@@ -62,7 +62,7 @@ const copy = item.i18n[locale] ?? item.i18n.en;
             type="button"
             id="mobile-sticky-cta-dismiss"
             aria-label={isKo ? "하단 가격 바 닫기" : "Dismiss sticky price bar"}
-            class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 font-mono text-base leading-none text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            class="inline-flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#1a1a1a] font-mono text-base leading-none text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white"
           >
             ×
           </button>

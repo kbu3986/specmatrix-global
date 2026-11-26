@@ -197,29 +197,29 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-800">
+    <span class="font-medium text-white">
       {isKo ? "레이스 보급 믹스 플래너" : "Race Fueling Mix Planner"}
     </span>
   </nav>
 
   <!-- Hero + Race Target Control Deck -->
-  <section class="lab-card overflow-hidden border-emerald-200/80 bg-white">
-    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+  <section class="lab-card overflow-hidden border-emerald-700/40">
+    <div class="border-b border-white/10 bg-[#111111] px-6 py-5 text-white">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="rounded-full border border-emerald-400/40 bg-emerald-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
+          <span class="rounded-full border border-emerald-700/50 bg-[#0d261a] px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-emerald-200">
             PUREGRAM MULTI-PRODUCT RACE PLANNER
           </span>
-          <span class="font-mono text-xs text-slate-300">
+          <span class="font-mono text-xs text-neutral-400">
             {fuelItems.length} {isKo ? "종 검증 영양성분표 DB" : "Verified Nutrition Panels"}
           </span>
         </div>
@@ -229,10 +229,10 @@ const jsonLd = [
             data-curr="KRW"
             aria-pressed={isKo ? "true" : "false"}
             class:list={[
-              "fp-curr-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
+              "fp-curr-btn rounded-md border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
               isKo
-                ? "border-blue-500 bg-blue-600 text-white"
-                : "border-white/20 bg-white/10 text-white hover:bg-white/20",
+                ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
             ]}
           >
             KRW (₩)
@@ -242,10 +242,10 @@ const jsonLd = [
             data-curr="USD"
             aria-pressed={!isKo ? "true" : "false"}
             class:list={[
-              "fp-curr-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
+              "fp-curr-btn rounded-md border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
               !isKo
-                ? "border-blue-500 bg-blue-600 text-white"
-                : "border-white/20 bg-white/10 text-white hover:bg-white/20",
+                ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
             ]}
           >
             USD ($)
@@ -253,12 +253,12 @@ const jsonLd = [
         </div>
       </div>
 
-      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
         {isKo
           ? "마라톤·사이클링 레이스 보급 믹스 플래너"
           : "Marathon & Road Cycling Fueling Mix Planner"}
       </h1>
-      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-neutral-300 sm:text-sm">
         {isKo
           ? "대회 소요시간과 시간당 탄수화물·나트륨 목표를 설정하고 에너지젤·카보믹스·전해질을 조합해 포켓 중량, 1:0.8 위장 내성, 카페인 한도, 실보급 비용을 실시간 검산합니다."
           : "Configure race duration, hourly carb target, and sweat sodium target — then assemble verified gels, carb mixes, and electrolytes with real-time 1:0.8 gut checks, caffeine alerts, weight, and cost."}
@@ -276,7 +276,7 @@ const jsonLd = [
             data-carb="60"
             data-na="600"
             aria-pressed="false"
-            class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
+            class="fp-preset-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "하프 마라톤 (1.5h · 60g/hr)" : "Half Marathon (1.5h / 60g/hr)"}
           </button>
@@ -287,7 +287,7 @@ const jsonLd = [
             data-carb="80"
             data-na="750"
             aria-pressed="true"
-            class="fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
+            class="fp-preset-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             {isKo ? "풀 마라톤 (3.5h · 80g/hr)" : "Full Marathon (3.5h / 80g/hr)"}
           </button>
@@ -298,7 +298,7 @@ const jsonLd = [
             data-carb="90"
             data-na="850"
             aria-pressed="false"
-            class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
+            class="fp-preset-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "그란폰도 100km (4h · 90g/hr)" : "Gran Fondo 100km (4h / 90g/hr)"}
           </button>
@@ -309,7 +309,7 @@ const jsonLd = [
             data-carb="110"
             data-na="950"
             aria-pressed="false"
-            class="fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500"
+            class="fp-preset-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "프로 / 울트라 (5h · 110g/hr)" : "Pro / Ultra (5h / 110g/hr)"}
           </button>
@@ -319,14 +319,14 @@ const jsonLd = [
           <button
             type="button"
             id="fp-autobuild"
-            class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3.5 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-emerald-800"
+            class="inline-flex items-center gap-1.5 rounded-md bg-[#dafa9c] px-3.5 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             <span>{isKo ? "최적 보급 믹스 자동 추천" : "Auto-Build Optimal Mix"}</span>
           </button>
           <button
             type="button"
             id="fp-clear"
-            class="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+            class="rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "팩 비우기" : "Clear Pack"}
           </button>
@@ -335,45 +335,45 @@ const jsonLd = [
 
       <!-- 3 Target Sliders -->
       <div class="grid gap-4 md:grid-cols-3">
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
           <div class="flex items-center justify-between text-xs">
-            <label for="fp-dur" class="font-bold text-slate-800">
+            <label for="fp-dur" class="font-bold text-white">
               {isKo ? "레이스 소요시간" : "Race Duration"}
             </label>
-            <span id="fp-dur-val" class="font-mono font-bold text-blue-700">3.5 hr</span>
+            <span id="fp-dur-val" class="font-mono font-bold text-[#dafa9c]">3.5 hr</span>
           </div>
           <input id="fp-dur" type="range" min="1" max="8" step="0.5" value="3.5" class="lab-slider mt-2.5" />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>1h</span>
             <span>4h</span>
             <span>8h</span>
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
           <div class="flex items-center justify-between text-xs">
-            <label for="fp-carb" class="font-bold text-slate-800">
+            <label for="fp-carb" class="font-bold text-white">
               {isKo ? "시간당 탄수화물 목표" : "Hourly Carb Target"}
             </label>
-            <span id="fp-carb-val" class="font-mono font-bold text-blue-700">80 g/hr</span>
+            <span id="fp-carb-val" class="font-mono font-bold text-[#dafa9c]">80 g/hr</span>
           </div>
           <input id="fp-carb" type="range" min="30" max="120" step="5" value="80" class="lab-slider mt-2.5" />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>30g/hr</span>
             <span>75g/hr</span>
             <span>120g/hr</span>
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
           <div class="flex items-center justify-between text-xs">
-            <label for="fp-na" class="font-bold text-slate-800">
+            <label for="fp-na" class="font-bold text-white">
               {isKo ? "발한·나트륨 목표" : "Sweat Sodium Target"}
             </label>
-            <span id="fp-na-val" class="font-mono font-bold text-blue-700">750 mg/hr</span>
+            <span id="fp-na-val" class="font-mono font-bold text-[#dafa9c]">750 mg/hr</span>
           </div>
           <input id="fp-na" type="range" min="400" max="1200" step="50" value="750" class="lab-slider mt-2.5" />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>400mg</span>
             <span>800mg</span>
             <span>1,200mg</span>
@@ -390,10 +390,10 @@ const jsonLd = [
     <!-- Left 7 cols: PureGram Product Picker -->
     <section class="space-y-4 lg:col-span-7" aria-labelledby="fp-catalog-heading">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <h2 id="fp-catalog-heading" class="text-lg font-bold tracking-tight text-slate-900">
+        <h2 id="fp-catalog-heading" class="text-lg font-bold tracking-tight text-white">
           {isKo ? "검증된 PureGram 보급식 선택 (+ / -)" : "Add Verified PureGram Fuel (+ / -)"}
         </h2>
-        <span id="fp-catalog-count" class="font-mono text-xs text-slate-500">
+        <span id="fp-catalog-count" class="font-mono text-xs text-neutral-400">
           {fuelItems.length} SKUs
         </span>
       </div>
@@ -405,7 +405,7 @@ const jsonLd = [
           type="search"
           aria-label={isKo ? "보급식 제품명 또는 브랜드 검색" : "Search fuel products or brands"}
           placeholder={isKo ? "제품명·브랜드 검색 (예: 모튼, SiS, 아미노바이탈, 프리시전)..." : "Search gel, mix, or electrolyte (e.g. Maurten, SiS, Precision, Tailwind)..."}
-          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:border-blue-600 focus:outline-none"
+          class="w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-sm text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
         />
         <div class="flex flex-wrap gap-1.5" role="group" aria-label={isKo ? "카테고리 필터" : "Category filter"}>
           {[
@@ -422,8 +422,8 @@ const jsonLd = [
               class:list={[
                 "fp-cat-btn rounded-md border px-2.5 py-1 text-xs font-semibold transition-colors",
                 idx === 0
-                  ? "border-slate-900 bg-slate-900 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                  ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                  : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
               ]}
             >
               {tab.label}
@@ -436,45 +436,45 @@ const jsonLd = [
       <div id="fp-catalog-list" class="space-y-2.5">
         {fuelItems.map((it) => (
           <div
-            class="fp-item-row lab-card flex flex-wrap items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-300"
+            class="fp-item-row lab-card flex flex-wrap items-center justify-between gap-3 p-3.5 transition-colors hover:border-white/25 hover:bg-[#1c1c1c]"
             data-slug={it.slug}
             data-cat={it.category}
             data-search={`${it.name} ${it.brand} ${it.categoryLabel}`.toLowerCase()}
           >
             <div class="min-w-0 flex-1">
               <div class="flex flex-wrap items-center gap-1.5">
-                <span class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-slate-700">
+                <span class="rounded border border-white/15 bg-[#111111] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-neutral-300">
                   {it.categoryLabel}
                 </span>
                 {it.dualSourceTier === "optimal_108" && (
-                  <span class="rounded bg-emerald-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-800">
+                  <span class="rounded border border-emerald-700/50 bg-[#0d261a] px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-200">
                     {isKo ? "1:0.8 듀얼당" : "1:0.8 Dual"}
                   </span>
                 )}
                 {it.dualSourceTier === "dual_21" && (
-                  <span class="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-blue-800">
+                  <span class="rounded border border-sky-700/50 bg-[#0f1f30] px-1.5 py-0.5 font-mono text-[10px] font-bold text-sky-200">
                     {isKo ? "2:1 듀얼당" : "2:1 Dual"}
                   </span>
                 )}
                 {it.caffeineMg > 0 && (
-                  <span class="rounded bg-amber-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-amber-800">
+                  <span class="rounded border border-amber-700/50 bg-[#291e09] px-1.5 py-0.5 font-mono text-[10px] font-bold text-amber-200">
                     {isKo ? `카페인 ${it.caffeineMg}mg` : `Caf ${it.caffeineMg}mg`}
                   </span>
                 )}
               </div>
               <a
                 href={it.href}
-                class="mt-1 block truncate text-sm font-bold text-slate-900 hover:text-blue-700 hover:underline"
+                class="mt-1 block truncate text-sm font-bold text-white hover:text-[#dafa9c] hover:underline"
               >
                 {it.name}
               </a>
-              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-slate-600">
-                <span class="font-semibold text-slate-900">
+              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-neutral-400">
+                <span class="font-semibold text-white">
                   {formatNum(it.carbsG, 1)}g {isKo ? "탄수화물" : "Carbs"}
                 </span>
                 <span>{formatInt(it.sodiumMg)}mg Na</span>
                 <span>{formatNum(it.servingWeightG, 0)}g {isKo ? "중량" : "wt"}</span>
-                <span class="fp-item-unit-cost text-blue-700" data-slug={it.slug}>
+                <span class="fp-item-unit-cost text-[#dafa9c]" data-slug={it.slug}>
                   {isKo
                     ? `${formatCurrency(it.krwPerServing, "KRW", "ko")}/회`
                     : `${formatCurrency(it.usdPerServing, "USD", "en")}/srv`}
@@ -488,13 +488,13 @@ const jsonLd = [
                 data-slug={it.slug}
                 data-delta="-1"
                 aria-label={isKo ? `${it.name} 1개 빼기` : `Remove 1 ${it.name}`}
-                class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-700"
+                class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#111111] font-mono text-base font-bold text-neutral-200 transition-colors hover:border-rose-700/60 hover:bg-[#2c1014] hover:text-rose-200"
               >
                 −
               </button>
               <span
                 id={`fp-qty-${it.slug}`}
-                class="w-7 text-center font-mono text-sm font-bold text-slate-900"
+                class="w-7 text-center font-mono text-sm font-bold text-white"
               >
                 0
               </span>
@@ -503,7 +503,7 @@ const jsonLd = [
                 data-slug={it.slug}
                 data-delta="1"
                 aria-label={isKo ? `${it.name} 1개 추가` : `Add 1 ${it.name}`}
-                class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-lg border border-blue-600 bg-blue-600 font-mono text-base font-bold text-white hover:bg-blue-700"
+                class="fp-qty-btn inline-flex h-8 w-8 items-center justify-center rounded-md border border-[#dafa9c] bg-[#dafa9c] font-mono text-base font-bold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
               >
                 +
               </button>
@@ -515,9 +515,9 @@ const jsonLd = [
 
     <!-- Right 5 cols: Sticky Live Dashboard & Shopping Checklist -->
     <aside class="space-y-4 lg:sticky lg:top-20 lg:col-span-5" aria-labelledby="fp-dash-heading">
-      <div class="lab-card border-slate-300 bg-white p-5">
+      <div class="lab-card border-white/15 p-5">
         <div class="flex items-center justify-between gap-2">
-          <h2 id="fp-dash-heading" class="text-base font-extrabold text-slate-900">
+          <h2 id="fp-dash-heading" class="text-base font-extrabold text-white">
             {isKo ? "실시간 레이스 보급 대시보드" : "Live Race Fueling Dashboard"}
           </h2>
           <span id="fp-total-items-pill" class="badge-info font-mono">
@@ -528,13 +528,13 @@ const jsonLd = [
         <!-- Carbs Progress -->
         <div class="mt-4 space-y-1.5">
           <div class="flex items-baseline justify-between text-xs">
-            <span class="font-bold text-slate-800">{isKo ? "총 탄수화물 달성" : "Total Carbs"}</span>
-            <span id="fp-carbs-summary" class="font-mono font-bold text-slate-900">0 g / 280 g</span>
+            <span class="font-bold text-neutral-200">{isKo ? "총 탄수화물 달성" : "Total Carbs"}</span>
+            <span id="fp-carbs-summary" class="font-mono font-bold text-white">0 g / 280 g</span>
           </div>
-          <div class="h-3 w-full overflow-hidden rounded-full bg-slate-200">
-            <div id="fp-carbs-bar" class="h-full rounded-full bg-blue-600 transition-all duration-200" style="width:0%"></div>
+          <div class="h-3 w-full overflow-hidden rounded-full bg-white/10">
+            <div id="fp-carbs-bar" class="h-full rounded-full bg-sky-400 transition-all duration-200" style="width:0%"></div>
           </div>
-          <div class="flex items-center justify-between text-[11px] text-slate-600">
+          <div class="flex items-center justify-between text-[11px] text-neutral-400">
             <span id="fp-carbs-rate" class="font-mono">0.0 g/hr</span>
             <span id="fp-gut-badge" class="badge-info">
               {isKo ? "1:0.8 위장 점검" : "1:0.8 Gut Check"}
@@ -545,28 +545,28 @@ const jsonLd = [
         <!-- Sodium Progress -->
         <div class="mt-4 space-y-1.5">
           <div class="flex items-baseline justify-between text-xs">
-            <span class="font-bold text-slate-800">{isKo ? "총 나트륨 달성" : "Total Sodium"}</span>
-            <span id="fp-na-summary" class="font-mono font-bold text-slate-900">0 mg / 2,625 mg</span>
+            <span class="font-bold text-neutral-200">{isKo ? "총 나트륨 달성" : "Total Sodium"}</span>
+            <span id="fp-na-summary" class="font-mono font-bold text-white">0 mg / 2,625 mg</span>
           </div>
-          <div class="h-3 w-full overflow-hidden rounded-full bg-slate-200">
-            <div id="fp-na-bar" class="h-full rounded-full bg-emerald-600 transition-all duration-200" style="width:0%"></div>
+          <div class="h-3 w-full overflow-hidden rounded-full bg-white/10">
+            <div id="fp-na-bar" class="h-full rounded-full bg-emerald-400 transition-all duration-200" style="width:0%"></div>
           </div>
-          <div class="flex items-center justify-between text-[11px] text-slate-600">
+          <div class="flex items-center justify-between text-[11px] text-neutral-400">
             <span id="fp-na-rate" class="font-mono">0 mg/hr</span>
             <span id="fp-na-status" class="font-mono">0%</span>
           </div>
         </div>
 
         <!-- Caffeine Meter & Alert -->
-        <div class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+        <div class="mt-4 rounded-lg border border-white/10 bg-[#111111] p-3">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-slate-800">{isKo ? "총 카페인 누적" : "Total Caffeine"}</span>
-            <span id="fp-caf-val" class="font-mono font-bold text-slate-900">0 mg</span>
+            <span class="font-bold text-neutral-200">{isKo ? "총 카페인 누적" : "Total Caffeine"}</span>
+            <span id="fp-caf-val" class="font-mono font-bold text-white">0 mg</span>
           </div>
-          <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-200">
-            <div id="fp-caf-bar" class="h-full rounded-full bg-slate-500 transition-all duration-200" style="width:0%"></div>
+          <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-white/10">
+            <div id="fp-caf-bar" class="h-full rounded-full bg-neutral-400 transition-all duration-200" style="width:0%"></div>
           </div>
-          <p id="fp-caf-alert" class="mt-1.5 text-[11px] leading-snug text-slate-600">
+          <p id="fp-caf-alert" class="mt-1.5 text-[11px] leading-snug text-neutral-400">
             {isKo
               ? "300 mg 미만 안전 구간 (FDA 성인 일일 상한 400 mg)."
               : "Under 300 mg safety zone (FDA adult daily ceiling: 400 mg)."}
@@ -575,30 +575,30 @@ const jsonLd = [
 
         <!-- Carry Weight / Calories / Race Cost Grid -->
         <div class="mt-4 grid grid-cols-3 gap-2.5 text-center">
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-2.5">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "포켓 중량" : "Carry Weight"}
             </div>
-            <div id="fp-weight-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-slate-900">0 g</div>
+            <div id="fp-weight-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-white">0 g</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-2.5">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "총 열량" : "Calories"}
             </div>
-            <div id="fp-kcal-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-slate-900">0 kcal</div>
+            <div id="fp-kcal-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-white">0 kcal</div>
           </div>
-          <div class="rounded-lg border border-blue-200 bg-blue-50/70 p-2.5">
-            <div class="font-mono text-[10px] uppercase text-blue-700">
+          <div class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-2.5">
+            <div class="font-mono text-[10px] uppercase text-emerald-200">
               {isKo ? "예상 보급비" : "Race Cost"}
             </div>
-            <div id="fp-cost-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-blue-800">
+            <div id="fp-cost-val" class="kpi-value mt-0.5 font-mono text-base font-bold text-[#dafa9c]">
               {isKo ? "0원" : "$0.00"}
             </div>
           </div>
         </div>
 
         <!-- Gut Tolerance Detail Note -->
-        <div id="fp-gut-note" class="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[11px] leading-relaxed text-slate-700">
+        <div id="fp-gut-note" class="mt-3 rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-[11px] leading-relaxed text-neutral-300">
           {isKo
             ? "보급식을 추가하면 1:0.8 듀얼소스 탄수화물 비율과 위장 흡수 안정성을 자동 점검합니다."
             : "Add fuel items to evaluate dual-source 1:0.8 glucose:fructose gut absorption tolerance."}
@@ -609,7 +609,7 @@ const jsonLd = [
           <button
             type="button"
             id="fp-copy-plan"
-            class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-blue-700"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#dafa9c] px-4 py-2.5 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             <span>{isKo ? "레이스 보급 계획 복사하기" : "Copy Race Plan"}</span>
           </button>
@@ -617,28 +617,28 @@ const jsonLd = [
       </div>
 
       <!-- Selected Pack Shopping Checklist -->
-      <div class="lab-card border-slate-200 bg-white p-5">
+      <div class="lab-card p-5">
         <div class="flex items-center justify-between gap-2">
-          <h3 class="text-sm font-bold text-slate-900">
+          <h3 class="text-sm font-bold text-white">
             {isKo ? "내 보급 팩 체크리스트 & 공식 스토어" : "Pack Checklist & Verified Stores"}
           </h3>
-          <span class="font-mono text-[10px] uppercase text-slate-600">
+          <span class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "MSRP 참고가" : "MSRP Benchmark"}
           </span>
         </div>
-        <p class="mt-1 text-[11px] text-slate-500">
+        <p class="mt-1 text-[11px] text-neutral-400">
           {isKo
             ? "단가 입력칸을 수정해 본인 실구매가 기준으로 레이스 총비용을 계산할 수 있습니다."
             : "Edit any per-serving price below to calculate your exact real-world race cost."}
         </p>
 
         <div id="fp-checklist" class="mt-3 space-y-2.5">
-          <p class="py-4 text-center text-xs text-slate-500">
+          <p class="py-4 text-center text-xs text-neutral-400">
             {isKo ? "선택된 보급식이 없습니다." : "No items added to your race pack yet."}
           </p>
         </div>
 
-        <p class="mt-4 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+        <p class="mt-4 border-t border-white/10 pt-2.5 text-[11px] leading-relaxed text-neutral-400">
           {cfg.compliance.disclosures[locale]}
         </p>
       </div>
@@ -894,8 +894,8 @@ const jsonLd = [
         const on = activePreset !== null && (o.getAttribute("data-preset") || "") === activePreset;
         o.setAttribute("aria-pressed", on ? "true" : "false");
         o.className = on
-          ? "fp-preset-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition-colors"
-          : "fp-preset-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500";
+          ? "fp-preset-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "fp-preset-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white";
       });
     }
 
@@ -904,8 +904,8 @@ const jsonLd = [
         const on = (o.getAttribute("data-curr") || "KRW") === activeCurrency;
         o.setAttribute("aria-pressed", on ? "true" : "false");
         o.className = on
-          ? "fp-curr-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
-          : "fp-curr-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-xs font-semibold text-white hover:bg-white/20 transition-colors";
+          ? "fp-curr-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "fp-curr-btn rounded-md border border-white/15 bg-[#161616] px-2.5 py-1 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
     }
 
@@ -1044,10 +1044,10 @@ const jsonLd = [
         carbsBar.style.width = `${Math.min(100, carbsPct)}%`;
         carbsBar.className =
           carbsPct >= 90 && carbsPct <= 115
-            ? "h-full rounded-full bg-emerald-600 transition-all duration-200"
+            ? "h-full rounded-full bg-emerald-400 transition-all duration-200"
             : carbsPct > 115
-              ? "h-full rounded-full bg-amber-500 transition-all duration-200"
-              : "h-full rounded-full bg-blue-600 transition-all duration-200";
+              ? "h-full rounded-full bg-amber-400 transition-all duration-200"
+              : "h-full rounded-full bg-sky-400 transition-all duration-200";
       }
       if (carbsRateEl) {
         carbsRateEl.textContent = `${carbsHr.toFixed(1)} g/hr (${isKo ? "목표" : "target"} ${carbTargetHr} g/hr)`;
@@ -1092,10 +1092,10 @@ const jsonLd = [
         naBar.style.width = `${Math.min(100, naPct)}%`;
         naBar.className =
           naPct >= 85 && naPct <= 125
-            ? "h-full rounded-full bg-emerald-600 transition-all duration-200"
+            ? "h-full rounded-full bg-emerald-400 transition-all duration-200"
             : naPct > 125
-              ? "h-full rounded-full bg-amber-500 transition-all duration-200"
-              : "h-full rounded-full bg-sky-600 transition-all duration-200";
+              ? "h-full rounded-full bg-amber-400 transition-all duration-200"
+              : "h-full rounded-full bg-sky-400 transition-all duration-200";
       }
       if (naRateEl) {
         naRateEl.textContent = `${Math.round(naHr)} mg/hr (${isKo ? "목표" : "target"} ${naTargetHr} mg/hr)`;
@@ -1109,24 +1109,24 @@ const jsonLd = [
         cafBar.style.width = `${cafPct}%`;
         cafBar.className =
           totalCaf > 400
-            ? "h-full rounded-full bg-rose-600 transition-all duration-200"
+            ? "h-full rounded-full bg-rose-500 transition-all duration-200"
             : totalCaf > 300
-              ? "h-full rounded-full bg-amber-500 transition-all duration-200"
-              : "h-full rounded-full bg-emerald-600 transition-all duration-200";
+              ? "h-full rounded-full bg-amber-400 transition-all duration-200"
+              : "h-full rounded-full bg-emerald-400 transition-all duration-200";
       }
       if (cafAlert) {
         if (totalCaf > 400) {
-          cafAlert.className = "mt-1.5 rounded border border-rose-300 bg-rose-50 px-2.5 py-1.5 text-[11px] font-bold text-rose-900";
+          cafAlert.className = "mt-1.5 rounded border border-rose-700/50 bg-[#2c1014] px-2.5 py-1.5 text-[11px] font-bold text-rose-200";
           cafAlert.textContent = isKo
             ? `경고 (>400 mg): 총 카페인 ${Math.round(totalCaf)} mg은 FDA 성인 1일 권장 상한(400 mg)을 초과합니다! 무카페인 젤로 일부 교체하세요.`
             : `ALERT (>400 mg): ${Math.round(totalCaf)} mg exceeds the 400 mg FDA daily adult caffeine limit! Replace caffeinated gels with caffeine-free options.`;
         } else if (totalCaf > 300) {
-          cafAlert.className = "mt-1.5 rounded border border-amber-300 bg-amber-50 px-2.5 py-1.5 text-[11px] font-semibold text-amber-900";
+          cafAlert.className = "mt-1.5 rounded border border-amber-700/50 bg-[#291e09] px-2.5 py-1.5 text-[11px] font-semibold text-amber-200";
           cafAlert.textContent = isKo
             ? `주의 (>300 mg): 고카페인 구간(${Math.round(totalCaf)} mg)입니다. 심박 상승·위장 자극에 민감하다면 300 mg 이하로 조절하세요.`
             : `CAUTION (>300 mg): High caffeine load (${Math.round(totalCaf)} mg). Sensitive athletes should trim below 300 mg to prevent GI distress or jitteriness.`;
         } else {
-          cafAlert.className = "mt-1.5 text-[11px] leading-snug text-slate-600";
+          cafAlert.className = "mt-1.5 text-[11px] leading-snug text-neutral-400";
           cafAlert.textContent = isKo
             ? `총 ${Math.round(totalCaf)} mg — 안전 구간 (300 mg 주의 / 400 mg 초과 경보 기준).`
             : `${Math.round(totalCaf)} mg — Within standard endurance range (caution >300 mg, alert >400 mg).`;
@@ -1147,7 +1147,7 @@ const jsonLd = [
             if (subEl) subEl.textContent = fmtCost(unitPrice * qty);
           });
         } else if (selectedEntries.length === 0) {
-          checklistEl.innerHTML = `<p class="py-4 text-center text-xs text-slate-500">${
+          checklistEl.innerHTML = `<p class="py-4 text-center text-xs text-neutral-400">${
             isKo ? "선택된 보급식이 없습니다. 왼쪽 목록에서 + 버튼을 누르거나 자동 추천을 실행하세요." : "No items added yet. Click + on the left or press Auto-Build Optimal Mix."
           }</p>`;
         } else {
@@ -1156,7 +1156,7 @@ const jsonLd = [
               const subtotal = unitPrice * qty;
               const primaryBtn = item.ctaButtons[0];
               const ctaHtml = primaryBtn
-                ? `<a href="${esc(primaryBtn.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(primaryBtn.storeName)}" data-affiliate-vertical="puregram" data-affiliate-sku="${esc(item.slug)}" data-affiliate-mode="${esc(primaryBtn.linkMode)}" class="inline-flex items-center gap-1 rounded bg-blue-700 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-blue-800">${esc(primaryBtn.storeName)} ↗</a>`
+                ? `<a href="${esc(primaryBtn.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(primaryBtn.storeName)}" data-affiliate-vertical="puregram" data-affiliate-sku="${esc(item.slug)}" data-affiliate-mode="${esc(primaryBtn.linkMode)}" class="inline-flex items-center gap-1 rounded bg-[#dafa9c] px-2.5 py-1 text-[11px] font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]">${esc(primaryBtn.storeName)} ↗</a>`
                 : "";
               const stepVal = activeCurrency === "KRW" ? "100" : "0.10";
               const inputVal =
@@ -1164,20 +1164,20 @@ const jsonLd = [
               const carbLbl = isKo ? "탄수" : "Carbs";
               const cafLbl = isKo ? "카페인" : "Caf";
               return `
-                <div class="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs">
+                <div class="rounded-lg border border-white/10 bg-[#111111] p-3 text-xs">
                   <div class="flex items-start justify-between gap-2">
                     <div class="min-w-0">
-                      <a href="${esc(item.href)}" class="font-bold text-slate-900 hover:text-blue-700 hover:underline">${esc(item.name)}</a>
-                      <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+                      <a href="${esc(item.href)}" class="font-bold text-white hover:text-[#dafa9c] hover:underline">${esc(item.name)}</a>
+                      <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
                         ×${qty} · ${Math.round(item.carbsG * qty)}g ${carbLbl} · ${Math.round(item.sodiumMg * qty)}mg Na${item.caffeineMg > 0 ? ` · ${Math.round(item.caffeineMg * qty)}mg ${cafLbl}` : ""}
                       </div>
                     </div>
-                    <span data-subtotal-slug="${esc(item.slug)}" class="shrink-0 font-mono font-bold text-slate-900">${esc(fmtCost(subtotal))}</span>
+                    <span data-subtotal-slug="${esc(item.slug)}" class="shrink-0 font-mono font-bold text-[#dafa9c]">${esc(fmtCost(subtotal))}</span>
                   </div>
-                  <div class="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/80 pt-2">
-                    <label class="inline-flex items-center gap-1 font-mono text-[10px] text-slate-600">
+                  <div class="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-2">
+                    <label class="inline-flex items-center gap-1 font-mono text-[10px] text-neutral-400">
                       <span>${isKo ? "1회 단가" : "Unit"} (${activeCurrency}):</span>
-                      <input type="number" min="0" step="${stepVal}" value="${esc(inputVal)}" data-price-slug="${esc(item.slug)}" class="fp-unit-price-input w-20 rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[11px] text-slate-800" />
+                      <input type="number" min="0" step="${stepVal}" value="${esc(inputVal)}" data-price-slug="${esc(item.slug)}" class="fp-unit-price-input w-20 rounded border border-white/15 bg-[#161616] px-1.5 py-0.5 font-mono text-[11px] text-white focus:border-[#dafa9c] focus:outline-none" />
                     </label>
                     ${ctaHtml}
                   </div>
@@ -1247,8 +1247,8 @@ const jsonLd = [
           const on = o === btn;
           o.setAttribute("aria-pressed", on ? "true" : "false");
           o.className = on
-            ? "fp-cat-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 text-xs font-semibold text-white transition-colors"
-            : "fp-cat-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+            ? "fp-cat-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+            : "fp-cat-btn rounded-md border border-white/15 bg-[#111111] px-2.5 py-1 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
         });
         applyCatalogFilter();
       });
@@ -1314,11 +1314,11 @@ const jsonLd = [
         copyToClipboard(lines.join("\n")).then((ok) => {
           if (!ok) return;
           copyPlanBtn.textContent = okLabel;
-          copyPlanBtn.classList.add("bg-emerald-700");
+          copyPlanBtn.classList.add("bg-emerald-400");
           track("fueling_planner_use", { action: "copy_plan" });
           window.setTimeout(() => {
             copyPlanBtn.textContent = defLabel;
-            copyPlanBtn.classList.remove("bg-emerald-700");
+            copyPlanBtn.classList.remove("bg-emerald-400");
           }, 1800);
         });
       });

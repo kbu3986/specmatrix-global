@@ -1,0 +1,645 @@
+---
+import type { ActiveLocale, PilotVertical } from "../lib/types";
+import {
+  getAirlines,
+  getMonetizationConfig,
+  getPrimaryVerticalHref,
+  getVerticalItems,
+} from "../lib/data";
+import {
+  LEGAL_LABELS,
+  LEGAL_SLUGS,
+  PILOT_VERTICALS,
+  VERTICAL_META,
+  normalizePath,
+  safeJsonLd,
+  switchLocalePath,
+  toAbsoluteUrl,
+  withBase,
+} from "../lib/i18n";
+
+interface Props {
+  title: string;
+  description: string;
+  locale: ActiveLocale;
+  currentPath: string;
+  isRootPortal?: boolean;
+  availableLocales?: ActiveLocale[];
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  dealComment?: string;
+}
+
+const {
+  title,
+  description,
+  locale,
+  currentPath,
+  isRootPortal = false,
+  availableLocales = ["en", "ko"],
+  jsonLd = [],
+  dealComment = "type: software | deal: hero centred, nav nav-cards, close close-word, footer footer-statement, rhythm surface-pairs, buttons solid, mark ring, ground sky, effect gradient-mesh, card-ground painterly-landscape, grounds bg-mist/bg-band | moments: pinned-chapters (#workflow)",
+} = Astro.props;
+
+const cfg = getMonetizationConfig();
+const normPath = normalizePath(currentPath);
+const canonical = toAbsoluteUrl(normPath);
+
+const enHref = isRootPortal
+  ? toAbsoluteUrl("/en/")
+  : toAbsoluteUrl(switchLocalePath(normPath, "en"));
+const koHref = isRootPortal
+  ? toAbsoluteUrl("/ko/")
+  : toAbsoluteUrl(switchLocalePath(normPath, "ko"));
+const xDefaultHref = isRootPortal ? toAbsoluteUrl("/") : enHref;
+
+const otherLocale: ActiveLocale = locale === "en" ? "ko" : "en";
+const toggleHref = withBase(
+  isRootPortal ? `/${otherLocale}/` : switchLocalePath(normPath, otherLocale)
+);
+const hasOtherLocale = isRootPortal || availableLocales.includes(otherLocale);
+
+const isKo = locale === "ko";
+const ogImageUrl = toAbsoluteUrl("/og/og-default.png");
+const ldList = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+
+const ga4Id = (cfg.analytics?.ga4MeasurementId || "").trim();
+const clarityId = (cfg.analytics?.clarityProjectId || "").trim();
+const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
+
+const airlinesCount = getAirlines().length;
+const navVerticals = PILOT_VERTICALS.map((v: PilotVertical) => {
+  const count = getVerticalItems(v).length;
+  const href = withBase(getPrimaryVerticalHref(locale, v));
+  const summaryMap: Record<PilotVertical, { en: string; ko: string; badge: string; statEn: string; statKo: string }> = {
+    wattcheck: {
+      en: "Power banks, GaN chargers & 30 airline rules",
+      ko: "보조배터리·GaN 충전기·30개 항공사 규정",
+      badge: "99.54 Wh · PD 3.1",
+      statEn: `${count} SKUs · ${airlinesCount} airlines`,
+      statKo: `${count}종 · ${airlinesCount} 항공사`,
+    },
+    puregram: {
+      en: "Energy gels, electrolytes & active gram cost",
+      ko: "에너지젤·전해질·크레아틴 유효성분 실단가",
+      badge: "1:0.8 · 30 g carb",
+      statEn: `${count} SKUs · Label math`,
+      statKo: `${count}종 · 영양성분표`,
+    },
+    cyclegear: {
+      en: "Power meters, GPS units & hookless tire caps",
+      ko: "파워미터·GPS 속도계·후크리스 5.0 bar 검증",
+      badge: "5.0 bar · ±1.0%",
+      statEn: `${count} SKUs · ETRTO TSS`,
+      statKo: `${count}종 · ETRTO TSS`,
+    },
+    hometech: {
+      en: "Mini PCs, NAS, sinewave UPS & 3-year TCO",
+      ko: "미니PC·NAS·UPS 24시간 전력·3년 TCO",
+      badge: "4 W idle · 220 V",
+      statEn: `${count} SKUs · 3-yr TCO`,
+      statKo: `${count}종 · 3년 TCO`,
+    },
+  };
+  return {
+    id: v,
+    shortName: VERTICAL_META[v].shortName[locale],
+    name: VERTICAL_META[v].name[locale],
+    href,
+    count,
+    summary: summaryMap[v][locale],
+    badge: summaryMap[v].badge,
+    stat: isKo ? summaryMap[v].statKo : summaryMap[v].statEn,
+  };
+});
+
+const studioNavCol1 = [
+  {
+    title: isKo ? "1:1 모델 비교" : "Compare 1:1",
+    desc: isKo ? "72종 자유 가중치 대결" : "Weighted diff across 72 SKUs",
+    href: withBase(`/${locale}/compare/`),
+  },
+  {
+    title: isKo ? "여행 충전 키트" : "Travel power kit",
+    desc: isKo ? "노트북·항공사 규정 조합" : "PD watts & 30 airline caps",
+    href: withBase(`/${locale}/tools/travel-power-kit/`),
+  },
+  {
+    title: isKo ? "레이스 보급 플래너" : "Race fueling plan",
+    desc: isKo ? "시간당 탄수화물·나트륨" : "Hourly carbs, sodium & cost",
+    href: withBase(`/${locale}/tools/fueling-planner/`),
+  },
+];
+
+const studioNavCol2 = [
+  {
+    title: isKo ? "3년 TCO · UPS 런타임" : "3-year TCO studio",
+    desc: isKo ? "대기전력·정전 백업 계산" : "24/7 idle watts & UPS backup",
+    href: withBase(`/${locale}/tools/hometech-tco-studio/`),
+  },
+  {
+    title: isKo ? "타이어 공기압 가드" : "Tire pressure guard",
+    desc: isKo ? "후크리스 5.0 bar 한계 검증" : "ETRTO 5.0 bar hookless cap",
+    href: withBase(`/${locale}/tools/tire-pressure-guard/`),
+  },
+  {
+    title: isKo ? "30개 항공사 규정" : "30-airline matrix",
+    desc: isKo ? "국토부·FAA·CAAC 기내 규정" : "MOLIT, FAA & CAAC rules",
+    href: withBase(`/${locale}/wattcheck/matrix/airlines-30/`),
+  },
+];
+
+const primaryActionHref = isRootPortal
+  ? withBase("/en/")
+  : withBase(`/${locale}/compare/`);
+const primaryActionLabel = isRootPortal
+  ? "Enter English Hub"
+  : isKo
+    ? "1:1 모델 비교하기"
+    : "Compare two models";
+
+const closeLead = isRootPortal
+  ? "Select English (USD · 120V · FAA) or Korean (KRW · 220V · MOLIT) to open all 72 audited products."
+  : isKo
+    ? "72종 공식 스펙과 30개 항공사 규정을 브라우저에서 바로 대조합니다."
+    : "Run side-by-side checks across 72 audited products and 30 airline policies.";
+
+const paletteCss = isKo
+  ? `:root {
+  --p-bg: #0f0f0f; --p-surface: #1a1a1a; --p-ink: #ffffff; --p-muted: #8f8f8f;
+  --p-accent: #dafa9c; --p-accent-ink: #0f0f0f; --p-action: #dafa9c; --p-action-ink: #0f0f0f;
+  --p-inv-bg: #ffffff; --p-inv-surface: #ececec; --p-inv-ink: #0f0f0f; --p-inv-muted: #5f5f5f;
+  --p-inv-accent: #0f0f0f; --p-inv-accent-ink: #ffffff; --p-inv-action: #0f0f0f; --p-inv-action-ink: #ffffff;
+  --font-display: "Instrument Sans", "Noto Sans KR", system-ui, sans-serif;
+  --font-text: "Instrument Sans", "Noto Sans KR", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.028em;
+  --display-tracking-xl: -0.036em;
+  --display-stretch: 96%;
+  --ly-scale: 0.70;
+}`
+  : `:root {
+  --p-bg: #0f0f0f; --p-surface: #1a1a1a; --p-ink: #ffffff; --p-muted: #8f8f8f;
+  --p-accent: #dafa9c; --p-accent-ink: #0f0f0f; --p-action: #dafa9c; --p-action-ink: #0f0f0f;
+  --p-inv-bg: #ffffff; --p-inv-surface: #ececec; --p-inv-ink: #0f0f0f; --p-inv-muted: #5f5f5f;
+  --p-inv-accent: #0f0f0f; --p-inv-accent-ink: #ffffff; --p-inv-action: #0f0f0f; --p-inv-action-ink: #ffffff;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-text: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.028em;
+  --display-tracking-xl: -0.036em;
+  --display-stretch: 96%;
+  --ly-scale: 1.04;
+}`;
+---
+
+<!doctype html>
+<html lang={locale} data-type="software" data-radius="sharp" data-ground="sky" data-buttons="solid" data-motion>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+<meta name="theme-color" content="#0f0f0f" />
+<meta name="site-kind" content="software" />
+<meta name="page-type" content="software" />
+
+<!-- Google Consent Mode v2 (EEA / UK / CH regional default) -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+  gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    wait_for_update: 500,
+    region: [
+      "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU",
+      "IS", "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO",
+      "SK", "SI", "ES", "SE", "CH", "GB",
+    ],
+  });
+</script>
+
+<!-- AdSense & Search Console Verification -->
+{cfg.adsenseId && (
+  <meta name="google-adsense-account" content={cfg.adsenseId} />
+)}
+{cfg.adsenseId && (
+  <script
+    async
+    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${cfg.adsenseId}`}
+    crossorigin="anonymous"
+  ></script>
+)}
+{cfg.verification.gsc && (
+  <meta name="google-site-verification" content={cfg.verification.gsc} />
+)}
+{cfg.verification.naver && (
+  <meta name="naver-site-verification" content={cfg.verification.naver} />
+)}
+
+<!-- Optional GA4 / Clarity / Cloudflare Web Analytics -->
+{ga4Id && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
+    <script is:inline define:vars={{ ga4Id }}>
+      window.dataLayer = window.dataLayer || [];
+      if (typeof window.gtag !== "function") {
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+      }
+      window.gtag("js", new Date());
+      window.gtag("config", ga4Id, { anonymize_ip: true });
+    </script>
+  </>
+)}
+<script is:inline>
+  window.smTrack = function (name, params) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, params || {});
+    }
+  };
+</script>
+{clarityId && (
+  <script is:inline define:vars={{ clarityId }}>
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", clarityId);
+  </script>
+)}
+{cfBeaconToken && (
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+  ></script>
+)}
+
+<!-- Canonical & Symmetric Hreflang -->
+<link rel="canonical" href={canonical} />
+{(isRootPortal || availableLocales.includes("en")) && (
+  <link rel="alternate" hreflang="en" href={enHref} />
+)}
+{(isRootPortal || availableLocales.includes("ko")) && (
+  <link rel="alternate" hreflang="ko" href={koHref} />
+)}
+<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+<!-- OpenGraph & Twitter Large Image Cards -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={cfg.siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={isKo ? "ko_KR" : "en_US"} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+{ldList.map((schema) => (
+  <script type="application/ld+json" set:html={safeJsonLd(schema)} />
+))}
+
+<!-- 1. Google Fonts (dealt pairing: Instrument Sans + DM Mono; Noto Sans KR on KO only) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+{isKo && (
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet" />
+)}
+
+<!-- 2. Taste-skill 2.5.1 core stylesheets (exact order) -->
+<link rel="stylesheet" href={withBase("/assets/system.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/cards.css")} />
+<link rel="stylesheet" href={withBase("/assets/motion/motion.css")} />
+<link rel="stylesheet" href={withBase("/assets/backgrounds/backgrounds.css")} />
+<link rel="stylesheet" href={withBase("/assets/layout/layout.css")} />
+<link rel="stylesheet" href={withBase("/assets/icons/icon.css")} />
+
+<!-- Dealt soot-pale-lime palette & typography tokens (AFTER layout.css) -->
+<style is:inline set:html={paletteCss}></style>
+
+<!-- 3. UI fragments & diagrams CSS -->
+<link rel="stylesheet" href={withBase("/assets/ui/base.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/window/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/terminal-run/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/checklist/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/stat/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/toggles/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/notify/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/slider/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/ui/search/fragment.css")} />
+<link rel="stylesheet" href={withBase("/assets/diagrams/diagram.css")} />
+
+<!-- Head guards & moment preloads -->
+<script is:inline>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script is:inline src={withBase("/assets/backgrounds/backgrounds.js")}></script>
+<script is:inline>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href={withBase("/assets/moments/moments.js")} />
+<link rel="modulepreload" href={withBase("/assets/moments/lib.js")} />
+<link rel="modulepreload" href={withBase("/assets/moments/pinned-chapters/moment.js")} />
+
+<!-- Shared landing shell refinements (nav-cards mini preview, footer statement & bg rhythm fix) -->
+<style is:inline>
+  /* Preserve system.css 1H/2H rhythm when backgrounds.css applies .bg-mist / .bg-band (specificity 0,3,2 beats 0,3,0) */
+  main > section.section:is(.bg-mist, .bg-band):not(.section--hero, .section--flush-top, .section--rule) {
+    height: calc(var(--h, 1) * 100svh);
+    min-height: 0;
+    display: block;
+    padding: var(--padt) 0 calc(var(--padb) + var(--bar));
+  }
+  @media (min-width: 640px) and (max-width: 1279px) {
+    main > section.section:is(.bg-mist, .bg-band):not(.section--hero, .section--flush-top, .section--rule) {
+      height: auto;
+      min-height: calc(var(--h, 1) * 100svh);
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 639px) {
+    main > section.section:is(.bg-mist, .bg-band):not(.section--hero, .section--flush-top, .section--rule) {
+      height: auto;
+      min-height: calc(var(--hm, var(--h, 1)) * 100lvh);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 1fr;
+      align-content: stretch;
+    }
+  }
+
+  /* Lead contrast on dark surfaces (>= 7:1 AAA) & KO hero measure */
+  .hero--centred .hero__lead { color: #d6d6d6; }
+  #workbench .t-lead.muted, #faq .t-lead.muted, #hubs .t-lead.muted { color: #d4d4d4; }
+  html[lang="ko"] .hero--centred h1 { max-width: 24em; }
+  html[lang="ko"] :is(h1, h2, h3, h4, p, .t-lead, .t-card) { word-break: keep-all; }
+
+  /* Narrow phone nav fit (zero overflow at 390px and 320px while preserving 44px tap targets) */
+  @media (max-width: 639px) {
+    .nav__bar { gap: 8px; }
+    .nav__logo { font-size: 16px; gap: 6px; }
+    .nav:not(.is-open) .nav__actions .btn { padding-inline: 10px; font-size: 13px; }
+  }
+  @media (max-width: 360px) {
+    :root { --gut: 16px; }
+    .nav__bar { gap: 6px; }
+    .nav__logo { font-size: 13.5px; gap: 4px; }
+    .nav__logo .mark:not(.mark--initial) { width: 14px; height: 14px; }
+    .nav:not(.is-open) .nav__actions .btn { padding-inline: 7px; font-size: 13px; letter-spacing: -0.025em; }
+  }
+
+  /* Nav-cards preview panel */
+  .menu-card .panel { --p-h: 136px; display: grid; align-content: end; padding: 14px; }
+  .menu-card__mini {
+    position: relative; z-index: 2; display: grid; gap: 6px; padding: 12px 14px;
+    border-radius: var(--r-sm); background: #141414; color: #ffffff;
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+  .menu-card__badge {
+    font: 500 13px/1.3 var(--font-mono); color: #dafa9c;
+    font-variant-numeric: tabular-nums;
+  }
+  .menu-card__stat {
+    font: 400 13px/1.35 var(--font-text); color: #d4d4d4;
+  }
+
+  /* Footer statement inverted action (#0f0f0f matches page bg for same-action invertedLook) & unclipped close word */
+  footer.closing.footer--statement { --action: #0f0f0f; --action-ink: #ffffff; }
+  .close__word { font-size: clamp(42px, 11vw, 152px); line-height: 1.06; padding-top: 0.06em; overflow: visible; }
+  .closing__links { gap: var(--s-5); }
+  .footer__disclosure {
+    margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink);
+    width: 100%; max-width: none; padding-top: var(--s-3);
+  }
+  .footer--statement .footer__legal { color: var(--ink); padding-top: var(--s-4); }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    footer.closing .footer__col { grid-column: auto / span 4; }
+  }
+  @media (max-width: 639px) {
+    .close__word { font-size: clamp(36px, 12.5vw, 66px); line-height: 1.08; }
+    footer.closing { --hm: 2; }
+  }
+</style>
+
+<slot name="head" />
+</head>
+<body>
+<Fragment set:html={`<!-- ${dealComment} -->`} />
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">{isKo ? "본문으로 이동" : "Skip to content"}</a>
+    <a class="nav__logo" href="#top">
+      <span class="mark" data-mark="ring" aria-hidden="true"></span>SpecMatrix
+    </a>
+
+    <nav class="nav__links" aria-label={isKo ? "주요 메뉴" : "Main"}>
+      {isRootPortal ? (
+        <>
+          <div class="nav__item">
+            <a class="nav__link" href="#hubs">
+              Hubs
+              <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="nav__menu">
+              <div class="wrap grid">
+                <div class="menu-col span-4">
+                  <p class="t-label">Regional hubs</p>
+                  <a href={withBase("/en/")}>English Hub<span>USD · 120V · FAA &amp; IATA rules</span></a>
+                  <a href={withBase("/ko/")}>한국어 허브<span>KRW · 220V · 국토부·한전 TCO</span></a>
+                </div>
+                <div class="menu-col span-4">
+                  <p class="t-label">Direct tools</p>
+                  <a href={withBase("/en/compare/")}>Compare 1:1<span>Weighted diff across 72 SKUs</span></a>
+                  <a href={withBase("/en/tools/")}>Lab Tools Hub<span>Six browser calculators</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav__item"><a class="nav__link" href={withBase("/en/wattcheck/matrix/power-banks/")}>Verticals</a></div>
+          <div class="nav__item"><a class="nav__link" href={withBase("/en/tools/")}>Studios</a></div>
+          <div class="nav__item"><a class="nav__link" href={withBase("/en/compare/")}>Compare</a></div>
+        </>
+      ) : (
+        <>
+          <div class="nav__item">
+            <a class="nav__link" href="#verticals">
+              {isKo ? "버티컬" : "Verticals"}
+              <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="nav__menu">
+              <div class="wrap grid">
+                {navVerticals.map((v) => (
+                  <a class="menu-card span-3" href={v.href}>
+                    <div class="panel" aria-hidden="true">
+                      <div class="menu-card__mini">
+                        <span class="menu-card__badge">{v.badge}</span>
+                        <span class="menu-card__stat">{v.stat}</span>
+                      </div>
+                    </div>
+                    <span class="t-card">{v.shortName}</span>
+                    <span class="t-small muted">{v.summary}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div class="nav__item">
+            <a class="nav__link" href="#studios">
+              {isKo ? "스튜디오" : "Studios"}
+              <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="nav__menu">
+              <div class="wrap grid">
+                <div class="menu-col span-4">
+                  <p class="t-label">{isKo ? "비교 · 여행 · 보급" : "Compare, power & fueling"}</p>
+                  {studioNavCol1.map((s) => (
+                    <a href={s.href}>{s.title}<span>{s.desc}</span></a>
+                  ))}
+                </div>
+                <div class="menu-col span-4">
+                  <p class="t-label">{isKo ? "전력 TCO · 타이어 · 항공" : "TCO, cycling & aviation"}</p>
+                  {studioNavCol2.map((s) => (
+                    <a href={s.href}>{s.title}<span>{s.desc}</span></a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav__item"><a class="nav__link" href="#workflow">{isKo ? "검증" : "Audit"}</a></div>
+          <div class="nav__item"><a class="nav__link" href="#pipeline">{isKo ? "출처" : "Pipeline"}</a></div>
+          <div class="nav__item"><a class="nav__link" href="#faq">FAQ</a></div>
+        </>
+      )}
+    </nav>
+
+    <div class="nav__actions">
+      {hasOtherLocale && (
+        <a
+          class="nav__link"
+          href={toggleHref}
+          aria-label={isKo ? "Switch to English" : "한국어로 전환"}
+        >
+          {isKo ? "EN" : "KO"}
+        </a>
+      )}
+      <a class="btn btn--primary" href={primaryActionHref}>{primaryActionLabel}</a>
+    </div>
+
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label={isKo ? "메뉴" : "Menu"}>
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+        <path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <slot />
+</main>
+
+<footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div>
+          <h2 id="close-h">{primaryActionLabel}</h2>
+          <p class="t-lead">{closeLead}</p>
+        </div>
+        <a class="btn btn--primary" href={primaryActionHref}>
+          {primaryActionLabel}
+          <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
+            <path class="m-arrow__stem" d="M1 6h8" />
+            <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
+          </svg>
+        </a>
+      </div>
+      <p class="close__word" aria-hidden="true">SpecMatrix</p>
+    </div>
+
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top">
+            <span class="mark" data-mark="ring" aria-hidden="true"></span>SpecMatrix
+          </a>
+          <p class="footer__lede">
+            {isKo
+              ? "공식 스펙·영양성분표·항공사 규정 정량 비교 DB."
+              : "Audited hardware, nutrition, and airline spec matrices."}
+          </p>
+        </div>
+
+        <div class="span-2 footer__col">
+          <h3>{isKo ? "버티컬" : "Verticals"}</h3>
+          <ul>
+            {navVerticals.map((v) => (
+              <li><a href={v.href}>{v.shortName}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="span-3 footer__col">
+          <h3>{isKo ? "스튜디오" : "Studios"}</h3>
+          <ul>
+            <li><a href={withBase(`/${locale}/compare/`)}>{isKo ? "1:1 모델 비교" : "Compare 1:1"}</a></li>
+            <li><a href={withBase(`/${locale}/tools/travel-power-kit/`)}>{isKo ? "여행 충전 키트" : "Travel power kit"}</a></li>
+            <li><a href={withBase(`/${locale}/tools/fueling-planner/`)}>{isKo ? "레이스 보급 플래너" : "Race fueling plan"}</a></li>
+            <li><a href={withBase(`/${locale}/tools/`)}>{isKo ? "6개 도구 전체" : "All 6 calculators"}</a></li>
+          </ul>
+        </div>
+
+        <div class="span-3 footer__col">
+          <h3>{isKo ? "신뢰·정책" : "Trust & Policy"}</h3>
+          <ul>
+            {LEGAL_SLUGS.map((slug) => (
+              <li>
+                <a href={withBase(`/${locale}/${slug}/`)}>{LEGAL_LABELS[slug][locale]}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <p class="footer__disclosure">{cfg.compliance.disclosures[locale]}</p>
+
+      <div class="footer__legal">
+        <span>&copy; 2026 SpecMatrix Global</span>
+        <span class="mono">
+          {isKo
+            ? `가격 기준: MSRP Reference Benchmark · ${cfg.updatedAt}`
+            : `Pricing Mode: MSRP Reference Benchmark · ${cfg.updatedAt}`}
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src={withBase("/assets/system.js")}></script>
+<script type="module" src={withBase("/assets/motion/motion.js")}></script>
+<script type="module" src={withBase("/assets/layout/layout.js")}></script>
+<script type="module" src={withBase("/assets/diagrams/mount.js")}></script>
+<slot name="scripts" />
+</body>
+</html>

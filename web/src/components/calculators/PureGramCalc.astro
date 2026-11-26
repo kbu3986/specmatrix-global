@@ -44,49 +44,49 @@ const payload = {
 
 <section
   id="puregram-calc"
-  class="lab-card overflow-hidden border-emerald-200/80"
+  class="lab-card overflow-hidden border-emerald-700/40"
   aria-labelledby="pg-calc-heading"
 >
-  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+  <div class="border-b border-white/10 bg-[#111111] px-5 py-4 text-white">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div>
         <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
           INTERACTIVE LABEL-MATH ENGINE
         </span>
-        <h2 id="pg-calc-heading" class="mt-0.5 text-lg font-bold">
+        <h2 id="pg-calc-heading" class="mt-0.5 text-lg font-bold text-white">
           {isKo
             ? "실구매가 기반 순수 유효성분 실단가 · 레이스 보급 계산기"
             : "Live Cart Price True-Cost & Race Fueling Cost Planner"}
         </h2>
       </div>
-      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+      <span class="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-xs text-neutral-200">
         {isKo ? item.derived_math.benchmark_label_ko : item.derived_math.benchmark_label_en}
       </span>
     </div>
   </div>
 
-  <div class="divide-y divide-slate-200 p-5">
+  <div class="divide-y divide-white/10 p-5">
     <!-- Part A: Live Cart Price Input -->
     <div class="pb-6">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 class="text-sm font-bold text-slate-900">
+          <h3 class="text-sm font-bold text-white">
             {isKo ? "1. 내 장바구니 실구매가 입력 (실시간 단가 재계산)" : "1. Enter Your Live Cart / Checkout Price"}
           </h3>
-          <p class="mt-0.5 text-xs text-slate-600">
+          <p class="mt-0.5 text-xs text-neutral-400">
             {isKo
               ? "기본값은 제조사 공식 출고가(MSRP)입니다. 쿠팡·직구 할인 가격을 직접 입력하면 순수 유효성분 실단가가 즉시 바뀝니다."
               : "Defaults to official MSRP benchmark. Enter any store sale price to compute true cost per active unit instantly."}
           </p>
         </div>
-        <div class="inline-flex overflow-hidden rounded-lg border border-slate-300 bg-white font-mono text-xs font-semibold">
+        <div class="inline-flex overflow-hidden rounded-md border border-white/15 bg-[#111111] font-mono text-xs font-semibold">
           <button
             type="button"
             id="pg-cur-usd"
             aria-pressed={!isKo ? "true" : "false"}
             class:list={[
               "px-3 py-1.5 transition-colors",
-              !isKo ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100",
+              !isKo ? "bg-[#dafa9c] text-[#0f0f0f]" : "text-neutral-300 hover:bg-white/10 hover:text-white",
             ]}
           >
             USD ($)
@@ -97,7 +97,7 @@ const payload = {
             aria-pressed={isKo ? "true" : "false"}
             class:list={[
               "px-3 py-1.5 transition-colors",
-              isKo ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100",
+              isKo ? "bg-[#dafa9c] text-[#0f0f0f]" : "text-neutral-300 hover:bg-white/10 hover:text-white",
             ]}
           >
             KRW (₩)
@@ -107,9 +107,9 @@ const payload = {
 
       <div class="mt-4 flex flex-wrap items-end gap-3">
         <div class="min-w-[200px] flex-1 max-w-xs">
-          <label for="pg-price-input" class="block text-xs font-semibold text-slate-600">
+          <label for="pg-price-input" class="block text-xs font-semibold text-neutral-300">
             {isKo ? "1팩(박스) 구매 가격" : "Pack / Box Price"}
-            <span id="pg-cur-symbol" class="ml-1 font-mono text-slate-500">
+            <span id="pg-cur-symbol" class="ml-1 font-mono text-neutral-400">
               ({isKo ? "KRW" : "USD"})
             </span>
           </label>
@@ -119,57 +119,57 @@ const payload = {
             min="0.01"
             step="any"
             value={isKo ? item.regional_offers.kr.msrp : item.regional_offers.us.msrp}
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-base font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-base font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
           />
         </div>
         <button
           type="button"
           id="pg-reset-btn"
-          class="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+          class="rounded-md border border-white/15 bg-[#111111] px-3 py-2.5 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
         >
           {isKo ? "MSRP 기준가 복원" : "Reset to MSRP"}
         </button>
       </div>
 
       <div class="mt-4 grid gap-3 sm:grid-cols-3">
-        <div class="rounded-lg border border-emerald-200 bg-emerald-50/70 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-emerald-800">
+        <div class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-emerald-200">
             {isKo ? "기준 단위당 실단가" : "True Cost / Benchmark Unit"}
           </div>
-          <div id="pg-bench-cost" class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-900">
+          <div id="pg-bench-cost" class="kpi-value mt-1 font-mono text-2xl font-bold text-[#dafa9c]">
             —
           </div>
-          <div class="mt-0.5 text-xs text-emerald-800">
+          <div class="mt-0.5 text-xs text-emerald-200/90">
             {isKo ? item.derived_math.benchmark_label_ko : item.derived_math.benchmark_label_en}
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "1회분(서빙) 단가" : "Cost per Serving"}
           </div>
-          <div id="pg-serving-cost" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+          <div id="pg-serving-cost" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
             —
           </div>
-          <div class="mt-0.5 text-xs text-slate-500">
+          <div class="mt-0.5 text-xs text-neutral-400">
             {item.package_spec.total_servings} {isKo ? "회분 / 팩" : "servings / pack"}
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "비유효 중량 비율 (필러·수분)" : "Non-Active Weight (Carrier/Water)"}
           </div>
-          <div id="pg-filler-pct" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+          <div id="pg-filler-pct" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
             {(100 - item.derived_math.purity_pct).toFixed(1)}%
           </div>
-          <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+          <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-white/10">
             <div
-              class="h-full rounded-full bg-emerald-600"
+              class="h-full rounded-full bg-emerald-400"
               style={`width:${Math.min(100, Math.max(5, item.derived_math.purity_pct))}%`}
             ></div>
           </div>
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>{isKo ? "유효성분" : "Active"} {item.derived_math.purity_pct.toFixed(1)}%</span>
             <span>{isKo ? "수분/부형제" : "Carrier"} {(100 - item.derived_math.purity_pct).toFixed(1)}%</span>
           </div>
@@ -179,7 +179,7 @@ const payload = {
 
     <!-- Part B: Race / Intake Cost Planner -->
     <div class="py-6">
-      <h3 class="text-sm font-bold text-slate-900">
+      <h3 class="text-sm font-bold text-white">
         {isCarbProduct
           ? isKo
             ? "2. 마라톤·라이딩 시간당 탄수화물 보급 및 총 레이스 비용 플래너"
@@ -195,7 +195,7 @@ const payload = {
 
       <div class="mt-3 grid gap-4 md:grid-cols-2">
         <div>
-          <span class="block text-xs font-semibold text-slate-600">
+          <span class="block text-xs font-semibold text-neutral-300">
             {isCarbProduct
               ? isKo
                 ? "시간당 탄수화물 목표 (g/hr)"
@@ -211,28 +211,28 @@ const payload = {
           <div id="pg-rate-btns" class="mt-2 flex gap-2">
             {isCarbProduct ? (
               <>
-                <button type="button" data-rate="60" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">60 g/hr</button>
-                <button type="button" data-rate="90" aria-pressed="true" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">90 g/hr</button>
-                <button type="button" data-rate="120" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">120 g/hr</button>
+                <button type="button" data-rate="60" aria-pressed="false" class="pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">60 g/hr</button>
+                <button type="button" data-rate="90" aria-pressed="true" class="pg-rate-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3.5 py-2 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]">90 g/hr</button>
+                <button type="button" data-rate="120" aria-pressed="false" class="pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">120 g/hr</button>
               </>
             ) : isCreatine ? (
               <>
-                <button type="button" data-rate="3" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">3 g/day</button>
-                <button type="button" data-rate="5" aria-pressed="true" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">5 g/day</button>
-                <button type="button" data-rate="10" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">10 g/day</button>
+                <button type="button" data-rate="3" aria-pressed="false" class="pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">3 g/day</button>
+                <button type="button" data-rate="5" aria-pressed="true" class="pg-rate-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3.5 py-2 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]">5 g/day</button>
+                <button type="button" data-rate="10" aria-pressed="false" class="pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">10 g/day</button>
               </>
             ) : (
               <>
-                <button type="button" data-rate="1" aria-pressed="true" class="pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white">1 /hr</button>
-                <button type="button" data-rate="1.5" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">1.5 /hr</button>
-                <button type="button" data-rate="2" aria-pressed="false" class="pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700">2 /hr</button>
+                <button type="button" data-rate="1" aria-pressed="true" class="pg-rate-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3.5 py-2 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]">1 /hr</button>
+                <button type="button" data-rate="1.5" aria-pressed="false" class="pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">1.5 /hr</button>
+                <button type="button" data-rate="2" aria-pressed="false" class="pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">2 /hr</button>
               </>
             )}
           </div>
         </div>
 
         <div>
-          <label for="pg-duration-slider" class="block text-xs font-semibold text-slate-600">
+          <label for="pg-duration-slider" class="block text-xs font-semibold text-neutral-300">
             {isCreatine
               ? isKo
                 ? "섭취 기간 (일):"
@@ -240,7 +240,7 @@ const payload = {
               : isKo
                 ? "레이스 / 훈련 시간 (1–6시간):"
                 : "Race / Ride Duration (1–6 hours):"}
-            <span id="pg-duration-val" class="ml-1 font-mono text-emerald-700">
+            <span id="pg-duration-val" class="ml-1 font-mono text-[#dafa9c]">
               {isCreatine ? "60" : "3"} {isCreatine ? (isKo ? "일" : "days") : isKo ? "시간" : "hr"}
             </span>
           </label>
@@ -257,62 +257,62 @@ const payload = {
       </div>
 
       <div class="mt-4 grid gap-3 sm:grid-cols-4">
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "총 필요 서빙(팩)" : "Total Servings Needed"}
           </div>
-          <div id="pg-plan-packets" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="pg-plan-packets" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             —
           </div>
-          <div id="pg-plan-per-unit" class="mt-0.5 text-[11px] text-slate-500"></div>
+          <div id="pg-plan-per-unit" class="mt-0.5 text-[11px] text-neutral-400"></div>
         </div>
 
-        <div class="rounded-lg border border-emerald-200 bg-emerald-50/70 p-3">
-          <div class="font-mono text-[11px] uppercase text-emerald-800">
+        <div class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-3">
+          <div class="font-mono text-[11px] uppercase text-emerald-200">
             {isKo ? "총 예상 보급 비용" : "Total Planned Cost"}
           </div>
-          <div id="pg-plan-cost" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-900">
+          <div id="pg-plan-cost" class="kpi-value mt-1 font-mono text-xl font-bold text-[#dafa9c]">
             —
           </div>
-          <div class="mt-0.5 text-[11px] text-emerald-700">
+          <div class="mt-0.5 text-[11px] text-emerald-200/80">
             {isKo ? "입력 가격 기준" : "Based on entered price"}
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "누적 나트륨 (Na)" : "Cumulative Sodium"}
           </div>
-          <div id="pg-plan-na" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="pg-plan-na" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             —
           </div>
-          <div class="mt-0.5 text-[11px] text-slate-500">mg</div>
+          <div class="mt-0.5 text-[11px] text-neutral-400">mg</div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "누적 카페인" : "Cumulative Caffeine"}
           </div>
-          <div id="pg-plan-caf" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="pg-plan-caf" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             —
           </div>
-          <div id="pg-plan-caf-note" class="mt-0.5 text-[11px] text-slate-500"></div>
+          <div id="pg-plan-caf-note" class="mt-0.5 text-[11px] text-neutral-400"></div>
         </div>
       </div>
 
-      <p id="pg-plan-ratio-note" class="mt-3 text-xs text-slate-600"></p>
+      <p id="pg-plan-ratio-note" class="mt-3 text-xs text-neutral-300"></p>
     </div>
 
     <!-- Part C: Domestic (KR) vs Overseas Direct Import (US USD→KRW) Break-Even Checker -->
     <details class="group pt-6" open={isKo}>
       <summary class="flex cursor-pointer list-none flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 class="text-sm font-bold text-slate-900">
+          <h3 class="text-sm font-bold text-white">
             {isKo
               ? "3. 국내 구매(KR) vs 해외 직구(US USD→KRW) 손익분기 계산기"
               : "3. Optional: Korea Domestic (KRW) vs US Direct Import Break-Even Checker"}
           </h3>
-          <p class="mt-0.5 text-xs text-slate-600">
+          <p class="mt-0.5 text-xs text-neutral-400">
             {isKo
               ? "실시간 환율로 미국 직구 판매가(+배송비)와 국내 구매가를 나란히 비교해 팩당·기준단위당 직구 이득률을 계산합니다."
               : "Expand to compare US retail (+ international shipping) converted via live FX against Korea domestic KRW pricing."}
@@ -322,13 +322,13 @@ const payload = {
           <span class="badge-info font-mono text-[11px]">
             FX $1 = ₩{formatInt(krwPerUsd)} ({fx.updated_at})
           </span>
-          <span class="font-mono text-xs font-bold text-slate-600 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          <span class="font-mono text-xs font-bold text-neutral-400 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
         </div>
       </summary>
 
       <div class="mt-4 grid gap-3 sm:grid-cols-3">
         <div>
-          <label for="pg-us-price" class="block text-xs font-semibold text-slate-600">
+          <label for="pg-us-price" class="block text-xs font-semibold text-neutral-300">
             {isKo ? "미국 판매가 (USD $)" : "US Store / Sale Price (USD $)"}
           </label>
           <input
@@ -337,12 +337,12 @@ const payload = {
             min="0.01"
             step="any"
             value={item.regional_offers.us.msrp}
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
           />
         </div>
 
         <div>
-          <label for="pg-us-ship" class="block text-xs font-semibold text-slate-600">
+          <label for="pg-us-ship" class="block text-xs font-semibold text-neutral-300">
             {isKo ? "해외 배송비·배대지 (USD $)" : "Intl. Shipping / Handling (USD $)"}
           </label>
           <input
@@ -351,12 +351,12 @@ const payload = {
             min="0"
             step="any"
             value="0"
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
           />
         </div>
 
         <div>
-          <label for="pg-kr-price" class="block text-xs font-semibold text-slate-600">
+          <label for="pg-kr-price" class="block text-xs font-semibold text-neutral-300">
             {isKo ? "한국 국내 구매가 (KRW ₩)" : "Korea Domestic Price (KRW ₩)"}
           </label>
           <input
@@ -365,44 +365,44 @@ const payload = {
             min="100"
             step="any"
             value={item.regional_offers.kr.msrp}
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-emerald-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
           />
         </div>
       </div>
 
       <div class="mt-4 grid gap-3 sm:grid-cols-3">
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "미국 직구 원화 환산가" : "US Landed Cost (in KRW)"}
           </div>
-          <div id="pg-imp-us-krw" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="pg-imp-us-krw" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             —
           </div>
-          <div id="pg-imp-us-bench" class="mt-0.5 font-mono text-[11px] text-slate-500"></div>
+          <div id="pg-imp-us-bench" class="mt-0.5 font-mono text-[11px] text-neutral-400"></div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-neutral-400">
             {isKo ? "국내 구매가 (KRW)" : "Domestic KR Price"}
           </div>
-          <div id="pg-imp-kr-krw" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="pg-imp-kr-krw" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             —
           </div>
-          <div id="pg-imp-kr-bench" class="mt-0.5 font-mono text-[11px] text-slate-500"></div>
+          <div id="pg-imp-kr-bench" class="mt-0.5 font-mono text-[11px] text-neutral-400"></div>
         </div>
 
-        <div id="pg-imp-verdict-card" class="rounded-lg border border-emerald-200 bg-emerald-50/70 p-3.5">
-          <div class="font-mono text-[11px] uppercase text-emerald-800">
+        <div id="pg-imp-verdict-card" class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-3.5">
+          <div class="font-mono text-[11px] uppercase text-emerald-200">
             {isKo ? "직구 프리미엄 / 절감률" : "Import Premium / Savings"}
           </div>
-          <div id="pg-imp-pct" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-900">
+          <div id="pg-imp-pct" class="kpi-value mt-1 font-mono text-xl font-bold text-[#dafa9c]">
             —
           </div>
-          <div id="pg-imp-bench-delta" class="mt-0.5 text-[11px] font-medium text-emerald-800"></div>
+          <div id="pg-imp-bench-delta" class="mt-0.5 text-[11px] font-medium text-emerald-200"></div>
         </div>
       </div>
 
-      <p id="pg-imp-summary" class="mt-3 text-xs leading-relaxed text-slate-600"></p>
+      <p id="pg-imp-summary" class="mt-3 text-xs leading-relaxed text-neutral-300"></p>
     </details>
   </div>
 
@@ -534,12 +534,12 @@ const payload = {
 
       if (impPctEl && impBenchDeltaEl && impSummaryEl && impVerdictCard) {
         if (diffKrw > 500) {
-          impVerdictCard.className = "rounded-lg border border-blue-200 bg-blue-50/80 p-3.5";
-          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-blue-900";
+          impVerdictCard.className = "rounded-lg border border-sky-700/50 bg-[#0f1f30] p-3.5";
+          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-sky-200";
           impPctEl.textContent = isKo
             ? `직구 -${Math.abs(diffPct).toFixed(1)}% 저렴`
             : `Import Saves ${Math.abs(diffPct).toFixed(1)}%`;
-          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-blue-800";
+          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-sky-200/80";
           impBenchDeltaEl.textContent = isKo
             ? `기준단위당 ${fmtKrw(benchDeltaKrw)} 절감`
             : `Saves ${fmtKrw(benchDeltaKrw)} / ${cfg.benchmarkLabel}`;
@@ -548,12 +548,12 @@ const payload = {
             : `US direct import (${fmtKrw(usLandedKrw)}) undercuts KR domestic pricing by ${fmtKrw(diffKrw)} (+${diffPct.toFixed(1)}% domestic premium), saving ${fmtKrw(benchDeltaKrw)} per benchmark unit.`;
         } else if (diffKrw < -500) {
           const krSavePct = usLandedKrw > 0 ? (Math.abs(diffKrw) / usLandedKrw) * 100 : 0;
-          impVerdictCard.className = "rounded-lg border border-emerald-200 bg-emerald-50/80 p-3.5";
-          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-emerald-900";
+          impVerdictCard.className = "rounded-lg border border-emerald-700/50 bg-[#0d261a] p-3.5";
+          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-[#dafa9c]";
           impPctEl.textContent = isKo
             ? `국내 구매 -${krSavePct.toFixed(1)}% 유리`
             : `KR Domestic Saves ${krSavePct.toFixed(1)}%`;
-          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-emerald-800";
+          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-emerald-200";
           impBenchDeltaEl.textContent = isKo
             ? `기준단위당 ${fmtKrw(benchDeltaKrw)} 절감`
             : `Saves ${fmtKrw(benchDeltaKrw)} / ${cfg.benchmarkLabel}`;
@@ -561,10 +561,10 @@ const payload = {
             ? `국내 구매(${fmtKrw(krKrw)})가 미국 직구 환산가(${fmtKrw(usLandedKrw)})보다 ${fmtKrw(Math.abs(diffKrw))} 저렴하며 즉시 배송까지 유리합니다.`
             : `KR domestic purchase (${fmtKrw(krKrw)}) beats US landed import (${fmtKrw(usLandedKrw)}) by ${fmtKrw(Math.abs(diffKrw))}, saving ${fmtKrw(benchDeltaKrw)} per benchmark unit.`;
         } else {
-          impVerdictCard.className = "rounded-lg border border-slate-200 bg-slate-50 p-3.5";
-          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-slate-900";
+          impVerdictCard.className = "rounded-lg border border-white/10 bg-[#111111] p-3.5";
+          impPctEl.className = "kpi-value mt-1 font-mono text-xl font-bold text-white";
           impPctEl.textContent = isKo ? "손익분기 (±0%)" : "Break-Even (±0%)";
-          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-slate-600";
+          impBenchDeltaEl.className = "mt-0.5 text-[11px] font-medium text-neutral-400";
           impBenchDeltaEl.textContent = isKo
             ? `차이 ${fmtKrw(Math.abs(diffKrw))} 이내`
             : `Within ${fmtKrw(Math.abs(diffKrw))}`;
@@ -590,12 +590,12 @@ const payload = {
         btnKrw.setAttribute("aria-pressed", currency === "KRW" ? "true" : "false");
         btnUsd.className =
           currency === "USD"
-            ? "px-3 py-1.5 transition-colors bg-slate-900 text-white"
-            : "px-3 py-1.5 transition-colors text-slate-600 hover:bg-slate-100";
+            ? "px-3 py-1.5 transition-colors bg-[#dafa9c] text-[#0f0f0f]"
+            : "px-3 py-1.5 transition-colors text-neutral-300 hover:bg-white/10 hover:text-white";
         btnKrw.className =
           currency === "KRW"
-            ? "px-3 py-1.5 transition-colors bg-slate-900 text-white"
-            : "px-3 py-1.5 transition-colors text-slate-600 hover:bg-slate-100";
+            ? "px-3 py-1.5 transition-colors bg-[#dafa9c] text-[#0f0f0f]"
+            : "px-3 py-1.5 transition-colors text-neutral-300 hover:bg-white/10 hover:text-white";
       }
       if (curSym) curSym.textContent = `(${currency})`;
     }
@@ -653,15 +653,15 @@ const payload = {
 
       if (planCafNoteEl) {
         if (totalCaf > 300) {
-          planCafNoteEl.className = "mt-0.5 text-[11px] font-semibold text-amber-700";
+          planCafNoteEl.className = "mt-0.5 text-[11px] font-semibold text-amber-300";
           planCafNoteEl.textContent = isKo
             ? "주의: 300mg 초과 — 무카페인 젤과 교차 보급 권장"
             : "Notice: >300 mg — alternate with non-caf gels";
         } else if (totalCaf === 0) {
-          planCafNoteEl.className = "mt-0.5 text-[11px] text-slate-500";
+          planCafNoteEl.className = "mt-0.5 text-[11px] text-neutral-400";
           planCafNoteEl.textContent = isKo ? "무카페인" : "Caffeine-free";
         } else {
-          planCafNoteEl.className = "mt-0.5 text-[11px] text-emerald-700";
+          planCafNoteEl.className = "mt-0.5 text-[11px] text-emerald-300";
           planCafNoteEl.textContent = isKo ? "일반 레이스 안전 구간" : "Moderate race range";
         }
       }
@@ -782,8 +782,8 @@ const payload = {
           const on = other === b;
           other.setAttribute("aria-pressed", on ? "true" : "false");
           other.className = on
-            ? "pg-rate-btn rounded-lg border border-emerald-700 bg-emerald-700 px-3.5 py-2 font-mono text-xs font-semibold text-white"
-            : "pg-rate-btn rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs font-semibold text-slate-700";
+            ? "pg-rate-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3.5 py-2 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]"
+            : "pg-rate-btn rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white";
         });
         recalc();
       });

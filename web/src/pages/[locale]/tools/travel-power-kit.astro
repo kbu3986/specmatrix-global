@@ -328,47 +328,47 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-800">
+    <span class="font-medium text-white">
       {isKo ? "여행 전력 키트 최적화기" : "Travel Power Kit Optimizer"}
     </span>
   </nav>
 
   <!-- Hero Header -->
-  <section class="lab-card overflow-hidden border-blue-200/80 bg-white">
-    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+  <section class="lab-card overflow-hidden border-sky-700/40">
+    <div class="border-b border-white/10 bg-[#111111] px-6 py-5 text-white">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="rounded-full border border-sky-400/40 bg-sky-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-300">
+          <span class="rounded-full border border-sky-700/50 bg-[#0f1f30] px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-200">
             WATTCHECK × {airlines.length}-AIRLINE KIT OPTIMIZER
           </span>
-          <span class="font-mono text-xs text-slate-300">
+          <span class="font-mono text-xs text-neutral-400">
             {serializedSkus.length} {isKo ? "종 검증 전력 SKU" : "Verified Power SKUs"}
           </span>
         </div>
         <button
           type="button"
           id="tpk-copy-plan"
-          class="rounded-lg border border-white/25 bg-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-white/20"
+          class="rounded-md border border-white/15 bg-[#161616] px-3 py-1.5 font-mono text-xs font-semibold text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
         >
           {isKo ? "추천 키트 요약 복사" : "Copy Travel Kit Plan"}
         </button>
       </div>
 
-      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
         {isKo
           ? "출장·여행 멀티기기 전력 & 30개 항공사 키트 최적화기"
           : "Multi-Device Travel Power & Airline Kit Optimizer"}
       </h1>
-      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-neutral-300 sm:text-sm">
         {isKo
           ? "탑승 항공사 규정(국토부·IATA·중국 CCC·일본 100V)과 내 휴대 기기 목록을 조합하면, 실제 멀티포트 출력 분배표 기준으로 최적의 보조배터리·GaN 충전기를 자동 매칭합니다."
           : "Combine your operating airline's lithium rules with your exact multi-device loadout to simulate real simultaneous port allocation and rank top verified power banks & GaN chargers."}
@@ -380,13 +380,13 @@ const jsonLd = [
       <!-- Step 1: Airline & Compliance Constraints -->
       <div class="space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <h2 class="text-sm font-extrabold text-slate-900">
-            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">1</span>
+          <h2 class="text-sm font-extrabold text-white">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-[#dafa9c] font-mono text-[11px] text-[#0f0f0f]">1</span>
             {isKo ? "탑승 항공사 및 지역 규정 선택" : "Select Operating Airline & Compliance Rules"}
           </h2>
           <a
             href={withBase(`/${locale}/wattcheck/matrix/airlines-30`)}
-            class="font-mono text-xs font-semibold text-blue-700 hover:underline"
+            class="font-mono text-xs font-semibold text-[#dafa9c] hover:underline"
           >
             {isKo ? "30개 항공사 전체 규정표 보기 →" : "Full 30-Airline Matrix →"}
           </a>
@@ -399,7 +399,7 @@ const jsonLd = [
             </label>
             <select
               id="tpk-airline"
-              class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
+              class="w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2.5 text-sm font-semibold text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
             >
               {groupedAirlines.map((grp) => (
                 <optgroup label={grp.label}>
@@ -414,16 +414,16 @@ const jsonLd = [
           </div>
 
           <div class="flex flex-wrap items-center gap-3 md:col-span-7">
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 hover:border-blue-400">
-              <input id="tpk-carryon-only" type="checkbox" checked class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">
+              <input id="tpk-carryon-only" type="checkbox" checked class="h-4 w-4 rounded border-white/20 bg-[#161616] accent-[#dafa9c]" />
               <span>{isKo ? "기내 무승인만 (<100Wh)" : "Carry-On Only (<100Wh)"}</span>
             </label>
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 hover:border-blue-400">
-              <input id="tpk-need-ccc" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">
+              <input id="tpk-need-ccc" type="checkbox" class="h-4 w-4 rounded border-white/20 bg-[#161616] accent-[#dafa9c]" />
               <span>{isKo ? "중국 국내선 CCC 필수" : "Need China Domestic CCC?"}</span>
             </label>
-            <label class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-800 hover:border-blue-400">
-              <input id="tpk-need-jp100" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-blue-600" />
+            <label class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white">
+              <input id="tpk-need-jp100" type="checkbox" class="h-4 w-4 rounded border-white/20 bg-[#161616] accent-[#dafa9c]" />
               <span>{isKo ? "일본 100V 풀출력 필수" : "Need Japan 100V Full Output?"}</span>
             </label>
           </div>
@@ -431,24 +431,24 @@ const jsonLd = [
       </div>
 
       <!-- Step 2: Devices Carrying -->
-      <div class="space-y-3 border-t border-slate-100 pt-5">
+      <div class="space-y-3 border-t border-white/10 pt-5">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <h2 class="text-sm font-extrabold text-slate-900">
-            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">2</span>
+          <h2 class="text-sm font-extrabold text-white">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-[#dafa9c] font-mono text-[11px] text-[#0f0f0f]">2</span>
             {isKo ? "휴대할 기기 모두 체크" : "Check Off Devices You Are Carrying"}
           </h2>
           <div class="flex gap-1.5">
             <button
               type="button"
               id="tpk-preset-light"
-              class="rounded border border-slate-300 bg-white px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:border-blue-500"
+              class="rounded-md border border-white/15 bg-[#111111] px-2.5 py-1 font-mono text-[11px] font-semibold text-neutral-200 hover:border-[#dafa9c] hover:text-[#dafa9c]"
             >
               {isKo ? "경량 출장 (에어+폰)" : "Light Trip"}
             </button>
             <button
               type="button"
               id="tpk-preset-pro"
-              class="rounded border border-slate-300 bg-white px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:border-blue-500"
+              class="rounded-md border border-white/15 bg-[#111111] px-2.5 py-1 font-mono text-[11px] font-semibold text-neutral-200 hover:border-[#dafa9c] hover:text-[#dafa9c]"
             >
               {isKo ? "프로 크리에이터 (MBP16+폰+패드)" : "Pro Creator"}
             </button>
@@ -457,18 +457,18 @@ const jsonLd = [
 
         <div class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {DEVICES.map((dev) => (
-            <label class="tpk-dev-card flex cursor-pointer items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-blue-400">
+            <label class="tpk-dev-card flex cursor-pointer items-start gap-2.5 rounded-lg border border-white/10 bg-[#111111] p-3 transition-colors hover:border-white/25">
               <input
                 type="checkbox"
                 value={dev.id}
                 checked={dev.defaultChecked}
-                class="tpk-dev-chk mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600"
+                class="tpk-dev-chk mt-0.5 h-4 w-4 rounded border-white/20 bg-[#161616] accent-[#dafa9c]"
               />
               <div class="min-w-0">
-                <div class="text-xs font-bold text-slate-900">
+                <div class="text-xs font-bold text-white">
                   {isKo ? dev.nameKo : dev.nameEn}
                 </div>
-                <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+                <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
                   {dev.tag}
                 </div>
               </div>
@@ -478,10 +478,10 @@ const jsonLd = [
       </div>
 
       <!-- Step 3: Gear Type & Priority -->
-      <div class="grid gap-4 border-t border-slate-100 pt-5 md:grid-cols-2">
+      <div class="grid gap-4 border-t border-white/10 pt-5 md:grid-cols-2">
         <div>
-          <h2 class="text-sm font-extrabold text-slate-900">
-            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">3A</span>
+          <h2 class="text-sm font-extrabold text-white">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-[#dafa9c] font-mono text-[11px] text-[#0f0f0f]">3A</span>
             {isKo ? "추천 장비 유형" : "Gear Type"}
           </h2>
           <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={isKo ? "장비 유형 선택" : "Gear Type"}>
@@ -495,10 +495,10 @@ const jsonLd = [
                 data-gear={g.id}
                 aria-pressed={idx === 0 ? "true" : "false"}
                 class:list={[
-                  "tpk-gear-btn rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors",
+                  "tpk-gear-btn rounded-md border px-3 py-1.5 text-xs font-bold transition-colors",
                   idx === 0
-                    ? "border-slate-900 bg-slate-900 text-white"
-                    : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                    ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                    : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
                 ]}
               >
                 {g.label}
@@ -508,8 +508,8 @@ const jsonLd = [
         </div>
 
         <div>
-          <h2 class="text-sm font-extrabold text-slate-900">
-            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-slate-900 font-mono text-[11px] text-white">3B</span>
+          <h2 class="text-sm font-extrabold text-white">
+            <span class="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded bg-[#dafa9c] font-mono text-[11px] text-[#0f0f0f]">3B</span>
             {isKo ? "최적화 우선순위" : "Optimization Priority"}
           </h2>
           <div class="mt-2.5 flex flex-wrap gap-2" role="group" aria-label={isKo ? "최적화 우선순위" : "Optimization Priority"}>
@@ -524,10 +524,10 @@ const jsonLd = [
                 data-prio={p.id}
                 aria-pressed={idx === 0 ? "true" : "false"}
                 class:list={[
-                  "tpk-prio-btn rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors",
+                  "tpk-prio-btn rounded-md border px-3 py-1.5 text-xs font-bold transition-colors",
                   idx === 0
-                    ? "border-blue-600 bg-blue-600 text-white"
-                    : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                    ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                    : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
                 ]}
               >
                 {p.label}
@@ -541,28 +541,28 @@ const jsonLd = [
 
   <!-- Live Telemetry & Airline Boarding Checklist -->
   <section class="mt-6 grid gap-5 lg:grid-cols-12" aria-label={isKo ? "실시간 전력 수요 및 항공사 체크리스트" : "Power Demand & Airline Checklist"}>
-    <div class="lab-card bg-white p-5 lg:col-span-6">
-      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+    <div class="lab-card p-5 lg:col-span-6">
+      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
         {isKo ? "실시간 기기 조합 전력 수요" : "LIVE MULTI-DEVICE POWER PROFILE"}
       </div>
       <div class="mt-3 grid grid-cols-3 gap-2.5">
-        <div class="rounded-lg border border-blue-200 bg-blue-50/70 p-3">
-          <div class="font-mono text-[10px] uppercase text-blue-800">
+        <div class="rounded-lg border border-sky-700/50 bg-[#0f1f30] p-3">
+          <div class="font-mono text-[10px] uppercase text-sky-200">
             {isKo ? "동시 요구 출력" : "Simultaneous W"}
           </div>
-          <div id="tpk-demand-w" class="kpi-value mt-0.5 font-mono text-xl font-bold text-blue-900">170 W</div>
+          <div id="tpk-demand-w" class="kpi-value mt-0.5 font-mono text-xl font-bold text-[#dafa9c]">170 W</div>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[10px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "필요 USB-C 포트" : "USB-C Ports"}
           </div>
-          <div id="tpk-demand-ports" class="kpi-value mt-0.5 font-mono text-xl font-bold text-slate-900">2</div>
+          <div id="tpk-demand-ports" class="kpi-value mt-0.5 font-mono text-xl font-bold text-white">2</div>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[10px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "총 배터리 합계" : "Device Wh Pool"}
           </div>
-          <div id="tpk-demand-wh" class="kpi-value mt-0.5 font-mono text-xl font-bold text-slate-900">113.8 Wh</div>
+          <div id="tpk-demand-wh" class="kpi-value mt-0.5 font-mono text-xl font-bold text-white">113.8 Wh</div>
         </div>
       </div>
 
@@ -571,9 +571,9 @@ const jsonLd = [
       </div>
     </div>
 
-    <div class="lab-card bg-white p-5 lg:col-span-6">
+    <div class="lab-card p-5 lg:col-span-6">
       <div class="flex items-center justify-between gap-2">
-        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
           {isKo ? "선택 항공사 기내 반입 체크리스트" : "SELECTED AIRLINE BOARDING CHECKLIST"}
         </span>
         <span id="tpk-air-badge" class="badge-info font-mono">
@@ -585,7 +585,7 @@ const jsonLd = [
         </span>
       </div>
       <div id="tpk-air-pills" class="mt-3 flex flex-wrap gap-2"></div>
-      <p id="tpk-air-notes" class="mt-2.5 text-xs leading-relaxed text-slate-600">
+      <p id="tpk-air-notes" class="mt-2.5 text-xs leading-relaxed text-neutral-300">
         {defaultAirline ? (isKo ? defaultAirline.notes_ko : defaultAirline.notes_en) : ""}
       </p>
       <a
@@ -596,7 +596,7 @@ const jsonLd = [
         }
         target="_blank"
         rel="noopener noreferrer"
-        class="mt-2 inline-block font-mono text-[11px] font-semibold text-blue-700 hover:underline"
+        class="mt-2 inline-block font-mono text-[11px] font-semibold text-[#dafa9c] hover:underline"
       >
         {isKo ? "항공사 공식 규정 원문 확인 ↗" : "Verify Official Carrier Policy ↗"}
       </a>
@@ -609,25 +609,25 @@ const jsonLd = [
   <section class="mt-6 space-y-4" aria-labelledby="tpk-results-heading">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div>
-        <h2 id="tpk-results-heading" class="text-lg font-extrabold tracking-tight text-slate-900">
+        <h2 id="tpk-results-heading" class="text-lg font-extrabold tracking-tight text-white">
           {isKo ? "조건별 TOP 추천 검증 WattCheck 모델" : "Top Matching Verified WattCheck Models"}
         </h2>
-        <p class="text-xs text-slate-500">
+        <p class="text-xs text-neutral-400">
           {isKo
             ? "실제 제조사 포트 분배표(Port Allocation Matrix)와 기내 반입 규격을 교차 계산해 순위를 산정합니다."
             : "Ranked deterministically using official port allocation matrices, weight, MSRP benchmarks, and carrier rules."}
         </p>
       </div>
-      <span id="tpk-match-count" class="font-mono text-xs font-semibold text-slate-600"></span>
+      <span id="tpk-match-count" class="font-mono text-xs font-semibold text-neutral-300"></span>
     </div>
 
     <div id="tpk-results-grid" class="grid gap-4 md:grid-cols-2">
-      <div class="lab-card p-6 text-center text-xs text-slate-500 md:col-span-2">
+      <div class="lab-card p-6 text-center text-xs text-neutral-400 md:col-span-2">
         {isKo ? "추천 전력 키트 계산 중..." : "Computing optimal travel power kit rankings..."}
       </div>
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-[11px] leading-relaxed text-slate-500">
+    <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5 text-[11px] leading-relaxed text-neutral-400">
       {cfg.compliance.disclosures[locale]}
     </div>
   </section>
@@ -917,12 +917,12 @@ const jsonLd = [
           const d = deviceMap.get(chk.value);
           if (d) selectedDevs.push(d);
           if (card) {
-            card.classList.add("border-blue-500", "bg-blue-50/70");
-            card.classList.remove("border-slate-200", "bg-slate-50");
+            card.classList.add("border-sky-700/60", "bg-[#0f1f30]");
+            card.classList.remove("border-white/10", "bg-[#111111]");
           }
         } else if (card) {
-          card.classList.remove("border-blue-500", "bg-blue-50/70");
-          card.classList.add("border-slate-200", "bg-slate-50");
+          card.classList.remove("border-sky-700/60", "bg-[#0f1f30]");
+          card.classList.add("border-white/10", "bg-[#111111]");
         }
       });
 
@@ -1034,13 +1034,13 @@ const jsonLd = [
       if (!resultsGridEl) return;
       if (ranked.length === 0) {
         resultsGridEl.innerHTML = `
-          <div class="lab-card border-amber-300 bg-amber-50 p-6 text-center md:col-span-2">
-            <p class="text-sm font-bold text-amber-950">${
+          <div class="lab-card border-amber-700/50 bg-[#291e09] p-6 text-center md:col-span-2">
+            <p class="text-sm font-bold text-white">${
               isKo
                 ? "현재 필터 조합을 모두 만족하는 모델이 없습니다."
                 : "No verified WattCheck models match every strict filter simultaneously."
             }</p>
-            <p class="mt-1 text-xs text-amber-900">${
+            <p class="mt-1 text-xs text-amber-200">${
               isKo
                 ? "중국 CCC 또는 장비 유형 필터를 완화해 전체 기내 반입 가능 모델을 확인해 보세요."
                 : "Try relaxing the China CCC or Gear Type filter to inspect alternative flight-safe models."
@@ -1099,59 +1099,59 @@ const jsonLd = [
 
           const primaryCta = sku.ctaButtons[0];
           const ctaHtml = primaryCta
-            ? `<a href="${esc(primaryCta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(primaryCta.storeName)}" data-affiliate-vertical="wattcheck" data-affiliate-sku="${esc(sku.slug)}" data-affiliate-mode="${esc(primaryCta.linkMode)}" class="inline-flex flex-1 items-center justify-center gap-1 rounded-lg bg-blue-700 px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-800"><span>${esc(primaryCta.label)}</span><span>↗</span></a>`
+            ? `<a href="${esc(primaryCta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(primaryCta.storeName)}" data-affiliate-vertical="wattcheck" data-affiliate-sku="${esc(sku.slug)}" data-affiliate-mode="${esc(primaryCta.linkMode)}" class="inline-flex flex-1 items-center justify-center gap-1 rounded-md bg-[#dafa9c] px-3 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"><span>${esc(primaryCta.label)}</span><span>↗</span></a>`
             : "";
 
           return `
-            <article class="lab-card flex flex-col justify-between bg-white p-5 ${idx === 0 ? "border-blue-400 ring-1 ring-blue-200" : ""}">
+            <article class="lab-card flex flex-col justify-between p-5 ${idx === 0 ? "border-[#dafa9c]/60 ring-1 ring-[#dafa9c]/30" : ""}">
               <div>
                 <div class="flex items-start justify-between gap-2">
                   <div class="min-w-0">
                     <div class="flex flex-wrap items-center gap-1.5">
-                      <span class="rounded bg-slate-900 px-2 py-0.5 font-mono text-[10px] font-bold text-white">#${idx + 1}</span>
-                      <span class="text-[11px] font-semibold text-slate-500">${esc(sku.brand)} · ${esc(sku.categoryLabel)}</span>
+                      <span class="rounded bg-[#dafa9c] px-2 py-0.5 font-mono text-[10px] font-bold text-[#0f0f0f]">#${idx + 1}</span>
+                      <span class="text-[11px] font-semibold text-neutral-400">${esc(sku.brand)} · ${esc(sku.categoryLabel)}</span>
                     </div>
-                    <h3 class="mt-1.5 text-base font-extrabold text-slate-900">
-                      <a href="${esc(sku.href)}" class="hover:text-blue-700 hover:underline">${esc(sku.name)}</a>
+                    <h3 class="mt-1.5 text-base font-extrabold text-white">
+                      <a href="${esc(sku.href)}" class="hover:text-[#dafa9c] hover:underline">${esc(sku.name)}</a>
                     </h3>
                   </div>
-                  <div class="shrink-0 rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-1 text-right">
-                    <div class="font-mono text-[9px] font-bold uppercase text-blue-700">MATCH</div>
-                    <div class="font-mono text-base font-extrabold text-blue-900">${score}</div>
+                  <div class="shrink-0 rounded-md border border-sky-700/50 bg-[#0f1f30] px-2.5 py-1 text-right">
+                    <div class="font-mono text-[9px] font-bold uppercase text-sky-200">MATCH</div>
+                    <div class="font-mono text-base font-extrabold text-[#dafa9c]">${score}</div>
                   </div>
                 </div>
 
-                <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+                <div class="mt-3 grid grid-cols-3 gap-2 rounded-md border border-white/10 bg-[#111111] p-2.5 text-center">
                   <div>
-                    <div class="font-mono text-[10px] text-slate-500">${isKo ? "예상 동시출력" : "Est. Sim. Speed"}</div>
-                    <div class="font-mono text-xs font-bold text-blue-700">${simW}W (${simPorts}p)</div>
+                    <div class="font-mono text-[10px] text-neutral-400">${isKo ? "예상 동시출력" : "Est. Sim. Speed"}</div>
+                    <div class="font-mono text-xs font-bold text-sky-300">${simW}W (${simPorts}p)</div>
                   </div>
                   <div>
-                    <div class="font-mono text-[10px] text-slate-500">${isKo ? "무게 / 밀도" : "Weight / Dens."}</div>
-                    <div class="font-mono text-xs font-bold text-slate-900">${sku.weightG}g · ${sku.wPer100g}W/100g</div>
+                    <div class="font-mono text-[10px] text-neutral-400">${isKo ? "무게 / 밀도" : "Weight / Dens."}</div>
+                    <div class="font-mono text-xs font-bold text-white">${sku.weightG}g · ${sku.wPer100g}W/100g</div>
                   </div>
                   <div>
-                    <div class="font-mono text-[10px] text-slate-500">MSRP</div>
-                    <div class="font-mono text-xs font-bold text-slate-900">${esc(sku.msrpDisplay)}</div>
+                    <div class="font-mono text-[10px] text-neutral-400">MSRP</div>
+                    <div class="font-mono text-xs font-bold text-white">${esc(sku.msrpDisplay)}</div>
                   </div>
                 </div>
 
-                <p class="mt-2.5 font-mono text-[11px] text-slate-600">${esc(usableChargesText)}</p>
+                <p class="mt-2.5 font-mono text-[11px] text-neutral-300">${esc(usableChargesText)}</p>
 
                 <div class="mt-2.5 flex flex-wrap gap-1.5">
                   ${badges.map((b) => `<span class="${b.cls}">${esc(b.text)}</span>`).join("")}
                 </div>
               </div>
 
-              <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+              <div class="mt-4 space-y-2 border-t border-white/10 pt-3">
                 <div class="flex flex-wrap gap-2">
                   ${ctaHtml}
                 </div>
                 <div class="flex items-center justify-between text-xs">
-                  <a href="${esc(sku.href)}" class="font-semibold text-slate-700 hover:text-blue-700 hover:underline">
+                  <a href="${esc(sku.href)}" class="font-semibold text-neutral-300 hover:text-[#dafa9c] hover:underline">
                     ${isKo ? "상세 포트 분배표 →" : "Full Port Matrix →"}
                   </a>
-                  <a href="${esc(compareHref)}" class="font-mono font-semibold text-blue-700 hover:underline">
+                  <a href="${esc(compareHref)}" class="font-mono font-semibold text-[#dafa9c] hover:underline">
                     ${isKo ? "1:1 실시간 비교 →" : "Compare Live →"}
                   </a>
                 </div>
@@ -1177,8 +1177,8 @@ const jsonLd = [
         const on = (o.getAttribute("data-gear") || "both") === activeGear;
         o.setAttribute("aria-pressed", on ? "true" : "false");
         o.className = on
-          ? "tpk-gear-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition-colors"
-          : "tpk-gear-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+          ? "tpk-gear-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "tpk-gear-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-bold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
     }
 
@@ -1187,8 +1187,8 @@ const jsonLd = [
         const on = (o.getAttribute("data-prio") || "headroom") === activePrio;
         o.setAttribute("aria-pressed", on ? "true" : "false");
         o.className = on
-          ? "tpk-prio-btn rounded-lg border border-blue-600 bg-blue-600 px-3 py-1.5 text-xs font-bold text-white transition-colors"
-          : "tpk-prio-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+          ? "tpk-prio-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "tpk-prio-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 text-xs font-bold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
     }
 

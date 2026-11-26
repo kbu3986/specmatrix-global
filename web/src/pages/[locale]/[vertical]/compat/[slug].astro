@@ -127,24 +127,24 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     {!isPrimaryVerticalPage && (
       <>
         <span>/</span>
-        <a href={withBase(verticalHref)} class="hover:text-blue-700 hover:underline">
+        <a href={withBase(verticalHref)} class="hover:text-[#dafa9c] hover:underline">
           {VERTICAL_META[vertical].shortName[locale]}
         </a>
       </>
     )}
     <span>/</span>
-    <span class="font-medium text-slate-800">{copy.title}</span>
+    <span class="font-medium text-white">{copy.title}</span>
   </nav>
 
   <!-- Compatibility Header -->
-  <section class="lab-card border-l-4 border-l-blue-600 bg-white p-6">
+  <section class="lab-card border-l-2 border-l-[#dafa9c] p-6">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div class="flex flex-wrap items-center gap-2">
         <span class={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase ${VERTICAL_META[vertical].badgeBgClass}`}>
@@ -156,22 +156,22 @@ const jsonLd = [
       </div>
       <a
         href={withBase(`/${locale}/compare#${vertical}::`)}
-        class="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1 font-mono text-xs font-bold text-blue-800 transition-colors hover:bg-blue-600 hover:text-white"
+        class="inline-flex items-center gap-1.5 rounded-md bg-[#dafa9c] px-3 py-1 font-mono text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
       >
         {isKo ? "1:1 실시간 비교 →" : "Live 1:1 Compare →"}
       </a>
     </div>
 
-    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
       {copy.title}
     </h1>
-    <p class="mt-2 text-sm font-medium text-slate-600 sm:text-base">{copy.subtitle}</p>
-    <p class="mt-3 text-sm leading-relaxed text-slate-700">{copy.intro}</p>
+    <p class="mt-2 text-sm font-medium text-neutral-300 sm:text-base">{copy.subtitle}</p>
+    <p class="mt-3 text-sm leading-relaxed text-neutral-300">{copy.intro}</p>
 
     <div class="mt-5 grid gap-3 sm:grid-cols-3">
       {copy.key_takeaways.map((tk, idx) => (
-        <div class="rounded-lg border border-emerald-200 bg-emerald-50/50 p-3.5 text-xs leading-relaxed text-slate-800">
-          <div class="font-mono text-[11px] font-bold text-emerald-800">
+        <div class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-3.5 text-xs leading-relaxed text-neutral-200">
+          <div class="font-mono text-[11px] font-bold text-[#dafa9c]">
             {isKo ? `체크포인트 #${idx + 1}` : `CHECKPOINT #${idx + 1}`}
           </div>
           <p class="mt-1">{tk}</p>
@@ -194,10 +194,10 @@ const jsonLd = [
 
   <!-- Methodology Note -->
   <section class="mt-8 lab-card p-5">
-    <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-500">
+    <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-neutral-400">
       {isKo ? "호환성 판정 기준" : "Compatibility Verification Protocol"}
     </h2>
-    <p class="mt-2 text-sm leading-relaxed text-slate-700">{copy.methodology_note}</p>
+    <p class="mt-2 text-sm leading-relaxed text-neutral-300">{copy.methodology_note}</p>
   </section>
 
   <div class="mt-6">
@@ -209,17 +209,17 @@ const jsonLd = [
     <section class="mt-8 grid gap-6 md:grid-cols-2">
       {siblingMatrices.length > 0 && (
         <div class="space-y-2.5">
-          <h2 class="text-base font-bold text-slate-900">
+          <h2 class="text-base font-bold text-white">
             {isKo ? "버티컬 매트릭스 허브" : "Vertical Matrix Hubs"}
           </h2>
           <div class="space-y-2">
             {siblingMatrices.map((sm) => (
               <a
                 href={withBase(`/${locale}/${vertical}/${sm.archetype}/${sm.slug}`)}
-                class="lab-card flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+                class="lab-card flex items-center justify-between gap-2 p-3.5 text-sm font-semibold text-neutral-200 transition-colors hover:border-white/25 hover:bg-[#1c1c1c] hover:text-[#dafa9c]"
               >
                 <span>{sm.i18n[locale].title}</span>
-                <span class="font-mono text-xs text-blue-700">→</span>
+                <span class="font-mono text-xs text-[#dafa9c]">→</span>
               </a>
             ))}
           </div>
@@ -228,17 +228,17 @@ const jsonLd = [
 
       {vsInsights.length > 0 && (
         <div class="space-y-2.5">
-          <h2 class="text-base font-bold text-slate-900">
+          <h2 class="text-base font-bold text-white">
             {isKo ? "관련 1:1 정밀 VS 비교" : "Related 1:1 VS Comparisons"}
           </h2>
           <div class="space-y-2">
             {vsInsights.slice(0, 4).map((v) => (
               <a
                 href={withBase(`/${locale}/${vertical}/vs/${v.pair_slug}`)}
-                class="lab-card flex min-w-0 items-center justify-between gap-2 p-3.5 text-sm font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+                class="lab-card flex min-w-0 items-center justify-between gap-2 p-3.5 text-sm font-semibold text-neutral-200 transition-colors hover:border-white/25 hover:bg-[#1c1c1c] hover:text-[#dafa9c]"
               >
                 <span class="min-w-0 flex-1 truncate">{v.verdict[locale].headline}</span>
-                <span class="shrink-0 font-mono text-xs text-blue-700">VS →</span>
+                <span class="shrink-0 font-mono text-xs text-[#dafa9c]">VS →</span>
               </a>
             ))}
           </div>

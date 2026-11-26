@@ -60,7 +60,7 @@ const tools: ToolCard[] = [
   {
     id: "compare-workbench",
     tag: "ANY-VS-ANY STUDIO",
-    toneClass: "bg-blue-50 text-blue-800 border-blue-200",
+    toneClass: "bg-[#0f1f30] text-sky-200 border-sky-700/50",
     title: isKo
       ? "실시간 1:1 자유 비교 워크벤치"
       : "Any-vs-Any 1:1 Live Compare Workbench",
@@ -88,7 +88,7 @@ const tools: ToolCard[] = [
   {
     id: "travel-power-kit",
     tag: "WATTCHECK × AIRLINES",
-    toneClass: "bg-sky-50 text-sky-800 border-sky-200",
+    toneClass: "bg-[#0f1f30] text-sky-200 border-sky-700/50",
     title: isKo
       ? "출장·여행 멀티기기 전력 & 항공사 키트 최적화기"
       : "Travel Power Kit & 30-Airline Optimizer",
@@ -116,7 +116,7 @@ const tools: ToolCard[] = [
   {
     id: "fueling-planner",
     tag: "PUREGRAM RACE LAB",
-    toneClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
+    toneClass: "bg-[#0d261a] text-emerald-200 border-emerald-700/50",
     title: isKo
       ? "마라톤·그란폰도 레이스 보급 믹스 플래너"
       : "Endurance Race Fueling Mix Planner",
@@ -144,7 +144,7 @@ const tools: ToolCard[] = [
   {
     id: "hometech-tco-studio",
     tag: "HOMETECH TCO & UPS STUDIO",
-    toneClass: "bg-violet-50 text-violet-800 border-violet-200",
+    toneClass: "bg-[#0b2626] text-teal-200 border-teal-700/50",
     title: isKo
       ? "HomeTech 3년 TCO 손익분기 & UPS 런타임 스튜디오"
       : "HomeTech 3-Year TCO & UPS Runtime Studio",
@@ -172,7 +172,7 @@ const tools: ToolCard[] = [
   {
     id: "tire-pressure-guard",
     tag: "CYCLEGEAR HOOKLESS GUARD",
-    toneClass: "bg-rose-50 text-rose-800 border-rose-200",
+    toneClass: "bg-[#2c1014] text-rose-200 border-rose-700/50",
     title: isKo
       ? "로드 타이어 공기압 & 후크리스 5.0 bar 안전 가드"
       : "Road Tire Pressure & Hookless 5.0 Bar Safety Guard",
@@ -200,7 +200,7 @@ const tools: ToolCard[] = [
   {
     id: "airlines-30",
     tag: "AVIATION COMPLIANCE",
-    toneClass: "bg-amber-50 text-amber-800 border-amber-200",
+    toneClass: "bg-[#291e09] text-amber-200 border-amber-700/50",
     title: isKo
       ? "30개 글로벌 항공사 리튬배터리 Wh 규정 판독기"
       : "30-Airline Lithium Wh Rule Checker",
@@ -287,18 +287,18 @@ const searchCfg = {
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-600">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-900">
+    <span class="font-medium text-white">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </span>
   </nav>
 
   <!-- Hero -->
-  <section class="lab-card bg-white p-6 sm:p-8">
+  <section class="lab-card p-6 sm:p-8">
     <div class="flex flex-wrap items-center gap-2">
       <span class="badge-info font-mono">SPECMATRIX INTERACTIVE LAB</span>
       <span class="badge-pass font-mono">
@@ -306,12 +306,12 @@ const searchCfg = {
       </span>
     </div>
 
-    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-4xl">
       {isKo
         ? "SpecMatrix 인터랙티브 랩 도구 허브"
         : "SpecMatrix Interactive Lab Tools Hub"}
     </h1>
-    <p class="mt-2.5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
+    <p class="mt-2.5 max-w-3xl text-sm leading-relaxed text-neutral-300 sm:text-base">
       {isKo
         ? "단순 스펙 나열을 넘어 내 실제 사용 환경(탑승 항공사·기기 조합·대회 시간·전기요금·림 규격)을 입력해 즉시 공학적 의사결정을 내릴 수 있는 4대 버티컬 전용 워크벤치입니다."
         : "Purpose-built interactive studios across all 4 verticals — powered by verified manufacturer datasheets, nutrition labels, electricity tariffs, and 30-airline safety rules."}
@@ -335,18 +335,18 @@ const searchCfg = {
         placeholder={isKo
           ? "전체 DB 즉시 검색 (예: Anker, Mac mini, GP5000, Maurten, KE)..."
           : "Instant database search (e.g. Anker, Mac mini, GP5000, Maurten, DL)..."}
-        class="min-w-[220px] flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-500 focus:border-blue-600 focus:bg-white focus:outline-none"
+        class="min-w-[220px] flex-1 rounded-md border border-white/15 bg-[#111111] px-3.5 py-2.5 text-sm font-medium text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
       />
       <button
         type="submit"
-        class="rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-blue-700"
+        class="rounded-md bg-[#dafa9c] px-4 py-2.5 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
       >
         {isKo ? "검색" : "Search"}
       </button>
       <button
         type="button"
         id="tools-open-modal-btn"
-        class="rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 font-mono text-xs font-semibold text-slate-700 transition-colors hover:border-blue-500 hover:text-blue-700"
+        class="rounded-md border border-white/15 bg-[#111111] px-3.5 py-2.5 font-mono text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
       >
         {isKo ? "전체 팔레트 ⌘K" : "Palette ⌘K"}
       </button>
@@ -355,15 +355,15 @@ const searchCfg = {
     <!-- Live Inline Search Results Panel (shown when ?q= or input active) -->
     <div
       id="tools-search-panel"
-      class="mt-4 hidden rounded-xl border border-blue-200 bg-blue-50/40 p-4"
+      class="mt-4 hidden rounded-lg border border-sky-700/50 bg-[#0f1f30] p-4"
       aria-live="polite"
     >
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <span id="tools-search-heading" class="font-mono text-xs font-bold text-blue-900"></span>
+        <span id="tools-search-heading" class="font-mono text-xs font-bold text-sky-200"></span>
         <button
           type="button"
           id="tools-search-clear"
-          class="font-mono text-[11px] font-semibold text-slate-600 hover:text-rose-700 hover:underline"
+          class="font-mono text-[11px] font-semibold text-neutral-300 hover:text-rose-300 hover:underline"
         >
           {isKo ? "검색 초기화 ✕" : "Clear Search ✕"}
         </button>
@@ -373,47 +373,47 @@ const searchCfg = {
 
     <!-- Live DB Telemetry Strip -->
     <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-600">
+      <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+        <div class="font-mono text-[11px] uppercase text-neutral-400">
           {isKo ? "검증 완료 DB" : "Verified SKUs"}
         </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
           {allItems.length}
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+        <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
           {PILOT_VERTICALS.length} {isKo ? "개 버티컬" : "Verticals"}
         </div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-600">
+      <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+        <div class="font-mono text-[11px] uppercase text-neutral-400">
           {isKo ? "자유 1:1 조합" : "Live 1:1 Combos"}
         </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-blue-700">
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-[#dafa9c]">
           {formatInt(totalPairwise)}+
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+        <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
           {allVs.length} {isKo ? "에디토리얼 VS 포함" : "Editorial VS"}
         </div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-600">
+      <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+        <div class="font-mono text-[11px] uppercase text-neutral-400">
           {isKo ? "글로벌 항공사" : "Airlines Indexed"}
         </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
           {airlines.length}
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+        <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
           MOLIT · IATA · CCC
         </div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-600">
+      <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+        <div class="font-mono text-[11px] uppercase text-neutral-400">
           {isKo ? "독립 인터랙티브 도구" : "Interactive Studios"}
         </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-700">
+        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-300">
           {tools.length}
         </div>
-        <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+        <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
           {isKo ? "무료 · 로그인 불필요" : "Free · No Login"}
         </div>
       </div>
@@ -425,30 +425,30 @@ const searchCfg = {
   <!-- 6 Interactive Tool Launch Cards -->
   <section class="mt-6 grid gap-5 md:grid-cols-2" aria-label={isKo ? "인터랙티브 도구 목록" : "Interactive Tools Directory"}>
     {tools.map((tool, index) => (
-      <article class="lab-card flex flex-col justify-between bg-white p-6 transition-colors hover:border-blue-400">
+      <article class="lab-card flex flex-col justify-between p-6 transition-colors hover:border-white/25 hover:bg-[#1c1c1c]">
         <div>
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span class={`inline-flex rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${tool.toneClass}`}>
               0{index + 1} · {tool.tag}
             </span>
-            <span class="font-mono text-[11px] font-semibold text-slate-600">
+            <span class="font-mono text-[11px] font-semibold text-neutral-400">
               {tool.dbMetric}
             </span>
           </div>
 
-          <h2 class="mt-3 text-lg font-extrabold tracking-tight text-slate-900">
-            <a href={tool.href} class="hover:text-blue-700 hover:underline">
+          <h2 class="mt-3 text-lg font-extrabold tracking-tight text-white">
+            <a href={tool.href} class="hover:text-[#dafa9c] hover:underline">
               {tool.title}
             </a>
           </h2>
-          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          <p class="mt-2 text-sm leading-relaxed text-neutral-300">
             {tool.description}
           </p>
 
-          <ul class="mt-4 space-y-1.5 border-t border-slate-100 pt-3.5 text-xs text-slate-700">
+          <ul class="mt-4 space-y-1.5 border-t border-white/10 pt-3.5 text-xs text-neutral-300">
             {tool.highlights.map((bullet) => (
               <li class="flex items-start gap-2">
-                <span class="mt-0.5 font-mono text-[11px] font-bold text-blue-700">✓</span>
+                <span class="mt-0.5 font-mono text-[11px] font-bold text-[#dafa9c]">✓</span>
                 <span>{bullet}</span>
               </li>
             ))}
@@ -458,10 +458,10 @@ const searchCfg = {
         <div class="mt-5 pt-2">
           <a
             href={tool.href}
-            class="inline-flex w-full items-center justify-between rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            class="inline-flex w-full items-center justify-between rounded-md bg-[#dafa9c] px-4 py-2.5 text-sm font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             <span>{tool.ctaLabel}</span>
-            <span class="font-mono text-xs opacity-85">→</span>
+            <span class="font-mono text-xs">→</span>
           </a>
         </div>
       </article>
@@ -469,15 +469,15 @@ const searchCfg = {
   </section>
 
   <!-- Engineering Transparency Footer Card -->
-  <section class="mt-8 lab-card border-slate-200 bg-slate-50 p-5">
+  <section class="mt-8 lab-card p-5">
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div class="max-w-2xl">
-        <h2 class="text-sm font-bold text-slate-900">
+        <h2 class="text-sm font-bold text-white">
           {isKo
             ? "모든 계산 수식과 검증 기준이 투명하게 공개됩니다"
             : "Deterministic Engineering — Zero Black-Box Guessing"}
         </h2>
-        <p class="mt-1 text-xs leading-relaxed text-slate-600">
+        <p class="mt-1 text-xs leading-relaxed text-neutral-300">
           {isKo
             ? "SpecMatrix의 모든 도구는 LLM 추정값이 아닌 제조사 공식 스펙시트, 영양성분표, 항공사 공식 원문 정책 데이터를 사칙연산·물리 수식으로 계산합니다."
             : "Every SpecMatrix tool runs strictly on audited manufacturer datasheets, Nutrition Facts panels, and official carrier policy documents — with zero arbitrary review scores."}
@@ -486,13 +486,13 @@ const searchCfg = {
       <div class="flex flex-wrap gap-2">
         <a
           href={withBase(`/${locale}/methodology`)}
-          class="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+          class="rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
         >
           {isKo ? "검증 방법론 보기 →" : "Read Methodology →"}
         </a>
         <a
           href={withBase(`/${locale}`)}
-          class="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-800 hover:border-blue-500 hover:text-blue-700"
+          class="rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
         >
           {isKo ? "전체 버티컬 허브 →" : "All Verticals Hub →"}
         </a>
@@ -615,7 +615,7 @@ const searchCfg = {
 
       if (!resultsWrap) return;
       if (matches.length === 0) {
-        resultsWrap.innerHTML = `<div class="col-span-full rounded-lg border border-slate-200 bg-white p-4 text-xs text-slate-600">${
+        resultsWrap.innerHTML = `<div class="col-span-full rounded-md border border-white/10 bg-[#111111] p-4 text-xs text-neutral-300">${
           isKo
             ? "일치하는 항목이 없습니다. 브랜드명, 모델명, IATA 코드(KE/DL) 또는 카테고리로 검색해 보세요."
             : "No matches found. Try a brand, model name, IATA code (DL/KE), or category."
@@ -629,15 +629,15 @@ const searchCfg = {
           const sub = isKo ? item.sub_ko || item.sub_en || "" : item.sub_en || item.sub_ko || "";
           const badge = (item.t || "item").toUpperCase();
           return `
-            <a href="${esc(buildHref(item))}" class="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-slate-900 transition-colors hover:border-blue-500 hover:bg-blue-50/40">
+            <a href="${esc(buildHref(item))}" class="flex items-center justify-between gap-2 rounded-md border border-white/12 bg-[#161616] px-3 py-2.5 text-white transition-colors hover:border-white/25 hover:bg-[#1c1c1c]">
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5">
-                  <span class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-slate-700">${esc(badge)}</span>
-                  <span class="truncate text-xs font-bold">${esc(title)}</span>
+                  <span class="rounded border border-white/15 bg-[#111111] px-1.5 py-0.5 font-mono text-[10px] font-bold text-neutral-300">${esc(badge)}</span>
+                  <span class="truncate text-xs font-bold text-white">${esc(title)}</span>
                 </div>
-                ${sub ? `<div class="mt-0.5 truncate font-mono text-[11px] text-slate-600">${esc(sub)}</div>` : ""}
+                ${sub ? `<div class="mt-0.5 truncate font-mono text-[11px] text-neutral-400">${esc(sub)}</div>` : ""}
               </div>
-              <span class="shrink-0 font-mono text-xs font-bold text-blue-700">→</span>
+              <span class="shrink-0 font-mono text-xs font-bold text-[#dafa9c]">→</span>
             </a>
           `;
         })

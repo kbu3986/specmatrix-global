@@ -42,12 +42,12 @@ const coupangIframe =
 
 {!unitId && coupangIframe && (
   <aside
-    class="my-6 overflow-hidden rounded-xl border border-slate-200 bg-white p-3"
+    class="my-6 overflow-hidden rounded-lg border border-white/12 bg-[#161616] p-3"
     aria-label="쿠팡 파트너스 추천 상품"
   >
     <div
       data-coupang-frame-wrap
-      class="relative mx-auto w-full max-w-[680px] overflow-hidden"
+      class="relative mx-auto w-full max-w-[680px] overflow-hidden rounded bg-white"
       style="aspect-ratio: 680 / 140;"
     >
       <iframe
@@ -60,7 +60,7 @@ const coupangIframe =
         class="block h-[140px] w-[680px] origin-top-left border-0 overflow-hidden"
       />
     </div>
-    <p class="mt-1.5 text-right text-[10px] text-slate-600">
+    <p class="mt-1.5 text-right text-[10px] text-[#9a9a9a]">
       이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
     </p>
     <script is:inline>

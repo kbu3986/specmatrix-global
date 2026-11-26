@@ -19,12 +19,12 @@ const payload = {
 
 <section class="space-y-5" aria-labelledby="airlines-matrix-heading">
   <!-- Interactive Wh & Airline Filter Workbench -->
-  <div class="lab-card overflow-hidden border-blue-200">
-    <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
-      <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+  <div class="lab-card overflow-hidden border-white/15">
+    <div class="border-b border-white/12 bg-[#111111] px-5 py-4 text-white">
+      <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#dafa9c]">
         INTERACTIVE 30-AIRLINE WH CHECKER
       </span>
-      <h2 id="airlines-matrix-heading" class="mt-0.5 text-lg font-bold">
+      <h2 id="airlines-matrix-heading" class="mt-0.5 text-lg font-bold text-white">
         {isKo
           ? "내 보조배터리 Wh 입력 → 30개 글로벌 항공사 실시간 일괄 판정"
           : "Enter Battery Wh → Instant 30-Airline Carry-On Rule Evaluator"}
@@ -34,7 +34,7 @@ const payload = {
     <div class="space-y-4 p-5">
       <div class="grid gap-4 md:grid-cols-12">
         <div class="md:col-span-5">
-          <label for="air-wh-input" class="block text-xs font-bold text-slate-700">
+          <label for="air-wh-input" class="block text-xs font-bold text-[#d8d8d8]">
             {isKo ? "보조배터리 정격 에너지 (Wh)" : "Power Bank Rated Energy (Wh)"}
           </label>
           <div class="mt-1.5 flex items-center gap-2">
@@ -45,33 +45,33 @@ const payload = {
               max="1000"
               step="0.1"
               value="99.5"
-              class="w-32 rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-base font-bold text-blue-700 focus:border-blue-600 focus:outline-none"
+              class="w-32 rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-base font-bold text-[#dafa9c] focus:border-[#dafa9c] focus:outline-none"
             />
-            <span class="font-mono text-sm font-semibold text-slate-600">Wh</span>
+            <span class="font-mono text-sm font-semibold text-[#9a9a9a]">Wh</span>
           </div>
           <div class="mt-2 flex flex-wrap gap-1.5">
-            <button type="button" data-wh="37" class="air-wh-preset rounded border border-slate-300 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:bg-slate-100">37Wh (10K)</button>
-            <button type="button" data-wh="74" class="air-wh-preset rounded border border-slate-300 bg-slate-50 px-2 py-1 font-mono text-[11px] font-semibold text-slate-700 hover:bg-slate-100">74Wh (20K)</button>
-            <button type="button" data-wh="99.5" class="air-wh-preset rounded border border-blue-300 bg-blue-50 px-2 py-1 font-mono text-[11px] font-semibold text-blue-800 hover:bg-blue-100">99.5Wh (27K)</button>
-            <button type="button" data-wh="135" class="air-wh-preset rounded border border-amber-300 bg-amber-50 px-2 py-1 font-mono text-[11px] font-semibold text-amber-800 hover:bg-amber-100">135Wh</button>
-            <button type="button" data-wh="245" class="air-wh-preset rounded border border-rose-300 bg-rose-50 px-2 py-1 font-mono text-[11px] font-semibold text-rose-800 hover:bg-rose-100">245Wh</button>
+            <button type="button" data-wh="37" class="air-wh-preset rounded border border-white/15 bg-[#111111] px-2 py-1 font-mono text-[11px] font-semibold text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white">37Wh (10K)</button>
+            <button type="button" data-wh="74" class="air-wh-preset rounded border border-white/15 bg-[#111111] px-2 py-1 font-mono text-[11px] font-semibold text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white">74Wh (20K)</button>
+            <button type="button" data-wh="99.5" class="air-wh-preset rounded border border-[#4b6327] bg-[#1c2612] px-2 py-1 font-mono text-[11px] font-semibold text-[#dafa9c] transition-colors hover:border-[#dafa9c]">99.5Wh (27K)</button>
+            <button type="button" data-wh="135" class="air-wh-preset rounded border border-[#664b14] bg-[#291e09] px-2 py-1 font-mono text-[11px] font-semibold text-[#f8cc6b] transition-colors hover:border-[#f8cc6b]">135Wh</button>
+            <button type="button" data-wh="245" class="air-wh-preset rounded border border-[#73232c] bg-[#2c1014] px-2 py-1 font-mono text-[11px] font-semibold text-[#fca5a5] transition-colors hover:border-[#fca5a5]">245Wh</button>
           </div>
         </div>
 
         <div class="md:col-span-4">
-          <label for="air-search" class="block text-xs font-bold text-slate-700">
+          <label for="air-search" class="block text-xs font-bold text-[#d8d8d8]">
             {isKo ? "항공사명 / IATA 코드 검색" : "Search Airline / IATA Code"}
           </label>
           <input
             id="air-search"
             type="search"
             placeholder={isKo ? "예: 대한항공, KE, ANA, Delta..." : "e.g. Delta, KE, Lufthansa, ANA..."}
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 text-sm text-white placeholder:text-[#9a9a9a] focus:border-[#dafa9c] focus:outline-none"
           />
         </div>
 
         <div class="md:col-span-3">
-          <span class="block text-xs font-bold text-slate-700">
+          <span class="block text-xs font-bold text-[#d8d8d8]">
             {isKo ? "권역 필터" : "Region Filter"}
           </span>
           <div id="air-region-btns" class="mt-1.5 flex flex-wrap gap-1.5">
@@ -80,10 +80,10 @@ const payload = {
                 type="button"
                 data-region={reg}
                 class:list={[
-                  "air-reg-btn rounded-md border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
+                  "air-reg-btn rounded border px-2.5 py-1 font-mono text-xs font-semibold transition-colors",
                   reg === "ALL"
-                    ? "border-slate-900 bg-slate-900 text-white"
-                    : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                    ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f]"
+                    : "border-white/15 bg-[#111111] text-[#d8d8d8] hover:border-white/35 hover:text-white",
                 ]}
               >
                 {reg}
@@ -93,13 +93,13 @@ const payload = {
         </div>
       </div>
 
-      <div id="air-summary-bar" class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs">
-        <span id="air-wh-verdict" class="font-semibold text-slate-800">
+      <div id="air-summary-bar" class="flex flex-wrap items-center justify-between gap-2 rounded-md border border-white/12 bg-[#111111] px-4 py-2.5 text-xs">
+        <span id="air-wh-verdict" class="font-semibold text-white">
           {isKo
             ? "99.5 Wh 기준: IATA 100 Wh 이하 무승인 기내 휴대 구간"
             : "At 99.5 Wh: Within IATA <=100 Wh no-approval carry-on tier"}
         </span>
-        <span id="air-visible-count" class="font-mono text-slate-500">
+        <span id="air-visible-count" class="font-mono text-[#9a9a9a]">
           {airlines.length} {isKo ? "개 항공사 표시" : "airlines shown"}
         </span>
       </div>
@@ -122,7 +122,7 @@ const payload = {
       <tbody id="air-tbody">
         {airlines.length === 0 ? (
           <tr>
-            <td colspan="6" class="py-8 text-center text-sm text-slate-500">
+            <td colspan="6" class="py-8 text-center text-sm text-[#9a9a9a]">
               {isKo ? "항공사 규정 데이터 로드 대기 중" : "Airline compliance dataset pending load."}
             </td>
           </tr>
@@ -138,15 +138,15 @@ const payload = {
               data-b100-appr={a.between_100_160wh_requires_approval ? "1" : "0"}
             >
               <td>
-                <div class="font-semibold text-slate-900">
+                <div class="font-semibold text-white">
                   {isKo ? a.name_ko : a.name_en}
                 </div>
-                <div class="font-mono text-[11px] text-slate-500">
+                <div class="font-mono text-[11px] text-[#9a9a9a]">
                   {a.iata_code} · {isKo ? a.name_en : a.name_ko}
                 </div>
               </td>
               <td>
-                <span class="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs font-semibold text-slate-700">
+                <span class="rounded border border-white/12 bg-[#111111] px-2 py-0.5 font-mono text-xs font-semibold text-[#d8d8d8]">
                   {a.region}
                 </span>
               </td>
@@ -186,7 +186,7 @@ const payload = {
                     <span class="badge-fail">{isKo ? "중국 국내 CCC 필수" : "China CCC Req."}</span>
                   )}
                   {!a.terminal_insulation_pouch_required && !a.ccc_marking_required_domestic && (
-                    <span class="font-mono text-xs text-slate-500">
+                    <span class="font-mono text-xs text-[#9a9a9a]">
                       {a.wh_marking_strict
                         ? isKo
                           ? "Wh 표기 필수"
@@ -197,14 +197,14 @@ const payload = {
                 </div>
               </td>
               <td>
-                <p class="text-xs leading-relaxed text-slate-700">
+                <p class="text-xs leading-relaxed text-[#d8d8d8]">
                   {isKo ? a.notes_ko : a.notes_en}
                 </p>
                 <a
                   href={a.official_policy_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="mt-1 inline-block font-mono text-[11px] font-medium text-blue-700 hover:underline"
+                  class="mt-1 inline-block font-mono text-[11px] font-medium text-[#dafa9c] hover:underline"
                 >
                   {isKo ? `공식 규정 (${a.verified_at}) ↗` : `Official Policy (${a.verified_at}) ↗`}
                 </a>
@@ -309,12 +309,12 @@ const payload = {
         const on = (o.getAttribute("data-region") || "ALL") === activeRegion;
         o.setAttribute("aria-pressed", on ? "true" : "false");
         o.className = on
-          ? "air-reg-btn rounded-md border border-slate-900 bg-slate-900 px-2.5 py-1 font-mono text-xs font-semibold text-white transition-colors"
-          : "air-reg-btn rounded-md border border-slate-300 bg-white px-2.5 py-1 font-mono text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+          ? "air-reg-btn rounded border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 font-mono text-xs font-semibold text-[#0f0f0f] transition-colors"
+          : "air-reg-btn rounded border border-white/15 bg-[#111111] px-2.5 py-1 font-mono text-xs font-semibold text-[#d8d8d8] hover:border-white/35 hover:text-white transition-colors";
       });
     }
 
-    const HIGHLIGHT_CLS = ["bg-blue-50", "ring-2", "ring-inset", "ring-blue-500"];
+    const HIGHLIGHT_CLS = ["bg-[#1f2616]", "ring-2", "ring-inset", "ring-[#dafa9c]"];
 
     function highlightFromHash() {
       rows.forEach((tr) => tr.classList.remove(...HIGHLIGHT_CLS));

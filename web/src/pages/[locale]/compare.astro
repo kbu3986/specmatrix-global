@@ -368,22 +368,22 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-800">
+    <span class="font-medium text-white">
       {isKo ? "실시간 1:1 비교 워크벤치" : "Live 1:1 Compare Workbench"}
     </span>
   </nav>
 
   <!-- Hero Header -->
-  <section class="lab-card bg-white p-6">
+  <section class="lab-card p-6">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div class="flex flex-wrap items-center gap-2">
         <span class="badge-info font-mono">ANY-VS-ANY LIVE WORKBENCH</span>
@@ -395,26 +395,26 @@ const jsonLd = [
         <button
           type="button"
           id="cmp-copy-link"
-          class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs font-semibold text-slate-800 transition-colors hover:border-blue-500 hover:text-blue-700"
+          class="inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 font-mono text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
         >
           <span>{isKo ? "공유 링크 복사" : "Copy Share Link"}</span>
         </button>
         <button
           type="button"
           id="cmp-copy-md"
-          class="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-slate-800"
+          class="inline-flex items-center gap-1.5 rounded-md bg-[#dafa9c] px-3 py-1.5 font-mono text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
         >
           <span>{isKo ? "마크다운 표 복사" : "Copy Markdown Summary Table"}</span>
         </button>
       </div>
     </div>
 
-    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+    <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
       {isKo
         ? "실시간 1:1 자유 비교 워크벤치"
         : "Any-vs-Any 1:1 Live Comparison Workbench"}
     </h1>
-    <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+    <p class="mt-2 max-w-3xl text-sm leading-relaxed text-neutral-300">
       {isKo
         ? "버티컬 내 어떤 두 모델이든 선택 즉시 정량 스펙 격차, SVG 비교 막대, 4축 가중치 승자 시뮬레이션, 공식 출고가(MSRP) 기준 제휴 링크를 브라우저에서 0초 만에 계산합니다. URL 해시(#)로 비교 조합을 그대로 공유할 수 있습니다."
         : "Pick any two verified models in the same vertical for instant deterministic spec diffs, inline SVG delta bars, 4-dimension priority weighting, and verified affiliate links — zero latency, 100% shareable via URL hash."}
@@ -433,16 +433,16 @@ const jsonLd = [
             aria-selected={isActive ? "true" : "false"}
             disabled={count < 2}
             class:list={[
-              "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border px-3.5 py-2 text-xs font-bold transition-colors",
+              "cmp-vert-pill inline-flex items-center gap-2 rounded-md border px-3.5 py-2 text-xs font-bold transition-colors",
               isActive
-                ? "border-slate-900 bg-slate-900 text-white"
+                ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
                 : count < 2
-                  ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-blue-500 hover:text-blue-700",
+                  ? "cursor-not-allowed border-white/10 bg-[#111111] text-neutral-500"
+                  : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
             ]}
           >
             <span>{VERTICAL_META[v].shortName[locale]}</span>
-            <span class="rounded bg-black/10 px-1.5 py-0.5 font-mono text-[10px]">
+            <span class="rounded border border-current/20 px-1.5 py-0.5 font-mono text-[10px]">
               {count}
             </span>
           </button>
@@ -451,21 +451,21 @@ const jsonLd = [
     </div>
 
     <!-- Dual Model Selector + Swap -->
-    <div class="mt-5 grid items-end gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-11">
+    <div class="mt-5 grid items-end gap-3 rounded-lg border border-white/10 bg-[#111111] p-4 md:grid-cols-11">
       <div class="md:col-span-5">
-        <label for="cmp-select-a" class="flex items-center justify-between text-xs font-bold text-blue-800">
-          <span>{isKo ? "모델 A (파랑)" : "Model A (Cobalt)"}</span>
+        <label for="cmp-select-a" class="flex items-center justify-between text-xs font-bold text-sky-300">
+          <span>{isKo ? "모델 A (스카이)" : "Model A (Sky)"}</span>
           <a
             id="cmp-link-a"
             href={defaultItemA ? defaultItemA.href : withBase(`/${locale}`)}
-            class="font-mono text-[11px] font-semibold hover:underline"
+            class="font-mono text-[11px] font-semibold text-[#dafa9c] hover:underline"
           >
             {isKo ? "상세 스펙 →" : "Full Spec →"}
           </a>
         </label>
         <select
           id="cmp-select-a"
-          class="mt-1.5 w-full rounded-lg border border-blue-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
+          class="mt-1.5 w-full rounded-md border border-sky-700/60 bg-[#161616] px-3 py-2.5 text-sm font-semibold text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
         >
           {defaultGroupedItems.map((grp) => (
             <optgroup label={grp.label}>
@@ -485,26 +485,26 @@ const jsonLd = [
           id="cmp-swap"
           aria-label={isKo ? "모델 A와 B 맞바꾸기" : "Swap Model A and Model B"}
           title={isKo ? "모델 A ↔ B 맞바꾸기" : "Swap Model A ↔ B"}
-          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 shadow-xs transition-colors hover:border-blue-500 hover:bg-blue-50 hover:text-blue-700"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/15 bg-[#161616] font-mono text-base font-bold text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
         >
           ⇄
         </button>
       </div>
 
       <div class="md:col-span-5">
-        <label for="cmp-select-b" class="flex items-center justify-between text-xs font-bold text-emerald-800">
+        <label for="cmp-select-b" class="flex items-center justify-between text-xs font-bold text-emerald-300">
           <span>{isKo ? "모델 B (에메랄드)" : "Model B (Emerald)"}</span>
           <a
             id="cmp-link-b"
             href={defaultItemB ? defaultItemB.href : withBase(`/${locale}`)}
-            class="font-mono text-[11px] font-semibold hover:underline"
+            class="font-mono text-[11px] font-semibold text-[#dafa9c] hover:underline"
           >
             {isKo ? "상세 스펙 →" : "Full Spec →"}
           </a>
         </label>
         <select
           id="cmp-select-b"
-          class="mt-1.5 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-emerald-600 focus:outline-none"
+          class="mt-1.5 w-full rounded-md border border-emerald-700/60 bg-[#161616] px-3 py-2.5 text-sm font-semibold text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
         >
           {defaultGroupedItems.map((grp) => (
             <optgroup label={grp.label}>
@@ -523,24 +523,24 @@ const jsonLd = [
     <div
       id="cmp-cross-cat-banner"
       role="status"
-      class="mt-3 hidden items-start gap-2.5 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-950"
+      class="mt-3 hidden items-start gap-2.5 rounded-lg border border-amber-700/50 bg-[#291e09] px-4 py-3 text-xs text-amber-200"
     >
-      <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-200 font-mono text-[11px] font-bold text-amber-950">
+      <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-400 font-mono text-[11px] font-bold text-[#0f0f0f]">
         !
       </span>
       <div class="min-w-0">
-        <div class="font-bold text-amber-950">
+        <div class="font-bold text-white">
           {isKo
             ? "서로 다른 제품군(카테고리) 간 비교 중입니다"
             : "Cross-Category Comparison Active"}
         </div>
-        <p id="cmp-cross-cat-msg" class="mt-0.5 leading-relaxed text-amber-900"></p>
+        <p id="cmp-cross-cat-msg" class="mt-0.5 leading-relaxed text-amber-200"></p>
       </div>
     </div>
 
     <!-- Quick Popular Matchup Chips -->
     <div class="mt-4">
-      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
         {isKo ? "인기 1:1 추천 조합 (원클릭 로드)" : "Quick Popular Matchups"}
       </div>
       <div id="cmp-popular-chips" class="mt-2 flex flex-wrap gap-2">
@@ -555,7 +555,7 @@ const jsonLd = [
                 type="button"
                 data-pair-a={v.slugA}
                 data-pair-b={v.slugB}
-                class="cmp-pop-chip rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-blue-400 hover:bg-blue-50 hover:text-blue-800"
+                class="cmp-pop-chip rounded-md border border-white/15 bg-[#111111] px-3 py-1 text-xs font-medium text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
               >
                 {itA ? itA.name.split("(")[0].trim() : v.slugA} vs{" "}
                 {itB ? itB.name.split("(")[0].trim() : v.slugB}
@@ -569,7 +569,7 @@ const jsonLd = [
     <div
       id="cmp-curated-banner"
       class:list={[
-        "mt-4 flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-300 bg-blue-50/90 px-4 py-3",
+        "mt-4 flex-wrap items-center justify-between gap-3 rounded-lg border border-sky-700/50 bg-[#0f1f30] px-4 py-3",
         defaultVsFirst ? "flex" : "hidden",
       ]}
     >
@@ -578,18 +578,18 @@ const jsonLd = [
           <span class="badge-info font-mono">
             {isKo ? "에디토리얼 정밀 VS 페이지 보유" : "CURATED EDITORIAL VS AVAILABLE"}
           </span>
-          <span id="cmp-curated-ig" class="font-mono text-[11px] font-semibold text-blue-800">
+          <span id="cmp-curated-ig" class="font-mono text-[11px] font-semibold text-sky-200">
             {defaultVsFirst ? `SERP IG ${defaultVsFirst.infoGainScore}/100` : ""}
           </span>
         </div>
-        <p id="cmp-curated-headline" class="mt-1 truncate text-sm font-bold text-slate-900">
+        <p id="cmp-curated-headline" class="mt-1 truncate text-sm font-bold text-white">
           {defaultVsFirst ? defaultVsFirst.headline : ""}
         </p>
       </div>
       <a
         id="cmp-curated-href"
         href={defaultVsFirst ? defaultVsFirst.href : withBase(`/${locale}`)}
-        class="shrink-0 rounded-lg bg-blue-700 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-800"
+        class="shrink-0 rounded-md bg-[#dafa9c] px-3.5 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
       >
         {isKo ? "에디토리얼 심층 VS 분석 열기 →" : "Open Curated Editorial VS →"}
       </a>
@@ -599,14 +599,14 @@ const jsonLd = [
   <AdSlotReserve slotId="compare-top" variant="banner" locale={locale} />
 
   <!-- Live 4-Dimension Priority Weighting Simulator -->
-  <section class="mt-6 lab-card overflow-hidden border-blue-200/80" aria-labelledby="cmp-sim-heading">
-    <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+  <section class="mt-6 lab-card overflow-hidden border-sky-700/40" aria-labelledby="cmp-sim-heading">
+    <div class="border-b border-white/10 bg-[#111111] px-5 py-4 text-white">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-sky-300">
             LIVE 4-DIMENSION PRIORITY WEIGHTING SIMULATOR
           </span>
-          <h2 id="cmp-sim-heading" class="mt-0.5 text-lg font-bold">
+          <h2 id="cmp-sim-heading" class="mt-0.5 text-lg font-bold text-white">
             {isKo
               ? "실시간 우선순위 가중치 승자 시뮬레이터"
               : "Live Priority Weighting Winner Simulator"}
@@ -617,7 +617,7 @@ const jsonLd = [
             type="button"
             data-preset="balanced"
             aria-pressed="true"
-            class="cmp-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors"
+            class="cmp-preset-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             {isKo ? "균형" : "Balanced"}
           </button>
@@ -625,7 +625,7 @@ const jsonLd = [
             type="button"
             data-preset="value"
             aria-pressed="false"
-            class="cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+            class="cmp-preset-btn rounded-md border border-white/15 bg-[#161616] px-2.5 py-1 font-mono text-[11px] font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "가성비" : "Value"}
           </button>
@@ -633,7 +633,7 @@ const jsonLd = [
             type="button"
             data-preset="performance"
             aria-pressed="false"
-            class="cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+            class="cmp-preset-btn rounded-md border border-white/15 bg-[#161616] px-2.5 py-1 font-mono text-[11px] font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "성능 최우선" : "Performance"}
           </button>
@@ -641,7 +641,7 @@ const jsonLd = [
             type="button"
             data-preset="portability"
             aria-pressed="false"
-            class="cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+            class="cmp-preset-btn rounded-md border border-white/15 bg-[#161616] px-2.5 py-1 font-mono text-[11px] font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "경량·정숙·순도" : "Light · Quiet"}
           </button>
@@ -653,10 +653,10 @@ const jsonLd = [
       <!-- 4 Sliders -->
       <div class="space-y-3.5 lg:col-span-7" id="cmp-sliders-wrap">
         {["value", "portability", "performance", "practicality"].map((dimId) => (
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <label for={`cmp-w-${dimId}`} id={`cmp-lbl-${dimId}`} class="text-xs font-bold text-slate-900">
+                <label for={`cmp-w-${dimId}`} id={`cmp-lbl-${dimId}`} class="text-xs font-bold text-white">
                   {dimId === "value"
                     ? isKo ? "가성비" : "Value"
                     : dimId === "portability"
@@ -665,9 +665,9 @@ const jsonLd = [
                         ? isKo ? "핵심 성능" : "Performance"
                         : isKo ? "실용성·호환·인증" : "Practicality & Certs"}
                 </label>
-                <span id={`cmp-hint-${dimId}`} class="ml-2 hidden text-[11px] text-slate-500 sm:inline"></span>
+                <span id={`cmp-hint-${dimId}`} class="ml-2 hidden text-[11px] text-neutral-400 sm:inline"></span>
               </div>
-              <span id={`cmp-wval-${dimId}`} class="font-mono text-xs font-bold text-blue-700">25%</span>
+              <span id={`cmp-wval-${dimId}`} class="font-mono text-xs font-bold text-[#dafa9c]">25%</span>
             </div>
             <input
               id={`cmp-w-${dimId}`}
@@ -679,7 +679,7 @@ const jsonLd = [
               value="25"
               class="cmp-weight-slider lab-slider mt-2"
             />
-            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-slate-500">
+            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-neutral-400">
               <span id={`cmp-sub-a-${dimId}`}>A: —</span>
               <span id={`cmp-sub-b-${dimId}`}>B: —</span>
             </div>
@@ -688,19 +688,19 @@ const jsonLd = [
       </div>
 
       <!-- Scoreboard -->
-      <div class="flex flex-col justify-between rounded-xl border border-slate-200 bg-slate-50 p-5 lg:col-span-5">
+      <div class="flex flex-col justify-between rounded-lg border border-white/10 bg-[#111111] p-5 lg:col-span-5">
         <div>
-          <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
             {isKo ? "실시간 가중 종합 판정" : "LIVE WEIGHTED RECOMMENDATION"}
           </div>
-          <div id="cmp-winner-banner" class="mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5">
+          <div id="cmp-winner-banner" class="mt-2 rounded-lg border border-sky-700/50 bg-[#0f1f30] p-3.5">
             <div id="cmp-winner-tag" class="badge-info">
               {isKo ? "계산 준비 완료" : "READY"}
             </div>
-            <div id="cmp-winner-name" class="mt-1.5 text-base font-bold text-slate-900">
+            <div id="cmp-winner-name" class="mt-1.5 text-base font-bold text-white">
               {defaultItemA ? defaultItemA.name : "Model A"}
             </div>
-            <div id="cmp-winner-margin" class="mt-0.5 font-mono text-xs text-slate-700">
+            <div id="cmp-winner-margin" class="mt-0.5 font-mono text-xs text-neutral-300">
               {isKo ? "정량 스펙 기반 실시간 산출" : "Deterministic score computed locally"}
             </div>
           </div>
@@ -708,15 +708,15 @@ const jsonLd = [
           <div class="mt-5 space-y-4">
             <div>
               <div class="flex items-center justify-between text-xs font-semibold">
-                <span id="cmp-bar-name-a" class="truncate pr-2 text-slate-800">
+                <span id="cmp-bar-name-a" class="truncate pr-2 text-neutral-200">
                   A · {defaultItemA ? defaultItemA.name : "Model A"}
                 </span>
-                <span id="cmp-score-a" class="font-mono text-base font-bold text-blue-700">—</span>
+                <span id="cmp-score-a" class="font-mono text-base font-bold text-sky-300">—</span>
               </div>
-              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-white/10">
                 <div
                   id="cmp-bar-a"
-                  class="h-full rounded-full bg-blue-600 transition-all duration-200"
+                  class="h-full rounded-full bg-sky-400 transition-all duration-200"
                   style="width:50%"
                 ></div>
               </div>
@@ -724,15 +724,15 @@ const jsonLd = [
 
             <div>
               <div class="flex items-center justify-between text-xs font-semibold">
-                <span id="cmp-bar-name-b" class="truncate pr-2 text-slate-800">
+                <span id="cmp-bar-name-b" class="truncate pr-2 text-neutral-200">
                   B · {defaultItemB ? defaultItemB.name : "Model B"}
                 </span>
-                <span id="cmp-score-b" class="font-mono text-base font-bold text-emerald-700">—</span>
+                <span id="cmp-score-b" class="font-mono text-base font-bold text-emerald-300">—</span>
               </div>
-              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-white/10">
                 <div
                   id="cmp-bar-b"
-                  class="h-full rounded-full bg-emerald-600 transition-all duration-200"
+                  class="h-full rounded-full bg-emerald-400 transition-all duration-200"
                   style="width:50%"
                 ></div>
               </div>
@@ -740,7 +740,7 @@ const jsonLd = [
           </div>
         </div>
 
-        <p class="mt-5 border-t border-slate-200 pt-3 text-[11px] leading-relaxed text-slate-500">
+        <p class="mt-5 border-t border-white/10 pt-3 text-[11px] leading-relaxed text-neutral-400">
           {isKo
             ? "* 모든 점수는 검증된 공식 스펙시트·영양성분표·TCO 수식에서 결정론적으로 계산됩니다."
             : "* Scores are deterministically computed in-browser from verified specs and benchmark math."}
@@ -752,11 +752,11 @@ const jsonLd = [
   <!-- Live Quantitative Diff Table with Inline SVG Dual Bars -->
   <section class="mt-8 space-y-3" aria-labelledby="cmp-diff-heading">
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h2 id="cmp-diff-heading" class="text-lg font-bold tracking-tight text-slate-900">
+      <h2 id="cmp-diff-heading" class="text-lg font-bold tracking-tight text-white">
         {isKo ? "실시간 정량 스펙 격차(Delta) 비교표" : "Live Quantitative Head-to-Head Diff Table"}
       </h2>
-      <span class="font-mono text-xs text-slate-500">
-        {isKo ? "파랑 = A · 에메랄드 = B" : "Cobalt = A · Emerald = B"}
+      <span class="font-mono text-xs text-neutral-400">
+        {isKo ? "스카이 = A · 에메랄드 = B" : "Sky = A · Emerald = B"}
       </span>
     </div>
 
@@ -773,7 +773,7 @@ const jsonLd = [
         </thead>
         <tbody id="cmp-diff-tbody">
           <tr>
-            <td colspan="5" class="py-6 text-center text-xs text-slate-500">
+            <td colspan="5" class="py-6 text-center text-xs text-neutral-400">
               {isKo ? "정량 비교표 초기화 중..." : "Initializing deterministic diff table..."}
             </td>
           </tr>
@@ -784,28 +784,28 @@ const jsonLd = [
 
   <!-- Dual Affiliate CTA Cards -->
   <section class="mt-8 space-y-3" aria-labelledby="cmp-cta-heading">
-    <h2 id="cmp-cta-heading" class="text-lg font-bold tracking-tight text-slate-900">
+    <h2 id="cmp-cta-heading" class="text-lg font-bold tracking-tight text-white">
       {isKo
         ? "공식 출고가(MSRP) 기준 비교 & 실시간 스토어 확인"
         : "MSRP Benchmark Comparison & Live Store Check"}
     </h2>
     <div class="grid gap-5 md:grid-cols-2">
-      <div id="cmp-cta-a" class="lab-card border-t-4 border-t-blue-600 p-5">
+      <div id="cmp-cta-a" class="lab-card border-t-2 border-t-sky-400 p-5">
         {defaultItemA && (
           <div>
             <div class="flex items-start justify-between gap-2">
               <div>
-                <div class="font-mono text-[11px] font-bold uppercase text-blue-700">MODEL A</div>
-                <h3 class="mt-0.5 text-base font-bold text-slate-900">{defaultItemA.name}</h3>
+                <div class="font-mono text-[11px] font-bold uppercase text-sky-300">MODEL A</div>
+                <h3 class="mt-0.5 text-base font-bold text-white">{defaultItemA.name}</h3>
               </div>
               <span class={statusToneClass(defaultItemA.monetization.statusTone)}>
                 {defaultItemA.monetization.statusLabel}
               </span>
             </div>
-            <div class="mt-2 font-mono text-2xl font-bold text-slate-900">
+            <div class="mt-2 font-mono text-2xl font-bold text-[#dafa9c]">
               {defaultItemA.monetization.benchmarkPriceFormatted}
             </div>
-            <p class="mt-1 text-xs text-slate-600">{defaultItemA.monetization.benchmarkCaption}</p>
+            <p class="mt-1 text-xs text-neutral-400">{defaultItemA.monetization.benchmarkCaption}</p>
             <div class="mt-3 flex flex-col gap-2">
               {defaultItemA.monetization.buttons.map((btn) => (
                 <a
@@ -817,10 +817,10 @@ const jsonLd = [
                   data-affiliate-sku={defaultItemA.slug}
                   data-affiliate-mode={btn.linkMode}
                   class:list={[
-                    "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
+                    "inline-flex w-full items-center justify-between gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors",
                     btn.isPrimary
-                      ? "bg-blue-700 text-white hover:bg-blue-800"
-                      : "border border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100",
+                      ? "bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                      : "border border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
                   ]}
                 >
                   <span>{btn.label}</span>
@@ -828,29 +828,29 @@ const jsonLd = [
                 </a>
               ))}
             </div>
-            <p class="mt-3 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+            <p class="mt-3 border-t border-white/10 pt-2.5 text-[11px] leading-relaxed text-neutral-400">
               {defaultItemA.monetization.disclosureText}
             </p>
           </div>
         )}
       </div>
 
-      <div id="cmp-cta-b" class="lab-card border-t-4 border-t-emerald-600 p-5">
+      <div id="cmp-cta-b" class="lab-card border-t-2 border-t-emerald-400 p-5">
         {defaultItemB && (
           <div>
             <div class="flex items-start justify-between gap-2">
               <div>
-                <div class="font-mono text-[11px] font-bold uppercase text-emerald-700">MODEL B</div>
-                <h3 class="mt-0.5 text-base font-bold text-slate-900">{defaultItemB.name}</h3>
+                <div class="font-mono text-[11px] font-bold uppercase text-emerald-300">MODEL B</div>
+                <h3 class="mt-0.5 text-base font-bold text-white">{defaultItemB.name}</h3>
               </div>
               <span class={statusToneClass(defaultItemB.monetization.statusTone)}>
                 {defaultItemB.monetization.statusLabel}
               </span>
             </div>
-            <div class="mt-2 font-mono text-2xl font-bold text-slate-900">
+            <div class="mt-2 font-mono text-2xl font-bold text-[#dafa9c]">
               {defaultItemB.monetization.benchmarkPriceFormatted}
             </div>
-            <p class="mt-1 text-xs text-slate-600">{defaultItemB.monetization.benchmarkCaption}</p>
+            <p class="mt-1 text-xs text-neutral-400">{defaultItemB.monetization.benchmarkCaption}</p>
             <div class="mt-3 flex flex-col gap-2">
               {defaultItemB.monetization.buttons.map((btn) => (
                 <a
@@ -862,10 +862,10 @@ const jsonLd = [
                   data-affiliate-sku={defaultItemB.slug}
                   data-affiliate-mode={btn.linkMode}
                   class:list={[
-                    "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
+                    "inline-flex w-full items-center justify-between gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors",
                     btn.isPrimary
-                      ? "bg-emerald-700 text-white hover:bg-emerald-800"
-                      : "border border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100",
+                      ? "bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                      : "border border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
                   ]}
                 >
                   <span>{btn.label}</span>
@@ -873,7 +873,7 @@ const jsonLd = [
                 </a>
               ))}
             </div>
-            <p class="mt-3 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+            <p class="mt-3 border-t border-white/10 pt-2.5 text-[11px] leading-relaxed text-neutral-400">
               {defaultItemB.monetization.disclosureText}
             </p>
           </div>
@@ -1856,9 +1856,9 @@ const jsonLd = [
     const copyMdBtn = document.getElementById("cmp-copy-md") as HTMLButtonElement | null;
 
     const ACTIVE_PRESET_CLS =
-      "cmp-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors";
+      "cmp-preset-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]";
     const INACTIVE_PRESET_CLS =
-      "cmp-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20";
+      "cmp-preset-btn rounded-md border border-white/15 bg-[#161616] px-2.5 py-1 font-mono text-[11px] font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white";
 
     let activeVertical = "wattcheck";
     let slugA = "";
@@ -1917,10 +1917,10 @@ const jsonLd = [
         const on = v === vertical;
         pill.setAttribute("aria-selected", on ? "true" : "false");
         pill.className = on
-          ? "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border border-slate-900 bg-slate-900 px-3.5 py-2 text-xs font-bold text-white transition-colors"
+          ? "cmp-vert-pill inline-flex items-center gap-2 rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3.5 py-2 text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
           : cnt < 2
-            ? "cmp-vert-pill inline-flex cursor-not-allowed items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-bold text-slate-400"
-            : "cmp-vert-pill inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition-colors hover:border-blue-500 hover:text-blue-700";
+            ? "cmp-vert-pill inline-flex cursor-not-allowed items-center gap-2 rounded-md border border-white/10 bg-[#111111] px-3.5 py-2 text-xs font-bold text-neutral-500"
+            : "cmp-vert-pill inline-flex items-center gap-2 rounded-md border border-white/15 bg-[#111111] px-3.5 py-2 text-xs font-bold text-neutral-200 transition-colors hover:border-white/30 hover:text-white";
       });
 
       const grouped = new Map<string, { label: string; items: SkuData[] }>();
@@ -1983,7 +1983,7 @@ const jsonLd = [
         popularWrap.innerHTML = chips
           .map(
             (c) =>
-              `<button type="button" data-pair-a="${esc(c.a)}" data-pair-b="${esc(c.b)}" class="cmp-pop-chip rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-blue-400 hover:bg-blue-50 hover:text-blue-800">${esc(c.label)}</button>`
+              `<button type="button" data-pair-a="${esc(c.a)}" data-pair-b="${esc(c.b)}" class="cmp-pop-chip rounded-md border border-white/15 bg-[#111111] px-3 py-1 text-xs font-medium text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]">${esc(c.label)}</button>`
           )
           .join("");
         popularWrap.querySelectorAll<HTMLButtonElement>(".cmp-pop-chip").forEach((chip) => {
@@ -2010,16 +2010,13 @@ const jsonLd = [
             ? "badge-fail"
             : "badge-caution";
       const sideLabel = side === "A" ? "MODEL A" : "MODEL B";
-      const sideTextCls = side === "A" ? "text-blue-700" : "text-emerald-700";
-      const primaryBtnCls =
-        side === "A"
-          ? "bg-blue-700 text-white hover:bg-blue-800"
-          : "bg-emerald-700 text-white hover:bg-emerald-800";
+      const sideTextCls = side === "A" ? "text-sky-300" : "text-emerald-300";
+      const primaryBtnCls = "bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]";
 
       const btnsHtml = m.buttons
         .map(
           (btn) =>
-            `<a href="${esc(btn.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(btn.storeName)}" data-affiliate-vertical="${esc(item.vertical)}" data-affiliate-sku="${esc(item.slug)}" data-affiliate-mode="${esc(btn.linkMode)}" class="inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${btn.isPrimary ? primaryBtnCls : "border border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100"}"><span>${esc(btn.label)}</span><span class="font-mono text-xs opacity-85">↗</span></a>`
+            `<a href="${esc(btn.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(btn.storeName)}" data-affiliate-vertical="${esc(item.vertical)}" data-affiliate-sku="${esc(item.slug)}" data-affiliate-mode="${esc(btn.linkMode)}" class="inline-flex w-full items-center justify-between gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors ${btn.isPrimary ? primaryBtnCls : "border border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white"}"><span>${esc(btn.label)}</span><span class="font-mono text-xs opacity-85">↗</span></a>`
         )
         .join("");
 
@@ -2028,30 +2025,30 @@ const jsonLd = [
           <div class="min-w-0">
             <div class="flex items-center gap-2">
               <span class="font-mono text-[11px] font-bold uppercase ${sideTextCls}">${sideLabel}</span>
-              <span class="text-[11px] text-slate-500">${esc(item.brand)} · ${esc(item.categoryLabel)}</span>
+              <span class="text-[11px] text-neutral-400">${esc(item.brand)} · ${esc(item.categoryLabel)}</span>
             </div>
-            <h3 class="mt-0.5 text-base font-bold text-slate-900">
-              <a href="${esc(item.href)}" class="hover:text-blue-700 hover:underline">${esc(item.name)}</a>
+            <h3 class="mt-0.5 text-base font-bold text-white">
+              <a href="${esc(item.href)}" class="hover:text-[#dafa9c] hover:underline">${esc(item.name)}</a>
             </h3>
           </div>
           <span class="${toneCls}">${esc(m.statusLabel)}</span>
         </div>
         <div class="mt-2 flex items-baseline gap-2">
-          <span class="kpi-value font-mono text-2xl font-bold text-slate-900">${esc(m.benchmarkPriceFormatted)}</span>
-          <span class="font-mono text-xs text-slate-500">(${esc(m.benchmarkDate)})</span>
+          <span class="kpi-value font-mono text-2xl font-bold text-[#dafa9c]">${esc(m.benchmarkPriceFormatted)}</span>
+          <span class="font-mono text-xs text-neutral-400">(${esc(m.benchmarkDate)})</span>
         </div>
-        <p class="mt-1 text-xs text-slate-600">${esc(m.benchmarkCaption)}</p>
-        <p class="mt-2 rounded-md border border-slate-100 bg-slate-50 px-3 py-2 text-xs text-slate-700">
-          <strong class="text-slate-900">${isKo ? "최적 용도:" : "Best for:"}</strong> ${esc(item.bestFor)}
+        <p class="mt-1 text-xs text-neutral-400">${esc(m.benchmarkCaption)}</p>
+        <p class="mt-2 rounded-md border border-white/10 bg-[#111111] px-3 py-2 text-xs text-neutral-300">
+          <strong class="text-white">${isKo ? "최적 용도:" : "Best for:"}</strong> ${esc(item.bestFor)}
         </p>
         <div class="mt-3 flex flex-col gap-2">${btnsHtml}</div>
-        <div class="mt-3 flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
-          <a href="${esc(item.href)}" class="font-semibold text-blue-700 hover:underline">
+        <div class="mt-3 flex items-center justify-between border-t border-white/10 pt-2.5 text-xs">
+          <a href="${esc(item.href)}" class="font-semibold text-[#dafa9c] hover:underline">
             ${isKo ? "상세 스펙 & 전용 계산기 열기 →" : "Open Full Spec & Calculator →"}
           </a>
-          <span class="font-mono text-[11px] text-emerald-700">Trust ${esc(item.trustScore)}</span>
+          <span class="font-mono text-[11px] text-emerald-300">Trust ${esc(item.trustScore)}</span>
         </div>
-        <p class="mt-2 text-[11px] leading-relaxed text-slate-500">${esc(m.disclosureText || payload.disclosure)}</p>
+        <p class="mt-2 text-[11px] leading-relaxed text-neutral-400">${esc(m.disclosureText || payload.disclosure)}</p>
       `;
     }
 
@@ -2131,21 +2128,21 @@ const jsonLd = [
       const diff = Math.abs(finalA - finalB);
       if (winnerBanner && winnerTag && winnerName && winnerMargin) {
         if (diff <= 1) {
-          winnerBanner.className = "mt-2 rounded-lg border border-slate-300 bg-white p-3.5";
+          winnerBanner.className = "mt-2 rounded-lg border border-amber-700/50 bg-[#291e09] p-3.5";
           winnerTag.className = "badge-caution";
           winnerTag.textContent = isKo ? "초접전 동점" : "DEAD HEAT / TIE";
           winnerName.textContent = isKo ? "두 모델 점수 사실상 동일" : "Virtual Tie — Pick by Ecosystem";
           winnerMargin.textContent = `A ${finalA} vs B ${finalB}`;
           lastWinnerText = isKo ? `초접전 동점 (A ${finalA} vs B ${finalB})` : `Virtual Tie (A ${finalA} vs B ${finalB})`;
         } else if (finalA > finalB) {
-          winnerBanner.className = "mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5";
+          winnerBanner.className = "mt-2 rounded-lg border border-sky-700/50 bg-[#0f1f30] p-3.5";
           winnerTag.className = "badge-info";
           winnerTag.textContent = isKo ? "가중 승자: 모델 A" : "WEIGHTED WINNER: MODEL A";
           winnerName.textContent = itemA.name;
           winnerMargin.textContent = isKo ? `B 대비 +${diff}점 우세` : `+${diff} pts ahead of Model B`;
           lastWinnerText = `${itemA.name} (+${diff} pts)`;
         } else {
-          winnerBanner.className = "mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5";
+          winnerBanner.className = "mt-2 rounded-lg border border-emerald-700/50 bg-[#0d261a] p-3.5";
           winnerTag.className = "badge-pass";
           winnerTag.textContent = isKo ? "가중 승자: 모델 B" : "WEIGHTED WINNER: MODEL B";
           winnerName.textContent = itemB.name;
@@ -2234,26 +2231,26 @@ const jsonLd = [
             const wA = Math.round((row.barPctA / 100) * 180);
             const wB = Math.round((row.barPctB / 100) * 180);
             const cellACls =
-              row.winner === "a" ? "font-bold text-blue-700 bg-blue-50/40" : "text-slate-800";
+              row.winner === "a" ? "font-bold text-sky-300 bg-[#0f1f30]/70" : "text-neutral-200";
             const cellBCls =
-              row.winner === "b" ? "font-bold text-emerald-700 bg-emerald-50/40" : "text-slate-800";
+              row.winner === "b" ? "font-bold text-emerald-300 bg-[#0d261a]/70" : "text-neutral-200";
             const badgeCls =
               row.winner === "a"
                 ? "badge-info"
                 : row.winner === "b"
                   ? "badge-pass"
-                  : "inline-flex rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600";
+                  : "inline-flex rounded-full border border-white/15 bg-[#111111] px-2.5 py-0.5 text-xs font-medium text-neutral-300";
             return `
               <tr>
-                <th scope="row" class="font-semibold text-slate-700">${esc(row.label)}</th>
+                <th scope="row" class="font-semibold text-neutral-300">${esc(row.label)}</th>
                 <td class="font-mono text-[13px] ${cellACls}">${esc(row.displayA)}</td>
                 <td class="font-mono text-[13px] ${cellBCls}">${esc(row.displayB)}</td>
                 <td>
                   <svg viewBox="0 0 180 26" class="h-6 w-44" role="img" aria-label="${esc(row.label)}">
-                    <rect x="0" y="2" width="180" height="8" rx="3" fill="#E2E8F0" />
-                    <rect x="0" y="2" width="${wA}" height="8" rx="3" fill="${row.winner === "a" ? "#2563EB" : "#64748B"}" />
-                    <rect x="0" y="15" width="180" height="8" rx="3" fill="#E2E8F0" />
-                    <rect x="0" y="15" width="${wB}" height="8" rx="3" fill="${row.winner === "b" ? "#059669" : "#94A3B8"}" />
+                    <rect x="0" y="2" width="180" height="8" rx="3" fill="#262626" />
+                    <rect x="0" y="2" width="${wA}" height="8" rx="3" fill="${row.winner === "a" ? "#38bdf8" : "#525252"}" />
+                    <rect x="0" y="15" width="180" height="8" rx="3" fill="#262626" />
+                    <rect x="0" y="15" width="${wB}" height="8" rx="3" fill="${row.winner === "b" ? "#34d399" : "#737373"}" />
                   </svg>
                 </td>
                 <td><span class="${badgeCls}">${esc(row.deltaText)}</span></td>
@@ -2399,10 +2396,10 @@ const jsonLd = [
         copyToClipboard(window.location.href).then((ok) => {
           if (!ok) return;
           copyLinkBtn.textContent = done;
-          copyLinkBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          copyLinkBtn.classList.add("border-emerald-700/50", "text-emerald-200", "bg-[#0d261a]");
           window.setTimeout(() => {
             copyLinkBtn.textContent = def;
-            copyLinkBtn.classList.remove("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+            copyLinkBtn.classList.remove("border-emerald-700/50", "text-emerald-200", "bg-[#0d261a]");
           }, 1800);
         });
       });
@@ -2438,10 +2435,10 @@ const jsonLd = [
           (ok) => {
             if (!ok) return;
             copyMdBtn.textContent = done;
-            copyMdBtn.classList.add("bg-emerald-700");
+            copyMdBtn.classList.add("bg-emerald-400");
             window.setTimeout(() => {
               copyMdBtn.textContent = def;
-              copyMdBtn.classList.remove("bg-emerald-700");
+              copyMdBtn.classList.remove("bg-emerald-400");
             }, 1800);
           }
         );

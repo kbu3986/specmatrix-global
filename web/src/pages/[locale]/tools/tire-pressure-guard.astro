@@ -181,47 +181,47 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-600">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-900">
+    <span class="font-medium text-white">
       {isKo ? "타이어 공기압 & 후크리스 5.0 bar 안전 가드" : "Tire Pressure & Hookless 5.0 Bar Guard"}
     </span>
   </nav>
 
   <!-- Hero Header -->
-  <section class="lab-card overflow-hidden border-rose-200/90 bg-white">
-    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+  <section class="lab-card overflow-hidden border-rose-700/40">
+    <div class="border-b border-white/10 bg-[#111111] px-6 py-5 text-white">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="rounded-full border border-rose-400/40 bg-rose-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-rose-200">
+          <span class="rounded-full border border-rose-700/50 bg-[#2c1014] px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-rose-200">
             CYCLEGEAR · ISO/ETRTO 5.0 BAR GUARD
           </span>
-          <span class="font-mono text-xs text-slate-300">
+          <span class="font-mono text-xs text-neutral-400">
             42/58% Load Split · {tireCards.length} {isKo ? "종 검증 로드 타이어" : "Verified Road Tires"}
           </span>
         </div>
         <button
           type="button"
           id="tpg-copy-link"
-          class="rounded-lg border border-white/25 bg-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-white/20"
+          class="rounded-md border border-white/15 bg-[#161616] px-3 py-1.5 font-mono text-xs font-semibold text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
         >
           {isKo ? "세팅 공유 링크 복사" : "Copy Shareable Setup Link"}
         </button>
       </div>
 
-      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
         {isKo
           ? "로드 타이어 최적 공기압 & ETRTO 후크리스 5.0 bar 안전 가드"
           : "Road Tire Pressure Calculator & ETRTO 5.0 Bar Hookless Safety Guard"}
       </h1>
-      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-neutral-300 sm:text-sm">
         {isKo
           ? "라이더+자전거 총중량(42/58% 전후 하중 배분), 내부 림폭에 따른 실측 타이어 팽창 폭, 노면 상태를 반영해 최적 앞/뒤 공기압(bar·psi)을 산출하고 후크리스(TSS) 5.0 bar(72.5 psi) 및 28mm 최소 폭 안전 규정을 강제 검사합니다."
           : "Compute deterministic front/rear road tire pressures (bar & psi) using 42/58% load split, internal rim-width expansion, and surface damping — enforced by a hard ISO/ETRTO 5.0 bar (72.5 psi) and >=28 mm hookless safety guard."}
@@ -234,12 +234,12 @@ const jsonLd = [
         <!-- Left 7 cols: Controls -->
         <div class="space-y-4 lg:col-span-7">
           <!-- System Weight Slider -->
-          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-              <label for="tpg-weight" class="font-bold text-slate-900">
+              <label for="tpg-weight" class="font-bold text-white">
                 {isKo ? "1. 라이더 + 자전거 + 장비 총중량 (System Weight)" : "1. Rider + Bike + Gear System Weight"}
               </label>
-              <span id="tpg-weight-val" class="font-mono text-sm font-extrabold text-blue-700">
+              <span id="tpg-weight-val" class="font-mono text-sm font-extrabold text-[#dafa9c]">
                 78 kg (172 lb)
               </span>
             </div>
@@ -252,7 +252,7 @@ const jsonLd = [
               value="78"
               class="lab-slider mt-3"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>50 kg (110 lb)</span>
               <span>85 kg (187 lb)</span>
               <span>125 kg (276 lb)</span>
@@ -261,8 +261,8 @@ const jsonLd = [
 
           <!-- Tire Width & Internal Rim Width -->
           <div class="grid gap-4 sm:grid-cols-2">
-            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <span class="block text-xs font-bold text-slate-900">
+            <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
+              <span class="block text-xs font-bold text-white">
                 {isKo ? "2. 타이어 표기 폭 (Nominal Width)" : "2. Nominal Tire Width"}
               </span>
               <div class="mt-2.5 grid grid-cols-4 gap-1.5" role="group" aria-label={isKo ? "타이어 폭 선택" : "Tire Width"}>
@@ -272,24 +272,24 @@ const jsonLd = [
                     data-tire-w={w}
                     aria-pressed={w === 28 ? "true" : "false"}
                     class:list={[
-                      "tpg-tire-btn rounded-lg border py-2 font-mono text-xs font-bold transition-colors",
+                      "tpg-tire-btn rounded-md border py-2 font-mono text-xs font-bold transition-colors",
                       w === 28
-                        ? "border-slate-900 bg-slate-900 text-white"
-                        : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                        ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                        : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
                     ]}
                   >
                     {w}mm
                   </button>
                 ))}
               </div>
-              <p class="mt-2 font-mono text-[11px] text-slate-600">
+              <p class="mt-2 font-mono text-[11px] text-neutral-400">
                 {isKo ? "추정 실측 팽창폭:" : "Est. Measured Width:"}{" "}
-                <strong id="tpg-measured-w" class="text-slate-900">28.8 mm</strong>
+                <strong id="tpg-measured-w" class="text-white">28.8 mm</strong>
               </p>
             </div>
 
-            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <span class="block text-xs font-bold text-slate-900">
+            <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
+              <span class="block text-xs font-bold text-white">
                 {isKo ? "3. 휠셋 내부 림폭 (Internal Rim Width)" : "3. Internal Rim Width"}
               </span>
               <div class="mt-2.5 grid grid-cols-4 gap-1.5" role="group" aria-label={isKo ? "내부 림폭 선택" : "Internal Rim Width"}>
@@ -299,17 +299,17 @@ const jsonLd = [
                     data-rim-w={rw}
                     aria-pressed={rw === 21 ? "true" : "false"}
                     class:list={[
-                      "tpg-rimw-btn rounded-lg border py-2 font-mono text-xs font-bold transition-colors",
+                      "tpg-rimw-btn rounded-md border py-2 font-mono text-xs font-bold transition-colors",
                       rw === 21
-                        ? "border-slate-900 bg-slate-900 text-white"
-                        : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                        ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                        : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
                     ]}
                   >
                     {rw}mm
                   </button>
                 ))}
               </div>
-              <p class="mt-2 font-mono text-[11px] text-slate-600">
+              <p class="mt-2 font-mono text-[11px] text-neutral-400">
                 {isKo ? "19mm 기준 +0.4mm/mm 팽창 보정" : "+0.4 mm casing stretch per +1 mm rim"}
               </p>
             </div>
@@ -317,8 +317,8 @@ const jsonLd = [
 
           <!-- Rim Type & Surface -->
           <div class="grid gap-4 sm:grid-cols-2">
-            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <span class="block text-xs font-bold text-slate-900">
+            <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
+              <span class="block text-xs font-bold text-white">
                 {isKo ? "4. 림 비드 타입 (Rim Profile)" : "4. Rim Type (Hooked vs Hookless)"}
               </span>
               <div class="mt-2.5 grid grid-cols-2 gap-2" role="group" aria-label={isKo ? "림 타입 선택" : "Rim Type"}>
@@ -326,7 +326,7 @@ const jsonLd = [
                   type="button"
                   data-rim-type="hooked"
                   aria-pressed="true"
-                  class="tpg-rimtype-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-bold text-white transition-colors"
+                  class="tpg-rimtype-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-2 text-xs font-bold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
                 >
                   {isKo ? "훅드 (Hooked)" : "Hooked"}
                 </button>
@@ -334,20 +334,20 @@ const jsonLd = [
                   type="button"
                   data-rim-type="hookless"
                   aria-pressed="false"
-                  class="tpg-rimtype-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 transition-colors hover:border-rose-500"
+                  class="tpg-rimtype-btn rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-bold text-neutral-200 transition-colors hover:border-rose-700/60 hover:text-rose-200"
                 >
                   {isKo ? "후크리스 (TSS)" : "Hookless / TSS"}
                 </button>
               </div>
-              <p class="mt-2 text-[11px] text-slate-600">
+              <p class="mt-2 text-[11px] text-neutral-400">
                 {isKo
                   ? "후크리스(TSS)는 ETRTO 5.0 bar / 72.5 psi 절대 상한이 적용됩니다."
                   : "Hookless (TSS) enforces a strict ISO/ETRTO 5.0 bar (72.5 psi) ceiling."}
               </p>
             </div>
 
-            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <span class="block text-xs font-bold text-slate-900">
+            <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
+              <span class="block text-xs font-bold text-white">
                 {isKo ? "5. 주행 노면 프리셋 (Surface)" : "5. Road Surface Preset"}
               </span>
               <div class="mt-2.5 grid grid-cols-2 gap-1.5" role="group" aria-label={isKo ? "주행 노면 선택" : "Road Surface"}>
@@ -357,10 +357,10 @@ const jsonLd = [
                     data-surface={sf.id}
                     aria-pressed={idx === 0 ? "true" : "false"}
                     class:list={[
-                      "tpg-surf-btn rounded-lg border px-2.5 py-2 text-left text-[11px] font-bold transition-colors",
+                      "tpg-surf-btn rounded-md border px-2.5 py-2 text-left text-[11px] font-bold transition-colors",
                       idx === 0
-                        ? "border-slate-900 bg-slate-900 text-white"
-                        : "border-slate-300 bg-white text-slate-700 hover:border-blue-500",
+                        ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                        : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
                     ]}
                   >
                     {sf.shortLabel}
@@ -371,14 +371,14 @@ const jsonLd = [
           </div>
 
           <!-- Optional User Target Gauge Verification -->
-          <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
             <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-              <label for="tpg-user-bar" class="font-bold text-slate-900">
+              <label for="tpg-user-bar" class="font-bold text-white">
                 {isKo
                   ? "6. 내 평소 주입 공기압 안전 점검 (선택 슬라이더)"
                   : "6. Verify Your Current Pump Gauge Pressure (Optional)"}
               </label>
-              <span id="tpg-user-bar-val" class="font-mono font-bold text-slate-900">
+              <span id="tpg-user-bar-val" class="font-mono font-bold text-[#dafa9c]">
                 4.8 bar (69.6 psi)
               </span>
             </div>
@@ -391,9 +391,9 @@ const jsonLd = [
               value="4.8"
               class="lab-slider mt-2.5"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>3.0 bar (43.5 psi)</span>
-              <span class="font-bold text-rose-700">5.0 bar / 72.5 psi ETRTO Cap</span>
+              <span class="font-bold text-rose-300">5.0 bar / 72.5 psi ETRTO Cap</span>
               <span>7.5 bar (108.8 psi)</span>
             </div>
           </div>
@@ -402,57 +402,57 @@ const jsonLd = [
         <!-- Right 5 cols: Live Front/Rear Pressure Readout & Hard Hookless Guard -->
         <div class="flex flex-col justify-between gap-4 lg:col-span-5">
           <!-- Safety Status Banner -->
-          <div id="tpg-safety-banner" role="alert" class="rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4">
+          <div id="tpg-safety-banner" role="alert" class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4">
             <div class="flex items-center justify-between gap-2">
               <span id="tpg-safety-badge" class="badge-pass font-mono">SAFE · HOOKED</span>
-              <span class="font-mono text-[11px] font-semibold text-slate-600">ISO/ETRTO Guard</span>
+              <span class="font-mono text-[11px] font-semibold text-neutral-400">ISO/ETRTO Guard</span>
             </div>
-            <h2 id="tpg-safety-title" class="mt-2 text-sm font-extrabold text-slate-900">
+            <h2 id="tpg-safety-title" class="mt-2 text-sm font-extrabold text-white">
               {isKo ? "안전 범위 내 공기압 세팅입니다" : "Pressure Setup Within Safe Operating Envelope"}
             </h2>
-            <p id="tpg-safety-desc" class="mt-1 text-xs leading-relaxed text-slate-700"></p>
+            <p id="tpg-safety-desc" class="mt-1 text-xs leading-relaxed text-neutral-300"></p>
           </div>
 
           <!-- Front & Rear Recommendation Cards -->
           <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            <div class="rounded-xl border border-blue-200 bg-white p-4 shadow-xs">
+            <div class="rounded-lg border border-sky-700/50 bg-[#0f1f30] p-4">
               <div class="flex items-center justify-between">
-                <span class="font-mono text-[11px] font-bold uppercase text-blue-800">
+                <span class="font-mono text-[11px] font-bold uppercase text-sky-200">
                   {isKo ? "권장 앞 타이어 (42% 하중)" : "RECOMMENDED FRONT (42% LOAD)"}
                 </span>
                 <span id="tpg-front-clamp" class="hidden badge-fail font-mono text-[10px]">CLAMPED 5.0 bar</span>
               </div>
               <div class="mt-1.5 flex items-baseline gap-3">
-                <span id="tpg-front-bar" class="kpi-value font-mono text-3xl font-extrabold text-blue-700">4.25 bar</span>
-                <span id="tpg-front-psi" class="kpi-value font-mono text-lg font-bold text-slate-700">61.7 psi</span>
+                <span id="tpg-front-bar" class="kpi-value font-mono text-3xl font-extrabold text-[#dafa9c]">4.25 bar</span>
+                <span id="tpg-front-psi" class="kpi-value font-mono text-lg font-bold text-white">61.7 psi</span>
               </div>
-              <div id="tpg-front-meta" class="mt-1 font-mono text-[11px] text-slate-600">—</div>
+              <div id="tpg-front-meta" class="mt-1 font-mono text-[11px] text-sky-200/80">—</div>
             </div>
 
-            <div class="rounded-xl border border-emerald-200 bg-white p-4 shadow-xs">
+            <div class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4">
               <div class="flex items-center justify-between">
-                <span class="font-mono text-[11px] font-bold uppercase text-emerald-800">
+                <span class="font-mono text-[11px] font-bold uppercase text-emerald-200">
                   {isKo ? "권장 뒤 타이어 (58% 하중)" : "RECOMMENDED REAR (58% LOAD)"}
                 </span>
                 <span id="tpg-rear-clamp" class="hidden badge-fail font-mono text-[10px]">CLAMPED 5.0 bar</span>
               </div>
               <div class="mt-1.5 flex items-baseline gap-3">
-                <span id="tpg-rear-bar" class="kpi-value font-mono text-3xl font-extrabold text-emerald-700">5.00 bar</span>
-                <span id="tpg-rear-psi" class="kpi-value font-mono text-lg font-bold text-slate-700">72.5 psi</span>
+                <span id="tpg-rear-bar" class="kpi-value font-mono text-3xl font-extrabold text-[#dafa9c]">5.00 bar</span>
+                <span id="tpg-rear-psi" class="kpi-value font-mono text-lg font-bold text-white">72.5 psi</span>
               </div>
-              <div id="tpg-rear-meta" class="mt-1 font-mono text-[11px] text-slate-600">—</div>
+              <div id="tpg-rear-meta" class="mt-1 font-mono text-[11px] text-emerald-200/80">—</div>
             </div>
           </div>
 
           <!-- User Target Pump Check Card -->
-          <div id="tpg-gauge-card" class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs">
+          <div id="tpg-gauge-card" class="rounded-lg border border-white/10 bg-[#111111] p-4 text-xs">
             <div class="flex items-center justify-between gap-2">
-              <span class="font-bold text-slate-900">
+              <span class="font-bold text-white">
                 {isKo ? "사용자 주입 공기압 판정" : "Your Pump Gauge Check"}
               </span>
               <span id="tpg-gauge-badge" class="badge-pass font-mono">OK</span>
             </div>
-            <p id="tpg-gauge-msg" class="mt-1.5 leading-relaxed text-slate-700"></p>
+            <p id="tpg-gauge-msg" class="mt-1.5 leading-relaxed text-neutral-300"></p>
           </div>
         </div>
       </div>
@@ -465,12 +465,12 @@ const jsonLd = [
   <section class="mt-6 space-y-4" aria-labelledby="tpg-tires-heading">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div>
-        <h2 id="tpg-tires-heading" class="text-lg font-extrabold tracking-tight text-slate-900">
+        <h2 id="tpg-tires-heading" class="text-lg font-extrabold tracking-tight text-white">
           {isKo
             ? "검증된 로드 튜블리스 타이어 공식 스펙 & 후크리스 호환 현황"
             : "Verified Road Tubeless Tires — Official Weight, TPI & Hookless Specs"}
         </h2>
-        <p class="text-xs text-slate-600">
+        <p class="text-xs text-neutral-400">
           {isKo
             ? "제조사 공식 기술 문서에서 교차 검증된 무게·TPI 케이싱·후크리스 5.0 bar(72.5 psi) 승인 현황입니다."
             : "Official manufacturer weights, TPI casing construction, and ETRTO 5.0 bar (72.5 psi) hookless compatibility."}
@@ -478,7 +478,7 @@ const jsonLd = [
       </div>
       <a
         href={withBase(`/${locale}/cyclegear/matrix/gps-tires-trainers`)}
-        class="font-mono text-xs font-semibold text-blue-700 hover:underline"
+        class="font-mono text-xs font-semibold text-[#dafa9c] hover:underline"
       >
         {isKo ? "전체 CycleGear 매트릭스 보기 →" : "Full CycleGear Matrix →"}
       </a>
@@ -486,10 +486,10 @@ const jsonLd = [
 
     <div class="grid gap-4 md:grid-cols-3">
       {tireCards.map((tire) => (
-        <article class="lab-card flex flex-col justify-between bg-white p-5 transition-colors hover:border-blue-400">
+        <article class="lab-card flex flex-col justify-between p-5 transition-colors hover:border-white/25 hover:bg-[#1c1c1c]">
           <div>
             <div class="flex items-center justify-between gap-2">
-              <span class="font-mono text-[11px] font-bold uppercase text-slate-600">
+              <span class="font-mono text-[11px] font-bold uppercase text-neutral-400">
                 {tire.brand} · {tire.tireWidthMm}mm
               </span>
               <span class={tire.hooklessCompatible ? "badge-pass font-mono text-[10px]" : "badge-caution font-mono text-[10px]"}>
@@ -503,44 +503,44 @@ const jsonLd = [
               </span>
             </div>
 
-            <h3 class="mt-2 text-base font-extrabold text-slate-900">
-              <a href={tire.href} class="hover:text-blue-700 hover:underline">
+            <h3 class="mt-2 text-base font-extrabold text-white">
+              <a href={tire.href} class="hover:text-[#dafa9c] hover:underline">
                 {tire.name}
               </a>
             </h3>
 
-            <div class="mt-3 grid grid-cols-2 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+            <div class="mt-3 grid grid-cols-2 gap-2 rounded-md border border-white/10 bg-[#111111] p-2.5 text-center">
               <div>
-                <div class="font-mono text-[10px] text-slate-600">{isKo ? "공식 무게" : "Claimed Weight"}</div>
-                <div class="kpi-value font-mono text-sm font-extrabold text-slate-900">
+                <div class="font-mono text-[10px] text-neutral-400">{isKo ? "공식 무게" : "Claimed Weight"}</div>
+                <div class="kpi-value font-mono text-sm font-extrabold text-white">
                   {formatInt(tire.weightG)} g
                 </div>
               </div>
               <div>
-                <div class="font-mono text-[10px] text-slate-600">MSRP</div>
-                <div class="kpi-value font-mono text-sm font-extrabold text-slate-900">
+                <div class="font-mono text-[10px] text-neutral-400">MSRP</div>
+                <div class="kpi-value font-mono text-sm font-extrabold text-[#dafa9c]">
                   {tire.msrpDisplay}
                 </div>
               </div>
             </div>
 
-            <dl class="mt-3 space-y-1.5 text-xs text-slate-700">
+            <dl class="mt-3 space-y-1.5 text-xs text-neutral-300">
               <div>
-                <dt class="font-mono text-[10px] font-bold uppercase text-slate-500">
+                <dt class="font-mono text-[10px] font-bold uppercase text-neutral-400">
                   {isKo ? "케이싱 (TPI)" : "Casing / TPI"}
                 </dt>
-                <dd class="font-medium text-slate-800">{tire.tpiText}</dd>
+                <dd class="font-medium text-neutral-200">{tire.tpiText}</dd>
               </div>
               <div>
-                <dt class="font-mono text-[10px] font-bold uppercase text-slate-500">
+                <dt class="font-mono text-[10px] font-bold uppercase text-neutral-400">
                   {isKo ? "컴파운드" : "Compound"}
                 </dt>
-                <dd class="text-slate-700">{tire.compoundText}</dd>
+                <dd class="text-neutral-300">{tire.compoundText}</dd>
               </div>
             </dl>
           </div>
 
-          <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+          <div class="mt-4 space-y-2 border-t border-white/10 pt-3">
             {tire.primaryCta && (
               <a
                 href={tire.primaryCta.url}
@@ -550,17 +550,17 @@ const jsonLd = [
                 data-affiliate-vertical="cyclegear"
                 data-affiliate-sku={tire.slug}
                 data-affiliate-mode={tire.primaryCta.linkMode}
-                class="inline-flex w-full items-center justify-between rounded-lg bg-blue-700 px-3.5 py-2 text-xs font-bold text-white transition-colors hover:bg-blue-800"
+                class="inline-flex w-full items-center justify-between rounded-md bg-[#dafa9c] px-3.5 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
               >
                 <span>{tire.primaryCta.label}</span>
                 <span>↗</span>
               </a>
             )}
             <div class="flex items-center justify-between text-xs">
-              <a href={tire.href} class="font-semibold text-slate-700 hover:text-blue-700 hover:underline">
+              <a href={tire.href} class="font-semibold text-neutral-300 hover:text-[#dafa9c] hover:underline">
                 {isKo ? "상세 스펙 & 호환성 →" : "Full Spec & Guard →"}
               </a>
-              <a href={tire.compareHref} class="font-mono font-semibold text-blue-700 hover:underline">
+              <a href={tire.compareHref} class="font-mono font-semibold text-[#dafa9c] hover:underline">
                 {isKo ? "1:1 비교 →" : "Compare →"}
               </a>
             </div>
@@ -569,7 +569,7 @@ const jsonLd = [
       ))}
     </div>
 
-    <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-[11px] leading-relaxed text-slate-600">
+    <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5 text-[11px] leading-relaxed text-neutral-400">
       {cfg.compliance.disclosures[locale]}
     </div>
   </section>
@@ -664,31 +664,31 @@ const jsonLd = [
         const on = Number(b.getAttribute("data-tire-w")) === tireWidthMm;
         b.setAttribute("aria-pressed", on ? "true" : "false");
         b.className = on
-          ? "tpg-tire-btn rounded-lg border border-slate-900 bg-slate-900 py-2 font-mono text-xs font-bold text-white transition-colors"
-          : "tpg-tire-btn rounded-lg border border-slate-300 bg-white py-2 font-mono text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+          ? "tpg-tire-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] py-2 font-mono text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "tpg-tire-btn rounded-md border border-white/15 bg-[#161616] py-2 font-mono text-xs font-bold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
       rimWBtns.forEach((b) => {
         const on = Number(b.getAttribute("data-rim-w")) === internalRimMm;
         b.setAttribute("aria-pressed", on ? "true" : "false");
         b.className = on
-          ? "tpg-rimw-btn rounded-lg border border-slate-900 bg-slate-900 py-2 font-mono text-xs font-bold text-white transition-colors"
-          : "tpg-rimw-btn rounded-lg border border-slate-300 bg-white py-2 font-mono text-xs font-bold text-slate-700 hover:border-blue-500 transition-colors";
+          ? "tpg-rimw-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] py-2 font-mono text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "tpg-rimw-btn rounded-md border border-white/15 bg-[#161616] py-2 font-mono text-xs font-bold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
       rimTypeBtns.forEach((b) => {
         const on = (b.getAttribute("data-rim-type") || "hooked") === rimType;
         b.setAttribute("aria-pressed", on ? "true" : "false");
         b.className = on
           ? rimType === "hookless"
-            ? "tpg-rimtype-btn rounded-lg border border-rose-700 bg-rose-700 px-3 py-2 text-xs font-bold text-white transition-colors"
-            : "tpg-rimtype-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-bold text-white transition-colors"
-          : "tpg-rimtype-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:border-rose-500 transition-colors";
+            ? "tpg-rimtype-btn rounded-md border border-rose-500 bg-[#2c1014] px-3 py-2 text-xs font-bold text-rose-200 transition-colors"
+            : "tpg-rimtype-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-2 text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "tpg-rimtype-btn rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-bold text-neutral-200 hover:border-rose-700/60 hover:text-rose-200 transition-colors";
       });
       surfBtns.forEach((b) => {
         const on = (b.getAttribute("data-surface") || "smooth") === surfaceId;
         b.setAttribute("aria-pressed", on ? "true" : "false");
         b.className = on
-          ? "tpg-surf-btn rounded-lg border border-slate-900 bg-slate-900 px-2.5 py-2 text-left text-[11px] font-bold text-white transition-colors"
-          : "tpg-surf-btn rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-left text-[11px] font-bold text-slate-700 hover:border-blue-500 transition-colors";
+          ? "tpg-surf-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-2 text-left text-[11px] font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "tpg-surf-btn rounded-md border border-white/15 bg-[#161616] px-2.5 py-2 text-left text-[11px] font-bold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
     }
 
@@ -795,7 +795,7 @@ const jsonLd = [
       // Main ETRTO Safety Verdict Banner
       if (safetyBanner && safetyBadge && safetyTitle && safetyDesc) {
         if (widthTooNarrowHookless) {
-          safetyBanner.className = "rounded-xl border-2 border-rose-600 bg-rose-50 p-4";
+          safetyBanner.className = "rounded-lg border border-rose-600/80 bg-[#2c1014] p-4";
           safetyBadge.className = "badge-fail font-mono";
           safetyBadge.textContent = isKo ? "DANGER · 후크리스 폭 위반" : "DANGER · HOOKLESS WIDTH VIOLATION";
           safetyTitle.textContent = isKo
@@ -805,7 +805,7 @@ const jsonLd = [
             ? "최신 ISO/ETRTO 후크리스 규정 및 주요 타이어 제조사(Continental·Vittoria·Pirelli)는 28 mm 미만 로드 타이어의 후크리스 장착을 금지합니다. 최소 28–30 mm 타이어로 변경하거나 훅드(Hooked) 림을 사용하세요."
             : "ISO/ETRTO TSS rules and major manufacturers (Continental, Vittoria, Pirelli) forbid sub-28 mm tires on hookless road rims due to blow-off risk. Upgrade to >=28–30 mm tires or use a hooked rim.";
         } else if (frontClamped || rearClamped || userOverHookless) {
-          safetyBanner.className = "rounded-xl border-2 border-rose-600 bg-rose-50 p-4";
+          safetyBanner.className = "rounded-lg border border-rose-600/80 bg-[#2c1014] p-4";
           safetyBadge.className = "badge-fail font-mono";
           safetyBadge.textContent = isKo ? "DANGER · 5.0 BAR 상한 초과" : "DANGER · OVER 5.0 BAR (72.5 PSI)";
           safetyTitle.textContent = isKo
@@ -816,7 +816,7 @@ const jsonLd = [
             ? `시스템 총중량 ${systemKg} kg + ${tireWidthMm}mm 타이어 물리 계산치(앞 ${rawFrontBar.toFixed(2)} / 뒤 ${rawRearBar.toFixed(2)} bar) 또는 설정 공기압(${userTargetBar.toFixed(1)} bar)이 5.0 bar를 초과합니다. 후크리스 과압은 주행 중 타이어 이탈 사고로 직결됩니다. ${recW} 광폭 타이어로 업사이즈하거나 훅드 림으로 전환하세요.`
             : `Uncapped optimal pressure (${rawFrontBar.toFixed(2)} F / ${rawRearBar.toFixed(2)} R bar) or your gauge target (${userTargetBar.toFixed(1)} bar) exceeds the 5.0 bar (72.5 psi) hookless blow-off limit. Upsize to ${recW} tires or switch to a hooked rim.`;
         } else if (wideRim28Caution) {
-          safetyBanner.className = "rounded-xl border-2 border-amber-500 bg-amber-50 p-4";
+          safetyBanner.className = "rounded-lg border border-amber-700/60 bg-[#291e09] p-4";
           safetyBadge.className = "badge-caution font-mono";
           safetyBadge.textContent = isKo ? "CAUTION · 25MM 광폭 후크리스" : "CAUTION · 25MM WIDE HOOKLESS";
           safetyTitle.textContent = isKo
@@ -826,7 +826,7 @@ const jsonLd = [
             ? "권장 공기압은 5.0 bar 이내지만, ETRTO 2024+ 지침은 25 mm 내부 후크리스 림에 29–30 mm 이상 타이어를 권장합니다. 28 mm 장착 전 휠·타이어 양사 공식 승인표를 반드시 교차 확인하세요."
             : "Calculated pressure is safely <=5.0 bar, but ETRTO 2024+ recommends >=29–30 mm tires on 25 mm internal hookless rims. Confirm explicit wheel + tire maker approval before riding 28 mm.";
         } else if (isHookless) {
-          safetyBanner.className = "rounded-xl border-2 border-emerald-500 bg-emerald-50 p-4";
+          safetyBanner.className = "rounded-lg border border-emerald-700/60 bg-[#0d261a] p-4";
           safetyBadge.className = "badge-pass font-mono";
           safetyBadge.textContent = isKo ? "PASS · 후크리스 5.0 BAR 준수" : "PASS · HOOKLESS <=5.0 BAR";
           safetyTitle.textContent = isKo
@@ -836,7 +836,7 @@ const jsonLd = [
             ? `앞 ${safeFrontBar.toFixed(2)} bar / 뒤 ${safeRearBar.toFixed(2)} bar 모두 5.0 bar 상한 이내이며 ${tireWidthMm}mm 타이어 폭 기준을 충족합니다. 튜블리스 실란트(30–40ml)와 휠 제조사 승인 리스트를 최종 확인하세요.`
             : `Both ${safeFrontBar.toFixed(2)} bar front and ${safeRearBar.toFixed(2)} bar rear stay safely below 5.0 bar (72.5 psi) with a >=28 mm tire. Confirm your rim's approved tire list and add 30–40 ml sealant.`;
         } else {
-          safetyBanner.className = "rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4";
+          safetyBanner.className = "rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4";
           safetyBadge.className = "badge-pass font-mono";
           safetyBadge.textContent = isKo ? "PASS · 훅드 림 (HOOKED)" : "PASS · HOOKED RIM";
           safetyTitle.textContent = isKo
@@ -851,7 +851,7 @@ const jsonLd = [
       // User Target Pump Pressure Check
       if (gaugeCard && gaugeBadge && gaugeMsg) {
         if (userOverHookless) {
-          gaugeCard.className = "rounded-xl border border-rose-400 bg-rose-50 p-4 text-xs";
+          gaugeCard.className = "rounded-lg border border-rose-700/60 bg-[#2c1014] p-4 text-xs";
           gaugeBadge.className = "badge-fail font-mono";
           gaugeBadge.textContent = isKo ? "위험 (>5.0 bar)" : "DANGER (>5.0 bar)";
           gaugeMsg.textContent = isKo
@@ -860,21 +860,21 @@ const jsonLd = [
         } else {
           const deltaRear = userTargetBar - safeRearBar;
           if (Math.abs(deltaRear) <= 0.35) {
-            gaugeCard.className = "rounded-xl border border-emerald-300 bg-emerald-50/70 p-4 text-xs";
+            gaugeCard.className = "rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4 text-xs";
             gaugeBadge.className = "badge-pass font-mono";
             gaugeBadge.textContent = isKo ? "권장치 근접" : "ON TARGET";
             gaugeMsg.textContent = isKo
               ? `${userTargetBar.toFixed(1)} bar는 권장 뒷바퀴 공기압(${safeRearBar.toFixed(2)} bar)과 오차 ±0.35 bar 이내의 이상적인 세팅입니다.`
               : `${userTargetBar.toFixed(1)} bar sits tightly within ±0.35 bar of your recommended rear pressure (${safeRearBar.toFixed(2)} bar).`;
           } else if (deltaRear > 0.35) {
-            gaugeCard.className = "rounded-xl border border-amber-300 bg-amber-50 p-4 text-xs";
+            gaugeCard.className = "rounded-lg border border-amber-700/50 bg-[#291e09] p-4 text-xs";
             gaugeBadge.className = "badge-caution font-mono";
             gaugeBadge.textContent = isKo ? "다소 과압" : "RUNNING HIGH";
             gaugeMsg.textContent = isKo
               ? `${userTargetBar.toFixed(1)} bar는 권장 뒷바퀴(${safeRearBar.toFixed(2)} bar)보다 +${deltaRear.toFixed(2)} bar 높습니다. 거친 노면에서 임피던스 손실(진동 저항)이 커질 수 있습니다.`
               : `${userTargetBar.toFixed(1)} bar is +${deltaRear.toFixed(2)} bar above recommended rear (${safeRearBar.toFixed(2)} bar), which can increase vibration impedance losses on real roads.`;
           } else {
-            gaugeCard.className = "rounded-xl border border-blue-200 bg-blue-50/70 p-4 text-xs";
+            gaugeCard.className = "rounded-lg border border-sky-700/50 bg-[#0f1f30] p-4 text-xs";
             gaugeBadge.className = "badge-info font-mono";
             gaugeBadge.textContent = isKo ? "저압 세팅" : "RUNNING SOFT";
             gaugeMsg.textContent = isKo

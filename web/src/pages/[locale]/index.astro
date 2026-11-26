@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import AdSlotReserve from "../../components/AdSlotReserve.astro";
-import type { ActiveLocale, PilotVertical } from "../../lib/types";
+import LandingLayout from "../../layouts/LandingLayout.astro";
+import type { ActiveLocale, AnyItem, PilotVertical } from "../../lib/types";
 import {
   getAirlines,
+  getAllItems,
   getPrimaryVerticalHref,
   getVerticalItems,
   getVerticalMatrices,
@@ -14,8 +14,6 @@ import {
   PILOT_VERTICALS,
   SITE_URL,
   VERTICAL_META,
-  formatCurrency,
-  getCategoryLabel,
   withBase,
 } from "../../lib/i18n";
 
@@ -29,6 +27,7 @@ const locale = Astro.params.locale as ActiveLocale;
 const isKo = locale === "ko";
 
 const airlines = getAirlines();
+const allItems = getAllItems();
 
 const verticalBlocks = PILOT_VERTICALS.map((v: PilotVertical) => {
   const items = getVerticalItems(v).filter((i) => i.available_locales.includes(locale));
@@ -44,16 +43,104 @@ const verticalBlocks = PILOT_VERTICALS.map((v: PilotVertical) => {
   };
 });
 
+const wcBlock = verticalBlocks.find((b) => b.id === "wattcheck")!;
+const pgBlock = verticalBlocks.find((b) => b.id === "puregram")!;
+const cgBlock = verticalBlocks.find((b) => b.id === "cyclegear")!;
+const htBlock = verticalBlocks.find((b) => b.id === "hometech")!;
+
 const totalItems = verticalBlocks.reduce((acc, b) => acc + b.items.length, 0);
 const totalVs = verticalBlocks.reduce((acc, b) => acc + b.vs.length, 0);
 const totalMatrices = verticalBlocks.reduce((acc, b) => acc + b.matrices.length, 0);
 
+// Pick 10 real SKUs across all 4 verticals for the #workbench app-frame window pane
+function pickRows(): Array<{
+  initials: string;
+  tone: string;
+  brand: string;
+  model: string;
+  status: string;
+  statusClass: string;
+  trust: number;
+}> {
+  const picked: AnyItem[] = [
+    ...wcBlock.items.slice(0, 2),
+    ...pgBlock.items.slice(0, 2),
+    ...cgBlock.items.slice(0, 2),
+    ...htBlock.items.slice(0, 2),
+  ].slice(0, 8);
+
+  const fallback = picked.length >= 8 ? picked : allItems.slice(0, 8);
+  const tones = ["1", "3", "4", "2", "5"];
+
+  return fallback.map((item, idx) => {
+    const rawName = (item.i18n[locale] ?? item.i18n.en).name;
+    const shortName = rawName.length > 34 ? `${rawName.slice(0, 33)}…` : rawName;
+    const words = item.brand.replace(/[^A-Za-z0-9\s]/g, "").trim().split(/\s+/);
+    const initials =
+      words.length >= 2
+        ? `${words[0][0]}${words[1][0]}`.toUpperCase()
+        : item.brand.slice(0, 2).toUpperCase();
+    const isQueued = idx < 2;
+    return {
+      initials,
+      tone: tones[idx % tones.length],
+      brand: item.brand,
+      model: shortName,
+      status: isQueued
+        ? isKo ? "검산중" : "Queued"
+        : isKo ? "통과" : "Verified",
+      statusClass: isQueued ? "ui-win__st" : "ui-win__st is-done",
+      trust: item.audit.trust_score,
+    };
+  });
+}
+
+const workbenchRows = pickRows();
+
+const pipelineDiagramSpec = {
+  layout: "fanin",
+  alt: isKo
+    ? "제조사 매뉴얼, 영양성분표, 항공사 규정 PDF, 전력 요금표가 95+ 검증 게이트를 거쳐 4대 매트릭스로 집계됩니다."
+    : "Manufacturer manuals, nutrition labels, airline policy PDFs, and electricity tariffs feed the 95+ trust gate into four SpecMatrix tables.",
+  sources: [
+    {
+      label: isKo ? "공식 매뉴얼" : "OEM manuals",
+      icon: "ui:file-text",
+      sub: isKo ? `${totalItems}종 데이터시트` : `${totalItems} datasheets`,
+    },
+    {
+      label: isKo ? "영양성분표" : "Nutrition panels",
+      icon: "ui:clipboard-list",
+      sub: "PureGram",
+    },
+    {
+      label: isKo ? "항공사 규정" : "Airline PDFs",
+      icon: "ui:plane",
+      sub: isKo ? `${airlines.length}개 항공사` : `${airlines.length} carriers`,
+    },
+    {
+      label: isKo ? "전력 요금표" : "Power tariffs",
+      icon: "ui:zap",
+      sub: "US / KEPCO",
+    },
+  ],
+  target: {
+    label: isKo ? "95+ 검증" : "95+ gate",
+    icon: "ui:shield-check",
+  },
+  then: {
+    label: isKo ? "4대 매트릭스" : "4 matrices",
+    icon: "ui:layers",
+    meta: `${totalItems} SKUs`,
+  },
+};
+
 const pageTitle = isKo
-  ? "SpecMatrix Global 한국어 허브 — 4대 버티컬 실데이터 검증 매트릭스 & 계산기"
-  : "SpecMatrix Global — Verified Spec Matrices, VS Comparisons & Lab Calculators";
+  ? "SpecMatrix: 하드웨어 구매자를 위한 정량 스펙 매트릭스와 계산기"
+  : "SpecMatrix: verified spec matrices and calculators for hardware buyers";
 const pageDesc = isKo
-  ? "보조배터리·GaN(WattCheck), 에너지젤·보충제(PureGram), 로드사이클 장비(CycleGear), 미니PC·NAS·UPS·로봇청소기(HomeTech) 공식 스펙 교차검증 DB 및 인터랙티브 계산기."
-  : "Evidence-anchored comparison matrices and deterministic calculators across WattCheck power gear, PureGram endurance nutrition, CycleGear road cycling, and HomeTech 3-year TCO.";
+  ? "보조배터리·GaN(WattCheck), 에너지젤·보충제(PureGram), 로드사이클 장비(CycleGear), 미니PC·NAS·UPS·로봇청소기(HomeTech) 공식 스펙 교차검증 DB와 6개 계산기."
+  : "Compare 72 verified products across power gear, endurance nutrition, road cycling, and HomeTech against official manuals, nutrition labels, and 30 airline policies.";
 
 const jsonLd = [
   {
@@ -95,355 +182,1412 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout
+<LandingLayout
   title={pageTitle}
   description={pageDesc}
   locale={locale}
   currentPath={`/${locale}/`}
   jsonLd={jsonLd}
 >
-  <!-- Hero Section -->
-  <section class="lab-card bg-white p-6 sm:p-8">
-    <div class="flex flex-wrap items-center gap-2">
-      <span class="badge-pass">
-        {isKo ? "적대적 팩트체크 95+ 통과" : "Adversarial Fact-Check 95+ Gate"}
-      </span>
-      <span class="badge-info font-mono">
-        {isKo ? "MSRP 참고가 + 실시간 사용자 계산기" : "MSRP Benchmark + Live Calculators"}
-      </span>
-    </div>
+  <Fragment slot="head">
+    <style is:inline>
+      /* Hero verification window (scoped to inside .hero__window, matching hero-centred.html) */
+      .hero__window {
+        background:
+          radial-gradient(80% 90% at 15% 10%, #d6e0e9 0 42%, transparent 72%),
+          radial-gradient(75% 85% at 88% 92%, #7ea0bf 0 38%, transparent 74%),
+          radial-gradient(50% 60% at 72% 18%, #e4edf4 0 30%, transparent 68%),
+          linear-gradient(155deg, #c6d3df, #9eb8cf 60%, #7d9ab4);
+      }
+      .d-win {
+        background: #ffffff; color: #16181a; border-radius: 10px; overflow: hidden;
+        font: 400 14px/1.4 var(--font-text); text-align: left;
+        box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08), 0 24px 60px -28px rgb(0 0 0 / 0.45);
+      }
+      .d-win--dark {
+        background: #141414; color: #ffffff;
+        box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1), 0 30px 70px -30px rgb(0 0 0 / 0.85);
+      }
+      .d-win__bar {
+        display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px;
+        border-bottom: 1px solid rgb(255 255 255 / 0.08); font-size: 13px; color: #a3a3a3;
+      }
+      .d-win__bar b { color: #ffffff; font-weight: 500; }
+      .d-win__bar .sp { flex: 1; }
+      .d-win__dots { display: flex; gap: 6px; }
+      .d-win__dots i { width: 10px; height: 10px; border-radius: 50%; background: #363636; }
+      .d-win__body { display: grid; grid-template-columns: 248px 1fr; min-height: 400px; }
+      .inbox {
+        border-right: 1px solid rgb(255 255 255 / 0.08); padding: 8px;
+        display: grid; align-content: start; gap: 2px;
+      }
+      .inbox .q {
+        height: 28px; margin-bottom: 4px; border-radius: 4px; background: rgb(255 255 255 / 0.06);
+        display: flex; align-items: center; padding: 0 10px; color: #9c9c9c; font-size: 13px;
+      }
+      .inbox .t {
+        display: grid; grid-template-columns: 28px 1fr auto; gap: 1px 10px;
+        padding: 5px 8px; border-radius: 4px; font-size: 13px;
+      }
+      .inbox .t.is-on { background: rgb(255 255 255 / 0.08); }
+      .inbox .t i {
+        grid-row: 1 / span 2; width: 28px; height: 28px; border-radius: 4px;
+        display: grid; place-items: center; font: 600 12px/1 var(--font-mono);
+        font-style: normal; color: #0f0f0f;
+      }
+      .inbox .t b { font-weight: 500; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .inbox .t time { color: #a3a3a3; font: 400 12px/1.3 var(--font-mono); font-variant-numeric: tabular-nums; }
+      .inbox .t span { grid-column: 2 / -1; color: #9e9e9e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .convo { display: grid; min-width: 0; align-content: start; }
+      .d-chat { display: grid; gap: 8px; align-content: start; padding: 14px 18px; font-size: 14px; }
+      .d-msg { max-width: 86%; padding: 9px 13px; border-radius: 8px; line-height: 1.42; }
+      .d-msg--me { justify-self: end; background: #ffffff; color: #0f0f0f; }
+      .d-msg--bot { background: #222222; color: #f4f4f4; }
+      .d-msg--bot small { display: inline; margin-left: 8px; font: 400 12px/1.3 var(--font-mono); color: #dafa9c; white-space: nowrap; }
+      .d-tool { display: flex; align-items: center; gap: 8px; font: 400 13px/1.3 var(--font-mono); color: #a8a8a8; }
+      .d-tool::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #dafa9c; border-right-color: transparent; flex: none; }
+      .acts { display: flex; flex-wrap: wrap; gap: 8px; }
+      .acts span {
+        height: 28px; padding: 0 11px; border-radius: 4px; display: inline-flex; align-items: center;
+        font: 500 13px/1 var(--font-mono); background: #dafa9c; color: #0f0f0f;
+      }
+      .acts span + span { background: rgb(255 255 255 / 0.1); color: #ffffff; }
+      @media (max-height: 820px) and (min-width: 640px) {
+        .hero__window .inbox .t:nth-of-type(n+4) { display: none; }
+      }
+      @media (max-width: 639px) {
+        .hero__window .d-win__bar .sp ~ span { display: none; }
+        .d-win__body { grid-template-columns: 1fr; }
+        .inbox { display: none; }
+        .hero__window .d-chat { font-size: 13px; padding: 12px 14px; }
+        .hero__window .d-msg--bot small, .hero__window .d-tool { display: none; }
+      }
 
-    <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-      {isKo
-        ? "출처가 고정된 정량 스펙 DB와 결정론적 비교 매트릭스"
-        : "Evidence-Anchored Spec Databases & Deterministic Comparison Matrices"}
-    </h1>
-    <p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-      {isKo
-        ? "모든 수치는 제조사 공식 매뉴얼·영양성분표·항공사 규정 원문에 고정되어 있으며, 실가용 Wh, 순수 유효성분 실단가, 후크리스 5 bar 안전 상한, 한전 누진제 3년 전력 TCO를 코드가 직접 검산합니다."
-        : "Every figure is anchored to manufacturer manuals, Nutrition Facts panels, and official carrier baggage rules — with zero-bloat calculators for real usable Wh, active gram cost, hookless tire safety, and 3-year electricity TCO."}
-    </p>
+      /* #workbench app-frame recipe (verbatim from sections-library.md) */
+      .app.ui {
+        display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        margin-top: var(--s-6); background: var(--u-bg);
+        border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow);
+      }
+      .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+      .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+      .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+      .app > .app__pane::after {
+        content: ""; position: absolute; inset: auto 0 0 0; height: 64px;
+        background: linear-gradient(transparent, var(--u-bg)); pointer-events: none;
+      }
+      @media (min-width: 1024px) and (max-width: 1279px) {
+        .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+      }
+      @media (max-width: 1023px) {
+        .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); min-height: 440px; }
+        .app > .app__pane--list { max-height: 252px; }
+        .app > .app__pane--list::after { display: none; }
+        .app .ui-win__side { display: none; }
+        .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+        .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+      }
+      @media (max-width: 639px) {
+        .app.ui { grid-template-rows: minmax(0, 1fr); min-height: 360px; }
+        .app > .app__pane--list { display: none; }
+        .app > .app__pane + .app__pane { border-top: 0; }
+      }
 
-    <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
-          {isKo ? "검증 완료 SKU" : "Verified SKUs"}
+      /* #verticals 2x2 cards & painterly-landscape calm fallback */
+      #verticals .panel { --p-h: 300px; }
+      #verticals .panel[data-fx="painterly-landscape"] {
+        background:
+          radial-gradient(120% 60% at 70% 118%, #6d7f46 0 40%, transparent 41%),
+          radial-gradient(90% 50% at 10% 108%, #576d49 0 42%, transparent 43%),
+          linear-gradient(#84accf, #c6d3df 70%, #d6e0e9);
+      }
+      #verticals .card > h3 a {
+        display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--ink);
+      }
+      #verticals .card > h3 a::after {
+        content: "\2192"; font-weight: 400; color: var(--accent);
+        transition: transform var(--dur) var(--ease);
+      }
+      @media (hover: hover) and (pointer: fine) {
+        #verticals .card:hover > h3 a::after { transform: translateX(3px); }
+      }
+      @media (min-width: 1024px) and (max-height: 820px) {
+        #verticals .panel { --p-h: 224px; }
+        #verticals .card { padding: 20px; }
+      }
+      @media (max-width: 639px) {
+        #verticals .section-head { margin-bottom: var(--s-4); }
+        #verticals .panel { --p-h: 156px; }
+        #verticals .card { padding: 14px 16px; }
+        #verticals .card > p { margin-top: 6px; }
+        #verticals .stage { --fade-h: 18px; }
+        #verticals .ui-check { padding-block: 5px; }
+        #verticals .ui-tg { padding-block: 5px; }
+        #verticals .ui-tg__sub { display: none; }
+        #verticals .ui-note:nth-child(3) { display: none; }
+      }
+
+      /* #studios tabs-tour */
+      #studios .tab[aria-selected="true"] {
+        background: var(--action); color: var(--action-ink); border-color: var(--action);
+      }
+      #studios .tabs.m-has-ind .tab[aria-selected="true"] {
+        background: transparent; color: var(--action-ink); border-color: transparent;
+      }
+      #studios .m-tab-ind { background: var(--action); }
+      .studio-panels { margin-top: var(--s-5); }
+      .studio-panel { display: grid; gap: var(--s-4); align-content: start; min-height: 152px; }
+      .studio-panel p { color: var(--ink); font-size: var(--t-body); max-width: 48ch; }
+      .studio-panel__meta { font: 400 13px/1.4 var(--font-mono); color: var(--muted); }
+      .studio-stage { min-height: clamp(500px, 72svh, 648px); }
+      .studio-stage > .stage {
+        position: absolute; inset: 0;
+        --ink: #ffffff; --muted: #a3a3a3; --card: #141414;
+        --accent: #dafa9c; --accent-ink: #0f0f0f;
+      }
+      .studio-stage .ui {
+        --u-bg: #141414; --u-surface: #1b1b1b; --u-ink: #ffffff; --u-muted: #a3a3a3;
+        --u-accent: #dafa9c; --u-accent-ink: #0f0f0f;
+      }
+      @media (min-width: 640px) and (max-width: 1023px) {
+        #studios .section-head { margin-bottom: var(--s-5); }
+        .studio-panel { min-height: 0; }
+        .studio-stage { --ratio: 56%; min-height: 340px; }
+      }
+      @media (max-width: 639px) {
+        #studios .section-head { margin-bottom: var(--s-3); }
+        #studios .tabs { gap: 6px; }
+        #studios .grid { row-gap: var(--s-4); }
+        .studio-panels { margin-top: var(--s-3); }
+        .studio-panel { min-height: 0; gap: var(--s-3); }
+        .studio-stage { --ratio: 62%; min-height: 204px; }
+      }
+
+      /* #workflow pinned-chapters drawn verification cards */
+      #workflow .mo-pc__text > .link { margin-top: var(--s-4); }
+      @media (min-width: 640px) {
+        #workflow:not(.is-live) .mo-pc__steps { gap: var(--s-6); margin-top: var(--s-5); }
+        #workflow:not(.is-live) .mo-pc__step { padding-top: var(--s-6); }
+        #workflow:not(.is-live) .mo-pc__visual--lit { aspect-ratio: auto; min-height: clamp(240px, 37svh, 340px); padding: 28px 32px; }
+      }
+      @media (min-width: 640px) and (max-width: 1279px) {
+        main > section#workflow[data-moment]:not(.is-live) { min-height: calc(2 * 100svh); }
+      }
+      @media (min-width: 1280px) {
+        #workflow:not(.is-live) { height: calc(var(--h, 2) * 100svh); overflow: hidden; }
+        #workflow:not(.is-live) .audit-card__row { padding: 10px 0; }
+      }
+      .audit-card {
+        width: min(100%, 420px); background: #141414; color: #ffffff;
+        border: 1px solid rgb(255 255 255 / 0.12); border-radius: var(--r-md);
+        box-shadow: 0 20px 44px -22px rgb(0 0 0 / 0.65); overflow: hidden;
+        font: 400 14px/1.45 var(--font-text); text-align: left;
+      }
+      .audit-card__head {
+        display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        padding: 12px 16px; border-bottom: 1px solid rgb(255 255 255 / 0.08);
+        background: #1b1b1b;
+      }
+      .audit-card__title { font: 500 14px/1.3 var(--font-text); color: #ffffff; }
+      .audit-card__tag {
+        font: 500 13px/1 var(--font-mono); padding: 4px 8px; border-radius: 4px;
+        background: #dafa9c; color: #0f0f0f;
+      }
+      .audit-card__rows { display: grid; padding: 6px 16px 12px; }
+      .audit-card__row {
+        display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+        padding: 8px 0; border-bottom: 1px solid rgb(255 255 255 / 0.08);
+      }
+      .audit-card__row:last-child { border-bottom: 0; }
+      .audit-card__k { color: #b8b8b8; font-size: 13px; }
+      .audit-card__v { color: #ffffff; font: 500 13px/1.3 var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+      @media (max-width: 639px) {
+        main > section#workflow[data-moment]:not(.is-live) { min-height: calc(2 * 100lvh); }
+        #workflow { --hm: 2; }
+        #workflow:not(.is-live) .mo-pc__steps { gap: var(--s-4); margin-top: var(--s-4); }
+        #workflow:not(.is-live) .mo-pc__step { padding-top: var(--s-3); }
+        #workflow:not(.is-live) .mo-pc__visual--lit { min-height: 260px; aspect-ratio: auto; padding: 18px 16px; }
+        #workflow:not(.is-live) .audit-card__head { padding: 10px 14px; }
+        #workflow:not(.is-live) .audit-card__rows { padding: 4px 14px 10px; }
+        #workflow:not(.is-live) .audit-card__row { padding: 7px 0; }
+      }
+
+      /* #pipeline responsive balance */
+      @media (min-width: 640px) and (max-width: 1023px) {
+        #pipeline .frame--split { --ratio: 62%; }
+      }
+      @media (max-width: 639px) {
+        #pipeline .grid { row-gap: var(--s-4); }
+        #pipeline .rows li { padding-block: 8px; }
+        #pipeline .frame--split { --ratio: 64%; }
+      }
+
+      /* #faq quick-jump verified matrix panel */
+      .faq-lead { margin-top: var(--s-4); }
+      .faq-cta { margin-top: var(--s-5); }
+      .faq-panel {
+        display: grid; margin-top: var(--s-6); background: #1a1a1a;
+        border: 1px solid rgb(255 255 255 / 0.12); border-radius: var(--r-md); overflow: hidden;
+      }
+      .faq-panel__row {
+        display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 12px;
+        min-height: 52px; padding: 10px 14px; color: #ffffff;
+        border-bottom: 1px solid rgb(255 255 255 / 0.08);
+        transition: background var(--dur) var(--ease);
+      }
+      .faq-panel__row:last-child { border-bottom: 0; }
+      .faq-panel__row:hover { background: rgb(255 255 255 / 0.05); }
+      .faq-panel__ico { width: 24px; height: 24px; color: #dafa9c; flex: none; }
+      .faq-panel__name { font: 500 14px/1.3 var(--font-text); color: #ffffff; }
+      .faq-panel__n { font: 500 13px/1 var(--font-mono); color: #dafa9c; font-variant-numeric: tabular-nums; }
+      @media (min-width: 1024px) {
+        #faq .faq > .faq__item { padding: 40px 0; gap: 12px; }
+        #faq .faq > .faq__item:first-child { padding-top: 0; }
+        #faq .faq-panel { margin-top: var(--s-7); }
+        #faq .faq-panel__row { min-height: 68px; padding: 16px 18px; }
+      }
+      @media (max-width: 639px) {
+        #faq { --padb: 40px; }
+        #faq .grid { row-gap: var(--s-4); }
+        .faq-lead { margin-top: var(--s-2); }
+        .faq-cta { margin-top: var(--s-3); }
+        .faq-panel { margin-top: var(--s-3); }
+        .faq-panel__row { min-height: 44px; padding: 6px 12px; }
+        #faq .faq > .faq__item { padding: 6px 0; gap: 2px; }
+      }
+    </style>
+  </Fragment>
+
+  <!-- 1. HERO (1H, centred, gradient-mesh) -->
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-text">
+        <div class="hero__c">
+          <a class="pill" href="#workbench">
+            <span>{isKo ? `${totalItems}종 공식 스펙 검증` : `${totalItems} verified SKUs`}</span>
+            <span class="muted">{isKo ? `${airlines.length}개 항공사 규정` : `${airlines.length} airlines tracked`}</span>
+          </a>
+          <h1
+            id="hero-h"
+            aria-label={isKo ? "하드웨어 정량 스펙 비교 매트릭스" : "Spec matrices for hardware buyers"}
+          >
+            <span class="ly-mark" aria-hidden="true"></span>{" "}
+            {isKo ? "하드웨어 정량 스펙 비교 매트릭스" : "Spec matrices for hardware buyers"}
+          </h1>
+          <p class="hero__lead">
+            {isKo
+              ? `${totalItems}종 제품의 공식 매뉴얼·영양성분표·${airlines.length}개 항공사 규정을 교차 검증했습니다. 6개 계산기를 로그인 없이 브라우저에서 바로 실행합니다.`
+              : `Compare ${totalItems} verified products across four verticals against official manuals, nutrition labels, and ${airlines.length} airline policies. Six calculators run in your browser with zero login.`}
+          </p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href={withBase(`/${locale}/compare/`)}>
+              {isKo ? "1:1 모델 비교하기" : "Compare two models"}
+              <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
+                <path class="m-arrow__stem" d="M1 6h8" />
+                <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
+              </svg>
+            </a>
+            <a class="btn btn--secondary" href={withBase(`/${locale}/tools/`)}>
+              {isKo ? "6개 도구 모두 보기" : "See all 6 tools"}
+            </a>
+          </div>
         </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{totalItems}</div>
-      </div>
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
-          {isKo ? "글로벌 항공사 규정" : "Airlines Tracked"}
+
+        <div
+          class="hero__window"
+          data-fx="gradient-mesh"
+          data-fx-seed="42"
+          role="img"
+          aria-label={isKo
+            ? "앤커 프라임 27,650mAh 보조배터리의 2026 대한항공 기내반입 검증 화면"
+            : "SpecMatrix verification window checking Anker Prime 27,650 mAh against Korean Air KE 2026 carry-on policy"}
+        >
+          <div class="ly-piece d-win d-win--dark" aria-hidden="true">
+            <div class="d-win__bar">
+              <span class="d-win__dots"><i></i><i></i><i></i></span>
+              <span><b>Anker Prime 27,650 mAh</b> · A1340</span>
+              <span class="sp"></span>
+              <span>Korean Air KE · MOLIT 2026</span>
+            </div>
+            <div class="d-win__body">
+              <div class="inbox">
+                <div class="q">{isKo ? `${totalItems}종 검증 DB 검색` : `Search ${totalItems} verified SKUs`}</div>
+                <div class="t is-on">
+                  <i style="background:#dafa9c">AP</i>
+                  <b>Anker Prime 27K</b>
+                  <time>99.54 Wh</time>
+                  <span>250 W PD 3.1 · Trust 99</span>
+                </div>
+                <div class="t">
+                  <i style="background:#9cc7e4">MG</i>
+                  <b>Maurten Gel 100</b>
+                  <time>25 g</time>
+                  <span>1:0.8 hydrogel · Trust 99</span>
+                </div>
+                <div class="t">
+                  <i style="background:#e6cf8b">MM</i>
+                  <b>Mac mini M4</b>
+                  <time>4 W</time>
+                  <span>24/7 idle draw · Trust 99</span>
+                </div>
+              </div>
+              <div class="convo">
+                <div class="d-chat" data-ly-steps="900">
+                  <div class="d-msg d-msg--me">
+                    {isKo
+                      ? "앤커 프라임 27,650 mAh, 2026 대한항공 기내 반입 가능할까요?"
+                      : "Can Anker Prime 27,650 mAh fly carry-on with Korean Air KE?"}
+                  </div>
+                  <div class="d-tool" data-step>
+                    {isKo
+                      ? "A1340 공식 스펙(99.54 Wh)과 대한항공·국토부 2026 규정 대조 중"
+                      : "Cross-checking A1340 datasheet (99.54 Wh) against KE & MOLIT 2026"}
+                  </div>
+                  <div class="d-msg d-msg--bot" data-step>
+                    {isKo
+                      ? "100 Wh 미만(99.54 Wh)으로 기내 최대 5개 휴대 가능합니다. 단자 절연 지퍼백에 넣어 좌석에 소지해야 하며 선반 보관과 기내 충전은 금지됩니다."
+                      : "Permitted carry-on up to 5 units under the 100 Wh threshold. Store insulated in a clear pouch at your seat; overhead bins and inflight charging are banned."}
+                    <small>{isKo ? "신뢰도 99 · 출처 3건" : "Trust 99 · 3 citations"}</small>
+                  </div>
+                  <div class="acts" data-step>
+                    <span>{isKo ? "기내 반입 통과" : "Carry-on pass"}</span>
+                    <span>99.54 / 100 Wh</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{airlines.length}</div>
-      </div>
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
-          {isKo ? "1:1 정밀 VS 비교" : "1:1 VS Matchups"}
-        </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{totalVs}</div>
-      </div>
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="font-mono text-[11px] uppercase text-slate-500">
-          {isKo ? "필터·호환 매트릭스" : "Matrices & Compat"}
-        </div>
-        <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">{totalMatrices}</div>
       </div>
     </div>
   </section>
 
-  <!-- Prominent Interactive Lab Studios Banner -->
-  <section class="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-5 text-white shadow-sm sm:p-6">
-    <div class="flex flex-wrap items-center justify-between gap-3">
-      <div>
-        <span class="inline-block rounded-full border border-blue-400/40 bg-blue-500/20 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-blue-200">
-          {isKo ? "INTERACTIVE LAB STUDIOS · 무료 즉시 실행" : "INTERACTIVE LAB STUDIOS"}
-        </span>
-        <h2 class="mt-2 text-lg font-bold tracking-tight text-white sm:text-xl">
-          {isKo
-            ? "단순 조회를 넘어 — 직접 조합·시뮬레이션하는 검증 스튜디오"
-            : "Go Beyond Static Specs — Interactive Engineering Studios"}
-        </h2>
+  <!-- 2. WORKBENCH (1H, bg-mist, app-frame recipe) -->
+  <section class="section bg-mist" id="workbench" aria-labelledby="workbench-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5">
+          <h2 id="workbench-h">
+            {isKo ? `${totalItems}종 검증 제품을 한 매트릭스에` : `${totalItems} verified products in one spec matrix`}
+          </h2>
+        </div>
+        <div class="span-6 start-7 stack-4">
+          <p class="t-lead muted">
+            {isKo
+              ? `4대 버티컬 ${totalItems}종 제품의 공식 수치와 신뢰도 점수를 확인하고, 1:1 비교 워크벤치에서 조건별 가중치 승자를 계산합니다.`
+              : `Inspect audited ratings across ${totalItems} products in four categories, then run weighted side-by-side diffs from manufacturer datasheets.`}
+          </p>
+          <a class="link" href={withBase(`/${locale}/compare/`)}>
+            {isKo ? "1:1 비교 스튜디오 열기" : "Open 1:1 compare studio"}
+          </a>
+        </div>
       </div>
-      <a
-        href={withBase(`/${locale}/tools/`)}
-        class="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 font-mono text-xs font-bold text-white transition-colors hover:bg-blue-500"
-      >
-        <span>{isKo ? "모든 도구 보기 →" : "Explore All Tools →"}</span>
-      </a>
-    </div>
 
-    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      <a
-        href={withBase(`/${locale}/compare/`)}
-        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
+      <div
+        class="ui app fill"
+        role="img"
+        aria-label={isKo
+          ? "SpecMatrix 72종 제품 목록과 전체 자동 감사 터미널 실행 화면"
+          : "SpecMatrix product index beside live automated audit terminal across 72 SKUs"}
+        data-ui-pause-host
       >
-        <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-blue-300">
-            {isKo ? "자유 1:1 대결" : "ANY-VS-ANY"}
+        <div class="app__pane app__pane--list" aria-hidden="true">
+          <div
+            class="ui ui-panel ui-win"
+            data-ui="window"
+            data-ui-still
+            data-open={isKo ? "검산중" : "Queued"}
+            data-work={isKo ? "검증중" : "Auditing"}
+            data-done={isKo ? "통과" : "Verified"}
+          >
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb">
+                SpecMatrix <i>/</i> <b>{isKo ? "검증 DB" : "Verified SKUs"}</b>
+              </span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true">
+                <svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5" /><path d="m10.5 10.5 3 3" /></svg>
+                <span class="ui-win__ph">{isKo ? "모델 검색" : "Filter"}</span>
+                <span class="ui-kbd">/</span>
+              </span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on">{isKo ? "전체 SKU" : "All SKUs"}<em>{totalItems}</em></span>
+                <span class="ui-win__nav">WattCheck<em>{wcBlock.items.length}</em></span>
+                <span class="ui-win__nav">PureGram<em>{pgBlock.items.length}</em></span>
+                <span class="ui-win__nav">CycleGear<em>{cgBlock.items.length}</em></span>
+                <span class="ui-win__nav">HomeTech<em>{htBlock.items.length}</em></span>
+                <span class="ui-win__label">{isKo ? "게이트" : "Gates"}</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Trust 95+</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>{airlines.length} Airlines</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true">
+                  <span>{isKo ? "브랜드" : "Brand"}</span>
+                  <span>{isKo ? "제품명" : "Model"}</span>
+                  <span>{isKo ? "상태" : "Status"}</span>
+                  <span>{isKo ? "점수" : "Score"}</span>
+                </div>
+                <ul class="ui-win__rows">
+                  {workbenchRows.map((row) => (
+                    <li class="ui-win__row" data-row>
+                      <span class="ui-avatar" data-tone={row.tone}>{row.initials}</span>
+                      <span class="ui-win__who">{row.brand}</span>
+                      <span class="ui-win__sub">{row.model}</span>
+                      <span class={row.statusClass} data-st>{row.status}</span>
+                      <span class="ui-win__age">{row.trust}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
-            {isKo ? "실시간 1:1 비교 워크벤치" : "Live 1:1 Compare Studio"}
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            {isKo
-              ? `${totalItems}개 모델 중 원하는 2종 자유 비교 · 가중치 승자 판정`
-              : `Compare any 2 of ${totalItems} SKUs with custom weights & diff bars.`}
-          </p>
         </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-blue-300">
-          {isKo ? "비교 시작 →" : "Launch →"}
-        </span>
-      </a>
 
-      <a
-        href={withBase(`/${locale}/tools/travel-power-kit/`)}
-        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-sky-400"
-      >
-        <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-sky-300">
-            {isKo ? `WATTCHECK × ${airlines.length} 항공사` : `WATTCHECK × ${airlines.length} AIRLINES`}
+        <div class="app__pane app__pane--open" data-ui-loop aria-hidden="true">
+          <div class="ui ui-panel ui-term" data-ui="terminal-run">
+            <div class="ui-term__head">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-term__title">specmatrix/pipeline</span>
+              <span class="ui-meta">node</span>
+              <span class="ui-spacer"></span>
+              <span class="ui-chip ui-chip--plain ui-term__branch">
+                <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="3.5" r="1.5" /><circle cx="5" cy="12.5" r="1.5" /><circle cx="11" cy="5.5" r="1.5" /><path d="M5 5v6M11 7c0 2.6-6 1.8-6 4" /></svg>
+                main
+              </span>
+            </div>
+            <div class="ui-term__screen" data-term-screen>
+              <div class="ui-term__track" data-term-track>
+                <div class="ui-term__ln ui-term__cmd">
+                  <span class="ui-term__cwd">~/<span class="ui-term__up">sm/</span>audit</span>
+                  <span class="ui-term__sig">$</span>
+                  <span class="ui-term__typed" data-term-cmd>sm audit --all</span>
+                </div>
+                <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter>
+                  <span class="ui-term__bar" style="--p:1"><i></i></span>
+                  <span class="ui-term__count" data-term-count>8 of 8 suites</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">wattcheck/items/*.json</span>
+                  <span class="ui-term__n">{wcBlock.items.length} SKUs</span>
+                  <span class="ui-term__t">312ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">puregram/items/*.json</span>
+                  <span class="ui-term__n">{pgBlock.items.length} SKUs</span>
+                  <span class="ui-term__t">284ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">cyclegear/items/*.json</span>
+                  <span class="ui-term__n">{cgBlock.items.length} SKUs</span>
+                  <span class="ui-term__t">219ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">hometech/items/*.json</span>
+                  <span class="ui-term__n">{htBlock.items.length} SKUs</span>
+                  <span class="ui-term__t">198ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">wattcheck/airlines.json</span>
+                  <span class="ui-term__n">{airlines.length} rules</span>
+                  <span class="ui-term__t">142ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">data/*/matrices.json</span>
+                  <span class="ui-term__n">{totalMatrices} tables</span>
+                  <span class="ui-term__t">118ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">data/*/vs-pairs.json</span>
+                  <span class="ui-term__n">{totalVs} pairs</span>
+                  <span class="ui-term__t">164ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__log" data-term-out data-term-step>
+                  <svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                  <span class="ui-term__path">pipeline/stage6-qa.mjs</span>
+                  <span class="ui-term__n">0 fails</span>
+                  <span class="ui-term__t">426ms</span>
+                </div>
+                <div class="ui-term__ln ui-term__gap" data-term-out aria-hidden="true"></div>
+                <div class="ui-term__ln ui-term__sum" data-term-out>
+                  <span class="ui-term__key">Products</span>
+                  <span class="ui-term__val">{totalItems} passed</span>
+                  <span class="ui-term__dim">(Trust 95+)</span>
+                </div>
+                <div class="ui-term__ln ui-term__sum" data-term-out>
+                  <span class="ui-term__key">Airlines</span>
+                  <span class="ui-term__val">{airlines.length} synced</span>
+                  <span class="ui-term__dim">(MOLIT · FAA)</span>
+                </div>
+                <div class="ui-term__ln ui-term__sum" data-term-out>
+                  <span class="ui-term__key">Matchups</span>
+                  <span class="ui-term__val">{totalVs} passed</span>
+                  <span class="ui-term__dim">(IG 75+)</span>
+                </div>
+                <div class="ui-term__ln ui-term__sum" data-term-out>
+                  <span class="ui-term__key">Pricing</span>
+                  <span class="ui-term__val">MSRP mode</span>
+                  <span class="ui-term__dim">(USD · KRW)</span>
+                </div>
+                <div class="ui-term__ln ui-term__done" data-term-out data-term-done>
+                  <span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5" /></svg></span>
+                  <b>Done</b>
+                  <span class="ui-term__dim">in 1.86s</span>
+                </div>
+                <div class="ui-term__ln ui-term__cmd" data-term-next>
+                  <span class="ui-term__cwd">~/<span class="ui-term__up">sm/</span>audit</span>
+                  <span class="ui-term__sig">$</span>
+                  <span class="ui-term__typed"></span>
+                  <i class="ui-term__caret" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-sky-200">
-            {isKo ? "해외여행 충전 키트 조합기" : "Travel Power Kit Builder"}
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            {isKo
-              ? "노트북·폰 동시 출력 + 탑승 항공사 Wh/CCC 규정 자동 매칭"
-              : "Match multi-device PD watts with 30-airline carry-on & CCC rules."}
-          </p>
         </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-sky-300">
-          {isKo ? "키트 설계 →" : "Optimize →"}
-        </span>
-      </a>
-
-      <a
-        href={withBase(`/${locale}/tools/fueling-planner/`)}
-        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
-      >
-        <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-emerald-300">
-            {isKo ? "PUREGRAM 레이스 보급" : "PUREGRAM ENDURANCE"}
-          </div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-emerald-200">
-            {isKo ? "마라톤·사이클 보급 플래너" : "Race Fueling Mix Planner"}
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            {isKo
-              ? "시간당 탄수화물·나트륨·카페인 상한선·포켓 무게·비용 계산"
-              : "Assemble hourly carbs, sodium & caffeine limits with live cost."}
-          </p>
-        </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-emerald-300">
-          {isKo ? "보급 계획 →" : "Plan Mix →"}
-        </span>
-      </a>
-
-      <a
-        href={withBase(`/${locale}/tools/hometech-tco-studio/`)}
-        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-violet-400"
-      >
-        <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-violet-300">
-            {isKo ? "HOMETECH TCO × UPS" : "HOMETECH TCO × UPS"}
-          </div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-violet-200">
-            {isKo ? "3년 TCO 회수기간 · UPS 런타임" : "3-Year TCO & UPS Runtime Studio"}
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            {isKo
-              ? "24시간 대기전력 손익분기점 및 NAS·미니PC 정전 백업 시간 계산"
-              : "Compare 24/7 idle electricity payback & multi-device UPS backup."}
-          </p>
-        </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-violet-300">
-          {isKo ? "TCO 계산 →" : "Simulate →"}
-        </span>
-      </a>
-
-      <a
-        href={withBase(`/${locale}/tools/tire-pressure-guard/`)}
-        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-amber-400"
-      >
-        <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-amber-300">
-            {isKo ? "CYCLEGEAR 후크리스 가드" : "CYCLEGEAR ETRTO TSS"}
-          </div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-amber-200">
-            {isKo ? "로드 타이어 공기압 · 5.0 bar 가드" : "Tire Pressure & Hookless Guard"}
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            {isKo
-              ? "체중·림폭·노면별 앞/뒤 공기압 및 후크리스 72.5 psi 한계 검증"
-              : "Front/rear bar & psi calculator with ETRTO TSS rim-width checks."}
-          </p>
-        </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-amber-300">
-          {isKo ? "공기압 검증 →" : "Check PSI →"}
-        </span>
-      </a>
-
-      <a
-        href={withBase(`/${locale}/tools/`)}
-        class="group flex flex-col justify-between rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-slate-400"
-      >
-        <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-slate-300">
-            {isKo ? "ALL STUDIOS & MATRICES" : "FULL TOOLBOX"}
-          </div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
-            {isKo ? "전체 검증 도구 허브" : "Interactive Lab Tools Hub"}
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            {isKo
-              ? "4대 버티컬 전용 계산기, 30개 항공사 조회, 1:1 비교 허브 모음"
-              : "Browse all 5 interactive studios, 30-airline checker & matrices."}
-          </p>
-        </div>
-        <span class="mt-3 font-mono text-xs font-semibold text-slate-200">
-          {isKo ? "허브 열기 →" : "Open Hub →"}
-        </span>
-      </a>
+      </div>
     </div>
   </section>
 
-  <AdSlotReserve slotId="hub-top" variant="banner" locale={locale} />
-
-  <!-- 4 Verticals Showcase -->
-  <div class="space-y-10">
-    {verticalBlocks.map((block) => (
-      <section id={block.id} class="space-y-4">
-        <div class="flex flex-wrap items-end justify-between gap-3 border-b border-slate-200 pb-3">
-          <div>
-            <span class={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase ${block.meta.badgeBgClass}`}>
-              {block.meta.shortName[locale]}
-            </span>
-            <h2 class="mt-1.5 text-xl font-bold tracking-tight text-slate-900">
-              {block.meta.name[locale]}
-            </h2>
-            <p class="mt-1 text-sm text-slate-600">{block.meta.tagline[locale]}</p>
-          </div>
-          <div class="flex items-center gap-2 font-mono text-xs text-slate-500">
-            <span>{block.items.length} SKUs</span>
-            {block.id === "wattcheck" && (
+  <!-- 3. VERTICALS (2H, ground-surface, features-2x2 recipe) -->
+  <section class="section g2 ground-surface" id="verticals" aria-labelledby="verticals-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="verticals-h">
+            {isKo ? (
               <>
-                <span>·</span>
-                <span>{airlines.length} {isKo ? "항공사" : "Airlines"}</span>
+                4대 버티컬 정량 매트릭스.{" "}
+                <span class="muted">카테고리를 골라 비교표를 여세요.</span>
+              </>
+            ) : (
+              <>
+                4 hardware verticals by spec domain.{" "}
+                <span class="muted">Pick a category to open its matrix.</span>
               </>
             )}
-            <span>·</span>
-            <span>{block.vs.length} VS</span>
+          </h2>
+        </div>
+
+        <div class="grid">
+          <!-- Card 1: WattCheck (ONLY card with painterly-landscape card ground + data-ui-loop) -->
+          <article class="card card--row span-6">
+            <h3>
+              <a href={withBase(wcBlock.primaryHref)}>
+                {isKo
+                  ? `WattCheck ${wcBlock.items.length}종 전력·${airlines.length}항공사`
+                  : `WattCheck ${wcBlock.items.length} power banks and ${airlines.length} airline rules`}
+              </a>
+            </h3>
+            <p>
+              {isKo
+                ? `${wcBlock.items.length}종 보조배터리·GaN 충전기를 ${airlines.length}개 항공사 Wh 한도와 PD 3.1 포트 분배표로 비교합니다.`
+                : `${wcBlock.items.length} power banks and GaN chargers audited against ${airlines.length} airline Wh caps, PD 3.1 ports, and CCC stamps.`}
+            </p>
+            <div
+              class="panel panel--flush"
+              data-fx="painterly-landscape"
+              data-fx-params='{"blur":1,"brush":0.35,"slope":0,"hillY":0.3,"horizon":0.62,"drift":0}'
+              data-fx-seed="21"
+              role="img"
+              aria-label={isKo
+                ? "앤커 프라임 27,650mAh 기내 반입 5단계 체크리스트"
+                : "Anker Prime 27,650 mAh flight compliance checklist"}
+            >
+              <div class="stage stage--fade-b" aria-hidden="true">
+                <div
+                  class="at-rise fit"
+                  style="--fit-max:360px;--ax:max(24px, 50% - 180px);--ay:36px;--ay-sm:10px"
+                  data-ui-loop
+                >
+                  <div class="ui ui-panel ui-checks" data-ui="checklist">
+                    <div class="ui-checks__head">
+                      <div class="ui-title">
+                        {isKo ? "Anker Prime 27K 기내 감사" : "Anker Prime 27K flight audit"}
+                      </div>
+                      <span class="ui-spacer"></span>
+                      <div class="ui-meta" data-checks-count>3 of 4</div>
+                    </div>
+                    <div class="ui-checks__bar"><i data-checks-bar style="--k:0.75"></i></div>
+                    <ul class="ui-checks__list">
+                      <li class="ui-check is-done">
+                        <span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span>
+                        <span class="ui-check__label">{isKo ? "99.54 Wh (100 Wh 상한 충족)" : "99.54 Wh under 100 Wh limit"}</span>
+                      </li>
+                      <li class="ui-check is-done">
+                        <span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span>
+                        <span class="ui-check__label">{isKo ? "본체 Wh 각인·KC/UL/PSE 확인" : "Body Wh stamp & KC/UL/PSE marks"}</span>
+                      </li>
+                      <li class="ui-check is-done">
+                        <span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span>
+                        <span class="ui-check__label">{isKo ? "USB-C1 단일 140 W PD 3.1 출력" : "USB-C1 140 W PD 3.1 EPR output"}</span>
+                      </li>
+                      <li class="ui-check">
+                        <span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span>
+                        <span class="ui-check__label">{isKo ? "대한항공·국토부 2026 지퍼백 보관" : "MOLIT 2026 insulated pouch stow"}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: PureGram (plain lit sky ground, stat held still) -->
+          <article class="card card--row span-6">
+            <h3>
+              <a href={withBase(pgBlock.primaryHref)}>
+                {isKo
+                  ? `PureGram ${pgBlock.items.length}종 유효성분 30\u00A0g 실단가`
+                  : `PureGram ${pgBlock.items.length} gels and 30\u00A0g carb math`}
+              </a>
+            </h3>
+            <p>
+              {isKo
+                ? `${pgBlock.items.length}종 에너지젤·전해질·크레아틴의 순수 탄수화물 30\u00A0g 실단가와 1:0.8 비율을 영양성분표 원문으로 계산합니다.`
+                : `${pgBlock.items.length} energy gels, electrolytes, and creatine tubs ranked by true cost per 30\u00A0g pure carbs and 1:0.8 absorption ratios.`}
+            </p>
+            <div
+              class="panel panel--flush"
+              role="img"
+              aria-label={isKo
+                ? "모르텐 젤 100 순수 탄수화물 밀도 62.5% 차트"
+                : "Maurten Gel 100 active carbohydrate density 62.5 percent chart"}
+            >
+              <div class="stage stage--fade-b" aria-hidden="true">
+                <div
+                  class="at-rise fit to-edge"
+                  style="--fit-max:420px;--ax:max(24px, 50% - 210px);--ay:30px;--ay-sm:16px"
+                >
+                  <div
+                    class="ui ui-panel ui-stat"
+                    data-ui="stat"
+                    data-ui-still
+                    data-ui-opts='{"fill":true}'
+                    data-from="52"
+                    data-to="62"
+                    data-suffix="%"
+                  >
+                    <div class="ui-stat__head">
+                      <div class="ui-stat__top">
+                        <span class="ui-stat__label">
+                          {isKo ? "모르텐 젤 100" : "Maurten Gel 100"}
+                        </span>
+                        <span class="ui-stat__range">
+                          {pgBlock.items.length} SKUs
+                          <svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5" /></svg>
+                        </span>
+                      </div>
+                      <div class="ui-stat__line">
+                        <span class="ui-stat__num" data-stat-num>62.5%</span>
+                        <span class="ui-chip ui-chip--plain ui-stat__delta">1:0.8</span>
+                        <span class="ui-stat__sub">
+                          {isKo ? "40 g 중 25 g 탄수화물" : "25 g carbs per 40 g gel"}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="ui-stat__chart">
+                      <svg class="ui-stat__svg" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+                        <path class="ui-stat__grid" d="M0 30.5H400M0 60.5H400M0 90.5H400" />
+                        <path class="ui-stat__cover" fill-rule="evenodd" d="" />
+                        <g class="ui-stat__bars">
+                          <rect rx="3" x="0.00" y="54.00" width="21.14" height="66.00" />
+                          <rect rx="3" x="29.14" y="48.00" width="21.14" height="72.00" />
+                          <rect rx="3" x="58.29" y="44.00" width="21.14" height="76.00" />
+                          <rect rx="3" x="87.43" y="41.00" width="21.14" height="79.00" />
+                          <rect rx="3" x="116.57" y="46.00" width="21.14" height="74.00" />
+                          <rect rx="3" x="145.71" y="38.00" width="21.14" height="82.00" />
+                          <rect rx="3" x="174.86" y="35.00" width="21.14" height="85.00" />
+                          <rect rx="3" x="204.00" y="32.00" width="21.14" height="88.00" />
+                          <rect rx="3" x="233.14" y="34.00" width="21.14" height="86.00" />
+                          <rect rx="3" x="262.29" y="29.00" width="21.14" height="91.00" />
+                          <rect rx="3" x="291.43" y="27.00" width="21.14" height="93.00" />
+                          <rect rx="3" x="320.57" y="25.00" width="21.14" height="95.00" />
+                          <rect rx="3" x="349.71" y="22.00" width="21.14" height="98.00" />
+                          <rect rx="3" x="378.86" y="18.00" width="21.14" height="102.00" />
+                        </g>
+                      </svg>
+                      <div class="ui-stat__axis" aria-hidden="true">
+                        <span>GU Orig</span>
+                        <span>SiS Beta</span>
+                        <span>Maurten</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Card 3: CycleGear (plain lit sky ground, toggles held still) -->
+        <article class="card card--row span-6">
+          <h3>
+            <a href={withBase(cgBlock.primaryHref)}>
+              {isKo
+                ? `CycleGear ${cgBlock.items.length}종 파워미터·5.0\u00A0bar`
+                : `CycleGear ${cgBlock.items.length} cycling meters and 5.0\u00A0bar caps`}
+            </a>
+          </h3>
+          <p>
+            {isKo
+              ? `${cgBlock.items.length}종 파워미터·GPS 속도계·트레이너·28\u00A0mm 타이어의 무게, 클릿 호환, 후크리스 5.0\u00A0bar 한계를 검증합니다.`
+              : `${cgBlock.items.length} power meters, GPS computers, trainers, and 28\u00A0mm tubeless tires audited for stack height and ETRTO 5.0\u00A0bar caps.`}
+          </p>
+          <div
+            class="panel panel--flush"
+            role="img"
+            aria-label={isKo
+              ? "CycleGear 후크리스 5.0 bar 안전 호환성 토글 패널"
+              : "CycleGear ETRTO hookless 5.0 bar compatibility toggles"}
+          >
+            <div class="stage stage--fade-b" aria-hidden="true">
+              <div class="at-right to-edge" style="--ax:28px;--ay:34px;--ay-sm:10px">
+                <div class="ui ui-panel ui-toggles" data-ui="toggles" data-ui-still>
+                  <div class="ui-head">
+                    <svg class="ui-icon ui-toggles__ico" viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M8 1.8 13 4v3.6c0 3-2.1 5.4-5 6.6-2.9-1.2-5-3.6-5-6.6V4z" />
+                      <path d="m5.8 8 1.6 1.6 3-3.2" />
+                    </svg>
+                    <div class="ui-title">{isKo ? "ETRTO 후크리스 가드" : "ETRTO TSS guard"}</div>
+                    <span class="ui-spacer"></span>
+                    <div class="ui-meta" data-tg-count>{isKo ? "3개 중 2개 활성" : "2 of 3 on"}</div>
+                  </div>
+                  <ul class="ui-toggles__list">
+                    <li class="ui-tg">
+                      <span class="ui-tg__text">
+                        <span class="ui-tg__label">Pirelli P Zero Race RS 28 mm</span>
+                        <span class="ui-tg__sub">{isKo ? "290 g · 후크리스 TSS 승인" : "290 g · TSS hookless approved"}</span>
+                      </span>
+                      <button class="ui-switch is-on" type="button" role="switch" aria-checked="true" tabindex="-1" aria-label="Pirelli P Zero Race RS"><i></i></button>
+                    </li>
+                    <li class="ui-tg">
+                      <span class="ui-tg__text">
+                        <span class="ui-tg__label">{isKo ? "최대 공기압 5.0 bar (72.5 psi)" : "Max cap 5.0 bar (72.5 psi)"}</span>
+                        <span class="ui-tg__sub">{isKo ? "ETRTO 안전 상한 적용" : "ETRTO ceiling enforced"}</span>
+                      </span>
+                      <button class="ui-switch is-on" type="button" role="switch" aria-checked="true" tabindex="-1" aria-label="Max pressure cap"><i></i></button>
+                    </li>
+                    <li class="ui-tg">
+                      <span class="ui-tg__text">
+                        <span class="ui-tg__label">{isKo ? "26 mm 타이어 × 25 mm 림 조합" : "26 mm tire on 25 mm TSS rim"}</span>
+                        <span class="ui-tg__sub">{isKo ? "규격 위반 자동 차단" : "Blocked by rim width table"}</span>
+                      </span>
+                      <button class="ui-switch" type="button" role="switch" aria-checked="false" tabindex="-1" aria-label="Narrow tire blocked"><i></i></button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: HomeTech (plain lit sky ground, notify held still) -->
+        <article class="card card--row span-6">
+          <h3>
+            <a href={withBase(htBlock.primaryHref)}>
+              {isKo
+                ? `HomeTech ${htBlock.items.length}종 24시간·3년 TCO`
+                : `HomeTech ${htBlock.items.length} systems and 3-year power TCO`}
+            </a>
+          </h3>
+          <p>
+            {isKo
+              ? `${htBlock.items.length}종 미니PC·NAS·순수정현파 UPS·로봇청소기의 24시간 대기전력, 220\u00A0V 호환성, 3년 전기요금을 계산합니다.`
+              : `${htBlock.items.length} Mini PCs, NAS bays, pure-sine UPS units, and robot vacuums audited for idle wattage, 220\u00A0V power, and 3-year TCO.`}
+          </p>
+          <div
+            class="panel panel--flush"
+            role="img"
+            aria-label={isKo
+              ? "HomeTech Mac mini M4 4W 유휴전력 및 UPS 런타임 알림 목록"
+              : "HomeTech Mac mini M4 4 W idle draw and UPS runtime status alerts"}
+          >
+            <div class="stage stage--fade-b" aria-hidden="true">
+              <div
+                class="at-rise fit"
+                style="--fit-max:380px;--ax:28px;--ay:calc(100% - 196px);--ay-sm:10px"
+              >
+                <div class="ui ui-notify" data-ui="notify" data-ui-still>
+                  <ul class="ui-notify__list" data-notify-list>
+                    <li class="ui-note">
+                      <span class="ui-agent ui-note__av" aria-hidden="true"></span>
+                      <span class="ui-note__text">
+                        <span class="ui-note__title">Mac mini M4 · 4 W idle<time>now</time></span>
+                        <span class="ui-note__body">
+                          {isKo ? "100–240 V 프리볼트 내장 · 유휴 4 dBA" : "Built-in 100–240 V PSU · 4 dBA idle"}
+                        </span>
+                      </span>
+                      <span class="ui-btn ui-btn--sm ui-note__btn">{isKo ? "확인" : "Pass"}</span>
+                    </li>
+                    <li class="ui-note">
+                      <span class="ui-avatar ui-note__av" data-tone="3">CP</span>
+                      <span class="ui-note__text">
+                        <span class="ui-note__title">CP1500PFCLCD · 1000 W<time>4m</time></span>
+                        <span class="ui-note__body">
+                          {isKo ? "순수 정현파 · 시놀로지 USB HID 종료" : "Pure sinewave · USB HID NAS shutdown"}
+                        </span>
+                      </span>
+                    </li>
+                    <li class="ui-note">
+                      <span class="ui-note__ico">
+                        <svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+                      </span>
+                      <span class="ui-note__text">
+                        <span class="ui-note__title">Beelink SER8 · 3-yr TCO<time>9m</time></span>
+                        <span class="ui-note__body">
+                          {isKo ? "32 GB / 1 TB · 한전 누진제 구간 검증" : "32 GB / 1 TB · 24/7 idle payback check"}
+                        </span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. STUDIOS (1H, ground-surface, tabs-tour recipe) -->
+  <section class="section ground-surface" id="studios" aria-labelledby="studios-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5">
+          <div class="section-head">
+            <h2 id="studios-h">
+              {isKo ? "브라우저에서 돌리는 6개 계산기 스튜디오" : "Run 6 browser calculator studios"}
+            </h2>
+            <p>
+              {isKo
+                ? "검증된 JSON 스펙을 입력해 실시간으로 조합·계산합니다."
+                : "Every calculator runs in your browser directly on audited JSON."}
+            </p>
+          </div>
+
+          <div
+            class="tabs"
+            role="tablist"
+            aria-label={isKo ? "6개 인터랙티브 스튜디오" : "Six interactive calculators"}
+          >
+            <button class="tab" type="button" role="tab" id="tab-btn-1" aria-selected="true" aria-controls="tab-1 screen-1">
+              {isKo ? "1:1 비교" : "Compare 1:1"}
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-btn-2" aria-selected="false" aria-controls="tab-2 screen-2">
+              {isKo ? "여행 충전" : "Build power kit"}
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-btn-3" aria-selected="false" aria-controls="tab-3 screen-3">
+              {isKo ? "레이스 보급" : "Plan race fuel"}
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-btn-4" aria-selected="false" aria-controls="tab-4 screen-4">
+              {isKo ? "3년 TCO" : "Audit 3-yr TCO"}
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-btn-5" aria-selected="false" aria-controls="tab-5 screen-5">
+              {isKo ? "타이어 압력" : "Check tire PSI"}
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-btn-6" aria-selected="false" aria-controls="tab-6 screen-6">
+              {isKo ? "항공사 규정" : "Search airlines"}
+            </button>
+          </div>
+
+          <div class="studio-panels">
+            <div class="studio-panel" id="tab-1" role="tabpanel" aria-labelledby="tab-btn-1">
+              <p>
+                {isKo
+                  ? `${totalItems}종 검증 모델 중 원하는 2종을 선택해 가중치 슬라이더로 항목별 승자와 마크다운 요약표를 만듭니다.`
+                  : `Pick any two of ${totalItems} verified products to weight specifications, inspect diff bars, and export a Markdown summary.`}
+              </p>
+              <span class="studio-panel__meta">{totalItems} SKUs · {totalVs} VS baselines</span>
+              <a class="link" href={withBase(`/${locale}/compare/`)}>
+                {isKo ? "1:1 비교 워크벤치 열기" : "Open 1:1 compare studio"}
+              </a>
+            </div>
+
+            <div class="studio-panel" id="tab-2" role="tabpanel" aria-labelledby="tab-btn-2" hidden>
+              <p>
+                {isKo
+                  ? `노트북·휴대폰 동시 충전 전력에 맞춰 보조배터리·GaN 충전기를 조합하고 ${airlines.length}개 항공사 Wh·CCC 규정을 점검합니다.`
+                  : `Match laptop and phone PD wattage against verified power banks, GaN bricks, and ${airlines.length} airline carry-on limits.`}
+              </p>
+              <span class="studio-panel__meta">{wcBlock.items.length} power SKUs · {airlines.length} airlines</span>
+              <a class="link" href={withBase(`/${locale}/tools/travel-power-kit/`)}>
+                {isKo ? "여행 충전 키트 조합기 열기" : "Open travel power kit"}
+              </a>
+            </div>
+
+            <div class="studio-panel" id="tab-3" role="tabpanel" aria-labelledby="tab-btn-3" hidden>
+              <p>
+                {isKo
+                  ? `마라톤·사이클 시간당 60~120 g 탄수화물 목표에 맞춰 젤과 파우더 조합, 나트륨, 카페인 한도, 시간당 비용을 산출합니다.`
+                  : `Build hourly 60 to 120 g carbohydrate packs across ${pgBlock.items.length} products with live sodium, caffeine, and pocket-weight math.`}
+              </p>
+              <span class="studio-panel__meta">{pgBlock.items.length} nutrition SKUs · 1:0.8 ratios</span>
+              <a class="link" href={withBase(`/${locale}/tools/fueling-planner/`)}>
+                {isKo ? "레이스 보급 플래너 열기" : "Open fueling planner"}
+              </a>
+            </div>
+
+            <div class="studio-panel" id="tab-4" role="tabpanel" aria-labelledby="tab-btn-4" hidden>
+              <p>
+                {isKo
+                  ? `24시간 가동 미니PC·NAS의 3년 전기요금 손익분기점과 정전 시 UPS 백업 분 단위를 한전·미국 요금 기준으로 계산합니다.`
+                  : `Calculate 3-year 24/7 idle electricity payback and outage UPS backup minutes across ${htBlock.items.length} audited HomeTech systems.`}
+              </p>
+              <span class="studio-panel__meta">{htBlock.items.length} HomeTech SKUs · US &amp; KEPCO tariffs</span>
+              <a class="link" href={withBase(`/${locale}/tools/hometech-tco-studio/`)}>
+                {isKo ? "3년 TCO · UPS 스튜디오 열기" : "Open 3-year TCO studio"}
+              </a>
+            </div>
+
+            <div class="studio-panel" id="tab-5" role="tabpanel" aria-labelledby="tab-btn-5" hidden>
+              <p>
+                {isKo
+                  ? `라이더 체중, 내부 림폭, 노면 상태별 앞·뒤 권장 공기압을 계산하고 후크리스(TSS) 5.0 bar 안전 한계를 자동 검사합니다.`
+                  : `Compute front and rear bar and psi targets from rider mass, rim width, and surface while enforcing the ETRTO 5.0 bar hookless cap.`}
+              </p>
+              <span class="studio-panel__meta">{cgBlock.items.length} cycling SKUs · ETRTO 5.0 bar guard</span>
+              <a class="link" href={withBase(`/${locale}/tools/tire-pressure-guard/`)}>
+                {isKo ? "타이어 공기압 가드 열기" : "Open tire pressure guard"}
+              </a>
+            </div>
+
+            <div class="studio-panel" id="tab-6" role="tabpanel" aria-labelledby="tab-btn-6" hidden>
+              <p>
+                {isKo
+                  ? `대한항공, ANA, 유나이티드, 중국국제항공 등 ${airlines.length}개 항공사의 Wh 구간, 선반 보관 금지, 기내 충전 규정을 조회합니다.`
+                  : `Filter ${airlines.length} global airlines by Wh tier, unit limits, overhead bin bans, inflight charging rules, and China CCC stamps.`}
+              </p>
+              <span class="studio-panel__meta">{airlines.length} airlines · MOLIT, FAA, MLIT, EASA &amp; CAAC</span>
+              <a class="link" href={withBase(`/${locale}/wattcheck/matrix/airlines-30/`)}>
+                {isKo ? "30개 항공사 매트릭스 열기" : "Open 30-airline matrix"}
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Matrix & Compat Shortcuts -->
-        {block.matrices.length > 0 && (
-          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {block.matrices.map((m) => (
-              <a
-                href={withBase(`/${locale}/${block.id}/${m.archetype}/${m.slug}/`)}
-                class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
-              >
-                <div>
-                  <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-blue-700">
-                    {m.archetype === "compat"
-                      ? isKo
-                        ? "호환성 매트릭스"
-                        : "COMPAT MATRIX"
-                      : isKo
-                        ? "필터 랭킹 표"
-                        : "FILTER MATRIX"}
+        <div class="frame frame--split frame--lit studio-stage span-6 start-7" role="img" aria-label={isKo ? "선택한 SpecMatrix 계산기 미리보기" : "Preview of the active SpecMatrix calculator"}>
+          <!-- Screen 1: slider (held still) -->
+          <div id="screen-1" class="stage stage--fade-br" aria-hidden="true">
+            <div class="at-rise fit" style="--fit-max:320px;--ax:max(24px, 50% - 160px);--ay:96px;--ay-sm:20px">
+              <div class="ui ui-panel ui-slider" data-ui="slider" data-ui-still>
+                <div class="ui-slider__head">
+                  <span class="ui-slider__ico" aria-hidden="true"><svg viewBox="0 0 16 16"><circle cx="4" cy="4" r="1.1" /><circle cx="8" cy="4" r="1.1" /><circle cx="12" cy="4" r="1.1" /><circle cx="4" cy="8" r="1.1" /><circle cx="8" cy="8" r="1.1" /><circle cx="12" cy="8" r="1.1" /><circle cx="4" cy="12" r="1.1" /><circle cx="8" cy="12" r="1.1" /><circle cx="12" cy="12" r="1.1" /></svg></span>
+                  <span class="ui-slider__name">
+                    <span class="ui-title">{isKo ? "1:1 비교 가중치" : "1:1 Match weights"}</span>
+                    <span class="ui-meta">Anker 737 vs Prime 27K</span>
                   </span>
-                  <h3 class="mt-1 text-sm font-bold text-slate-900 group-hover:text-blue-700">
-                    {m.i18n[locale].title}
-                  </h3>
+                  <span class="ui-spacer"></span>
+                  <span class="ui-slider__reset">{isKo ? "초기화" : "Reset"}</span>
                 </div>
-                <span class="mt-3 font-mono text-xs font-semibold text-blue-700">
-                  {isKo ? "매트릭스 열기 →" : "Open Matrix →"}
-                </span>
-              </a>
-            ))}
+                <div class="ui-slider__row">
+                  <div class="ui-slider__top"><span>{isKo ? "출력 비중" : "Peak output"}</span><output data-slider-val>65%</output></div>
+                  <div class="ui-slider__track" data-slider-track style="--v:0.65"><i class="ui-slider__fill"></i><i class="ui-slider__thumb"></i></div>
+                </div>
+                <div class="ui-slider__row">
+                  <div class="ui-slider__top"><span>{isKo ? "휴대성 비중" : "Weight & size"}</span><output>35%</output></div>
+                  <div class="ui-slider__track" style="--v:0.35"><i class="ui-slider__fill"></i><i class="ui-slider__thumb"></i></div>
+                </div>
+                <div class="ui-slider__seg" role="group" aria-label="Currency">
+                  <span class={isKo ? "" : "is-on"}>USD</span>
+                  <span class={isKo ? "is-on" : ""}>KRW</span>
+                  <span>Specs</span>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
 
-        <!-- Featured VS Matchups -->
-        {block.vs.length > 0 && (
-          <div class="space-y-2">
-            <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
-              {isKo ? "핵심 1:1 정밀 비교 (VS 시뮬레이터)" : "Featured 1:1 Head-to-Head VS"}
-            </h3>
-            <div class="grid gap-3 md:grid-cols-2">
-              {block.vs.slice(0, 4).map((v) => (
-                <a
-                  href={withBase(`/${locale}/${block.id}/vs/${v.pair_slug}/`)}
-                  class="lab-card group flex min-w-0 items-center justify-between gap-3 p-3.5 transition-colors hover:border-blue-500"
-                >
-                  <div class="min-w-0 flex-1">
-                    <div class="truncate text-sm font-bold text-slate-900 group-hover:text-blue-700">
-                      {v.verdict[locale].headline}
-                    </div>
-                    <div class="mt-0.5 truncate font-mono text-[11px] text-slate-500">
-                      {v.pair_slug} · IG {v.info_gain_score}/100
-                    </div>
+          <!-- Screen 2: search (held still, hidden) -->
+          <div id="screen-2" class="stage stage--fade-br" hidden aria-hidden="true">
+            <div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:96px;--ay-sm:20px">
+              <div class="ui ui-panel ui-search" data-ui="search" data-ui-still>
+                <div class="ui-search__field">
+                  <svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" /><path d="m10.5 10.5 3 3" /></svg>
+                  <span class="ui-search__q"><span data-search-q>korean air 140w</span><i class="ui-search__caret"></i></span>
+                  <kbd class="ui-search__kbd">Ctrl K</kbd>
+                </div>
+                <div class="ui-search__group">{isKo ? "일치 키트 · 항공사" : "Matched kits & rules"}</div>
+                <ul class="ui-search__list" data-search-list>
+                  <li class="ui-search__row is-sel">
+                    <span class="ui-search__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M4 2.5h5l3 3v8H4z" /><path d="M9 2.5v3h3" /></svg></span>
+                    <span class="ui-search__t"><b>Anker Prime</b> 27,650 mAh</span>
+                    <span class="ui-search__m">99.54 Wh</span>
+                  </li>
+                  <li class="ui-search__row">
+                    <span class="ui-search__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M4 2.5h5l3 3v8H4z" /><path d="M9 2.5v3h3" /></svg></span>
+                    <span class="ui-search__t"><b>Anker 140W</b> 4-Port GaN</span>
+                    <span class="ui-search__m">PD 3.1</span>
+                  </li>
+                  <li class="ui-search__row">
+                    <span class="ui-search__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 4.5h11v8h-11z" /><path d="m2.5 5 5.5 4 5.5-4" /></svg></span>
+                    <span class="ui-search__t"><b>Korean Air</b> KE · MOLIT 2026</span>
+                    <span class="ui-search__m">5 pcs max</span>
+                  </li>
+                </ul>
+                <div class="ui-search__foot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> select</span><span><kbd>Enter</kbd> open</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 3: checklist (held still, hidden) -->
+          <div id="screen-3" class="stage stage--fade-br" hidden aria-hidden="true">
+            <div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:96px;--ay-sm:20px">
+              <div class="ui ui-panel ui-checks" data-ui="checklist" data-ui-still>
+                <div class="ui-checks__head">
+                  <div class="ui-title">{isKo ? "90 g/hr 마라톤 보급팩" : "90 g/hr marathon mix"}</div>
+                  <span class="ui-spacer"></span>
+                  <div class="ui-meta" data-checks-count>4 of 5</div>
+                </div>
+                <div class="ui-checks__bar"><i data-checks-bar style="--k:0.8"></i></div>
+                <ul class="ui-checks__list">
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span><span class="ui-check__label">2× SiS Beta Fuel (80 g)</span></li>
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span><span class="ui-check__label">1× Maurten Gel 100 (25 g)</span></li>
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span><span class="ui-check__label">Ratio 1:0.8 glucose-fructose</span></li>
+                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span><span class="ui-check__label">Caffeine 100 mg ceiling OK</span></li>
+                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5" /></svg></span><span class="ui-check__label">Sodium 750 mg/hr refill</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 4: stat (held still, hidden) -->
+          <div id="screen-4" class="stage stage--fade-br" hidden aria-hidden="true">
+            <div class="at-rise fit to-edge" style="--fit-max:420px;--ax:max(24px, 50% - 210px);--ay:96px;--ay-sm:20px">
+              <div class="ui ui-panel ui-stat" data-ui="stat" data-ui-still data-ui-opts='{"fill":true}' data-from="11" data-to="4" data-suffix=" W">
+                <div class="ui-stat__head">
+                  <div class="ui-stat__top">
+                    <span class="ui-stat__label">{isKo ? "24시간 유휴 소비전력" : "24/7 idle wall draw"}</span>
+                    <span class="ui-stat__range">Mac mini M4</span>
                   </div>
-                  <span class="shrink-0 font-mono text-xs font-bold text-blue-700">VS →</span>
-                </a>
-              ))}
+                  <div class="ui-stat__line">
+                    <span class="ui-stat__num" data-stat-num>4 W</span>
+                    <span class="ui-chip ui-chip--plain ui-stat__delta">-64%</span>
+                    <span class="ui-stat__sub">vs 11 W x86 idle baseline</span>
+                  </div>
+                </div>
+                <div class="ui-stat__chart">
+                  <svg class="ui-stat__svg" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="ui-stat__grid" d="M0 30.5H400M0 60.5H400M0 90.5H400" />
+                    <path class="ui-stat__cover" fill-rule="evenodd" d="" />
+                    <g class="ui-stat__bars">
+                      <rect rx="3" x="0.00" y="34.00" width="21.14" height="86.00" />
+                      <rect rx="3" x="29.14" y="38.00" width="21.14" height="82.00" />
+                      <rect rx="3" x="58.29" y="46.00" width="21.14" height="74.00" />
+                      <rect rx="3" x="87.43" y="52.00" width="21.14" height="68.00" />
+                      <rect rx="3" x="116.57" y="58.00" width="21.14" height="62.00" />
+                      <rect rx="3" x="145.71" y="64.00" width="21.14" height="56.00" />
+                      <rect rx="3" x="174.86" y="70.00" width="21.14" height="50.00" />
+                      <rect rx="3" x="204.00" y="76.00" width="21.14" height="44.00" />
+                      <rect rx="3" x="233.14" y="80.00" width="21.14" height="40.00" />
+                      <rect rx="3" x="262.29" y="84.00" width="21.14" height="36.00" />
+                      <rect rx="3" x="291.43" y="86.00" width="21.14" height="34.00" />
+                      <rect rx="3" x="320.57" y="90.00" width="21.14" height="30.00" />
+                      <rect rx="3" x="349.71" y="92.00" width="21.14" height="28.00" />
+                      <rect rx="3" x="378.86" y="96.00" width="21.14" height="24.00" />
+                    </g>
+                  </svg>
+                  <div class="ui-stat__axis" aria-hidden="true"><span>NAS 4-bay</span><span>SER8</span><span>Mac M4</span></div>
+                </div>
+              </div>
             </div>
           </div>
-        )}
 
-        <!-- Verified SKU Grid -->
-        {block.items.length > 0 ? (
-          <div class="space-y-2">
-            <h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
-              {isKo ? `검증 완료 제품 프로파일 (${block.items.length}종)` : `Verified SKU Profiles (${block.items.length})`}
-            </h3>
-            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {block.items.map((item) => {
-                const copy = item.i18n[locale] ?? item.i18n.en;
-                const offer = isKo ? item.regional_offers.kr : item.regional_offers.us;
-                return (
-                  <a
-                    href={withBase(`/${locale}/${block.id}/item/${item.slug}/`)}
-                    class="lab-card group flex flex-col justify-between p-4 transition-colors hover:border-blue-500"
-                  >
-                    <div>
-                      <div class="flex items-center justify-between gap-2 text-[11px]">
-                        <span class="font-semibold text-slate-500">
-                          {item.brand} · {getCategoryLabel(item.category, locale)}
-                        </span>
-                        <span class="font-mono font-semibold text-emerald-700">
-                          Trust {item.audit.trust_score}
-                        </span>
-                      </div>
-                      <h4 class="mt-1.5 text-sm font-bold text-slate-900 group-hover:text-blue-700">
-                        {copy.name}
-                      </h4>
-                      <p class="mt-1 line-clamp-2 text-xs text-slate-600">{copy.summary}</p>
-                    </div>
-                    <div class="mt-3 flex items-center justify-between border-t border-slate-100 pt-2.5 text-xs">
-                      <span class="font-mono font-semibold text-slate-800">
-                        MSRP {formatCurrency(offer.msrp, offer.currency, locale)}
-                      </span>
-                      <span class="font-mono font-semibold text-blue-700">
-                        {isKo ? "스펙·계산기 →" : "Specs & Calc →"}
-                      </span>
-                    </div>
-                  </a>
-                );
-              })}
+          <!-- Screen 5: toggles (held still, hidden) -->
+          <div id="screen-5" class="stage stage--fade-br" hidden aria-hidden="true">
+            <div class="at-rise fit" style="--fit-max:360px;--ax:max(24px, 50% - 180px);--ay:96px;--ay-sm:20px">
+              <div class="ui ui-panel ui-toggles" data-ui="toggles" data-ui-still>
+                <div class="ui-head">
+                  <svg class="ui-icon ui-toggles__ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8 13 4v3.6c0 3-2.1 5.4-5 6.6-2.9-1.2-5-3.6-5-6.6V4z" /><path d="m5.8 8 1.6 1.6 3-3.2" /></svg>
+                  <div class="ui-title">{isKo ? "공기압 가드 (72 kg · 28 mm)" : "Pressure guard (72 kg · 28 mm)"}</div>
+                  <span class="ui-spacer"></span>
+                  <div class="ui-meta" data-tg-count>4 of 5 on</div>
+                </div>
+                <ul class="ui-toggles__list">
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Front 4.3 bar (62.4 psi)</span><span class="ui-tg__sub">Dry tarmac · 23 mm rim</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" tabindex="-1" aria-label="Front target"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Rear 4.5 bar (65.3 psi)</span><span class="ui-tg__sub">Below 5.0 bar TSS cap</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" tabindex="-1" aria-label="Rear target"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Wet road -0.3 bar trim</span><span class="ui-tg__sub">Optional grip drop</span></span><button class="ui-switch" type="button" role="switch" aria-checked="false" tabindex="-1" aria-label="Wet trim"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Hookless bead check</span><span class="ui-tg__sub">ETRTO 28-622 approved</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" tabindex="-1" aria-label="Bead check"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Sealant reminder</span><span class="ui-tg__sub">40 ml per tubeless tire</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" tabindex="-1" aria-label="Sealant check"><i></i></button></li>
+                </ul>
+              </div>
             </div>
           </div>
-        ) : (
-          <div class="lab-card p-5 text-sm text-slate-500">
-            {isKo
-              ? "해당 버티컬의 검증 JSON 데이터가 병합되면 자동으로 프로파일 카드가 표시됩니다."
-              : "Verified SKUs for this vertical will appear here automatically once data files are loaded."}
+
+          <!-- Screen 6: notify (held still, hidden) -->
+          <div id="screen-6" class="stage stage--fade-br" hidden aria-hidden="true">
+            <div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:96px;--ay-sm:20px">
+              <div class="ui ui-notify" data-ui="notify" data-ui-still>
+                <ul class="ui-notify__list" data-notify-list>
+                  <li class="ui-note">
+                    <span class="ui-avatar ui-note__av" data-tone="4">KE</span>
+                    <span class="ui-note__text">
+                      <span class="ui-note__title">Korean Air · MOLIT 2026<time>KR</time></span>
+                      <span class="ui-note__body">Zip pouch at seat · no overhead bin stow</span>
+                    </span>
+                  </li>
+                  <li class="ui-note">
+                    <span class="ui-avatar ui-note__av" data-tone="3">NH</span>
+                    <span class="ui-note__text">
+                      <span class="ui-note__title">ANA · MLIT Japan<time>JP</time></span>
+                      <span class="ui-note__body">Under 100 Wh carry-on · no checked bag</span>
+                    </span>
+                  </li>
+                  <li class="ui-note">
+                    <span class="ui-avatar ui-note__av" data-tone="1">CA</span>
+                    <span class="ui-note__text">
+                      <span class="ui-note__title">Air China · CAAC<time>CN</time></span>
+                      <span class="ui-note__body">China CCC mark required on domestic legs</span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        )}
-      </section>
-    ))}
-  </div>
-</BaseLayout>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WORKFLOW (2H live, dealt moment: pinned-chapters) -->
+  <section class="section" id="workflow" style="--h: 2" data-moment="pinned-chapters" aria-labelledby="workflow-h">
+    <div class="wrap mo-pc__grid">
+      <div class="mo-pc__text">
+        <h2 id="workflow-h">
+          {isKo ? "제품 한 종이 통과하는 3단계 검증" : "How SpecMatrix audits each product"}
+        </h2>
+        <a class="link" href={withBase(`/${locale}/methodology/`)}>
+          {isKo ? "검증 규칙 전체 보기" : "Read the audit rules"}
+        </a>
+        <ol class="mo-pc__steps">
+          <li class="mo-pc__step">
+            <h3>{isKo ? "2건 이상 1차 공식 원문 스펙 수집" : "Anchor specs to 2+ primary manuals"}</h3>
+            <p>
+              {isKo
+                ? "제조사 데이터시트, 영양성분표 원문, 항공사 규정 PDF에서 최소 2건 이상의 출처 URL과 정량 수치를 기록합니다."
+                : "Capture ratings from manufacturer datasheets, Nutrition Facts labels, and carrier policy PDFs with at least two primary citations."}
+            </p>
+            <figure
+              class="mo-pc__visual mo-pc__visual--lit"
+              role="img"
+              aria-label={isKo ? "1단계 원문 출처 고정 카드" : "Stage 1 primary citation anchor card"}
+            >
+              <div class="audit-card" aria-hidden="true">
+                <div class="audit-card__head">
+                  <span class="audit-card__title">{isKo ? "원문 출처 고정 · Step 01" : "Source anchor · Step 01"}</span>
+                  <span class="audit-card__tag">2+ URLs</span>
+                </div>
+                <div class="audit-card__rows">
+                  <div class="audit-card__row"><span class="audit-card__k">Anker A1340 Manual</span><span class="audit-card__v">99.54 Wh · 250 W</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Maurten Label Panel</span><span class="audit-card__v">25 g carb · 1:0.8</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">ETRTO TSS Standard</span><span class="audit-card__v">5.0 bar max</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Korean Air KE Policy</span><span class="audit-card__v">MOLIT 2026</span></div>
+                </div>
+              </div>
+            </figure>
+          </li>
+
+          <li class="mo-pc__step">
+            <h3>{isKo ? "Zod 스키마 · 95점 신뢰도 게이트" : "Enforce schema and 95+ trust gates"}</h3>
+            <p>
+              {isKo
+                ? "실가용 Wh 효율, 순수 유효성분 실단가, 후크리스 압력 상한, 24시간 대기전력을 검증 파이프라인이 자동 검산합니다."
+                : "Deterministic Zod schemas verify usable Wh conversion, pure active gram cost, hookless caps, and 24/7 idle watts before scoring."}
+            </p>
+            <figure
+              class="mo-pc__visual mo-pc__visual--lit"
+              role="img"
+              aria-label={isKo ? "2단계 95점 적대적 감사 게이트 카드" : "Stage 2 deterministic 95 plus trust gate card"}
+            >
+              <div class="audit-card" aria-hidden="true">
+                <div class="audit-card__head">
+                  <span class="audit-card__title">{isKo ? "자동 검산 게이트 · Step 02" : "Audit gate · Step 02"}</span>
+                  <span class="audit-card__tag">Trust 95+</span>
+                </div>
+                <div class="audit-card__rows">
+                  <div class="audit-card__row"><span class="audit-card__k">Zod v3 Schema</span><span class="audit-card__v">72 / 72 PASS</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Info Gain Gate</span><span class="audit-card__v">75+ Required</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Quarantine Rate</span><span class="audit-card__v">0.0% (&lt;15%)</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Pricing Policy</span><span class="audit-card__v">MSRP Benchmark</span></div>
+                </div>
+              </div>
+            </figure>
+          </li>
+
+          <li class="mo-pc__step">
+            <h3>
+              {isKo
+                ? `${totalMatrices}개 매트릭스 · 6개 계산기 배포`
+                : `Build ${totalMatrices} matrices and 6 calculators`}
+            </h3>
+            <p>
+              {isKo
+                ? "통과한 JSON만으로 정적 필터 표, 1:1 VS 비교, 6개 계산기를 생성하고 Stage 6 HTML 링크·SEO 검수를 통과시킵니다."
+                : "Only validated JSON compiles into static filter tables, head-to-head pages, and six calculators verified by Stage 6 QA."}
+            </p>
+            <figure
+              class="mo-pc__visual mo-pc__visual--lit"
+              role="img"
+              aria-label={isKo ? "3단계 정적 빌드 및 Stage 6 QA 통과 카드" : "Stage 3 static build and Stage 6 QA pass card"}
+            >
+              <div class="audit-card" aria-hidden="true">
+                <div class="audit-card__head">
+                  <span class="audit-card__title">{isKo ? "정적 빌드 검수 · Step 03" : "Static release · Step 03"}</span>
+                  <span class="audit-card__tag">0 Fails</span>
+                </div>
+                <div class="audit-card__rows">
+                  <div class="audit-card__row"><span class="audit-card__k">Filter &amp; Compat Matrices</span><span class="audit-card__v">{totalMatrices} live</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">1:1 VS Matchups</span><span class="audit-card__v">{totalVs} pairs</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Browser Studios</span><span class="audit-card__v">6 tools</span></div>
+                  <div class="audit-card__row"><span class="audit-card__k">Stage 6 Link &amp; SEO QA</span><span class="audit-card__v">PASS</span></div>
+                </div>
+              </div>
+            </figure>
+          </li>
+        </ol>
+      </div>
+      <div class="mo-pc__visuals frame"></div>
+    </div>
+  </section>
+
+  <!-- 6. PIPELINE (1H, bg-band bg-bleed, split-text-left + fanin diagram) -->
+  <section class="section bg-band bg-bleed" id="pipeline" aria-labelledby="pipeline-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 split-col">
+          <h2 id="pipeline-h">
+            {isKo ? "4대 1차 출처로 채우는 스펙 매트릭스" : "4 primary spec feeds in the pipeline"}
+          </h2>
+          <p class="t-lead">
+            {isKo
+              ? "제조사 매뉴얼, 영양성분표, 항공사 규정 PDF, 전력 요금표가 검증 게이트를 거쳐 4대 매트릭스로 집계됩니다."
+              : "Manufacturer manuals, nutrition labels, airline policy PDFs, and regional power tariffs pass automated audits before reaching any matrix."}
+          </p>
+          <ul class="rows">
+            <li>
+              <span class="rows__name">{isKo ? "검증 완료 제품" : "Verified products"}</span>
+              <span class="rows__value">{totalItems} SKUs</span>
+            </li>
+            <li>
+              <span class="rows__name">{isKo ? "추적 항공사 규정" : "Airline policies"}</span>
+              <span class="rows__value">{airlines.length} {isKo ? "항공사" : "carriers"}</span>
+            </li>
+            <li>
+              <span class="rows__name">{isKo ? "신뢰도 통과 기준" : "Trust pass gate"}</span>
+              <span class="rows__value">95+ / 100</span>
+            </li>
+          </ul>
+          <a class="link split-col__end" href={withBase(`/${locale}/methodology/`)}>
+            {isKo ? "검증 방법론 읽기" : "Read the methodology"}
+          </a>
+        </div>
+
+        <div class="frame frame--split span-6 start-7">
+          <div class="dg" data-diagram data-icon-base={withBase("/assets/icons/")}>
+            <script type="application/json" set:html={JSON.stringify(pipelineDiagramSpec)} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ (1H, open answers, no accordion) -->
+  <section class="section" id="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5">
+          <h2 id="faq-h">
+            {isKo ? "데이터 출처와 가격 기준 FAQ" : "FAQ on spec data and pricing"}
+          </h2>
+          <p class="t-lead muted faq-lead">
+            {isKo
+              ? "MSRP 기준가, 95+ 검증, 오류 수정 절차."
+              : "MSRP benchmarks, 95+ scoring, and corrections."}
+          </p>
+          <div class="faq-cta">
+            <a class="link" href={withBase(`/${locale}/contact/`)}>
+              {isKo ? "스펙 오류 제보" : "Report a correction"}
+            </a>
+          </div>
+          <nav class="faq-panel" aria-label={isKo ? "핵심 매트릭스 바로가기" : "Direct matrix shortcuts"}>
+            <a class="faq-panel__row" href={withBase(wcBlock.primaryHref)}>
+              <svg class="faq-panel__ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+              </svg>
+              <span class="faq-panel__name">{isKo ? "WattCheck 보조배터리 표" : "WattCheck power banks"}</span>
+              <span class="faq-panel__n" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="faq-panel__row" href={withBase(pgBlock.primaryHref)}>
+              <svg class="faq-panel__ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 3h6M10 3v5.4L5.2 17.6A2 2 0 0 0 7 20.5h10a2 2 0 0 0 1.8-2.9L14 8.4V3" />
+              </svg>
+              <span class="faq-panel__name">{isKo ? "PureGram 에너지젤 표" : "PureGram energy gels"}</span>
+              <span class="faq-panel__n" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="faq-panel__row" href={withBase(cgBlock.primaryHref)}>
+              <svg class="faq-panel__ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m12 12 4-3M12 7v1" />
+              </svg>
+              <span class="faq-panel__name">{isKo ? "CycleGear 파워미터 표" : "CycleGear power meters"}</span>
+              <span class="faq-panel__n" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="faq-panel__row" href={withBase(htBlock.primaryHref)}>
+              <svg class="faq-panel__ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="7" rx="1.5" />
+                <rect x="3" y="13" width="18" height="7" rx="1.5" />
+                <path d="M7 7.5h.01M7 16.5h.01" />
+              </svg>
+              <span class="faq-panel__name">{isKo ? "HomeTech 미니PC·NAS 표" : "HomeTech Mini PCs & NAS"}</span>
+              <span class="faq-panel__n" aria-hidden="true">&rarr;</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="faq span-6 start-7">
+          <div class="faq__item">
+            <h3>{isKo ? "표기 가격은 실시간 최저가인가요?" : "Are prices live store totals?"}</h3>
+            <p>
+              {isKo
+                ? "아니요. 공식 출고가(MSRP) 기준이며 결제가는 판매처에서 확인하세요."
+                : "No. Figures show MSRP benchmarks; check retailers live."}
+            </p>
+          </div>
+          <div class="faq__item">
+            <h3>{isKo ? "신뢰도 95+ 게이트 조건은 무엇인가요?" : "What passes the 95+ gate?"}</h3>
+            <p>
+              {isKo
+                ? "1차 공식 출처 2건 이상, Zod 스키마, 단위 검산이 필요합니다."
+                : "Two primary citations, Zod schemas, and unit math."}
+            </p>
+          </div>
+          <div class="faq__item">
+            <h3>{isKo ? "제휴 링크가 SpecMatrix 순위를 바꾸나요?" : "Do affiliate links affect SpecMatrix ranks?"}</h3>
+            <p>
+              {isKo
+                ? "아니요. 30 g 실단가·3년 전력 TCO 공식으로만 산출합니다."
+                : "No. Deterministic spec formulas rank every product."}
+            </p>
+          </div>
+          <div class="faq__item">
+            <h3>{isKo ? "변경된 스펙 오류는 어디로 제보하나요?" : "How do I report a spec change?"}</h3>
+            <p>
+              {isKo
+                ? "문의 페이지로 모델명과 공식 원문 링크를 보내 주세요."
+                : "Send the model and datasheet link via contact."}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</LandingLayout>

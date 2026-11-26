@@ -89,8 +89,8 @@ export const VERTICAL_META: Record<PilotVertical, VerticalMeta> = {
       en: "Power banks, GaN chargers, USB-PD multi-port allocation & 30-airline flight rules",
       ko: "보조배터리·GaN 충전기·USB-PD 멀티포트 출력 분배 및 30개 항공사 기내반입 검증",
     },
-    accentClass: "text-blue-700",
-    badgeBgClass: "bg-blue-50 text-blue-800 border-blue-200",
+    accentClass: "text-sky-300",
+    badgeBgClass: "bg-[#0f1f30] text-sky-200 border-sky-700/60",
   },
   puregram: {
     id: "puregram",
@@ -106,8 +106,8 @@ export const VERTICAL_META: Record<PilotVertical, VerticalMeta> = {
       en: "Endurance energy gels, electrolytes & creatine true active cost per benchmark gram",
       ko: "에너지젤·전해질·크레아틴 영양성분표 기반 순수 유효성분 실단가·필러율 분석",
     },
-    accentClass: "text-emerald-700",
-    badgeBgClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
+    accentClass: "text-emerald-300",
+    badgeBgClass: "bg-[#0d261a] text-emerald-200 border-emerald-700/60",
   },
   cyclegear: {
     id: "cyclegear",
@@ -123,8 +123,8 @@ export const VERTICAL_META: Record<PilotVertical, VerticalMeta> = {
       en: "Power meters, GPS computers, smart trainers, road tires & hookless compatibility",
       ko: "파워미터·GPS 사이클링 컴퓨터·스마트 트레이너·로드 타이어 후크리스 호환성 검증",
     },
-    accentClass: "text-amber-700",
-    badgeBgClass: "bg-amber-50 text-amber-800 border-amber-200",
+    accentClass: "text-amber-300",
+    badgeBgClass: "bg-[#291e09] text-amber-200 border-amber-700/60",
   },
   hometech: {
     id: "hometech",
@@ -140,8 +140,8 @@ export const VERTICAL_META: Record<PilotVertical, VerticalMeta> = {
       en: "Mini PCs, NAS, pure-sine UPS & robot vacuums audited for 24/7 power draw & 3-year TCO",
       ko: "미니PC·NAS·UPS·로봇청소기 24시간 대기전력·한전 누진제 전기요금·3년 총소유비용(TCO) 검증",
     },
-    accentClass: "text-violet-700",
-    badgeBgClass: "bg-violet-50 text-violet-800 border-violet-200",
+    accentClass: "text-teal-300",
+    badgeBgClass: "bg-[#0b2626] text-teal-200 border-teal-700/60",
   },
 };
 

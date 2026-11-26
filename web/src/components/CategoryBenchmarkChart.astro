@@ -400,20 +400,20 @@ const headline = buildHeadline(bestAxis);
   >
     <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
-        <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+        <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#9a9a9a]">
           {isKo ? "동일 카테고리 백분위 벤치마크" : "CATEGORY PERCENTILE BENCHMARK"}
         </div>
-        <h2 id="cat-bench-heading" class="mt-0.5 text-base font-bold text-slate-900">
+        <h2 id="cat-bench-heading" class="mt-0.5 text-base font-bold text-white">
           {headline}
         </h2>
       </div>
-      <div class="flex flex-wrap items-center gap-3 font-mono text-[11px] text-slate-500">
+      <div class="flex flex-wrap items-center gap-3 font-mono text-[11px] text-[#9a9a9a]">
         <span class="inline-flex items-center gap-1.5">
-          <span class="inline-block h-2.5 w-2.5 rounded-full bg-blue-600"></span>
+          <span class="inline-block h-2.5 w-2.5 rounded-full bg-[#dafa9c]"></span>
           {isKo ? "현재 모델" : "This SKU"}
         </span>
         <span class="inline-flex items-center gap-1.5">
-          <span class="inline-block h-3 w-0.5 bg-slate-500"></span>
+          <span class="inline-block h-3 w-0.5 bg-[#9a9a9a]"></span>
           {isKo ? `카테고리 중앙값 (${peerCount}종)` : `Category Median (${peerCount} peers)`}
         </span>
       </div>
@@ -424,14 +424,14 @@ const headline = buildHeadline(bestAxis);
         const pinX = +(16 + (ax.itemPosPct / 100) * 368).toFixed(1);
         const medX = +(16 + (ax.medianPosPct / 100) * 368).toFixed(1);
         const fillW = Math.max(4, +(pinX - 16).toFixed(1));
-        const pinColor = ax.isTopTier ? "#059669" : "#2563eb";
-        const barColor = ax.isTopTier ? "#a7f3d0" : "#bfdbfe";
+        const pinColor = ax.isTopTier ? "#dafa9c" : "#38bdf8";
+        const barColor = ax.isTopTier ? "#4f6b2b" : "#1e4b75";
         return (
-          <div class="rounded-lg border border-slate-200 bg-slate-50/80 p-3.5">
+          <div class="rounded-md border border-white/10 bg-[#111111] p-3.5">
             <div class="flex items-baseline justify-between gap-2">
-              <span class="text-xs font-bold text-slate-800">{ax.label}</span>
+              <span class="text-xs font-bold text-[#d8d8d8]">{ax.label}</span>
               <div class="flex items-center gap-2">
-                <span class="font-mono text-sm font-bold text-slate-900">{ax.itemDisplay}</span>
+                <span class="font-mono text-sm font-bold text-white">{ax.itemDisplay}</span>
                 <span class:list={[ax.isTopTier ? "badge-pass" : "badge-info", "font-mono text-[10px]"]}>
                   {formatRankBadge(ax)}
                 </span>
@@ -448,19 +448,19 @@ const headline = buildHeadline(bestAxis);
                   : `${ax.label}: ${ax.itemDisplay}, rank ${ax.rank} of ${ax.total}`}
               >
                 <!-- Base track -->
-                <rect x="16" y="11" width="368" height="6" rx="3" fill="#e2e8f0" />
+                <rect x="16" y="11" width="368" height="6" rx="3" fill="#262626" />
                 <!-- Filled progress to SKU -->
                 <rect x="16" y="11" width={fillW} height="6" rx="3" fill={barColor} />
                 <!-- End ticks -->
-                <line x1="16" y1="8" x2="16" y2="20" stroke="#cbd5e1" stroke-width="1.5" />
-                <line x1="384" y1="8" x2="384" y2="20" stroke="#cbd5e1" stroke-width="1.5" />
+                <line x1="16" y1="8" x2="16" y2="20" stroke="#525252" stroke-width="1.5" />
+                <line x1="384" y1="8" x2="384" y2="20" stroke="#525252" stroke-width="1.5" />
                 <!-- Category Median marker -->
                 <line
                   x1={medX}
                   y1="4"
                   x2={medX}
                   y2="24"
-                  stroke="#64748b"
+                  stroke="#a3a3a3"
                   stroke-width="1.75"
                   stroke-dasharray="3 2"
                 />
@@ -470,19 +470,19 @@ const headline = buildHeadline(bestAxis);
                   cy="14"
                   r="6.5"
                   fill={pinColor}
-                  stroke="#ffffff"
+                  stroke="#0f0f0f"
                   stroke-width="2"
                 />
               </svg>
             </div>
 
-            <div class="mt-0.5 flex items-center justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-0.5 flex items-center justify-between font-mono text-[10px] text-[#9a9a9a]">
               <span>{ax.minDisplay}</span>
               <span>
                 {isKo ? "중앙값 " : "Med: "}
                 {ax.medianDisplay}
               </span>
-              <span class="font-semibold text-slate-700">
+              <span class="font-semibold text-white">
                 {ax.maxDisplay} {isKo ? "(최우수)" : "(Best)"}
               </span>
             </div>

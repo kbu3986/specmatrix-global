@@ -19,17 +19,17 @@ const statusBadgeClass =
       : "badge-caution";
 ---
 
-<div class:list={["lab-card border-slate-200 bg-white", compact ? "p-4" : "p-5"]}>
+<div class:list={["lab-card border-white/12 bg-[#161616]", compact ? "p-4" : "p-5"]}>
   <div class="flex flex-wrap items-start justify-between gap-2">
     <div>
-      <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+      <div class="font-mono text-[11px] font-medium uppercase tracking-wider text-[#9a9a9a]">
         {isKo ? "MSRP 참고가 (실시간 스토어 판매가 아님)" : "MSRP Reference Benchmark"}
       </div>
       <div class="mt-1 flex items-baseline gap-2">
-        <span class="kpi-value font-mono text-2xl font-bold text-slate-900">
+        <span class="kpi-value font-mono text-2xl font-bold text-white">
           {m.benchmarkPriceFormatted}
         </span>
-        <span class="font-mono text-xs text-slate-500">
+        <span class="font-mono text-xs text-[#9a9a9a]">
           ({m.benchmarkDate})
         </span>
       </div>
@@ -37,12 +37,12 @@ const statusBadgeClass =
     <span class={statusBadgeClass}>{m.statusLabel}</span>
   </div>
 
-  <p class="mt-2 text-xs text-slate-600">
+  <p class="mt-2 text-xs text-[#d8d8d8]">
     {m.benchmarkCaption}
   </p>
 
   {m.isPriceStale && (
-    <div class="mt-2.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+    <div class="mt-2.5 rounded border border-[#664b14] bg-[#291e09] px-3 py-2 text-xs text-[#f8cc6b]">
       {isKo
         ? "참고가 기준일이 30일을 경과했습니다. 아래 스토어 버튼에서 실시간 결제 가격을 반드시 확인하세요."
         : "Benchmark date is over 30 days old. Click through below to verify current checkout pricing."}
@@ -50,7 +50,7 @@ const statusBadgeClass =
   )}
 
   {m.isDiscontinued && (
-    <div class="mt-2.5 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-900">
+    <div class="mt-2.5 rounded border border-[#73232c] bg-[#2c1014] px-3 py-2 text-xs text-[#fca5a5]">
       {isKo
         ? "이 모델은 단종되었거나 판매 종료 상태입니다. 안전 검색 링크 및 하단 동급·후속 추천 모델을 확인하세요."
         : "This SKU appears discontinued or unavailable. Links fall back to safe category search; inspect recommended successors below."}
@@ -68,10 +68,10 @@ const statusBadgeClass =
         data-affiliate-sku={item.slug}
         data-affiliate-mode={btn.linkMode}
         class:list={[
-          "inline-flex w-full items-center justify-between gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors",
+          "inline-flex w-full items-center justify-between gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors",
           btn.isPrimary
-            ? "bg-blue-700 text-white hover:bg-blue-800"
-            : "border border-slate-300 bg-slate-50 text-slate-800 hover:border-slate-400 hover:bg-slate-100",
+            ? "bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+            : "border border-white/20 bg-white/5 text-white hover:border-white/30 hover:bg-white/10",
         ]}
       >
         <span>{btn.label}</span>
@@ -80,7 +80,7 @@ const statusBadgeClass =
     ))}
   </div>
 
-  <p class="mt-3 border-t border-slate-100 pt-2.5 text-[11px] leading-relaxed text-slate-500">
+  <p class="mt-3 border-t border-white/10 pt-2.5 text-[11px] leading-relaxed text-[#9a9a9a]">
     {m.disclosureText}
   </p>
 </div>

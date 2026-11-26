@@ -46,16 +46,16 @@ const payload = {
 
 <section
   id="cyclegear-calc"
-  class="lab-card overflow-hidden border-amber-200/90"
+  class="lab-card overflow-hidden border-amber-700/40"
   aria-labelledby="cg-calc-heading"
 >
-  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+  <div class="border-b border-white/10 bg-[#111111] px-5 py-4 text-white">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div>
         <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-300">
           INTERACTIVE BIKE COMPATIBILITY GUARD
         </span>
-        <h2 id="cg-calc-heading" class="mt-0.5 text-lg font-bold">
+        <h2 id="cg-calc-heading" class="mt-0.5 text-lg font-bold text-white">
           {isRoadTire
             ? isKo
               ? "로드 타이어 후크리스 5.0 bar 안전 가드 · 최적 공기압 계산기"
@@ -65,7 +65,7 @@ const payload = {
               : "Interactive Bike BB, Freehub, Mount & Ecosystem Compatibility Checker"}
         </h2>
       </div>
-      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+      <span class="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-xs text-neutral-200">
         {item.compatibility_graph.bb_or_mount_standard}
       </span>
     </div>
@@ -73,31 +73,31 @@ const payload = {
 
   <div class="space-y-6 p-5">
     <!-- Overall Verdict Banner -->
-    <div id="cg-verdict-box" class="rounded-xl border border-emerald-300 bg-emerald-50 p-4">
+    <div id="cg-verdict-box" class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex items-center gap-2.5">
           <span id="cg-verdict-badge" class="badge-pass">PASS</span>
-          <h3 id="cg-verdict-title" class="text-sm font-bold text-slate-900">
+          <h3 id="cg-verdict-title" class="text-sm font-bold text-white">
             {isKo ? "선택한 자전거 세팅과 호환됩니다" : "Compatible with Selected Bike Profile"}
           </h3>
         </div>
-        <span class="font-mono text-xs text-slate-500">ISO/ETRTO & SpecMatrix Guard</span>
+        <span class="font-mono text-xs text-neutral-400">ISO/ETRTO & SpecMatrix Guard</span>
       </div>
-      <p id="cg-verdict-desc" class="mt-2 text-xs leading-relaxed text-slate-700"></p>
+      <p id="cg-verdict-desc" class="mt-2 text-xs leading-relaxed text-neutral-300"></p>
     </div>
 
     <!-- Controls Grid -->
     <div class:list={["grid gap-4", isRoadTire ? "md:grid-cols-2" : ""]}>
       {isRoadTire && (
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
           <!-- 1. Rim Type & Pressure (Road Tires ONLY) -->
           <div class="flex items-center justify-between gap-2">
-            <span class="text-xs font-bold text-slate-900">
+            <span class="text-xs font-bold text-white">
               {isKo ? "1. 림 규격 & 목표 공기압 (5.0 bar 가드)" : "1. Rim Profile & Target Tire Pressure"}
             </span>
-            <div class="inline-flex overflow-hidden rounded border border-slate-300 bg-white font-mono text-[11px] font-semibold">
-              <button type="button" id="cg-unit-bar" aria-pressed="true" class="px-2 py-1 bg-slate-900 text-white">bar</button>
-              <button type="button" id="cg-unit-psi" aria-pressed="false" class="px-2 py-1 text-slate-600">psi</button>
+            <div class="inline-flex overflow-hidden rounded-md border border-white/15 bg-[#161616] font-mono text-[11px] font-semibold">
+              <button type="button" id="cg-unit-bar" aria-pressed="true" class="px-2 py-1 bg-[#dafa9c] text-[#0f0f0f]">bar</button>
+              <button type="button" id="cg-unit-psi" aria-pressed="false" class="px-2 py-1 text-neutral-300 hover:text-white">psi</button>
             </div>
           </div>
 
@@ -106,7 +106,7 @@ const payload = {
               type="button"
               data-rim="hooked"
               aria-pressed="true"
-              class="cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
+              class="cg-rim-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-2 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]"
             >
               {isKo ? "훅드 림 (Hooked)" : "Hooked Rim"}
             </button>
@@ -114,7 +114,7 @@ const payload = {
               type="button"
               data-rim="hookless"
               aria-pressed="false"
-              class="cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700"
+              class="cg-rim-btn rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white"
             >
               {isKo ? "후크리스 (Hookless TSS)" : "Hookless (TSS)"}
             </button>
@@ -122,10 +122,10 @@ const payload = {
 
           <div class="mt-3">
             <div class="flex items-center justify-between text-xs">
-              <label for="cg-pressure-slider" class="font-medium text-slate-600">
+              <label for="cg-pressure-slider" class="font-medium text-neutral-300">
                 {isKo ? "주행 공기압 설정:" : "Target Inflation Pressure:"}
               </label>
-              <span id="cg-pressure-display" class="font-mono font-bold text-slate-900">
+              <span id="cg-pressure-display" class="font-mono font-bold text-[#dafa9c]">
                 4.8 bar (69.6 psi)
               </span>
             </div>
@@ -138,9 +138,9 @@ const payload = {
               value="4.8"
               class="lab-slider mt-2"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>3.0 bar (43.5 psi)</span>
-              <span class="font-semibold text-rose-700">5.0 bar / 72.5 psi Hookless Cap</span>
+              <span class="font-semibold text-rose-300">5.0 bar / 72.5 psi Hookless Cap</span>
               <span>7.5 bar</span>
             </div>
           </div>
@@ -150,12 +150,12 @@ const payload = {
       <!-- Bike Standards -->
       <div
         class:list={[
-          "rounded-lg border border-slate-200 bg-slate-50 p-4",
+          "rounded-lg border border-white/10 bg-[#111111] p-4",
           isRoadTire ? "space-y-3" : "grid gap-4 md:grid-cols-3",
         ]}
       >
         <div>
-          <label for="cg-bb-select" class="block text-xs font-bold text-slate-900">
+          <label for="cg-bb-select" class="block text-xs font-bold text-white">
             {isRoadTire
               ? isKo
                 ? "2. 프레임 BB / 마운트 규격"
@@ -166,7 +166,7 @@ const payload = {
           </label>
           <select
             id="cg-bb-select"
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-medium text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
           >
             <option value="bsa">BSA Threaded (68mm)</option>
             <option value="pf86">PF86 / BB86 Press-Fit</option>
@@ -177,7 +177,7 @@ const payload = {
         </div>
 
         <div>
-          <label for="cg-freehub-select" class="block text-xs font-bold text-slate-900">
+          <label for="cg-freehub-select" class="block text-xs font-bold text-white">
             {isRoadTire
               ? isKo
                 ? "3. 프리허브 / 구동계 규격"
@@ -188,7 +188,7 @@ const payload = {
           </label>
           <select
             id="cg-freehub-select"
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-medium text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
           >
             <option value="hg-l2">Shimano HG / HG-L2 (11–12s Road)</option>
             <option value="xdr">SRAM XDR (12s AXS)</option>
@@ -197,7 +197,7 @@ const payload = {
         </div>
 
         <div>
-          <label for="cg-headunit-select" class="block text-xs font-bold text-slate-900">
+          <label for="cg-headunit-select" class="block text-xs font-bold text-white">
             {isRoadTire
               ? isKo
                 ? "4. 헤드유닛 / 트레이닝 앱"
@@ -208,7 +208,7 @@ const payload = {
           </label>
           <select
             id="cg-headunit-select"
-            class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-900"
+            class="mt-1.5 w-full rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-medium text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
           >
             <option value="garmin">Garmin Edge (ANT+ / BLE)</option>
             <option value="coros">COROS DURA (ANT+ / BLE)</option>
@@ -224,11 +224,11 @@ const payload = {
 
     <!-- Known incompatibility notes -->
     {item.compatibility_graph.incompatible_notes_en.length > 0 && (
-      <div class="rounded-lg border border-slate-200 bg-white p-4">
-        <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-600">
+      <div class="rounded-lg border border-white/10 bg-[#111111] p-4">
+        <h4 class="font-mono text-xs font-bold uppercase tracking-wider text-neutral-400">
           {isKo ? "검증된 비호환·간섭 주의사항" : "Verified Incompatibility & Clearance Notes"}
         </h4>
-        <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-700">
+        <ul class="mt-2 list-disc space-y-1 pl-5 text-xs text-neutral-300">
           {(isKo
             ? item.compatibility_graph.incompatible_notes_ko
             : item.compatibility_graph.incompatible_notes_en
@@ -240,14 +240,14 @@ const payload = {
     )}
 
     {!isRoadTire && (
-      <div class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-200 bg-amber-50/70 p-4 text-xs">
+      <div class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-700/50 bg-[#291e09] p-4 text-xs">
         <div>
-          <div class="font-bold text-amber-950">
+          <div class="font-bold text-amber-200">
             {isKo
               ? "후크리스(Hookless) 5.0 bar 공기압 계산이 필요하신가요?"
               : "Need Road Tire Pressure & Hookless 5.0 bar Calculation?"}
           </div>
-          <p class="mt-0.5 text-amber-900">
+          <p class="mt-0.5 text-amber-200/85">
             {isKo
               ? "체중·타이어 폭·노면별 앞/뒤 권장 공기압과 ISO/ETRTO 5.0 bar 안전 제한은 전용 타이어 공기압 가드 스튜디오에서 계산하세요."
               : "Use the dedicated Road Tire Pressure & Hookless 5.0 bar Guard Studio for 48/52 load-split inflation math."}
@@ -255,7 +255,7 @@ const payload = {
         </div>
         <a
           href={tireGuardHref}
-          class="shrink-0 rounded-lg bg-slate-900 px-3.5 py-2 font-mono text-xs font-semibold text-white transition-colors hover:bg-amber-700"
+          class="shrink-0 rounded-md bg-[#dafa9c] px-3.5 py-2 font-mono text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
         >
           {isKo ? "공기압 가드 스튜디오 열기 →" : "Open Tire Pressure Guard →"}
         </a>
@@ -263,14 +263,14 @@ const payload = {
     )}
 
     {isRoadTire && (
-      <div class="border-t border-slate-200 pt-6">
+      <div class="border-t border-white/10 pt-6">
         <!-- Part B: Road Tire Optimal Pressure Calculator (ETRTO / Silca-inspired Physics Model + Hookless 5.0 bar Guard) -->
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-700">
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-300">
             PART B · DETERMINISTIC TIRE PHYSICS
           </span>
-          <h3 class="mt-0.5 text-sm font-bold text-slate-900">
+          <h3 class="mt-0.5 text-sm font-bold text-white">
             {isKo
               ? "로드 타이어 최적 공기압 계산기 (ETRTO · 48/52 하중 배분 · 후크리스 5.0 bar 하드 가드)"
               : "Road Tire Optimal Pressure Calculator (48/52 Load Physics + Hookless 5.0 bar Guard)"}
@@ -282,13 +282,13 @@ const payload = {
       </div>
 
       <div class="mt-4 grid gap-4 md:grid-cols-2">
-        <div class="space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div class="space-y-4 rounded-lg border border-white/10 bg-[#111111] p-4">
           <div>
             <div class="flex items-center justify-between text-xs">
-              <label for="cg-rider-kg" class="font-semibold text-slate-700">
+              <label for="cg-rider-kg" class="font-semibold text-neutral-300">
                 {isKo ? "라이더 체중 (kg)" : "Rider Weight (kg)"}
               </label>
-              <span id="cg-rider-kg-val" class="font-mono font-bold text-slate-900">70 kg</span>
+              <span id="cg-rider-kg-val" class="font-mono font-bold text-[#dafa9c]">70 kg</span>
             </div>
             <input
               id="cg-rider-kg"
@@ -299,7 +299,7 @@ const payload = {
               value="70"
               class="lab-slider mt-2"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>45 kg</span>
               <span>75 kg</span>
               <span>120 kg</span>
@@ -308,10 +308,10 @@ const payload = {
 
           <div>
             <div class="flex items-center justify-between text-xs">
-              <label for="cg-bike-kg" class="font-semibold text-slate-700">
+              <label for="cg-bike-kg" class="font-semibold text-neutral-300">
                 {isKo ? "자전거 + 장비 총중량 (kg)" : "Bike + Gear Weight (kg)"}
               </label>
-              <span id="cg-bike-kg-val" class="font-mono font-bold text-slate-900">8.5 kg</span>
+              <span id="cg-bike-kg-val" class="font-mono font-bold text-[#dafa9c]">8.5 kg</span>
             </div>
             <input
               id="cg-bike-kg"
@@ -322,7 +322,7 @@ const payload = {
               value="8.5"
               class="lab-slider mt-2"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>6.0 kg</span>
               <span>8.5 kg</span>
               <span>15.0 kg</span>
@@ -330,9 +330,9 @@ const payload = {
           </div>
         </div>
 
-        <div class="space-y-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div class="space-y-4 rounded-lg border border-white/10 bg-[#111111] p-4">
           <div>
-            <span class="block text-xs font-semibold text-slate-700">
+            <span class="block text-xs font-semibold text-neutral-300">
               {isKo ? "타이어 실측 폭 (mm)" : "Measured Tire Width (mm)"}
             </span>
             <div id="cg-width-btns" class="mt-2 grid grid-cols-5 gap-1.5">
@@ -342,10 +342,10 @@ const payload = {
                   data-tire-w={w}
                   aria-pressed={w === defaultTireWidth ? "true" : "false"}
                   class:list={[
-                    "cg-width-btn rounded-lg border py-1.5 font-mono text-xs font-semibold transition-colors",
+                    "cg-width-btn rounded-md border py-1.5 font-mono text-xs font-semibold transition-colors",
                     w === defaultTireWidth
-                      ? "border-slate-900 bg-slate-900 text-white"
-                      : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                      ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                      : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
                   ]}
                 >
                   {w}mm
@@ -355,7 +355,7 @@ const payload = {
           </div>
 
           <div>
-            <span class="block text-xs font-semibold text-slate-700">
+            <span class="block text-xs font-semibold text-neutral-300">
               {isKo ? "주행 노면 컨디션" : "Road Surface Condition"}
             </span>
             <div id="cg-surface-btns" class="mt-2 grid grid-cols-2 gap-1.5 sm:grid-cols-4">
@@ -370,10 +370,10 @@ const payload = {
                   data-surface={sf.id}
                   aria-pressed={idx === 0 ? "true" : "false"}
                   class:list={[
-                    "cg-surface-btn rounded-lg border px-2 py-1.5 text-xs font-semibold transition-colors",
+                    "cg-surface-btn rounded-md border px-2 py-1.5 text-xs font-semibold transition-colors",
                     idx === 0
-                      ? "border-slate-900 bg-slate-900 text-white"
-                      : "border-slate-300 bg-white text-slate-700 hover:border-slate-500",
+                      ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                      : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
                   ]}
                 >
                   {sf.label}
@@ -386,9 +386,9 @@ const payload = {
 
       <!-- Optimal Front / Rear Pressure Output Cards -->
       <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <div class="rounded-xl border border-slate-200 bg-white p-4">
+        <div class="rounded-lg border border-sky-700/50 bg-[#0f1f30] p-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono text-[11px] font-semibold uppercase text-slate-500">
+            <span class="font-mono text-[11px] font-semibold uppercase text-sky-200">
               {isKo ? "권장 앞 타이어 공기압 (48% 하중)" : "Recommended Front Pressure (48% Load)"}
             </span>
             <span id="cg-front-clamp-tag" class="hidden badge-fail font-mono text-[10px]">
@@ -396,21 +396,21 @@ const payload = {
             </span>
           </div>
           <div class="mt-1.5 flex items-baseline gap-2.5">
-            <span id="cg-front-bar" class="kpi-value font-mono text-2xl font-bold text-blue-700">
+            <span id="cg-front-bar" class="kpi-value font-mono text-2xl font-bold text-[#dafa9c]">
               4.95 bar
             </span>
-            <span id="cg-front-psi" class="kpi-value font-mono text-base font-semibold text-slate-700">
+            <span id="cg-front-psi" class="kpi-value font-mono text-base font-semibold text-white">
               71.8 psi
             </span>
           </div>
-          <div id="cg-front-sub" class="mt-1 text-[11px] text-slate-500">
+          <div id="cg-front-sub" class="mt-1 text-[11px] text-sky-200/80">
             {isKo ? "앞바퀴 분담 하중 기준" : "Front wheel load allocation"}
           </div>
         </div>
 
-        <div class="rounded-xl border border-slate-200 bg-white p-4">
+        <div class="rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4">
           <div class="flex items-center justify-between">
-            <span class="font-mono text-[11px] font-semibold uppercase text-slate-500">
+            <span class="font-mono text-[11px] font-semibold uppercase text-emerald-200">
               {isKo ? "권장 뒤 타이어 공기압 (52% 하중)" : "Recommended Rear Pressure (52% Load)"}
             </span>
             <span id="cg-rear-clamp-tag" class="hidden badge-fail font-mono text-[10px]">
@@ -418,14 +418,14 @@ const payload = {
             </span>
           </div>
           <div class="mt-1.5 flex items-baseline gap-2.5">
-            <span id="cg-rear-bar" class="kpi-value font-mono text-2xl font-bold text-emerald-700">
+            <span id="cg-rear-bar" class="kpi-value font-mono text-2xl font-bold text-[#dafa9c]">
               5.25 bar
             </span>
-            <span id="cg-rear-psi" class="kpi-value font-mono text-base font-semibold text-slate-700">
+            <span id="cg-rear-psi" class="kpi-value font-mono text-base font-semibold text-white">
               76.1 psi
             </span>
           </div>
-          <div id="cg-rear-sub" class="mt-1 text-[11px] text-slate-500">
+          <div id="cg-rear-sub" class="mt-1 text-[11px] text-emerald-200/80">
             {isKo ? "뒷바퀴 분담 하중 기준" : "Rear wheel load allocation"}
           </div>
         </div>
@@ -434,20 +434,20 @@ const payload = {
       <!-- Hookless 5.0 bar Hard Safety Clamp Alert -->
       <div
         id="cg-hookless-clamp-alert"
-        class="mt-3 hidden rounded-xl border-2 border-rose-500 bg-rose-50 p-4 text-xs text-rose-950"
+        class="mt-3 hidden rounded-lg border border-rose-700/70 bg-[#2c1014] p-4 text-xs text-rose-200"
         role="alert"
       >
         <div class="flex items-start gap-2.5">
-          <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-600 font-mono text-[11px] font-bold text-white">
+          <span class="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-500 font-mono text-[11px] font-bold text-white">
             !
           </span>
           <div class="space-y-1">
-            <div class="font-bold text-rose-950">
+            <div class="font-bold text-white">
               {isKo
                 ? "후크리스 5.0 bar (72.5 psi) 안전 상한 초과 — 강제 제한(Hard Clamp) 적용됨!"
                 : "HOOKLESS 5.0 bar (72.5 psi) HARD SAFETY CLAMP TRIGGERED"}
             </div>
-            <p id="cg-hookless-clamp-msg" class="leading-relaxed text-rose-900"></p>
+            <p id="cg-hookless-clamp-msg" class="leading-relaxed text-rose-200"></p>
           </div>
         </div>
       </div>
@@ -873,7 +873,7 @@ const payload = {
 
       if (verdictBox && verdictBadge && verdictTitle && verdictDesc) {
         if (hasFail) {
-          verdictBox.className = "rounded-xl border border-rose-300 bg-rose-50 p-4";
+          verdictBox.className = "rounded-lg border border-rose-700/60 bg-[#2c1014] p-4";
           verdictBadge.className = "badge-fail";
           verdictBadge.textContent = isKo ? "INCOMPATIBLE (비호환/위험)" : "INCOMPATIBLE / DANGER";
           verdictTitle.textContent = isKo
@@ -883,7 +883,7 @@ const payload = {
             ? "아래 빨간색 항목을 반드시 수정하거나 제조사 호환 모델을 선택하세요."
             : "Resolve the red flagged condition(s) below before installing or riding.";
         } else if (hasCaution) {
-          verdictBox.className = "rounded-xl border border-amber-300 bg-amber-50 p-4";
+          verdictBox.className = "rounded-lg border border-amber-700/50 bg-[#291e09] p-4";
           verdictBadge.className = "badge-caution";
           verdictBadge.textContent = isKo ? "CAUTION (조건부 호환)" : "CAUTION — CONDITIONAL";
           verdictTitle.textContent = isKo
@@ -891,7 +891,7 @@ const payload = {
             : "Conditionally Compatible — Verify Adapter / Approved List";
           verdictDesc.textContent = cfg.torqueNote || "";
         } else {
-          verdictBox.className = "rounded-xl border border-emerald-300 bg-emerald-50 p-4";
+          verdictBox.className = "rounded-lg border border-emerald-700/50 bg-[#0d261a] p-4";
           verdictBadge.className = "badge-pass";
           verdictBadge.textContent = isKo ? "PASS (호환 검증됨)" : "PASS — COMPATIBLE";
           verdictTitle.textContent = isKo
@@ -923,12 +923,12 @@ const payload = {
                     ? "통과"
                     : "PASS";
             return `
-              <div class="rounded-lg border border-slate-200 bg-white p-3.5">
+              <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
                 <div class="flex items-center justify-between gap-2">
-                  <span class="text-xs font-bold text-slate-900">${esc(c.title)}</span>
+                  <span class="text-xs font-bold text-white">${esc(c.title)}</span>
                   <span class="${esc(cls)}">${esc(label)}</span>
                 </div>
-                <p class="mt-1.5 text-xs leading-relaxed text-slate-600">${esc(c.detail)}</p>
+                <p class="mt-1.5 text-xs leading-relaxed text-neutral-300">${esc(c.detail)}</p>
               </div>
             `;
           })
@@ -944,8 +944,8 @@ const payload = {
           const on = o === b;
           o.setAttribute("aria-pressed", on ? "true" : "false");
           o.className = on
-            ? "cg-rim-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
-            : "cg-rim-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700";
+            ? "cg-rim-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-2 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba]"
+            : "cg-rim-btn rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white";
         });
         evaluate();
         if (isRoadTire) computeOptimalPressure();
@@ -958,8 +958,8 @@ const payload = {
         pressureUnit = "bar";
         unitBarBtn.setAttribute("aria-pressed", "true");
         unitPsiBtn.setAttribute("aria-pressed", "false");
-        unitBarBtn.className = "px-2 py-1 bg-slate-900 text-white";
-        unitPsiBtn.className = "px-2 py-1 text-slate-600";
+        unitBarBtn.className = "px-2 py-1 bg-[#dafa9c] text-[#0f0f0f]";
+        unitPsiBtn.className = "px-2 py-1 text-neutral-300 hover:text-white";
         evaluate();
       });
       unitPsiBtn.addEventListener("click", () => {
@@ -967,8 +967,8 @@ const payload = {
         pressureUnit = "psi";
         unitPsiBtn.setAttribute("aria-pressed", "true");
         unitBarBtn.setAttribute("aria-pressed", "false");
-        unitPsiBtn.className = "px-2 py-1 bg-slate-900 text-white";
-        unitBarBtn.className = "px-2 py-1 text-slate-600";
+        unitPsiBtn.className = "px-2 py-1 bg-[#dafa9c] text-[#0f0f0f]";
+        unitBarBtn.className = "px-2 py-1 text-neutral-300 hover:text-white";
         evaluate();
       });
     }
@@ -1003,8 +1003,8 @@ const payload = {
           const on = o === b;
           o.setAttribute("aria-pressed", on ? "true" : "false");
           o.className = on
-            ? "cg-width-btn rounded-lg border border-slate-900 bg-slate-900 py-1.5 font-mono text-xs font-semibold text-white transition-colors"
-            : "cg-width-btn rounded-lg border border-slate-300 bg-white py-1.5 font-mono text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+            ? "cg-width-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] py-1.5 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+            : "cg-width-btn rounded-md border border-white/15 bg-[#161616] py-1.5 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
         });
         computeOptimalPressure();
       });
@@ -1018,8 +1018,8 @@ const payload = {
           const on = o === b;
           o.setAttribute("aria-pressed", on ? "true" : "false");
           o.className = on
-            ? "cg-surface-btn rounded-lg border border-slate-900 bg-slate-900 px-2 py-1.5 text-xs font-semibold text-white transition-colors"
-            : "cg-surface-btn rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-500 transition-colors";
+            ? "cg-surface-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-2 py-1.5 text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+            : "cg-surface-btn rounded-md border border-white/15 bg-[#161616] px-2 py-1.5 text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
         });
         computeOptimalPressure();
       });

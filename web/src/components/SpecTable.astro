@@ -390,10 +390,10 @@ if (item.vertical === "wattcheck") {
 
 <section class="space-y-3" aria-labelledby="spec-table-heading">
   <div class="flex flex-wrap items-center justify-between gap-2">
-    <h2 id="spec-table-heading" class="text-lg font-bold tracking-tight text-slate-900">
+    <h2 id="spec-table-heading" class="text-lg font-bold tracking-tight text-white">
       {isKo ? "공식 근거 고정 정밀 스펙표" : "Evidence-Anchored Specification Table"}
     </h2>
-    <span class="font-mono text-xs text-slate-500">
+    <span class="font-mono text-xs text-[#9a9a9a]">
       {rows.length} {isKo ? "검증 필드 · 출처 " : "verified fields · "}
       {item.citations.length} {isKo ? "건" : "citations"}
     </span>
@@ -410,8 +410,8 @@ if (item.vertical === "wattcheck") {
       <tbody>
         {rows.map((r) => (
           <tr>
-            <th scope="row" class="font-medium text-slate-600">{r.label}</th>
-            <td class:list={["text-slate-900", r.mono ? "font-mono text-[13px]" : ""]}>
+            <th scope="row" class="font-medium text-[#9a9a9a]">{r.label}</th>
+            <td class:list={["text-white", r.mono ? "font-mono text-[13px]" : ""]}>
               {r.value}
             </td>
           </tr>

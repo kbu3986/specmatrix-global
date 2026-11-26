@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import LandingLayout from "../layouts/LandingLayout.astro";
 import {
   getAirlines,
   getAllItems,
@@ -19,6 +19,10 @@ const pgCount = getVerticalItems("puregram").length;
 const cgCount = getVerticalItems("cyclegear").length;
 const htCount = getVerticalItems("hometech").length;
 
+const pageTitle = "SpecMatrix: verified spec matrices and calculators for hardware buyers";
+const pageDesc =
+  "Compare 72 verified products and 30 global airline policies in English (USD, 120V, FAA) or Korean (KRW, 220V, MOLIT).";
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -26,8 +30,7 @@ const jsonLd = [
     name: "SpecMatrix Global",
     url: `${SITE_URL}/`,
     inLanguage: ["en", "ko"],
-    description:
-      "Evidence-anchored multi-locale specification comparison matrices and deterministic engineering calculators across power gear, endurance nutrition, cycling hardware, and HomeTech 3-year TCO.",
+    description: pageDesc,
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -46,255 +49,307 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout
-  title="SpecMatrix Global — Evidence-Anchored Spec Matrices & Lab Calculators (EN / KO)"
-  description="Precision hardware, endurance nutrition, road-cycling, and HomeTech 3-year TCO specification matrices verified against official manuals, nutrition labels, and aviation rules."
+<LandingLayout
+  title={pageTitle}
+  description={pageDesc}
   locale="en"
   currentPath="/"
   isRootPortal={true}
   jsonLd={jsonLd}
+  dealComment="type: software | deal: hero centred, nav nav-cards, close close-word, footer footer-statement, rhythm surface-pairs, buttons solid, mark ring, ground sky, effect gradient-mesh | root portal"
 >
-  <section class="mx-auto max-w-4xl py-6 sm:py-12">
-    <div class="text-center">
-      <span class="badge-info font-mono">EVIDENCE-ANCHORED SPEC MATRIX · 4 VERTICALS LIVE</span>
-      <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-        SpecMatrix Global
-      </h1>
-      <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-        Zero-hallucination specification sheets, head-to-head quantitative comparisons, and
-        deterministic calculators anchored to official manufacturer manuals, nutrition panels,
-        KEPCO/US electricity tariffs, and global airline regulations.
-      </p>
-      <p class="mx-auto mt-2 max-w-2xl text-sm text-slate-500">
-        제조사 공식 스펙시트·영양성분표·한전 전력 TCO·30개 항공사 규정에 근거한 정밀 비교 매트릭스 및 인터랙티브 검증 스튜디오
-      </p>
-    </div>
+  <Fragment slot="head">
+    <style is:inline>
+      .hero__window {
+        background:
+          radial-gradient(80% 90% at 15% 10%, #d6e0e9 0 42%, transparent 72%),
+          radial-gradient(75% 85% at 88% 92%, #7ea0bf 0 38%, transparent 74%),
+          radial-gradient(50% 60% at 72% 18%, #e4edf4 0 30%, transparent 68%),
+          linear-gradient(155deg, #c6d3df, #9eb8cf 60%, #7d9ab4);
+      }
+      .d-win--dark {
+        background: #141414; color: #ffffff; border-radius: 10px; overflow: hidden;
+        font: 400 14px/1.4 var(--font-text); text-align: left;
+        box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1), 0 30px 70px -30px rgb(0 0 0 / 0.85);
+      }
+      .d-win__bar {
+        display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px;
+        border-bottom: 1px solid rgb(255 255 255 / 0.08); font-size: 13px; color: #a3a3a3;
+      }
+      .d-win__bar b { color: #ffffff; font-weight: 500; }
+      .d-win__bar .sp { flex: 1; }
+      .d-win__dots { display: flex; gap: 6px; }
+      .d-win__dots i { width: 10px; height: 10px; border-radius: 50%; background: #363636; }
+      .d-win__body { display: grid; grid-template-columns: 248px 1fr; min-height: 400px; }
+      .inbox {
+        border-right: 1px solid rgb(255 255 255 / 0.08); padding: 8px;
+        display: grid; align-content: start; gap: 2px;
+      }
+      .inbox .q {
+        height: 28px; margin-bottom: 4px; border-radius: 4px; background: rgb(255 255 255 / 0.06);
+        display: flex; align-items: center; padding: 0 10px; color: #9c9c9c; font-size: 13px;
+      }
+      .inbox .t {
+        display: grid; grid-template-columns: 28px 1fr auto; gap: 1px 10px;
+        padding: 5px 8px; border-radius: 4px; font-size: 13px;
+      }
+      .inbox .t.is-on { background: rgb(255 255 255 / 0.08); }
+      .inbox .t i {
+        grid-row: 1 / span 2; width: 28px; height: 28px; border-radius: 4px;
+        display: grid; place-items: center; font: 600 12px/1 var(--font-mono);
+        font-style: normal; color: #0f0f0f;
+      }
+      .inbox .t b { font-weight: 500; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .inbox .t time { color: #a3a3a3; font: 400 12px/1.3 var(--font-mono); font-variant-numeric: tabular-nums; }
+      .inbox .t span { grid-column: 2 / -1; color: #9e9e9e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .convo { display: grid; min-width: 0; align-content: start; }
+      .d-chat { display: grid; gap: 8px; align-content: start; padding: 14px 18px; font-size: 14px; }
+      .d-msg { max-width: 86%; padding: 9px 13px; border-radius: 8px; line-height: 1.42; }
+      .d-msg--me { justify-self: end; background: #ffffff; color: #0f0f0f; }
+      .d-msg--bot { background: #222222; color: #f4f4f4; }
+      .d-msg--bot small { display: inline; margin-left: 8px; font: 400 12px/1.3 var(--font-mono); color: #dafa9c; white-space: nowrap; }
+      .d-tool { display: flex; align-items: center; gap: 8px; font: 400 13px/1.3 var(--font-mono); color: #a8a8a8; }
+      .d-tool::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #dafa9c; border-right-color: transparent; flex: none; }
+      .acts { display: flex; flex-wrap: wrap; gap: 8px; }
+      .acts span {
+        height: 28px; padding: 0 11px; border-radius: 4px; display: inline-flex; align-items: center;
+        font: 500 13px/1 var(--font-mono); background: #dafa9c; color: #0f0f0f;
+      }
+      .acts span + span { background: rgb(255 255 255 / 0.1); color: #ffffff; }
+      @media (max-height: 820px) and (min-width: 640px) {
+        .hero__window .inbox .t:nth-of-type(n+4) { display: none; }
+      }
+      @media (max-width: 639px) {
+        .hero__window .d-win__bar .sp ~ span { display: none; }
+        .d-win__body { grid-template-columns: 1fr; }
+        .inbox { display: none; }
+        .hero__window .d-chat { font-size: 13px; padding: 12px 14px; }
+        .hero__window .d-msg--bot small, .hero__window .d-tool { display: none; }
+      }
 
-    <!-- Language Hint Banner (non-blocking) -->
-    <div
-      id="root-locale-hint"
-      class="mt-6 hidden items-center justify-between gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-950"
-    >
-      <span id="root-locale-hint-text"></span>
-      <a
-        id="root-locale-hint-link"
-        href={withBase("/ko/")}
-        data-ko-href={withBase("/ko/")}
-        data-en-href={withBase("/en/")}
-        class="shrink-0 rounded-md bg-blue-700 px-3 py-1.5 font-semibold text-white hover:bg-blue-800"
-      >
-        바로 이동 →
-      </a>
-    </div>
+      /* #hubs regional cards */
+      #hubs .panel { --p-h: 276px; display: flex; align-items: center; justify-content: center; padding: 24px; }
+      #hubs .card > h3 a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); }
+      @media (min-width: 640px) and (max-width: 1023px) {
+        #hubs .panel { --p-h: 380px; }
+      }
+      #hubs .card > h3 a::after { content: "\2192"; color: var(--accent); transition: transform var(--dur) var(--ease); }
+      @media (hover: hover) and (pointer: fine) {
+        #hubs .card:hover > h3 a::after { transform: translateX(3px); }
+      }
+      .hub-card-ui {
+        position: relative; z-index: 2; width: min(100%, 420px);
+        background: #141414; color: #ffffff; border: 1px solid rgb(255 255 255 / 0.12);
+        border-radius: var(--r-md); box-shadow: 0 20px 44px -22px rgb(0 0 0 / 0.65); overflow: hidden;
+        font: 400 13px/1.4 var(--font-text);
+      }
+      .hub-card-ui__head {
+        display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        padding: 10px 14px; background: #1b1b1b; border-bottom: 1px solid rgb(255 255 255 / 0.08);
+      }
+      .hub-card-ui__code { font: 500 13px/1 var(--font-mono); color: #dafa9c; }
+      .hub-card-ui__std { font: 400 13px/1 var(--font-mono); color: #c4c4c4; }
+      .hub-card-ui__grid {
+        display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+        background: rgb(255 255 255 / 0.08);
+      }
+      .hub-card-ui__cell {
+        display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+        padding: 11px 14px; background: #141414;
+      }
+      .hub-card-ui__cell span { color: #b8b8b8; }
+      .hub-card-ui__cell b { font: 500 13px/1 var(--font-mono); color: #ffffff; font-variant-numeric: tabular-nums; }
+      .hub-card-ui__foot {
+        display: flex; justify-content: space-between; gap: 8px; padding: 9px 14px;
+        background: #181818; border-top: 1px solid rgb(255 255 255 / 0.08);
+        font: 400 12px/1.3 var(--font-mono); color: #b8b8b8;
+      }
+      @media (max-width: 639px) {
+        #hubs .section-head { margin-bottom: var(--s-4); }
+        #hubs .panel { --p-h: 152px; padding: 12px; margin-top: var(--s-4); }
+        .hub-card-ui__cell { padding: 7px 10px; }
+        .hub-card-ui__foot { padding: 7px 10px; }
+      }
+    </style>
+  </Fragment>
 
-    <!-- EN / KO Launch Cards -->
-    <div class="mt-8 grid gap-5 md:grid-cols-2">
-      <a
-        href={withBase("/en/")}
-        class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
-      >
-        <div class="flex items-center justify-between">
-          <span class="rounded-md bg-slate-900 px-2.5 py-1 font-mono text-xs font-bold text-white">
-            EN · US / GLOBAL
-          </span>
-          <span class="font-mono text-xs text-slate-500">USD · 120V · FAA/TSA</span>
-        </div>
-        <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-blue-700">
-          Enter English Hub →
-        </h2>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          Amazon US MSRP benchmarks, IATA & FAA PackSafe flight rules, true cost per active gram,
-          hookless 5.0 bar safety checkers, and 3-year MiniPC/NAS/UPS TCO simulators.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
-          <span>WattCheck ({wcCount})</span>
-          <span>·</span>
-          <span>PureGram ({pgCount})</span>
-          <span>·</span>
-          <span>CycleGear ({cgCount})</span>
-          <span>·</span>
-          <span>HomeTech ({htCount})</span>
-        </div>
-      </a>
-
-      <a
-        href={withBase("/ko/")}
-        class="lab-card group block p-6 transition-all hover:border-blue-500 hover:shadow-md"
-      >
-        <div class="flex items-center justify-between">
-          <span class="rounded-md bg-blue-700 px-2.5 py-1 font-mono text-xs font-bold text-white">
-            KO · 대한민국
-          </span>
-          <span class="font-mono text-xs text-slate-500">KRW · 220V · 국토부/한전</span>
-        </div>
-        <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-blue-700">
-          한국어 허브 입장 →
-        </h2>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">
-          국토교통부 2025–2026 기내 반입 규정·KC 인증, 쿠팡·직구 실단가 계산기, 후크리스 5 bar
-          안전 검증기, 한전 누진제 3년 전기요금 TCO 계산기.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs text-slate-500">
-          <span>WattCheck ({wcCount})</span>
-          <span>·</span>
-          <span>PureGram ({pgCount})</span>
-          <span>·</span>
-          <span>CycleGear ({cgCount})</span>
-          <span>·</span>
-          <span>HomeTech ({htCount})</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- Interactive Lab Studios Banner -->
-    <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-white shadow-sm">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <span class="inline-block rounded-full border border-blue-400/40 bg-blue-500/20 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-blue-200">
-            INTERACTIVE LAB STUDIOS
-          </span>
-          <h2 class="mt-2 text-lg font-bold tracking-tight text-white sm:text-xl">
-            Zero-Bloat Engineering Workbenches / 인터랙티브 검증 스튜디오
-          </h2>
-        </div>
-        <div class="flex items-center gap-2">
+  <!-- 1. HERO (1H, centred, bilingual portal) -->
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-text">
+        <div class="hero__c">
           <a
-            href={withBase("/en/tools/")}
-            class="rounded-md border border-slate-600 bg-slate-800 px-3 py-1.5 font-mono text-xs font-semibold text-slate-100 hover:border-blue-400 hover:text-white"
+            id="root-locale-pill"
+            class="pill"
+            href={withBase("/ko/")}
+            data-ko-href={withBase("/ko/")}
+            data-en-href={withBase("/en/")}
           >
-            All Tools (EN) →
+            <span id="root-locale-pill-main">{totalItems} verified SKUs · {totalAirlines} airlines</span>
+            <span id="root-locale-pill-sub" class="muted">한국어 허브 열기</span>
           </a>
-          <a
-            href={withBase("/ko/tools/")}
-            class="rounded-md bg-blue-600 px-3 py-1.5 font-mono text-xs font-semibold text-white hover:bg-blue-500"
-          >
-            전체 도구 (KO) →
-          </a>
+          <h1 id="hero-h" aria-label="Spec matrices for hardware buyers">
+            <span class="ly-mark" aria-hidden="true"></span> Spec matrices for hardware buyers
+          </h1>
+          <p class="hero__lead">
+            Compare {totalItems} verified products across four verticals in USD or KRW. 제조사 공식 스펙·영양성분표·30개 항공사 규정·3년 전력 TCO 비교.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href={withBase("/en/")}>
+              Enter English Hub
+              <svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true">
+                <path class="m-arrow__stem" d="M1 6h8" />
+                <path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
+              </svg>
+            </a>
+            <a class="btn btn--secondary" href={withBase("/ko/")}>
+              한국어 허브 열기
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <a
-          href={withBase("/en/compare/")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
+        <div
+          class="hero__window"
+          data-fx="gradient-mesh"
+          data-fx-seed="42"
+          role="img"
+          aria-label="SpecMatrix Global four-vertical verification preview across EN and KO standards"
         >
-          <div class="font-mono text-[11px] font-bold text-blue-300">ANY-VS-ANY WORKBENCH</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
-            Live 1:1 Compare Studio →
+          <div class="ly-piece d-win d-win--dark" aria-hidden="true">
+            <div class="d-win__bar">
+              <span class="d-win__dots"><i></i><i></i><i></i></span>
+              <span><b>SpecMatrix Global</b> · {totalItems} Audited SKUs</span>
+              <span class="sp"></span>
+              <span>EN (USD · 120V) · KO (KRW · 220V)</span>
+            </div>
+            <div class="d-win__body">
+              <div class="inbox">
+                <div class="q">4 verticals · {totalItems} verified SKUs</div>
+                <div class="t is-on">
+                  <i style="background:#dafa9c">WC</i>
+                  <b>WattCheck</b>
+                  <time>{wcCount} SKUs</time>
+                  <span>{totalAirlines} airline carry-on rules</span>
+                </div>
+                <div class="t">
+                  <i style="background:#9cc7e4">PG</i>
+                  <b>PureGram</b>
+                  <time>{pgCount} SKUs</time>
+                  <span>Cost per 30 g pure carbs</span>
+                </div>
+                <div class="t">
+                  <i style="background:#b7d9b0">HT</i>
+                  <b>HomeTech</b>
+                  <time>{htCount} SKUs</time>
+                  <span>24/7 idle watts &amp; 3-yr TCO</span>
+                </div>
+              </div>
+              <div class="convo">
+                <div class="d-chat" data-ly-steps="900">
+                  <div class="d-msg d-msg--me">
+                    Compare Apple Mac mini M4 3-year power cost in US vs Korea
+                  </div>
+                  <div class="d-tool" data-step>
+                    Loading official 4 W idle datasheet · US $0.16/kWh &amp; KEPCO tiers
+                  </div>
+                  <div class="d-msg d-msg--bot" data-step>
+                    4 W idle draws 35 kWh/yr on built-in 100–240 V PSU. Under $6/yr US or ~₩7,000/yr Korea with zero step-down transformer.
+                    <small>Trust 99 · EN / KO</small>
+                  </div>
+                  <div class="acts" data-step>
+                    <span>100–240 V pass</span>
+                    <span>4 W idle · 6 studios</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="mt-1 text-xs text-slate-300">
-            Compare any 2 of {totalItems} verified SKUs with live weighting sliders & Markdown export.
-          </p>
-        </a>
-
-        <a
-          href={withBase("/en/tools/travel-power-kit/")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-sky-400"
-        >
-          <div class="font-mono text-[11px] font-bold text-sky-300">WATTCHECK × {totalAirlines} AIRLINES</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-sky-200">
-            Travel Power Kit Optimizer →
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            Match your laptop/phone wattage + airline carry-on Wh/CCC constraints instantly.
-          </p>
-        </a>
-
-        <a
-          href={withBase("/en/tools/fueling-planner/")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-emerald-400"
-        >
-          <div class="font-mono text-[11px] font-bold text-emerald-300">PUREGRAM RACE PACK</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-emerald-200">
-            Race Fueling Mix Planner →
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            Build marathon & cycling hourly carb, sodium, and caffeine packs with live cost math.
-          </p>
-        </a>
-
-        <a
-          href={withBase("/en/tools/hometech-tco-studio/")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-violet-400"
-        >
-          <div class="font-mono text-[11px] font-bold text-violet-300">HOMETECH TCO × UPS</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-violet-200">
-            3-Year TCO & UPS Runtime Studio →
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            Compare 24/7 idle electricity payback & multi-device NAS/MiniPC outage backup time.
-          </p>
-        </a>
-
-        <a
-          href={withBase("/en/tools/tire-pressure-guard/")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-amber-400"
-        >
-          <div class="font-mono text-[11px] font-bold text-amber-300">CYCLEGEAR ETRTO TSS</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-amber-200">
-            Tire Pressure & Hookless Guard →
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            Compute front/rear bar & psi with strict ETRTO 5.0 bar (72.5 psi) hookless checks.
-          </p>
-        </a>
-
-        <a
-          href={withBase("/en/wattcheck/matrix/airlines-30/")}
-          class="group rounded-xl border border-slate-700/80 bg-slate-800/70 p-4 transition-colors hover:border-blue-400"
-        >
-          <div class="font-mono text-[11px] font-bold text-blue-300">AVIATION COMPLIANCE</div>
-          <div class="mt-1 text-sm font-bold text-white group-hover:text-blue-200">
-            {totalAirlines}-Airline Battery Matrix →
-          </div>
-          <p class="mt-1 text-xs text-slate-300">
-            Search MOLIT 2026, FAA, MLIT, EASA & CAAC CCC power bank carry-on rules by airline.
-          </p>
-        </a>
-      </div>
-    </div>
-
-    <!-- Verified Index Summary -->
-    <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <div class="lab-card p-4 text-center">
-        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalItems}</div>
-        <div class="mt-1 text-xs font-medium text-slate-500">Verified SKUs</div>
-      </div>
-      <div class="lab-card p-4 text-center">
-        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalAirlines}</div>
-        <div class="mt-1 text-xs font-medium text-slate-500">Global Airlines</div>
-      </div>
-      <div class="lab-card p-4 text-center">
-        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalVs}</div>
-        <div class="mt-1 text-xs font-medium text-slate-500">1:1 VS Breakdowns</div>
-      </div>
-      <div class="lab-card p-4 text-center">
-        <div class="kpi-value font-mono text-2xl font-bold text-slate-900">{totalMatrices}</div>
-        <div class="mt-1 text-xs font-medium text-slate-500">Interactive Matrices</div>
+        </div>
       </div>
     </div>
   </section>
-</BaseLayout>
 
-<script>
-  (() => {
-    const lang = (navigator.language || "").toLowerCase();
-    const box = document.getElementById("root-locale-hint");
-    const txt = document.getElementById("root-locale-hint-text");
-    const lnk = document.getElementById("root-locale-hint-link");
-    if (!box || !txt || !lnk) return;
-    if (lang.startsWith("ko")) {
-      txt.textContent = "한국어 브라우저 환경이 감지되었습니다. KRW · 국토부 규정 · 한전 누진제 TCO 기준으로 구성된 한국어 허브를 이용하세요.";
-      lnk.setAttribute("href", lnk.getAttribute("data-ko-href") || "/ko/");
-      lnk.textContent = "한국어 허브로 이동 →";
-      box.classList.remove("hidden");
-      box.classList.add("flex");
-    } else {
-      txt.textContent = "Detected English locale. Launch the EN hub for USD benchmarks, FAA/IATA rules, and US store links.";
-      lnk.setAttribute("href", lnk.getAttribute("data-en-href") || "/en/");
-      lnk.textContent = "Go to English Hub →";
-      box.classList.remove("hidden");
-      box.classList.add("flex");
-    }
-  })();
-</script>
+  <!-- 2. HUBS (1H, ground-surface, EN vs KO regional selector) -->
+  <section class="section ground-surface" id="hubs" aria-labelledby="hubs-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="hubs-h">Choose your regional SpecMatrix hub</h2>
+        <p class="t-lead muted">
+          Pick English or Korean to match local voltage, currency benchmarks, and aviation rules.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card card--row span-6">
+          <h3><a href={withBase("/en/")}>EN · US &amp; Global Hub</a></h3>
+          <p>
+            USD MSRP benchmarks, 120 V power tariffs, FAA PackSafe and IATA baggage rules, plus six browser calculators.
+          </p>
+          <div class="panel panel--flush" role="img" aria-label="English hub vertical counts">
+            <div class="hub-card-ui" aria-hidden="true">
+              <div class="hub-card-ui__head">
+                <span class="hub-card-ui__code">EN · US / GLOBAL</span>
+                <span class="hub-card-ui__std">USD · 120V · FAA/IATA</span>
+              </div>
+              <div class="hub-card-ui__grid">
+                <div class="hub-card-ui__cell"><span>WattCheck</span><b>{wcCount} SKUs</b></div>
+                <div class="hub-card-ui__cell"><span>PureGram</span><b>{pgCount} SKUs</b></div>
+                <div class="hub-card-ui__cell"><span>CycleGear</span><b>{cgCount} SKUs</b></div>
+                <div class="hub-card-ui__cell"><span>HomeTech</span><b>{htCount} SKUs</b></div>
+              </div>
+              <div class="hub-card-ui__foot">
+                <span>{totalAirlines} airlines</span>
+                <span>{totalMatrices} matrices</span>
+                <span>{totalVs} VS · 6 studios</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card--row span-6">
+          <h3><a href={withBase("/ko/")}>KO · 대한민국 허브</a></h3>
+          <p>
+            KRW 기준가, 220 V 프리볼트·KC 인증, 국토교통부 2026 기내 반입 규정, 한전 누진제 3년 전력 TCO 계산기.
+          </p>
+          <div class="panel panel--flush" role="img" aria-label="한국어 허브 버티컬 현황">
+            <div class="hub-card-ui" aria-hidden="true">
+              <div class="hub-card-ui__head">
+                <span class="hub-card-ui__code">KO · 대한민국</span>
+                <span class="hub-card-ui__std">KRW · 220V · 국토부/한전</span>
+              </div>
+              <div class="hub-card-ui__grid">
+                <div class="hub-card-ui__cell"><span>WattCheck</span><b>{wcCount}종</b></div>
+                <div class="hub-card-ui__cell"><span>PureGram</span><b>{pgCount}종</b></div>
+                <div class="hub-card-ui__cell"><span>CycleGear</span><b>{cgCount}종</b></div>
+                <div class="hub-card-ui__cell"><span>HomeTech</span><b>{htCount}종</b></div>
+              </div>
+              <div class="hub-card-ui__foot">
+                <span>{totalAirlines}개 항공사</span>
+                <span>{totalMatrices} 매트릭스</span>
+                <span>{totalVs} VS · 6 스튜디오</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <Fragment slot="scripts">
+    <script is:inline>
+      (() => {
+        const lang = (navigator.language || "").toLowerCase();
+        const pill = document.getElementById("root-locale-pill");
+        const main = document.getElementById("root-locale-pill-main");
+        const sub = document.getElementById("root-locale-pill-sub");
+        if (!pill || !main || !sub) return;
+        if (lang.startsWith("ko")) {
+          pill.setAttribute("href", pill.getAttribute("data-ko-href") || "/ko/");
+          main.textContent = "한국어 환경 감지 · KRW · 220V";
+          sub.textContent = "한국어 허브 바로 이동";
+        } else {
+          pill.setAttribute("href", pill.getAttribute("data-en-href") || "/en/");
+        }
+      })();
+    </script>
+  </Fragment>
+</LandingLayout>

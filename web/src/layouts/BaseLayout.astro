@@ -73,6 +73,33 @@ const isToolsActive =
 const isCompareActive =
   normPath === `/${locale}/compare/` || normPath.startsWith(`/${locale}/compare/`);
 
+const studioLinks = [
+  {
+    label: locale === "ko" ? "인터랙티브 도구 허브" : "Lab Tools Hub",
+    href: toolsHref,
+  },
+  {
+    label: locale === "ko" ? "실시간 1:1 비교" : "Live 1:1 Compare",
+    href: compareHref,
+  },
+  {
+    label: locale === "ko" ? "여행 전력 키트 계산기" : "Travel Power Kit",
+    href: withBase(`/${locale}/tools/travel-power-kit/`),
+  },
+  {
+    label: locale === "ko" ? "레이스 보급 플래너" : "Race Fueling Planner",
+    href: withBase(`/${locale}/tools/fueling-planner/`),
+  },
+  {
+    label: locale === "ko" ? "HomeTech 3년 TCO 스튜디오" : "HomeTech TCO Studio",
+    href: withBase(`/${locale}/tools/hometech-tco-studio/`),
+  },
+  {
+    label: locale === "ko" ? "타이어 공기압·후크리스 가드" : "Tire Pressure Guard",
+    href: withBase(`/${locale}/tools/tire-pressure-guard/`),
+  },
+];
+
 const ogImagePath = activeVertical ? `/og/og-${activeVertical}.png` : "/og/og-default.png";
 const ogImageUrl = toAbsoluteUrl(ogImagePath);
 
@@ -84,14 +111,29 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f0f0f" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+
+    <!-- Dealt Typography: Instrument Sans + DM Mono (+ Noto Sans KR on ko) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap"
+      rel="stylesheet"
+    />
+    {isKo && (
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    )}
 
     <!-- Google Consent Mode v2 (EEA / UK / CH regional default) -->
     <script is:inline>
@@ -213,64 +255,64 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
       <script type="application/ld+json" set:html={safeJsonLd(schema)} />
     ))}
   </head>
-  <body class="bg-lab-canvas text-lab-ink antialiased">
+  <body class="bg-[#0f0f0f] text-white antialiased">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-slate-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[#dafa9c] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#0f0f0f] focus:shadow-lg"
     >
       {isKo ? "본문으로 바로가기" : "Skip to main content"}
     </a>
 
-    <header class="sticky top-0 z-40 border-b border-lab-border bg-white/95 backdrop-blur">
-      <div class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
-        <div class="flex items-center gap-4 lg:gap-5">
+    <header class="sticky top-0 z-40 border-b border-white/12 bg-[#0f0f0f]">
+      <div class="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-[72px] lg:px-10">
+        <div class="flex items-center gap-5 lg:gap-7">
           <a
             href={withBase(isRootPortal ? "/" : `/${locale}/`)}
-            class="flex shrink-0 items-center gap-2.5 text-slate-900 no-underline hover:opacity-90"
+            class="flex shrink-0 items-center gap-2 text-white no-underline transition-opacity hover:opacity-90"
           >
-            <span
-              class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold tracking-tight text-white"
+            <svg
+              class="h-[22px] w-[22px] shrink-0 text-[#dafa9c]"
+              viewBox="0 0 24 24"
+              fill="currentColor"
               aria-hidden="true"
             >
-              SM
-            </span>
-            <span class="flex flex-col leading-none">
-              <span class="text-sm font-bold tracking-tight text-slate-900">
-                SpecMatrix
-              </span>
-              <span class="font-mono text-[10px] font-medium uppercase tracking-wider text-slate-500">
-                Verified Spec Lab
-              </span>
+              <path
+                fill-rule="evenodd"
+                d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 5.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z"
+              />
+            </svg>
+            <span class="text-[20px] font-medium tracking-[-0.025em] text-white">
+              SpecMatrix
             </span>
           </a>
 
           <nav
             aria-label={isKo ? "버티컬 및 도구 내비게이션" : "Primary navigation"}
-            class="hidden items-center gap-0.5 lg:flex"
+            class="hidden items-center gap-1 lg:flex"
           >
             {verticalNav.map((item) => (
               <a
                 href={item.href}
                 aria-current={item.active ? "page" : undefined}
                 class:list={[
-                  "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
+                  "rounded px-2.5 py-1.5 text-sm font-medium transition-colors",
                   item.active
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                    ? "bg-[#dafa9c] text-[#0f0f0f] font-semibold"
+                    : "text-[#d8d8d8] hover:bg-white/8 hover:text-white",
                 ]}
               >
                 {item.label}
               </a>
             ))}
-            <span class="mx-1 h-4 w-px bg-slate-200" aria-hidden="true"></span>
+            <span class="mx-1.5 h-4 w-px bg-white/15" aria-hidden="true"></span>
             <a
               href={toolsHref}
               aria-current={isToolsActive ? "page" : undefined}
               class:list={[
-                "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
+                "rounded px-2.5 py-1.5 text-sm font-medium transition-colors",
                 isToolsActive
-                  ? "bg-blue-700 text-white"
-                  : "text-slate-700 hover:bg-blue-50 hover:text-blue-700",
+                  ? "bg-[#dafa9c] text-[#0f0f0f] font-semibold"
+                  : "text-[#d8d8d8] hover:bg-white/8 hover:text-white",
               ]}
             >
               {isKo ? "도구" : "Tools"}
@@ -279,10 +321,10 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
               href={compareHref}
               aria-current={isCompareActive ? "page" : undefined}
               class:list={[
-                "rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors",
+                "rounded px-2.5 py-1.5 text-sm font-medium transition-colors",
                 isCompareActive
-                  ? "bg-blue-700 text-white"
-                  : "text-slate-700 hover:bg-blue-50 hover:text-blue-700",
+                  ? "bg-[#dafa9c] text-[#0f0f0f] font-semibold"
+                  : "text-[#d8d8d8] hover:bg-white/8 hover:text-white",
               ]}
             >
               {isKo ? "1:1 비교" : "Compare"}
@@ -294,11 +336,11 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
           <button
             type="button"
             data-open-search
-            class="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-slate-50 px-2.5 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-blue-500 hover:bg-white hover:text-slate-900"
+            class="inline-flex items-center gap-2 rounded border border-white/15 bg-[#161616] px-2.5 py-1.5 text-xs font-medium text-[#d8d8d8] transition-colors hover:border-white/30 hover:bg-[#1c1c1c] hover:text-white"
             aria-label={isKo ? "통합 스펙 검색 열기 (Ctrl+K)" : "Open Global Search (Cmd/Ctrl+K)"}
           >
             <svg
-              class="h-3.5 w-3.5 text-slate-400"
+              class="h-3.5 w-3.5 text-[#9a9a9a]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -309,7 +351,7 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
               <path d="m20 20-3.5-3.5" stroke-linecap="round" />
             </svg>
             <span class="hidden sm:inline">{isKo ? "검색" : "Search"}</span>
-            <kbd class="rounded border border-slate-300 bg-white px-1 py-0.5 font-mono text-[10px] font-semibold text-slate-500">
+            <kbd class="rounded border border-white/15 bg-[#0f0f0f] px-1 py-0.5 font-mono text-[10px] font-medium text-[#9a9a9a]">
               ⌘K
             </kbd>
           </button>
@@ -317,19 +359,19 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
           {hasOtherLocale && (
             <a
               href={toggleHref}
-              class="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white px-2.5 py-1.5 font-mono text-xs font-semibold text-slate-800 shadow-xs transition-colors hover:border-blue-500 hover:text-blue-700"
+              class="inline-flex items-center gap-1.5 rounded border border-white/15 bg-[#161616] px-2.5 py-1.5 font-mono text-xs font-medium text-[#d8d8d8] transition-colors hover:border-[#dafa9c]/60 hover:bg-[#1c1c1c] hover:text-white"
               aria-label={isKo ? "Switch to English" : "한국어로 전환"}
             >
-              <span class={locale === "en" ? "text-blue-700" : "text-slate-400"}>EN</span>
-              <span class="text-slate-300">↔</span>
-              <span class={locale === "ko" ? "text-blue-700" : "text-slate-400"}>KO</span>
+              <span class={locale === "en" ? "text-[#dafa9c] font-semibold" : "text-[#9a9a9a]"}>EN</span>
+              <span class="text-white/25">↔</span>
+              <span class={locale === "ko" ? "text-[#dafa9c] font-semibold" : "text-[#9a9a9a]"}>KO</span>
             </a>
           )}
         </div>
       </div>
 
       <!-- Mobile & Tablet horizontal quick-nav -->
-      <div class="border-t border-slate-100 px-4 py-2 lg:hidden">
+      <div class="border-t border-white/10 bg-[#0f0f0f] px-4 py-2 sm:px-6 lg:hidden">
         <nav
           aria-label={isKo ? "모바일 빠른 내비게이션" : "Mobile quick navigation"}
           class="flex items-center gap-1.5 overflow-x-auto"
@@ -339,10 +381,10 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
               href={item.href}
               aria-current={item.active ? "page" : undefined}
               class:list={[
-                "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
+                "shrink-0 rounded px-2.5 py-1 text-xs font-semibold transition-colors",
                 item.active
-                  ? "bg-slate-900 text-white"
-                  : "bg-slate-100 text-slate-700",
+                  ? "bg-[#dafa9c] text-[#0f0f0f]"
+                  : "border border-white/12 bg-[#161616] text-[#d8d8d8] hover:border-white/25 hover:text-white",
               ]}
             >
               {item.label}
@@ -352,10 +394,10 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             href={toolsHref}
             aria-current={isToolsActive ? "page" : undefined}
             class:list={[
-              "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
+              "shrink-0 rounded px-2.5 py-1 text-xs font-semibold transition-colors",
               isToolsActive
-                ? "bg-blue-700 text-white"
-                : "border border-blue-200 bg-blue-50 text-blue-800",
+                ? "bg-[#dafa9c] text-[#0f0f0f]"
+                : "border border-[#dafa9c]/35 bg-[#1a1f14] text-[#dafa9c] hover:border-[#dafa9c]",
             ]}
           >
             {isKo ? "도구" : "Tools"}
@@ -364,10 +406,10 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             href={compareHref}
             aria-current={isCompareActive ? "page" : undefined}
             class:list={[
-              "shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold",
+              "shrink-0 rounded px-2.5 py-1 text-xs font-semibold transition-colors",
               isCompareActive
-                ? "bg-blue-700 text-white"
-                : "border border-blue-200 bg-blue-50 text-blue-800",
+                ? "bg-[#dafa9c] text-[#0f0f0f]"
+                : "border border-[#dafa9c]/35 bg-[#1a1f14] text-[#dafa9c] hover:border-[#dafa9c]",
             ]}
           >
             {isKo ? "1:1 비교" : "Compare"}
@@ -376,49 +418,60 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
       </div>
     </header>
 
-    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 focus:outline-none">
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-10 focus:outline-none">
       <slot />
     </main>
 
-    <footer class="mt-16 border-t border-lab-border bg-white">
-      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <div class="grid gap-8 md:grid-cols-3">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="inline-flex h-6 w-6 items-center justify-center rounded bg-slate-900 font-mono text-[10px] font-bold text-white">
-                SM
-              </span>
-              <span class="text-sm font-bold text-slate-900">SpecMatrix Global</span>
-            </div>
-            <p class="mt-2.5 text-xs leading-relaxed text-slate-600">
+    <footer class="mt-16 border-t border-white/12 bg-[#0a0a0a]">
+      <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-10">
+        <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-12">
+          <div class="lg:col-span-4">
+            <a
+              href={withBase(isRootPortal ? "/" : `/${locale}/`)}
+              class="inline-flex items-center gap-2 text-white no-underline hover:opacity-90"
+            >
+              <svg
+                class="h-5 w-5 shrink-0 text-[#dafa9c]"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 5.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z"
+                />
+              </svg>
+              <span class="text-base font-medium tracking-[-0.02em] text-white">SpecMatrix Global</span>
+            </a>
+            <p class="mt-3 max-w-sm text-xs leading-relaxed text-[#9a9a9a]">
               {isKo
                 ? "제조사 공식 스펙시트·규정 문서·영양성분표에 근거한 결정론적 비교 매트릭스 및 인터랙티브 검증 도구."
                 : "Evidence-anchored specification matrices and deterministic calculators verified against manufacturer manuals, nutrition labels, and aviation regulations."}
             </p>
-            <div class="mt-3 flex flex-wrap gap-2 text-xs">
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
               <a
                 href={toolsHref}
-                class="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-medium text-slate-700 hover:border-blue-400 hover:text-blue-700"
+                class="rounded border border-white/15 bg-[#161616] px-3 py-1.5 font-medium text-[#d8d8d8] transition-colors hover:border-[#dafa9c]/60 hover:text-[#dafa9c]"
               >
                 {isKo ? "인터랙티브 도구 허브 →" : "Lab Tools Hub →"}
               </a>
               <a
                 href={compareHref}
-                class="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-medium text-slate-700 hover:border-blue-400 hover:text-blue-700"
+                class="rounded bg-[#dafa9c] px-3 py-1.5 font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
               >
                 {isKo ? "실시간 1:1 비교 →" : "Live 1:1 Compare →"}
               </a>
             </div>
           </div>
 
-          <div>
-            <h2 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div class="lg:col-span-3">
+            <h2 class="font-mono text-xs font-medium uppercase tracking-wider text-[#9a9a9a]">
               {isKo ? "검증 매트릭스 (4대 버티컬)" : "Active Verticals"}
             </h2>
-            <ul class="mt-2.5 space-y-1.5 text-sm">
+            <ul class="mt-3 space-y-2 text-sm">
               {verticalNav.map((item) => (
                 <li>
-                  <a href={item.href} class="text-slate-700 hover:text-blue-700 hover:underline">
+                  <a href={item.href} class="text-[#d8d8d8] transition-colors hover:text-[#dafa9c] hover:underline">
                     {VERTICAL_META[item.id].name[locale]}
                   </a>
                 </li>
@@ -426,16 +479,31 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
             </ul>
           </div>
 
-          <div>
-            <h2 class="font-mono text-xs font-semibold uppercase tracking-wider text-slate-500">
-              {isKo ? "신뢰·정책 및 오류 제보" : "Trust, Policy & Legal"}
+          <div class="lg:col-span-3">
+            <h2 class="font-mono text-xs font-medium uppercase tracking-wider text-[#9a9a9a]">
+              {isKo ? "인터랙티브 스튜디오" : "Lab Studios"}
             </h2>
-            <ul class="mt-2.5 space-y-1.5 text-sm">
+            <ul class="mt-3 space-y-2 text-sm">
+              {studioLinks.map((st) => (
+                <li>
+                  <a href={st.href} class="text-[#d8d8d8] transition-colors hover:text-[#dafa9c] hover:underline">
+                    {st.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="lg:col-span-2">
+            <h2 class="font-mono text-xs font-medium uppercase tracking-wider text-[#9a9a9a]">
+              {isKo ? "신뢰·정책" : "Trust & Policy"}
+            </h2>
+            <ul class="mt-3 space-y-2 text-sm">
               {LEGAL_SLUGS.map((slug) => (
                 <li>
                   <a
                     href={withBase(`/${locale}/${slug}/`)}
-                    class="text-slate-700 hover:text-blue-700 hover:underline"
+                    class="text-[#d8d8d8] transition-colors hover:text-[#dafa9c] hover:underline"
                   >
                     {LEGAL_LABELS[slug][locale]}
                   </a>
@@ -445,11 +513,11 @@ const cfBeaconToken = (cfg.analytics?.cfBeaconToken || "").trim();
           </div>
         </div>
 
-        <div class="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-xs leading-relaxed text-slate-600">
+        <div class="mt-9 rounded border border-white/12 bg-[#141414] p-4 text-xs leading-relaxed text-[#9a9a9a]">
           {cfg.compliance.disclosures[locale]}
         </div>
 
-        <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-5 text-xs text-slate-500">
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-2 border-t border-white/10 pt-5 text-xs text-[#9a9a9a]">
           <span>© 2026 SpecMatrix Global. All rights reserved.</span>
           <span class="font-mono">
             {isKo ? "가격 기준: MSRP Reference Benchmark" : "Pricing Mode: MSRP Reference Benchmark"} · {cfg.updatedAt}

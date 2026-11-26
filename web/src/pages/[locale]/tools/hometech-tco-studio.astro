@@ -318,47 +318,47 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <!-- Breadcrumb -->
-  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-slate-600">
-    <a href={withBase(`/${locale}`)} class="hover:text-blue-700 hover:underline">
+  <nav aria-label="Breadcrumb" class="mb-5 flex flex-wrap items-center gap-1.5 text-xs text-neutral-400">
+    <a href={withBase(`/${locale}`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "홈" : "Home"}
     </a>
     <span>/</span>
-    <a href={withBase(`/${locale}/tools`)} class="hover:text-blue-700 hover:underline">
+    <a href={withBase(`/${locale}/tools`)} class="hover:text-[#dafa9c] hover:underline">
       {isKo ? "인터랙티브 랩 도구" : "Interactive Lab Tools"}
     </a>
     <span>/</span>
-    <span class="font-medium text-slate-900">
+    <span class="font-medium text-white">
       {isKo ? "HomeTech 3년 TCO & UPS 스튜디오" : "HomeTech 3-Year TCO & UPS Studio"}
     </span>
   </nav>
 
   <!-- Studio Hero -->
-  <section class="lab-card overflow-hidden border-violet-200/90 bg-white">
-    <div class="border-b border-slate-200 bg-slate-900 px-6 py-5 text-white">
+  <section class="lab-card overflow-hidden border-teal-700/50">
+    <div class="border-b border-white/10 bg-[#111111] px-6 py-5 text-white">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="rounded-full border border-violet-400/40 bg-violet-500/20 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-violet-200">
+          <span class="rounded-full border border-teal-700/50 bg-[#0b2626] px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-teal-200">
             HOMETECH TCO &amp; UPS LAB
           </span>
-          <span class="font-mono text-xs text-slate-300">
+          <span class="font-mono text-xs text-neutral-400">
             {serializedSkus.length} {isKo ? "종 검증 홈테크 SKU" : "Verified HomeTech SKUs"} · {upsSkus.length} UPS
           </span>
         </div>
         <button
           type="button"
           id="hts-copy-link"
-          class="rounded-lg border border-white/25 bg-white/10 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors hover:bg-white/20"
+          class="rounded-md border border-white/15 bg-[#161616] px-3 py-1.5 font-mono text-xs font-semibold text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
         >
           {isKo ? "시뮬레이션 공유 링크 복사" : "Copy Shareable Studio Link"}
         </button>
       </div>
 
-      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+      <h1 class="mt-2.5 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
         {isKo
           ? "HomeTech 3년 TCO 손익분기 & 멀티기기 UPS 정전 런타임 스튜디오"
           : "HomeTech 3-Year TCO Payback & Multi-Device UPS Outage Sizing Studio"}
       </h1>
-      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+      <p class="mt-1.5 max-w-3xl text-xs leading-relaxed text-neutral-300 sm:text-sm">
         {isKo
           ? "미니PC·NAS·로봇청소기·UPS 두 모델의 국가별 전기요금(한전 누진제·미국·독일·일본) 기준 3년 총소유비용과 손익분기 개월 수를 실시간 산출하고, 여러 대의 홈랩 장비를 묶은 120V/220V UPS 정전 런타임과 Active-PFC 파형 안전성을 검증합니다."
           : "Model side-by-side 3-year hardware, electricity, and consumables TCO with break-even payback months across global tariffs, then size multi-device NAS + Mini PC UPS runtime with 120V/220V grid-lock and Active-PFC waveform safety guards."}
@@ -373,7 +373,7 @@ const jsonLd = [
           data-studio-tab="tco"
           aria-selected="true"
           aria-controls="hts-panel-tco"
-          class="hts-tab-btn rounded-lg border border-violet-400 bg-violet-600 px-4 py-2 text-xs font-bold text-white transition-colors"
+          class="hts-tab-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-4 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
         >
           {isKo ? "1. 1:1 3년 TCO & 손익분기 계산기" : "1. Side-by-Side 3-Year TCO Payback"}
         </button>
@@ -384,7 +384,7 @@ const jsonLd = [
           data-studio-tab="ups"
           aria-selected="false"
           aria-controls="hts-panel-ups"
-          class="hts-tab-btn rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-slate-200 transition-colors hover:bg-white/20"
+          class="hts-tab-btn rounded-md border border-white/15 bg-[#161616] px-4 py-2 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
         >
           {isKo ? "2. 멀티기기 UPS 런타임 & 120V/220V 안전 설계" : "2. Multi-Device UPS Runtime & 120V/220V Guard"}
         </button>
@@ -396,35 +396,35 @@ const jsonLd = [
 
   <!-- SECTION 1: Side-by-Side 3-Year TCO Payback Calculator -->
   <section id="hts-panel-tco" role="tabpanel" aria-labelledby="hts-tab-tco" class="mt-6 space-y-6">
-    <div class="lab-card bg-white p-6">
+    <div class="lab-card p-6">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 class="text-lg font-extrabold text-slate-900">
+          <h2 class="text-lg font-extrabold text-white">
             {isKo ? "1:1 3년 TCO 손익분기(Payback) 비교기" : "Side-by-Side 3-Year TCO Payback Calculator"}
           </h2>
-          <p class="mt-0.5 text-xs text-slate-600">
+          <p class="mt-0.5 text-xs text-neutral-400">
             {isKo
               ? "저전력 모델이 초기 출고가가 더 비쌀 때 몇 개월 만에 전기요금·소모품 절감액으로 차액을 회수하는지 자동 계산합니다."
               : "See exactly how many months it takes for a lower-idle or lower-maintenance device to pay back a higher upfront purchase price."}
           </p>
         </div>
-        <span class="font-mono text-[11px] text-slate-600">
+        <span class="font-mono text-[11px] text-neutral-400">
           FX: $1 = ₩{formatInt(krwPerUsd)} · €{formatNum(eurPerUsd, 2)} · ¥{formatInt(jpyPerUsd)}
         </span>
       </div>
 
       <!-- Dual SKU Picker -->
-      <div class="mt-4 grid items-end gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-11">
+      <div class="mt-4 grid items-end gap-3 rounded-lg border border-white/10 bg-[#111111] p-4 md:grid-cols-11">
         <div class="md:col-span-5">
-          <label for="hts-sel-a" class="flex items-center justify-between text-xs font-bold text-blue-800">
+          <label for="hts-sel-a" class="flex items-center justify-between text-xs font-bold text-sky-300">
             <span>{isKo ? "모델 A (비교 기준)" : "Model A (Baseline)"}</span>
-            <a id="hts-link-a" href={defaultA?.href ?? withBase(`/${locale}`)} class="font-mono text-[11px] hover:underline">
+            <a id="hts-link-a" href={defaultA?.href ?? withBase(`/${locale}`)} class="font-mono text-[11px] text-[#dafa9c] hover:underline">
               {isKo ? "상세 스펙 →" : "Full Spec →"}
             </a>
           </label>
           <select
             id="hts-sel-a"
-            class="mt-1.5 w-full rounded-lg border border-blue-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-blue-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-sky-700/60 bg-[#161616] px-3 py-2.5 text-sm font-semibold text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
           >
             {groupedSkus.map((grp) => (
               <optgroup label={grp.label}>
@@ -443,22 +443,22 @@ const jsonLd = [
             type="button"
             id="hts-swap"
             aria-label={isKo ? "모델 A와 B 맞바꾸기" : "Swap Model A and Model B"}
-            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white font-mono text-base font-bold text-slate-700 hover:border-violet-500 hover:bg-violet-50 hover:text-violet-700"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/15 bg-[#161616] font-mono text-base font-bold text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
           >
             ⇄
           </button>
         </div>
 
         <div class="md:col-span-5">
-          <label for="hts-sel-b" class="flex items-center justify-between text-xs font-bold text-emerald-800">
+          <label for="hts-sel-b" class="flex items-center justify-between text-xs font-bold text-emerald-300">
             <span>{isKo ? "모델 B (대안 모델)" : "Model B (Alternative)"}</span>
-            <a id="hts-link-b" href={defaultB?.href ?? withBase(`/${locale}`)} class="font-mono text-[11px] hover:underline">
+            <a id="hts-link-b" href={defaultB?.href ?? withBase(`/${locale}`)} class="font-mono text-[11px] text-[#dafa9c] hover:underline">
               {isKo ? "상세 스펙 →" : "Full Spec →"}
             </a>
           </label>
           <select
             id="hts-sel-b"
-            class="mt-1.5 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 focus:border-emerald-600 focus:outline-none"
+            class="mt-1.5 w-full rounded-md border border-emerald-700/60 bg-[#161616] px-3 py-2.5 text-sm font-semibold text-white [color-scheme:dark] focus:border-[#dafa9c] focus:outline-none"
           >
             {groupedSkus.map((grp) => (
               <optgroup label={grp.label}>
@@ -476,7 +476,7 @@ const jsonLd = [
       <!-- Quick Matchups -->
       {quickPairs.length > 0 && (
         <div class="mt-3 flex flex-wrap items-center gap-2">
-          <span class="font-mono text-[11px] font-semibold uppercase text-slate-600">
+          <span class="font-mono text-[11px] font-semibold uppercase text-neutral-400">
             {isKo ? "인기 조합:" : "Quick Pairs:"}
           </span>
           {quickPairs.map((pair) => (
@@ -484,7 +484,7 @@ const jsonLd = [
               type="button"
               data-q-a={pair.a}
               data-q-b={pair.b}
-              class="hts-quick-pair rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-violet-400 hover:bg-violet-50 hover:text-violet-800"
+              class="hts-quick-pair rounded-md border border-white/15 bg-[#111111] px-3 py-1 text-xs font-medium text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
             >
               {pair.label}
             </button>
@@ -496,15 +496,15 @@ const jsonLd = [
       <div
         id="hts-cross-cat"
         role="status"
-        class="mt-3 hidden items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3.5 py-2.5 text-xs text-amber-950"
+        class="mt-3 hidden items-center gap-2 rounded-lg border border-amber-700/50 bg-[#291e09] px-3.5 py-2.5 text-xs text-amber-200"
       >
         <span class="badge-caution font-mono">!</span>
         <span id="hts-cross-cat-text"></span>
       </div>
 
       <!-- Tariff Preset Buttons -->
-      <div class="mt-5 border-t border-slate-100 pt-5">
-        <span class="block text-xs font-bold text-slate-800">
+      <div class="mt-5 border-t border-white/10 pt-5">
+        <span class="block text-xs font-bold text-neutral-200">
           {isKo ? "국가별 전기요금 프리셋 선택" : "Electricity Tariff Preset"}
         </span>
         <div class="mt-2 flex flex-wrap gap-2" role="group" aria-label={isKo ? "전기요금 프리셋" : "Electricity Tariff Presets"}>
@@ -514,10 +514,10 @@ const jsonLd = [
               data-tariff={t.id}
               aria-pressed={t.id === initTariffId ? "true" : "false"}
               class:list={[
-                "hts-tariff-btn rounded-lg border px-3 py-1.5 font-mono text-xs font-semibold transition-colors",
+                "hts-tariff-btn rounded-md border px-3 py-1.5 font-mono text-xs font-semibold transition-colors",
                 t.id === initTariffId
-                  ? "border-violet-700 bg-violet-700 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-400",
+                  ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                  : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
               ]}
             >
               {t.label}
@@ -527,12 +527,12 @@ const jsonLd = [
 
         <!-- Sliders: Custom kWh Rate, Daily Active Hours, Horizon -->
         <div class="mt-4 grid gap-4 md:grid-cols-3">
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
             <div class="flex items-center justify-between text-xs">
-              <label for="hts-rate-slider" class="font-bold text-slate-800">
+              <label for="hts-rate-slider" class="font-bold text-white">
                 {isKo ? "커스텀 전기단가" : "Custom kWh Rate"}
               </label>
-              <span id="hts-rate-val" class="font-mono font-bold text-violet-700">
+              <span id="hts-rate-val" class="font-mono font-bold text-[#dafa9c]">
                 {isKo ? "214 원/kWh" : "$0.17/kWh"}
               </span>
             </div>
@@ -545,19 +545,19 @@ const jsonLd = [
               value={isKo ? "214" : "0.17"}
               class="lab-slider mt-2.5"
             />
-            <div id="hts-rate-bounds" class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+            <div id="hts-rate-bounds" class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>{isKo ? "50원" : "$0.05"}</span>
               <span>{isKo ? "275원" : "$0.32"}</span>
               <span>{isKo ? "500원" : "$0.60"}</span>
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
             <div class="flex items-center justify-between text-xs">
-              <label for="hts-hours-slider" class="font-bold text-slate-800">
+              <label for="hts-hours-slider" class="font-bold text-white">
                 {isKo ? "일일 활성 부하 시간" : "Daily Active Hours"}
               </label>
-              <span id="hts-hours-val" class="font-mono font-bold text-violet-700">
+              <span id="hts-hours-val" class="font-mono font-bold text-[#dafa9c]">
                 8.0 {isKo ? "시간/일" : "hr/day"}
               </span>
             </div>
@@ -570,19 +570,19 @@ const jsonLd = [
               value="8"
               class="lab-slider mt-2.5"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>0h (24/7 Idle)</span>
               <span>12h</span>
               <span>24h (Full Load)</span>
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
             <div class="flex items-center justify-between text-xs">
-              <label for="hts-years-slider" class="font-bold text-slate-800">
+              <label for="hts-years-slider" class="font-bold text-white">
                 {isKo ? "총소유비용 비교 기간" : "TCO Horizon"}
               </label>
-              <span id="hts-years-val" class="font-mono font-bold text-violet-700">
+              <span id="hts-years-val" class="font-mono font-bold text-[#dafa9c]">
                 3 {isKo ? "년" : "years"}
               </span>
             </div>
@@ -595,7 +595,7 @@ const jsonLd = [
               value="3"
               class="lab-slider mt-2.5"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>1 yr</span>
               <span>3 yr</span>
               <span>5 yr</span>
@@ -605,32 +605,32 @@ const jsonLd = [
       </div>
 
       <!-- Payback Summary Strip -->
-      <div id="hts-payback-banner" class="mt-5 grid gap-3 rounded-xl border border-violet-300 bg-violet-50/70 p-4 md:grid-cols-3">
+      <div id="hts-payback-banner" class="mt-5 grid gap-3 rounded-lg border border-teal-700/50 bg-[#0b2626] p-4 md:grid-cols-3">
         <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-violet-800">
+          <div class="font-mono text-[10px] font-bold uppercase text-teal-200">
             {isKo ? "총소유비용(TCO) 승자" : "TCO WINNER"}
           </div>
-          <div id="hts-winner-name" class="mt-1 text-base font-extrabold text-slate-900">—</div>
-          <div id="hts-savings-delta" class="mt-0.5 font-mono text-xs font-semibold text-violet-900">—</div>
+          <div id="hts-winner-name" class="mt-1 text-base font-extrabold text-white">—</div>
+          <div id="hts-savings-delta" class="mt-0.5 font-mono text-xs font-semibold text-teal-200">—</div>
         </div>
         <div>
-          <div class="font-mono text-[10px] font-bold uppercase text-violet-800">
+          <div class="font-mono text-[10px] font-bold uppercase text-teal-200">
             {isKo ? "손익분기점 (Break-Even Payback)" : "BREAK-EVEN PAYBACK"}
           </div>
-          <div id="hts-payback-months" class="kpi-value mt-1 font-mono text-2xl font-extrabold text-violet-950">—</div>
-          <div id="hts-payback-note" class="mt-0.5 text-xs text-slate-700">—</div>
+          <div id="hts-payback-months" class="kpi-value mt-1 font-mono text-2xl font-extrabold text-[#dafa9c]">—</div>
+          <div id="hts-payback-note" class="mt-0.5 text-xs text-neutral-200">—</div>
         </div>
         <div class="flex flex-col justify-between gap-2">
           <div>
-            <div class="font-mono text-[10px] font-bold uppercase text-violet-800">
+            <div class="font-mono text-[10px] font-bold uppercase text-teal-200">
               {isKo ? "연간 전력량 격차" : "ANNUAL ENERGY DELTA"}
             </div>
-            <div id="hts-kwh-delta" class="kpi-value mt-1 font-mono text-lg font-bold text-slate-900">—</div>
+            <div id="hts-kwh-delta" class="kpi-value mt-1 font-mono text-lg font-bold text-white">—</div>
           </div>
           <a
             id="hts-jump-compare"
             href={withBase(`/${locale}/compare`)}
-            class="inline-flex items-center justify-center rounded-lg bg-slate-900 px-3 py-2 font-mono text-xs font-bold text-white transition-colors hover:bg-violet-700"
+            class="inline-flex items-center justify-center rounded-md bg-[#dafa9c] px-3 py-2 font-mono text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
           >
             {isKo ? "이 두 모델 1:1 전체 스펙 비교 →" : "Open Full 1:1 Spec Compare →"}
           </a>
@@ -640,7 +640,7 @@ const jsonLd = [
       <!-- Side-by-Side TCO Breakdown Cards -->
       <div id="hts-tco-cards" class="mt-5 grid gap-4 md:grid-cols-2"></div>
 
-      <p class="mt-4 border-t border-slate-100 pt-3 text-[11px] leading-relaxed text-slate-600">
+      <p class="mt-4 border-t border-white/10 pt-3 text-[11px] leading-relaxed text-neutral-400">
         {cfg.compliance.disclosures[locale]}
       </p>
     </div>
@@ -648,15 +648,15 @@ const jsonLd = [
 
   <!-- SECTION 2: Multi-Device UPS Runtime & 120V/220V Safety Sizing Builder -->
   <section id="hts-panel-ups" role="tabpanel" aria-labelledby="hts-tab-ups" class="mt-6 hidden space-y-6">
-    <div class="lab-card bg-white p-6">
+    <div class="lab-card p-6">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 class="text-lg font-extrabold text-slate-900">
+          <h2 class="text-lg font-extrabold text-white">
             {isKo
               ? "멀티기기 UPS 정전 런타임 & 120V/220V 전압 안전 설계기"
               : "Multi-Device UPS Outage Runtime & 120V/220V Safety Sizing Builder"}
           </h2>
-          <p class="mt-0.5 text-xs text-slate-600">
+          <p class="mt-0.5 text-xs text-neutral-400">
             {isKo
               ? "동시에 UPS에 연결할 미니PC·NAS와 공유기/스위치 부하를 선택해 합산 W, 120V/220V 전압 잠금 경고, Active-PFC 순수 정현파 필수 여부, 정전 시 안전모드 유지시간(분)을 확인하세요."
               : "Combine verified Mini PCs, NAS enclosures, and networking load to compute total wattage, catch single-voltage 120V/220V grid traps, enforce Active-PFC Pure Sine requirements, and estimate outage Safe Mode runtime."}
@@ -665,9 +665,9 @@ const jsonLd = [
       </div>
 
       <!-- Grid Voltage + Active-PFC Controls -->
-      <div class="mt-4 grid gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-12">
+      <div class="mt-4 grid gap-4 rounded-lg border border-white/10 bg-[#111111] p-4 md:grid-cols-12">
         <div class="md:col-span-5">
-          <span class="block text-xs font-bold text-slate-800">
+          <span class="block text-xs font-bold text-white">
             {isKo ? "1. 사용 국가 벽면 전압 (Grid Voltage)" : "1. Wall Mains Voltage Grid"}
           </span>
           <div class="mt-2 grid grid-cols-2 gap-2" role="group" aria-label={isKo ? "벽면 전압 선택" : "Wall Mains Voltage"}>
@@ -676,10 +676,10 @@ const jsonLd = [
               data-grid="230"
               aria-pressed={initGrid === "230" ? "true" : "false"}
               class:list={[
-                "hts-grid-btn rounded-lg border px-3 py-2 text-xs font-bold transition-colors",
+                "hts-grid-btn rounded-md border px-3 py-2 text-xs font-bold transition-colors",
                 initGrid === "230"
-                  ? "border-slate-900 bg-slate-900 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-500",
+                  ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                  : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
               ]}
             >
               {isKo ? "220–230V (한국 · EU)" : "220–230V (KR / EU)"}
@@ -689,10 +689,10 @@ const jsonLd = [
               data-grid="120"
               aria-pressed={initGrid === "120" ? "true" : "false"}
               class:list={[
-                "hts-grid-btn rounded-lg border px-3 py-2 text-xs font-bold transition-colors",
+                "hts-grid-btn rounded-md border px-3 py-2 text-xs font-bold transition-colors",
                 initGrid === "120"
-                  ? "border-slate-900 bg-slate-900 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-500",
+                  ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                  : "border-white/15 bg-[#161616] text-neutral-200 hover:border-white/30 hover:text-white",
               ]}
             >
               {isKo ? "120V (미국 · 캐나다)" : "120V (US / CA)"}
@@ -702,10 +702,10 @@ const jsonLd = [
 
         <div class="md:col-span-4">
           <div class="flex items-center justify-between text-xs">
-            <label for="hts-extra-w" class="font-bold text-slate-800">
+            <label for="hts-extra-w" class="font-bold text-white">
               {isKo ? "2. 공유기·스위치·기타 부하 (W)" : "2. Custom Router / Switch Load"}
             </label>
-            <span id="hts-extra-w-val" class="font-mono font-bold text-violet-700">15 W</span>
+            <span id="hts-extra-w-val" class="font-mono font-bold text-[#dafa9c]">15 W</span>
           </div>
           <input
             id="hts-extra-w"
@@ -716,7 +716,7 @@ const jsonLd = [
             value="15"
             class="lab-slider mt-3"
           />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-600">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>0 W</span>
             <span>15 W (ONT+Router)</span>
             <span>200 W</span>
@@ -724,11 +724,11 @@ const jsonLd = [
         </div>
 
         <div class="flex items-center md:col-span-3">
-          <label class="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-300 bg-white p-3 text-xs font-semibold text-slate-800 hover:border-violet-500">
+          <label class="flex cursor-pointer items-start gap-2 rounded-md border border-white/15 bg-[#161616] p-3 text-xs font-semibold text-neutral-200 hover:border-[#dafa9c]">
             <input
               id="hts-require-pfc"
               type="checkbox"
-              class="mt-0.5 h-4 w-4 rounded border-slate-300 text-violet-600"
+              class="mt-0.5 h-4 w-4 rounded border-white/20 bg-[#111111] accent-[#dafa9c]"
             />
             <span>
               {isKo
@@ -742,25 +742,25 @@ const jsonLd = [
       <!-- Verified Device Load Toggles -->
       <div class="mt-5">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <h3 class="text-sm font-bold text-slate-900">
+          <h3 class="text-sm font-bold text-white">
             {isKo ? "3. UPS에 연결할 검증된 Mini PC · NAS 선택" : "3. Toggle Verified Mini PCs & NAS Devices on UPS"}
           </h3>
-          <span class="font-mono text-xs text-slate-600">
+          <span class="font-mono text-xs text-neutral-400">
             {computeLoadDevices.length} {isKo ? "종 선택 가능" : "verified devices"}
           </span>
         </div>
         <div class="mt-2.5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {computeLoadDevices.map((dev) => (
-            <label class="hts-dev-card flex cursor-pointer items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50 p-3 transition-colors hover:border-violet-400">
+            <label class="hts-dev-card flex cursor-pointer items-start gap-2.5 rounded-lg border border-white/10 bg-[#111111] p-3 transition-colors hover:border-white/25">
               <input
                 type="checkbox"
                 value={dev.slug}
                 checked={defaultSelectedLoadSlugs.has(dev.slug)}
-                class="hts-dev-chk mt-0.5 h-4 w-4 rounded border-slate-300 text-violet-600"
+                class="hts-dev-chk mt-0.5 h-4 w-4 rounded border-white/20 bg-[#161616] accent-[#dafa9c]"
               />
               <div class="min-w-0">
-                <div class="text-xs font-bold text-slate-900">{dev.name}</div>
-                <div class="mt-0.5 font-mono text-[11px] text-slate-600">
+                <div class="text-xs font-bold text-white">{dev.name}</div>
+                <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
                   {dev.categoryLabel} · {isKo ? "평균" : "Typ"} {formatNum(dev.typicalW, 1)}W · {isKo ? "피크" : "Peak"} {formatInt(dev.peakW)}W
                 </div>
               </div>
@@ -771,35 +771,35 @@ const jsonLd = [
 
       <!-- Combined Load KPI Strip -->
       <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div class="rounded-lg border border-violet-200 bg-violet-50/70 p-3.5">
-          <div class="font-mono text-[10px] uppercase text-violet-800">
+        <div class="rounded-lg border border-teal-700/50 bg-[#0b2626] p-3.5">
+          <div class="font-mono text-[10px] uppercase text-teal-200">
             {isKo ? "합산 실사용 부하" : "Combined Typical Load"}
           </div>
-          <div id="hts-ups-typ-total" class="kpi-value mt-1 font-mono text-2xl font-bold text-violet-950">0 W</div>
+          <div id="hts-ups-typ-total" class="kpi-value mt-1 font-mono text-2xl font-bold text-[#dafa9c]">0 W</div>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[10px] uppercase text-slate-600">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "합산 피크 부하" : "Combined Peak Load"}
           </div>
-          <div id="hts-ups-peak-total" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">0 W</div>
+          <div id="hts-ups-peak-total" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">0 W</div>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[10px] uppercase text-slate-600">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "권장 최소 UPS (1.4×)" : "Min Recommended UPS (1.4×)"}
           </div>
-          <div id="hts-ups-min-w" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">0 W</div>
+          <div id="hts-ups-min-w" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">0 W</div>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-          <div class="font-mono text-[10px] uppercase text-slate-600">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "권장 VA 등급 (PF 0.6)" : "Suggested VA Class (0.6 PF)"}
           </div>
-          <div id="hts-ups-min-va" class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-700">600 VA+</div>
+          <div id="hts-ups-min-va" class="kpi-value mt-1 font-mono text-2xl font-bold text-emerald-300">600 VA+</div>
         </div>
       </div>
 
       <!-- Verified UPS Sizing Evaluation Cards -->
       <div class="mt-5">
-        <h3 class="text-sm font-bold text-slate-900">
+        <h3 class="text-sm font-bold text-white">
           {isKo
             ? "검증된 UPS별 정전 Safe Mode 예상 런타임 & 120V/220V 안전 판정"
             : "Verified UPS Outage Safe Mode Runtime & 120V/220V Safety Audit"}
@@ -807,7 +807,7 @@ const jsonLd = [
         <div id="hts-ups-results" class="mt-3 grid gap-4 md:grid-cols-2"></div>
       </div>
 
-      <p class="mt-4 border-t border-slate-100 pt-3 text-[11px] leading-relaxed text-slate-600">
+      <p class="mt-4 border-t border-white/10 pt-3 text-[11px] leading-relaxed text-neutral-400">
         {cfg.compliance.disclosures[locale]}
       </p>
     </div>
@@ -1002,8 +1002,8 @@ const jsonLd = [
         const on = (btn.getAttribute("data-studio-tab") || "tco") === tab;
         btn.setAttribute("aria-selected", on ? "true" : "false");
         btn.className = on
-          ? "hts-tab-btn rounded-lg border border-violet-400 bg-violet-600 px-4 py-2 text-xs font-bold text-white transition-colors"
-          : "hts-tab-btn rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-slate-200 transition-colors hover:bg-white/20";
+          ? "hts-tab-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-4 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"
+          : "hts-tab-btn rounded-md border border-white/15 bg-[#161616] px-4 py-2 text-xs font-semibold text-neutral-200 transition-colors hover:border-white/30 hover:text-white";
       });
       if (panelTco) panelTco.classList.toggle("hidden", tab !== "tco");
       if (panelUps) panelUps.classList.toggle("hidden", tab !== "ups");
@@ -1017,8 +1017,8 @@ const jsonLd = [
         const on = (btn.getAttribute("data-tariff") || "") === activeTariffId;
         btn.setAttribute("aria-pressed", on ? "true" : "false");
         btn.className = on
-          ? "hts-tariff-btn rounded-lg border border-violet-700 bg-violet-700 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors"
-          : "hts-tariff-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs font-semibold text-slate-700 hover:border-violet-400 transition-colors";
+          ? "hts-tariff-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "hts-tariff-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
       if (rateSlider) {
         rateSlider.min = String(preset.min);
@@ -1047,8 +1047,8 @@ const jsonLd = [
         const on = (btn.getAttribute("data-grid") || "230") === activeGrid;
         btn.setAttribute("aria-pressed", on ? "true" : "false");
         btn.className = on
-          ? "hts-grid-btn rounded-lg border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-bold text-white transition-colors"
-          : "hts-grid-btn rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:border-violet-500 transition-colors";
+          ? "hts-grid-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-2 text-xs font-bold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "hts-grid-btn rounded-md border border-white/15 bg-[#161616] px-3 py-2 text-xs font-bold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
     }
 
@@ -1182,62 +1182,62 @@ const jsonLd = [
 
       if (tcoCardsEl) {
         const entries = [
-          { side: "A", sku: skuA, m: mA, accent: "border-t-blue-600", badge: "text-blue-700", btnCls: "bg-blue-700 hover:bg-blue-800" },
-          { side: "B", sku: skuB, m: mB, accent: "border-t-emerald-600", badge: "text-emerald-700", btnCls: "bg-emerald-700 hover:bg-emerald-800" },
+          { side: "A", sku: skuA, m: mA, accent: "border-t-sky-400", badge: "text-sky-300" },
+          { side: "B", sku: skuB, m: mB, accent: "border-t-emerald-400", badge: "text-emerald-300" },
         ];
         tcoCardsEl.innerHTML = entries
-          .map(({ side, sku, m, accent, badge, btnCls }) => {
+          .map(({ side, sku, m, accent, badge }) => {
             const hwPct = m.totalTco > 0 ? (m.hw / m.totalTco) * 100 : 100;
             const elecPct = m.totalTco > 0 ? (m.totalElec / m.totalTco) * 100 : 0;
             const consPct = Math.max(0, 100 - hwPct - elecPct);
             const cta = sku.ctaButtons[0];
             const ctaHtml = cta
-              ? `<a href="${esc(cta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(cta.storeName)}" data-affiliate-vertical="hometech" data-affiliate-sku="${esc(sku.slug)}" data-affiliate-mode="${esc(cta.linkMode)}" class="inline-flex w-full items-center justify-between rounded-lg ${btnCls} px-3.5 py-2 text-xs font-bold text-white transition-colors"><span>${esc(cta.label)}</span><span>↗</span></a>`
+              ? `<a href="${esc(cta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(cta.storeName)}" data-affiliate-vertical="hometech" data-affiliate-sku="${esc(sku.slug)}" data-affiliate-mode="${esc(cta.linkMode)}" class="inline-flex w-full items-center justify-between rounded-md bg-[#dafa9c] px-3.5 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"><span>${esc(cta.label)}</span><span>↗</span></a>`
               : "";
             return `
-              <article class="lab-card border-t-4 ${accent} bg-white p-5">
+              <article class="lab-card border-t-2 ${accent} p-5">
                 <div class="flex items-start justify-between gap-2">
                   <div>
                     <div class="font-mono text-[11px] font-bold uppercase ${badge}">MODEL ${side} · ${esc(sku.categoryLabel)}</div>
-                    <h3 class="mt-0.5 text-base font-extrabold text-slate-900">
-                      <a href="${esc(sku.href)}" class="hover:text-violet-700 hover:underline">${esc(sku.name)}</a>
+                    <h3 class="mt-0.5 text-base font-extrabold text-white">
+                      <a href="${esc(sku.href)}" class="hover:text-[#dafa9c] hover:underline">${esc(sku.name)}</a>
                     </h3>
                   </div>
                   <div class="text-right">
-                    <div class="font-mono text-[10px] uppercase text-slate-600">${years}${isKo ? "년 TCO" : "-Yr TCO"}</div>
-                    <div class="kpi-value font-mono text-xl font-extrabold text-slate-900">${esc(fmtMoney(m.totalTco, tariff.currency))}</div>
+                    <div class="font-mono text-[10px] uppercase text-neutral-400">${years}${isKo ? "년 TCO" : "-Yr TCO"}</div>
+                    <div class="kpi-value font-mono text-xl font-extrabold text-[#dafa9c]">${esc(fmtMoney(m.totalTco, tariff.currency))}</div>
                   </div>
                 </div>
 
-                <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+                <div class="mt-3 grid grid-cols-3 gap-2 rounded-md border border-white/10 bg-[#111111] p-2.5 text-center">
                   <div>
-                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "평균 W / 연 kWh" : "Avg W / kWh"}</div>
-                    <div class="font-mono text-xs font-bold text-slate-900">${m.avgW.toFixed(1)}W · ${m.annualKwh.toFixed(0)}</div>
+                    <div class="font-mono text-[10px] text-neutral-400">${isKo ? "평균 W / 연 kWh" : "Avg W / kWh"}</div>
+                    <div class="font-mono text-xs font-bold text-white">${m.avgW.toFixed(1)}W · ${m.annualKwh.toFixed(0)}</div>
                   </div>
                   <div>
-                    <div class="font-mono text-[10px] text-slate-600">${years}${isKo ? "년 전기료" : "yr Power"}</div>
-                    <div class="font-mono text-xs font-bold text-violet-700">${esc(fmtMoney(m.totalElec, tariff.currency))}</div>
+                    <div class="font-mono text-[10px] text-neutral-400">${years}${isKo ? "년 전기료" : "yr Power"}</div>
+                    <div class="font-mono text-xs font-bold text-teal-300">${esc(fmtMoney(m.totalElec, tariff.currency))}</div>
                   </div>
                   <div>
-                    <div class="font-mono text-[10px] text-slate-600">${years}${isKo ? "년 소모품" : "yr Maint."}</div>
-                    <div class="font-mono text-xs font-bold text-amber-700">${esc(fmtMoney(m.totalCons, tariff.currency))}</div>
+                    <div class="font-mono text-[10px] text-neutral-400">${years}${isKo ? "년 소모품" : "yr Maint."}</div>
+                    <div class="font-mono text-xs font-bold text-amber-300">${esc(fmtMoney(m.totalCons, tariff.currency))}</div>
                   </div>
                 </div>
 
                 <div class="mt-3">
-                  <div class="flex h-2.5 w-full overflow-hidden rounded-full bg-slate-200">
-                    <div class="h-full bg-slate-800" style="width:${hwPct.toFixed(1)}%"></div>
-                    <div class="h-full bg-violet-600" style="width:${elecPct.toFixed(1)}%"></div>
-                    <div class="h-full bg-amber-500" style="width:${consPct.toFixed(1)}%"></div>
+                  <div class="flex h-2.5 w-full overflow-hidden rounded-full bg-white/10">
+                    <div class="h-full bg-neutral-300" style="width:${hwPct.toFixed(1)}%"></div>
+                    <div class="h-full bg-teal-400" style="width:${elecPct.toFixed(1)}%"></div>
+                    <div class="h-full bg-amber-400" style="width:${consPct.toFixed(1)}%"></div>
                   </div>
-                  <div class="mt-1.5 flex flex-wrap justify-between font-mono text-[10px] text-slate-600">
+                  <div class="mt-1.5 flex flex-wrap justify-between font-mono text-[10px] text-neutral-400">
                     <span>${isKo ? "기기" : "HW"} ${esc(fmtMoney(m.hw, tariff.currency))} (${hwPct.toFixed(0)}%)</span>
                     <span>${isKo ? "전기" : "Elec"} ${elecPct.toFixed(0)}%</span>
                     <span>${isKo ? "소모품" : "Maint"} ${consPct.toFixed(0)}%</span>
                   </div>
                 </div>
 
-                <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                <div class="mt-4 space-y-2 border-t border-white/10 pt-3">
                   ${ctaHtml}
                 </div>
               </article>
@@ -1263,12 +1263,12 @@ const jsonLd = [
           combinedTypW += sku.typicalW;
           combinedPeakW += sku.peakW;
           if (card) {
-            card.classList.add("border-violet-500", "bg-violet-50/70");
-            card.classList.remove("border-slate-200", "bg-slate-50");
+            card.classList.add("border-teal-700/60", "bg-[#0b2626]");
+            card.classList.remove("border-white/10", "bg-[#111111]");
           }
         } else if (card) {
-          card.classList.remove("border-violet-500", "bg-violet-50/70");
-          card.classList.add("border-slate-200", "bg-slate-50");
+          card.classList.remove("border-teal-700/60", "bg-[#0b2626]");
+          card.classList.add("border-white/10", "bg-[#111111]");
         }
       });
 
@@ -1354,36 +1354,36 @@ const jsonLd = [
 
           const cta = u.ctaButtons[0];
           const ctaHtml = cta
-            ? `<a href="${esc(cta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(cta.storeName)}" data-affiliate-vertical="hometech" data-affiliate-sku="${esc(u.slug)}" data-affiliate-mode="${esc(cta.linkMode)}" class="inline-flex flex-1 items-center justify-center gap-1 rounded-lg bg-violet-700 px-3 py-2 text-xs font-bold text-white hover:bg-violet-800"><span>${esc(cta.label)}</span><span>↗</span></a>`
+            ? `<a href="${esc(cta.url)}" rel="sponsored nofollow noopener" target="_blank" data-affiliate-store="${esc(cta.storeName)}" data-affiliate-vertical="hometech" data-affiliate-sku="${esc(u.slug)}" data-affiliate-mode="${esc(cta.linkMode)}" class="inline-flex flex-1 items-center justify-center gap-1 rounded-md bg-[#dafa9c] px-3 py-2 text-xs font-semibold text-[#0f0f0f] transition-colors hover:bg-[#e6ffba]"><span>${esc(cta.label)}</span><span>↗</span></a>`
             : "";
 
           return `
-            <article class="lab-card flex flex-col justify-between bg-white p-5 ${gridMismatch || overload ? "border-rose-300 ring-1 ring-rose-200" : pfcViolation ? "border-amber-300" : "border-emerald-300"}">
+            <article class="lab-card flex flex-col justify-between p-5 ${gridMismatch || overload ? "border-rose-700/60 ring-1 ring-rose-700/40" : pfcViolation ? "border-amber-700/60" : "border-emerald-700/60"}">
               <div>
                 <div class="flex items-start justify-between gap-2">
                   <div>
-                    <div class="font-mono text-[11px] font-semibold text-slate-600">${esc(u.brand)} · ${upsVa} VA / ${upsW} W</div>
-                    <h4 class="mt-0.5 text-base font-extrabold text-slate-900">
-                      <a href="${esc(u.href)}" class="hover:text-violet-700 hover:underline">${esc(u.name)}</a>
+                    <div class="font-mono text-[11px] font-semibold text-neutral-400">${esc(u.brand)} · ${upsVa} VA / ${upsW} W</div>
+                    <h4 class="mt-0.5 text-base font-extrabold text-white">
+                      <a href="${esc(u.href)}" class="hover:text-[#dafa9c] hover:underline">${esc(u.name)}</a>
                     </h4>
                   </div>
                   <span class="${verdictCls}">${esc(verdictText)}</span>
                 </div>
 
-                <div class="mt-3 grid grid-cols-3 gap-2 rounded-lg border border-slate-100 bg-slate-50 p-2.5 text-center">
+                <div class="mt-3 grid grid-cols-3 gap-2 rounded-md border border-white/10 bg-[#111111] p-2.5 text-center">
                   <div>
-                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "예상 정전 런타임" : "Est. Runtime"}</div>
-                    <div class="kpi-value font-mono text-base font-extrabold ${safeShutdownOk ? "text-emerald-700" : "text-rose-700"}">
+                    <div class="font-mono text-[10px] text-neutral-400">${isKo ? "예상 정전 런타임" : "Est. Runtime"}</div>
+                    <div class="kpi-value font-mono text-base font-extrabold ${safeShutdownOk ? "text-[#dafa9c]" : "text-rose-300"}">
                       ${gridMismatch ? "N/A" : `~${runtimeMin.toFixed(0)} ${isKo ? "분" : "min"}`}
                     </div>
                   </div>
                   <div>
-                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "실부하율" : "Load %"}</div>
-                    <div class="font-mono text-sm font-bold text-slate-900">${loadPct}%</div>
+                    <div class="font-mono text-[10px] text-neutral-400">${isKo ? "실부하율" : "Load %"}</div>
+                    <div class="font-mono text-sm font-bold text-white">${loadPct}%</div>
                   </div>
                   <div>
-                    <div class="font-mono text-[10px] text-slate-600">${isKo ? "출력 파형" : "Waveform"}</div>
-                    <div class="font-mono text-xs font-bold ${u.upsWaveform === "pure-sine" ? "text-emerald-700" : "text-amber-700"}">
+                    <div class="font-mono text-[10px] text-neutral-400">${isKo ? "출력 파형" : "Waveform"}</div>
+                    <div class="font-mono text-xs font-bold ${u.upsWaveform === "pure-sine" ? "text-emerald-300" : "text-amber-300"}">
                       ${u.upsWaveform === "pure-sine" ? (isKo ? "순수 정현파" : "Pure Sine") : (isKo ? "유사 정현파" : "Simulated")}
                     </div>
                   </div>
@@ -1391,25 +1391,25 @@ const jsonLd = [
 
                 ${
                   warnings.length > 0
-                    ? `<div class="mt-3 space-y-1.5 rounded-lg border border-rose-200 bg-rose-50 p-3 text-xs text-rose-950">${warnings
+                    ? `<div class="mt-3 space-y-1.5 rounded-md border border-rose-700/50 bg-[#2c1014] p-3 text-xs text-rose-200">${warnings
                         .map((w) => `<p class="leading-relaxed">• ${esc(w)}</p>`)
                         .join("")}</div>`
-                    : `<p class="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-950">${
+                    : `<p class="mt-3 rounded-md border border-emerald-700/50 bg-[#0d261a] p-3 text-xs leading-relaxed text-emerald-200">${
                         isKo
                           ? `예상 ~${runtimeMin.toFixed(0)}분 유지 — NAS USB HID / NUT 자동 안전모드 종료(통상 3–5분 소요)에 충분한 여유를 확보했습니다.`
                           : `Estimated ~${runtimeMin.toFixed(0)} min runtime — ample headroom for USB HID / NUT graceful NAS Safe Mode shutdown (typically 3–5 min).`
                       }</p>`
                 }
-                <p class="mt-2 font-mono text-[11px] text-slate-600">${esc(u.korea220vNote)}</p>
+                <p class="mt-2 font-mono text-[11px] text-neutral-400">${esc(u.korea220vNote)}</p>
               </div>
 
-              <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+              <div class="mt-4 space-y-2 border-t border-white/10 pt-3">
                 <div class="flex gap-2">${ctaHtml}</div>
                 <div class="flex items-center justify-between text-xs">
-                  <a href="${esc(u.href)}" class="font-semibold text-slate-700 hover:text-violet-700 hover:underline">
+                  <a href="${esc(u.href)}" class="font-semibold text-neutral-300 hover:text-[#dafa9c] hover:underline">
                     ${isKo ? "UPS 상세 스펙 →" : "UPS Datasheet →"}
                   </a>
-                  <a href="${esc(upsCompareHref)}" class="font-mono font-semibold text-violet-700 hover:underline">
+                  <a href="${esc(upsCompareHref)}" class="font-mono font-semibold text-[#dafa9c] hover:underline">
                     ${isKo ? "UPS 1:1 비교 →" : "Compare UPS →"}
                   </a>
                 </div>

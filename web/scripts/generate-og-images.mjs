@@ -274,8 +274,9 @@ const COUNTS = computeDynamicCounts();
 const CARDS = [
   {
     file: "og-default.png",
-    accent: [59, 130, 246], // Cobalt
-    accentSoft: [30, 58, 138],
+    accent: [218, 250, 156], // Pale Lime (#dafa9c)
+    accentSoft: [28, 38, 18],
+    badgeInk: [15, 15, 15],
     badge: "EVIDENCE-ANCHORED SPEC LAB",
     title1: "SPECMATRIX",
     title2: "GLOBAL",
@@ -284,8 +285,9 @@ const CARDS = [
   },
   {
     file: "og-wattcheck.png",
-    accent: [59, 130, 246], // Blue
-    accentSoft: [30, 64, 175],
+    accent: [56, 189, 248], // Sky
+    accentSoft: [15, 31, 48],
+    badgeInk: [15, 15, 15],
     badge: "WATTCHECK POWER MATRIX",
     title1: "POWER BANKS",
     title2: "& GAN CHARGERS",
@@ -294,8 +296,9 @@ const CARDS = [
   },
   {
     file: "og-puregram.png",
-    accent: [16, 185, 129], // Emerald
-    accentSoft: [6, 95, 70],
+    accent: [52, 211, 153], // Emerald
+    accentSoft: [13, 38, 26],
+    badgeInk: [15, 15, 15],
     badge: "PUREGRAM NUTRITION MATRIX",
     title1: "PURE ACTIVE",
     title2: "GRAM COST LAB",
@@ -305,7 +308,8 @@ const CARDS = [
   {
     file: "og-cyclegear.png",
     accent: [245, 158, 11], // Amber
-    accentSoft: [146, 64, 14],
+    accentSoft: [41, 30, 9],
+    badgeInk: [15, 15, 15],
     badge: "CYCLEGEAR ROAD MATRIX",
     title1: "POWER METERS",
     title2: "& HOOKLESS LAB",
@@ -314,8 +318,9 @@ const CARDS = [
   },
   {
     file: "og-hometech.png",
-    accent: [139, 92, 246], // Violet
-    accentSoft: [91, 33, 182],
+    accent: [45, 212, 191], // Teal
+    accentSoft: [17, 94, 89],
+    badgeInk: [15, 15, 15],
     badge: "HOMETECH 3-YEAR TCO MATRIX",
     title1: "MINIPC | NAS",
     title2: "UPS & VACUUMS",
@@ -327,14 +332,12 @@ const CARDS = [
 function renderCard(card) {
   const c = createCanvas(WIDTH, HEIGHT);
 
-  // Dark slate lab gradient background
+  // Matte soot background (#0f0f0f -> #171717)
   for (let y = 0; y < HEIGHT; y++) {
     const t = y / HEIGHT;
-    const r = Math.round(11 + t * 14);
-    const g = Math.round(18 + t * 16);
-    const b = Math.round(33 + t * 24);
+    const v = Math.round(15 + t * 8);
     for (let x = 0; x < WIDTH; x++) {
-      c.setPixel(x, y, r, g, b, 1);
+      c.setPixel(x, y, v, v, v, 1);
     }
   }
 
@@ -347,7 +350,7 @@ function renderCard(card) {
       const dy = y - glowCy;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < 340) {
-        const a = Math.pow(1 - dist / 340, 2) * 0.22;
+        const a = Math.pow(1 - dist / 340, 2) * 0.16;
         c.setPixel(x, y, card.accent[0], card.accent[1], card.accent[2], a);
       }
     }
@@ -355,63 +358,63 @@ function renderCard(card) {
 
   // Blueprint engineering grid lines (every 40px)
   for (let x = 40; x < WIDTH; x += 40) {
-    c.fillRect(x, 0, 1, HEIGHT, [148, 163, 184], 0.08);
+    c.fillRect(x, 0, 1, HEIGHT, [255, 255, 255], 0.05);
   }
   for (let y = 40; y < HEIGHT; y += 40) {
-    c.fillRect(0, y, WIDTH, 1, [148, 163, 184], 0.08);
+    c.fillRect(0, y, WIDTH, 1, [255, 255, 255], 0.05);
   }
 
   // Left vertical accent rail
   c.fillRect(0, 0, 18, HEIGHT, card.accent, 1);
 
-  // Subtle frame border
-  c.strokeRect(48, 42, WIDTH - 96, HEIGHT - 84, 2, [51, 65, 85], 0.85);
+  // Subtle hairline frame border
+  c.strokeRect(48, 42, WIDTH - 96, HEIGHT - 84, 2, [255, 255, 255], 0.14);
 
-  // Top-left SM Monogram Badge
-  c.fillRoundedRect(82, 74, 72, 72, 14, card.accent, 1);
-  c.drawText("SM", 94, 93, 4, [255, 255, 255], 1);
+  // Top-left SM Monogram Badge (sharp radius, high-contrast ink)
+  c.fillRoundedRect(82, 74, 72, 72, 8, card.accent, 1);
+  c.drawText("SM", 94, 93, 4, card.badgeInk || [15, 15, 15], 1);
 
   // Brand name beside badge
-  c.drawText("SPECMATRIX GLOBAL", 174, 86, 3, [241, 245, 249], 1);
-  c.drawText("VERIFIED ENGINEERING SPEC LAB", 174, 120, 2, [148, 163, 184], 1);
+  c.drawText("SPECMATRIX GLOBAL", 174, 86, 3, [255, 255, 255], 1);
+  c.drawText("VERIFIED ENGINEERING SPEC LAB", 174, 120, 2, [154, 154, 154], 1);
 
   // Right-side decorative telemetry matrix graphic (6 bars)
   const bars = [0.88, 0.64, 0.96, 0.72, 0.54, 0.82];
   for (let i = 0; i < bars.length; i++) {
     const bx = 945 + i * 28;
     const bh = Math.round(bars[i] * 74);
-    c.fillRoundedRect(bx, 150 - bh, 18, bh, 4, i % 2 === 0 ? card.accent : [100, 116, 139], 0.85);
+    c.fillRoundedRect(bx, 150 - bh, 18, bh, 3, i % 2 === 0 ? card.accent : [82, 82, 82], 0.9);
   }
 
-  // Category pill badge (crisp rounded border via inset fill)
+  // Category pill badge (sharp developer-tool radius via inset fill)
   const badgeW = Math.min(720, card.badge.length * 12 + 44);
-  c.fillRoundedRect(82, 182, badgeW, 40, 20, card.accent, 0.9);
-  c.fillRoundedRect(84, 184, badgeW - 4, 36, 18, card.accentSoft, 0.96);
-  c.drawText(card.badge, 104, 195, 2, [248, 250, 252], 1);
+  c.fillRoundedRect(82, 182, badgeW, 40, 6, card.accent, 0.85);
+  c.fillRoundedRect(84, 184, badgeW - 4, 36, 5, card.accentSoft, 0.98);
+  c.drawText(card.badge, 104, 195, 2, [255, 255, 255], 1);
 
   // Bold 2-line hero headline
   c.drawText(card.title1, 82, 254, 8, [255, 255, 255], 1);
   c.drawText(card.title2, 82, 332, 8, card.accent, 1);
 
   // Subtitle line
-  c.drawText(card.subtitle, 82, 418, 3, [203, 213, 225], 1);
+  c.drawText(card.subtitle, 82, 418, 3, [216, 216, 216], 1);
 
-  // Horizontal divider
-  c.fillRect(82, 466, WIDTH - 164, 2, [51, 65, 85], 0.9);
+  // Horizontal hairline divider
+  c.fillRect(82, 466, WIDTH - 164, 2, [255, 255, 255], 0.14);
 
-  // 4 Engineering Feature Pills (clean rounded outline via inset fill)
+  // 4 Engineering Feature Pills (crisp sharp outline via inset fill)
   let px = 82;
   for (let i = 0; i < card.pills.length; i++) {
     const label = card.pills[i];
     const pw = label.length * 12 + 34;
-    c.fillRoundedRect(px, 492, pw, 36, 8, card.accent, 0.55);
-    c.fillRoundedRect(px + 1, 493, pw - 2, 34, 7, [24, 35, 53], 1);
-    c.drawText(label, px + 17, 503, 2, [226, 232, 240], 1);
+    c.fillRoundedRect(px, 492, pw, 36, 6, card.accent, 0.55);
+    c.fillRoundedRect(px + 1, 493, pw - 2, 34, 5, [22, 22, 22], 1);
+    c.drawText(label, px + 17, 503, 2, [235, 235, 235], 1);
     px += pw + 14;
   }
 
   // Bottom bar footer text
-  c.drawText("EN / KO BILINGUAL", 82, 554, 2, [148, 163, 184], 1);
+  c.drawText("EN / KO BILINGUAL", 82, 554, 2, [154, 154, 154], 1);
   c.drawText("SPECMATRIX.IO", WIDTH - 260, 554, 2, card.accent, 1);
 
   return encodePngRgb(WIDTH, HEIGHT, c.rgb);

@@ -149,22 +149,22 @@ const payload = {
 
 <section
   id="hometech-calc"
-  class="lab-card overflow-hidden border-violet-200/80"
+  class="lab-card overflow-hidden border-teal-700/50"
   aria-labelledby="ht-calc-heading"
 >
-  <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+  <div class="border-b border-white/10 bg-[#111111] px-5 py-4 text-white">
     <div class="flex flex-wrap items-center justify-between gap-2">
       <div>
-        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-violet-300">
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-teal-300">
           INTERACTIVE TCO &amp; POWER SIMULATOR
         </span>
-        <h2 id="ht-calc-heading" class="mt-0.5 text-lg font-bold">
+        <h2 id="ht-calc-heading" class="mt-0.5 text-lg font-bold text-white">
           {isKo
             ? "글로벌 전기요금 · 3년 총소유비용(TCO) 및 부하 시뮬레이터"
             : "Global Electricity Rate, 3-Year TCO & Hardware Sizing Simulator"}
         </h2>
       </div>
-      <span class="rounded-full bg-white/10 px-2.5 py-1 font-mono text-xs text-slate-200">
+      <span class="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-xs text-neutral-200">
         {isUps
           ? `${formatInt(upsVa)} VA / ${formatInt(upsWatt)} W · PF ${formatNum(upsPf, 2)}`
           : isKo
@@ -174,30 +174,30 @@ const payload = {
     </div>
   </div>
 
-  <div class="divide-y divide-slate-200 p-5">
+  <div class="divide-y divide-white/10 p-5">
     <!-- Part 1: Global Electricity Rate & 3-Year TCO Simulator -->
     <div class="pb-6">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 class="text-sm font-bold text-slate-900">
+          <h3 class="text-sm font-bold text-white">
             {isKo
               ? "1. 지역별 전기요금 프리셋 · 3년 총소유비용(TCO) 시뮬레이터"
               : "1. Global Electricity Rate & Multi-Year TCO Simulator"}
           </h3>
-          <p class="mt-0.5 text-xs text-slate-600">
+          <p class="mt-0.5 text-xs text-neutral-400">
             {isKo
               ? "한전 누진 구간 및 해외 전기단가, 일일 활성 시간, 구매가, 보유 기간을 조절해 하드웨어·전기료·소모품 합산 TCO를 즉시 계산합니다."
               : "Switch regional tariffs, daily active hours, purchase price, and ownership horizon to model hardware + electricity + consumables TCO."}
           </p>
         </div>
-        <span class="font-mono text-[11px] text-slate-500">
+        <span class="font-mono text-[11px] text-neutral-400">
           FX: $1 = ₩{formatInt(krwPerUsd)} · €{formatNum(eurPerUsd, 2)} · ¥{formatInt(jpyPerUsd)}
         </span>
       </div>
 
       <!-- Tariff Preset Buttons -->
       <div class="mt-3">
-        <span class="block text-xs font-semibold text-slate-600">
+        <span class="block text-xs font-semibold text-neutral-300">
           {isKo ? "국가·요금제 프리셋 선택" : "Regional Tariff Preset"}
         </span>
         <div id="ht-tariff-btns" class="mt-2 flex flex-wrap gap-2">
@@ -207,10 +207,10 @@ const payload = {
               data-tariff-id={t.id}
               aria-pressed={t.id === initPresetId ? "true" : "false"}
               class:list={[
-                "ht-tariff-btn rounded-lg border px-3 py-1.5 font-mono text-xs font-semibold transition-colors",
+                "ht-tariff-btn rounded-md border px-3 py-1.5 font-mono text-xs font-semibold transition-colors",
                 t.id === initPresetId
-                  ? "border-violet-700 bg-violet-700 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-violet-400",
+                  ? "border-[#dafa9c] bg-[#dafa9c] text-[#0f0f0f] hover:bg-[#e6ffba]"
+                  : "border-white/15 bg-[#111111] text-neutral-200 hover:border-white/30 hover:text-white",
               ]}
             >
               {t.label}
@@ -223,9 +223,9 @@ const payload = {
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         <div class="grid gap-3 sm:grid-cols-2">
           <div>
-            <label for="ht-rate-input" class="block text-xs font-semibold text-slate-600">
+            <label for="ht-rate-input" class="block text-xs font-semibold text-neutral-300">
               {isKo ? "사용자 지정 전기단가" : "Custom kWh Rate"}
-              <span id="ht-rate-unit" class="ml-1 font-mono text-violet-700">
+              <span id="ht-rate-unit" class="ml-1 font-mono text-teal-300">
                 ({isKo ? "원/kWh" : "$/kWh"})
               </span>
             </label>
@@ -235,20 +235,20 @@ const payload = {
               min="0"
               step="any"
               value={initRate}
-              class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-violet-600 focus:outline-none"
+              class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
             />
           </div>
 
           <div>
             <div class="flex items-center justify-between gap-1">
-              <label for="ht-price-input" class="block text-xs font-semibold text-slate-600">
+              <label for="ht-price-input" class="block text-xs font-semibold text-neutral-300">
                 {isKo ? "하드웨어 구매가" : "Purchase Price"}
-                <span id="ht-price-cur" class="ml-1 font-mono text-slate-500">({initCurrency})</span>
+                <span id="ht-price-cur" class="ml-1 font-mono text-neutral-400">({initCurrency})</span>
               </label>
               <button
                 type="button"
                 id="ht-price-reset"
-                class="font-mono text-[11px] font-semibold text-violet-700 hover:underline"
+                class="font-mono text-[11px] font-semibold text-[#dafa9c] hover:underline"
               >
                 {isKo ? "MSRP 복원" : "Reset MSRP"}
               </button>
@@ -259,7 +259,7 @@ const payload = {
               min="0"
               step="any"
               value={initHardware}
-              class="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm font-bold text-slate-900 focus:border-violet-600 focus:outline-none"
+              class="mt-1.5 w-full rounded-md border border-white/15 bg-[#111111] px-3 py-2 font-mono text-sm font-bold text-white placeholder:text-neutral-500 focus:border-[#dafa9c] focus:outline-none"
             />
           </div>
         </div>
@@ -267,10 +267,10 @@ const payload = {
         <div class="grid gap-3 sm:grid-cols-2">
           <div>
             <div class="flex items-center justify-between text-xs">
-              <label for="ht-hours-slider" class="font-semibold text-slate-600">
+              <label for="ht-hours-slider" class="font-semibold text-neutral-300">
                 {isKo ? "일일 활성 부하 시간" : "Daily Active Load Hours"}
               </label>
-              <span id="ht-hours-val" class="font-mono font-bold text-violet-700">
+              <span id="ht-hours-val" class="font-mono font-bold text-[#dafa9c]">
                 {formatNum(defaultHours, 1)} {isKo ? "시간/일" : "hr/day"}
               </span>
             </div>
@@ -283,7 +283,7 @@ const payload = {
               value={defaultHours}
               class="lab-slider mt-3"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>{isKo ? "0시간 (유휴)" : "0h (Idle)"}</span>
               <span>{isKo ? "12시간" : "12h"}</span>
               <span>{isKo ? "24시간 (부하)" : "24h (Load)"}</span>
@@ -292,10 +292,10 @@ const payload = {
 
           <div>
             <div class="flex items-center justify-between text-xs">
-              <label for="ht-years-slider" class="font-semibold text-slate-600">
+              <label for="ht-years-slider" class="font-semibold text-neutral-300">
                 {isKo ? "보유·운용 기간" : "Ownership Horizon"}
               </label>
-              <span id="ht-years-val" class="font-mono font-bold text-violet-700">
+              <span id="ht-years-val" class="font-mono font-bold text-[#dafa9c]">
                 {defaultYears} {isKo ? "년" : "years"}
               </span>
             </div>
@@ -308,7 +308,7 @@ const payload = {
               value={defaultYears}
               class="lab-slider mt-3"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>{isKo ? "1년" : "1 yr"}</span>
               <span>{isKo ? "3년" : "3 yr"}</span>
               <span>{isKo ? "5년" : "5 yr"}</span>
@@ -319,111 +319,111 @@ const payload = {
 
       <!-- Live TCO KPI Tiles -->
       <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[10px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "가중 평균 소비전력" : "Weighted Avg Draw"}
           </div>
-          <div id="ht-out-avg-w" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="ht-out-avg-w" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             {formatNum(defaultWeightedW, 1)} W
           </div>
-          <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+          <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
             {isKo
               ? `유휴 ${formatNum(s.idle_power_w, 1)}W / 부하 ${formatNum(s.typical_load_w, 1)}W`
               : `Idle ${formatNum(s.idle_power_w, 1)}W / Load ${formatNum(s.typical_load_w, 1)}W`}
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[10px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "연간 전력량" : "Annual Energy"}
           </div>
-          <div id="ht-out-kwh" class="kpi-value mt-1 font-mono text-xl font-bold text-slate-900">
+          <div id="ht-out-kwh" class="kpi-value mt-1 font-mono text-xl font-bold text-white">
             {formatNum(defaultAnnualKwh, 1)} kWh
           </div>
-          <div class="mt-0.5 text-[11px] text-slate-500">
+          <div class="mt-0.5 text-[11px] text-neutral-400">
             {isKo ? "365일 × 24시간 기준" : "24/7 × 365 days/yr"}
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-[10px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div class="font-mono text-[10px] uppercase text-neutral-400">
             {isKo ? "연간 전기요금" : "Annual Electricity"}
           </div>
-          <div id="ht-out-elec-yr" class="kpi-value mt-1 font-mono text-xl font-bold text-violet-700">
+          <div id="ht-out-elec-yr" class="kpi-value mt-1 font-mono text-xl font-bold text-teal-300">
             {formatCurrency(initAnnualElec, initCurrency, locale)}
           </div>
-          <div id="ht-out-elec-total" class="mt-0.5 font-mono text-[11px] text-slate-500">
+          <div id="ht-out-elec-total" class="mt-0.5 font-mono text-[11px] text-neutral-400">
             {defaultYears}{isKo ? "년 누적 " : "yr: "}
             {formatCurrency(initTotalElec, initCurrency, locale)}
           </div>
         </div>
 
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <div id="ht-cons-label" class="font-mono text-[10px] uppercase text-slate-500">
+        <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+          <div id="ht-cons-label" class="font-mono text-[10px] uppercase text-neutral-400">
             {defaultYears}{isKo ? "년 소모품·유지비" : "-Yr Consumables"}
           </div>
-          <div id="ht-out-cons" class="kpi-value mt-1 font-mono text-xl font-bold text-amber-700">
+          <div id="ht-out-cons" class="kpi-value mt-1 font-mono text-xl font-bold text-amber-300">
             {formatCurrency(initTotalCons, initCurrency, locale)}
           </div>
-          <div id="ht-out-cons-yr" class="mt-0.5 font-mono text-[11px] text-slate-500">
+          <div id="ht-out-cons-yr" class="mt-0.5 font-mono text-[11px] text-neutral-400">
             {formatCurrency(initAnnualCons, initCurrency, locale)}/{isKo ? "년" : "yr"}
           </div>
         </div>
 
-        <div class="rounded-lg border border-violet-200 bg-violet-50/80 p-3 sm:col-span-2 lg:col-span-1">
-          <div id="ht-tco-label" class="font-mono text-[10px] font-bold uppercase text-violet-800">
+        <div class="rounded-lg border border-teal-700/50 bg-[#0b2626] p-3 sm:col-span-2 lg:col-span-1">
+          <div id="ht-tco-label" class="font-mono text-[10px] font-bold uppercase text-teal-200">
             {defaultYears}{isKo ? "년 총소유비용 (TCO)" : "-Yr Total TCO"}
           </div>
-          <div id="ht-out-tco" class="kpi-value mt-1 font-mono text-xl font-bold text-violet-950">
+          <div id="ht-out-tco" class="kpi-value mt-1 font-mono text-xl font-bold text-[#dafa9c]">
             {formatCurrency(initTotalTco, initCurrency, locale)}
           </div>
-          <div class="mt-0.5 text-[11px] text-violet-800">
+          <div class="mt-0.5 text-[11px] text-teal-200/80">
             {isKo ? "기기+전기+소모품 합계" : "HW + Power + Maint."}
           </div>
         </div>
       </div>
 
       <!-- Stacked Horizontal Breakdown Bar -->
-      <div class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-        <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-slate-700">
+      <div class="mt-4 rounded-lg border border-white/10 bg-[#111111] p-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-neutral-200">
           <span>{isKo ? "총소유비용(TCO) 구성 비중" : "Total TCO Cost Breakdown"}</span>
-          <span id="ht-bar-summary" class="font-mono text-[11px] text-slate-600">
+          <span id="ht-bar-summary" class="font-mono text-[11px] text-neutral-400">
             {isKo
               ? `하드웨어 ${formatNum(initHwPct, 1)}% · 전기료 ${formatNum(initElecPct, 1)}% · 소모품 ${formatNum(initConsPct, 1)}%`
               : `Hardware ${formatNum(initHwPct, 1)}% · Electricity ${formatNum(initElecPct, 1)}% · Consumables ${formatNum(initConsPct, 1)}%`}
           </span>
         </div>
-        <div class="mt-2 flex h-3.5 w-full overflow-hidden rounded-full bg-slate-200">
+        <div class="mt-2 flex h-3.5 w-full overflow-hidden rounded-full bg-white/10">
           <div
             id="ht-bar-hw"
-            class="h-full bg-slate-800 transition-all duration-150"
+            class="h-full bg-neutral-300 transition-all duration-150"
             style={`width:${initHwPct.toFixed(1)}%`}
             title={isKo ? "하드웨어 구매가" : "Hardware"}
           ></div>
           <div
             id="ht-bar-elec"
-            class="h-full bg-violet-600 transition-all duration-150"
+            class="h-full bg-teal-400 transition-all duration-150"
             style={`width:${initElecPct.toFixed(1)}%`}
             title={isKo ? "누적 전기요금" : "Electricity"}
           ></div>
           <div
             id="ht-bar-cons"
-            class="h-full bg-amber-500 transition-all duration-150"
+            class="h-full bg-amber-400 transition-all duration-150"
             style={`width:${initConsPct.toFixed(1)}%`}
             title={isKo ? "소모품·유지비" : "Consumables"}
           ></div>
         </div>
-        <div class="mt-2 flex flex-wrap gap-4 text-[11px] text-slate-600">
+        <div class="mt-2 flex flex-wrap gap-4 text-[11px] text-neutral-300">
           <span class="inline-flex items-center gap-1.5">
-            <span class="inline-block h-2.5 w-2.5 rounded-sm bg-slate-800"></span>
+            <span class="inline-block h-2.5 w-2.5 rounded-sm bg-neutral-300"></span>
             <span id="ht-leg-hw">{isKo ? "하드웨어" : "Hardware"} ({formatNum(initHwPct, 1)}%)</span>
           </span>
           <span class="inline-flex items-center gap-1.5">
-            <span class="inline-block h-2.5 w-2.5 rounded-sm bg-violet-600"></span>
+            <span class="inline-block h-2.5 w-2.5 rounded-sm bg-teal-400"></span>
             <span id="ht-leg-elec">{isKo ? "전기요금" : "Electricity"} ({formatNum(initElecPct, 1)}%)</span>
           </span>
           <span class="inline-flex items-center gap-1.5">
-            <span class="inline-block h-2.5 w-2.5 rounded-sm bg-amber-500"></span>
+            <span class="inline-block h-2.5 w-2.5 rounded-sm bg-amber-400"></span>
             <span id="ht-leg-cons">{isKo ? "소모품·유지비" : "Consumables"} ({formatNum(initConsPct, 1)}%)</span>
           </span>
         </div>
@@ -432,7 +432,7 @@ const payload = {
       <!-- Regional Tariff Insight Note -->
       <div
         id="ht-regional-insight"
-        class="mt-3 rounded-lg border border-blue-200 bg-blue-50/70 px-3.5 py-2.5 text-xs leading-relaxed text-blue-950"
+        class="mt-3 rounded-lg border border-sky-700/50 bg-[#0f1f30] px-3.5 py-2.5 text-xs leading-relaxed text-sky-200"
       >
         {isKo
           ? `글로벌 전기요금 비교 (${defaultYears}년 기준): 독일(€0.38/kWh)이나 한국 누진 3구간(307원/kWh) 환경에서는 미국 평균($0.17/kWh) 대비 동일 기기의 전기료 부담이 크게 증가합니다.`
@@ -445,12 +445,12 @@ const payload = {
       <div class="pt-6">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-sm font-bold text-slate-900">
+            <h3 class="text-sm font-bold text-white">
               {isKo
                 ? "2. UPS 연결 부하 · 백업 런타임 추정기 (Peukert 보정)"
                 : "2. Interactive UPS Load & Backup Runtime Estimator (Peukert Scaling)"}
             </h3>
-            <p class="mt-0.5 text-xs text-slate-600">
+            <p class="mt-0.5 text-xs text-neutral-400">
               {isKo
                 ? "연결할 NAS·미니PC·라우터 합산 소비전력(W)을 설정해 부하율, 역률(PF), Active PFC 파형 안전성 및 정전 시 백업 시간을 확인하세요."
                 : "Set your connected NAS/PC load in Watts to inspect Load %, Power Factor, Active PFC PSU safety, and Peukert-adjusted backup runtime."}
@@ -479,7 +479,7 @@ const payload = {
               <button
                 type="button"
                 data-ups-preset={p.w}
-                class="ht-ups-preset rounded-lg border border-slate-300 bg-white px-2.5 py-1 font-mono text-xs font-medium text-slate-700 hover:border-violet-500 hover:text-violet-700"
+                class="ht-ups-preset rounded-md border border-white/15 bg-[#111111] px-2.5 py-1 font-mono text-xs font-medium text-neutral-200 transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
               >
                 {p.label}
               </button>
@@ -488,10 +488,10 @@ const payload = {
 
         <div class="mt-4">
           <div class="flex items-center justify-between text-xs">
-            <label for="ht-ups-load-slider" class="font-semibold text-slate-700">
+            <label for="ht-ups-load-slider" class="font-semibold text-neutral-300">
               {isKo ? "연결 장비 실소비전력 (W):" : "Connected Equipment Load (W):"}
             </label>
-            <span id="ht-ups-load-val" class="font-mono text-sm font-bold text-violet-700">
+            <span id="ht-ups-load-val" class="font-mono text-sm font-bold text-[#dafa9c]">
               {isKo ? `${upsInitLoadW} W / 최대 ${formatInt(upsWatt)} W` : `${upsInitLoadW} W / ${formatInt(upsWatt)} W max`}
             </span>
           </div>
@@ -504,7 +504,7 @@ const payload = {
             value={upsInitLoadW}
             class="lab-slider mt-2"
           />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>20 W</span>
             <span>50% ({Math.round(upsWatt * 0.5)} W)</span>
             <span>100% ({formatInt(upsWatt)} W)</span>
@@ -512,50 +512,50 @@ const payload = {
         </div>
 
         <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-teal-700/50 bg-[#0b2626] p-3">
+            <div class="font-mono text-[10px] uppercase text-teal-200">
               {isKo ? "예상 백업 런타임" : "Est. Backup Runtime"}
             </div>
-            <div id="ht-ups-runtime" class="kpi-value mt-1 font-mono text-2xl font-bold text-violet-700">
+            <div id="ht-ups-runtime" class="kpi-value mt-1 font-mono text-2xl font-bold text-[#dafa9c]">
               {formatNum(upsInitRuntime, 1)} {isKo ? "분" : "min"}
             </div>
-            <div id="ht-ups-runtime-sub" class="mt-0.5 text-[11px] text-slate-500">
+            <div id="ht-ups-runtime-sub" class="mt-0.5 text-[11px] text-teal-200/80">
               {isKo
                 ? `50% 기준 ${upsHalfMin}분 · Peukert 지수 1.15`
                 : `Scaled from ${upsHalfMin} min @ 50% (Peukert 1.15)`}
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "UPS 부하율" : "UPS Load Utilization"}
             </div>
-            <div id="ht-ups-load-pct" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+            <div id="ht-ups-load-pct" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
               {formatNum(upsInitLoadPct, 0)}%
             </div>
-            <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+            <div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-white/10">
               <div
                 id="ht-ups-load-bar"
-                class="h-full rounded-full bg-emerald-600 transition-all duration-150"
+                class="h-full rounded-full bg-emerald-400 transition-all duration-150"
                 style={`width:${Math.min(100, Math.max(4, upsInitLoadPct)).toFixed(0)}%`}
               ></div>
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "출력 역률 (Power Factor)" : "Power Factor (W / VA)"}
             </div>
-            <div class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+            <div class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
               {formatNum(upsPf, 2)}
             </div>
-            <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+            <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
               {formatInt(upsWatt)} W / {formatInt(upsVa)} VA
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "Active PFC 파워 호환" : "Active PFC PSU Guard"}
             </div>
             <div class="mt-1.5">
@@ -569,7 +569,7 @@ const payload = {
                     : "CAUTION · Simulated"}
               </span>
             </div>
-            <div class="mt-1 text-[11px] text-slate-600">
+            <div class="mt-1 text-[11px] text-neutral-300">
               {s.ups_waveform === "pure-sine"
                 ? isKo
                   ? "NAS·고급 PC Active PFC 파워와 안정 호환"
@@ -587,12 +587,12 @@ const payload = {
       <div class="pt-6">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-sm font-bold text-slate-900">
+            <h3 class="text-sm font-bold text-white">
               {isKo
                 ? "2. 권장 UPS 용량 산정 도우미 (1.4× 피크 여유율 · 15분 안전 종료)"
                 : "2. Recommended UPS Sizing Helper (1.4× Headroom & 15-Min Safe Shutdown)"}
             </h3>
-            <p class="mt-0.5 text-xs text-slate-600">
+            <p class="mt-0.5 text-xs text-neutral-400">
               {isKo
                 ? "본 기기의 피크 전력에 공유기·스위치 등 주변기기 부하를 더해 안전한 UPS 최소 W/VA 등급을 산출합니다."
                 : "Add any co-located router/switch wattage to compute minimum UPS Watt headroom and VA class for a 15-minute graceful shutdown."}
@@ -605,10 +605,10 @@ const payload = {
 
         <div class="mt-3 max-w-md">
           <div class="flex items-center justify-between text-xs">
-            <label for="ht-extra-load-slider" class="font-semibold text-slate-600">
+            <label for="ht-extra-load-slider" class="font-semibold text-neutral-300">
               {isKo ? "함께 연결할 주변기기 부하 (공유기/스위치/모니터):" : "Co-Located Peripherals Load (Router/Switch):"}
             </label>
-            <span id="ht-extra-load-val" class="font-mono font-bold text-violet-700">0 W</span>
+            <span id="ht-extra-load-val" class="font-mono font-bold text-[#dafa9c]">0 W</span>
           </div>
           <input
             id="ht-extra-load-slider"
@@ -619,7 +619,7 @@ const payload = {
             value="0"
             class="lab-slider mt-2"
           />
-          <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+          <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
             <span>0 W ({isKo ? "단독 연결" : "Unit Only"})</span>
             <span>{isKo ? "25 W (공유기+스위치)" : "25 W (Router+Switch)"}</span>
             <span>150 W</span>
@@ -627,40 +627,40 @@ const payload = {
         </div>
 
         <div class="mt-4 grid gap-3 sm:grid-cols-3">
-          <div class="rounded-lg border border-violet-200 bg-violet-50/70 p-3.5">
-            <div class="font-mono text-[10px] uppercase text-violet-800">
+          <div class="rounded-lg border border-teal-700/50 bg-[#0b2626] p-3.5">
+            <div class="font-mono text-[10px] uppercase text-teal-200">
               {isKo ? "권장 최소 UPS 유효 출력 (1.4×)" : "Min UPS Watt Rating (1.4× Peak)"}
             </div>
-            <div id="ht-ups-rec-w" class="kpi-value mt-1 font-mono text-2xl font-bold text-violet-950">
+            <div id="ht-ups-rec-w" class="kpi-value mt-1 font-mono text-2xl font-bold text-[#dafa9c]">
               {formatInt(recMinUpsWatt)} W
             </div>
-            <div id="ht-ups-rec-w-sub" class="mt-0.5 font-mono text-[11px] text-violet-800">
+            <div id="ht-ups-rec-w-sub" class="mt-0.5 font-mono text-[11px] text-teal-200/80">
               {isKo ? `피크 ${formatNum(s.peak_power_w, 0)} W × 1.4 여유율` : `Peak ${formatNum(s.peak_power_w, 0)} W × 1.4 headroom`}
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "15분 안전 종료 권장 UPS VA 등급" : "15-Min Graceful Shutdown Class"}
             </div>
-            <div id="ht-ups-rec-va" class="kpi-value mt-1 font-mono text-2xl font-bold text-slate-900">
+            <div id="ht-ups-rec-va" class="kpi-value mt-1 font-mono text-2xl font-bold text-white">
               {formatInt(recUpsVaClass)} VA+
             </div>
-            <div class="mt-0.5 text-[11px] text-slate-500">
+            <div class="mt-0.5 text-[11px] text-neutral-400">
               {isKo
                 ? "PF 0.6 보수적 기준 · USB NUT 자동 종료 연동 권장"
                 : "Conservative 0.6 PF · USB NUT graceful shutdown"}
             </div>
           </div>
 
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5">
-            <div class="font-mono text-[10px] uppercase text-slate-500">
+          <div class="rounded-lg border border-white/10 bg-[#111111] p-3.5">
+            <div class="font-mono text-[10px] uppercase text-neutral-400">
               {isKo ? "평상시 실부하 / 권장 파형" : "Typical Load / Recommended Wave"}
             </div>
-            <div id="ht-ups-rec-typ" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-700">
+            <div id="ht-ups-rec-typ" class="kpi-value mt-1 font-mono text-xl font-bold text-emerald-300">
               {isKo ? `${formatNum(s.typical_load_w, 1)} W · 순수 정현파` : `${formatNum(s.typical_load_w, 1)} W · Pure Sine`}
             </div>
-            <div class="mt-0.5 text-[11px] text-slate-600">
+            <div class="mt-0.5 text-[11px] text-neutral-400">
               {isKo
                 ? "데이터 손상 방지용 순수 정현파(Pure Sine) 권장"
                 : "Pure Sine Wave recommended for Active PFC stability"}
@@ -674,12 +674,12 @@ const payload = {
       <div class="pt-6">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-sm font-bold text-slate-900">
+            <h3 class="text-sm font-bold text-white">
               {isKo
                 ? "2. 주간 청소 빈도 연동 소모품 유지비 조정기"
                 : "2. Weekly Cleaning Frequency & Consumables TCO Adjuster"}
             </h3>
-            <p class="mt-0.5 text-xs text-slate-600">
+            <p class="mt-0.5 text-xs text-neutral-400">
               {isKo
                 ? "주당 청소 횟수(2–14회)를 조절하면 더스트백·HEPA 필터·브러시·물걸레 연간 교체비와 상단 총 TCO가 실시간으로 연동됩니다."
                 : "Adjust runs per week (2–14) to dynamically scale annual dustbag, HEPA filter, brush & mop costs and recalculate Part 1 Total TCO."}
@@ -697,10 +697,10 @@ const payload = {
         <div class="mt-4 grid gap-4 md:grid-cols-2">
           <div>
             <div class="flex items-center justify-between text-xs">
-              <label for="ht-vac-runs-slider" class="font-semibold text-slate-700">
+              <label for="ht-vac-runs-slider" class="font-semibold text-neutral-300">
                 {isKo ? "주당 청소 실행 횟수:" : "Cleaning Runs per Week:"}
               </label>
-              <span id="ht-vac-runs-val" class="font-mono text-sm font-bold text-amber-700">
+              <span id="ht-vac-runs-val" class="font-mono text-sm font-bold text-amber-300">
                 7 {isKo ? "회/주 (1.00× 기준)" : "runs/wk (1.00× baseline)"}
               </span>
             </div>
@@ -713,7 +713,7 @@ const payload = {
               value="7"
               class="lab-slider mt-2.5"
             />
-            <div class="mt-1 flex justify-between font-mono text-[10px] text-slate-500">
+            <div class="mt-1 flex justify-between font-mono text-[10px] text-neutral-400">
               <span>{isKo ? "주 2회 (1인가구)" : "2/wk (Light)"}</span>
               <span>{isKo ? "주 7회 (매일 1회)" : "7/wk (Daily)"}</span>
               <span>{isKo ? "주 14회 (반려동물·다회)" : "14/wk (Pets / Heavy)"}</span>
@@ -721,25 +721,25 @@ const payload = {
           </div>
 
           <div class="grid grid-cols-2 gap-3">
-            <div class="rounded-lg border border-amber-200 bg-amber-50/70 p-3">
-              <div class="font-mono text-[10px] uppercase text-amber-800">
+            <div class="rounded-lg border border-amber-700/50 bg-[#291e09] p-3">
+              <div class="font-mono text-[10px] uppercase text-amber-200">
                 {isKo ? "조정 연간 소모품비" : "Adjusted Annual Maint."}
               </div>
-              <div id="ht-vac-annual" class="kpi-value mt-1 font-mono text-lg font-bold text-amber-950">
+              <div id="ht-vac-annual" class="kpi-value mt-1 font-mono text-lg font-bold text-[#dafa9c]">
                 {formatCurrency(initAnnualCons, initCurrency, locale)}
               </div>
-              <div class="mt-0.5 text-[11px] text-amber-800">
+              <div class="mt-0.5 text-[11px] text-amber-200/80">
                 {isKo ? "더스트백·필터·브러시·걸레" : "Bags, HEPA, brushes, mops"}
               </div>
             </div>
-            <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
-              <div class="font-mono text-[10px] uppercase text-slate-500">
+            <div class="rounded-lg border border-white/10 bg-[#111111] p-3">
+              <div class="font-mono text-[10px] uppercase text-neutral-400">
                 {isKo ? "예상 더스트백 교체 주기" : "Est. Dustbag Interval"}
               </div>
-              <div id="ht-vac-bag-days" class="kpi-value mt-1 font-mono text-lg font-bold text-slate-900">
+              <div id="ht-vac-bag-days" class="kpi-value mt-1 font-mono text-lg font-bold text-white">
                 ~60 {isKo ? "일" : "days"}
               </div>
-              <div class="mt-0.5 font-mono text-[11px] text-slate-500">
+              <div class="mt-0.5 font-mono text-[11px] text-neutral-400">
                 {s.dustbag_capacity_l !== null
                   ? isKo
                     ? `${formatNum(s.dustbag_capacity_l, 1)} L 더스트백`
@@ -909,8 +909,8 @@ const payload = {
         const on = btn.getAttribute("data-tariff-id") === activePresetId;
         btn.setAttribute("aria-pressed", on ? "true" : "false");
         btn.className = on
-          ? "ht-tariff-btn rounded-lg border border-violet-700 bg-violet-700 px-3 py-1.5 font-mono text-xs font-semibold text-white transition-colors"
-          : "ht-tariff-btn rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-mono text-xs font-semibold text-slate-700 hover:border-violet-400 transition-colors";
+          ? "ht-tariff-btn rounded-md border border-[#dafa9c] bg-[#dafa9c] px-3 py-1.5 font-mono text-xs font-semibold text-[#0f0f0f] hover:bg-[#e6ffba] transition-colors"
+          : "ht-tariff-btn rounded-md border border-white/15 bg-[#111111] px-3 py-1.5 font-mono text-xs font-semibold text-neutral-200 hover:border-white/30 hover:text-white transition-colors";
       });
     }
 
@@ -1018,10 +1018,10 @@ const payload = {
         upsLoadBarEl.style.width = `${Math.max(4, Math.min(100, pct)).toFixed(0)}%`;
         upsLoadBarEl.className =
           pct > 80
-            ? "h-full rounded-full bg-rose-600 transition-all duration-150"
+            ? "h-full rounded-full bg-rose-500 transition-all duration-150"
             : pct > 60
-              ? "h-full rounded-full bg-amber-500 transition-all duration-150"
-              : "h-full rounded-full bg-emerald-600 transition-all duration-150";
+              ? "h-full rounded-full bg-amber-400 transition-all duration-150"
+              : "h-full rounded-full bg-emerald-400 transition-all duration-150";
       }
     }
 

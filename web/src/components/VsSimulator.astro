@@ -36,16 +36,16 @@ const payload = {
   <!-- Interactive Priority Weighting Winner Simulator -->
   <section
     id="vs-priority-simulator"
-    class="lab-card overflow-hidden border-blue-200/80"
+    class="lab-card overflow-hidden border-white/15"
     aria-labelledby="vs-sim-heading"
   >
-    <div class="border-b border-slate-200 bg-slate-900 px-5 py-4 text-white">
+    <div class="border-b border-white/12 bg-[#111111] px-5 py-4 text-white">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-300">
+          <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#dafa9c]">
             INTERACTIVE PRIORITY WEIGHTING SIMULATOR
           </span>
-          <h2 id="vs-sim-heading" class="mt-0.5 text-lg font-bold">
+          <h2 id="vs-sim-heading" class="mt-0.5 text-lg font-bold text-white">
             {isKo
               ? "내 우선순위 가중치 승자 시뮬레이터"
               : "Live Priority Weighting Winner Simulator"}
@@ -56,7 +56,7 @@ const payload = {
             type="button"
             data-preset="balanced"
             aria-pressed="true"
-            class="vs-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors"
+            class="vs-preset-btn rounded border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#0f0f0f] transition-colors"
           >
             {isKo ? "균형" : "Balanced"}
           </button>
@@ -64,7 +64,7 @@ const payload = {
             type="button"
             data-preset="value"
             aria-pressed="false"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+            class="vs-preset-btn rounded border border-white/15 bg-[#1a1a1a] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "가성비 최우선" : "Value First"}
           </button>
@@ -72,7 +72,7 @@ const payload = {
             type="button"
             data-preset="performance"
             aria-pressed="false"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+            class="vs-preset-btn rounded border border-white/15 bg-[#1a1a1a] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "성능 최우선" : "Max Performance"}
           </button>
@@ -80,7 +80,7 @@ const payload = {
             type="button"
             data-preset="portability"
             aria-pressed="false"
-            class="vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20"
+            class="vs-preset-btn rounded border border-white/15 bg-[#1a1a1a] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white"
           >
             {isKo ? "경량·순도·정숙 우선" : "Light / Quiet"}
           </button>
@@ -91,24 +91,24 @@ const payload = {
     <div class="grid gap-6 p-5 lg:grid-cols-12">
       <!-- Sliders -->
       <div class="space-y-4 lg:col-span-7">
-        <p class="text-xs text-slate-600">
+        <p class="text-xs text-[#9a9a9a]">
           {isKo
             ? "슬라이더로 본인의 구매 기준 비중을 조절하면 정량 스펙 점수가 실시간으로 재계산됩니다."
             : "Adjust each priority slider to recalculate the weighted engineering score in real time."}
         </p>
 
         {diff.dimensions.map((dim) => (
-          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div class="rounded-md border border-white/10 bg-[#111111] p-3">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <label for={`vs-w-${dim.id}`} class="text-xs font-bold text-slate-900">
+                <label for={`vs-w-${dim.id}`} class="text-xs font-bold text-white">
                   {dim.label}
                 </label>
-                <span class="ml-2 hidden text-[11px] text-slate-500 sm:inline">{dim.hint}</span>
+                <span class="ml-2 hidden text-[11px] text-[#9a9a9a] sm:inline">{dim.hint}</span>
               </div>
               <span
                 id={`vs-wval-${dim.id}`}
-                class="font-mono text-xs font-bold text-blue-700"
+                class="font-mono text-xs font-bold text-[#dafa9c]"
               >
                 {dim.defaultWeight}%
               </span>
@@ -123,7 +123,7 @@ const payload = {
               value={dim.defaultWeight}
               class="vs-weight-slider lab-slider mt-2"
             />
-            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-slate-500">
+            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-[#9a9a9a]">
               <span>A: {diff.scoresA[dim.id]}/100</span>
               <span>B: {diff.scoresB[dim.id]}/100</span>
             </div>
@@ -132,12 +132,12 @@ const payload = {
       </div>
 
       <!-- Live Scoreboard -->
-      <div class="flex flex-col justify-between rounded-xl border border-slate-200 bg-slate-50 p-5 lg:col-span-5">
+      <div class="flex flex-col justify-between rounded-lg border border-white/12 bg-[#111111] p-5 lg:col-span-5">
         <div>
-          <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#9a9a9a]">
             {isKo ? "실시간 가중 종합 판정" : "LIVE WEIGHTED RECOMMENDATION"}
           </div>
-          <div id="vs-winner-banner" class="mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5">
+          <div id="vs-winner-banner" class="mt-2 rounded-md border border-[#1f5c3e] bg-[#0d261a] p-3.5">
             <div id="vs-winner-tag" class="badge-pass">
               {initScoreA === initScoreB
                 ? isKo
@@ -151,10 +151,10 @@ const payload = {
                     ? "모델 B 추천"
                     : "WINNER: MODEL B"}
             </div>
-            <div id="vs-winner-name" class="mt-1.5 text-base font-bold text-slate-900">
+            <div id="vs-winner-name" class="mt-1.5 text-base font-bold text-white">
               {initScoreA >= initScoreB ? nameA : nameB}
             </div>
-            <div id="vs-winner-margin" class="mt-0.5 font-mono text-xs text-emerald-800">
+            <div id="vs-winner-margin" class="mt-0.5 font-mono text-xs text-[#7ee8b7]">
               {Math.abs(initScoreA - initScoreB)} {isKo ? "점 우세" : "pts ahead"}
             </div>
           </div>
@@ -162,15 +162,15 @@ const payload = {
           <div class="mt-5 space-y-4">
             <div>
               <div class="flex items-center justify-between text-xs font-semibold">
-                <span class="truncate pr-2 text-slate-800">A · {nameA}</span>
-                <span id="vs-score-a" class="font-mono text-base font-bold text-blue-700">
+                <span class="truncate pr-2 text-[#d8d8d8]">A · {nameA}</span>
+                <span id="vs-score-a" class="font-mono text-base font-bold text-[#93c5fd]">
                   {initScoreA}
                 </span>
               </div>
-              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-white/10">
                 <div
                   id="vs-bar-a"
-                  class="h-full rounded-full bg-blue-600 transition-all duration-200"
+                  class="h-full rounded-full bg-[#38bdf8] transition-all duration-200"
                   style={`width:${initScoreA}%`}
                 ></div>
               </div>
@@ -178,15 +178,15 @@ const payload = {
 
             <div>
               <div class="flex items-center justify-between text-xs font-semibold">
-                <span class="truncate pr-2 text-slate-800">B · {nameB}</span>
-                <span id="vs-score-b" class="font-mono text-base font-bold text-emerald-700">
+                <span class="truncate pr-2 text-[#d8d8d8]">B · {nameB}</span>
+                <span id="vs-score-b" class="font-mono text-base font-bold text-[#7ee8b7]">
                   {initScoreB}
                 </span>
               </div>
-              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-slate-200">
+              <div class="mt-1.5 h-3 w-full overflow-hidden rounded-full bg-white/10">
                 <div
                   id="vs-bar-b"
-                  class="h-full rounded-full bg-emerald-600 transition-all duration-200"
+                  class="h-full rounded-full bg-[#34d399] transition-all duration-200"
                   style={`width:${initScoreB}%`}
                 ></div>
               </div>
@@ -194,15 +194,15 @@ const payload = {
           </div>
         </div>
 
-        <div class="mt-5 space-y-3 border-t border-slate-200 pt-3.5">
+        <div class="mt-5 space-y-3 border-t border-white/10 pt-3.5">
           <button
             type="button"
             id="vs-copy-verdict"
-            class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 shadow-xs transition-colors hover:border-blue-500 hover:text-blue-700"
+            class="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-white/15 bg-[#1a1a1a] px-3 py-2 text-xs font-semibold text-white transition-colors hover:border-[#dafa9c] hover:text-[#dafa9c]"
           >
             <span>{isKo ? "가중 판정 요약 복사" : "Copy Weighted Verdict"}</span>
           </button>
-          <p class="text-[11px] leading-relaxed text-slate-500">
+          <p class="text-[11px] leading-relaxed text-[#9a9a9a]">
             {isKo
               ? "* 모든 점수는 결정론적 정량 스펙과 파생 단가에서 산출되며 LLM 추정치를 사용하지 않습니다."
               : "* All sub-scores are deterministically derived from verified specifications and benchmark math."}
@@ -217,11 +217,11 @@ const payload = {
   <!-- Quantitative Diff Table with Inline SVG Comparison Bars -->
   <section class="space-y-3" aria-labelledby="vs-diff-heading">
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h2 id="vs-diff-heading" class="text-lg font-bold tracking-tight text-slate-900">
+      <h2 id="vs-diff-heading" class="text-lg font-bold tracking-tight text-white">
         {isKo ? "정량 스펙 1:1 격차(Delta) 비교표" : "Quantitative Head-to-Head Diff Table"}
       </h2>
-      <span class="font-mono text-xs text-slate-500">
-        {isKo ? "파랑 = A · 에메랄드 = B" : "Cobalt = A · Emerald = B"}
+      <span class="font-mono text-xs text-[#9a9a9a]">
+        {isKo ? "스카이 = A · 에메랄드 = B" : "Sky = A · Emerald = B"}
       </span>
     </div>
 
@@ -239,11 +239,11 @@ const payload = {
         <tbody>
           {diff.rows.map((row) => (
             <tr>
-              <th scope="row" class="font-semibold text-slate-700">{row.label}</th>
+              <th scope="row" class="font-semibold text-[#d8d8d8]">{row.label}</th>
               <td
                 class:list={[
                   "font-mono text-[13px]",
-                  row.winner === "a" ? "font-bold text-blue-700 bg-blue-50/40" : "text-slate-800",
+                  row.winner === "a" ? "font-bold text-[#93c5fd] bg-[#0f1f30]/60" : "text-[#d8d8d8]",
                 ]}
               >
                 {row.displayA}
@@ -251,7 +251,7 @@ const payload = {
               <td
                 class:list={[
                   "font-mono text-[13px]",
-                  row.winner === "b" ? "font-bold text-emerald-700 bg-emerald-50/40" : "text-slate-800",
+                  row.winner === "b" ? "font-bold text-[#7ee8b7] bg-[#0d261a]/60" : "text-[#d8d8d8]",
                 ]}
               >
                 {row.displayB}
@@ -263,23 +263,23 @@ const payload = {
                   role="img"
                   aria-label={`${row.label}: A ${row.displayA} vs B ${row.displayB}`}
                 >
-                  <rect x="0" y="2" width="180" height="8" rx="3" fill="#E2E8F0" />
+                  <rect x="0" y="2" width="180" height="8" rx="3" fill="#262626" />
                   <rect
                     x="0"
                     y="2"
                     width={Math.round((row.barPctA / 100) * 180)}
                     height="8"
                     rx="3"
-                    fill={row.winner === "a" ? "#2563EB" : "#64748B"}
+                    fill={row.winner === "a" ? "#38bdf8" : "#666666"}
                   />
-                  <rect x="0" y="15" width="180" height="8" rx="3" fill="#E2E8F0" />
+                  <rect x="0" y="15" width="180" height="8" rx="3" fill="#262626" />
                   <rect
                     x="0"
                     y="15"
                     width={Math.round((row.barPctB / 100) * 180)}
                     height="8"
                     rx="3"
-                    fill={row.winner === "b" ? "#059669" : "#94A3B8"}
+                    fill={row.winner === "b" ? "#34d399" : "#737373"}
                   />
                 </svg>
               </td>
@@ -290,7 +290,7 @@ const payload = {
                       ? "badge-info"
                       : row.winner === "b"
                         ? "badge-pass"
-                        : "inline-flex rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600",
+                        : "inline-flex rounded border border-white/12 bg-white/8 px-2.5 py-0.5 text-xs font-medium text-[#d8d8d8]",
                   ]}
                 >
                   {row.deltaText}
@@ -340,9 +340,9 @@ const payload = {
     const copyBtn = document.getElementById("vs-copy-verdict") as HTMLButtonElement | null;
 
     const ACTIVE_PRESET_CLS =
-      "vs-preset-btn rounded border border-blue-500 bg-blue-600 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors";
+      "vs-preset-btn rounded border border-[#dafa9c] bg-[#dafa9c] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#0f0f0f] transition-colors";
     const INACTIVE_PRESET_CLS =
-      "vs-preset-btn rounded border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[11px] font-semibold text-white transition-colors hover:bg-white/20";
+      "vs-preset-btn rounded border border-white/15 bg-[#1a1a1a] px-2.5 py-1 font-mono text-[11px] font-semibold text-[#d8d8d8] transition-colors hover:border-white/30 hover:text-white";
 
     const track = (name: string, params?: Record<string, unknown>) => {
       const w = window as unknown as {
@@ -440,28 +440,31 @@ const payload = {
       const diff = Math.abs(finalA - finalB);
       if (bannerEl && tagEl && nameEl && marginEl) {
         if (diff <= 1) {
-          bannerEl.className = "mt-2 rounded-lg border border-slate-300 bg-white p-3.5";
+          bannerEl.className = "mt-2 rounded-md border border-white/15 bg-[#1a1a1a] p-3.5";
           tagEl.className = "badge-caution";
           tagEl.textContent = isKo ? "초접전 동점" : "DEAD HEAT / TIE";
           nameEl.textContent = isKo ? "두 모델 점수 사실상 동일" : "Virtual Tie — Choose by Ecosystem";
+          marginEl.className = "mt-0.5 font-mono text-xs text-[#d8d8d8]";
           marginEl.textContent = `A ${finalA} vs B ${finalB}`;
           lastWinnerSummary = isKo
             ? `초접전 동점 (A ${finalA}점 vs B ${finalB}점)`
             : `Virtual Tie (A ${finalA} vs B ${finalB})`;
         } else if (finalA > finalB) {
-          bannerEl.className = "mt-2 rounded-lg border border-blue-300 bg-blue-50 p-3.5";
+          bannerEl.className = "mt-2 rounded-md border border-[#1e466e] bg-[#0f1f30] p-3.5";
           tagEl.className = "badge-info";
           tagEl.textContent = isKo ? "가중 승자: 모델 A" : "WEIGHTED WINNER: MODEL A";
           nameEl.textContent = cfg.nameA;
+          marginEl.className = "mt-0.5 font-mono text-xs text-[#93c5fd]";
           marginEl.textContent = isKo ? `B 대비 +${diff}점 우세` : `+${diff} pts ahead of Model B`;
           lastWinnerSummary = isKo
             ? `${cfg.nameA} (+${diff}점 우세)`
             : `${cfg.nameA} (+${diff} pts ahead)`;
         } else {
-          bannerEl.className = "mt-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3.5";
+          bannerEl.className = "mt-2 rounded-md border border-[#1f5c3e] bg-[#0d261a] p-3.5";
           tagEl.className = "badge-pass";
           tagEl.textContent = isKo ? "가중 승자: 모델 B" : "WEIGHTED WINNER: MODEL B";
           nameEl.textContent = cfg.nameB;
+          marginEl.className = "mt-0.5 font-mono text-xs text-[#7ee8b7]";
           marginEl.textContent = isKo ? `A 대비 +${diff}점 우세` : `+${diff} pts ahead of Model A`;
           lastWinnerSummary = isKo
             ? `${cfg.nameB} (+${diff}점 우세)`
@@ -522,11 +525,11 @@ const payload = {
         copyToClipboard(lines.join("\n")).then((ok) => {
           if (!ok) return;
           copyBtn.textContent = copiedLabel;
-          copyBtn.classList.add("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+          copyBtn.classList.add("border-[#1f5c3e]", "text-[#7ee8b7]", "bg-[#0d261a]");
           track("vs_simulator_use", { action: "copy_verdict", preset: activePresetKey || "custom" });
           window.setTimeout(() => {
             copyBtn.textContent = defaultLabel;
-            copyBtn.classList.remove("border-emerald-500", "text-emerald-700", "bg-emerald-50");
+            copyBtn.classList.remove("border-[#1f5c3e]", "text-[#7ee8b7]", "bg-[#0d261a]");
           }, 1800);
         });
       });
